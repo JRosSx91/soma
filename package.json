@@ -1,0 +1,17 @@
+{
+  "name": "soma",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Physiological recovery visualization app for substance abstinence",
+  "author": "Iván Gómez",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "dev:web": "pnpm --filter @soma/web dev",
+    "dev:api": "pnpm --filter @soma/api dev",
+    "build": "pnpm -r build"
+  }
+}
