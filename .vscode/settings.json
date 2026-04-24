@@ -1,0 +1,200 @@
+  {"material-icon-theme.files.associations": {
+    "*.config.ts": "config",
+    "*.dto.ts": "dto",
+    "*.decorator.ts": "decorator",
+    "*.strategy.ts": "strategy",
+    "*.error.ts": "error",
+    "*.adapter.ts": "adapter",
+    "*.swagger.ts": "swagger",
+    "*.repository.ts": "nestjs repository",
+    "*.controller.ts": "nestjs controller",
+    "*.service.ts": "nestjs service",
+    "*.module.ts": "nestjs module",
+    "*.guard.ts": "nestjs guard",
+    "*.interceptor.ts": "nestjs interceptor",
+    "*.pipe.ts": "nestjs pipe",
+    "*.filter.ts": "nestjs filter",
+    "*.middleware.ts": "nestjs middleware",
+    "*.entity.ts": "nestjs entity",
+    "*.mapper.ts": "nestjs mapper"
+  },
+  "material-icon-theme.files.customClones": [
+    {
+      "name": "config",
+      "base": "controller",
+      "color": "light-blue-400",
+      "fileExtensions": ["*.config.ts"]
+    },
+    {
+  "name": "nestjs mapper",
+  "base": "nest",
+  "color": "lime-A400",
+  "fileExtensions": ["*.mapper.ts"]
+},
+    {
+      "name": "dto",
+      "base": "hurl",
+      "color": "deep-orange-400",
+      "fileExtensions": ["*.dto.ts"]
+    },
+    {
+      "name": "decorator",
+      "base": "dhall",
+      "color": "purple-A400",
+      "fileExtensions": ["*.decorator.ts"]
+    },
+    {
+      "name": "error",
+      "base": "controller",
+      "color": "red-400",
+      "fileExtensions": ["*.error.ts"]
+    },
+    {
+      "name": "strategy",
+      "base": "tree",
+      "color": "yellow-400",
+      "fileExtensions": ["*.strategy.ts"]
+    },
+    {
+      "name": "adapter",
+      "base": "trigger",
+      "color": "amber-A400",
+      "fileExtensions": ["*.adapter.ts"]
+    },
+    {
+      "name": "swagger",
+      "base": "swagger",
+      "color": "light-green-400",
+      "fileExtensions": ["*.swagger.ts"]
+    },
+    {
+      "name": "nestjs repository",
+      "base": "nest",
+      "color": "cyan-400",
+      "fileExtensions": ["*.repository.ts"]
+    },
+    {
+      "name": "nestjs controller",
+      "base": "nest",
+      "color": "yellow-400",
+      "fileExtensions": ["*.controller.ts"]
+    },
+    {
+      "name": "nestjs service",
+      "base": "nest",
+      "color": "orange-400",
+      "fileExtensions": ["*.service.ts"]
+    },
+    {
+      "name": "nestjs module",
+      "base": "nest",
+      "color": "red-400",
+      "fileExtensions": ["*.module.ts"]
+    },
+    {
+      "name": "nestjs guard",
+      "base": "nest",
+      "color": "green-400",
+      "fileExtensions": ["*.guard.ts"]
+    },
+    {
+      "name": "nestjs interceptor",
+      "base": "nest",
+      "color": "pink-400",
+      "fileExtensions": ["*.interceptor.ts"]
+    },
+    {
+      "name": "nestjs pipe",
+      "base": "nest",
+      "color": "teal-400",
+      "fileExtensions": ["*.pipe.ts"]
+    },
+    {
+      "name": "nestjs filter",
+      "base": "nest",
+      "color": "purple-400",
+      "fileExtensions": ["*.filter.ts"]
+    },
+    {
+      "name": "nestjs middleware",
+      "base": "nest",
+      "color": "indigo-400",
+      "fileExtensions": ["*.middleware.ts"]
+    },
+    {
+      "name": "nestjs entity",
+      "base": "nest",
+      "color": "light-blue-A200",
+      "fileExtensions": ["*.entity.ts"]
+    }
+  ],
+  "material-icon-theme.folders.associations": {
+       "worker": "rust",
+       "shared-types": "typescript",
+       "infra": "docker",
+       "prisma": "database",
+       "migrations": "database",
+       "internal": "admin",
+     },
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "dto",
+      "base": "database",
+      "color": "deep-orange-400",
+      "folderNames": ["dto"]
+    },
+    {
+  "name": "mappers",
+  "base": "delta",
+  "color": "lime-A400",
+  "folderNames": ["mappers"]
+},
+    {
+      "name": "swagger",
+      "base": "meta",
+      "color": "light-green-400",
+      "folderNames": ["swagger"]
+    },
+    {
+      "name": "strategy",
+      "base": "mappings",
+      "color": "yellow-400",
+      "folderNames": ["strategies"]
+    },
+    {
+      "name": "adapter",
+      "base": "trigger",
+      "color": "amber-A400",
+      "folderNames": ["adapter"]
+    },
+    {
+      "name": "repository",
+      "base": "repository",
+      "color": "cyan-400",
+      "folderNames": ["repository"]
+    },
+    {
+      "name": "interceptor",
+      "base": "shader",
+      "color": "pink-400",
+      "folderNames": ["interceptor"]
+    },
+    {
+      "name": "filter",
+      "base": "queue",
+      "color": "purple-400",
+      "folderNames": ["filter"]
+    },
+    {
+      "name": "module",
+      "base": "plugin",
+      "color": "red-400",
+      "folderNames": ["module"]
+    },
+    {
+  "name": "entities",
+  "base": "class",
+  "color": "light-blue-A200",
+  "folderNames": ["entities"]
+}
+  ]}

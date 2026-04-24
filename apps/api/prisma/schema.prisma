@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// NOTE: Minimal models for PR 3 (infrastructure bootstrap).
+// The full physiological domain (organs, recovery curves, achievements,
+// damage profiles, reference sources) is modeled in PR 4.
+// -----------------------------------------------------------------------------
+
+enum BiologicalSex {
+  male
+  female
+}
+
+enum SubstanceCategory {
+  depressant
+  stimulant
+  cannabinoid
+  nicotine
+  opioid
+  hallucinogen
+  dissociative
+}
+
+enum UsageFrequency {
+  daily
+  weekly
+  monthly
+  occasional
+}
+
+model User {
+  id            String   @id @default(cuid())
+  displayName   String
+  biologicalSex BiologicalSex
+  birthYear     Int
+  weightKg      Float?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  usages        SubstanceUsage[]
+}
+
+model Substance {
+  id               String            @id
+  name             String
+  category         SubstanceCategory
+  shortDescription String
+
+  usages           SubstanceUsage[]
+}
+
+model SubstanceUsage {
+  id           String         @id @default(cuid())
+  userId       String
+  substanceId  String
+  yearStarted  Int
+  lastUseDate  DateTime
+  frequency    UsageFrequency
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  substance    Substance      @relation(fields: [substanceId], references: [id])
+
+  @@index([userId])
+  @@index([substanceId])
+}

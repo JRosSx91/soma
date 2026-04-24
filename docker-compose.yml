@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: soma-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: soma
+      POSTGRES_PASSWORD: soma_dev
+      POSTGRES_DB: soma
+    ports:
+      - "5432:5432"
+    volumes:
+      - soma-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  soma-postgres-data:
