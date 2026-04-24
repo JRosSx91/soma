@@ -1,4 +1,5 @@
-import type { OrganId } from "./organs";
+import type { ConfidenceLevel } from './evidence.js';
+import type { OrganId } from './organs.js';
 import type { SubstanceId } from './substances.js';
 
 /**
@@ -38,6 +39,7 @@ export interface OrganDamageProfile {
    * `/docs/recovery-curves/`.
    */
   maxSeverity: number;
+  confidenceLevel: ConfidenceLevel;
   /** Documentación: DOI o URL del paper principal que sustenta este valor. */
   referenceSource: string;
 }
@@ -60,6 +62,7 @@ export interface OrganRecoveryCurve {
    * 1.0 = recuperación completa; 0.7 = 70% del estado pre-consumo.
    */
   recoveryCeiling: number;
+  confidenceLevel: ConfidenceLevel;
   /** Documentación: DOI o URL del paper principal. */
   referenceSource: string;
 }
