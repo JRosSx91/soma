@@ -8,9 +8,7 @@ datasource db {
 }
 
 // -----------------------------------------------------------------------------
-// NOTE: Minimal models for PR 3 (infrastructure bootstrap).
-// The full physiological domain (organs, recovery curves, achievements,
-// damage profiles, reference sources) is modeled in PR 4.
+// Enums
 // -----------------------------------------------------------------------------
 
 enum BiologicalSex {
@@ -35,6 +33,44 @@ enum UsageFrequency {
   occasional
 }
 
+enum BodySystem {
+  respiratory
+  cardiovascular
+  hepatic
+  renal
+  nervous_central
+  nervous_peripheral
+  endocrine
+  reproductive
+  digestive
+  immune
+  integumentary
+}
+
+enum RecoveryCurveShape {
+  logarithmic
+  sigmoidal
+  linear
+  stepwise
+}
+
+enum ConfidenceLevel {
+  high
+  medium
+  low
+}
+
+enum AchievementTier {
+  bronze
+  silver
+  gold
+  platinum
+}
+
+// -----------------------------------------------------------------------------
+// User domain
+// -----------------------------------------------------------------------------
+
 model User {
   id            String   @id @default(cuid())
   displayName   String
@@ -47,6 +83,10 @@ model User {
   usages        SubstanceUsage[]
 }
 
+// -----------------------------------------------------------------------------
+// Substance catalog
+// -----------------------------------------------------------------------------
+
 model Substance {
   id               String            @id
   name             String
@@ -54,6 +94,9 @@ model Substance {
   shortDescription String
 
   usages           SubstanceUsage[]
+  damageProfiles   OrganDamageProfile[]
+  recoveryCurves   OrganRecoveryCurve[]
+  achievements     Achievement[]
 }
 
 model SubstanceUsage {
@@ -71,4 +114,71 @@ model SubstanceUsage {
 
   @@index([userId])
   @@index([substanceId])
+}
+
+// -----------------------------------------------------------------------------
+// Physiological model
+// -----------------------------------------------------------------------------
+
+model Organ {
+  id               String     @id
+  name             String
+  system           BodySystem
+  shortDescription String
+
+  damageProfiles   OrganDamageProfile[]
+  recoveryCurves   OrganRecoveryCurve[]
+  achievements     Achievement[]
+}
+
+model OrganDamageProfile {
+  id              String          @id @default(cuid())
+  organId         String
+  substanceId     String
+  maxSeverity     Float
+  confidenceLevel ConfidenceLevel
+  referenceSource String
+
+  organ           Organ           @relation(fields: [organId], references: [id])
+  substance       Substance       @relation(fields: [substanceId], references: [id])
+
+  @@unique([organId, substanceId])
+  @@index([substanceId])
+}
+
+model OrganRecoveryCurve {
+  id               String             @id @default(cuid())
+  organId          String
+  substanceId      String
+  shape            RecoveryCurveShape
+  daysTo95Recovery Int
+  recoveryCeiling  Float
+  confidenceLevel  ConfidenceLevel
+  referenceSource  String
+
+  organ            Organ              @relation(fields: [organId], references: [id])
+  substance        Substance          @relation(fields: [substanceId], references: [id])
+
+  @@unique([organId, substanceId])
+  @@index([substanceId])
+}
+
+// -----------------------------------------------------------------------------
+// Achievements
+// -----------------------------------------------------------------------------
+
+model Achievement {
+  id                        String          @id
+  tier                      AchievementTier
+  title                     String
+  physiologicalDescription  String
+  triggerOrganId            String
+  triggerSubstanceId        String
+  triggerRecoveryThreshold  Float
+
+  triggerOrgan              Organ           @relation(fields: [triggerOrganId], references: [id])
+  triggerSubstance          Substance       @relation(fields: [triggerSubstanceId], references: [id])
+
+  @@index([triggerSubstanceId])
+  @@index([triggerOrganId])
 }
