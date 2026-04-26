@@ -1,0 +1,49 @@
+/**
+ * Soma — Design tokens
+ *
+ * Warm dark palette. Charcoal with warm undertone, cream typography,
+ * amber/gold for healthy organs, muted garnet for damaged. Designed for
+ * extended viewing without eye strain.
+ *
+ * Naming convention:
+ * - --soma-bg-*       backgrounds, layered from base to elevated
+ * - --soma-fg-*       foreground (text, icons), from primary to muted
+ * - --soma-organ-*    organ state gradient (healthy → damaged)
+ * - --soma-accent-*   interactive accents (hover, active, focus)
+ * - --soma-border-*   dividers and surface edges
+ */
+
+:root {
+  /* Backgrounds — warm charcoal, not blue-black */
+  --soma-bg-base: #1a1612;
+  --soma-bg-surface: #221d18;
+  --soma-bg-elevated: #2b251f;
+  --soma-bg-overlay: rgba(26, 22, 18, 0.85);
+
+  /* Foreground — warm cream, not pure white */
+  --soma-fg-primary: #f0e8da;
+  --soma-fg-secondary: #c9bfae;
+  --soma-fg-muted: #8a7f6f;
+
+  /* Borders */
+  --soma-border-subtle: #3a322a;
+  --soma-border-default: #4a4036;
+
+  /* Organ state gradient
+     0%   damaged: muted garnet
+     50%  midway:  warm ochre
+     100% healthy: soft amber/gold */
+  --soma-organ-damaged: #8a3a32;
+  --soma-organ-mid: #b8884a;
+  --soma-organ-healthy: #d4a857;
+
+  /* Accents — for interactive states */
+  --soma-accent-default: #d4a857;
+  --soma-accent-hover: #e6c068;
+  --soma-accent-focus: #f0d078;
+
+  /* Confidence level indicators (subtle) */
+  --soma-confidence-high: #8aaa6e;     /* sage green */
+  --soma-confidence-medium: #c9a06e;   /* warm tan */
+  --soma-confidence-low: #b87a6e;      /* dusty rose */
+}
