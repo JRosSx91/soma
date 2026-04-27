@@ -48,6 +48,7 @@ These have a direct, unambiguous mesh in the Z-Anatomy hierarchy:
 | `brain-amygdala` | `7 → Brain.g → Cerebrum.g → Telencephalon.g → Basal forebrain.g → Amygdaloid body.l + .r` |
 | `brain-hippocampus` | `7 → Brain.g → Cerebrum.g → Telencephalon.g → Limbic lobe.g → Hippocampus.l + .r` |
 | `testes` | `8 → Genital systems.g → Male genital system.g → Male internal genitalia.g → Testis.l + .r` |
+| `skin` | `9 → Regions of human body.g (excluding Hairs.g)` |
 
 ### Approximate mappings (2 organs)
 
@@ -60,14 +61,13 @@ and document the approximation:
 | `brain-prefrontal-cortex` | `Frontal lobe.g` (whole frontal lobe) | Z-Anatomy does not subdivide the frontal lobe into prefrontal/motor/premotor regions. |
 | `brain-vta` | `Tegmentum of midbrain.g` (whole tegmentum) | The ventral tegmental area is a functional region defined by neuron type and projection, not by a discrete anatomical capsule. Atlases of the whole body rarely isolate it. |
 
-### Unmapped (3 organs)
+### Unmapped (2 organs)
 
 These exist in Soma's domain model but have no mesh in Z-Anatomy:
 
 | Soma OrganId | Status | Plan |
 |---|---|---|
 | `brain-nucleus-accumbens` | Not modeled. Z-Anatomy includes only the dorsal striatum (caudate + putamen). | Collapse with `brain-vta` for v1. Both share identical recovery curves per substance, and together form the mesolimbic axis. Backend keeps them separate; frontend renders them as a single "reward circuit" node mapped to `Tegmentum of midbrain.g`. |
-| `skin` | Not modeled. Z-Anatomy is an internal atlas; the integumentary system is intentionally omitted. | Render in code as a semi-transparent body silhouette overlay, separate from the 3D mesh. Decision deferred to integration phase. |
 | `ovaries` | Z-Anatomy is a male-only model. | Female anatomical coverage is out of scope for PR 6. A future PR will source a female model (BodyParts3D or alternative) and add `BodyDiagram3DFemale` as a sibling component. |
 
 ## Naming convention for export
@@ -125,5 +125,17 @@ After export, the `.glb` is inspected with an external viewer
 - Manual subdivision of frontal lobe to isolate prefrontal cortex
   (likely a small dedicated PR with neuroanatomical references).
 - Manual modeling or sourcing of nucleus accumbens.
-- Skin overlay strategy: SVG silhouette layered over WebGL canvas vs.
-  semi-transparent envelope mesh.
+
+## Export
+
+The 13 prepared meshes were exported to glTF 2.0 binary as
+`apps/web/public/models/body_male.glb`.
+
+- File size: 7 MB.
+- Triangles: 312,464.
+- Vertices: 185,471.
+- Materials: original Z-Anatomy materials preserved as material slots
+  but will be overridden in Three.js at runtime per-mesh based on
+  recovery state.
+- Verified in donmccurdy gltf-viewer and Babylon.js sandbox: all 13
+  named meshes present, anatomically positioned correctly.
