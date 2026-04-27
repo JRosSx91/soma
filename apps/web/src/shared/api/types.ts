@@ -8,16 +8,6 @@ import type {
   AchievementTier,
 } from '@soma/shared-types';
 
-/**
- * Shape of the response returned by GET /substances on the API.
- *
- * Matches the Prisma `findMany` query with nested includes for damage
- * profiles, recovery curves, and achievements (each with their related
- * organ hydrated).
- *
- * If the backend response shape changes, update these types to match.
- */
-
 export interface ApiOrgan {
   id: OrganId;
   name: string;

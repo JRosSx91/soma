@@ -1,14 +1,5 @@
 import type { PrismaClient } from '@prisma/client';
 
-/**
- * Logros fisiológicos. Cada logro está vinculado a un par
- * (sustancia, órgano) y se dispara cuando la recuperación de ese
- * órgano alcanza un umbral concreto.
- *
- * Los umbrales están expresados como porcentaje de recuperación:
- * 0.25 = 25% de recuperación del órgano respecto a su estado
- * dañado inicial.
- */
 export const ACHIEVEMENTS = [
   // ---------------------------------------------------------------------------
   // Alcohol

@@ -1,7 +1,3 @@
-/**
- * Interpolates between two hex colors.
- * Returns rgb() string.
- */
 function interpolateHex(hexA: string, hexB: string, t: number): string {
   const a = hexToRgb(hexA);
   const b = hexToRgb(hexB);
@@ -20,17 +16,6 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
   };
 }
 
-/**
- * Computes the organ fill color for a given recovery progress fraction.
- *
- * Three-stop gradient:
- *   0%   damaged (muted garnet)
- *   50%  mid (warm ochre)
- *   100% healthy (soft amber/gold)
- *
- * Reads CSS variables to keep palette in sync with design tokens.
- * Falls back to hardcoded values if running outside browser context.
- */
 export function organFillColor(progressFraction: number): string {
   const clamped = Math.max(0, Math.min(1, progressFraction));
 
@@ -50,9 +35,4 @@ export function organFillColor(progressFraction: number): string {
   }
 }
 
-/**
- * Color for an inactive (irrelevant to the user) organ.
- * Subtle, low contrast — present for anatomical reference but
- * visually de-emphasized.
- */
 export const INACTIVE_ORGAN_COLOR = 'rgba(138, 127, 111, 0.25)';

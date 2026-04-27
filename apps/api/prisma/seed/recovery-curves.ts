@@ -1,12 +1,5 @@
 import type { PrismaClient } from '@prisma/client';
 
-/**
- * Curvas de recuperación por par (sustancia, órgano).
- *
- * Cada entrada se corresponde directamente con una fila de la tabla
- * "Recovery curves" del documento correspondiente en
- * `docs/recovery-curves/<substance>.md`.
- */
 export const RECOVERY_CURVES = [
   // ---------------------------------------------------------------------------
   // Alcohol

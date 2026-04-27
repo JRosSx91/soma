@@ -1,7 +1,3 @@
-/**
- * Sistemas corporales. La visualización 3D/SVG se organiza por sistemas
- * para permitir capas on/off y agrupación de logros.
- */
 export type BodySystem =
   | 'respiratory'
   | 'cardiovascular'
@@ -15,12 +11,6 @@ export type BodySystem =
   | 'immune'
   | 'integumentary';
 
-/**
- * Identificador canónico de órgano/estructura.
- * Granularidad intencionalmente fina: "brain" se divide en estructuras
- * relevantes para recuperación (prefrontal cortex, hippocampus, VTA, etc.)
- * porque los patrones de recuperación difieren entre ellas.
- */
 export type OrganId =
   | 'liver'
   | 'heart'
@@ -42,6 +32,5 @@ export interface Organ {
   id: OrganId;
   name: string;
   system: BodySystem;
-  /** Descripción anatómica/funcional breve para tooltips. */
   shortDescription: string;
 }

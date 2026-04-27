@@ -1,11 +1,5 @@
 import type { PrismaClient } from '@prisma/client';
 
-/**
- * Catálogo estático de sustancias disponibles en Soma v1.
- *
- * Los IDs coinciden con el tipo `SubstanceId` en @soma/shared-types.
- * Si se añade una sustancia nueva, hay que sincronizar ambos sitios.
- */
 export const SUBSTANCES = [
   {
     id: 'alcohol',

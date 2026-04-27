@@ -1,17 +1,5 @@
 import type { UserProfile } from './types.js';
 
-/**
- * Generic demo profile for v1 development.
- *
- * Designed to exercise all four modeled substances simultaneously, with
- * staggered last-use dates so the UI shows organs at varied recovery
- * states. Not modeled on any real person.
- *
- * Last-use dates are computed at module load time relative to "today",
- * so the demo profile always feels current regardless of when the app
- * is opened.
- */
-
 const DAY_MS = 1000 * 60 * 60 * 24;
 
 function daysAgo(days: number): string {
@@ -25,8 +13,6 @@ export const MOCK_PROFILE: UserProfile = {
   weightKg: 78,
   usages: [
     {
-      // Recently quit nicotine. Bronchi and VTA visibly recovering,
-      // lungs and heart still mostly damaged.
       substanceId: 'nicotine',
       yearStarted: 2010,
       lastUseDate: daysAgo(21),

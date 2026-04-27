@@ -1,12 +1,5 @@
 import type { PrismaClient } from '@prisma/client';
 
-/**
- * Catálogo de órganos y estructuras modeladas en Soma v1.
- *
- * Granularidad cerebral intencionalmente fina: diferentes estructuras
- * tienen curvas de recuperación distintas, por lo que se modelan
- * por separado.
- */
 export const ORGANS = [
   // Hepatic system
   {

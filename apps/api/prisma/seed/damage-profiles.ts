@@ -1,15 +1,5 @@
 import type { PrismaClient } from '@prisma/client';
 
-/**
- * Perfiles de daño por par (sustancia, órgano).
- *
- * Cada entrada se corresponde directamente con una fila de la tabla
- * "Damage profiles" del documento correspondiente en
- * `docs/recovery-curves/<substance>.md`.
- *
- * Cualquier cambio numérico en este archivo debe reflejarse en el
- * documento fuente, y viceversa.
- */
 export const DAMAGE_PROFILES = [
   // ---------------------------------------------------------------------------
   // Alcohol — see docs/recovery-curves/alcohol.md
