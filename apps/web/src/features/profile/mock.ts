@@ -25,33 +25,24 @@ export const MOCK_PROFILE: UserProfile = {
   weightKg: 78,
   usages: [
     {
-      // Recently quit nicotine. Bronchi and VTA visibly recovering,
-      // lungs and heart still mostly damaged.
       substanceId: 'nicotine',
       yearStarted: 2010,
       lastUseDate: daysAgo(21),
       frequency: 'daily',
     },
     {
-      // Cannabis: a few months in. CB1 receptors fully renormalized
-      // already (30-day curve), prefrontal/hippocampus mid-recovery.
       substanceId: 'cannabis',
       yearStarted: 2012,
       lastUseDate: daysAgo(90),
       frequency: 'daily',
     },
     {
-      // Alcohol: long abstinence. Liver near ceiling, brain structures
-      // mid-to-late recovery.
       substanceId: 'alcohol',
       yearStarted: 2008,
       lastUseDate: daysAgo(180),
       frequency: 'weekly',
     },
     {
-      // Cocaine: occasional past use, longer abstinence.
-      // Dopaminergic system substantially recovered, cardiac structure
-      // limited by lower ceiling.
       substanceId: 'cocaine',
       yearStarted: 2015,
       lastUseDate: daysAgo(300),

@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import type { OrganId } from '@soma/shared-types';
 import { useOrganStates, MOCK_PROFILE } from './features/profile/index.js';
-import { BodyDiagram } from './features/body-diagram/index.js';
-import type { OrganStateMap } from './features/body-diagram/index.js';
+import { BodyDiagram3D } from './features/body-diagram-3d/index.js';
+import type { OrganStateMap } from './features/body-diagram-3d/index.js';
 
 function App() {
   const { states, loading, error, profile } = useOrganStates(MOCK_PROFILE);
   const [hovered, setHovered] = useState<OrganId | null>(null);
 
-  // Convert OrganState map to the OrganStateMap shape the diagram expects.
   const organStates: OrganStateMap = new Map();
   states.forEach((state, organId) => {
     organStates.set(organId, {
@@ -25,12 +24,12 @@ function App() {
       </header>
 
       <main className="grid grid-cols-12 gap-6 p-8 max-w-7xl mx-auto">
-        {/* Body diagram — central, takes 2/3 of width */}
-        <section className="col-span-8 bg-soma-bg-surface border border-soma-border-subtle rounded p-6 flex items-center justify-center">
+        {/* 3D body diagram */}
+        <section className="col-span-8 bg-soma-bg-surface border border-soma-border-subtle rounded p-2 flex items-center justify-center">
           {loading && <p className="text-soma-fg-secondary">Loading...</p>}
           {error && <p className="text-soma-organ-damaged">{error.message}</p>}
           {!loading && !error && (
-            <BodyDiagram
+            <BodyDiagram3D
               biologicalSex={profile.biologicalSex}
               view="front"
               organStates={organStates}
@@ -40,7 +39,7 @@ function App() {
           )}
         </section>
 
-        {/* Side panel — info on hovered organ */}
+        {/* Side panel */}
         <aside className="col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
           <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
             {hovered ? 'Selected organ' : 'Hover an organ'}
@@ -51,29 +50,24 @@ function App() {
                 {states.get(hovered)!.organName}
               </p>
               <p className="text-soma-fg-muted">
-                Affected by: <span className="text-soma-fg-secondary capitalize">{states.get(hovered)!.dominantSubstanceId}</span>
+                Affected by:{' '}
+                <span className="text-soma-fg-secondary capitalize">
+                  {states.get(hovered)!.dominantSubstanceId}
+                </span>
               </p>
               <p className="text-soma-fg-muted">
-                Days abstinent: <span className="text-soma-fg-secondary tabular-nums">{Math.floor(states.get(hovered)!.daysAbstinent)}</span>
+                Days abstinent:{' '}
+                <span className="text-soma-fg-secondary tabular-nums">
+                  {Math.floor(states.get(hovered)!.daysAbstinent)}
+                </span>
               </p>
               <p className="text-soma-fg-muted">
-                Recovery: <span className="text-soma-accent tabular-nums">{(states.get(hovered)!.progressFraction * 100).toFixed(1)}%</span>
+                Recovery:{' '}
+                <span className="text-soma-accent tabular-nums">
+                  {(states.get(hovered)!.progressFraction * 100).toFixed(1)}%
+                </span>
               </p>
-              <span
-                className="inline-block px-2 py-0.5 rounded text-xs mt-2"
-                style={{
-                  backgroundColor: `var(--soma-confidence-${states.get(hovered)!.confidenceLevel})`,
-                  color: 'var(--soma-bg-base)',
-                }}
-              >
-                {states.get(hovered)!.confidenceLevel} confidence
-              </span>
             </div>
-          )}
-          {!hovered && (
-            <p className="text-soma-fg-muted text-sm">
-              Move your cursor over a colored organ to see details.
-            </p>
           )}
         </aside>
       </main>
