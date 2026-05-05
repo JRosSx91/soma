@@ -1,10 +1,22 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Activate class-validator on all incoming DTOs.
+  // - whitelist: strip properties not declared in the DTO.
+  // - forbidNonWhitelisted: reject requests with unknown fields.
+  // - transform: enable type coercion (e.g. string -> number from query).
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   // CORS — allow the frontend dev server to call the API.
   // Tightened in production via env var.
