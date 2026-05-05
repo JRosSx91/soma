@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { LanguageSelector } from '../components/LanguageSelector.js';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useSubstances } from '../features/substances/index.js';
 import { useUserProfile } from '../features/profile/index.js';
 import type { UsageInput } from '../features/profile/index.js';
@@ -12,19 +14,20 @@ interface SubstanceFormState {
   frequency: UsageInput['frequency'];
 }
 
-const FREQUENCY_OPTIONS: Array<{
+const FREQUENCY_KEYS: Array<{
   value: UsageInput['frequency'];
-  label: string;
+  labelKey: string;
 }> = [
-  { value: 'daily', label: 'Daily' },
-  { value: 'weekly', label: 'Weekly' },
-  { value: 'monthly', label: 'Monthly' },
-  { value: 'occasional', label: 'Occasional' },
+  { value: 'daily', labelKey: 'frequency.daily' },
+  { value: 'weekly', labelKey: 'frequency.weekly' },
+  { value: 'monthly', labelKey: 'frequency.monthly' },
+  { value: 'occasional', labelKey: 'frequency.occasional' },
 ];
 
 const TODAY = new Date().toISOString().split('T')[0];
 
 export function OnboardingPage() {
+  const { t } = useTranslation(['onboarding', 'substances', 'common']);
   const navigate = useNavigate();
   const { data: substances, loading: loadingSubstances } = useSubstances();
   const { saveProfile } = useUserProfile();
@@ -65,11 +68,13 @@ export function OnboardingPage() {
 
         const yearStarted = parseInt(state.yearStarted, 10);
         if (Number.isNaN(yearStarted)) {
-          throw new Error(`Invalid year for ${substance.name}`);
+          throw new Error(t('errors.invalidYear', { substance: substance.name }));
         }
 
         if (!state.lastUseDate) {
-          throw new Error(`Last use date required for ${substance.name}`);
+          throw new Error(
+            t('errors.lastUseDateRequired', { substance: substance.name }),
+          );
         }
 
         usages.push({
@@ -83,7 +88,7 @@ export function OnboardingPage() {
       await saveProfile(usages);
       navigate('/', { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save profile');
+      setError(err instanceof Error ? err.message : t('errors.saveFailed'));
     } finally {
       setSubmitting(false);
     }
@@ -92,22 +97,20 @@ export function OnboardingPage() {
   if (loadingSubstances || !substances) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        Loading…
+        {t('common:loading')}
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary px-4 py-12">
+      <div className="absolute top-4 right-4">
+        <LanguageSelector />
+      </div>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-light tracking-wide mb-2">
-            Tell us about you
-          </h1>
-          <p className="text-sm text-soma-fg-muted">
-            For each substance you've stopped using, mark it active and tell
-            us when you last used it. You can update this later.
-          </p>
+          <h1 className="text-3xl font-light tracking-wide mb-2">{t('title')}</h1>
+          <p className="text-sm text-soma-fg-muted">{t('subtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -128,17 +131,17 @@ export function OnboardingPage() {
                   <input
                     type="checkbox"
                     checked={state.active}
-                    onChange={(e) =>
-                      updateField(substance.id, 'active', e.target.checked)
-                    }
+                    onChange={(e) => updateField(substance.id, 'active', e.target.checked)}
                     className="w-4 h-4"
                   />
                   <div className="flex-1">
                     <p className="text-soma-fg-primary capitalize">
-                      {substance.name}
+                      {t(`substances:${substance.id}.name`, { defaultValue: substance.name })}
                     </p>
                     <p className="text-xs text-soma-fg-muted">
-                      {substance.shortDescription}
+                      {t(`substances:${substance.id}.shortDescription`, {
+                        defaultValue: substance.shortDescription,
+                      })}
                     </p>
                   </div>
                 </label>
@@ -147,23 +150,21 @@ export function OnboardingPage() {
                   <div className="mt-4 space-y-3 pl-7">
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        Last use date
+                        {t('fields.lastUseDate')}
                       </label>
                       <input
                         type="date"
                         required
                         max={TODAY}
                         value={state.lastUseDate}
-                        onChange={(e) =>
-                          updateField(substance.id, 'lastUseDate', e.target.value)
-                        }
+                        onChange={(e) => updateField(substance.id, 'lastUseDate', e.target.value)}
                         className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        Year started
+                        {t('fields.yearStarted')}
                       </label>
                       <input
                         type="number"
@@ -171,16 +172,14 @@ export function OnboardingPage() {
                         min={1900}
                         max={new Date().getFullYear()}
                         value={state.yearStarted}
-                        onChange={(e) =>
-                          updateField(substance.id, 'yearStarted', e.target.value)
-                        }
+                        onChange={(e) => updateField(substance.id, 'yearStarted', e.target.value)}
                         className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        Frequency
+                        {t('fields.frequency')}
                       </label>
                       <select
                         value={state.frequency}
@@ -193,9 +192,9 @@ export function OnboardingPage() {
                         }
                         className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
                       >
-                        {FREQUENCY_OPTIONS.map((opt) => (
+                        {FREQUENCY_KEYS.map((opt) => (
                           <option key={opt.value} value={opt.value}>
-                            {opt.label}
+                            {t(opt.labelKey)}
                           </option>
                         ))}
                       </select>
@@ -206,22 +205,18 @@ export function OnboardingPage() {
             );
           })}
 
-          {error && (
-            <p className="text-sm text-soma-organ-damaged">{error}</p>
-          )}
+          {error && <p className="text-sm text-soma-organ-damaged">{error}</p>}
 
           <button
             type="submit"
             disabled={submitting}
             className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-3 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? 'Saving…' : 'Continue'}
+            {submitting ? t('submitting') : t('submit')}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-soma-fg-muted">
-          You can skip substances you haven't used or aren't tracking.
-        </p>
+        <p className="mt-6 text-center text-xs text-soma-fg-muted">{t('skip')}</p>
       </div>
     </div>
   );
