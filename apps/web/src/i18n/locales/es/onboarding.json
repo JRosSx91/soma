@@ -1,0 +1,23 @@
+{
+  "title": "Cuéntanos sobre ti",
+  "subtitle": "Para cada sustancia que hayas dejado, márcala como activa e indícanos cuándo la consumiste por última vez. Puedes actualizar esto más tarde.",
+  "fields": {
+    "lastUseDate": "Última vez consumida",
+    "yearStarted": "Año en que empezaste",
+    "frequency": "Frecuencia"
+  },
+  "frequency": {
+    "daily": "Diaria",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "occasional": "Ocasional"
+  },
+  "submit": "Continuar",
+  "submitting": "Guardando…",
+  "skip": "Puedes omitir las sustancias que no consumas o que no quieras seguir.",
+  "errors": {
+    "invalidYear": "Año inválido para {{substance}}",
+    "lastUseDateRequired": "Indica la última vez que consumiste {{substance}}",
+    "saveFailed": "Error al guardar el perfil"
+  }
+}

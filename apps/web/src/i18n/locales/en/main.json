@@ -1,0 +1,16 @@
+{
+  "header": {
+    "editProfile": "Edit profile"
+  },
+  "panel": {
+    "selectedOrgan": "Selected organ",
+    "hoverPrompt": "Hover an organ",
+    "affectedBy": "Affected by",
+    "daysAbstinent": "Days abstinent",
+    "recovery": "Recovery"
+  },
+  "empty": {
+    "noSubstances": "No substances tracked yet.",
+    "addFirst": "Add your first one →"
+  }
+}

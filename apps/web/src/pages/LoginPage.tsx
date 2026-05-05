@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { LanguageSelector } from '../components/LanguageSelector.js';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../features/auth/index.js';
 
 export function LoginPage() {
+  const { t } = useTranslation('auth');
   const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -19,7 +22,7 @@ export function LoginPage() {
       await login({ email, password });
       navigate('/', { replace: true });
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Login failed';
+      const message = err instanceof Error ? err.message : t('errors.loginFailed');
       setError(message);
     } finally {
       setSubmitting(false);
@@ -28,18 +31,19 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4">
+      <div className="absolute top-4 right-4">
+        <LanguageSelector />
+      </div>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">Soma</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">
-            Sign in to your account
-          </p>
+          <h1 className="text-3xl font-light tracking-wide">{t('appName')}</h1>
+          <p className="text-xs text-soma-fg-muted mt-2">{t('login.subtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              Email
+              {t('login.email')}
             </label>
             <input
               type="email"
@@ -53,7 +57,7 @@ export function LoginPage() {
 
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              Password
+              {t('login.password')}
             </label>
             <input
               type="password"
@@ -65,23 +69,21 @@ export function LoginPage() {
             />
           </div>
 
-          {error && (
-            <p className="text-sm text-soma-organ-damaged">{error}</p>
-          )}
+          {error && <p className="text-sm text-soma-organ-damaged">{error}</p>}
 
           <button
             type="submit"
             disabled={submitting}
             className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? 'Signing in…' : 'Sign in'}
+            {submitting ? t('login.submitting') : t('login.submit')}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-soma-fg-muted">
-          Don't have an account?{' '}
+          {t('login.noAccount')}{' '}
           <Link to="/register" className="text-soma-accent hover:underline">
-            Create one
+            {t('login.createOne')}
           </Link>
         </p>
       </div>

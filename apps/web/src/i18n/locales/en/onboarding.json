@@ -1,0 +1,23 @@
+{
+  "title": "Tell us about you",
+  "subtitle": "For each substance you've stopped using, mark it active and tell us when you last used it. You can update this later.",
+  "fields": {
+    "lastUseDate": "Last use date",
+    "yearStarted": "Year started",
+    "frequency": "Frequency"
+  },
+  "frequency": {
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "occasional": "Occasional"
+  },
+  "submit": "Continue",
+  "submitting": "Saving…",
+  "skip": "You can skip substances you haven't used or aren't tracking.",
+  "errors": {
+    "invalidYear": "Invalid year for {{substance}}",
+    "lastUseDateRequired": "Last use date required for {{substance}}",
+    "saveFailed": "Failed to save profile"
+  }
+}
