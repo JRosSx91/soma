@@ -1,0 +1,18 @@
+{
+  "alcohol": {
+    "name": "Alcohol",
+    "shortDescription": "Depresor del sistema nervioso central. El consumo crónico daña el hígado, estructuras cerebrales y el sistema cardiovascular."
+  },
+  "nicotine": {
+    "name": "Nicotina",
+    "shortDescription": "Estimulante que activa los receptores nicotínicos de acetilcolina. Daña los pulmones, bronquios y el sistema cardiovascular a través del humo del tabaco."
+  },
+  "cannabis": {
+    "name": "Cannabis",
+    "shortDescription": "Cannabinoide que actúa sobre los receptores CB1 y CB2. Afecta la memoria, la cognición y el sistema de recompensa cerebral."
+  },
+  "cocaine": {
+    "name": "Cocaína",
+    "shortDescription": "Estimulante potente que bloquea la recaptación de dopamina. Daña el sistema cardiovascular y las estructuras dopaminérgicas del cerebro."
+  }
+}

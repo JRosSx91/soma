@@ -1,0 +1,18 @@
+{
+  "alcohol": {
+    "name": "Alcohol",
+    "shortDescription": "Central nervous system depressant. Chronic use damages the liver, brain structures, and cardiovascular system."
+  },
+  "nicotine": {
+    "name": "Nicotine",
+    "shortDescription": "Stimulant that activates nicotinic acetylcholine receptors. Damages the lungs, bronchi, and cardiovascular system through tobacco smoke."
+  },
+  "cannabis": {
+    "name": "Cannabis",
+    "shortDescription": "Cannabinoid that acts on CB1 and CB2 receptors. Affects memory, cognition, and the brain's reward system."
+  },
+  "cocaine": {
+    "name": "Cocaine",
+    "shortDescription": "Powerful stimulant that blocks dopamine reuptake. Damages the cardiovascular system and dopaminergic structures of the brain."
+  }
+}
