@@ -1,4 +1,6 @@
-  {"material-icon-theme.files.associations": {
+{
+  "material-icon-theme.activeIconPack": "nest",
+  "material-icon-theme.files.associations": {
     "*.config.ts": "config",
     "*.dto.ts": "dto",
     "*.decorator.ts": "decorator",
@@ -26,11 +28,11 @@
       "fileExtensions": ["*.config.ts"]
     },
     {
-  "name": "nestjs mapper",
-  "base": "nest",
-  "color": "lime-A400",
-  "fileExtensions": ["*.mapper.ts"]
-},
+      "name": "nestjs mapper",
+      "base": "nest",
+      "color": "lime-A400",
+      "fileExtensions": ["*.mapper.ts"]
+    },
     {
       "name": "dto",
       "base": "hurl",
@@ -129,13 +131,13 @@
     }
   ],
   "material-icon-theme.folders.associations": {
-       "worker": "rust",
-       "shared-types": "typescript",
-       "infra": "docker",
-       "prisma": "database",
-       "migrations": "database",
-       "internal": "admin",
-     },
+    "worker": "rust",
+    "shared-types": "typescript",
+    "infra": "docker",
+    "prisma": "database",
+    "migrations": "database",
+    "internal": "admin"
+  },
   "material-icon-theme.folders.customClones": [
     {
       "name": "dto",
@@ -144,11 +146,11 @@
       "folderNames": ["dto"]
     },
     {
-  "name": "mappers",
-  "base": "delta",
-  "color": "lime-A400",
-  "folderNames": ["mappers"]
-},
+      "name": "mappers",
+      "base": "delta",
+      "color": "lime-A400",
+      "folderNames": ["mappers"]
+    },
     {
       "name": "swagger",
       "base": "meta",
@@ -192,9 +194,10 @@
       "folderNames": ["module"]
     },
     {
-  "name": "entities",
-  "base": "class",
-  "color": "light-blue-A200",
-  "folderNames": ["entities"]
+      "name": "entities",
+      "base": "class",
+      "color": "light-blue-A200",
+      "folderNames": ["entities"]
+    }
+  ]
 }
-  ]}

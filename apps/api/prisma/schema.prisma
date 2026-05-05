@@ -72,15 +72,19 @@ enum AchievementTier {
 // -----------------------------------------------------------------------------
 
 model User {
-  id            String   @id @default(cuid())
-  displayName   String
-  biologicalSex BiologicalSex
-  birthYear     Int
-  weightKg      Float?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id             String        @id @default(cuid())
+  email          String        @unique
+  hashedPassword String
+  displayName    String
+  biologicalSex  BiologicalSex
+  birthYear      Int
+  weightKg       Float?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
-  usages        SubstanceUsage[]
+  usages         SubstanceUsage[]
+
+  @@index([email])
 }
 
 // -----------------------------------------------------------------------------
