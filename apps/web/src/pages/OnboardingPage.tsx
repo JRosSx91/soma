@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { LanguageSelector } from '../components/LanguageSelector.js';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSubstances } from '../features/substances/index.js';
 import { useUserProfile } from '../features/profile/index.js';
 import type { UsageInput } from '../features/profile/index.js';
+import { LanguageSelector } from '../components/LanguageSelector.js';
 
 interface SubstanceFormState {
   active: boolean;
@@ -26,14 +26,52 @@ const FREQUENCY_KEYS: Array<{
 
 const TODAY = new Date().toISOString().split('T')[0];
 
+const EMPTY_STATE: SubstanceFormState = {
+  active: false,
+  yearStarted: '',
+  lastUseDate: '',
+  frequency: 'daily',
+};
+
+/**
+ * Converts an ISO date string from the backend (e.g. "2025-01-15T00:00:00.000Z")
+ * into the YYYY-MM-DD format expected by <input type="date">.
+ */
+function toDateInputValue(isoDate: string): string {
+  return isoDate.split('T')[0];
+}
+
 export function OnboardingPage() {
   const { t } = useTranslation(['onboarding', 'substances', 'common']);
   const navigate = useNavigate();
   const { data: substances, loading: loadingSubstances } = useSubstances();
-  const { saveProfile } = useUserProfile();
+  const { profile, loading: loadingProfile, saveProfile } = useUserProfile();
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [formState, setFormState] = useState<Record<string, SubstanceFormState>>({});
+  const [initialized, setInitialized] = useState(false);
+
+  /**
+   * Pre-fill the form with the user's current usages the first time
+   * the profile arrives from the backend. This effect runs at most
+   * once per mount — subsequent changes to the profile (e.g. after
+   * saveProfile) don't reset the user's edits.
+   */
+  useEffect(() => {
+    if (initialized || !profile || !substances) return;
+
+    const initial: Record<string, SubstanceFormState> = {};
+    for (const usage of profile.usages) {
+      initial[usage.substanceId] = {
+        active: true,
+        yearStarted: String(usage.yearStarted),
+        lastUseDate: toDateInputValue(usage.lastUseDate),
+        frequency: usage.frequency,
+      };
+    }
+    setFormState(initial);
+    setInitialized(true);
+  }, [profile, substances, initialized]);
 
   const updateField = (
     substanceId: string,
@@ -43,12 +81,7 @@ export function OnboardingPage() {
     setFormState((prev) => ({
       ...prev,
       [substanceId]: {
-        ...(prev[substanceId] ?? {
-          active: false,
-          yearStarted: '',
-          lastUseDate: '',
-          frequency: 'daily',
-        }),
+        ...(prev[substanceId] ?? EMPTY_STATE),
         [field]: value,
       },
     }));
@@ -94,7 +127,7 @@ export function OnboardingPage() {
     }
   };
 
-  if (loadingSubstances || !substances) {
+  if (loadingSubstances || loadingProfile || !substances) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
         {t('common:loading')}
@@ -103,7 +136,7 @@ export function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary px-4 py-12">
+    <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary px-4 py-12 relative">
       <div className="absolute top-4 right-4">
         <LanguageSelector />
       </div>
@@ -115,12 +148,7 @@ export function OnboardingPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {substances.map((substance) => {
-            const state = formState[substance.id] ?? {
-              active: false,
-              yearStarted: '',
-              lastUseDate: '',
-              frequency: 'daily' as const,
-            };
+            const state = formState[substance.id] ?? EMPTY_STATE;
 
             return (
               <div
