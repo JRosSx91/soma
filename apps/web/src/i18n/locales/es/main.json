@@ -3,12 +3,29 @@
     "editProfile": "Editar perfil"
   },
   "panel": {
-    "selectedOrgan": "Órgano seleccionado",
-    "hoverPrompt": "Pasa el ratón por un órgano",
-    "affectedBy": "Afectado por",
-    "daysAbstinent": "Días sin consumir",
-    "recovery": "Recuperación"
+  "selectedOrgan": "Órgano seleccionado",
+  "hoverPrompt": "Pasa el ratón por un órgano",
+  "clickPrompt": "Haz clic en un órgano para inspeccionar",
+  "affectedBy": "Afectado por",
+  "causedBy": "Causado por",
+  "daysAbstinent": "Días sin consumir",
+  "recovery": "Recuperación",
+  "showNeurotransmitterState": "Ver estado de neurotransmisores",
+  "hideNeurotransmitterState": "Ocultar estado de neurotransmisores",
+  "noNeurotransmitterData": "Sin datos de neurotransmisores para este órgano.",
+  "direction": {
+    "depleted": "depletado",
+    "elevated": "elevado",
+    "oscillating": "oscilando",
+    "normalizing": "normalizando"
   },
+  "severity": {
+    "severe": "severo",
+    "moderate": "moderado",
+    "mild": "leve",
+    "normalizing": "normalizando"
+  }
+},
   "empty": {
     "noSubstances": "Aún no hay sustancias registradas.",
     "addFirst": "Añade la primera →"

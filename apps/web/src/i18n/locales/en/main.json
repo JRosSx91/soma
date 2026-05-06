@@ -3,12 +3,29 @@
     "editProfile": "Edit profile"
   },
   "panel": {
-    "selectedOrgan": "Selected organ",
-    "hoverPrompt": "Hover an organ",
-    "affectedBy": "Affected by",
-    "daysAbstinent": "Days abstinent",
-    "recovery": "Recovery"
+  "selectedOrgan": "Selected organ",
+  "hoverPrompt": "Hover an organ",
+  "clickPrompt": "Click an organ to inspect",
+  "affectedBy": "Affected by",
+  "causedBy": "Caused by",
+  "daysAbstinent": "Days abstinent",
+  "recovery": "Recovery",
+  "showNeurotransmitterState": "Show neurotransmitter state",
+  "hideNeurotransmitterState": "Hide neurotransmitter state",
+  "noNeurotransmitterData": "No neurotransmitter data available for this organ.",
+  "direction": {
+    "depleted": "depleted",
+    "elevated": "elevated",
+    "oscillating": "oscillating",
+    "normalizing": "normalizing"
   },
+  "severity": {
+    "severe": "severe",
+    "moderate": "moderate",
+    "mild": "mild",
+    "normalizing": "normalizing"
+  }
+},
   "empty": {
     "noSubstances": "No substances tracked yet.",
     "addFirst": "Add your first one →"
