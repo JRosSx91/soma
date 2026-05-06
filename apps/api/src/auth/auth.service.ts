@@ -8,6 +8,7 @@ import bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { LoginDto } from './dto/login.dto.js';
+import { CodedConflictException } from '../common/exceptions/coded-exception.js';
 
 const SALT_ROUNDS = 10;
 
@@ -41,7 +42,7 @@ export class AuthService {
   async register(dto: RegisterDto): Promise<AuthenticatedResponse> {
     const existing = await this.usersService.findByEmail(dto.email);
     if (existing) {
-      throw new ConflictException('Email already registered');
+      throw new CodedConflictException('AUTH_EMAIL_EXISTS', 'Email already registered');
     }
 
     const hashedPassword = await bcrypt.hash(dto.password, SALT_ROUNDS);

@@ -8,3 +8,4 @@ export type {
   AuthState,
 } from './types.js';
 export { ApiError } from './client/api.js';
+export { translateAuthError } from './lib/translate-error.js';

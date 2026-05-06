@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import { LanguageSelector } from '../components/LanguageSelector.js';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../features/auth/index.js';
+import { useAuth, translateAuthError } from '../features/auth/index.js';
 
 export function LoginPage() {
   const { t } = useTranslation('auth');
@@ -22,9 +22,8 @@ export function LoginPage() {
       await login({ email, password });
       navigate('/', { replace: true });
     } catch (err) {
-      const message = err instanceof Error ? err.message : t('errors.loginFailed');
-      setError(message);
-    } finally {
+  setError(translateAuthError(err, t, 'errors.loginFailed'));
+} finally {
       setSubmitting(false);
     }
   };

@@ -4,7 +4,7 @@ import { LanguageSelector } from '../components/LanguageSelector.js';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { BiologicalSex } from '@soma/shared-types';
-import { useAuth } from '../features/auth/index.js';
+import { useAuth, translateAuthError } from '../features/auth/index.js';
 
 export function RegisterPage() {
   const { t } = useTranslation('auth');
@@ -32,10 +32,8 @@ export function RegisterPage() {
       });
       navigate('/onboarding', { replace: true });
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : t('errors.registrationFailed');
-      setError(message);
-    } finally {
+  setError(translateAuthError(err, t, 'errors.registrationFailed'));
+} finally {
       setSubmitting(false);
     }
   };
