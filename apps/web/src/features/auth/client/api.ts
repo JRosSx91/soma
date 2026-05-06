@@ -21,12 +21,14 @@ export const UNAUTHORIZED_EVENT = 'soma:auth:unauthorized';
 
 export class ApiError extends Error {
   public readonly status: number;
+  public readonly code?: string;
   public readonly details?: unknown;
 
-  constructor(status: number, message: string, details?: unknown) {
+  constructor(status: number, message: string, code?: string, details?: unknown) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
+    this.code = code;
     this.details = details;
   }
 }
@@ -86,21 +88,25 @@ export async function apiRequest<T>(
 
   // Try to parse JSON error body for nicer messages.
   if (!response.ok) {
-    let message = `HTTP ${response.status}`;
-    let details: unknown;
-    try {
-      const errorBody = await response.json();
-      details = errorBody;
-      if (typeof errorBody.message === 'string') {
-        message = errorBody.message;
-      } else if (Array.isArray(errorBody.message)) {
-        message = errorBody.message.join('; ');
-      }
-    } catch {
-      // Body is not JSON. Use default message.
+  let message = `HTTP ${response.status}`;
+  let code: string | undefined;
+  let details: unknown;
+  try {
+    const errorBody = await response.json();
+    details = errorBody;
+    if (typeof errorBody.message === 'string') {
+      message = errorBody.message;
+    } else if (Array.isArray(errorBody.message)) {
+      message = errorBody.message.join('; ');
     }
-    throw new ApiError(response.status, message, details);
+    if (typeof errorBody.code === 'string') {
+      code = errorBody.code;
+    }
+  } catch {
+    // Body is not JSON. Use default message.
   }
+  throw new ApiError(response.status, message, code, details);
+}
 
   // 204 No Content returns no body.
   if (response.status === 204) {
