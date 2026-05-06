@@ -6,6 +6,7 @@ import { SubstancesModule } from './substances/substances.module.js';
 import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { ProfileModule } from './profile/profile.module.js';
+import { NeurotransmitterStateModule } from './neurotransmitter-state/neurotransmitter-state.module.js';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProfileModule } from './profile/profile.module.js';
     UsersModule,
     AuthModule,
     ProfileModule,
+    NeurotransmitterStateModule,
   ],
 })
 export class AppModule {}
