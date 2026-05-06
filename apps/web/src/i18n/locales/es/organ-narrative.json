@@ -1,0 +1,74 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Los hepatocitos están procesando una carga crónica de etanol. La esteatosis (acumulación de grasa) se acumula con la ingesta sostenida. El hígado es el sitio principal del metabolismo del alcohol vía alcohol deshidrogenasa y CYP2E1.",
+      "acute_withdrawal": "La actividad de las enzimas hepáticas (AST, ALT, GGT) suele permanecer elevada en las primeras semanas. La esteatosis comienza a revertirse si no hay fibrosis establecida. La regeneración hepatocitaria está activa — el hígado es uno de los pocos órganos con capacidad regenerativa sustancial.",
+      "post_acute": "La esteatosis revierte progresivamente en ausencia de fibrosis establecida. Los niveles de GGT descienden a lo largo de semanas o meses. Los hepatocitos nuevos reemplazan a los dañados; el recambio celular continúa.",
+      "normalizing": "La estructura hepática se aproxima a la línea base si no había fibrosis avanzada. Los marcadores enzimáticos se normalizan en 3-6 meses. El daño estructural preexistente (cirrosis) es en gran medida irreversible, pero la inflamación remite y los hepatocitos restantes funcionan con más eficiencia."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "La cocaína causa vasoconstricción sistémica, incluidas las arterias renales. Las células tubulares experimentan estrés isquémico repetido. Riesgo de daño renal agudo durante el consumo.",
+      "acute_withdrawal": "La vasoconstricción renal se resuelve en horas tras el último consumo. Las células tubulares comienzan a recuperarse del estrés isquémico. La filtración glomerular se normaliza.",
+      "post_acute": "La función tubular continúa estabilizándose. Si no se estableció daño crónico, la función renal regresa hacia la línea base.",
+      "normalizing": "La función renal se aproxima a parámetros normales. Cualquier daño estructural residual de la vasoconstricción prolongada es el factor limitante; la recuperación funcional es por lo demás sustancial."
+    },
+    "alcohol": {
+      "during_use": "La ingesta crónica de alcohol contribuye a la deshidratación y a estrés tubular leve. El efecto diurético del alcohol altera el equilibrio de líquidos y electrolitos.",
+      "acute_withdrawal": "La hidratación se normaliza en días. Las células tubulares se recuperan del estrés crónico por deshidratación. El equilibrio electrolítico se restaura.",
+      "post_acute": "La función renal continúa estabilizándose. El daño tubular leve por exposición crónica se resuelve progresivamente.",
+      "normalizing": "La función renal regresa a la línea base. El daño renal por alcohol aislado (sin otras comorbilidades) es en gran medida reversible."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "Las células acinares pancreáticas están bajo estrés tóxico crónico por metabolitos del alcohol. Tanto la función exocrina (enzimas digestivas) como la endocrina (insulina) pueden estar progresivamente comprometidas. Riesgo de pancreatitis aguda.",
+      "acute_withdrawal": "Las células acinares comienzan a recuperarse del estrés tóxico agudo. La respuesta inflamatoria remite si no hay pancreatitis aguda presente. La producción de enzimas digestivas se reestabiliza gradualmente.",
+      "post_acute": "La función pancreática continúa recuperándose. La producción exocrina se normaliza en semanas. La sensibilidad a la insulina mejora si no estaba crónicamente comprometida.",
+      "normalizing": "La función pancreática se aproxima a la línea base. La pancreatitis crónica preexistente es en gran medida irreversible, pero la inflamación aguda se ha resuelto y el tejido restante funciona con más eficiencia."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "La mucosa gástrica está expuesta a contacto directo con etanol. La barrera de moco se altera; las células parietales producen exceso de ácido. La gastritis erosiva es común con ingesta sostenida.",
+      "acute_withdrawal": "La mucosa gástrica inicia reparación activa en 48-72 horas. La producción de moco se normaliza. La hipersecreción ácida cede al terminar la estimulación de las células parietales.",
+      "post_acute": "La mucosa se regenera progresivamente. El epitelio gástrico tiene un recambio de 3-7 días en condiciones saludables, por lo que la cicatrización es relativamente rápida.",
+      "normalizing": "La mucosa gástrica está restaurada. El equilibrio ácido y la función digestiva se aproximan a la línea base."
+    },
+    "nicotine": {
+      "during_use": "La nicotina aumenta la secreción de ácido gástrico y reduce el tono del esfínter esofágico inferior. El flujo sanguíneo de la mucosa está comprometido por vasoconstricción. El riesgo de úlcera péptica está elevado.",
+      "acute_withdrawal": "La secreción de ácido gástrico comienza a normalizarse en días. El flujo sanguíneo mucosal mejora a medida que la vasoconstricción nicotínica se resuelve. El tono del esfínter esofágico se recupera.",
+      "post_acute": "El equilibrio ácido continúa estabilizándose. La mucosa gástrica cicatriza tras la insuficiencia vascular. Las úlceras preexistentes cicatrizan más rápido sin nicotina.",
+      "normalizing": "La función gástrica y esofágica se aproxima a la línea base. El riesgo de enfermedad péptica desciende a niveles de no fumador."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "Los macrófagos alveolares están sobrecargados con partículas de alquitrán. La función del surfactante está alterada por exposición crónica. Los mediadores inflamatorios se acumulan. La capacidad de difusión disminuye.",
+      "acute_withdrawal": "La inflamación alveolar comienza a remitir en días. La eliminación de residuos por los macrófagos se activa intensivamente — la tos productiva es común en las semanas 1-3, conforme los pulmones expulsan residuos. La capacidad de difusión empieza a mejorar.",
+      "post_acute": "La superficie alveolar continúa limpiándose. Los marcadores inflamatorios descienden. La función pulmonar (FEV1, capacidad vital) mejora de forma medible.",
+      "normalizing": "La función alveolar se aproxima a la línea base en 1-9 meses para usuarios sin EPOC establecida. El enfisema preexistente es en gran medida irreversible, pero la inflamación se ha resuelto y la superficie alveolar restante funciona de forma óptima."
+    },
+    "cannabis": {
+      "during_use": "Los tejidos bronquial y alveolar están expuestos a productos de combustión con carga irritante similar al humo del tabaco (aunque sin nicotina). La inflamación y la producción de moco están elevadas.",
+      "acute_withdrawal": "La inflamación bronquial comienza a remitir en días. La producción de moco se normaliza. La irritación alveolar disminuye.",
+      "post_acute": "El tejido pulmonar continúa cicatrizando. La tos y la hipersecreción de moco mejoran. Los marcadores inflamatorios descienden.",
+      "normalizing": "La función pulmonar se aproxima a la línea base. Sin exposición a combustión, los pulmones recuperan la mayor parte de su capacidad funcional."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Los cilios bronquiales están paralizados por componentes del humo del tabaco. El moco se acumula sin eliminación. Las células caliciformes hipertrofian. Se establece inflamación bronquial crónica.",
+      "acute_withdrawal": "Los cilios recuperan motilidad en 24-72 horas tras el último cigarrillo. Estas células, inmovilizadas durante años por el humo del tabaco, vuelven a barrer mucosidad acumulada activamente. La tos productiva en las semanas 1-3 es esperada — el sistema está expulsando residuos.",
+      "post_acute": "La función ciliar continúa recuperándose. La eliminación de moco se normaliza progresivamente. La inflamación bronquial desciende. La hipertrofia de las células caliciformes revierte parcialmente.",
+      "normalizing": "La función de los cilios bronquiales está en gran medida restaurada. La eliminación de moco y el grosor de la pared bronquial se aproximan a la línea base en 1-9 meses en usuarios sin bronquitis crónica establecida."
+    },
+    "cannabis": {
+      "during_use": "El tejido bronquial está expuesto a productos de combustión y a activación de receptores cannabinoides. La inflamación, la irritación y la producción de moco están elevadas.",
+      "acute_withdrawal": "La inflamación bronquial comienza a remitir en días. La producción de moco se normaliza. La actividad de los receptores cannabinoides en el tejido bronquial cesa.",
+      "post_acute": "La cicatrización bronquial continúa. La tos y los síntomas de irritación mejoran progresivamente.",
+      "normalizing": "La función bronquial se aproxima a la línea base. La irritación crónica se resuelve. Los marcadores celulares de inflamación se normalizan."
+    }
+  }
+}

@@ -12,17 +12,22 @@ import {
   NeurotransmitterPanel,
 } from '../features/neurotransmitter-state/index.js';
 import { LanguageSelector } from '../components/LanguageSelector.js';
+import {
+  useOrganNarrativeState,
+  OrganNarrativePanel,
+} from '../features/organ-narrative-state/index.js';
 
 export function MainPage() {
   const { t } = useTranslation([
-    'main',
-    'common',
-    'organs',
-    'substances',
-    'neurotransmitters',
-    'neurotransmitter-phases',
-    'phases',
-  ]);
+  'main',
+  'common',
+  'organs',
+  'substances',
+  'neurotransmitters',
+  'neurotransmitter-phases',
+  'phases',
+  'organ-narrative',
+]);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const {
@@ -39,11 +44,14 @@ export function MainPage() {
   const [selected, setSelected] = useState<OrganId | null>(null);
   const [showNeurotransmitters, setShowNeurotransmitters] = useState(false);
 
+  const { entries: narrativeEntries } = useOrganNarrativeState();
+  const [showNarrative, setShowNarrative] = useState(false);
+
   const handleSelect = (organId: OrganId | null) => {
-    // Toggle: clicking the currently selected organ deselects it.
-    setSelected((prev) => (prev === organId ? null : organId));
-    setShowNeurotransmitters(false);
-  };
+  setSelected((prev) => (prev === organId ? null : organId));
+  setShowNeurotransmitters(false);
+  setShowNarrative(false);
+};
 
   const adaptedProfile: UserProfile = useMemo(() => {
     if (!serverProfile) return MOCK_PROFILE;
@@ -84,6 +92,10 @@ export function MainPage() {
   const ntForSelected = selected
     ? ntEntries.filter((e) => e.organId === selected)
     : [];
+  const narrativeForSelected = selected
+  ? narrativeEntries.filter((e) => e.organId === selected)
+  : [];
+const hasNarrativeData = narrativeForSelected.length > 0;
   const hasNtData = ntForSelected.length > 0;
 
   return (
@@ -184,6 +196,22 @@ export function MainPage() {
               )}
             </div>
           )}
+
+          {selected && hasNarrativeData && (
+  <div className="mt-4 pt-4 border-t border-soma-border-subtle">
+    <button
+      onClick={() => setShowNarrative((prev) => !prev)}
+      className="text-xs text-soma-accent hover:underline"
+    >
+      {showNarrative
+        ? t('main:panel.hideRecoveryProcess')
+        : t('main:panel.showRecoveryProcess')}
+    </button>
+    {showNarrative && (
+      <OrganNarrativePanel entries={narrativeForSelected} />
+    )}
+  </div>
+)}
         </aside>
       </main>
     </div>
