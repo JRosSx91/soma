@@ -6,6 +6,7 @@ import { seedRecoveryCurves } from './seed/recovery-curves.js';
 import { seedAchievements } from './seed/achievements.js';
 import { seedUsers } from './seed/users.js';
 import { seedNeurotransmitterProfiles } from './seed/neurotransmitter-profiles.js';
+import { seedOrganNarratives } from './seed/organ-narratives.js';
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,8 @@ async function main(): Promise<void> {
   await seedAchievements(prisma);
   console.log('  - neurotransmitter profiles');
   await seedNeurotransmitterProfiles(prisma);
+  console.log('  - organ narratives');
+  await seedOrganNarratives(prisma);
   console.log('  - users');
   await seedUsers(prisma);
   console.log('\nDone.');

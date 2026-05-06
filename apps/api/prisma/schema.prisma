@@ -134,6 +134,7 @@ model Substance {
   recoveryCurves           OrganRecoveryCurve[]
   achievements             Achievement[]
   neurotransmitterProfiles NeurotransmitterProfile[]
+  narrativeProfiles        OrganNarrativeProfile[]
 }
 
 model SubstanceUsage {
@@ -158,14 +159,15 @@ model SubstanceUsage {
 // -----------------------------------------------------------------------------
 
 model Organ {
-  id               String     @id
-  name             String
-  system           BodySystem
-  shortDescription String
+  id                 String     @id
+  name               String
+  system             BodySystem
+  shortDescription   String
 
-  damageProfiles   OrganDamageProfile[]
-  recoveryCurves   OrganRecoveryCurve[]
-  achievements     Achievement[]
+  damageProfiles     OrganDamageProfile[]
+  recoveryCurves     OrganRecoveryCurve[]
+  achievements       Achievement[]
+  narrativeProfiles  OrganNarrativeProfile[]
 }
 
 model OrganDamageProfile {
@@ -258,6 +260,53 @@ model NeurotransmitterPhase {
   symptomKey  String
 
   profile     NeurotransmitterProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId])
+}
+
+// -----------------------------------------------------------------------------
+// Organ narrative model
+// -----------------------------------------------------------------------------
+//
+// Describes the cellular/tissue-level recovery process for non-neural
+// organs. Unlike neurotransmitters, these narratives focus on observable
+// physiological processes (cilia movement, tissue regeneration, mucosa
+// healing) rather than subjective experience.
+//
+// Reuses the WithdrawalPhase enum from the neurotransmitter model.
+
+model OrganNarrativeProfile {
+  id              String                 @id @default(cuid())
+  organId         String
+  substanceId     String
+  confidenceLevel ConfidenceLevel
+  referenceSource String
+
+  organ           Organ                  @relation(fields: [organId], references: [id])
+  substance       Substance              @relation(fields: [substanceId], references: [id])
+  phases          OrganNarrativePhase[]
+
+  @@unique([organId, substanceId])
+  @@index([organId])
+  @@index([substanceId])
+}
+
+model OrganNarrativePhase {
+  id          String                  @id @default(cuid())
+  profileId   String
+  phase       WithdrawalPhase
+
+  // Inclusive day boundaries from last-use date.
+  // endDay is null for the final (normalizing) phase.
+  startDay    Int
+  endDay      Int?
+
+  // i18n key under the `organ-narrative` namespace.
+  // Format: <organId>.<substanceId>.<phase>
+  // Example: lungs.nicotine.acute_withdrawal
+  narrativeKey String
+
+  profile     OrganNarrativeProfile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@index([profileId])
 }
