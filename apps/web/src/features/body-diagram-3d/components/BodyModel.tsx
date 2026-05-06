@@ -177,13 +177,17 @@ export function BodyModel({
 
   // Apply highlight via direct uniforms manipulation
   useEffect(() => {
-    organMaterials.forEach((material, meshName) => {
-      const isHighlighted =
-        highlightedOrganId !== null &&
-        ORGAN_TO_MESH_NAME[highlightedOrganId] === meshName;
-      material.uniforms.uHighlight.value = isHighlighted ? 1.0 : 0.0;
-    });
-  }, [highlightedOrganId, organMaterials]);
+  console.log('[BodyModel] highlightedOrganId changed to:', highlightedOrganId);
+  organMaterials.forEach((material, meshName) => {
+    const isHighlighted =
+      highlightedOrganId !== null &&
+      ORGAN_TO_MESH_NAME[highlightedOrganId] === meshName;
+    if (isHighlighted) {
+      console.log('[BodyModel] highlighting mesh:', meshName);
+    }
+    material.uniforms.uHighlight.value = isHighlighted ? 1.0 : 0.0;
+  });
+}, [highlightedOrganId, organMaterials]);
 
   const handlePointerOver = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation();

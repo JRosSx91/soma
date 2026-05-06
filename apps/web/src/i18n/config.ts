@@ -5,6 +5,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import enSubstances from './locales/en/substances.json';
 import esSubstances from './locales/es/substances.json';
 
+import enNeurotransmitterPhases from './locales/en/neurotransmitter-phases.json';
+import enNeurotransmitters from './locales/en/neurotransmitters.json';
+import enPhases from './locales/en/phases.json';
+
+import esNeurotransmitterPhases from './locales/es/neurotransmitter-phases.json';
+import esNeurotransmitters from './locales/es/neurotransmitters.json';
+import esPhases from './locales/es/phases.json';
+
 import enAuth from './locales/en/auth.json';
 import enCommon from './locales/en/common.json';
 import enMain from './locales/en/main.json';
@@ -39,7 +47,17 @@ i18n
     fallbackLng: 'en',
     supportedLngs: [...SUPPORTED_LANGUAGES],
     debug: import.meta.env.DEV,
-    ns: ['common', 'auth', 'main', 'onboarding', 'organs', 'substances'],
+    ns: [
+  'common',
+  'auth',
+  'main',
+  'onboarding',
+  'organs',
+  'substances',
+  'neurotransmitter-phases',
+  'neurotransmitters',
+  'phases',
+],
     defaultNS: 'common',
     interpolation: {
       // React already escapes by default, no need to double-escape.
@@ -58,6 +76,9 @@ i18n
         onboarding: enOnboarding,
         organs: enOrgans,
         substances: enSubstances,
+        'neurotransmitter-phases': enNeurotransmitterPhases,
+  neurotransmitters: enNeurotransmitters,
+  phases: enPhases,
       },
       es: {
         common: esCommon,
@@ -66,6 +87,9 @@ i18n
         onboarding: esOnboarding,
         organs: esOrgans,
         substances: esSubstances,
+        'neurotransmitter-phases': esNeurotransmitterPhases,
+  neurotransmitters: esNeurotransmitters,
+  phases: esPhases,
       },
     },
   });

@@ -1,0 +1,70 @@
+{
+  "alcohol": {
+    "gaba": {
+      "acute_withdrawal": "What you may feel: anxiety, restlessness, insomnia, tremor, possibly seizures in severe cases. Your GABA system was suppressed by alcohol's inhibitory action; without it, neuronal excitability rebounds sharply. Medical supervision is recommended during the first week.",
+      "post_acute": "What you may feel: fluctuating anxiety, sleep disturbances, emotional reactivity. GABA-A receptors are gradually restoring their sensitivity. Symptoms typically improve over weeks 2 to 8.",
+      "normalizing": "GABA function is approaching baseline. Some emotional sensitivity may persist for several months but the most disruptive symptoms have passed."
+    },
+    "glutamate": {
+      "acute_withdrawal": "What you may feel: agitation, hypersensitivity to stimuli, racing thoughts, possible seizures. Glutamate signaling is rebounding above normal levels — this is the dangerous side of acute alcohol withdrawal. Seek medical care if symptoms intensify.",
+      "post_acute": "Mild residual hyperexcitability may show as irritability or sensitivity to noise. Glutamate signaling is normalizing.",
+      "normalizing": "Glutamate is near baseline. The system has adapted."
+    },
+    "dopamine": {
+      "acute_withdrawal": "What you may feel: low mood, lack of motivation, anhedonia. The reward circuit is depleted after chronic stimulation. This is part of the recalibration.",
+      "post_acute": "Motivation and the ability to feel pleasure return slowly. Patience here is not optional — the system rebuilds itself, it cannot be forced.",
+      "normalizing": "The reward system is approaching baseline. Pleasure from ordinary activities should feel more accessible."
+    },
+    "serotonin": {
+      "acute_withdrawal": "What you may feel: low mood, irritability, possible appetite changes. Serotonergic balance was disturbed by chronic alcohol use.",
+      "post_acute": "Mood is stabilizing. Some emotional volatility is expected but trending toward normal.",
+      "normalizing": "Serotonin function is near baseline."
+    }
+  },
+  "cocaine": {
+    "dopamine": {
+      "acute_withdrawal": "What you may feel: profound anhedonia, apathy, intense fatigue, hypersomnia, strong craving. This is the 'crash' — your dopamine system has been operating on borrowed transmitter for a long time and is now exhausted. The intensity is real but transient.",
+      "post_acute": "What you may feel: persistent low motivation, blunted pleasure, intermittent craving. The reward system is rebuilding receptor sensitivity. This phase is hard but predictable — symptoms gradually attenuate over weeks 2 to 8.",
+      "normalizing": "Dopamine function is approaching baseline. Pleasure response and motivation are returning. Some sensitivity to triggers may persist for months."
+    },
+    "norepinephrine": {
+      "acute_withdrawal": "What you may feel: physical exhaustion paradoxically combined with mental restlessness, sleep disturbances despite fatigue. The noradrenergic system is depleted but not yet rebalanced. Sleep will come back.",
+      "post_acute": "What you may feel: oscillating energy, sometimes wired, sometimes flat. Sleep-wake regulation is recovering. The 'tired but not sleepy' sensation is part of this.",
+      "normalizing": "Noradrenergic regulation is near baseline. Energy and sleep cycles should feel more predictable."
+    },
+    "serotonin": {
+      "acute_withdrawal": "What you may feel: dysphoria, irritability, emotional reactivity. Serotonin signaling was elevated by cocaine and is now in deficit.",
+      "post_acute": "Mood is gradually stabilizing. Some persistence of emotional sensitivity is normal.",
+      "normalizing": "Serotonin function is near baseline."
+    }
+  },
+  "nicotine": {
+    "acetylcholine": {
+      "acute_withdrawal": "What you may feel: irritability, difficulty concentrating, restlessness, intense craving — peaks in days 1 to 3. Nicotinic receptors were upregulated to compensate for chronic stimulation; without nicotine they are excessively active. This phase is short but intense.",
+      "post_acute": "What you may feel: residual concentration difficulty, occasional craving. Receptor density is returning to normal — this happens faster than in other systems.",
+      "normalizing": "Cholinergic function is near baseline. The receptors have downregulated. Cravings, when they appear, are typically situational rather than physiological."
+    },
+    "dopamine": {
+      "acute_withdrawal": "What you may feel: low mood, lack of motivation, mild anhedonia. The dopamine release nicotine triggered is now absent.",
+      "post_acute": "Motivation is gradually returning. The reward system adapts.",
+      "normalizing": "Dopamine function is near baseline."
+    }
+  },
+  "cannabis": {
+    "endocannabinoid": {
+      "acute_withdrawal": "What you may feel: irritability, insomnia, vivid or unsettling dreams, anxiety, decreased appetite. Your CB1 receptors were downregulated to compensate for THC; without external cannabinoids the system is briefly under-activated. The vivid dreams are characteristic — REM sleep is rebounding from suppression.",
+      "post_acute": "What you may feel: improving but unstable sleep, residual irritability, mild anxiety. CB1 receptor density is recovering.",
+      "normalizing": "The endocannabinoid system is approaching baseline. Sleep and mood regulation should feel more stable."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Mild motivational dip. The contribution of cannabis to your reward circuit was modest, so this phase is correspondingly mild.",
+      "post_acute": "Motivation is stabilizing.",
+      "normalizing": "Dopamine function is near baseline."
+    },
+    "gaba": {
+      "acute_withdrawal": "Mild contribution to anxiety symptoms. GABAergic balance was modulated by cannabis and is recalibrating.",
+      "post_acute": "GABA balance is improving.",
+      "normalizing": "GABA function is near baseline."
+    }
+  }
+}
