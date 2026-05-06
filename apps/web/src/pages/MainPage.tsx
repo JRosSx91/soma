@@ -1,16 +1,28 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LanguageSelector } from '../components/LanguageSelector.js';
 import type { OrganId } from '@soma/shared-types';
 import { useAuth } from '../features/auth/index.js';
 import { useUserProfile, useOrganStates, MOCK_PROFILE } from '../features/profile/index.js';
 import type { UserProfile } from '../features/profile/types.js';
 import { BodyDiagram3D } from '../features/body-diagram-3d/index.js';
 import type { OrganStateMap } from '../features/body-diagram-3d/index.js';
+import {
+  useNeurotransmitterState,
+  NeurotransmitterPanel,
+} from '../features/neurotransmitter-state/index.js';
+import { LanguageSelector } from '../components/LanguageSelector.js';
 
 export function MainPage() {
-  const { t } = useTranslation(['main', 'common', 'organs', 'substances']);
+  const { t } = useTranslation([
+    'main',
+    'common',
+    'organs',
+    'substances',
+    'neurotransmitters',
+    'neurotransmitter-phases',
+    'phases',
+  ]);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const {
@@ -18,7 +30,20 @@ export function MainPage() {
     loading: loadingProfile,
     error: profileError,
   } = useUserProfile();
+  const { entries: ntEntries } = useNeurotransmitterState();
+
+  // Hover: drives the visual highlight in the 3D model.
+  // Selected: drives the side panel content. Decoupled so the panel
+  // persists when the cursor moves away from the organ to read it.
   const [hovered, setHovered] = useState<OrganId | null>(null);
+  const [selected, setSelected] = useState<OrganId | null>(null);
+  const [showNeurotransmitters, setShowNeurotransmitters] = useState(false);
+
+  const handleSelect = (organId: OrganId | null) => {
+    // Toggle: clicking the currently selected organ deselects it.
+    setSelected((prev) => (prev === organId ? null : organId));
+    setShowNeurotransmitters(false);
+  };
 
   const adaptedProfile: UserProfile = useMemo(() => {
     if (!serverProfile) return MOCK_PROFILE;
@@ -55,6 +80,12 @@ export function MainPage() {
   const error = profileError ?? statesError?.message ?? null;
   const hasNoUsages = serverProfile && serverProfile.usages.length === 0;
 
+  // Filtered NT entries for the currently selected organ.
+  const ntForSelected = selected
+    ? ntEntries.filter((e) => e.organId === selected)
+    : [];
+  const hasNtData = ntForSelected.length > 0;
+
   return (
     <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary">
       <header className="border-b border-soma-border-subtle px-8 py-4 flex items-center justify-between">
@@ -63,20 +94,20 @@ export function MainPage() {
           <p className="text-xs text-soma-fg-muted mt-1">{user?.displayName ?? '—'}</p>
         </div>
         <div className="flex items-center gap-4">
-  <LanguageSelector />
-  <button
-    onClick={() => navigate('/onboarding')}
-    className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
-  >
-    {t('main:header.editProfile')}
-  </button>
-  <button
-    onClick={logout}
-    className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
-  >
-    {t('common:signOut')}
-  </button>
-</div>
+          <LanguageSelector />
+          <button
+            onClick={() => navigate('/onboarding')}
+            className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
+          >
+            {t('main:header.editProfile')}
+          </button>
+          <button
+            onClick={logout}
+            className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
+          >
+            {t('common:signOut')}
+          </button>
+        </div>
       </header>
 
       <main className="grid grid-cols-12 gap-6 p-8 max-w-7xl mx-auto">
@@ -99,41 +130,58 @@ export function MainPage() {
               biologicalSex={organProfile.biologicalSex}
               view="front"
               organStates={organStates}
-              highlightedOrganId={hovered}
+              highlightedOrganId={hovered ?? selected}
               onOrganHover={setHovered}
+              onOrganClick={handleSelect}
             />
           )}
         </section>
 
         <aside className="col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
           <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
-            {hovered ? t('main:panel.selectedOrgan') : t('main:panel.hoverPrompt')}
+            {selected ? t('main:panel.selectedOrgan') : t('main:panel.clickPrompt')}
           </h2>
-          {hovered && states.has(hovered) && (
+          {selected && states.has(selected) && (
             <div className="space-y-2 text-sm">
               <p className="text-soma-fg-primary text-base">
-                {t(`organs:${hovered}`, { defaultValue: states.get(hovered)!.organName })}
+                {t(`organs:${selected}`, { defaultValue: states.get(selected)!.organName })}
               </p>
               <p className="text-soma-fg-muted">
                 {t('main:panel.affectedBy')}:{' '}
                 <span className="text-soma-fg-secondary capitalize">
-  {t(`substances:${states.get(hovered)!.dominantSubstanceId}.name`, {
-    defaultValue: states.get(hovered)!.dominantSubstanceId,
-  })}
-</span>
+                  {t(`substances:${states.get(selected)!.dominantSubstanceId}.name`, {
+                    defaultValue: states.get(selected)!.dominantSubstanceId,
+                  })}
+                </span>
               </p>
               <p className="text-soma-fg-muted">
                 {t('main:panel.daysAbstinent')}:{' '}
                 <span className="text-soma-fg-secondary tabular-nums">
-                  {Math.floor(states.get(hovered)!.daysAbstinent)}
+                  {Math.floor(states.get(selected)!.daysAbstinent)}
                 </span>
               </p>
               <p className="text-soma-fg-muted">
                 {t('main:panel.recovery')}:{' '}
                 <span className="text-soma-accent tabular-nums">
-                  {(states.get(hovered)!.progressFraction * 100).toFixed(1)}%
+                  {(states.get(selected)!.progressFraction * 100).toFixed(1)}%
                 </span>
               </p>
+            </div>
+          )}
+
+          {selected && hasNtData && (
+            <div className="mt-4 pt-4 border-t border-soma-border-subtle">
+              <button
+                onClick={() => setShowNeurotransmitters((prev) => !prev)}
+                className="text-xs text-soma-accent hover:underline"
+              >
+                {showNeurotransmitters
+                  ? t('main:panel.hideNeurotransmitterState')
+                  : t('main:panel.showNeurotransmitterState')}
+              </button>
+              {showNeurotransmitters && (
+                <NeurotransmitterPanel entries={ntForSelected} />
+              )}
             </div>
           )}
         </aside>
