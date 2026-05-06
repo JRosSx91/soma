@@ -25,6 +25,9 @@ import esMain from './locales/es/main.json';
 import esOnboarding from './locales/es/onboarding.json';
 import esOrgans from './locales/es/organs.json';
 
+import enOrganNarrative from './locales/en/organ-narrative.json';
+import esOrganNarrative from './locales/es/organ-narrative.json';
+
 /**
  * i18next configuration for Soma.
  *
@@ -57,6 +60,7 @@ i18n
   'neurotransmitter-phases',
   'neurotransmitters',
   'phases',
+  'organ-narrative',
 ],
     defaultNS: 'common',
     interpolation: {
@@ -79,6 +83,7 @@ i18n
         'neurotransmitter-phases': enNeurotransmitterPhases,
   neurotransmitters: enNeurotransmitters,
   phases: enPhases,
+  'organ-narrative': enOrganNarrative,
       },
       es: {
         common: esCommon,
@@ -90,6 +95,7 @@ i18n
         'neurotransmitter-phases': esNeurotransmitterPhases,
   neurotransmitters: esNeurotransmitters,
   phases: esPhases,
+  'organ-narrative': esOrganNarrative,
       },
     },
   });

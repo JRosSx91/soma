@@ -1,0 +1,74 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Hepatocytes are processing chronic ethanol load. Steatosis (fatty deposition) accumulates with sustained intake. The liver is the primary site of alcohol metabolism via alcohol dehydrogenase and CYP2E1.",
+      "acute_withdrawal": "Hepatic enzyme activity (AST, ALT, GGT) typically remains elevated in the first weeks. Steatosis begins to reverse if no fibrosis is established. Hepatocyte regeneration is active — the liver is one of the few organs with substantial regenerative capacity.",
+      "post_acute": "Steatosis reverses progressively in the absence of established fibrosis. GGT levels decline over weeks to months. New hepatocytes replace damaged ones; the cellular turnover continues.",
+      "normalizing": "Hepatic structure approaches baseline if no advanced fibrosis was present. Enzymatic markers normalize over 3-6 months. Pre-existing structural damage (cirrhosis) is largely irreversible, but inflammation subsides and remaining hepatocytes function more efficiently."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "Cocaine causes systemic vasoconstriction including the renal arteries. Tubular cells experience repeated ischemic stress. Risk of acute kidney injury during use.",
+      "acute_withdrawal": "Renal vasoconstriction resolves within hours of last use. Tubular cells begin recovery from ischemic stress. Glomerular filtration normalizes.",
+      "post_acute": "Tubular function continues to stabilize. If no chronic damage was established, kidney function returns toward baseline.",
+      "normalizing": "Renal function approaches normal parameters. Any residual structural damage from prolonged vasoconstriction is the limiting factor; functional recovery is otherwise substantial."
+    },
+    "alcohol": {
+      "during_use": "Chronic alcohol intake contributes to dehydration and modest tubular stress. Alcohol's diuretic effect disrupts fluid and electrolyte balance.",
+      "acute_withdrawal": "Hydration normalizes within days. Tubular cells recover from chronic dehydration stress. Electrolyte balance restores.",
+      "post_acute": "Renal function continues to stabilize. Mild tubular damage from chronic exposure resolves progressively.",
+      "normalizing": "Kidney function returns to baseline. The renal damage from alcohol alone (without other comorbidities) is largely reversible."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "Pancreatic acinar cells are under chronic toxic stress from alcohol metabolites. Both exocrine (digestive enzyme) and endocrine (insulin) functions can be progressively impaired. Risk of acute pancreatitis.",
+      "acute_withdrawal": "Acinar cells begin recovery from acute toxic stress. Inflammatory response subsides if no acute pancreatitis is present. Digestive enzyme production gradually re-stabilizes.",
+      "post_acute": "Pancreatic function continues to recover. Exocrine output normalizes in weeks. Insulin sensitivity improves if not chronically compromised.",
+      "normalizing": "Pancreatic function approaches baseline. Pre-existing chronic pancreatitis is largely irreversible, but acute inflammation has resolved and remaining tissue functions more efficiently."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "Gastric mucosa is exposed to direct ethanol contact. Mucus barrier is disrupted; parietal cells produce excess acid. Erosive gastritis is common with sustained intake.",
+      "acute_withdrawal": "Gastric mucosa begins active repair within 48-72 hours. Mucus production normalizes. Acid hypersecretion subsides as the parietal cell stimulation ends.",
+      "post_acute": "Mucosa regenerates progressively. The gastric epithelium has a turnover of 3-7 days under healthy conditions, so healing is relatively fast.",
+      "normalizing": "Gastric mucosa is restored. Acid balance and digestive function approach baseline."
+    },
+    "nicotine": {
+      "during_use": "Nicotine increases gastric acid secretion and reduces lower esophageal sphincter tone. Mucosal blood flow is compromised by vasoconstriction. Risk of peptic ulcer is elevated.",
+      "acute_withdrawal": "Gastric acid secretion begins to normalize within days. Mucosal blood flow improves as nicotinic vasoconstriction resolves. Esophageal sphincter tone recovers.",
+      "post_acute": "Acid balance continues to stabilize. Gastric mucosa heals from vascular insufficiency. Pre-existing ulcers heal faster without nicotine.",
+      "normalizing": "Gastric and esophageal function approach baseline. Risk of peptic disease drops to non-smoker levels."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "Alveolar macrophages are overloaded with tar particulates. Surfactant function is impaired by chronic exposure. Inflammatory mediators accumulate. Diffusion capacity decreases.",
+      "acute_withdrawal": "Alveolar inflammation begins to subside within days. Macrophage clearance of accumulated debris activates intensively — productive cough is common in weeks 1-3 as the lungs expel residue. Diffusion capacity starts improving.",
+      "post_acute": "Alveolar surface continues to clear. Inflammatory markers decline. Lung function (FEV1, vital capacity) improves measurably.",
+      "normalizing": "Alveolar function approaches baseline within 1-9 months for users without established COPD. Pre-existing emphysema is largely irreversible, but inflammation has resolved and remaining alveolar surface functions optimally."
+    },
+    "cannabis": {
+      "during_use": "Bronchial and alveolar tissues are exposed to combustion products with similar irritant load to tobacco smoke (though without nicotine). Inflammation and mucus production are elevated.",
+      "acute_withdrawal": "Bronchial inflammation begins to subside within days. Mucus production normalizes. Alveolar irritation decreases.",
+      "post_acute": "Lung tissue continues to heal. Cough and mucus hypersecretion improve. Inflammatory markers decline.",
+      "normalizing": "Lung function approaches baseline. Without combustion exposure, the lungs recover most functional capacity."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Bronchial cilia are paralyzed by tobacco smoke components. Mucus accumulates without clearance. Goblet cells hypertrophy. Chronic bronchial inflammation establishes.",
+      "acute_withdrawal": "Cilia regain motility within 24-72 hours after the last cigarette. These cells, immobilized for years by tobacco smoke, actively sweep accumulated mucus again. Productive cough in weeks 1-3 is expected — the system is expelling residue.",
+      "post_acute": "Ciliary function continues to recover. Mucus clearance progressively normalizes. Bronchial inflammation declines. Goblet cell hypertrophy partially reverses.",
+      "normalizing": "Bronchial cilia function is largely restored. Mucus clearance and bronchial wall thickness approach baseline within 1-9 months in users without established chronic bronchitis."
+    },
+    "cannabis": {
+      "during_use": "Bronchial tissue is exposed to combustion products and cannabinoid receptor activation. Inflammation, irritation, and mucus production are elevated.",
+      "acute_withdrawal": "Bronchial inflammation begins to subside within days. Mucus production normalizes. Cannabinoid receptor activity in bronchial tissue ceases.",
+      "post_acute": "Bronchial healing continues. Cough and irritation symptoms improve progressively.",
+      "normalizing": "Bronchial function approaches baseline. Chronic irritation resolves. Cellular markers of inflammation normalize."
+    }
+  }
+}
