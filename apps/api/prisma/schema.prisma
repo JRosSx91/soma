@@ -60,6 +60,38 @@ enum ConfidenceLevel {
   low
 }
 
+enum Neurotransmitter {
+  dopamine
+  serotonin
+  gaba
+  glutamate
+  acetylcholine
+  norepinephrine
+  endocannabinoid
+  endorphin
+}
+
+enum WithdrawalPhase {
+  during_use
+  acute_withdrawal
+  post_acute
+  normalizing
+}
+
+enum NeurotransmitterDirection {
+  depleted
+  elevated
+  oscillating
+  normalizing
+}
+
+enum NeurotransmitterSeverity {
+  severe
+  moderate
+  mild
+  normalizing
+}
+
 enum AchievementTier {
   bronze
   silver
@@ -92,15 +124,16 @@ model User {
 // -----------------------------------------------------------------------------
 
 model Substance {
-  id               String            @id
-  name             String
-  category         SubstanceCategory
-  shortDescription String
+  id                       String            @id
+  name                     String
+  category                 SubstanceCategory
+  shortDescription         String
 
-  usages           SubstanceUsage[]
-  damageProfiles   OrganDamageProfile[]
-  recoveryCurves   OrganRecoveryCurve[]
-  achievements     Achievement[]
+  usages                   SubstanceUsage[]
+  damageProfiles           OrganDamageProfile[]
+  recoveryCurves           OrganRecoveryCurve[]
+  achievements             Achievement[]
+  neurotransmitterProfiles NeurotransmitterProfile[]
 }
 
 model SubstanceUsage {
@@ -185,4 +218,46 @@ model Achievement {
 
   @@index([triggerSubstanceId])
   @@index([triggerOrganId])
+}
+
+// -----------------------------------------------------------------------------
+// Neurotransmitter model
+// -----------------------------------------------------------------------------
+
+model NeurotransmitterProfile {
+  id               String                  @id @default(cuid())
+  substanceId      String
+  neurotransmitter Neurotransmitter
+  confidenceLevel  ConfidenceLevel
+  referenceSource  String
+
+  substance        Substance               @relation(fields: [substanceId], references: [id])
+  phases           NeurotransmitterPhase[]
+
+  @@unique([substanceId, neurotransmitter])
+  @@index([substanceId])
+}
+
+model NeurotransmitterPhase {
+  id          String                    @id @default(cuid())
+  profileId   String
+  phase       WithdrawalPhase
+
+  // Inclusive day boundaries from last-use date.
+  // endDay is null for the final phase (normalizing continues
+  // open-endedly until baseline is approximated).
+  startDay    Int
+  endDay      Int?
+
+  severity    NeurotransmitterSeverity
+  direction   NeurotransmitterDirection
+
+  // i18n key under the `neurotransmitter-phases` namespace.
+  // Format: <substanceId>.<neurotransmitter>.<phase>
+  // Example: cocaine.dopamine.acute_withdrawal
+  symptomKey  String
+
+  profile     NeurotransmitterProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId])
 }
