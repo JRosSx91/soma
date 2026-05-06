@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { NeurotransmitterStateModule } from './neurotransmitter-state/neurotransmitter-state.module.js';
+import { OrganNarrativeStateModule } from './organ-narrative-state/organ-narrative-state.module.js';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { NeurotransmitterStateModule } from './neurotransmitter-state/neurotrans
     AuthModule,
     ProfileModule,
     NeurotransmitterStateModule,
+    OrganNarrativeStateModule,
   ],
 })
 export class AppModule {}
