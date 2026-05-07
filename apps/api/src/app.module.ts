@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { NeurotransmitterStateModule } from './neurotransmitter-state/neurotransmitter-state.module.js';
 import { OrganNarrativeStateModule } from './organ-narrative-state/organ-narrative-state.module.js';
+import { AchievementsModule } from './achievements/achievements.module.js';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { OrganNarrativeStateModule } from './organ-narrative-state/organ-narrati
     ProfileModule,
     NeurotransmitterStateModule,
     OrganNarrativeStateModule,
+    AchievementsModule
   ],
 })
 export class AppModule {}
