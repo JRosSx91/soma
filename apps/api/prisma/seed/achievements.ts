@@ -255,6 +255,49 @@ export const ACHIEVEMENTS = [
     triggerSubstanceId: 'cocaine',
     triggerRecoveryThreshold: 0.80,
   },
+  // ---------------------------------------------------------------------------
+  // Caffeine
+  // ---------------------------------------------------------------------------
+  {
+    id: 'caffeine-vta-bronze',
+    tier: 'bronze' as const,
+    title: 'Adenosine receptors recalibrating',
+    physiologicalDescription:
+      'Adenosine A2A receptors, downregulated to compensate for chronic blockade by caffeine, begin restoring baseline density. Sleep pressure and natural alertness cycles are renormalizing.',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.30,
+  },
+  {
+    id: 'caffeine-vta-silver',
+    tier: 'silver' as const,
+    title: 'Adenosinergic balance restored',
+    physiologicalDescription:
+      'Adenosine receptor density has substantially normalized. Natural sleep onset, daytime alertness, and morning energy no longer require external stimulation.',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.75,
+  },
+  {
+    id: 'caffeine-heart-bronze',
+    tier: 'bronze' as const,
+    title: 'Resting cardiovascular tone normalized',
+    physiologicalDescription:
+      'Resting heart rate and blood pressure return to non-caffeinated baseline. Palpitations and caffeine-induced ectopic beats subside.',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.50,
+  },
+  {
+    id: 'caffeine-stomach-bronze',
+    tier: 'bronze' as const,
+    title: 'Gastric acid balance restored',
+    physiologicalDescription:
+      'Basal gastric acid secretion returns to normal range. Reflux and dyspepsia symptoms attributable to caffeine resolve.',
+    triggerOrganId: 'stomach',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.60,
+  },
 ] satisfies Array<{
   id: string;
   tier: 'bronze' | 'silver' | 'gold' | 'platinum';

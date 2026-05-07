@@ -329,6 +329,27 @@ export const RECOVERY_CURVES = [
     confidenceLevel: 'medium' as const,
     referenceSource: 'Hepatic recovery rapid in absence of coexisting alcohol use. [NEEDS-VERIFICATION]',
   },
+  // ---------------------------------------------------------------------------
+  // Caffeine
+  // ---------------------------------------------------------------------------
+  {
+    substanceId: 'caffeine',
+    organId: 'heart',
+    shape: 'logarithmic' as const,
+    daysTo95Recovery: 14,
+    recoveryCeiling: 1.00,
+    confidenceLevel: 'medium' as const,
+    referenceSource: 'AHA position; clinical reviews on caffeine cardiovascular effects. [NEEDS-VERIFICATION]',
+  },
+  {
+    substanceId: 'caffeine',
+    organId: 'stomach',
+    shape: 'logarithmic' as const,
+    daysTo95Recovery: 21,
+    recoveryCeiling: 1.00,
+    confidenceLevel: 'medium' as const,
+    referenceSource: 'ACG 2020; reviews on caffeine gastric mucosa recovery. [NEEDS-VERIFICATION]',
+  },
 ] satisfies Array<{
   substanceId: string;
   organId: string;

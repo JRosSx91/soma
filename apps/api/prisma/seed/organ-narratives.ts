@@ -128,6 +128,19 @@ const NARRATIVES: NarrativeDefinition[] = [
     confidenceLevel: 'medium',
     referenceSource: 'NIDA Marijuana Research Report',
   },
+  // Caffeine narratives
+{
+  organId: 'heart',
+  substanceId: 'caffeine',
+  confidenceLevel: 'medium',
+  referenceSource: 'AHA 2019 statement; Cano-Marquina et al. 2013'
+},
+{
+  organId: 'stomach',
+  substanceId: 'caffeine',
+  confidenceLevel: 'medium',
+  referenceSource: 'ACG 2020; clinical reviews on caffeine and gastric acid'
+},
 ];
 
 function buildNarrativeKey(

@@ -264,6 +264,23 @@ export const DAMAGE_PROFILES = [
     confidenceLevel: 'medium' as const,
     referenceSource: 'Cocaethylene formation in combined alcohol and cocaine use. [NEEDS-VERIFICATION]',
   },
+  // ---------------------------------------------------------------------------
+  // Caffeine — see docs/recovery-curves/caffeine.md
+  // ---------------------------------------------------------------------------
+  {
+    substanceId: 'caffeine',
+    organId: 'heart',
+    maxSeverity: 25,
+    confidenceLevel: 'medium' as const,
+    referenceSource: 'Cano-Marquina et al. (2013). The impact of coffee on health. AHA position on caffeine intake. [NEEDS-VERIFICATION]',
+  },
+  {
+    substanceId: 'caffeine',
+    organId: 'stomach',
+    maxSeverity: 30,
+    confidenceLevel: 'medium' as const,
+    referenceSource: 'ACG (2020). Reflux guidelines. Clinical reviews on caffeine and gastric acid secretion. [NEEDS-VERIFICATION]',
+  },
 ] satisfies Array<{
   substanceId: string;
   organId: string;

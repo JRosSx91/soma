@@ -35,6 +35,13 @@ export const SUBSTANCES = [
     shortDescription:
       'Potent stimulant that blocks monoamine reuptake. Chronic use strongly impacts the cardiovascular system and the dopaminergic reward circuits.',
   },
+  {
+    id: 'caffeine',
+    name: 'Caffeine',
+    category: 'stimulant' as const,
+    shortDescription:
+      'Adenosine receptor antagonist. Chronic use primarily affects the central nervous system through adenosinergic adaptation, with secondary effects on the cardiovascular and gastrointestinal systems.',
+  },
 ] satisfies Array<{
   id: string;
   name: string;
