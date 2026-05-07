@@ -46,7 +46,8 @@ type Neurotransmitter =
   | 'acetylcholine'
   | 'norepinephrine'
   | 'endocannabinoid'
-  | 'endorphin';
+  | 'endorphin'
+  | 'adenosine';
 
 interface PhaseDefinition {
   phase: Phase;
@@ -247,6 +248,33 @@ const PROFILES: ProfileDefinition[] = [
       makePhase('acute_withdrawal', 'mild',       'depleted'),
       makePhase('post_acute',       'mild',       'normalizing'),
       makePhase('normalizing',      'mild',       'normalizing'),
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  // Caffeine
+  // ---------------------------------------------------------------------------
+  {
+    substanceId: 'caffeine',
+    neurotransmitter: 'adenosine',
+    confidenceLevel: 'high',
+    referenceSource: 'Fredholm et al. 1999; Stahl 2021 ch. 14; Goodman & Gilman 14th ed.',
+    phases: [
+      makePhase('during_use',       'moderate', 'depleted'),
+      makePhase('acute_withdrawal', 'severe',   'elevated'),
+      makePhase('post_acute',       'moderate', 'elevated'),
+      makePhase('normalizing',      'mild',     'normalizing'),
+    ],
+  },
+  {
+    substanceId: 'caffeine',
+    neurotransmitter: 'dopamine',
+    confidenceLevel: 'medium',
+    referenceSource: 'Volkow et al. 2015 (caffeine and dopamine receptors)',
+    phases: [
+      makePhase('during_use',       'mild', 'elevated'), 
+      makePhase('acute_withdrawal', 'mild', 'depleted'),
+      makePhase('post_acute',       'mild', 'normalizing'),
+      makePhase('normalizing',      'mild', 'normalizing'),
     ],
   },
 ];

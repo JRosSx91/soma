@@ -14,5 +14,9 @@
   "cocaine": {
     "name": "Cocaine",
     "shortDescription": "Powerful stimulant that blocks dopamine reuptake. Damages the cardiovascular system and dopaminergic structures of the brain."
-  }
+  },
+"caffeine": {
+  "name": "Caffeine",
+  "shortDescription": "Adenosine receptor antagonist. Chronic use primarily affects the central nervous system through adenosinergic adaptation, with secondary effects on cardiovascular and gastrointestinal systems."
+}
 }

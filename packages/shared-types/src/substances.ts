@@ -20,7 +20,8 @@ export type SubstanceId =
   | 'alcohol'
   | 'nicotine'
   | 'cannabis'
-  | 'cocaine';
+  | 'cocaine'
+  | 'caffeine';
 
 export interface Substance {
   id: SubstanceId;

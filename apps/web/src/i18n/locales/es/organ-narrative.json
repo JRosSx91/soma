@@ -41,7 +41,13 @@
       "acute_withdrawal": "La secreción de ácido gástrico comienza a normalizarse en días. El flujo sanguíneo mucosal mejora a medida que la vasoconstricción nicotínica se resuelve. El tono del esfínter esofágico se recupera.",
       "post_acute": "El equilibrio ácido continúa estabilizándose. La mucosa gástrica cicatriza tras la insuficiencia vascular. Las úlceras preexistentes cicatrizan más rápido sin nicotina.",
       "normalizing": "La función gástrica y esofágica se aproxima a la línea base. El riesgo de enfermedad péptica desciende a niveles de no fumador."
-    }
+    },
+    "caffeine": {
+    "during_use": "La cafeína estimula la secreción de ácido gástrico y reduce el tono del esfínter esofágico inferior. La exposición de la mucosa a ácido elevado es crónica. Los síntomas de reflujo y dispepsia son comunes en individuos sensibles.",
+    "acute_withdrawal": "La secreción de ácido gástrico comienza a normalizarse en días. El tono del esfínter esofágico mejora.",
+    "post_acute": "El equilibrio mucosal continúa estabilizándose. La frecuencia del reflujo disminuye.",
+    "normalizing": "La función gástrica y esofágica se aproximan a la línea base. El equilibrio ácido se restaura."
+  }
   },
   "lungs": {
     "nicotine": {
@@ -70,5 +76,13 @@
       "post_acute": "La cicatrización bronquial continúa. La tos y los síntomas de irritación mejoran progresivamente.",
       "normalizing": "La función bronquial se aproxima a la línea base. La irritación crónica se resuelve. Los marcadores celulares de inflamación se normalizan."
     }
+  },
+  "heart": {
+  "caffeine": {
+    "during_use": "La cafeína eleva la frecuencia cardíaca y la presión arterial transitoriamente vía liberación de noradrenalina y efectos directos sobre el tejido cardíaco. Se desarrolla tolerancia a algunos efectos cardiovasculares pero no a todos. El riesgo de palpitaciones y arritmias es dosis-dependiente.",
+    "acute_withdrawal": "La frecuencia cardíaca y la presión arterial en reposo disminuyen. La vasoconstricción inducida por cafeína se resuelve. El ritmo cardíaco se estabiliza.",
+    "post_acute": "El tono cardiovascular continúa normalizándose. Las extrasístoles inducidas por cafeína remiten.",
+    "normalizing": "Los parámetros cardiovasculares en reposo regresan a la línea base sin cafeína. La sensibilidad a estimulantes se normaliza."
   }
+}
 }

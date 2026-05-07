@@ -12,12 +12,12 @@ import type { Neurotransmitter } from '@prisma/client';
  * neurotransmitter panel.
  */
 export const ORGAN_NEUROTRANSMITTERS: Record<string, Neurotransmitter[]> = {
-  'brain-prefrontal-cortex': ['dopamine', 'serotonin', 'norepinephrine'],
+  'brain-prefrontal-cortex': ['dopamine', 'serotonin', 'norepinephrine', 'adenosine'],
   'brain-vta': ['dopamine', 'gaba'],
   'brain-nucleus-accumbens': ['dopamine', 'endocannabinoid', 'endorphin'],
   'brain-amygdala': ['gaba', 'norepinephrine', 'serotonin'],
-  'brain-hippocampus': ['glutamate', 'acetylcholine'],
-  heart: ['norepinephrine'],
+  'brain-hippocampus': ['glutamate', 'acetylcholine', 'adenosine'],
+  heart: ['norepinephrine', 'adenosine'],
 };
 
 export function getNeurotransmittersForOrgan(

@@ -66,5 +66,17 @@
       "post_acute": "GABA balance is improving.",
       "normalizing": "GABA function is near baseline."
     }
+  },
+"caffeine": {
+  "adenosine": {
+    "acute_withdrawal": "What you may feel: headache (often severe), fatigue, drowsiness, difficulty concentrating, irritability. Peaks at 24-48 hours. Your adenosine receptors were upregulated to compensate for chronic blockade by caffeine; without caffeine, the accumulated adenosine signal hits hypersensitive receptors. The headache is real and predictable.",
+    "post_acute": "What you may feel: residual fatigue, mild concentration difficulty in the afternoon, occasional headache. Adenosine receptor density is gradually returning to baseline.",
+    "normalizing": "Adenosinergic balance approaches normal. Sleep pressure regulation, morning alertness, and afternoon energy stabilize without external stimulation."
+  },
+  "dopamine": {
+    "acute_withdrawal": "Mild motivational dip. The dopaminergic contribution of caffeine is indirect (via adenosine A2A receptors), so this phase is correspondingly mild.",
+    "post_acute": "Motivation stabilizes.",
+    "normalizing": "Dopamine function near baseline."
   }
+}
 }

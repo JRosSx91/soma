@@ -41,7 +41,13 @@
       "acute_withdrawal": "Gastric acid secretion begins to normalize within days. Mucosal blood flow improves as nicotinic vasoconstriction resolves. Esophageal sphincter tone recovers.",
       "post_acute": "Acid balance continues to stabilize. Gastric mucosa heals from vascular insufficiency. Pre-existing ulcers heal faster without nicotine.",
       "normalizing": "Gastric and esophageal function approach baseline. Risk of peptic disease drops to non-smoker levels."
-    }
+    },
+    "caffeine": {
+    "during_use": "Caffeine stimulates gastric acid secretion and lowers esophageal sphincter tone. Mucosal exposure to elevated acid is chronic. Reflux and dyspepsia symptoms are common in sensitive individuals.",
+    "acute_withdrawal": "Gastric acid secretion begins to normalize within days. Esophageal sphincter tone improves.",
+    "post_acute": "Mucosal balance continues to stabilize. Reflux frequency decreases.",
+    "normalizing": "Gastric and esophageal function approach baseline. Acid balance is restored."
+  }
   },
   "lungs": {
     "nicotine": {
@@ -70,5 +76,13 @@
       "post_acute": "Bronchial healing continues. Cough and irritation symptoms improve progressively.",
       "normalizing": "Bronchial function approaches baseline. Chronic irritation resolves. Cellular markers of inflammation normalize."
     }
+  },
+  "heart": {
+  "caffeine": {
+    "during_use": "Caffeine elevates heart rate and blood pressure transiently via norepinephrine release and direct effects on cardiac tissue. Tolerance develops to some cardiovascular effects but not all. Risk of palpitations and arrhythmias is dose-dependent.",
+    "acute_withdrawal": "Resting heart rate and blood pressure decrease. Vasoconstriction induced by caffeine resolves. Cardiac rhythm stabilizes.",
+    "post_acute": "Cardiovascular tone continues to normalize. Caffeine-induced ectopic beats subside.",
+    "normalizing": "Resting cardiovascular parameters return to non-caffeinated baseline. Sensitivity to stimulants normalizes."
   }
+}
 }

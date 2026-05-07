@@ -69,6 +69,7 @@ enum Neurotransmitter {
   norepinephrine
   endocannabinoid
   endorphin
+  adenosine
 }
 
 enum WithdrawalPhase {

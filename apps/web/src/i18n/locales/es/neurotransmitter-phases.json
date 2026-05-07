@@ -66,5 +66,17 @@
       "post_acute": "El equilibrio GABA está mejorando.",
       "normalizing": "La función GABA está cerca de la línea base."
     }
+  },
+"caffeine": {
+  "adenosine": {
+    "acute_withdrawal": "Qué puedes sentir: cefalea (a menudo intensa), fatiga, somnolencia, dificultad para concentrarse, irritabilidad. Pico a las 24-48 horas. Tus receptores de adenosina estaban upregulated para compensar el bloqueo crónico por cafeína; sin cafeína, la señal acumulada de adenosina golpea receptores hipersensibles. La cefalea es real y predecible.",
+    "post_acute": "Qué puedes sentir: fatiga residual, dificultad leve de concentración por la tarde, cefalea ocasional. La densidad de receptores de adenosina regresa gradualmente a la línea base.",
+    "normalizing": "El equilibrio adenosinérgico se aproxima a la normalidad. La regulación de la presión de sueño, la alerta matutina y la energía vespertina se estabilizan sin estimulación externa."
+  },
+  "dopamine": {
+    "acute_withdrawal": "Caída motivacional leve. La contribución dopaminérgica de la cafeína es indirecta (vía receptores A2A de adenosina), por lo que esta fase es correspondientemente leve.",
+    "post_acute": "La motivación se estabiliza.",
+    "normalizing": "Función de la dopamina cerca de la línea base."
   }
+}
 }

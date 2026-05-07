@@ -15,4 +15,9 @@
     "name": "Cocaína",
     "shortDescription": "Estimulante potente que bloquea la recaptación de dopamina. Daña el sistema cardiovascular y las estructuras dopaminérgicas del cerebro."
   }
+  ,
+"caffeine": {
+  "name": "Cafeína",
+  "shortDescription": "Antagonista de los receptores de adenosina. El uso crónico afecta principalmente al sistema nervioso central por adaptación adenosinérgica, con efectos secundarios en los sistemas cardiovascular y gastrointestinal."
+}
 }

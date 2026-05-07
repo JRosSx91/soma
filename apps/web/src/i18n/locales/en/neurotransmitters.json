@@ -30,5 +30,9 @@
   "endorphin": {
     "name": "Endorphin",
     "shortDescription": "Reward, pain modulation"
-  }
+  },
+"adenosine": {
+  "name": "Adenosine",
+  "shortDescription": "Sleep pressure, alertness regulation"
+}
 }
