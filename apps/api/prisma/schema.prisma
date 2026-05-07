@@ -116,6 +116,7 @@ model User {
   updatedAt      DateTime      @updatedAt
 
   usages         SubstanceUsage[]
+  achievements   UserAchievement[]
 
   @@index([email])
 }
@@ -218,6 +219,7 @@ model Achievement {
 
   triggerOrgan              Organ           @relation(fields: [triggerOrganId], references: [id])
   triggerSubstance          Substance       @relation(fields: [triggerSubstanceId], references: [id])
+  unlockedBy                UserAchievement[]
 
   @@index([triggerSubstanceId])
   @@index([triggerOrganId])
@@ -310,4 +312,42 @@ model OrganNarrativePhase {
   profile     OrganNarrativeProfile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@index([profileId])
+}
+
+// -----------------------------------------------------------------------------
+// User achievements
+// -----------------------------------------------------------------------------
+//
+// Persisted record of which achievements a user has unlocked, when, and
+// whether they have been notified about it. Calculated on-demand when
+// the user queries /me/achievements; new unlocks are inserted, existing
+// rows are not modified.
+//
+// `unlockedAt` reflects the actual date the recovery threshold was
+// crossed (computed by inverting the recovery curve from the user's
+// lastUseDate), not the time of detection.
+//
+// `notifiedAt` is null until the frontend (web) or push system (mobile)
+// surfaces the achievement to the user. PR 17 will set it.
+
+model UserAchievement {
+  id              String      @id @default(cuid())
+  userId          String
+  achievementId   String
+
+  // The actual date the user crossed the recovery threshold.
+  unlockedAt      DateTime
+
+  // Null until the user has been notified of this unlock.
+  // Set by frontend (web batch toast) or push notification system.
+  notifiedAt      DateTime?
+
+  createdAt       DateTime    @default(now())
+
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement     Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+  @@index([userId, notifiedAt])
 }
