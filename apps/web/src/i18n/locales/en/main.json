@@ -1,7 +1,15 @@
 {
   "header": {
-    "editProfile": "Edit profile"
+    "editProfile": "Edit profile",
+    "trophies": "Trophies",
+    "dashboard": "Dashboard"
   },
+  "trophies": {
+  "title": "Your trophies",
+  "unlockedRatio": "{{unlocked}} of {{total}} unlocked",
+  "unlockedOn": "Unlocked on {{date}}",
+  "lockedHint": "Reach {{percent}}% recovery in {{organ}}"
+},
   "panel": {
   "selectedOrgan": "Selected organ",
   "hoverPrompt": "Hover an organ",

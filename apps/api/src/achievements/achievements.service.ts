@@ -11,8 +11,8 @@ import {
 export interface AchievementWithUnlockState {
   id: string;
   tier: AchievementTier;
-  title: string;
-  physiologicalDescription: string;
+  titleKey: string;
+  descriptionKey: string;
   triggerOrganId: string;
   triggerSubstanceId: string;
   triggerRecoveryThreshold: number;
@@ -165,19 +165,19 @@ export class AchievementsService {
     }
 
     return achievements.map((a) => {
-      const unlock = unlockByAchievementId.get(a.id);
-      return {
-        id: a.id,
-        tier: a.tier,
-        title: a.title,
-        physiologicalDescription: a.physiologicalDescription,
-        triggerOrganId: a.triggerOrganId,
-        triggerSubstanceId: a.triggerSubstanceId,
-        triggerRecoveryThreshold: a.triggerRecoveryThreshold,
-        unlocked: !!unlock,
-        unlockedAt: unlock?.unlockedAt ?? null,
-        notifiedAt: unlock?.notifiedAt ?? null,
-      };
-    });
+  const unlock = unlockByAchievementId.get(a.id);
+  return {
+    id: a.id,
+    tier: a.tier,
+    titleKey: a.titleKey,
+    descriptionKey: a.descriptionKey,
+    triggerOrganId: a.triggerOrganId,
+    triggerSubstanceId: a.triggerSubstanceId,
+    triggerRecoveryThreshold: a.triggerRecoveryThreshold,
+    unlocked: !!unlock,
+    unlockedAt: unlock?.unlockedAt ?? null,
+    notifiedAt: unlock?.notifiedAt ?? null,
+  };
+});
   }
 }

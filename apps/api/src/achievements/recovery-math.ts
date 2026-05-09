@@ -129,4 +129,4 @@ export function daysBetween(fromDate: Date, toDate: Date): number {
 
 export function dateAfterDays(fromDate: Date, days: number): Date {
   return new Date(fromDate.getTime() + days * MS_PER_DAY);
-}
+}   

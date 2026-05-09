@@ -27,7 +27,9 @@ export function MainPage() {
   'neurotransmitter-phases',
   'phases',
   'organ-narrative',
+  'achievements',
 ]);
+
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const {
@@ -108,6 +110,12 @@ const hasNarrativeData = narrativeForSelected.length > 0;
         <div className="flex items-center gap-4">
           <LanguageSelector />
           <button
+            onClick={() => navigate('/achievements')}
+            className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
+          >
+            {t('main:header.trophies')}
+          </button>
+          <button
             onClick={() => navigate('/onboarding')}
             className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
           >
@@ -119,6 +127,7 @@ const hasNarrativeData = narrativeForSelected.length > 0;
           >
             {t('common:signOut')}
           </button>
+          
         </div>
       </header>
 
