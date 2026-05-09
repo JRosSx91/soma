@@ -4,6 +4,7 @@ import { RegisterPage } from './pages/RegisterPage.js';
 import { OnboardingPage } from './pages/OnboardingPage.js';
 import { MainPage } from './pages/MainPage.js';
 import { ProtectedRoute } from './components/ProtectedRoute.js';
+import { AchievementsPage } from './pages/AchievementsPage.js';
 
 function App() {
   return (
@@ -24,6 +25,14 @@ function App() {
           element={
             <ProtectedRoute>
               <MainPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/achievements"
+          element={
+            <ProtectedRoute>
+              <AchievementsPage />
             </ProtectedRoute>
           }
         />
