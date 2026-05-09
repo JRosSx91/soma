@@ -1,78 +1,241 @@
 import type { PrismaClient } from '@prisma/client';
 
 /**
- * Logros fisiológicos. Cada logro está vinculado a un par
- * (sustancia, órgano) y se dispara cuando la recuperación de ese
- * órgano alcanza un umbral concreto.
+ * Catálogo de logros fisiológicos. Cada logro está vinculado a un par
+ * (sustancia, órgano) y se dispara cuando la recuperación de ese órgano
+ * alcanza un umbral concreto.
  *
- * Los umbrales están expresados como porcentaje de recuperación:
- * 0.25 = 25% de recuperación del órgano respecto a su estado
- * dañado inicial.
+ * Los textos visibles para el usuario (título y descripción) viven en
+ * los archivos de i18n del frontend bajo el namespace `achievements`.
+ * Aquí solo guardamos las claves; el frontend las resuelve.
+ *
+ * Convención de claves:
+ *   title:       <achievement-id>.title
+ *   description: <achievement-id>.description
+ *
+ * Ejemplo: la fila con id "alcohol-liver-bronze" tiene:
+ *   titleKey       = "alcohol-liver-bronze.title"
+ *   descriptionKey = "alcohol-liver-bronze.description"
  */
 export const ACHIEVEMENTS = [
   // ---------------------------------------------------------------------------
   // Alcohol
   // ---------------------------------------------------------------------------
+
+  // BRONZE
   {
-    id: 'alcohol-liver-bronze',
+    id: 'alcohol-acute-survival-bronze',
     tier: 'bronze' as const,
-    title: 'First signs of hepatic recovery',
-    physiologicalDescription:
-      'Hepatic steatosis begins reversing within the first two weeks of abstinence. Lipid deposits are metabolized and hepatocyte function improves measurably.',
+    titleKey: 'alcohol-acute-survival-bronze.title',
+    descriptionKey: 'alcohol-acute-survival-bronze.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.05,
+  },
+  {
+    id: 'alcohol-liver-bronze-1',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-liver-bronze-1.title',
+    descriptionKey: 'alcohol-liver-bronze-1.description',
+    triggerOrganId: 'liver',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.10,
+  },
+  {
+    id: 'alcohol-vta-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-vta-bronze.title',
+    descriptionKey: 'alcohol-vta-bronze.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.15,
+  },
+  {
+    id: 'alcohol-liver-bronze-2',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-liver-bronze-2.title',
+    descriptionKey: 'alcohol-liver-bronze-2.description',
     triggerOrganId: 'liver',
     triggerSubstanceId: 'alcohol',
     triggerRecoveryThreshold: 0.25,
   },
   {
-    id: 'alcohol-liver-silver',
+    id: 'alcohol-prefrontal-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-prefrontal-bronze.title',
+    descriptionKey: 'alcohol-prefrontal-bronze.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.25,
+  },
+  {
+    id: 'alcohol-heart-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-heart-bronze.title',
+    descriptionKey: 'alcohol-heart-bronze.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.25,
+  },
+  {
+    id: 'alcohol-stomach-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-stomach-bronze.title',
+    descriptionKey: 'alcohol-stomach-bronze.description',
+    triggerOrganId: 'stomach',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.30,
+  },
+  {
+    id: 'alcohol-pancreas-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-pancreas-bronze.title',
+    descriptionKey: 'alcohol-pancreas-bronze.description',
+    triggerOrganId: 'pancreas',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.30,
+  },
+  {
+    id: 'alcohol-sleep-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'alcohol-sleep-bronze.title',
+    descriptionKey: 'alcohol-sleep-bronze.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.35,
+  },
+
+  // SILVER
+  {
+    id: 'alcohol-vta-silver',
     tier: 'silver' as const,
-    title: 'Liver function restored',
-    physiologicalDescription:
-      'Transaminase levels (ALT, AST) approach normal ranges. Liver fat content is substantially reduced.',
-    triggerOrganId: 'liver',
+    titleKey: 'alcohol-vta-silver.title',
+    descriptionKey: 'alcohol-vta-silver.description',
+    triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'alcohol',
     triggerRecoveryThreshold: 0.50,
   },
   {
-    id: 'alcohol-liver-gold',
-    tier: 'gold' as const,
-    title: 'Hepatic regeneration nearly complete',
-    physiologicalDescription:
-      'The liver has regenerated most of its functional tissue. Fibrosis, if mild, has partially reversed.',
-    triggerOrganId: 'liver',
-    triggerSubstanceId: 'alcohol',
-    triggerRecoveryThreshold: 0.80,
-  },
-  {
     id: 'alcohol-prefrontal-silver',
     tier: 'silver' as const,
-    title: 'Cognitive control recovering',
-    physiologicalDescription:
-      'Gray matter volume in the prefrontal cortex is increasing. Executive function, impulse control, and decision-making improve.',
+    titleKey: 'alcohol-prefrontal-silver.title',
+    descriptionKey: 'alcohol-prefrontal-silver.description',
     triggerOrganId: 'brain-prefrontal-cortex',
     triggerSubstanceId: 'alcohol',
     triggerRecoveryThreshold: 0.50,
   },
   {
+    id: 'alcohol-liver-silver',
+    tier: 'silver' as const,
+    titleKey: 'alcohol-liver-silver.title',
+    descriptionKey: 'alcohol-liver-silver.description',
+    triggerOrganId: 'liver',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.50,
+  },
+  {
+    id: 'alcohol-hippocampus-silver',
+    tier: 'silver' as const,
+    titleKey: 'alcohol-hippocampus-silver.title',
+    descriptionKey: 'alcohol-hippocampus-silver.description',
+    triggerOrganId: 'brain-hippocampus',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.50,
+  },
+  {
+    id: 'alcohol-heart-silver',
+    tier: 'silver' as const,
+    titleKey: 'alcohol-heart-silver.title',
+    descriptionKey: 'alcohol-heart-silver.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.60,
+  },
+  {
+    id: 'alcohol-prefrontal-silver-2',
+    tier: 'silver' as const,
+    titleKey: 'alcohol-prefrontal-silver-2.title',
+    descriptionKey: 'alcohol-prefrontal-silver-2.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.65,
+  },
+  {
+    id: 'alcohol-pancreas-silver',
+    tier: 'silver' as const,
+    titleKey: 'alcohol-pancreas-silver.title',
+    descriptionKey: 'alcohol-pancreas-silver.description',
+    triggerOrganId: 'pancreas',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.65,
+  },
+  {
+    id: 'alcohol-stomach-silver',
+    tier: 'silver' as const,
+    titleKey: 'alcohol-stomach-silver.title',
+    descriptionKey: 'alcohol-stomach-silver.description',
+    triggerOrganId: 'stomach',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.70,
+  },
+
+  // GOLD
+  {
+    id: 'alcohol-hippocampus-gold',
+    tier: 'gold' as const,
+    titleKey: 'alcohol-hippocampus-gold.title',
+    descriptionKey: 'alcohol-hippocampus-gold.description',
+    triggerOrganId: 'brain-hippocampus',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.75,
+  },
+  {
+    id: 'alcohol-liver-gold',
+    tier: 'gold' as const,
+    titleKey: 'alcohol-liver-gold.title',
+    descriptionKey: 'alcohol-liver-gold.description',
+    triggerOrganId: 'liver',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.80,
+  },
+  {
     id: 'alcohol-vta-gold',
     tier: 'gold' as const,
-    title: 'Reward system recalibrating',
-    physiologicalDescription:
-      'Dopamine receptor density is approaching baseline. Natural rewards begin to feel meaningful again, reducing anhedonia.',
+    titleKey: 'alcohol-vta-gold.title',
+    descriptionKey: 'alcohol-vta-gold.description',
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'alcohol',
     triggerRecoveryThreshold: 0.80,
+  },
+
+  // PLATINUM
+  {
+    id: 'alcohol-sovereignty-platinum',
+    tier: 'platinum' as const,
+    titleKey: 'alcohol-sovereignty-platinum.title',
+    descriptionKey: 'alcohol-sovereignty-platinum.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'alcohol',
+    triggerRecoveryThreshold: 0.99,
   },
 
   // ---------------------------------------------------------------------------
   // Nicotine
   // ---------------------------------------------------------------------------
   {
-    id: 'nicotine-bronchi-bronze',
+    id: 'nicotine-bronchi-bronze-1',
     tier: 'bronze' as const,
-    title: 'Cilia awakening',
-    physiologicalDescription:
-      'Within 72 hours of cessation, bronchial cilia begin restoring their rhythmic motion. The mucociliary escalator starts clearing accumulated tar and particulates.',
+    titleKey: 'nicotine-bronchi-bronze-1.title',
+    descriptionKey: 'nicotine-bronchi-bronze-1.description',
+    triggerOrganId: 'bronchi',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.10,
+  },
+  {
+    id: 'nicotine-bronchi-bronze-2',
+    tier: 'bronze' as const,
+    titleKey: 'nicotine-bronchi-bronze-2.title',
+    descriptionKey: 'nicotine-bronchi-bronze-2.description',
     triggerOrganId: 'bronchi',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.20,
@@ -80,39 +243,80 @@ export const ACHIEVEMENTS = [
   {
     id: 'nicotine-bronchi-silver',
     tier: 'silver' as const,
-    title: 'Breathing easier',
-    physiologicalDescription:
-      'Bronchial mucosa has largely recovered. Chronic cough reduces, exercise tolerance noticeably improves.',
+    titleKey: 'nicotine-bronchi-silver.title',
+    descriptionKey: 'nicotine-bronchi-silver.description',
     triggerOrganId: 'bronchi',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.60,
   },
   {
+    id: 'nicotine-lungs-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'nicotine-lungs-bronze.title',
+    descriptionKey: 'nicotine-lungs-bronze.description',
+    triggerOrganId: 'lungs',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.25,
+  },
+  {
     id: 'nicotine-lungs-silver',
     tier: 'silver' as const,
-    title: 'Pulmonary capacity rebounding',
-    physiologicalDescription:
-      'Forced expiratory volume (FEV1) is improving. The rate of age-related lung function decline has normalized to that of a non-smoker.',
+    titleKey: 'nicotine-lungs-silver.title',
+    descriptionKey: 'nicotine-lungs-silver.description',
     triggerOrganId: 'lungs',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.50,
   },
   {
+    id: 'nicotine-lungs-gold',
+    tier: 'gold' as const,
+    titleKey: 'nicotine-lungs-gold.title',
+    descriptionKey: 'nicotine-lungs-gold.description',
+    triggerOrganId: 'lungs',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.75,
+  },
+  {
+    id: 'nicotine-heart-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'nicotine-heart-bronze.title',
+    descriptionKey: 'nicotine-heart-bronze.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.30,
+  },
+  {
+    id: 'nicotine-heart-silver',
+    tier: 'silver' as const,
+    titleKey: 'nicotine-heart-silver.title',
+    descriptionKey: 'nicotine-heart-silver.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.55,
+  },
+  {
     id: 'nicotine-heart-gold',
     tier: 'gold' as const,
-    title: 'Cardiovascular risk halved',
-    physiologicalDescription:
-      'The risk of myocardial infarction has dropped dramatically. Platelet aggregation, endothelial function, and lipid profiles are approaching non-smoker ranges.',
+    titleKey: 'nicotine-heart-gold.title',
+    descriptionKey: 'nicotine-heart-gold.description',
     triggerOrganId: 'heart',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.70,
   },
   {
+    id: 'nicotine-vta-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'nicotine-vta-bronze.title',
+    descriptionKey: 'nicotine-vta-bronze.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.30,
+  },
+  {
     id: 'nicotine-vta-silver',
     tier: 'silver' as const,
-    title: 'Nicotinic receptors recalibrating',
-    physiologicalDescription:
-      'Upregulated nicotinic acetylcholine receptors are returning to baseline density. Cravings intensity and frequency are decreasing measurably.',
+    titleKey: 'nicotine-vta-silver.title',
+    descriptionKey: 'nicotine-vta-silver.description',
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.60,
@@ -120,170 +324,389 @@ export const ACHIEVEMENTS = [
   {
     id: 'nicotine-vta-gold',
     tier: 'gold' as const,
-    title: 'Reward system restored',
-    physiologicalDescription:
-      'Dopamine release in response to natural rewards is normalizing. The brain no longer depends on nicotine to trigger pleasure responses.',
+    titleKey: 'nicotine-vta-gold.title',
+    descriptionKey: 'nicotine-vta-gold.description',
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.85,
+  },
+  // PLATINUM
+  {
+    id: 'nicotine-sovereignty-platinum',
+    tier: 'platinum' as const,
+    titleKey: 'nicotine-sovereignty-platinum.title',
+    descriptionKey: 'nicotine-sovereignty-platinum.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'nicotine',
+    triggerRecoveryThreshold: 0.99,
   },
 
   // ---------------------------------------------------------------------------
   // Cannabis
   // ---------------------------------------------------------------------------
+
+  // BRONZE
   {
-    id: 'cannabis-vta-bronze',
+    id: 'cannabis-vta-bronze-1',
     tier: 'bronze' as const,
-    title: 'CB1 receptors awakening',
-    physiologicalDescription:
-      'Downregulated CB1 receptors in the reward system are beginning to restore density. The brain is regaining sensitivity to its own endocannabinoid signaling.',
+    titleKey: 'cannabis-vta-bronze-1.title',
+    descriptionKey: 'cannabis-vta-bronze-1.description',
     triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.10,
+  },
+  {
+    id: 'cannabis-prefrontal-bronze-1',
+    tier: 'bronze' as const,
+    titleKey: 'cannabis-prefrontal-bronze-1.title',
+    descriptionKey: 'cannabis-prefrontal-bronze-1.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.15,
+  },
+  {
+    id: 'cannabis-bronchi-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'cannabis-bronchi-bronze.title',
+    descriptionKey: 'cannabis-bronchi-bronze.description',
+    triggerOrganId: 'bronchi',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.25,
+  },
+  {
+    id: 'cannabis-hippocampus-bronze',
+    tier: 'bronze' as const,
+    titleKey: 'cannabis-hippocampus-bronze.title',
+    descriptionKey: 'cannabis-hippocampus-bronze.description',
+    triggerOrganId: 'brain-hippocampus',
     triggerSubstanceId: 'cannabis',
     triggerRecoveryThreshold: 0.30,
   },
   {
-    id: 'cannabis-vta-silver',
+    id: 'cannabis-vta-bronze-2',
+    tier: 'bronze' as const,
+    titleKey: 'cannabis-vta-bronze-2.title',
+    descriptionKey: 'cannabis-vta-bronze-2.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.30,
+  },
+
+  // SILVER
+  {
+    id: 'cannabis-prefrontal-silver-1',
     tier: 'silver' as const,
-    title: 'Endocannabinoid system restored',
-    physiologicalDescription:
-      'CB1 receptor density has largely normalized. Natural rewards — food, social connection, physical activity — regain their full motivational weight.',
+    titleKey: 'cannabis-prefrontal-silver-1.title',
+    descriptionKey: 'cannabis-prefrontal-silver-1.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.50,
+  },
+  {
+    id: 'cannabis-hippocampus-silver',
+    tier: 'silver' as const,
+    titleKey: 'cannabis-hippocampus-silver.title',
+    descriptionKey: 'cannabis-hippocampus-silver.description',
+    triggerOrganId: 'brain-hippocampus',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.55,
+  },
+  {
+    id: 'cannabis-bronchi-silver',
+    tier: 'silver' as const,
+    titleKey: 'cannabis-bronchi-silver.title',
+    descriptionKey: 'cannabis-bronchi-silver.description',
+    triggerOrganId: 'bronchi',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.60,
+  },
+  {
+    id: 'cannabis-prefrontal-silver-2',
+    tier: 'silver' as const,
+    titleKey: 'cannabis-prefrontal-silver-2.title',
+    descriptionKey: 'cannabis-prefrontal-silver-2.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.65,
+  },
+  {
+    id: 'cannabis-vta-silver-1',
+    tier: 'silver' as const,
+    titleKey: 'cannabis-vta-silver-1.title',
+    descriptionKey: 'cannabis-vta-silver-1.description',
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cannabis',
     triggerRecoveryThreshold: 0.70,
   },
   {
-    id: 'cannabis-prefrontal-silver',
+    id: 'cannabis-vta-silver-2',
     tier: 'silver' as const,
-    title: 'Executive function sharpening',
-    physiologicalDescription:
-      'Prefrontal cortex activity patterns are normalizing. Working memory, attention, and planning capabilities improve measurably.',
-    triggerOrganId: 'brain-prefrontal-cortex',
+    titleKey: 'cannabis-vta-silver-2.title',
+    descriptionKey: 'cannabis-vta-silver-2.description',
+    triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cannabis',
-    triggerRecoveryThreshold: 0.50,
+    triggerRecoveryThreshold: 0.80,
   },
+
+  // GOLD
   {
     id: 'cannabis-hippocampus-gold',
     tier: 'gold' as const,
-    title: 'Memory consolidation restored',
-    physiologicalDescription:
-      'Hippocampal structure and function are approaching baseline. Short-term memory encoding and spatial memory show sustained improvement.',
+    titleKey: 'cannabis-hippocampus-gold.title',
+    descriptionKey: 'cannabis-hippocampus-gold.description',
     triggerOrganId: 'brain-hippocampus',
     triggerSubstanceId: 'cannabis',
     triggerRecoveryThreshold: 0.75,
   },
   {
-    id: 'cannabis-bronchi-silver',
-    tier: 'silver' as const,
-    title: 'Airways clearing',
-    physiologicalDescription:
-      'Chronic bronchitis symptoms — cough, sputum production, wheeze — are resolving. Bronchial inflammation markers return toward baseline.',
-    triggerOrganId: 'bronchi',
-    triggerSubstanceId: 'cannabis',
-    triggerRecoveryThreshold: 0.60,
-  },
-
-  // ---------------------------------------------------------------------------
-  // Cocaine
-  // ---------------------------------------------------------------------------
-  {
-    id: 'cocaine-heart-bronze',
-    tier: 'bronze' as const,
-    title: 'Blood pressure normalizing',
-    physiologicalDescription:
-      'Resting blood pressure and heart rate are returning to baseline. Acute cardiovascular risk from each day of use has been eliminated.',
-    triggerOrganId: 'heart',
-    triggerSubstanceId: 'cocaine',
-    triggerRecoveryThreshold: 0.25,
-  },
-  {
-    id: 'cocaine-heart-silver',
-    tier: 'silver' as const,
-    title: 'Endothelial function recovering',
-    physiologicalDescription:
-      'The inner lining of blood vessels is healing. Vasospasm risk is decreasing, and circulation is improving measurably.',
-    triggerOrganId: 'heart',
-    triggerSubstanceId: 'cocaine',
-    triggerRecoveryThreshold: 0.50,
-  },
-  {
-    id: 'cocaine-vta-bronze',
-    tier: 'bronze' as const,
-    title: 'First dopamine rebound',
-    physiologicalDescription:
-      'Dopamine D2 receptor density is beginning to recover from the deep downregulation caused by chronic stimulant use.',
-    triggerOrganId: 'brain-vta',
-    triggerSubstanceId: 'cocaine',
-    triggerRecoveryThreshold: 0.25,
-  },
-  {
-    id: 'cocaine-vta-silver',
-    tier: 'silver' as const,
-    title: 'Reward system rebuilding',
-    physiologicalDescription:
-      'Substantial recovery of striatal dopamine signaling. Natural rewards — food, music, social connection, exercise — are regaining their motivational salience.',
-    triggerOrganId: 'brain-vta',
-    triggerSubstanceId: 'cocaine',
-    triggerRecoveryThreshold: 0.60,
-  },
-  {
-    id: 'cocaine-vta-gold',
+    id: 'cannabis-prefrontal-gold',
     tier: 'gold' as const,
-    title: 'Dopaminergic system restored',
-    physiologicalDescription:
-      'D2 receptor availability has reached near-baseline levels. The anhedonia characteristic of early abstinence has substantially resolved.',
-    triggerOrganId: 'brain-vta',
-    triggerSubstanceId: 'cocaine',
+    titleKey: 'cannabis-prefrontal-gold.title',
+    descriptionKey: 'cannabis-prefrontal-gold.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cannabis',
     triggerRecoveryThreshold: 0.85,
   },
   {
-    id: 'cocaine-prefrontal-silver',
-    tier: 'silver' as const,
-    title: 'Executive function recovering',
-    physiologicalDescription:
-      'Prefrontal cortex activity patterns are normalizing. Impulse control, working memory, and decision-making show sustained improvement.',
-    triggerOrganId: 'brain-prefrontal-cortex',
+    id: 'cannabis-vta-gold',
+    tier: 'gold' as const,
+    titleKey: 'cannabis-vta-gold.title',
+    descriptionKey: 'cannabis-vta-gold.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.90,
+  },
+
+  // PLATINUM
+  {
+    id: 'cannabis-sovereignty-platinum',
+    tier: 'platinum' as const,
+    titleKey: 'cannabis-sovereignty-platinum.title',
+    descriptionKey: 'cannabis-sovereignty-platinum.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cannabis',
+    triggerRecoveryThreshold: 0.99,
+  },
+  // ---------------------------------------------------------------------------
+  // Cocaine
+  // ---------------------------------------------------------------------------
+
+  // BRONZE
+  {
+    id: 'cocaine-vta-bronze-1',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-vta-bronze-1.title',
+    descriptionKey: 'cocaine-vta-bronze-1.description',
+    triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cocaine',
-    triggerRecoveryThreshold: 0.50,
+    triggerRecoveryThreshold: 0.05,
   },
   {
-    id: 'cocaine-prefrontal-gold',
-    tier: 'gold' as const,
-    title: 'Cognitive control restored',
-    physiologicalDescription:
-      'Executive function has largely normalized. Cue-reactivity and craving intensity are substantially reduced.',
+    id: 'cocaine-heart-bronze-1',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-heart-bronze-1.title',
+    descriptionKey: 'cocaine-heart-bronze-1.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.10,
+  },
+  {
+    id: 'cocaine-heart-bronze-2',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-heart-bronze-2.title',
+    descriptionKey: 'cocaine-heart-bronze-2.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.15,
+  },
+  {
+    id: 'cocaine-bronchi-bronze-1',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-bronchi-bronze-1.title',
+    descriptionKey: 'cocaine-bronchi-bronze-1.description',
+    triggerOrganId: 'bronchi',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.20,
+  },
+  {
+    id: 'cocaine-vta-bronze-2',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-vta-bronze-2.title',
+    descriptionKey: 'cocaine-vta-bronze-2.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.30,
+  },
+  {
+    id: 'cocaine-vta-bronze-3',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-vta-bronze-3.title',
+    descriptionKey: 'cocaine-vta-bronze-3.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.35,
+  },
+  {
+    id: 'cocaine-heart-bronze-3',
+    tier: 'bronze' as const,
+    titleKey: 'cocaine-heart-bronze-3.title',
+    descriptionKey: 'cocaine-heart-bronze-3.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.20,
+  },
+
+  // SILVER
+  {
+    id: 'cocaine-prefrontal-silver-1',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-prefrontal-silver-1.title',
+    descriptionKey: 'cocaine-prefrontal-silver-1.description',
     triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.40,
+  },
+  {
+    id: 'cocaine-heart-silver-1',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-heart-silver-1.title',
+    descriptionKey: 'cocaine-heart-silver-1.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.45,
+  },
+  {
+    id: 'cocaine-prefrontal-silver-2',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-prefrontal-silver-2.title',
+    descriptionKey: 'cocaine-prefrontal-silver-2.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.55,
+  },
+  {
+    id: 'cocaine-vta-silver-1',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-vta-silver-1.title',
+    descriptionKey: 'cocaine-vta-silver-1.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.65,
+  },
+  {
+    id: 'cocaine-prefrontal-silver-3',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-prefrontal-silver-3.title',
+    descriptionKey: 'cocaine-prefrontal-silver-3.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.60,
+  },
+  {
+    id: 'cocaine-prefrontal-silver-4',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-prefrontal-silver-4.title',
+    descriptionKey: 'cocaine-prefrontal-silver-4.description',
+    triggerOrganId: 'brain-prefrontal-cortex',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.65,
+  },
+  {
+    id: 'cocaine-heart-silver-2',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-heart-silver-2.title',
+    descriptionKey: 'cocaine-heart-silver-2.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.60,
+  },
+  {
+    id: 'cocaine-heart-silver-3',
+    tier: 'silver' as const,
+    titleKey: 'cocaine-heart-silver-3.title',
+    descriptionKey: 'cocaine-heart-silver-3.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.70,
+  },
+
+  // GOLD
+  {
+    id: 'cocaine-hippocampus-gold-1',
+    tier: 'gold' as const,
+    titleKey: 'cocaine-hippocampus-gold-1.title',
+    descriptionKey: 'cocaine-hippocampus-gold-1.description',
+    triggerOrganId: 'brain-hippocampus',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.75,
+  },
+  {
+    id: 'cocaine-vta-gold-1',
+    tier: 'gold' as const,
+    titleKey: 'cocaine-vta-gold-1.title',
+    descriptionKey: 'cocaine-vta-gold-1.description',
+    triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cocaine',
     triggerRecoveryThreshold: 0.80,
   },
+  {
+    id: 'cocaine-heart-gold-1',
+    tier: 'gold' as const,
+    titleKey: 'cocaine-heart-gold-1.title',
+    descriptionKey: 'cocaine-heart-gold-1.description',
+    triggerOrganId: 'heart',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.90,
+  },
+  {
+    id: 'cocaine-liver-gold-1',
+    tier: 'gold' as const,
+    titleKey: 'cocaine-liver-gold-1.title',
+    descriptionKey: 'cocaine-liver-gold-1.description',
+    triggerOrganId: 'liver',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.92,
+  },
+
+  // PLATINUM
+  {
+    id: 'cocaine-sovereignty-platinum',
+    tier: 'platinum' as const,
+    titleKey: 'cocaine-sovereignty-platinum.title',
+    descriptionKey: 'cocaine-sovereignty-platinum.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'cocaine',
+    triggerRecoveryThreshold: 0.99,
+  },
+
   // ---------------------------------------------------------------------------
   // Caffeine
   // ---------------------------------------------------------------------------
+
+  // BRONZE
   {
-    id: 'caffeine-vta-bronze',
+    id: 'caffeine-vta-bronze-1',
     tier: 'bronze' as const,
-    title: 'Adenosine receptors recalibrating',
-    physiologicalDescription:
-      'Adenosine A2A receptors, downregulated to compensate for chronic blockade by caffeine, begin restoring baseline density. Sleep pressure and natural alertness cycles are renormalizing.',
+    titleKey: 'caffeine-vta-bronze-1.title',
+    descriptionKey: 'caffeine-vta-bronze-1.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.10,
+  },
+  {
+    id: 'caffeine-vta-bronze-2',
+    tier: 'bronze' as const,
+    titleKey: 'caffeine-vta-bronze-2.title',
+    descriptionKey: 'caffeine-vta-bronze-2.description',
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'caffeine',
     triggerRecoveryThreshold: 0.30,
   },
   {
-    id: 'caffeine-vta-silver',
-    tier: 'silver' as const,
-    title: 'Adenosinergic balance restored',
-    physiologicalDescription:
-      'Adenosine receptor density has substantially normalized. Natural sleep onset, daytime alertness, and morning energy no longer require external stimulation.',
-    triggerOrganId: 'brain-vta',
-    triggerSubstanceId: 'caffeine',
-    triggerRecoveryThreshold: 0.75,
-  },
-  {
     id: 'caffeine-heart-bronze',
     tier: 'bronze' as const,
-    title: 'Resting cardiovascular tone normalized',
-    physiologicalDescription:
-      'Resting heart rate and blood pressure return to non-caffeinated baseline. Palpitations and caffeine-induced ectopic beats subside.',
+    titleKey: 'caffeine-heart-bronze.title',
+    descriptionKey: 'caffeine-heart-bronze.description',
     triggerOrganId: 'heart',
     triggerSubstanceId: 'caffeine',
     triggerRecoveryThreshold: 0.50,
@@ -291,29 +714,70 @@ export const ACHIEVEMENTS = [
   {
     id: 'caffeine-stomach-bronze',
     tier: 'bronze' as const,
-    title: 'Gastric acid balance restored',
-    physiologicalDescription:
-      'Basal gastric acid secretion returns to normal range. Reflux and dyspepsia symptoms attributable to caffeine resolve.',
+    titleKey: 'caffeine-stomach-bronze.title',
+    descriptionKey: 'caffeine-stomach-bronze.description',
     triggerOrganId: 'stomach',
     triggerSubstanceId: 'caffeine',
     triggerRecoveryThreshold: 0.60,
   },
+
+  // SILVER
+  {
+    id: 'caffeine-vta-silver-1',
+    tier: 'silver' as const,
+    titleKey: 'caffeine-vta-silver-1.title',
+    descriptionKey: 'caffeine-vta-silver-1.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.55,
+  },
+  {
+    id: 'caffeine-vta-silver-2',
+    tier: 'silver' as const,
+    titleKey: 'caffeine-vta-silver-2.title',
+    descriptionKey: 'caffeine-vta-silver-2.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.75,
+  },
+  {
+    id: 'caffeine-vta-silver-3',
+    tier: 'silver' as const,
+    titleKey: 'caffeine-vta-silver-3.title',
+    descriptionKey: 'caffeine-vta-silver-3.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.85,
+  },
+  {
+    id: 'caffeine-vta-silver-4',
+    tier: 'silver' as const,
+    titleKey: 'caffeine-vta-silver-4.title',
+    descriptionKey: 'caffeine-vta-silver-4.description',
+    triggerOrganId: 'brain-vta',
+    triggerSubstanceId: 'caffeine',
+    triggerRecoveryThreshold: 0.95,
+  },
 ] satisfies Array<{
   id: string;
   tier: 'bronze' | 'silver' | 'gold' | 'platinum';
-  title: string;
-  physiologicalDescription: string;
+  titleKey: string;
+  descriptionKey: string;
   triggerOrganId: string;
   triggerSubstanceId: string;
   triggerRecoveryThreshold: number;
 }>;
 
 export async function seedAchievements(prisma: PrismaClient): Promise<void> {
+  // Achievements are reference data — wipe and recreate on every seed
+  // run so the DB exactly mirrors the catalog defined here.
+  // UserAchievement rows referencing deleted achievements would be
+  // orphaned, so we delete them too. Users get their unlocks
+  // recomputed on next login (the detection service is idempotent).
+  await prisma.userAchievement.deleteMany();
+  await prisma.achievement.deleteMany();
+
   for (const achievement of ACHIEVEMENTS) {
-    await prisma.achievement.upsert({
-      where: { id: achievement.id },
-      create: achievement,
-      update: achievement,
-    });
+    await prisma.achievement.create({ data: achievement });
   }
 }
