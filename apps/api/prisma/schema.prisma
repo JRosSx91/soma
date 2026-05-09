@@ -211,8 +211,13 @@ model OrganRecoveryCurve {
 model Achievement {
   id                        String          @id
   tier                      AchievementTier
-  title                     String
-  physiologicalDescription  String
+
+  // i18n keys under the `achievements` namespace.
+  // Format: <achievement-id>.title and <achievement-id>.description
+  // Example key path: achievements.alcohol-liver-bronze.title
+  titleKey                  String
+  descriptionKey            String
+
   triggerOrganId            String
   triggerSubstanceId        String
   triggerRecoveryThreshold  Float
