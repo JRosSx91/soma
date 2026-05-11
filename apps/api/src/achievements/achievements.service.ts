@@ -181,4 +181,29 @@ export class AchievementsService {
       };
     });
   }
+
+  /**
+   * Marks the given achievements as notified for this user. Used by
+   * the frontend after surfacing trophy unlock toasts to the user.
+   * Only achievements actually owned by the user are updated — passing
+   * arbitrary IDs is a no-op for entries that don't belong to them.
+   */
+  async markAsNotified(
+    userId: string,
+    achievementIds: string[],
+  ): Promise<{ updated: number }> {
+    if (achievementIds.length === 0) return { updated: 0 };
+
+    const now = new Date();
+    const result = await this.prisma.userAchievement.updateMany({
+      where: {
+        userId,
+        achievementId: { in: achievementIds },
+        notifiedAt: null,
+      },
+      data: { notifiedAt: now },
+    });
+
+    return { updated: result.count };
+  }
 }
