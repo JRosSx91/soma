@@ -3,8 +3,8 @@ import { LoginPage } from './pages/LoginPage.js';
 import { RegisterPage } from './pages/RegisterPage.js';
 import { OnboardingPage } from './pages/OnboardingPage.js';
 import { MainPage } from './pages/MainPage.js';
-import { ProtectedRoute } from './components/ProtectedRoute.js';
 import { AchievementsPage } from './pages/AchievementsPage.js';
+import { ProtectedLayout } from './components/ProtectedLayout.js';
 
 function App() {
   return (
@@ -12,30 +12,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="/onboarding"
-          element={
-            <ProtectedRoute>
-              <OnboardingPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <MainPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/achievements"
-          element={
-            <ProtectedRoute>
-              <AchievementsPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route element={<ProtectedLayout />}>
+          <Route path="/onboarding" element={<OnboardingPage />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
