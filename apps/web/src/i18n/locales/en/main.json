@@ -9,7 +9,10 @@
   "unlockedRatio": "{{unlocked}} of {{total}} unlocked",
   "unlockedOn": "Unlocked on {{date}}",
   "lockedHint": "Reach {{percent}}% recovery in {{organ}}",
-  "hiddenHint": "Hidden trophy"
+  "hiddenHint": "Hidden trophy",
+  "toastEyebrow": "NEW TROPHY",
+  "toastDismiss": "Dismiss",
+  "toastDismissAll": "Mark all {{count}} as seen"
 },
   "panel": {
   "selectedOrgan": "Selected organ",

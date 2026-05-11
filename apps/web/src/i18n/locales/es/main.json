@@ -9,7 +9,10 @@
   "unlockedRatio": "{{unlocked}} de {{total}} desbloqueados",
   "unlockedOn": "Conseguido el {{date}}",
   "lockedHint": "Alcanza {{percent}}% de recuperación en {{organ}}",
-  "hiddenHint": "Trofeo oculto"
+  "hiddenHint": "Trofeo oculto",
+  "toastEyebrow": "NUEVO TROFEO",
+  "toastDismiss": "Descartar",
+  "toastDismissAll": "Marcar los {{count}} como vistos"
 },
   "panel": {
   "selectedOrgan": "Órgano seleccionado",
