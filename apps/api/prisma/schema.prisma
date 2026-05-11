@@ -226,6 +226,8 @@ model Achievement {
   triggerSubstance          Substance       @relation(fields: [triggerSubstanceId], references: [id])
   unlockedBy                UserAchievement[]
 
+  hidden Boolean @default(false)
+
   @@index([triggerSubstanceId])
   @@index([triggerOrganId])
 }
