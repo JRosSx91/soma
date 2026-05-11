@@ -11,8 +11,19 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
   const { t, i18n } = useTranslation(['achievements', 'main', 'organs']);
   const [expanded, setExpanded] = useState(false);
 
-  const title = t(`achievements:${achievement.titleKey}`);
-  const description = t(`achievements:${achievement.descriptionKey}`);
+  // A trophy is "hidden from the user's perspective" only when it's
+  // both flagged as hidden and not yet unlocked. Once unlocked, the
+  // full text is revealed regardless.
+  const isHidden = achievement.hidden && !achievement.unlocked;
+
+  const title = isHidden
+    ? t('achievements:hidden.title')
+    : t(`achievements:${achievement.titleKey}`);
+
+  const description = isHidden
+    ? t('achievements:hidden.description')
+    : t(`achievements:${achievement.descriptionKey}`);
+
   const organName = t(`organs:${achievement.triggerOrganId}`, {
     defaultValue: achievement.triggerOrganId,
   });
@@ -48,7 +59,6 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
           unlocked={achievement.unlocked}
           size={48}
         />
-
         <div className="flex-1 min-w-0">
           <p
             className={`text-sm ${
@@ -62,13 +72,14 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
           <p className="text-[11px] text-soma-fg-muted mt-0.5">
             {achievement.unlocked && unlockedDate
               ? t('main:trophies.unlockedOn', { date: unlockedDate })
-              : t('main:trophies.lockedHint', {
-                  organ: organName,
-                  percent: thresholdPercent,
-                })}
+              : isHidden
+                ? t('main:trophies.hiddenHint')
+                : t('main:trophies.lockedHint', {
+                    organ: organName,
+                    percent: thresholdPercent,
+                  })}
           </p>
         </div>
-
         <span
           className="text-soma-fg-muted text-xs"
           aria-hidden="true"
@@ -76,7 +87,6 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
           {expanded ? '▴' : '▾'}
         </span>
       </button>
-
       {expanded && (
         <div className="px-3 pb-4 pt-1 text-xs text-soma-fg-secondary leading-relaxed border-t border-soma-border-subtle/40">
           {description}

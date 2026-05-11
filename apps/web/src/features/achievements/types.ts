@@ -13,6 +13,7 @@ export interface AchievementWithUnlockState {
   triggerOrganId: string;
   triggerSubstanceId: string;
   triggerRecoveryThreshold: number;
+  hidden: boolean;
   unlocked: boolean;
   unlockedAt: string | null;
   notifiedAt: string | null;

@@ -31,6 +31,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'alcohol',
     triggerRecoveryThreshold: 0.05,
+    hidden: true,
   },
   {
     id: 'alcohol-liver-bronze-1',
@@ -217,6 +218,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'alcohol',
     triggerRecoveryThreshold: 0.99,
+    hidden: true,
   },
 
   // ---------------------------------------------------------------------------
@@ -311,6 +313,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.30,
+    hidden: true,
   },
   {
     id: 'nicotine-vta-silver',
@@ -339,6 +342,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'nicotine',
     triggerRecoveryThreshold: 0.99,
+    hidden: true,
   },
 
   // ---------------------------------------------------------------------------
@@ -354,6 +358,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cannabis',
     triggerRecoveryThreshold: 0.10,
+    hidden: true,
   },
   {
     id: 'cannabis-prefrontal-bronze-1',
@@ -486,6 +491,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cannabis',
     triggerRecoveryThreshold: 0.99,
+    hidden: true,
   },
   // ---------------------------------------------------------------------------
   // Cocaine
@@ -500,6 +506,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cocaine',
     triggerRecoveryThreshold: 0.05,
+    hidden: true,
   },
   {
     id: 'cocaine-heart-bronze-1',
@@ -677,6 +684,7 @@ export const ACHIEVEMENTS = [
     triggerOrganId: 'brain-vta',
     triggerSubstanceId: 'cocaine',
     triggerRecoveryThreshold: 0.99,
+    hidden: true,
   },
 
   // ---------------------------------------------------------------------------
@@ -766,6 +774,7 @@ export const ACHIEVEMENTS = [
   triggerOrganId: string;
   triggerSubstanceId: string;
   triggerRecoveryThreshold: number;
+  hidden?: boolean;
 }>;
 
 export async function seedAchievements(prisma: PrismaClient): Promise<void> {

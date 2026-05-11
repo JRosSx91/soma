@@ -72,8 +72,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = useCallback(async (credentials: LoginCredentials) => {
     setError(null);
     try {
-      const response = await loginApi(credentials);
-      // The login response includes a partial user; fetch full to be safe.
+      // loginApi stores the token internally and returns a partial
+      // user. We discard that partial and refetch the full user from
+      // /me to keep a single source of truth for the User shape.
+      await loginApi(credentials);
       const fullUser = await fetchCurrentUser();
       setUser(fullUser);
     } catch (err) {
