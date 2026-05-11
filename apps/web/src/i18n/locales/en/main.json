@@ -8,7 +8,8 @@
   "title": "Your trophies",
   "unlockedRatio": "{{unlocked}} of {{total}} unlocked",
   "unlockedOn": "Unlocked on {{date}}",
-  "lockedHint": "Reach {{percent}}% recovery in {{organ}}"
+  "lockedHint": "Reach {{percent}}% recovery in {{organ}}",
+  "hiddenHint": "Hidden trophy"
 },
   "panel": {
   "selectedOrgan": "Selected organ",

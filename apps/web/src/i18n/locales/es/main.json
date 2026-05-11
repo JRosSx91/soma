@@ -8,7 +8,8 @@
   "title": "Tus trofeos",
   "unlockedRatio": "{{unlocked}} de {{total}} desbloqueados",
   "unlockedOn": "Conseguido el {{date}}",
-  "lockedHint": "Alcanza {{percent}}% de recuperación en {{organ}}"
+  "lockedHint": "Alcanza {{percent}}% de recuperación en {{organ}}",
+  "hiddenHint": "Trofeo oculto"
 },
   "panel": {
   "selectedOrgan": "Órgano seleccionado",
