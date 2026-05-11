@@ -27,6 +27,25 @@ export default {
           'confidence-low': 'var(--soma-confidence-low)',
         },
       },
+      keyframes: {
+        'trophy-toast-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(100%)',
+          },
+          '60%': {
+            opacity: '1',
+            transform: 'translateX(-4px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+        },
+      },
+      animation: {
+        'trophy-toast-in': 'trophy-toast-in 360ms cubic-bezier(0.16, 1, 0.3, 1) both',
+      },
     },
   },
   plugins: [],
