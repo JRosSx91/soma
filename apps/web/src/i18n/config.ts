@@ -31,6 +31,9 @@ import esOrganNarrative from './locales/es/organ-narrative.json';
 import enAchievements from './locales/en/achievements.json';
 import esAchievements from './locales/es/achievements.json';
 
+import enLanding from './locales/en/landing.json';
+import esLanding from './locales/es/landing.json';
+
 /**
  * i18next configuration for Soma.
  *
@@ -65,6 +68,7 @@ i18n
   'phases',
   'organ-narrative',
   'achievements',
+  'landing',
 ],
     defaultNS: 'common',
     interpolation: {
@@ -89,6 +93,7 @@ i18n
   phases: enPhases,
   'organ-narrative': enOrganNarrative,
   achievements: enAchievements,
+  landing: enLanding,
       },
       es: {
         common: esCommon,
@@ -102,6 +107,7 @@ i18n
   phases: esPhases,
   'organ-narrative': esOrganNarrative,
   achievements: esAchievements,
+  landing: esLanding,
       },
     },
   });

@@ -13,6 +13,7 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.0",
     "@soma/shared-types": "workspace:^",
+    "framer-motion": "^12.38.0",
     "i18next": "^26.0.8",
     "i18next-browser-languagedetector": "^8.2.1",
     "react": "^19.2.5",

@@ -41,7 +41,7 @@ export function AchievementsPage() {
         <div className="flex items-center gap-4">
           <LanguageSelector />
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/app')}
             className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
           >
             {t('main:header.dashboard')}

@@ -20,7 +20,7 @@ export function LoginPage() {
     setSubmitting(true);
     try {
       await login({ email, password });
-      navigate('/', { replace: true });
+      navigate('/app', { replace: true });
     } catch (err) {
   setError(translateAuthError(err, t, 'errors.loginFailed'));
 } finally {
