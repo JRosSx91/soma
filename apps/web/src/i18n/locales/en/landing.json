@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Your body is recovering right now.",
+    "subtitle": "Soma shows you how — organ by organ, receptor by receptor, backed by real science.",
+    "cta": "Start your recovery map",
+    "login": "Already have an account? Sign in"
+  },
+  "what": {
+    "eyebrow": "WHAT IS SOMA",
+    "title": "Not another wellness app.",
+    "p1": "Soma is a gamified body recovery tracker for people in substance abstinence. It maps the real physiological changes happening inside you — from liver enzyme normalization to dopamine receptor repopulation — and turns them into visible, measurable progress.",
+    "p2": "No motivational quotes. No day counters. Your actual body, recovering in real time, based on published medical literature.",
+    "p3": "When we don't know something for certain, we tell you. Every data point carries a confidence level. Honesty about uncertainty — not fake precision."
+  },
+  "how": {
+    "eyebrow": "HOW IT WORKS",
+    "title": "Three steps. No guesswork.",
+    "step1_title": "Tell Soma what you used",
+    "step1_desc": "Mark your substances, usage history, and when you stopped. Soma builds your personal recovery model.",
+    "step2_title": "Watch your body heal",
+    "step2_desc": "A 3D anatomical model shows each organ's recovery state in real time. Liver, lungs, heart, brain regions — all mapped to your timeline.",
+    "step3_title": "Earn real trophies",
+    "step3_desc": "77 achievements tied to actual physiological milestones. Not 'Day 30 badge' — 'Your D2 receptors have repopulated the striatum.'"
+  },
+  "science": {
+    "eyebrow": "THE SCIENCE",
+    "title": "Built on data, not hope.",
+    "p1": "Recovery curves for each substance × organ pair are modeled from peer-reviewed literature. Logarithmic, sigmoidal, or exponential — whichever matches the actual physiology.",
+    "p2": "Every piece of medical data in Soma carries a confidence level: high, medium, or low. When the evidence is strong, we say so. When it's approximate, we say that too.",
+    "p3": "Five substances modeled so far — alcohol, nicotine, cannabis, cocaine, caffeine — across multiple organ systems and neurotransmitter pathways. More coming."
+  },
+  "trophies": {
+    "eyebrow": "ACHIEVEMENTS",
+    "title": "Every milestone your body crosses, recognized.",
+    "p1": "77 trophies across five substances. Bronze for the first days. Silver for the weeks. Gold for the months. Platinum for full sovereignty over your biology.",
+    "example1_title": "Through the storm",
+    "example1_desc": "Survive the acute withdrawal phase — the most physiologically dangerous of any substance.",
+    "example2_title": "Pleasure is no longer rented",
+    "example2_desc": "Dopamine receptor density approaches baseline. Natural rewards feel meaningful again.",
+    "example3_title": "The dictator has fallen",
+    "example3_desc": "Absolute neurochemical freedom. The reward circuit is fully restored.",
+    "hidden_note": "Some trophies are hidden. You'll discover them when your body does."
+  },
+  "footer": {
+    "tagline": "Your body is already doing the work. Soma lets you see it.",
+    "cta": "Start now",
+    "login": "Sign in"
+  }
+}
