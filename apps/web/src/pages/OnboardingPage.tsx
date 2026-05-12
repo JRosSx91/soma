@@ -119,7 +119,7 @@ export function OnboardingPage() {
       }
 
       await saveProfile(usages);
-      navigate('/', { replace: true });
+      navigate('/app', { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : t('errors.saveFailed'));
     } finally {
