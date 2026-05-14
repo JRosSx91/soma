@@ -1,0 +1,17 @@
+{
+  "liver": "Fegato",
+  "heart": "Cuore",
+  "lungs": "Polmoni",
+  "bronchi": "Bronchi",
+  "kidneys": "Reni",
+  "stomach": "Stomaco",
+  "pancreas": "Pancreas",
+  "brain-prefrontal-cortex": "Corteccia prefrontale",
+  "brain-hippocampus": "Ippocampo",
+  "brain-vta": "Area tegmentale ventrale",
+  "brain-nucleus-accumbens": "Nucleo accumbens",
+  "brain-amygdala": "Amigdala",
+  "skin": "Pelle",
+  "testes": "Testicoli",
+  "ovaries": "Ovaie"
+}

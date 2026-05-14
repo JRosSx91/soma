@@ -1,0 +1,23 @@
+{
+  "title": "Parlez-nous de vous",
+  "subtitle": "Pour chaque substance que vous avez arrêtée, marquez-la comme active et indiquez votre dernière consommation. Vous pourrez modifier ces informations plus tard.",
+  "fields": {
+    "lastUseDate": "Date de dernière consommation",
+    "yearStarted": "Année de début",
+    "frequency": "Fréquence"
+  },
+  "frequency": {
+    "daily": "Quotidienne",
+    "weekly": "Hebdomadaire",
+    "monthly": "Mensuelle",
+    "occasional": "Occasionnelle"
+  },
+  "submit": "Continuer",
+  "submitting": "Enregistrement…",
+  "skip": "Vous pouvez passer les substances que vous n'avez pas consommées ou que vous ne souhaitez pas suivre.",
+  "errors": {
+    "invalidYear": "Année invalide pour {{substance}}",
+    "lastUseDateRequired": "Date de dernière consommation requise pour {{substance}}",
+    "saveFailed": "Impossible d'enregistrer le profil"
+  }
+}

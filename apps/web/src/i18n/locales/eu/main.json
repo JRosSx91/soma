@@ -1,0 +1,48 @@
+{
+  "header": {
+    "editProfile": "Profila editatu",
+    "trophies": "Trofeoak",
+    "dashboard": "Panela"
+  },
+  "trophies": {
+    "title": "Zure trofeoak",
+    "unlockedRatio": "{{unlocked}} / {{total}} desblokeatuta",
+    "unlockedOn": "{{date}}-(e)an lortuta",
+    "lockedHint": "Iritsi {{percent}}% berreskuratzera {{organ}}-en",
+    "hiddenHint": "Trofeo ezkutua",
+    "toastEyebrow": "TROFEO BERRIA",
+    "toastDismiss": "Baztertu",
+    "toastDismissAll": "{{count}} ikusitako gisa markatu"
+  },
+  "panel": {
+    "selectedOrgan": "Hautatutako organoa",
+    "hoverPrompt": "Pasa organo baten gainetik",
+    "clickPrompt": "Egin klik organo batean ikuskatzeko",
+    "affectedBy": "Honegatik kaltetuta",
+    "causedBy": "Honegatik eraginda",
+    "daysAbstinent": "Abstinentzia egunak",
+    "recovery": "Berreskuratzea",
+    "showRecoveryProcess": "Berreskuratze-prozesua erakutsi",
+    "hideRecoveryProcess": "Berreskuratze-prozesua ezkutatu",
+    "noNarrativeData": "Ez dago berreskuratze-prozesuaren daturik organo honetarako.",
+    "showNeurotransmitterState": "Neurotransmisore-egoera erakutsi",
+    "hideNeurotransmitterState": "Neurotransmisore-egoera ezkutatu",
+    "noNeurotransmitterData": "Ez dago neurotransmisore-daturik organo honetarako.",
+    "direction": {
+      "depleted": "agortuta",
+      "elevated": "altua",
+      "oscillating": "oszilatzen",
+      "normalizing": "normalizatzen"
+    },
+    "severity": {
+      "severe": "larria",
+      "moderate": "ertaina",
+      "mild": "arina",
+      "normalizing": "normalizatzen"
+    }
+  },
+  "empty": {
+    "noSubstances": "Ez duzu oraindik substantziarik jarraipean.",
+    "addFirst": "Gehitu lehena →"
+  }
+}

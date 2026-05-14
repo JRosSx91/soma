@@ -1,0 +1,88 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Gli epatociti stanno elaborando un carico cronico di etanolo. La steatosi (deposito di grasso) si accumula con un consumo prolungato. Il fegato è il sito principale del metabolismo dell'alcol tramite l'alcol deidrogenasi e il CYP2E1.",
+      "acute_withdrawal": "L'attività enzimatica epatica (AST, ALT, GGT) rimane tipicamente elevata nelle prime settimane. La steatosi inizia a invertirsi se non è stabilita una fibrosi. La rigenerazione degli epatociti è attiva — il fegato è uno dei pochi organi con una capacità rigenerativa sostanziale.",
+      "post_acute": "La steatosi si inverte progressivamente in assenza di fibrosi avanzata. I livelli di GGT diminuiscono nel corso di settimane o mesi. Nuovi epatociti sostituiscono quelli danneggiati; il rinnovamento cellulare continua.",
+      "normalizing": "La struttura epatica si avvicina alla linea di base se non era presente una fibrosi avanzata. I marcatori enzimatici si normalizzano in 3-6 mesi. Il danno strutturale preesistente (cirrosi) è in gran parte irreversibile, ma l'infiammazione si attenua e gli epatociti rimanenti funzionano più efficientemente."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "La cocaina causa vasocostrizione sistemica comprese le arterie renali. Le cellule tubulari subiscono ripetuto stress ischemico. Rischio di lesione renale acuta durante il consumo.",
+      "acute_withdrawal": "La vasocostrizione renale si risolve entro ore dall'ultimo consumo. Le cellule tubulari iniziano a recuperare dallo stress ischemico. La filtrazione glomerulare si normalizza.",
+      "post_acute": "La funzione tubulare continua a stabilizzarsi. Se non è stato stabilito un danno cronico, la funzione renale torna verso la linea di base.",
+      "normalizing": "La funzione renale si avvicina ai parametri normali. Qualsiasi danno strutturale residuo dalla vasocostrizione prolungata è il fattore limitante; il recupero funzionale è altrimenti sostanziale."
+    },
+    "alcohol": {
+      "during_use": "Il consumo cronico di alcol contribuisce alla disidratazione e a un modesto stress tubulare. L'effetto diuretico dell'alcol altera l'equilibrio idrico ed elettrolitico.",
+      "acute_withdrawal": "L'idratazione si normalizza in pochi giorni. Le cellule tubulari si riprendono dallo stress cronico da disidratazione. L'equilibrio elettrolitico si ripristina.",
+      "post_acute": "La funzione renale continua a stabilizzarsi. Il lieve danno tubulare dall'esposizione cronica si risolve progressivamente.",
+      "normalizing": "La funzione renale torna alla linea di base. Il danno renale causato dall'alcol da solo (senza altre comorbidità) è in gran parte reversibile."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "Le cellule acinose pancreatiche sono sotto stress tossico cronico da metaboliti dell'alcol. Sia la funzione esocrina (enzimi digestivi) che quella endocrina (insulina) possono essere progressivamente compromesse. Rischio di pancreatite acuta.",
+      "acute_withdrawal": "Le cellule acinose iniziano a recuperare dallo stress tossico acuto. La risposta infiammatoria si attenua se non è presente una pancreatite acuta. La produzione di enzimi digestivi si restabilizza gradualmente.",
+      "post_acute": "La funzione pancreatica continua a ripristinarsi. La produzione esocrina si normalizza in settimane. La sensibilità all'insulina migliora se non è cronicamente compromessa.",
+      "normalizing": "La funzione pancreatica si avvicina alla linea di base. La pancreatite cronica preesistente è in gran parte irreversibile, ma l'infiammazione acuta si è risolta e il tessuto rimanente funziona più efficientemente."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "La mucosa gastrica è esposta al contatto diretto con l'etanolo. La barriera mucosa è perturbata; le cellule parietali producono acido in eccesso. La gastrite erosiva è comune con un consumo prolungato.",
+      "acute_withdrawal": "La mucosa gastrica inizia una riparazione attiva entro 48-72 ore. La produzione di muco si normalizza. L'ipersecrezione acida si attenua al termine della stimolazione delle cellule parietali.",
+      "post_acute": "La mucosa si rigenera progressivamente. L'epitelio gastrico ha un rinnovamento di 3-7 giorni in condizioni sane, quindi la guarigione è relativamente rapida.",
+      "normalizing": "La mucosa gastrica è ripristinata. L'equilibrio acido e la funzione digestiva si avvicinano alla linea di base."
+    },
+    "nicotine": {
+      "during_use": "La nicotina aumenta la secrezione di acido gastrico e riduce il tono dello sfintere esofageo inferiore. Il flusso sanguigno della mucosa è compromesso dalla vasocostrizione. Il rischio di ulcera peptica è elevato.",
+      "acute_withdrawal": "La secrezione di acido gastrico inizia a normalizzarsi in pochi giorni. Il flusso sanguigno della mucosa migliora man mano che la vasocostrizione nicotinica si risolve. Il tono dello sfintere esofageo si ripristina.",
+      "post_acute": "L'equilibrio acido continua a stabilizzarsi. La mucosa gastrica guarisce dall'insufficienza vascolare. Le ulcere preesistenti guariscono più velocemente senza nicotina.",
+      "normalizing": "La funzione gastrica ed esofagea si avvicina alla linea di base. Il rischio di malattia peptica scende ai livelli dei non fumatori."
+    },
+    "caffeine": {
+      "during_use": "La caffeina stimola la secrezione di acido gastrico e riduce il tono dello sfintere esofageo inferiore. L'esposizione della mucosa all'acido elevato è cronica. I sintomi di reflusso e dispepsia sono comuni negli individui sensibili.",
+      "acute_withdrawal": "La secrezione di acido gastrico inizia a normalizzarsi in pochi giorni. Il tono dello sfintere esofageo migliora.",
+      "post_acute": "L'equilibrio della mucosa continua a stabilizzarsi. La frequenza del reflusso diminuisce.",
+      "normalizing": "La funzione gastrica ed esofagea si avvicina alla linea di base. L'equilibrio acido è ripristinato."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "I macrofagi alveolari sono sovraccarichi di particelle di catrame. La funzione del surfattante è compromessa dall'esposizione cronica. I mediatori infiammatori si accumulano. La capacità di diffusione diminuisce.",
+      "acute_withdrawal": "L'infiammazione alveolare inizia ad attenuarsi in pochi giorni. I macrofagi intensificano la pulizia dei detriti accumulati — la tosse produttiva è comune nelle settimane 1-3 mentre i polmoni espellono i residui. La capacità di diffusione inizia a migliorare.",
+      "post_acute": "La superficie alveolare continua a pulirsi. I marcatori infiammatori diminuiscono. La funzione polmonare (FEV1, capacità vitale) migliora in modo misurabile.",
+      "normalizing": "La funzione alveolare si avvicina alla linea di base entro 1-9 mesi per gli utilizzatori senza BPCO stabilita. L'enfisema preesistente è in gran parte irreversibile, ma l'infiammazione si è risolta e la superficie alveolare rimanente funziona in modo ottimale."
+    },
+    "cannabis": {
+      "during_use": "I tessuti bronchiali e alveolari sono esposti a prodotti di combustione con un carico irritante simile al fumo di tabacco (sebbene senza nicotina). L'infiammazione e la produzione di muco sono elevate.",
+      "acute_withdrawal": "L'infiammazione bronchiale inizia ad attenuarsi in pochi giorni. La produzione di muco si normalizza. L'irritazione alveolare diminuisce.",
+      "post_acute": "Il tessuto polmonare continua a guarire. La tosse e l'ipersecrezione di muco migliorano. I marcatori infiammatori diminuiscono.",
+      "normalizing": "La funzione polmonare si avvicina alla linea di base. Senza esposizione alla combustione, i polmoni recuperano la maggior parte della capacità funzionale."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Le ciglia bronchiali sono paralizzate dai componenti del fumo di tabacco. Il muco si accumula senza essere eliminato. Le cellule caliciformi si ipertrofizzano. Si stabilisce un'infiammazione bronchiale cronica.",
+      "acute_withdrawal": "Le ciglia recuperano la motilità entro 24-72 ore dall'ultima sigaretta. Queste cellule, immobilizzate per anni dal fumo di tabacco, riprendono attivamente a spazzare il muco accumulato. La tosse produttiva nelle settimane 1-3 è attesa — il sistema sta espellendo residui.",
+      "post_acute": "La funzione ciliare continua a ripristinarsi. La clearance del muco si normalizza progressivamente. L'infiammazione bronchiale diminuisce. L'ipertrofia delle cellule caliciformi si inverte parzialmente.",
+      "normalizing": "La funzione delle ciglia bronchiali è in gran parte ripristinata. La clearance del muco e lo spessore della parete bronchiale si avvicinano alla linea di base entro 1-9 mesi negli utilizzatori senza bronchite cronica stabilita."
+    },
+    "cannabis": {
+      "during_use": "Il tessuto bronchiale è esposto a prodotti di combustione e all'attivazione dei recettori cannabinoidi. L'infiammazione, l'irritazione e la produzione di muco sono elevate.",
+      "acute_withdrawal": "L'infiammazione bronchiale inizia ad attenuarsi in pochi giorni. La produzione di muco si normalizza. L'attività dei recettori cannabinoidi nel tessuto bronchiale cessa.",
+      "post_acute": "La guarigione bronchiale continua. I sintomi di tosse e irritazione migliorano progressivamente.",
+      "normalizing": "La funzione bronchiale si avvicina alla linea di base. L'irritazione cronica si risolve. I marcatori cellulari di infiammazione si normalizzano."
+    }
+  },
+  "heart": {
+    "caffeine": {
+      "during_use": "La caffeina eleva transitoriamente la frequenza cardiaca e la pressione arteriosa tramite il rilascio di noradrenalina ed effetti diretti sul tessuto cardiaco. Si sviluppa tolleranza ad alcuni effetti cardiovascolari ma non a tutti. Il rischio di palpitazioni e aritmie è dose-dipendente.",
+      "acute_withdrawal": "La frequenza cardiaca a riposo e la pressione arteriosa diminuiscono. La vasocostrizione indotta dalla caffeina si risolve. Il ritmo cardiaco si stabilizza.",
+      "post_acute": "Il tono cardiovascolare continua a normalizzarsi. I battiti ectopici indotti dalla caffeina si attenuano.",
+      "normalizing": "I parametri cardiovascolari a riposo tornano alla linea di base senza caffeina. La sensibilità agli stimolanti si normalizza."
+    }
+  }
+}

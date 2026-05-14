@@ -1,0 +1,23 @@
+{
+  "title": "Explica'ns sobre tu",
+  "subtitle": "Per a cada substància que has deixat de consumir, marca-la com a activa i indica'ns quan la vas fer servir per última vegada. Pots actualitzar-ho més endavant.",
+  "fields": {
+    "lastUseDate": "Data de l'últim consum",
+    "yearStarted": "Any d'inici",
+    "frequency": "Freqüència"
+  },
+  "frequency": {
+    "daily": "Diària",
+    "weekly": "Setmanal",
+    "monthly": "Mensual",
+    "occasional": "Ocasional"
+  },
+  "submit": "Continua",
+  "submitting": "Desant…",
+  "skip": "Pots ometre les substàncies que no has consumit o que no vols fer seguiment.",
+  "errors": {
+    "invalidYear": "Any no vàlid per a {{substance}}",
+    "lastUseDateRequired": "Cal la data de l'últim consum per a {{substance}}",
+    "saveFailed": "No s'ha pogut desar el perfil"
+  }
+}

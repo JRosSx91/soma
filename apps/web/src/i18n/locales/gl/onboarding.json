@@ -1,0 +1,23 @@
+{
+  "title": "Fálanos de ti",
+  "subtitle": "Para cada substancia que deixaches de consumir, márcaa como activa e indícanos cando a usaches por última vez. Podes actualizalo máis adiante.",
+  "fields": {
+    "lastUseDate": "Data do último consumo",
+    "yearStarted": "Ano de inicio",
+    "frequency": "Frecuencia"
+  },
+  "frequency": {
+    "daily": "Diaria",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "occasional": "Ocasional"
+  },
+  "submit": "Continuar",
+  "submitting": "Gardando…",
+  "skip": "Podes omitir as substancias que non consumiches ou das que non queres facer seguimento.",
+  "errors": {
+    "invalidYear": "Ano non válido para {{substance}}",
+    "lastUseDateRequired": "Precísase a data do último consumo para {{substance}}",
+    "saveFailed": "Non se puido gardar o perfil"
+  }
+}

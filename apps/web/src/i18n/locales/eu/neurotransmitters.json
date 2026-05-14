@@ -1,0 +1,38 @@
+{
+  "dopamine": {
+    "name": "Dopamina",
+    "shortDescription": "Saria, motibazioa, plazera"
+  },
+  "serotonin": {
+    "name": "Serotonina",
+    "shortDescription": "Aldarte, loa, ongizatea"
+  },
+  "gaba": {
+    "name": "GABA",
+    "shortDescription": "Inhibizioa, lasaitasuna"
+  },
+  "glutamate": {
+    "name": "Glutamatoa",
+    "shortDescription": "Kitzikapena, ikaskuntza"
+  },
+  "acetylcholine": {
+    "name": "Azetilkolina",
+    "shortDescription": "Arreta, aktibatzea, kognizioa"
+  },
+  "norepinephrine": {
+    "name": "Noradrenalina",
+    "shortDescription": "Alerta, estres-erantzuna"
+  },
+  "endocannabinoid": {
+    "name": "Endokannabinoidea",
+    "shortDescription": "Homeostasia, estres-modulazioa"
+  },
+  "endorphin": {
+    "name": "Endorfina",
+    "shortDescription": "Saria, min-modulazioa"
+  },
+  "adenosine": {
+    "name": "Adenosina",
+    "shortDescription": "Lo-presioa, alerta-erregulazioa"
+  }
+}

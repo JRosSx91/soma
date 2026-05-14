@@ -1,0 +1,82 @@
+{
+  "alcohol": {
+    "gaba": {
+      "acute_withdrawal": "Que podes sentir: ansiedade, inquietude, insomnio, tremor, posiblemente convulsións en casos graves. O teu sistema GABA estaba suprimido pola acción inhibitoria do alcohol; sen el, a excitabilidade neuronal rebota con forza. Recoméndase supervisión médica durante a primeira semana.",
+      "post_acute": "Que podes sentir: ansiedade fluctuante, alteracións do sono, reactividade emocional. Os receptores GABA-A están recuperando a súa sensibilidade gradualmente. Os síntomas adoitan mellorar entre as semanas 2 e 8.",
+      "normalizing": "A función GABAérxica achégase á liña base. Pode persistir certa sensibilidade emocional durante algúns meses, pero os síntomas máis disruptivos pasaron."
+    },
+    "glutamate": {
+      "acute_withdrawal": "Que podes sentir: axitación, hipersensibilidade aos estímulos, pensamentos acelerados, posibles convulsións. A sinalización glutamatérxica está a rebotar por riba dos niveis normais — este é o lado perigoso da abstinencia aguda de alcohol. Busca atención médica se os síntomas se intensifican.",
+      "post_acute": "Unha lixeira hiperexcitabilidade residual pode manifestarse como irritabilidade ou sensibilidade ao ruído. A sinalización glutamatérxica estase normalizando.",
+      "normalizing": "O glutamato está preto da liña base. O sistema adaptouse."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Que podes sentir: estado de ánimo baixo, falta de motivación, anhedonia. O circuíto de recompensa está esgotado tras a estimulación crónica. Isto forma parte da recalibración.",
+      "post_acute": "A motivación e a capacidade de sentir pracer volven lentamente. A paciencia aquí non é opcional — o sistema reconstrúese só, non se pode forzar.",
+      "normalizing": "O sistema de recompensa achégase á liña base. O pracer das actividades cotiás debería sentirse máis accesible."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Que podes sentir: estado de ánimo baixo, irritabilidade, posibles cambios no apetito. O equilibrio serotoninérxico estaba alterado polo consumo crónico de alcohol.",
+      "post_acute": "O estado de ánimo estabilízase. Espérase certa volatilidade emocional, pero con tendencia cara á normalidade.",
+      "normalizing": "A función serotoninérxica está preto da liña base."
+    }
+  },
+  "cocaine": {
+    "dopamine": {
+      "acute_withdrawal": "Que podes sentir: anhedonia profunda, apatía, fatiga intensa, hipersomnia, desexo intenso. Isto é o 'crash' — o teu sistema dopaminérxico estivo funcionando con neurotransmisor prestado durante moito tempo e agora está exhausto. A intensidade é real pero transitoria.",
+      "post_acute": "Que podes sentir: baixa motivación persistente, pracer atenuado, desexo intermitente. O sistema de recompensa está reconstruíndo a sensibilidade dos receptores. Esta fase é dura pero previsible — os síntomas aténuanse gradualmente entre as semanas 2 e 8.",
+      "normalizing": "A función dopaminérxica achégase á liña base. A resposta ao pracer e a motivación están volvendo. Pode persistir certa sensibilidade aos triggers durante meses."
+    },
+    "norepinephrine": {
+      "acute_withdrawal": "Que podes sentir: esgotamento físico combinado paradoxalmente con inquietude mental, alteracións do sono malia a fatiga. O sistema noradrenérxico está esgotado pero aínda non reequilibrado. O sono volverá.",
+      "post_acute": "Que podes sentir: enerxía oscilante, ás veces activado, ás veces plano. A regulación sono-vixilia estase recuperando. A sensación de 'canso pero sen sono' forma parte disto.",
+      "normalizing": "A regulación noradrenérxica está preto da liña base. A enerxía e os ciclos de sono deberían sentirse máis previsibles."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Que podes sentir: disforia, irritabilidade, reactividade emocional. A sinalización serotoninérxica estaba elevada pola cocaína e agora é deficitaria.",
+      "post_acute": "O estado de ánimo estabilízase gradualmente. É normal que persista certa sensibilidade emocional.",
+      "normalizing": "A función serotoninérxica está preto da liña base."
+    }
+  },
+  "nicotine": {
+    "acetylcholine": {
+      "acute_withdrawal": "Que podes sentir: irritabilidade, dificultade para concentrarse, inquietude, desexo intenso — pico entre os días 1 e 3. Os receptores nicotínicos estaban sobreexpresados para compensar a estimulación crónica; sen nicotina están excesivamente activos. Esta fase é curta pero intensa.",
+      "post_acute": "Que podes sentir: dificultade de concentración residual, desexo ocasional. A densidade de receptores volve á normalidade — isto acontece máis rápido que noutros sistemas.",
+      "normalizing": "A función colinérxica está preto da liña base. Os receptores reguláronse á baixa. O desexo, cando aparece, adoita ser situacional máis que fisiolóxico."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Que podes sentir: estado de ánimo baixo, falta de motivación, anhedonia leve. A liberación de dopamina que a nicotina provocaba agora é ausente.",
+      "post_acute": "A motivación volve gradualmente. O sistema de recompensa adáptase.",
+      "normalizing": "A función dopaminérxica está preto da liña base."
+    }
+  },
+  "cannabis": {
+    "endocannabinoid": {
+      "acute_withdrawal": "Que podes sentir: irritabilidade, insomnio, soños vívidos ou perturbadores, ansiedade, diminución do apetito. Os teus receptores CB1 estaban regulados á baixa para compensar o THC; sen cannabinoides externos o sistema está brevemente infraactivado. Os soños vívidos son característicos — o sono REM está rebotando da supresión.",
+      "post_acute": "Que podes sentir: sono mellorando pero inestable, irritabilidade residual, ansiedade leve. A densidade de receptores CB1 estase recuperando.",
+      "normalizing": "O sistema endocannabinoide achégase á liña base. A regulación do sono e o estado de ánimo debería sentirse máis estable."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Baixada motivacional leve. A contribución do cannabis ao teu circuíto de recompensa era modesta, así que esta fase é proporcionalmente suave.",
+      "post_acute": "A motivación estabilízase.",
+      "normalizing": "A función dopaminérxica está preto da liña base."
+    },
+    "gaba": {
+      "acute_withdrawal": "Contribución leve aos síntomas de ansiedade. O equilibrio GABAérxico estaba modulado polo cannabis e estase recalibrando.",
+      "post_acute": "O equilibrio GABAérxico mellora.",
+      "normalizing": "A función GABAérxica está preto da liña base."
+    }
+  },
+  "caffeine": {
+    "adenosine": {
+      "acute_withdrawal": "Que podes sentir: dor de cabeza (a miúdo intensa), fatiga, somnolencia, dificultade para concentrarse, irritabilidade. Pico ás 24-48 horas. Os teus receptores de adenosina estaban sobreexpresados para compensar o bloqueo crónico da cafeína; sen cafeína, o sinal de adenosina acumulado impacta receptores hipersensibles. A dor de cabeza é real e previsible.",
+      "post_acute": "Que podes sentir: fatiga residual, lixeira dificultade de concentración pola tarde, dor de cabeza ocasional. A densidade de receptores de adenosina está volvendo gradualmente á liña base.",
+      "normalizing": "O equilibrio adenosinérxico achégase á normalidade. A regulación da presión de sono, a alerta matinal e a enerxía vespertina estabilízanse sen estimulación externa."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Baixada motivacional leve. A contribución dopaminérxica da cafeína é indirecta (vía receptores de adenosina A2A), así que esta fase é proporcionalmente suave.",
+      "post_acute": "A motivación estabilízase.",
+      "normalizing": "A función dopaminérxica está preto da liña base."
+    }
+  }
+}

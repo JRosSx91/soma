@@ -1,0 +1,22 @@
+{
+  "alcohol": {
+    "name": "Alkohola",
+    "shortDescription": "Nerbio-sistema zentraleko depresorea. Kontsumo kronikoak gibela, garuneko egiturak eta sistema kardiobaskularra kaltetzen ditu."
+  },
+  "nicotine": {
+    "name": "Nikotina",
+    "shortDescription": "Azetilkolina hartzaile nikotinikoak aktibatzen dituen estimulatzailea. Birikak, bronkioak eta sistema kardiobaskularra kaltetzen ditu tabakoaren kearen bidez."
+  },
+  "cannabis": {
+    "name": "Kannabia",
+    "shortDescription": "CB1 eta CB2 hartzaileetan jarduten duen kannabinoidea. Memoria, kognizioa eta garuneko sari-sistema eragiten ditu."
+  },
+  "cocaine": {
+    "name": "Kokaina",
+    "shortDescription": "Dopaminaren birxurgapena blokeatzen duen estimulatzaile indartsua. Sistema kardiobaskularra eta garuneko egitura dopaminergikoak kaltetzen ditu."
+  },
+  "caffeine": {
+    "name": "Kafeina",
+    "shortDescription": "Adenosina hartzaileen antagonista. Kontsumo kronikoak batez ere nerbio-sistema zentrala eragiten du egokitzapen adenosinergiko bidez, bigarren mailako ondorioekin sistema kardiobaskular eta gastrointestinalean."
+  }
+}

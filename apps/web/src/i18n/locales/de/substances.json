@@ -1,0 +1,22 @@
+{
+  "alcohol": {
+    "name": "Alkohol",
+    "shortDescription": "Zentralnervöses Depressivum. Chronischer Konsum schädigt die Leber, Gehirnstrukturen und das Herz-Kreislauf-System."
+  },
+  "nicotine": {
+    "name": "Nikotin",
+    "shortDescription": "Stimulans, das nikotinische Acetylcholinrezeptoren aktiviert. Schädigt Lungen, Bronchien und das Herz-Kreislauf-System durch Tabakrauch."
+  },
+  "cannabis": {
+    "name": "Cannabis",
+    "shortDescription": "Cannabinoid, das auf CB1- und CB2-Rezeptoren wirkt. Beeinflusst Gedächtnis, Kognition und das Belohnungssystem des Gehirns."
+  },
+  "cocaine": {
+    "name": "Kokain",
+    "shortDescription": "Starkes Stimulans, das die Dopamin-Wiederaufnahme blockiert. Schädigt das Herz-Kreislauf-System und dopaminerge Gehirnstrukturen."
+  },
+  "caffeine": {
+    "name": "Koffein",
+    "shortDescription": "Adenosinrezeptor-Antagonist. Chronischer Konsum betrifft hauptsächlich das zentrale Nervensystem durch adenosinerge Adaptation, mit sekundären Auswirkungen auf das Herz-Kreislauf- und Magen-Darm-System."
+  }
+}

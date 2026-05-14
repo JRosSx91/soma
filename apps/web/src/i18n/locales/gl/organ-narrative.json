@@ -1,0 +1,88 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Os hepatocitos están a procesar unha carga crónica de etanol. A esteatose (depósito de graxa) acumúlase co consumo sostido. O fígado é o lugar principal do metabolismo do alcohol vía alcohol deshidroxenase e CYP2E1.",
+      "acute_withdrawal": "A actividade enzimática hepática (AST, ALT, GGT) adoita permanecer elevada as primeiras semanas. A esteatose comeza a reverterse se non hai fibrose establecida. A rexeneración de hepatocitos é activa — o fígado é un dos poucos órganos con capacidade rexenerativa substancial.",
+      "post_acute": "A esteatose reverte progresivamente en ausencia de fibrose avanzada. Os niveis de GGT baixan ao longo de semanas a meses. Novos hepatocitos substitúen os danados; o recambio celular continúa.",
+      "normalizing": "A estrutura hepática achégase á liña base se non había fibrose avanzada. Os marcadores enzimáticos normalízanse en 3-6 meses. O dano estrutural preexistente (cirrose) é en gran parte irreversible, pero a inflamación cede e os hepatocitos restantes funcionan máis eficientemente."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "A cocaína causa vasoconstricción sistémica incluíndo as arterias renais. As células tubulares experimentan estrés isquémico repetido. Risco de lesión renal aguda durante o consumo.",
+      "acute_withdrawal": "A vasoconstricción renal resólvese en horas dende o último consumo. As células tubulares comezan a recuperación do estrés isquémico. A filtración glomerular normalízase.",
+      "post_acute": "A función tubular continúa estabilizándose. Se non se estableceu dano crónico, a función renal volve cara á liña base.",
+      "normalizing": "A función renal achégase aos parámetros normais. Calquera dano estrutural residual da vasoconstricción prolongada é o factor limitante; a recuperación funcional é por outra banda substancial."
+    },
+    "alcohol": {
+      "during_use": "O consumo crónico de alcohol contribúe á deshidratación e a un estrés tubular modesto. O efecto diurético do alcohol altera o equilibrio de líquidos e electrólitos.",
+      "acute_withdrawal": "A hidratación normalízase en días. As células tubulares recupéranse do estrés crónico por deshidratación. O equilibrio electrolítico restáurase.",
+      "post_acute": "A función renal continúa estabilizándose. O dano tubular leve por exposición crónica resólvese progresivamente.",
+      "normalizing": "A función renal volve á liña base. O dano renal por alcohol só (sen outras comorbilidades) é en gran parte reversible."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "As células acinares pancreáticas están baixo estrés tóxico crónico polos metabolitos do alcohol. Tanto a función exocrina (encimas dixestivas) como a endocrina (insulina) poden verse progresivamente comprometidas. Risco de pancreatite aguda.",
+      "acute_withdrawal": "As células acinares comezan a recuperación do estrés tóxico agudo. A resposta inflamatoria cede se non hai pancreatite aguda presente. A produción de encimas dixestivas reestabilízase gradualmente.",
+      "post_acute": "A función pancreática continúa recuperándose. A produción exocrina normalízase en semanas. A sensibilidade á insulina mellora se non hai compromiso crónico.",
+      "normalizing": "A función pancreática achégase á liña base. A pancreatite crónica preexistente é en gran parte irreversible, pero a inflamación aguda resolveuse e o tecido restante funciona máis eficientemente."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "A mucosa gástrica está exposta ao contacto directo co etanol. A barreira de moco rómpese; as células parietais producen ácido en exceso. A gastrite erosiva é frecuente co consumo sostido.",
+      "acute_withdrawal": "A mucosa gástrica comeza a reparación activa en 48-72 horas. A produción de moco normalízase. A hipersecreción ácida cede ao cesar a estimulación das células parietais.",
+      "post_acute": "A mucosa rexenérase progresivamente. O epitelio gástrico ten un recambio de 3-7 días en condicións saudables, de xeito que a curación é relativamente rápida.",
+      "normalizing": "A mucosa gástrica restaurouse. O equilibrio ácido e a función dixestiva achéganse á liña base."
+    },
+    "nicotine": {
+      "during_use": "A nicotina aumenta a secreción de ácido gástrico e reduce o tono do esfínter esofáxico inferior. O fluxo sanguíneo da mucosa vese comprometido pola vasoconstricción. O risco de úlcera péptica é elevado.",
+      "acute_withdrawal": "A secreción de ácido gástrico comeza a normalizarse en días. O fluxo sanguíneo da mucosa mellora ao resolverse a vasoconstricción nicotínica. O tono do esfínter esofáxico recupérase.",
+      "post_acute": "O equilibrio ácido continúa estabilizándose. A mucosa gástrica cúrase da insuficiencia vascular. As úlceras preexistentes cúranse máis rápido sen nicotina.",
+      "normalizing": "A función gástrica e esofáxica achégase á liña base. O risco de enfermidade péptica baixa a niveis de non-fumador."
+    },
+    "caffeine": {
+      "during_use": "A cafeína estimula a secreción de ácido gástrico e reduce o tono do esfínter esofáxico inferior. A exposición da mucosa a ácido elevado é crónica. Os síntomas de refluxo e dispepsia son frecuentes en individuos sensibles.",
+      "acute_withdrawal": "A secreción de ácido gástrico comeza a normalizarse en días. O tono do esfínter esofáxico mellora.",
+      "post_acute": "O equilibrio da mucosa continúa estabilizándose. A frecuencia do refluxo diminúe.",
+      "normalizing": "A función gástrica e esofáxica achégase á liña base. O equilibrio ácido restaurouse."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "Os macrófagos alveolares están sobrecargados de partículas de alcatrán. A función do surfactante vese comprometida pola exposición crónica. Os mediadores inflamatorios acumúlanse. A capacidade de difusión diminúe.",
+      "acute_withdrawal": "A inflamación alveolar comeza a ceder en días. Os macrófagos intensifican a limpeza de residuos acumulados — a tose produtiva é frecuente nas semanas 1-3 mentres os pulmóns expulsan residuos. A capacidade de difusión comeza a mellorar.",
+      "post_acute": "A superficie alveolar continúa limpándose. Os marcadores inflamatorios baixan. A función pulmonar (FEV1, capacidade vital) mellora de forma medible.",
+      "normalizing": "A función alveolar achégase á liña base en 1-9 meses para consumidores sen EPOC establecida. O enfisema preexistente é en gran parte irreversible, pero a inflamación resolveuse e a superficie alveolar restante funciona de xeito óptimo."
+    },
+    "cannabis": {
+      "during_use": "Os tecidos bronquiais e alveolares están expostos a produtos de combustión cunha carga irritante similar ao fume do tabaco (aínda que sen nicotina). A inflamación e a produción de moco están elevadas.",
+      "acute_withdrawal": "A inflamación bronquial comeza a ceder en días. A produción de moco normalízase. A irritación alveolar diminúe.",
+      "post_acute": "O tecido pulmonar continúa curándose. A tose e a hipersecreción de moco melloran. Os marcadores inflamatorios baixan.",
+      "normalizing": "A función pulmonar achégase á liña base. Sen exposición á combustión, os pulmóns recuperan a maior parte da capacidade funcional."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Os cilios bronquiais están paralizados polos compoñentes do fume do tabaco. O moco acumúlase sen limpeza. As células caliciformes hipertrófanse. Establécese unha inflamación bronquial crónica.",
+      "acute_withdrawal": "Os cilios recuperan a motilidade en 24-72 horas tras o último cigarro. Estas células, inmobilizadas durante anos polo fume do tabaco, volven varrer o moco acumulado. A tose produtiva nas semanas 1-3 é esperada — o sistema está a expulsar residuos.",
+      "post_acute": "A función ciliar continúa recuperándose. A limpeza de moco normalízase progresivamente. A inflamación bronquial diminúe. A hipertrofia das células caliciformes reverte parcialmente.",
+      "normalizing": "A función dos cilios bronquiais restaurouse en gran parte. A limpeza de moco e o grosor da parede bronquial achéganse á liña base en 1-9 meses en consumidores sen bronquite crónica establecida."
+    },
+    "cannabis": {
+      "during_use": "O tecido bronquial está exposto a produtos de combustión e activación de receptores cannabinoides. A inflamación, irritación e produción de moco están elevadas.",
+      "acute_withdrawal": "A inflamación bronquial comeza a ceder en días. A produción de moco normalízase. A actividade dos receptores cannabinoides no tecido bronquial cesa.",
+      "post_acute": "A curación bronquial continúa. Os síntomas de tose e irritación melloran progresivamente.",
+      "normalizing": "A función bronquial achégase á liña base. A irritación crónica resólvese. Os marcadores celulares de inflamación normalízanse."
+    }
+  },
+  "heart": {
+    "caffeine": {
+      "during_use": "A cafeína eleva a frecuencia cardíaca e a presión arterial transitoriamente vía liberación de noradrenalina e efectos directos sobre o tecido cardíaco. Desenvólvese tolerancia a algúns efectos cardiovasculares pero non a todos. O risco de palpitacións e arritmias depende da dose.",
+      "acute_withdrawal": "A frecuencia cardíaca en repouso e a presión arterial baixan. A vasoconstricción inducida pola cafeína resólvese. O ritmo cardíaco estabilízase.",
+      "post_acute": "O tono cardiovascular continúa normalizándose. Os latexos ectópicos inducidos pola cafeína ceden.",
+      "normalizing": "Os parámetros cardiovasculares en repouso volven á liña base sen cafeína. A sensibilidade aos estimulantes normalízase."
+    }
+  }
+}

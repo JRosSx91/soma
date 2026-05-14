@@ -1,0 +1,48 @@
+{
+  "header": {
+    "editProfile": "Modifier le profil",
+    "trophies": "Trophées",
+    "dashboard": "Tableau de bord"
+  },
+  "trophies": {
+    "title": "Vos trophées",
+    "unlockedRatio": "{{unlocked}} sur {{total}} débloqués",
+    "unlockedOn": "Obtenu le {{date}}",
+    "lockedHint": "Atteignez {{percent}}% de récupération pour {{organ}}",
+    "hiddenHint": "Trophée caché",
+    "toastEyebrow": "NOUVEAU TROPHÉE",
+    "toastDismiss": "Fermer",
+    "toastDismissAll": "Marquer les {{count}} comme vus"
+  },
+  "panel": {
+    "selectedOrgan": "Organe sélectionné",
+    "hoverPrompt": "Survolez un organe",
+    "clickPrompt": "Cliquez sur un organe pour l'inspecter",
+    "affectedBy": "Affecté par",
+    "causedBy": "Causé par",
+    "daysAbstinent": "Jours d'abstinence",
+    "recovery": "Récupération",
+    "showRecoveryProcess": "Afficher le processus de récupération",
+    "hideRecoveryProcess": "Masquer le processus de récupération",
+    "noNarrativeData": "Aucune donnée de récupération disponible pour cet organe.",
+    "showNeurotransmitterState": "Afficher l'état des neurotransmetteurs",
+    "hideNeurotransmitterState": "Masquer l'état des neurotransmetteurs",
+    "noNeurotransmitterData": "Aucune donnée de neurotransmetteurs disponible pour cet organe.",
+    "direction": {
+      "depleted": "épuisé",
+      "elevated": "élevé",
+      "oscillating": "oscillant",
+      "normalizing": "en normalisation"
+    },
+    "severity": {
+      "severe": "sévère",
+      "moderate": "modéré",
+      "mild": "léger",
+      "normalizing": "en normalisation"
+    }
+  },
+  "empty": {
+    "noSubstances": "Aucune substance suivie pour le moment.",
+    "addFirst": "Ajoutez la première →"
+  }
+}

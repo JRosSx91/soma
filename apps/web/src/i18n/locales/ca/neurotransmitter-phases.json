@@ -1,0 +1,82 @@
+{
+  "alcohol": {
+    "gaba": {
+      "acute_withdrawal": "Què pots sentir: ansietat, inquietud, insomni, tremolor, possiblement convulsions en casos greus. El teu sistema GABA estava suprimit per l'acció inhibitòria de l'alcohol; sense ell, l'excitabilitat neuronal rebota amb força. Es recomana supervisió mèdica durant la primera setmana.",
+      "post_acute": "Què pots sentir: ansietat fluctuant, alteracions del son, reactivitat emocional. Els receptors GABA-A estan recuperant la seva sensibilitat gradualment. Els símptomes solen millorar entre les setmanes 2 i 8.",
+      "normalizing": "La funció GABAèrgica s'aproxima a la línia base. Pot persistir certa sensibilitat emocional durant alguns mesos, però els símptomes més disruptius han passat."
+    },
+    "glutamate": {
+      "acute_withdrawal": "Què pots sentir: agitació, hipersensibilitat als estímuls, pensaments accelerats, possibles convulsions. La senyalització glutamatèrgica està rebotant per sobre dels nivells normals — aquest és el costat perillós de l'abstinència aguda d'alcohol. Busca atenció mèdica si els símptomes s'intensifiquen.",
+      "post_acute": "Una lleugera hiperexcitabilitat residual es pot manifestar com irritabilitat o sensibilitat al soroll. La senyalització glutamatèrgica s'està normalitzant.",
+      "normalizing": "El glutamat és a prop de la línia base. El sistema s'ha adaptat."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Què pots sentir: estat d'ànim baix, falta de motivació, anhedònia. El circuit de recompensa està esgotat després de l'estimulació crònica. Això forma part de la recalibració.",
+      "post_acute": "La motivació i la capacitat de sentir plaer tornen lentament. La paciència aquí no és opcional — el sistema es reconstrueix sol, no es pot forçar.",
+      "normalizing": "El sistema de recompensa s'aproxima a la línia base. El plaer de les activitats quotidianes hauria de sentir-se més accessible."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Què pots sentir: estat d'ànim baix, irritabilitat, possibles canvis en la gana. L'equilibri serotoninèrgic estava alterat pel consum crònic d'alcohol.",
+      "post_acute": "L'estat d'ànim s'estabilitza. S'espera certa volatilitat emocional, però amb tendència cap a la normalitat.",
+      "normalizing": "La funció serotoninèrgica és a prop de la línia base."
+    }
+  },
+  "cocaine": {
+    "dopamine": {
+      "acute_withdrawal": "Què pots sentir: anhedònia profunda, apatia, fatiga intensa, hipersòmnia, desig intens. Això és el 'crash' — el teu sistema dopaminèrgic ha estat funcionant amb neurotransmissor prestat durant molt de temps i ara està exhaust. La intensitat és real però transitòria.",
+      "post_acute": "Què pots sentir: baixa motivació persistent, plaer atenuat, desig intermitent. El sistema de recompensa està reconstruint la sensibilitat dels receptors. Aquesta fase és dura però previsible — els símptomes s'atenuen gradualment entre les setmanes 2 i 8.",
+      "normalizing": "La funció dopaminèrgica s'aproxima a la línia base. La resposta al plaer i la motivació estan tornant. Pot persistir certa sensibilitat als triggers durant mesos."
+    },
+    "norepinephrine": {
+      "acute_withdrawal": "Què pots sentir: esgotament físic combinat paradoxalment amb inquietud mental, alteracions del son malgrat la fatiga. El sistema noradrenèrgic està esgotat però encara no reequilibrat. El son tornarà.",
+      "post_acute": "Què pots sentir: energia oscil·lant, a vegades activat, a vegades pla. La regulació son-vigília s'està recuperant. La sensació de 'cansat però sense son' forma part d'això.",
+      "normalizing": "La regulació noradrenèrgica és a prop de la línia base. L'energia i els cicles de son haurien de sentir-se més previsibles."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Què pots sentir: disfòria, irritabilitat, reactivitat emocional. La senyalització serotoninèrgica estava elevada per la cocaïna i ara és deficitària.",
+      "post_acute": "L'estat d'ànim s'estabilitza gradualment. És normal que persisteixi certa sensibilitat emocional.",
+      "normalizing": "La funció serotoninèrgica és a prop de la línia base."
+    }
+  },
+  "nicotine": {
+    "acetylcholine": {
+      "acute_withdrawal": "Què pots sentir: irritabilitat, dificultat per concentrar-se, inquietud, desig intens — pic entre els dies 1 i 3. Els receptors nicotínics estaven sobreexpressats per compensar l'estimulació crònica; sense nicotina estan excessivament actius. Aquesta fase és curta però intensa.",
+      "post_acute": "Què pots sentir: dificultat de concentració residual, desig ocasional. La densitat de receptors torna a la normalitat — això passa més ràpid que en altres sistemes.",
+      "normalizing": "La funció colinèrgica és a prop de la línia base. Els receptors s'han regulat a la baixa. El desig, quan apareix, sol ser situacional més que fisiològic."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Què pots sentir: estat d'ànim baix, falta de motivació, anhedònia lleu. L'alliberament de dopamina que la nicotina provocava ara és absent.",
+      "post_acute": "La motivació torna gradualment. El sistema de recompensa s'adapta.",
+      "normalizing": "La funció dopaminèrgica és a prop de la línia base."
+    }
+  },
+  "cannabis": {
+    "endocannabinoid": {
+      "acute_withdrawal": "Què pots sentir: irritabilitat, insomni, somnis vívids o pertorbadors, ansietat, disminució de la gana. Els teus receptors CB1 estaven regulats a la baixa per compensar el THC; sense cannabinoides externs el sistema està breument infraactivat. Els somnis vívids són característics — el son REM està rebotant de la supressió.",
+      "post_acute": "Què pots sentir: son millorant però inestable, irritabilitat residual, ansietat lleu. La densitat de receptors CB1 s'està recuperant.",
+      "normalizing": "El sistema endocannabinoide s'aproxima a la línia base. La regulació del son i l'estat d'ànim hauria de sentir-se més estable."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Baixada motivacional lleu. La contribució del cànnabis al teu circuit de recompensa era modesta, així que aquesta fase és proporcionalment suau.",
+      "post_acute": "La motivació s'estabilitza.",
+      "normalizing": "La funció dopaminèrgica és a prop de la línia base."
+    },
+    "gaba": {
+      "acute_withdrawal": "Contribució lleu als símptomes d'ansietat. L'equilibri GABAèrgic estava modulat pel cànnabis i s'està recalibrant.",
+      "post_acute": "L'equilibri GABAèrgic millora.",
+      "normalizing": "La funció GABAèrgica és a prop de la línia base."
+    }
+  },
+  "caffeine": {
+    "adenosine": {
+      "acute_withdrawal": "Què pots sentir: mal de cap (sovint intens), fatiga, somnolència, dificultat per concentrar-se, irritabilitat. Pic a les 24-48 hores. Els teus receptors d'adenosina estaven sobreexpressats per compensar el bloqueig crònic de la cafeïna; sense cafeïna, el senyal d'adenosina acumulat impacta receptors hipersensibles. El mal de cap és real i previsible.",
+      "post_acute": "Què pots sentir: fatiga residual, lleugera dificultat de concentració a la tarda, mal de cap ocasional. La densitat de receptors d'adenosina està tornant gradualment a la línia base.",
+      "normalizing": "L'equilibri adenosinèrgic s'aproxima a la normalitat. La regulació de la pressió de son, l'alerta matinal i l'energia vespertina s'estabilitzen sense estimulació externa."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Baixada motivacional lleu. La contribució dopaminèrgica de la cafeïna és indirecta (via receptors d'adenosina A2A), així que aquesta fase és proporcionalment suau.",
+      "post_acute": "La motivació s'estabilitza.",
+      "normalizing": "La funció dopaminèrgica és a prop de la línia base."
+    }
+  }
+}

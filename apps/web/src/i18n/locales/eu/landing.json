@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Zure gorputza berreskuratzen ari da oraintxe bertan.",
+    "subtitle": "Soma-k erakusten dizu nola — organoz organo, hartzailez hartzaile, oinarri zientifiko errealarekin.",
+    "cta": "Hasi zure berreskuratze-mapa",
+    "login": "Dagoeneko kontu bat duzu? Hasi saioa"
+  },
+  "what": {
+    "eyebrow": "ZER DA SOMA",
+    "title": "Ez da beste ongizate-app bat.",
+    "p1": "Soma substantzien abstinentzia egoeran dauden pertsonentzako gorputz-berreskuratze tracker gamifikatua da. Zure barruan gertatzen ari diren aldaketa fisiologiko errealak mapatzen ditu — gibel-entzimen normalizaziotik dopamina-hartzaileen birpopulatzera — eta aurrerapen ikusgarri eta neurgarri bihurtzen ditu.",
+    "p2": "Esaldi motibagarririk gabe. Egun-kontagailurik gabe. Zure benetako gorputza, denbora errealean berreskuratzen, argitaratutako literatura medikoan oinarrituta.",
+    "p3": "Zerbait ziurtasunez ez dakigunean, esaten dizugu. Datu bakoitzak konfiantza-maila bat du. Zintzotasuna ziurgabetasunaren gainean — ez itxurazko zehaztasuna."
+  },
+  "how": {
+    "eyebrow": "NOLA FUNTZIONATZEN DU",
+    "title": "Hiru pauso. Asmatukerarik gabe.",
+    "step1_title": "Kontatu Soma-ri zer kontsumitzen zenuen",
+    "step1_desc": "Markatu zure substantziak, kontsumo-historia eta noiz gelditu zinen. Soma-k zure berreskuratze-eredu pertsonala eraikitzen du.",
+    "step2_title": "Ikusi zure gorputza nola osatzen den",
+    "step2_desc": "3D eredu anatomiko batek organo bakoitzaren berreskuratze-egoera erakusten du denbora errealean. Gibela, birikak, bihotza, garuneko eskualdeak — denak zure denbora-lerrora mapatuta.",
+    "step3_title": "Irabazi benetako trofeoak",
+    "step3_desc": "77 lorpen mugarri fisiologiko errealekin lotuta. Ez 'Egun 30eko insignia' — 'Zure D2 hartzaileak estriatua birpopulatu dute.'"
+  },
+  "science": {
+    "eyebrow": "ZIENTZIA",
+    "title": "Datuekin eraikia, ez itxaropenarekin.",
+    "p1": "Substantzia × organo bikote bakoitzerako berreskuratze-kurbak peer-reviewed literaturatik modelatuta daude. Logaritmikoak, sigmoidalak edo esponentzialak — benetako fisiologiarekin bat datorrena.",
+    "p2": "Soma-ko datu mediko bakoitzak konfiantza-maila bat du: altua, ertaina edo baxua. Ebidentzia sendoa denean, esaten dugu. Hurbilekoa denean, ere bai.",
+    "p3": "Bost substantzia modelatuta orain arte — alkohola, nikotina, kannabia, kokaina, kafeina — organo-sistema eta neurotransmisore-bide anitzetan zehar. Gehiago bidean."
+  },
+  "trophies": {
+    "eyebrow": "LORPENAK",
+    "title": "Zure gorputzak gainditzen duen mugarri bakoitza, aitortua.",
+    "p1": "77 trofeo bost substantziatan. Brontzea lehen egunetarako. Zilarra asteetarako. Urrea hilabeteetarako. Platinoa zure biologiaren gaineko subiranotasun osoa lortzeko.",
+    "example1_title": "Ekaitza zeharkatuz",
+    "example1_desc": "Abstinentzia-fase akutua biziraun — edozein substantziaren fisiologikoki arriskutsuena.",
+    "example2_title": "Plazera jada ez dago alokatuta",
+    "example2_desc": "Dopamina-hartzaileen dentsitatea oinarri-lerrora hurbiltzen da. Sari naturalak berriro errealak sentitzen dira.",
+    "example3_title": "Diktadorea erori da",
+    "example3_desc": "Askatasun neurokimiko absolutua. Sari-zirkuitua erabat berreskuratuta.",
+    "hidden_note": "Trofeo batzuk ezkutatuta daude. Zure gorputzak egiten duenean aurkituko dituzu."
+  },
+  "footer": {
+    "tagline": "Zure gorputza dagoeneko lanean ari da. Soma-k ikustea ahalbidetzen dizu.",
+    "cta": "Hasi orain",
+    "login": "Hasi saioa"
+  }
+}

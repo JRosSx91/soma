@@ -1,0 +1,82 @@
+{
+  "alcohol": {
+    "gaba": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : anxiété, agitation, insomnie, tremblements, éventuellement des convulsions dans les cas graves. Votre système GABA était supprimé par l'action inhibitrice de l'alcool ; sans lui, l'excitabilité neuronale rebondit fortement. Une surveillance médicale est recommandée pendant la première semaine.",
+      "post_acute": "Ce que vous pouvez ressentir : anxiété fluctuante, troubles du sommeil, réactivité émotionnelle. Les récepteurs GABA-A restaurent progressivement leur sensibilité. Les symptômes s'améliorent généralement entre les semaines 2 et 8.",
+      "normalizing": "La fonction GABAergique s'approche de la ligne de base. Une certaine sensibilité émotionnelle peut persister pendant plusieurs mois, mais les symptômes les plus perturbateurs sont passés."
+    },
+    "glutamate": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : agitation, hypersensibilité aux stimuli, pensées qui s'emballent, convulsions possibles. La signalisation glutamatergique rebondit au-dessus des niveaux normaux — c'est le côté dangereux du sevrage alcoolique aigu. Consultez un médecin si les symptômes s'intensifient.",
+      "post_acute": "Une légère hyperexcitabilité résiduelle peut se manifester par de l'irritabilité ou une sensibilité au bruit. La signalisation glutamatergique se normalise.",
+      "normalizing": "Le glutamate est proche de la ligne de base. Le système s'est adapté."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : humeur basse, manque de motivation, anhédonie. Le circuit de récompense est épuisé après une stimulation chronique. C'est une partie de la recalibration.",
+      "post_acute": "La motivation et la capacité à ressentir du plaisir reviennent lentement. La patience ici n'est pas optionnelle — le système se reconstruit seul, il ne peut pas être forcé.",
+      "normalizing": "Le système de récompense s'approche de la ligne de base. Le plaisir des activités ordinaires devrait sembler plus accessible."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : humeur basse, irritabilité, possibles changements d'appétit. L'équilibre sérotoninergique était perturbé par la consommation chronique d'alcool.",
+      "post_acute": "L'humeur se stabilise. Une certaine volatilité émotionnelle est attendue mais tend vers la normale.",
+      "normalizing": "La fonction sérotoninergique est proche de la ligne de base."
+    }
+  },
+  "cocaine": {
+    "dopamine": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : anhédonie profonde, apathie, fatigue intense, hypersomnie, envies intenses. C'est le 'crash' — votre système dopaminergique a fonctionné avec un neurotransmetteur emprunté pendant longtemps et est maintenant épuisé. L'intensité est réelle mais transitoire.",
+      "post_acute": "Ce que vous pouvez ressentir : faible motivation persistante, plaisir émoussé, envies intermittentes. Le système de récompense reconstruit la sensibilité des récepteurs. Cette phase est difficile mais prévisible — les symptômes s'atténuent progressivement entre les semaines 2 et 8.",
+      "normalizing": "La fonction dopaminergique s'approche de la ligne de base. La réponse au plaisir et la motivation reviennent. Une certaine sensibilité aux déclencheurs peut persister pendant des mois."
+    },
+    "norepinephrine": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : épuisement physique paradoxalement combiné à une agitation mentale, troubles du sommeil malgré la fatigue. Le système noradrénergique est épuisé mais pas encore rééquilibré. Le sommeil reviendra.",
+      "post_acute": "Ce que vous pouvez ressentir : énergie oscillante, parfois activée, parfois plate. La régulation veille-sommeil se rétablit. La sensation 'd'être fatigué sans avoir sommeil' en fait partie.",
+      "normalizing": "La régulation noradrénergique est proche de la ligne de base. L'énergie et les cycles de sommeil devraient sembler plus prévisibles."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : dysphorie, irritabilité, réactivité émotionnelle. La signalisation sérotoninergique était élevée par la cocaïne et est maintenant en déficit.",
+      "post_acute": "L'humeur se stabilise progressivement. Une certaine persistance de la sensibilité émotionnelle est normale.",
+      "normalizing": "La fonction sérotoninergique est proche de la ligne de base."
+    }
+  },
+  "nicotine": {
+    "acetylcholine": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : irritabilité, difficulté à se concentrer, agitation, envies intenses — pic entre les jours 1 et 3. Les récepteurs nicotiniques étaient surexprimés pour compenser la stimulation chronique ; sans nicotine, ils sont excessivement actifs. Cette phase est courte mais intense.",
+      "post_acute": "Ce que vous pouvez ressentir : difficulté de concentration résiduelle, envies occasionnelles. La densité des récepteurs revient à la normale — cela se produit plus rapidement que dans d'autres systèmes.",
+      "normalizing": "La fonction cholinergique est proche de la ligne de base. Les récepteurs ont été régulés à la baisse. Les envies, quand elles apparaissent, sont généralement situationnelles plutôt que physiologiques."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : humeur basse, manque de motivation, légère anhédonie. La libération de dopamine que la nicotine déclenchait est maintenant absente.",
+      "post_acute": "La motivation revient progressivement. Le système de récompense s'adapte.",
+      "normalizing": "La fonction dopaminergique est proche de la ligne de base."
+    }
+  },
+  "cannabis": {
+    "endocannabinoid": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : irritabilité, insomnie, rêves vifs ou perturbants, anxiété, diminution de l'appétit. Vos récepteurs CB1 étaient régulés à la baisse pour compenser le THC ; sans cannabinoïdes externes, le système est brièvement sous-activé. Les rêves vifs sont caractéristiques — le sommeil REM rebondit après la suppression.",
+      "post_acute": "Ce que vous pouvez ressentir : sommeil améliorant mais instable, irritabilité résiduelle, légère anxiété. La densité des récepteurs CB1 se rétablit.",
+      "normalizing": "Le système endocannabinoïde s'approche de la ligne de base. La régulation du sommeil et de l'humeur devrait sembler plus stable."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Légère baisse motivationnelle. La contribution du cannabis à votre circuit de récompense était modeste, donc cette phase est proportionnellement douce.",
+      "post_acute": "La motivation se stabilise.",
+      "normalizing": "La fonction dopaminergique est proche de la ligne de base."
+    },
+    "gaba": {
+      "acute_withdrawal": "Contribution légère aux symptômes d'anxiété. L'équilibre GABAergique était modulé par le cannabis et se recalibre.",
+      "post_acute": "L'équilibre GABAergique s'améliore.",
+      "normalizing": "La fonction GABAergique est proche de la ligne de base."
+    }
+  },
+  "caffeine": {
+    "adenosine": {
+      "acute_withdrawal": "Ce que vous pouvez ressentir : maux de tête (souvent intenses), fatigue, somnolence, difficulté à se concentrer, irritabilité. Pic à 24-48 heures. Vos récepteurs adénosine étaient surexprimés pour compenser le blocage chronique de la caféine ; sans caféine, le signal d'adénosine accumulé frappe des récepteurs hypersensibles. Le mal de tête est réel et prévisible.",
+      "post_acute": "Ce que vous pouvez ressentir : fatigue résiduelle, légère difficulté de concentration l'après-midi, maux de tête occasionnels. La densité des récepteurs adénosine revient progressivement à la ligne de base.",
+      "normalizing": "L'équilibre adénosinergique s'approche de la normale. La régulation de la pression de sommeil, l'éveil matinal et l'énergie vespérale se stabilisent sans stimulation externe."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Légère baisse motivationnelle. La contribution dopaminergique de la caféine est indirecte (via les récepteurs adénosine A2A), donc cette phase est proportionnellement douce.",
+      "post_acute": "La motivation se stabilise.",
+      "normalizing": "La fonction dopaminergique est proche de la ligne de base."
+    }
+  }
+}

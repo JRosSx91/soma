@@ -1,0 +1,88 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Els hepatòcits estan processant una càrrega crònica d'etanol. L'esteatosi (dipòsit de greix) s'acumula amb el consum sostingut. El fetge és el lloc principal del metabolisme de l'alcohol via alcohol deshidrogenasa i CYP2E1.",
+      "acute_withdrawal": "L'activitat enzimàtica hepàtica (AST, ALT, GGT) sol romandre elevada les primeres setmanes. L'esteatosi comença a revertir-se si no hi ha fibrosi establerta. La regeneració d'hepatòcits és activa — el fetge és un dels pocs òrgans amb capacitat regenerativa substancial.",
+      "post_acute": "L'esteatosi reverteix progressivament en absència de fibrosi avançada. Els nivells de GGT baixen al llarg de setmanes a mesos. Nous hepatòcits reemplacen els danyats; el recanvi cel·lular continua.",
+      "normalizing": "L'estructura hepàtica s'aproxima a la línia base si no hi havia fibrosi avançada. Els marcadors enzimàtics es normalitzen en 3-6 mesos. El dany estructural preexistent (cirrosi) és en gran part irreversible, però la inflamació cedeix i els hepatòcits restants funcionen més eficientment."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "La cocaïna causa vasoconstricció sistèmica incloent les artèries renals. Les cèl·lules tubulars experimenten estrès isquèmic repetit. Risc de lesió renal aguda durant el consum.",
+      "acute_withdrawal": "La vasoconstricció renal es resol en hores des de l'últim consum. Les cèl·lules tubulars comencen la recuperació de l'estrès isquèmic. La filtració glomerular es normalitza.",
+      "post_acute": "La funció tubular continua estabilitzant-se. Si no s'ha establert dany crònic, la funció renal torna cap a la línia base.",
+      "normalizing": "La funció renal s'aproxima als paràmetres normals. Qualsevol dany estructural residual de la vasoconstricció prolongada és el factor limitant; la recuperació funcional és altrament substancial."
+    },
+    "alcohol": {
+      "during_use": "El consum crònic d'alcohol contribueix a la deshidratació i a un estrès tubular modest. L'efecte diürètic de l'alcohol altera l'equilibri de líquids i electròlits.",
+      "acute_withdrawal": "La hidratació es normalitza en dies. Les cèl·lules tubulars es recuperen de l'estrès crònic per deshidratació. L'equilibri electrolític es restaura.",
+      "post_acute": "La funció renal continua estabilitzant-se. El dany tubular lleu per exposició crònica es resol progressivament.",
+      "normalizing": "La funció renal torna a la línia base. El dany renal per alcohol sol (sense altres comorbiditats) és en gran part reversible."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "Les cèl·lules acinars pancreàtiques estan sota estrès tòxic crònic pels metabòlits de l'alcohol. Tant la funció exocrina (enzims digestius) com l'endocrina (insulina) poden veure's progressivament compromeses. Risc de pancreatitis aguda.",
+      "acute_withdrawal": "Les cèl·lules acinars comencen la recuperació de l'estrès tòxic agut. La resposta inflamatòria cedeix si no hi ha pancreatitis aguda present. La producció d'enzims digestius es reestabilitza gradualment.",
+      "post_acute": "La funció pancreàtica continua recuperant-se. La producció exocrina es normalitza en setmanes. La sensibilitat a la insulina millora si no hi ha compromís crònic.",
+      "normalizing": "La funció pancreàtica s'aproxima a la línia base. La pancreatitis crònica preexistent és en gran part irreversible, però la inflamació aguda s'ha resolt i el teixit restant funciona més eficientment."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "La mucosa gàstrica està exposada al contacte directe amb l'etanol. La barrera de moc es trenca; les cèl·lules parietals produeixen àcid en excés. La gastritis erosiva és freqüent amb el consum sostingut.",
+      "acute_withdrawal": "La mucosa gàstrica comença la reparació activa en 48-72 hores. La producció de moc es normalitza. La hipersecreció àcida cedeix en cessar l'estimulació de les cèl·lules parietals.",
+      "post_acute": "La mucosa es regenera progressivament. L'epiteli gàstric té un recanvi de 3-7 dies en condicions saludables, de manera que la curació és relativament ràpida.",
+      "normalizing": "La mucosa gàstrica s'ha restaurat. L'equilibri àcid i la funció digestiva s'aproximen a la línia base."
+    },
+    "nicotine": {
+      "during_use": "La nicotina augmenta la secreció d'àcid gàstric i redueix el to de l'esfínter esofàgic inferior. El flux sanguini de la mucosa es veu compromès per la vasoconstricció. El risc d'úlcera pèptica és elevat.",
+      "acute_withdrawal": "La secreció d'àcid gàstric comença a normalitzar-se en dies. El flux sanguini de la mucosa millora en resoldre's la vasoconstricció nicotínica. El to de l'esfínter esofàgic es recupera.",
+      "post_acute": "L'equilibri àcid continua estabilitzant-se. La mucosa gàstrica es cura de la insuficiència vascular. Les úlceres preexistents es curen més ràpid sense nicotina.",
+      "normalizing": "La funció gàstrica i esofàgica s'aproxima a la línia base. El risc de malaltia pèptica baixa a nivells de no-fumador."
+    },
+    "caffeine": {
+      "during_use": "La cafeïna estimula la secreció d'àcid gàstric i redueix el to de l'esfínter esofàgic inferior. L'exposició de la mucosa a àcid elevat és crònica. Els símptomes de reflux i dispèpsia són freqüents en individus sensibles.",
+      "acute_withdrawal": "La secreció d'àcid gàstric comença a normalitzar-se en dies. El to de l'esfínter esofàgic millora.",
+      "post_acute": "L'equilibri de la mucosa continua estabilitzant-se. La freqüència del reflux disminueix.",
+      "normalizing": "La funció gàstrica i esofàgica s'aproxima a la línia base. L'equilibri àcid s'ha restaurat."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "Els macròfags alveolars estan sobrecarregats de partícules d'alquitrà. La funció del surfactant es veu compromesa per l'exposició crònica. Els mediadors inflamatoris s'acumulen. La capacitat de difusió disminueix.",
+      "acute_withdrawal": "La inflamació alveolar comença a cedir en dies. Els macròfags intensifiquen la neteja de residus acumulats — la tos productiva és freqüent a les setmanes 1-3 mentre els pulmons expulsen residus. La capacitat de difusió comença a millorar.",
+      "post_acute": "La superfície alveolar continua netejant-se. Els marcadors inflamatoris baixen. La funció pulmonar (FEV1, capacitat vital) millora de forma mesurable.",
+      "normalizing": "La funció alveolar s'aproxima a la línia base en 1-9 mesos per a consumidors sense MPOC establerta. L'emfisema preexistent és en gran part irreversible, però la inflamació s'ha resolt i la superfície alveolar restant funciona de manera òptima."
+    },
+    "cannabis": {
+      "during_use": "Els teixits bronquials i alveolars estan exposats a productes de combustió amb una càrrega irritant similar al fum del tabac (tot i que sense nicotina). La inflamació i la producció de moc estan elevades.",
+      "acute_withdrawal": "La inflamació bronquial comença a cedir en dies. La producció de moc es normalitza. La irritació alveolar disminueix.",
+      "post_acute": "El teixit pulmonar continua curant-se. La tos i la hipersecreció de moc milloren. Els marcadors inflamatoris baixen.",
+      "normalizing": "La funció pulmonar s'aproxima a la línia base. Sense exposició a la combustió, els pulmons recuperen la major part de la capacitat funcional."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Els cilis bronquials estan paralitzats pels components del fum del tabac. El moc s'acumula sense neteja. Les cèl·lules caliciformes s'hipertrofien. S'estableix una inflamació bronquial crònica.",
+      "acute_withdrawal": "Els cilis recuperen la motilitat en 24-72 hores després de l'última cigarreta. Aquestes cèl·lules, immobilitzades durant anys pel fum del tabac, tornen a escombrar el moc acumulat. La tos productiva a les setmanes 1-3 és esperada — el sistema està expulsant residus.",
+      "post_acute": "La funció ciliar continua recuperant-se. La neteja de moc es normalitza progressivament. La inflamació bronquial disminueix. La hipertròfia de les cèl·lules caliciformes reverteix parcialment.",
+      "normalizing": "La funció dels cilis bronquials s'ha restaurat en gran part. La neteja de moc i el gruix de la paret bronquial s'aproximen a la línia base en 1-9 mesos en consumidors sense bronquitis crònica establerta."
+    },
+    "cannabis": {
+      "during_use": "El teixit bronquial està exposat a productes de combustió i activació de receptors cannabinoides. La inflamació, irritació i producció de moc estan elevades.",
+      "acute_withdrawal": "La inflamació bronquial comença a cedir en dies. La producció de moc es normalitza. L'activitat dels receptors cannabinoides al teixit bronquial cessa.",
+      "post_acute": "La curació bronquial continua. Els símptomes de tos i irritació milloren progressivament.",
+      "normalizing": "La funció bronquial s'aproxima a la línia base. La irritació crònica es resol. Els marcadors cel·lulars d'inflamació es normalitzen."
+    }
+  },
+  "heart": {
+    "caffeine": {
+      "during_use": "La cafeïna eleva la freqüència cardíaca i la pressió arterial transitòriament via alliberament de noradrenalina i efectes directes sobre el teixit cardíac. Es desenvolupa tolerància a alguns efectes cardiovasculars però no a tots. El risc de palpitacions i arítmies depèn de la dosi.",
+      "acute_withdrawal": "La freqüència cardíaca en repòs i la pressió arterial baixen. La vasoconstricció induïda per la cafeïna es resol. El ritme cardíac s'estabilitza.",
+      "post_acute": "El to cardiovascular continua normalitzant-se. Els batecs ectòpics induïts per la cafeïna cedeixen.",
+      "normalizing": "Els paràmetres cardiovasculars en repòs tornen a la línia base sense cafeïna. La sensibilitat als estimulants es normalitza."
+    }
+  }
+}

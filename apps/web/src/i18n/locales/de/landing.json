@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Ihr Körper erholt sich gerade in diesem Moment.",
+    "subtitle": "Soma zeigt Ihnen wie — Organ für Organ, Rezeptor für Rezeptor, auf echter wissenschaftlicher Grundlage.",
+    "cta": "Starten Sie Ihre Erholungskarte",
+    "login": "Haben Sie bereits ein Konto? Anmelden"
+  },
+  "what": {
+    "eyebrow": "WAS IST SOMA",
+    "title": "Keine weitere Wellness-App.",
+    "p1": "Soma ist ein gamifizierter Körpererholungs-Tracker für Menschen in Substanzabstinenz. Es kartiert die realen physiologischen Veränderungen in Ihrem Körper — von der Normalisierung der Leberenzyme bis zur Wiederbesiedlung der Dopaminrezeptoren — und verwandelt sie in sichtbaren, messbaren Fortschritt.",
+    "p2": "Keine Motivationssprüche. Keine Tageszähler. Ihr tatsächlicher Körper, der sich in Echtzeit erholt, basierend auf veröffentlichter medizinischer Literatur.",
+    "p3": "Wenn wir etwas nicht mit Sicherheit wissen, sagen wir es Ihnen. Jeder Datenpunkt trägt ein Konfidenzniveau. Ehrlichkeit über Unsicherheit — keine vorgetäuschte Präzision."
+  },
+  "how": {
+    "eyebrow": "SO FUNKTIONIERT ES",
+    "title": "Drei Schritte. Kein Rätselraten.",
+    "step1_title": "Erzählen Sie Soma, was Sie konsumiert haben",
+    "step1_desc": "Markieren Sie Ihre Substanzen, Konsumgeschichte und wann Sie aufgehört haben. Soma erstellt Ihr persönliches Erholungsmodell.",
+    "step2_title": "Beobachten Sie, wie Ihr Körper heilt",
+    "step2_desc": "Ein anatomisches 3D-Modell zeigt den Erholungszustand jedes Organs in Echtzeit. Leber, Lungen, Herz, Gehirnregionen — alle auf Ihrer Zeitachse abgebildet.",
+    "step3_title": "Verdienen Sie echte Trophäen",
+    "step3_desc": "77 Erfolge, die an echte physiologische Meilensteine gebunden sind. Nicht 'Abzeichen für Tag 30' — 'Ihre D2-Rezeptoren haben das Striatum wiederbesiedelt.'"
+  },
+  "science": {
+    "eyebrow": "DIE WISSENSCHAFT",
+    "title": "Auf Daten gebaut, nicht auf Hoffnung.",
+    "p1": "Die Erholungskurven für jedes Substanz-×-Organ-Paar sind aus peer-reviewter Literatur modelliert. Logarithmisch, sigmoidal oder exponentiell — je nachdem, was der realen Physiologie entspricht.",
+    "p2": "Jeder medizinische Datenpunkt in Soma trägt ein Konfidenzniveau: hoch, mittel oder niedrig. Wenn die Evidenz solide ist, sagen wir es. Wenn sie annähernd ist, auch.",
+    "p3": "Fünf Substanzen bisher modelliert — Alkohol, Nikotin, Cannabis, Kokain, Koffein — über mehrere Organsysteme und Neurotransmitter-Bahnen. Weitere folgen."
+  },
+  "trophies": {
+    "eyebrow": "ERFOLGE",
+    "title": "Jeder Meilenstein, den Ihr Körper erreicht, anerkannt.",
+    "p1": "77 Trophäen in fünf Substanzen. Bronze für die ersten Tage. Silber für die Wochen. Gold für die Monate. Platin für die vollständige Souveränität über Ihre Biologie.",
+    "example1_title": "Durch den Sturm",
+    "example1_desc": "Die akute Entzugsphase überleben — die physiologisch gefährlichste aller Substanzen.",
+    "example2_title": "Freude ist nicht mehr gemietet",
+    "example2_desc": "Die Dopaminrezeptordichte nähert sich dem Ausgangswert. Natürliche Belohnungen fühlen sich wieder real an.",
+    "example3_title": "Der Diktator ist gefallen",
+    "example3_desc": "Absolute neurochemische Freiheit. Der Belohnungskreislauf ist vollständig wiederhergestellt.",
+    "hidden_note": "Manche Trophäen sind versteckt. Sie werden sie entdecken, wenn Ihr Körper es tut."
+  },
+  "footer": {
+    "tagline": "Ihr Körper leistet bereits die Arbeit. Soma lässt Sie es sehen.",
+    "cta": "Jetzt starten",
+    "login": "Anmelden"
+  }
+}

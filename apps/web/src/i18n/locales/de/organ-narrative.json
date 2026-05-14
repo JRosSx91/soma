@@ -1,0 +1,88 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Die Hepatozyten verarbeiten eine chronische Ethanolbelastung. Steatose (Fettablagerung) häuft sich bei anhaltendem Konsum an. Die Leber ist der primäre Ort des Alkoholstoffwechsels über Alkoholdehydrogenase und CYP2E1.",
+      "acute_withdrawal": "Die hepatische Enzymaktivität (AST, ALT, GGT) bleibt in den ersten Wochen typischerweise erhöht. Die Steatose beginnt sich umzukehren, wenn keine Fibrose etabliert ist. Die Hepatozytenregeneration ist aktiv — die Leber ist eines der wenigen Organe mit erheblicher Regenerationsfähigkeit.",
+      "post_acute": "Die Steatose kehrt sich in Abwesenheit fortgeschrittener Fibrose schrittweise um. GGT-Werte sinken über Wochen bis Monate. Neue Hepatozyten ersetzen beschädigte; der Zellumsatz hält an.",
+      "normalizing": "Die Leberstruktur nähert sich der Ausgangslinie, wenn keine fortgeschrittene Fibrose vorhanden war. Enzymatische Marker normalisieren sich innerhalb von 3-6 Monaten. Vorbestehende strukturelle Schäden (Zirrhose) sind weitgehend irreversibel, aber die Entzündung klingt ab und die verbleibenden Hepatozyten funktionieren effizienter."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "Kokain verursacht systemische Vasokonstriktion einschließlich der Nierenarterien. Tubuläre Zellen erleiden wiederholten ischämischen Stress. Risiko einer akuten Nierenschädigung während des Konsums.",
+      "acute_withdrawal": "Die renale Vasokonstriktion löst sich innerhalb von Stunden nach dem letzten Konsum auf. Tubuläre Zellen beginnen, sich vom ischämischen Stress zu erholen. Die glomeruläre Filtration normalisiert sich.",
+      "post_acute": "Die Tubularfunktion stabilisiert sich weiter. Wenn kein chronischer Schaden etabliert wurde, kehrt die Nierenfunktion zur Ausgangslinie zurück.",
+      "normalizing": "Die Nierenfunktion nähert sich normalen Parametern. Jeglicher residuale Strukturschaden durch prolongierte Vasokonstriktion ist der limitierende Faktor; die funktionelle Erholung ist ansonsten erheblich."
+    },
+    "alcohol": {
+      "during_use": "Chronischer Alkoholkonsum trägt zur Dehydratation und bescheidenem tubulären Stress bei. Die diuretische Wirkung von Alkohol stört das Flüssigkeits- und Elektrolytgleichgewicht.",
+      "acute_withdrawal": "Die Hydratation normalisiert sich innerhalb von Tagen. Tubuläre Zellen erholen sich vom chronischen Dehydratationsstress. Das Elektrolytgleichgewicht wird wiederhergestellt.",
+      "post_acute": "Die Nierenfunktion stabilisiert sich weiter. Leichte tubuläre Schäden durch chronische Exposition lösen sich schrittweise auf.",
+      "normalizing": "Die Nierenfunktion kehrt zur Ausgangslinie zurück. Nierenschäden durch Alkohol allein (ohne andere Komorbiditäten) sind weitgehend reversibel."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "Pankreatische Azinuszellen stehen unter chronischem toxischen Stress durch Alkoholmetaboliten. Sowohl die exokrine (Verdauungsenzyme) als auch die endokrine (Insulin) Funktion können schrittweise beeinträchtigt werden. Risiko einer akuten Pankreatitis.",
+      "acute_withdrawal": "Azinuszellen beginnen, sich vom akuten toxischen Stress zu erholen. Die Entzündungsreaktion klingt ab, wenn keine akute Pankreatitis vorliegt. Die Verdauungsenzymproduktion restabilisiert sich schrittweise.",
+      "post_acute": "Die Pankreasfunktion erholt sich weiter. Die exokrine Produktion normalisiert sich innerhalb von Wochen. Die Insulinsensitivität verbessert sich, wenn sie nicht chronisch beeinträchtigt ist.",
+      "normalizing": "Die Pankreasfunktion nähert sich der Ausgangslinie. Vorbestehende chronische Pankreatitis ist weitgehend irreversibel, aber die akute Entzündung hat sich aufgelöst und das verbleibende Gewebe funktioniert effizienter."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "Die Magenschleimhaut ist direktem Ethanolkontakt ausgesetzt. Die Schleimbarriere wird gestört; Parietalzellen produzieren überschüssige Säure. Erosive Gastritis ist bei anhaltendem Konsum häufig.",
+      "acute_withdrawal": "Die Magenschleimhaut beginnt innerhalb von 48-72 Stunden eine aktive Reparatur. Die Schleimproduktion normalisiert sich. Die Säurehypersekretion klingt ab, wenn die Parietalzellstimulation endet.",
+      "post_acute": "Die Schleimhaut regeneriert sich schrittweise. Das Magenepithel hat unter gesunden Bedingungen einen Umsatz von 3-7 Tagen, daher ist die Heilung relativ schnell.",
+      "normalizing": "Die Magenschleimhaut ist wiederhergestellt. Das Säuregleichgewicht und die Verdauungsfunktion nähern sich der Ausgangslinie."
+    },
+    "nicotine": {
+      "during_use": "Nikotin erhöht die Magensäuresekretion und reduziert den Tonus des unteren Ösophagussphinkters. Der Schleimhautblutfluss ist durch Vasokonstriktion beeinträchtigt. Das Risiko eines peptischen Geschwürs ist erhöht.",
+      "acute_withdrawal": "Die Magensäuresekretion beginnt sich innerhalb von Tagen zu normalisieren. Der Schleimhautblutfluss verbessert sich, wenn sich die nikotinische Vasokonstriktion auflöst. Der Tonus des Ösophagussphinkters erholt sich.",
+      "post_acute": "Das Säuregleichgewicht stabilisiert sich weiter. Die Magenschleimhaut heilt von der vaskulären Insuffizienz. Vorbestehende Geschwüre heilen ohne Nikotin schneller.",
+      "normalizing": "Die Magen- und Ösophagusfunktion nähert sich der Ausgangslinie. Das Risiko einer Magenerkrankung sinkt auf das Niveau von Nichtrauchern."
+    },
+    "caffeine": {
+      "during_use": "Koffein stimuliert die Magensäuresekretion und reduziert den Tonus des unteren Ösophagussphinkters. Die Exposition der Schleimhaut gegenüber erhöhter Säure ist chronisch. Reflux- und Dyspepsiesymptome sind bei empfindlichen Personen häufig.",
+      "acute_withdrawal": "Die Magensäuresekretion beginnt sich innerhalb von Tagen zu normalisieren. Der Tonus des Ösophagussphinkters verbessert sich.",
+      "post_acute": "Das Schleimhautgleichgewicht stabilisiert sich weiter. Die Refluxhäufigkeit nimmt ab.",
+      "normalizing": "Die Magen- und Ösophagusfunktion nähert sich der Ausgangslinie. Das Säuregleichgewicht ist wiederhergestellt."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "Alveoläre Makrophagen sind mit Teerpartikeln überlastet. Die Surfactantfunktion ist durch chronische Exposition beeinträchtigt. Entzündungsmediatoren häufen sich an. Die Diffusionskapazität nimmt ab.",
+      "acute_withdrawal": "Die alveoläre Entzündung beginnt sich innerhalb von Tagen aufzulösen. Makrophagen intensivieren die Beseitigung angesammelter Ablagerungen — produktiver Husten ist in den Wochen 1-3 häufig, während die Lungen Rückstände ausstoßen. Die Diffusionskapazität beginnt sich zu verbessern.",
+      "post_acute": "Die alveoläre Oberfläche reinigt sich weiter. Entzündungsmarker sinken. Die Lungenfunktion (FEV1, Vitalkapazität) verbessert sich messbar.",
+      "normalizing": "Die alveoläre Funktion nähert sich der Ausgangslinie innerhalb von 1-9 Monaten für Nutzer ohne etablierte COPD. Vorbestehende Emphyseme sind weitgehend irreversibel, aber die Entzündung hat sich aufgelöst und die verbleibende alveoläre Oberfläche funktioniert optimal."
+    },
+    "cannabis": {
+      "during_use": "Bronchial- und Alveolargewebe sind Verbrennungsprodukten ausgesetzt, mit einer irritativen Last ähnlich dem Tabakrauch (jedoch ohne Nikotin). Entzündung und Schleimproduktion sind erhöht.",
+      "acute_withdrawal": "Die bronchiale Entzündung beginnt sich innerhalb von Tagen aufzulösen. Die Schleimproduktion normalisiert sich. Die alveoläre Reizung nimmt ab.",
+      "post_acute": "Das Lungengewebe heilt weiter. Husten und Schleimhypersekretion verbessern sich. Entzündungsmarker sinken.",
+      "normalizing": "Die Lungenfunktion nähert sich der Ausgangslinie. Ohne Verbrennungsexposition erholen sich die Lungen des größten Teils ihrer Funktionskapazität."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Bronchiale Zilien sind durch Bestandteile des Tabakrauchs gelähmt. Schleim sammelt sich ohne Clearance an. Becherzellen hypertrophieren. Chronische bronchiale Entzündung etabliert sich.",
+      "acute_withdrawal": "Zilien erholen ihre Motilität innerhalb von 24-72 Stunden nach der letzten Zigarette. Diese Zellen, die jahrelang durch Tabakrauch immobilisiert waren, fegen wieder aktiv angesammelten Schleim. Produktiver Husten in den Wochen 1-3 ist zu erwarten — das System stößt Rückstände aus.",
+      "post_acute": "Die Ziliarfunktion erholt sich weiter. Die Schleimclearance normalisiert sich schrittweise. Die bronchiale Entzündung nimmt ab. Die Becherzellhypertrophie kehrt sich teilweise um.",
+      "normalizing": "Die bronchiale Zilienfunktion ist weitgehend wiederhergestellt. Schleimclearance und bronchiale Wanddicke nähern sich der Ausgangslinie innerhalb von 1-9 Monaten bei Nutzern ohne etablierte chronische Bronchitis."
+    },
+    "cannabis": {
+      "during_use": "Bronchialgewebe ist Verbrennungsprodukten und Cannabinoidrezeptoraktivierung ausgesetzt. Entzündung, Reizung und Schleimproduktion sind erhöht.",
+      "acute_withdrawal": "Die bronchiale Entzündung beginnt sich innerhalb von Tagen aufzulösen. Die Schleimproduktion normalisiert sich. Die Cannabinoidrezeptoraktivität im Bronchialgewebe hört auf.",
+      "post_acute": "Die bronchiale Heilung setzt sich fort. Husten- und Reizungssymptome verbessern sich schrittweise.",
+      "normalizing": "Die Bronchialfunktion nähert sich der Ausgangslinie. Chronische Reizung löst sich auf. Zelluläre Entzündungsmarker normalisieren sich."
+    }
+  },
+  "heart": {
+    "caffeine": {
+      "during_use": "Koffein erhöht vorübergehend die Herzfrequenz und den Blutdruck über Noradrenalinfreisetzung und direkte Wirkungen auf das Herzgewebe. Toleranz entwickelt sich gegenüber einigen kardiovaskulären Wirkungen, aber nicht allen. Das Risiko von Palpitationen und Arrhythmien ist dosisabhängig.",
+      "acute_withdrawal": "Ruheherzfrequenz und Blutdruck sinken. Die durch Koffein induzierte Vasokonstriktion löst sich auf. Der Herzrhythmus stabilisiert sich.",
+      "post_acute": "Der kardiovaskuläre Tonus normalisiert sich weiter. Koffeininduzierte ektopische Schläge klingen ab.",
+      "normalizing": "Kardiovaskuläre Ruheparameter kehren zur koffeinfreien Ausgangslinie zurück. Die Empfindlichkeit gegenüber Stimulanzien normalisiert sich."
+    }
+  }
+}
