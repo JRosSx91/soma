@@ -1,0 +1,23 @@
+{
+  "title": "Kontatu zure buruari buruz",
+  "subtitle": "Hartzeari utzi diozun substantzia bakoitzerako, markatu aktibo gisa eta adierazi noiz erabili zenuen azken aldiz. Geroago eguneratu dezakezu.",
+  "fields": {
+    "lastUseDate": "Azken kontsumo data",
+    "yearStarted": "Hasiera urtea",
+    "frequency": "Maiztasuna"
+  },
+  "frequency": {
+    "daily": "Egunero",
+    "weekly": "Astero",
+    "monthly": "Hilero",
+    "occasional": "Noizbehinka"
+  },
+  "submit": "Jarraitu",
+  "submitting": "Gordetzen…",
+  "skip": "Kontsumitu ez dituzun edo jarraipenean ez dauden substantziak salta ditzakezu.",
+  "errors": {
+    "invalidYear": "Urte baliogabea {{substance}}-rako",
+    "lastUseDateRequired": "Azken kontsumo data beharrezkoa da {{substance}}-rako",
+    "saveFailed": "Ezin izan da profila gorde"
+  }
+}

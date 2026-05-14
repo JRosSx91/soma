@@ -1,0 +1,22 @@
+{
+  "alcohol": {
+    "name": "Alcool",
+    "shortDescription": "Dépresseur du système nerveux central. La consommation chronique endommage le foie, les structures cérébrales et le système cardiovasculaire."
+  },
+  "nicotine": {
+    "name": "Nicotine",
+    "shortDescription": "Stimulant qui active les récepteurs nicotiniques de l'acétylcholine. Endommage les poumons, les bronches et le système cardiovasculaire par la fumée de tabac."
+  },
+  "cannabis": {
+    "name": "Cannabis",
+    "shortDescription": "Cannabinoïde agissant sur les récepteurs CB1 et CB2. Affecte la mémoire, la cognition et le système de récompense du cerveau."
+  },
+  "cocaine": {
+    "name": "Cocaïne",
+    "shortDescription": "Stimulant puissant qui bloque la recapture de la dopamine. Endommage le système cardiovasculaire et les structures dopaminergiques du cerveau."
+  },
+  "caffeine": {
+    "name": "Caféine",
+    "shortDescription": "Antagoniste des récepteurs de l'adénosine. La consommation chronique affecte principalement le système nerveux central par adaptation adénosinergique, avec des effets secondaires sur les systèmes cardiovasculaire et gastro-intestinal."
+  }
+}

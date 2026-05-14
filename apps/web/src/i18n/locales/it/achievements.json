@@ -1,0 +1,326 @@
+{
+  "hidden": {
+    "title": "???",
+    "description": "Continua. Questo trofeo si rivela quando lo guadagni."
+  },
+
+  "alcohol-acute-survival-bronze": {
+    "title": "Attraverso la tempesta",
+    "description": "La fase acuta di astinenza — la più pericolosa fisiologicamente di qualsiasi sostanza — si sta spezzando. I recettori GABA-A, regolati verso il basso dall'etanolo cronico, iniziano a recuperare. Il rimbalzo glutamatergico si attenua. Tremori, ansia e il peggio sono passati. Le prime 72 ore sono le più dure — e sono alle spalle."
+  },
+  "alcohol-liver-bronze-1": {
+    "title": "Primi passi nel Mordor",
+    "description": "I marcatori enzimatici epatici (AST, ALT, GGT) iniziano a scendere dai picchi del consumo cronico. Il fegato registra il cambiamento in pochi giorni."
+  },
+  "alcohol-vta-bronze": {
+    "title": "La prima scintilla dopaminergica",
+    "description": "Il circuito della ricompensa, appiattito dalla soppressione GABAergica cronica e dalla regolazione verso il basso della dopamina, registra i suoi primi segnali naturali. L'anedonia non si è ancora sollevata — ma l'hardware inizia a rispondere di nuovo."
+  },
+  "alcohol-liver-bronze-2": {
+    "title": "La steatosi in ritirata",
+    "description": "La steatosi epatica inizia a invertirsi nelle prime due settimane di astinenza. I depositi lipidici vengono metabolizzati e la funzione epatocitaria migliora in modo misurabile."
+  },
+  "alcohol-prefrontal-bronze": {
+    "title": "Il cervello di Tony Stark che si scalda",
+    "description": "Primi segni di recupero corticale. I marcatori volumetrici iniziano a tendere verso l'alto. La memoria di lavoro e l'attenzione mostrano un miglioramento misurabile."
+  },
+  "alcohol-heart-bronze": {
+    "title": "Holiday heart, respinto",
+    "description": "L'ipertensione indotta dall'alcol inizia a normalizzarsi. Gli episodi di fibrillazione atriale — il fenomeno 'holiday heart' — diminuiscono in frequenza. Il miocardio smette di essere cronicamente stressato."
+  },
+  "alcohol-stomach-bronze": {
+    "title": "Basta bruciori all'alba",
+    "description": "La cicatrizzazione della mucosa gastrica accelera. L'ipersecrezione acida si attenua al termine della stimolazione delle cellule parietali. Le lesioni da gastrite erosiva iniziano a chiudersi."
+  },
+  "alcohol-pancreas-bronze": {
+    "title": "Il pancreas fuori dalla sala operatoria",
+    "description": "Le cellule acinose si riprendono dallo stress tossico cronico. La risposta infiammatoria si attenua. La produzione di enzimi digestivi si restabilizza gradualmente."
+  },
+  "alcohol-sleep-bronze": {
+    "title": "Il sonno REM torna",
+    "description": "Il consumo cronico di alcol sopprime il REM e frammenta il sonno profondo. Man mano che il sistema si pulisce, il REM rimbalza — a volte con sogni vividi — e l'architettura del sonno profondo inizia a ricostituirsi. Le mattine iniziano a sembrare riposo."
+  },
+  "alcohol-vta-silver": {
+    "title": "Il circuito della ricompensa si riavvia",
+    "description": "La segnalazione dopaminergica inizia a recuperare dalla soppressione cronica. Le ricompense naturali iniziano a filtrare attraverso il rumore."
+  },
+  "alcohol-prefrontal-silver": {
+    "title": "Charles Xavier non mi controlla più",
+    "description": "Il volume della materia grigia nella corteccia prefrontale aumenta sostanzialmente. Funzione esecutiva, controllo degli impulsi e processo decisionale migliorano. Sei tu a guidare l'autobus di nuovo."
+  },
+  "alcohol-liver-silver": {
+    "title": "Il fegato ricorda come si fa",
+    "description": "Le transaminasi si avvicinano agli intervalli normali. Il contenuto di grasso del fegato è sostanzialmente ridotto. La capacità rigenerativa epatica — tra le più forti del corpo — sta facendo il suo lavoro."
+  },
+  "alcohol-hippocampus-silver": {
+    "title": "I blackout hanno un controargomento",
+    "description": "Il volume ippocampale recupera in modo misurabile. La codifica della memoria episodica si stabilizza. Il substrato neurale che l'alcol rompeva più affidabilmente — quello dietro i blackout e le serate perdute — si sta ricostruendo."
+  },
+  "alcohol-heart-silver": {
+    "title": "Muscolo cardiaco, in recupero",
+    "description": "La cardiomiopatia alcolica si inverte sostanzialmente con un'astinenza prolungata. La frazione di eiezione migliora, la dilatazione ventricolare regredisce. Il cuore, dato abbastanza tempo, è uno dei migliori nel perdonare."
+  },
+  "alcohol-prefrontal-silver-2": {
+    "title": "Funzione esecutiva sostenuta",
+    "description": "Il recupero prefrontale non è più episodico — è la nuova linea di base. Pianificazione, astrazione e memoria di lavoro funzionano senza il rumore cronico. L'arbitro corticale non ha più bisogno di giorni per recuperare da ogni weekend."
+  },
+  "alcohol-pancreas-silver": {
+    "title": "L'insulina al suo posto",
+    "description": "Le funzioni esocrina ed endocrina del pancreas si normalizzano. La sensibilità all'insulina migliora se non è cronicamente compromessa."
+  },
+  "alcohol-stomach-silver": {
+    "title": "Stomaco di ferro ripristinato",
+    "description": "La mucosa gastrica è completamente rigenerata. Il rinnovo epiteliale di 3-7 giorni ha fatto il suo lavoro. L'equilibrio acido e la funzione digestiva sono tornati alla linea di base."
+  },
+  "alcohol-hippocampus-gold": {
+    "title": "La memoria, pienamente registrata",
+    "description": "Volume e funzione ippocampali si avvicinano alla linea di base. Consolidazione della memoria a lungo termine, navigazione spaziale e apprendimento contestuale funzionano a piena capacità. Anni di notti che non riuscivi a ricordare — il cervello ha imparato di nuovo a conservare."
+  },
+  "alcohol-liver-gold": {
+    "title": "Meglio della rigenerazione di Wolverine",
+    "description": "Il fegato ha rigenerato la maggior parte del suo tessuto funzionale. La fibrosi lieve, se presente, si è parzialmente invertita. Pochi organi nel corpo potrebbero riuscirci."
+  },
+  "alcohol-vta-gold": {
+    "title": "Il piacere non è più in affitto",
+    "description": "La densità dei recettori della dopamina si avvicina alla linea di base. Le ricompense naturali sembrano di nuovo reali, l'anedonia si risolve sostanzialmente. Il cervello ha ricordato come celebrare senza aiuto."
+  },
+  "alcohol-sovereignty-platinum": {
+    "title": "Ogni sistema, restituito",
+    "description": "Fegato, cuore, pancreas, stomaco, ippocampo, corteccia prefrontale, asse mesolimbico, architettura del sonno — ogni sistema che l'alcol ha toccato funziona ora con i propri segnali. La sostanza fisiologicamente più punitiva da abbandonare è pienamente alle spalle. Il corpo è di nuovo tuo, tutto intero."
+  },
+
+  "nicotine-bronchi-bronze-1": {
+    "title": "Le ciglia che si stirano dopo un lungo sonno",
+    "description": "Nelle prime 24-72 ore dall'interruzione, le ciglia bronchiali paralizzate iniziano a recuperare il loro movimento ritmico. L'ascensore mucociliare si sveglia."
+  },
+  "nicotine-bronchi-bronze-2": {
+    "title": "Il camino viene spazzato",
+    "description": "Le ciglia bronchiali eliminano catrame e particolato accumulato con efficienza misurabile. La tosse produttiva in questa fase è il sistema che espelle residui — non è un problema, è la soluzione."
+  },
+  "nicotine-bronchi-silver": {
+    "title": "Respirare senza pedaggio",
+    "description": "La mucosa bronchiale si è in gran parte ripristinata. La tosse cronica si attenua, la tolleranza all'esercizio migliora notevolmente. Ogni respiro costa meno."
+  },
+  "nicotine-lungs-bronze": {
+    "title": "Macrofagi in turno di pulizia",
+    "description": "I macrofagi alveolari, sovraccarichi di particelle di catrame, intensificano il loro lavoro di pulizia. La capacità di diffusione inizia a salire."
+  },
+  "nicotine-lungs-silver": {
+    "title": "FEV1 sopra la soglia della dignità",
+    "description": "Il volume espiratorio forzato migliora. Il tasso di declino funzionale polmonare legato all'età si è normalizzato a quello di un non fumatore."
+  },
+  "nicotine-lungs-gold": {
+    "title": "I polmoni di Black Bolt",
+    "description": "La capacità polmonare si avvicina alla linea di base di un non fumatore. L'enfisema persistente, se presente, ha smesso di progredire. I polmoni funzionano vicino alla loro piena capacità."
+  },
+  "nicotine-heart-bronze": {
+    "title": "L'endotelio ricorda come rilassarsi",
+    "description": "La vasocostrizione indotta dalla nicotina si attenua. La funzione endoteliale inizia a recuperare. Il rischio cardiovascolare acuto diminuisce con ogni giornata senza tabacco."
+  },
+  "nicotine-heart-silver": {
+    "title": "Polso a riposo, vero riposo",
+    "description": "La frequenza cardiaca a riposo si normalizza. Il monossido di carbonio non compete più con l'ossigeno. L'emoglobina torna al suo vero lavoro."
+  },
+  "nicotine-heart-gold": {
+    "title": "Rischio cardiovascolare dimezzato",
+    "description": "Il rischio di infarto del miocardio diminuisce drasticamente. Aggregazione piastrinica, funzione endoteliale e profili lipidici si avvicinano agli intervalli dei non fumatori."
+  },
+  "nicotine-vta-bronze": {
+    "title": "L'allarme nicotina abbassa il volume",
+    "description": "I recettori nicotinici dell'acetilcolina, sovraregolati, iniziano a tornare a una densità normale. Quando arriva il desiderio, colpisce meno recettori."
+  },
+  "nicotine-vta-silver": {
+    "title": "Il cervello smette di chiedere",
+    "description": "La densità dei nAChR si avvicina alla linea di base. Intensità e frequenza del desiderio diminuiscono sostanzialmente. La domanda neurochimica di nicotina si sta dissolvendo."
+  },
+  "nicotine-vta-gold": {
+    "title": "Il circuito della ricompensa finalmente libero",
+    "description": "Il rilascio di dopamina in risposta alle ricompense naturali si normalizza. Il cervello non dipende più dalla nicotina per innescare risposte di piacere. Il sequestro è finito."
+  },
+  "nicotine-sovereignty-platinum": {
+    "title": "Il camino è sparito",
+    "description": "Polmoni, bronchi, cuore, vascolatura, asse mesolimbico — ogni sistema che la nicotina e il fumo di tabacco hanno toccato funziona ora con i propri segnali. Densità dei nAChR alla linea di base. I profili di rischio cardiovascolare e polmonare sono indistinguibili da quelli di un non fumatore. La dipendenza legale più letale è pienamente alle spalle."
+  },
+
+  "cannabis-vta-bronze-1": {
+    "title": "La nebbia inizia a sollevarsi",
+    "description": "La nube neurochimica acuta dell'astinenza inizia a dissiparsi. I recettori CB1, regolati verso il basso dalla saturazione cronica di THC, intraprendono la lenta risalita verso la densità basale."
+  },
+  "cannabis-prefrontal-bronze-1": {
+    "title": "La prima mattina tranquilla",
+    "description": "L'ansia, l'irritabilità e la reattività emotiva proprie dell'astinenza iniziano a cedere. La corteccia prefrontale recupera un minimo di controllo top-down sul rumore limbico. La prima settimana è la più ripida — e la stai scalando."
+  },
+  "cannabis-bronchi-bronze": {
+    "title": "Pulizia dei residui di combustione",
+    "description": "Le ciglia bronchiali, soppresse dall'irritazione del fumo e del catrame, riprendono il loro spazzamento ritmico. La tosse produttiva in questa fase è pulizia mucociliare — non è un regresso, è un progresso."
+  },
+  "cannabis-hippocampus-bronze": {
+    "title": "La memoria di lavoro torna online",
+    "description": "La memoria a breve termine e il richiamo verbale migliorano in modo misurabile man mano che la segnalazione CB1 ippocampale si rinormalizza. La nebbia del 'dove ho messo le chiavi' si dirada."
+  },
+  "cannabis-vta-bronze-2": {
+    "title": "La motivazione ha un polso",
+    "description": "La nebbia amotivazionale inizia a dissolversi. Il tono dopaminergico dell'asse mesolimbico si recupera abbastanza da far sì che gli obiettivi smettano di sembrare astratti. Il volere torna prima del godere."
+  },
+  "cannabis-prefrontal-silver-1": {
+    "title": "Il pilota è sobrio",
+    "description": "Funzione esecutiva, processo decisionale e controllo degli impulsi sostanzialmente ripristinati. L'arbitro corticale è tornato nell'arena; il sistema limbico non vince più per assenza."
+  },
+  "cannabis-hippocampus-silver": {
+    "title": "Archiviazione a lungo termine online",
+    "description": "La consolidazione della memoria da breve a lungo termine si ripristina. L'apprendimento rimane. Il sistema CB1 ippocampale, denso e centrale nella codifica, sta trovando la sua linea di base."
+  },
+  "cannabis-bronchi-silver": {
+    "title": "Polmoni senza il rantolo",
+    "description": "L'infiammazione bronchiale cronica si è in gran parte risolta. La tolleranza all'esercizio sale, la tosse produttiva si attenua, respirare smette di accumulare arretrato."
+  },
+  "cannabis-prefrontal-silver-2": {
+    "title": "Tempo emotivo, non clima emotivo",
+    "description": "Regolazione sostenuta dell'umore e dell'affetto. L'irritabilità reattiva e l'appiattimento emotivo cedono il passo alla gamma — i sentimenti vanno e vengono senza sovraccaricare il sistema."
+  },
+  "cannabis-vta-silver-1": {
+    "title": "Recettori CB1 in ricostruzione",
+    "description": "Una neuroimmagine PET con [11C]OMAR mostrerebbe ora la densità dei recettori CB1 che si avvicina ai livelli di controllo nell'asse mesolimbico. La maggior parte della finestra di recupero di quattro settimane è alle spalle. Il sistema endocannabinoide sta trovando il suo ritmo."
+  },
+  "cannabis-vta-silver-2": {
+    "title": "Anedonia, respinta",
+    "description": "Le ricompense naturali arrivano di nuovo con pieno peso. Musica, cibo, sesso, conversazione — la risposta dopaminergica al piacere ordinario non è più attenuata. La sindrome amotivazionale è funzionalmente risolta."
+  },
+  "cannabis-hippocampus-gold": {
+    "title": "La biblioteca è pienamente indicizzata",
+    "description": "Volume e funzione ippocampali si avvicinano alla linea di base. Codifica della memoria, navigazione spaziale e apprendimento contestuale funzionano a piena capacità. Il cervello ricorda come ricordare."
+  },
+  "cannabis-prefrontal-gold": {
+    "title": "Suite esecutiva ripristinata",
+    "description": "Funzione della corteccia prefrontale vicino alla linea di base. Memoria di lavoro, pianificazione, ragionamento astratto, controllo degli impulsi — tutto ciò che il THC stava silenziando per anni — funziona a piena larghezza di banda."
+  },
+  "cannabis-vta-gold": {
+    "title": "Sovranità endocannabinoide",
+    "description": "Densità dei recettori CB1 e tono cannabinoide endogeno (anandamide, 2-AG) normalizzati. Il sistema cannabinoide proprio del corpo è al comando — non è richiesta alcuna sostituzione esterna."
+  },
+  "cannabis-sovereignty-platinum": {
+    "title": "La nebbia si è dissipata, per sempre",
+    "description": "Ricalibrazione completa del sistema endocannabinoide. Ricompensa, memoria, emozione, motivazione, respiro — ogni sistema che la cannabis ha toccato funziona ora con i propri segnali. Il corpo è tuo, indiviso."
+  },
+  "cocaine-vta-bronze-1": {
+    "title": "Il primo pixel di colore",
+    "description": "Il sistema di ricompensa inizia a pulire il rumore. I recettori D2, sommersi dall'eccesso cronico, rilevano i primi bagliori di dopamina naturale."
+  },
+  "cocaine-heart-bronze-1": {
+    "title": "Stabilizzazione del reattore arc",
+    "description": "Il cuore smette di essere una bomba sul punto di esplodere. Frequenza cardiaca e pressione arteriosa a riposo lasciano la zona di combattimento."
+  },
+  "cocaine-heart-bronze-2": {
+    "title": "Tregua coronarica",
+    "description": "La vasocostrizione cronica si allenta nell'albero coronarico. Le arterie non sono più in spasmo permanente; il sangue scorre di nuovo senza paura."
+  },
+  "cocaine-bronchi-bronze-1": {
+    "title": "Vie aeree inferiori libere",
+    "description": "L'epitelio bronchiale recupera dall'infiammazione cronica causata da vapori inalati e irritanti aspirati. L'ascensore mucociliare riprende il suo ritmo."
+  },
+  "cocaine-vta-bronze-2": {
+    "title": "Dopamina di produzione propria",
+    "description": "L'asse mesolimbico ricomincia a fabbricare il proprio piacere. L'anedonia profonda inizia a incrinarsi. Benvenuto di nuovo nel mondo reale."
+  },
+  "cocaine-vta-bronze-3": {
+    "title": "Il fuoco tonico ritorna",
+    "description": "I neuroni dopaminergici dell'ATV recuperano il loro fuoco tonico basale. Il sistema non è più bloccato tra carestia ed eccesso — riprende una segnalazione calma e sostenuta."
+  },
+  "cocaine-heart-bronze-3": {
+    "title": "Il colore torna in periferia",
+    "description": "La microcircolazione cutanea e periferica recupera. Il pallore si solleva man mano che la vasocostrizione sistemica si allenta — il sistema cardiovascolare nel suo complesso sta lasciando andare la presa."
+  },
+  "cocaine-stomach-bronze-1": {
+    "title": "Il calderone si raffredda",
+    "description": "Il sistema digestivo recupera l'equilibrio. L'irritazione gastrica da gocciolamento post-nasale e stress simpatico scompare."
+  },
+  "cocaine-liver-bronze-1": {
+    "title": "Metabolismo di riferimento",
+    "description": "Il fegato finisce di elaborare i metaboliti tossici persistenti. La chimica interna recupera il suo ritmo naturale di elaborazione."
+  },
+  "cocaine-prefrontal-silver-1": {
+    "title": "Il Guardiano della Notte si ritira",
+    "description": "La corteccia prefrontale recupera il controllo top-down sull'impulso noradrenergico limbico. L'ipervigilanza costante e la paranoia cedono a una calma più profonda."
+  },
+  "cocaine-heart-silver-1": {
+    "title": "Cuore di adamantio",
+    "description": "Il rischio di aritmie letali e morte improvvisa crolla. Il tessuto cardiaco recupera il suo ritmo naturale e stabile."
+  },
+  "cocaine-prefrontal-silver-2": {
+    "title": "L'architetto riprende il comando",
+    "description": "La corteccia prefrontale recupera il controllo sull'impulso. Non sei più un passeggero; sei di nuovo il pilota."
+  },
+  "cocaine-vta-silver-1": {
+    "title": "Ribellione nell'accumbens",
+    "description": "Il sequestro neurochimico è fallito. L'asse mesolimbico risponde ora alla musica e al contatto umano, non alla polvere."
+  },
+  "cocaine-prefrontal-silver-3": {
+    "title": "L'arbitro torna nell'arena",
+    "description": "Il controllo inibitorio top-down della corteccia prefrontale sui circuiti limbici si ricalibre. L'ansia reattiva diminuisce man mano che il freno corticale torna online."
+  },
+  "cocaine-prefrontal-silver-4": {
+    "title": "La simulazione è in esecuzione",
+    "description": "Capacità migliorata di proiezione nel futuro. Il cervello pianifica di nuovo a lungo termine senza l'urgenza dell'«ora» chimico."
+  },
+  "cocaine-heart-silver-2": {
+    "title": "Ripristino del polso vitale",
+    "description": "La risposta vascolare si sincronizza. La salute circolatoria permette al corpo di rispondere efficientemente allo sforzo fisico."
+  },
+  "cocaine-heart-silver-3": {
+    "title": "Pulizia endoteliale profonda",
+    "description": "L'elasticità arteriosa è sostanzialmente ripristinata. Il sistema cardiovascolare funziona con una fluidità che sembrava perduta."
+  },
+  "cocaine-hippocampus-gold-1": {
+    "title": "Protocollo Lazzaro neuronale",
+    "description": "L'ippocampo registra un recupero cellulare profondo. La neurogenesi nel giro dentato riprende; la plasticità cerebrale è al suo apice, ricostruendo ciò che era stato danneggiato."
+  },
+  "cocaine-vta-gold-1": {
+    "title": "Sovranità dopaminergica",
+    "description": "Densità dei recettori D2 normalizzata. Hai recuperato la capacità di sentire felicità senza pagare un tributo di esaurimento."
+  },
+  "cocaine-heart-gold-1": {
+    "title": "Maglia di vibranio",
+    "description": "Salute cardiovascolare ottimizzata. Il danno strutturale è minimizzato e il sistema circolatorio funziona a piena capacità."
+  },
+  "cocaine-liver-gold-1": {
+    "title": "La fortezza ricostruita",
+    "description": "Il macchinario epatico di detossificazione è tornato a piena potenza. Riserve di glutatione ricostituita, i metaboliti reattivi della cocaina (norcocaina, N-idrossinorcocaina) non sovraccaricano più il sistema. Lo stress ossidativo, sconfitto dalla rigenerazione cellulare."
+  },
+  "cocaine-sovereignty-platinum": {
+    "title": "Il dittatore è caduto",
+    "description": "Libertà neurochimica assoluta. Il circuito della ricompensa è pienamente ripristinato. Sei l'unico proprietario della tua biologia."
+  },
+
+  "caffeine-vta-bronze-1": {
+    "title": "Il mal di testa cede",
+    "description": "Il rimbalzo di vasodilatazione cerebrale — sintomo cardinale dell'astinenza — si risolve man mano che la segnalazione A2A dell'adenosina sulla vascolatura cerebrale si ricalibre. I primi 2-9 giorni sono i più ripidi, e li hai superati."
+  },
+  "caffeine-vta-bronze-2": {
+    "title": "Recettori dell'adenosina in ricalibrazione",
+    "description": "I recettori A2A dell'adenosina, regolati verso il basso per compensare il blocco cronico della caffeina, iniziano a ripristinare la loro densità basale. La pressione del sonno e i cicli naturali di veglia si rinormalizzano."
+  },
+  "caffeine-heart-bronze": {
+    "title": "Tono cardiovascolare a riposo normalizzato",
+    "description": "Frequenza cardiaca e pressione arteriosa a riposo tornano alla linea di base senza caffeina. Palpitazioni e battiti ectopici indotti dalla caffeina si attenuano."
+  },
+  "caffeine-stomach-bronze": {
+    "title": "Equilibrio acido gastrico ripristinato",
+    "description": "La secrezione acida gastrica basale torna all'intervallo normale. I sintomi di reflusso e dispepsia attribuibili alla caffeina si risolvono."
+  },
+  "caffeine-vta-silver-1": {
+    "title": "Sonno profondo, finalmente",
+    "description": "L'architettura del sonno profondo si ripristina. La soppressione del sonno a onde lente che la caffeina provoca — anche 12 ore dopo l'ultima dose — si solleva. Le mattine iniziano a sembrare mattine."
+  },
+  "caffeine-vta-silver-2": {
+    "title": "Equilibrio adenosinergico ripristinato",
+    "description": "La densità dei recettori dell'adenosina si è sostanzialmente normalizzata. L'addormentamento naturale, la veglia diurna e l'energia mattutina non richiedono più stimolazione esterna."
+  },
+  "caffeine-vta-silver-3": {
+    "title": "Energia senza il precipizio",
+    "description": "Il ciclo caffeina-crollo-caffeina è spezzato. La veglia sale e scende seguendo la propria curva circadiana, non il timing dell'ultima tazza. Il muro delle 15 cessa di esistere."
+  },
+  "caffeine-vta-silver-4": {
+    "title": "Sensibilità recuperata",
+    "description": "Densità dei recettori dell'adenosina alla linea di base. Una singola tazza ora fa l'effetto che faceva prima che si costruisse la tolleranza — la caffeina torna a essere uno strumento, non una dose di mantenimento."
+  }
+}

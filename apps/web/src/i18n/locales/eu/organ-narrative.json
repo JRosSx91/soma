@@ -1,0 +1,88 @@
+{
+  "liver": {
+    "alcohol": {
+      "during_use": "Hepatozitoek etanol-zama kronikoa prozesatzen ari dira. Esteatosia (gantz-metaketa) kontsumo iraunkor batekin metatzen da. Gibela alkoholaren metabolismoaren leku nagusia da, alkohol deshidrogenasa eta CYP2E1 bidez.",
+      "acute_withdrawal": "Gibel-entzimen jarduera (AST, ALT, GGT) lehen asteetan altua izaten jarraitzen du normalean. Esteatosia alderantzikatzen hasten da fibrosirik ezarri ez bada. Hepatozitoen birsorkuntza aktiboa da — gibela birsortze-gaitasun nabarmena duen organo gutxietako bat da.",
+      "post_acute": "Esteatosia progresiboki alderantzikatzen da fibrosi aurreratua ezean. GGT mailak asteetatik hilabeteetara jaisten dira. Hepatozito berriek kaltetuak ordezkatzen dituzte; zelula-berriztapena jarraitzen du.",
+      "normalizing": "Gibelaren egitura oinarri-lerrora hurbiltzen da fibrosi aurreraturik ez bazegoen. Entzima-markatzaileak 3-6 hilabetetan normalizatzen dira. Aurretiko kalte estrukturala (zirrosia) neurri handi batean itzulezina da, baina hantura gutxitzen da eta gainerako hepatozitoek eraginkorrago funtzionatzen dute."
+    }
+  },
+  "kidneys": {
+    "cocaine": {
+      "during_use": "Kokainak basoestutzea sistematikoa eragiten du, giltzurrun-arteriak barne. Zelula tubularrek estres iskemiko errepikatua jasaten dute. Giltzurrun-lesio akutuaren arriskua kontsumoan.",
+      "acute_withdrawal": "Giltzurrunetako basoestutzea azken kontsumotik orduetara ebazten da. Zelula tubularrak estres iskemikotik berreskuratzen hasten dira. Iragazte glomerularra normalizatzen da.",
+      "post_acute": "Funtzio tubularra egonkortzen jarraitzen du. Kalte kronikoa ezarri ez bada, giltzurrun-funtzioa oinarri-lerrora itzultzen da.",
+      "normalizing": "Giltzurrun-funtzioa parametro normaletara hurbiltzen da. Basoestutze luzatutik datorren kalte estruktural erremanerintsua faktore mugatzailea da; bestela, funtzio-berreskuratzea nabarmena da."
+    },
+    "alcohol": {
+      "during_use": "Alkohol kontsumo kronikoak deshidrataziora eta estres tubular moderatura laguntzen du. Alkoholaren efektu diuretikoak likido eta elektrolito oreka nahasten du.",
+      "acute_withdrawal": "Hidratazioa egunetan normalizatzen da. Zelula tubularrak deshidratazio-estres kronikotik berreskuratzen dira. Elektrolito oreka berrezartzen da.",
+      "post_acute": "Giltzurrun-funtzioa egonkortzen jarraitzen du. Esposizio kronikotik datorren kalte tubular arina progresiboki ebazten da.",
+      "normalizing": "Giltzurrun-funtzioa oinarri-lerrora itzultzen da. Alkoholak bakarrik eragindako giltzurrun-kaltea (beste komorbilitateerik gabe) neurri handi batean itzulgarria da."
+    }
+  },
+  "pancreas": {
+    "alcohol": {
+      "during_use": "Pankreako zelula azinarrak alkoholaren metabolitoen estres toxiko kronikoa jasaten ari dira. Funtzio exokrinoa (elikadura-entzimak) zein endokrinoa (insulina) progresiboki kaltetu daitezke. Pankreatitis akutuaren arriskua.",
+      "acute_withdrawal": "Zelula azinarrak estres toxiko akutotik berreskuratzen hasten dira. Erantzun inflamatorioa gutxitzen da pankreatitis akuturik ez badago. Elikadura-entzimen ekoizpena pixkanaka berregonkortzen da.",
+      "post_acute": "Pankrearen funtzioa berreskuratzen jarraitzen du. Ekoizpen exokrinoa asteetan normalizatzen da. Insulinarekiko sentikortasuna hobetzen da konpromiso kronikorik ez bada.",
+      "normalizing": "Pankrearen funtzioa oinarri-lerrora hurbiltzen da. Aurretiko pankreatitis kronikoa neurri handi batean itzulezina da, baina hantura akutua ebatzi da eta gainerako ehunak eraginkorrago funtzionatzen du."
+    }
+  },
+  "stomach": {
+    "alcohol": {
+      "during_use": "Mukosa gastrikoa etanolarekin kontaktu zuzenera dago. Muki-barrera hausten da; zelula parietalek azido gehiegi ekoizten dute. Gastritis erosiboa ohikoa da kontsumo iraunkor batekin.",
+      "acute_withdrawal": "Mukosa gastrikoak konponketa aktiboa hasten du 48-72 ordutan. Muki-ekoizpena normalizatzen da. Azido-hipersekrezioa eten egiten da zelula parietalen estimulazioa amaitzean.",
+      "post_acute": "Mukosa progresiboki birsortzen da. Epitelio gastrikoak 3-7 eguneko berriztapena du baldintza osasuntsuetan, beraz sendatzea nahiko azkarra da.",
+      "normalizing": "Mukosa gastrikoa berrezarri da. Azido oreka eta digestio-funtzioa oinarri-lerrora hurbiltzen dira."
+    },
+    "nicotine": {
+      "during_use": "Nikotinak azido gastriko-sekrezioa handitzen du eta esfinkter esofagiko inferiorren tonua gutxitzen du. Mukosaren odol-fluxua basoestutzearen bidez konprometituta dago. Ultzera peptikoaren arriskua altua da.",
+      "acute_withdrawal": "Azido gastriko-sekrezioa egunetan normalizatzen hasten da. Mukosaren odol-fluxua hobetzen da basoestutze nikotinikoa ebazten den heinean. Esfinkter esofagikoaren tonua berreskuratzen da.",
+      "post_acute": "Azido oreka egonkortzen jarraitzen du. Mukosa gastrikoa gutxiegitasun baskularretik sendatzen da. Aurretiko ultzerak nikotinarik gabe azkarrago sendatzen dira.",
+      "normalizing": "Funtzio gastriko eta esofagikoa oinarri-lerrora hurbiltzen da. Gaixotasun peptikoaren arriskua ez-erretzaileen mailara jaisten da."
+    },
+    "caffeine": {
+      "during_use": "Kafeinak azido gastriko-sekrezioa estimulatzen du eta esfinkter esofagiko inferiorren tonua gutxitzen du. Mukosaren azido altuarekiko esposizioa kronikoa da. Erreflusu eta dispepsia sintomak ohikoak dira pertsona sentikorretan.",
+      "acute_withdrawal": "Azido gastriko-sekrezioa egunetan normalizatzen hasten da. Esfinkter esofagikoaren tonua hobetzen da.",
+      "post_acute": "Mukosa oreka egonkortzen jarraitzen du. Erreflusuaren maiztasuna gutxitzen da.",
+      "normalizing": "Funtzio gastriko eta esofagikoa oinarri-lerrora hurbiltzen da. Azido oreka berrezarri da."
+    }
+  },
+  "lungs": {
+    "nicotine": {
+      "during_use": "Makrofago albeolarrak alkitran-partikulekin gainkargatuta daude. Surfaktantearen funtzioa esposizio kronikoak konprometitzen du. Bitartekari inflamatorioak metatzen dira. Difusio-gaitasuna gutxitzen da.",
+      "acute_withdrawal": "Hantura albeolarra egunetan gutxitzen hasten da. Makrofagoek pilatutako hondakinen garbiketa bizitzen dute — eztul produktiboa 1-3 asteetan ohikoa da birikiek hondakinak kanporatzen dituzten bitartean. Difusio-gaitasuna hobetzen hasten da.",
+      "post_acute": "Azalera albeolarra garbitzen jarraitzen du. Markatzaile inflamatorioak jaisten dira. Birikien funtzioa (FEV1, kapazitate bitala) modu neurgarrian hobetzen da.",
+      "normalizing": "Funtzio albeolarra oinarri-lerrora hurbiltzen da 1-9 hilabetetan BGKB ezarririk gabeko kontsumitzaileentzat. Aurretiko enfisema neurri handi batean itzulezina da, baina hantura ebatzi da eta gainerako azalera albeolarrak modu optimoan funtzionatzen du."
+    },
+    "cannabis": {
+      "during_use": "Bronkio eta albeolo ehunak errekuntza-produktuei esposatuta daude, tabakoaren kearen antzeko karga irritatzailearekin (baina nikotinarik gabe). Hantura eta muki-ekoizpena altuak dira.",
+      "acute_withdrawal": "Bronkio-hantura egunetan gutxitzen hasten da. Muki-ekoizpena normalizatzen da. Albeolo-narritadura gutxitzen da.",
+      "post_acute": "Birikietako ehuna sendatzen jarraitzen du. Eztula eta muki-hipersekrezioa hobetzen dira. Markatzaile inflamatorioak jaisten dira.",
+      "normalizing": "Birikien funtzioa oinarri-lerrora hurbiltzen da. Errekuntza-esposiziorik gabe, birikiek funtzio-gaitasunaren zatirik handiena berreskuratzen dute."
+    }
+  },
+  "bronchi": {
+    "nicotine": {
+      "during_use": "Bronkio-ziliak tabakoaren kearen osagaiek paralizatuta daude. Mukia garbiketarik gabe metatzen da. Zelula kaliziformeak hipertrofiatzen dira. Bronkio-hantura kronikoa ezartzen da.",
+      "acute_withdrawal": "Ziliek mugikortasuna berreskuratzen dute azken zigarretaren osteko 24-72 ordutan. Zelula hauek, urteetan tabakoaren keak mugiezinik edukita, berriro pilatutako mukia errazten dute. 1-3 asteetan eztul produktiboa espero da — sistema hondakinak kanporatzen ari da.",
+      "post_acute": "Zilio-funtzioa berreskuratzen jarraitzen du. Muki-garbiketa progresiboki normalizatzen da. Bronkio-hantura gutxitzen da. Zelula kaliziformeen hipertrofia partzialki alderantzikatzen da.",
+      "normalizing": "Bronkio-zilioen funtzioa neurri handi batean berrezarri da. Muki-garbiketa eta bronkio-paretaren lodiera oinarri-lerrora hurbiltzen dira 1-9 hilabetetan bronkitis kronikoa ezarririk gabeko kontsumitzaileetan."
+    },
+    "cannabis": {
+      "during_use": "Bronkio-ehuna errekuntza-produktuei eta kannabinoide-hartzaileen aktibaziora esposatuta dago. Hantura, narritadura eta muki-ekoizpena altuak dira.",
+      "acute_withdrawal": "Bronkio-hantura egunetan gutxitzen hasten da. Muki-ekoizpena normalizatzen da. Bronkio-ehuneko kannabinoide-hartzaileen jarduera gelditzen da.",
+      "post_acute": "Bronkio-sendatzea jarraitzen du. Eztul eta narritadura-sintomak progresiboki hobetzen dira.",
+      "normalizing": "Bronkio-funtzioa oinarri-lerrora hurbiltzen da. Narritadura kronikoa ebazten da. Hanturako zelula-markatzaileak normalizatzen dira."
+    }
+  },
+  "heart": {
+    "caffeine": {
+      "during_use": "Kafeinak bihotz-maiztasuna eta odol-presioa iragankorrean igotzen ditu noradrenalina askapenaren eta ehun kardiakoan zuzeneko efektuen bidez. Tolerantzia garatzen da efektu kardiobaskular batzuekiko baina ez guztiekiko. Palpitazio eta arritmien arriskua dosiaren araberakoa da.",
+      "acute_withdrawal": "Atsedeneako bihotz-maiztasuna eta odol-presioa jaisten dira. Kafeinak eragindako basoestutzea ebazten da. Bihotz-erritmoa egonkortzen da.",
+      "post_acute": "Tonu kardiobaskularra normalizatzen jarraitzen du. Kafeinak eragindako taupada ektopikoak gelditzen dira.",
+      "normalizing": "Atsedeneako parametro kardiobaskularrak kafeinarik gabeko oinarri-lerrora itzultzen dira. Estimulatzaileekiko sentikortasuna normalizatzen da."
+    }
+  }
+}

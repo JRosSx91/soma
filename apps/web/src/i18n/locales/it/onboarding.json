@@ -1,0 +1,23 @@
+{
+  "title": "Parlaci di te",
+  "subtitle": "Per ogni sostanza che hai smesso di usare, segnalala come attiva e indica l'ultima volta che l'hai consumata. Potrai modificare queste informazioni in seguito.",
+  "fields": {
+    "lastUseDate": "Data dell'ultimo consumo",
+    "yearStarted": "Anno di inizio",
+    "frequency": "Frequenza"
+  },
+  "frequency": {
+    "daily": "Giornaliera",
+    "weekly": "Settimanale",
+    "monthly": "Mensile",
+    "occasional": "Occasionale"
+  },
+  "submit": "Continua",
+  "submitting": "Salvataggio…",
+  "skip": "Puoi saltare le sostanze che non hai consumato o di cui non vuoi tenere traccia.",
+  "errors": {
+    "invalidYear": "Anno non valido per {{substance}}",
+    "lastUseDateRequired": "Data dell'ultimo consumo richiesta per {{substance}}",
+    "saveFailed": "Impossibile salvare il profilo"
+  }
+}

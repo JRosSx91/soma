@@ -1,0 +1,38 @@
+{
+  "dopamine": {
+    "name": "Dopamine",
+    "shortDescription": "Récompense, motivation, plaisir"
+  },
+  "serotonin": {
+    "name": "Sérotonine",
+    "shortDescription": "Humeur, sommeil, bien-être"
+  },
+  "gaba": {
+    "name": "GABA",
+    "shortDescription": "Inhibition, calme"
+  },
+  "glutamate": {
+    "name": "Glutamate",
+    "shortDescription": "Excitation, apprentissage"
+  },
+  "acetylcholine": {
+    "name": "Acétylcholine",
+    "shortDescription": "Attention, éveil, cognition"
+  },
+  "norepinephrine": {
+    "name": "Noradrénaline",
+    "shortDescription": "Alerte, réponse au stress"
+  },
+  "endocannabinoid": {
+    "name": "Endocannabinoïde",
+    "shortDescription": "Homéostasie, modulation du stress"
+  },
+  "endorphin": {
+    "name": "Endorphine",
+    "shortDescription": "Récompense, modulation de la douleur"
+  },
+  "adenosine": {
+    "name": "Adénosine",
+    "shortDescription": "Pression de sommeil, régulation de l'éveil"
+  }
+}

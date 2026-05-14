@@ -1,0 +1,22 @@
+{
+  "alcohol": {
+    "name": "Alcohol",
+    "shortDescription": "Depresor do sistema nervioso central. O consumo crónico dana o fígado, as estruturas cerebrais e o sistema cardiovascular."
+  },
+  "nicotine": {
+    "name": "Nicotina",
+    "shortDescription": "Estimulante que activa os receptores nicotínicos de acetilcolina. Dana os pulmóns, os bronquios e o sistema cardiovascular a través do fume do tabaco."
+  },
+  "cannabis": {
+    "name": "Cannabis",
+    "shortDescription": "Cannabinoide que actúa sobre os receptores CB1 e CB2. Afecta a memoria, a cognición e o sistema de recompensa do cerebro."
+  },
+  "cocaine": {
+    "name": "Cocaína",
+    "shortDescription": "Estimulante potente que bloquea a recaptación de dopamina. Dana o sistema cardiovascular e as estruturas dopaminérxicas do cerebro."
+  },
+  "caffeine": {
+    "name": "Cafeína",
+    "shortDescription": "Antagonista dos receptores de adenosina. O consumo crónico afecta principalmente o sistema nervioso central a través da adaptación adenosinérxica, con efectos secundarios sobre os sistemas cardiovascular e gastrointestinal."
+  }
+}

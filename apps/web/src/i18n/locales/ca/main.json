@@ -1,0 +1,48 @@
+{
+  "header": {
+    "editProfile": "Edita el perfil",
+    "trophies": "Trofeus",
+    "dashboard": "Panell"
+  },
+  "trophies": {
+    "title": "Els teus trofeus",
+    "unlockedRatio": "{{unlocked}} de {{total}} desbloquejats",
+    "unlockedOn": "Aconseguit el {{date}}",
+    "lockedHint": "Arriba al {{percent}}% de recuperació a {{organ}}",
+    "hiddenHint": "Trofeu ocult",
+    "toastEyebrow": "NOU TROFEU",
+    "toastDismiss": "Descarta",
+    "toastDismissAll": "Marca els {{count}} com a vistos"
+  },
+  "panel": {
+    "selectedOrgan": "Òrgan seleccionat",
+    "hoverPrompt": "Passa per sobre d'un òrgan",
+    "clickPrompt": "Fes clic en un òrgan per inspeccionar-lo",
+    "affectedBy": "Afectat per",
+    "causedBy": "Causat per",
+    "daysAbstinent": "Dies d'abstinència",
+    "recovery": "Recuperació",
+    "showRecoveryProcess": "Mostra el procés de recuperació",
+    "hideRecoveryProcess": "Amaga el procés de recuperació",
+    "noNarrativeData": "No hi ha dades del procés de recuperació per a aquest òrgan.",
+    "showNeurotransmitterState": "Mostra l'estat dels neurotransmissors",
+    "hideNeurotransmitterState": "Amaga l'estat dels neurotransmissors",
+    "noNeurotransmitterData": "No hi ha dades de neurotransmissors per a aquest òrgan.",
+    "direction": {
+      "depleted": "esgotat",
+      "elevated": "elevat",
+      "oscillating": "oscil·lant",
+      "normalizing": "normalitzant-se"
+    },
+    "severity": {
+      "severe": "greu",
+      "moderate": "moderat",
+      "mild": "lleu",
+      "normalizing": "normalitzant-se"
+    }
+  },
+  "empty": {
+    "noSubstances": "Encara no fas seguiment de cap substància.",
+    "addFirst": "Afegeix la primera →"
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "hidden": {
+    "title": "???",
+    "description": "Continua. Aquest trofeu es revela quan el guanyes."
+  },
+
+  "alcohol-acute-survival-bronze": {
+    "title": "Travessant la tempesta",
+    "description": "La fase aguda d'abstinència — la més perillosa fisiològicament de qualsevol substància — s'està trencant. Els receptors GABA-A, regulats a la baixa per l'etanol crònic, comencen a recuperar-se. El rebot glutamatèrgic cedeix. Tremolor, ansietat i el pitjor han passat. Les primeres 72 hores són les més dures — i estan enrere."
+  },
+  "alcohol-liver-bronze-1": {
+    "title": "Primers passos a Mordor",
+    "description": "Els marcadors enzimàtics hepàtics (AST, ALT, GGT) comencen a baixar des dels pics del consum crònic. El fetge registra el canvi en qüestió de dies."
+  },
+  "alcohol-vta-bronze": {
+    "title": "El primer espurneig dopaminèrgic",
+    "description": "El circuit de recompensa, aplanat per la supressió GABAèrgica crònica i la regulació a la baixa de dopamina, registra els seus primers senyals naturals. L'anhedònia encara no ha cedit — però el maquinari comença a respondre de nou."
+  },
+  "alcohol-liver-bronze-2": {
+    "title": "L'esteatosi en retirada",
+    "description": "L'esteatosi hepàtica comença a revertir-se en les primeres dues setmanes d'abstinència. Els dipòsits lipídics es metabolitzen i la funció hepatocitària millora de forma mesurable."
+  },
+  "alcohol-prefrontal-bronze": {
+    "title": "El cervell de Tony Stark escalfant motors",
+    "description": "Primers senyals de recuperació cortical. Els marcadors volumètrics comencen a tendir a l'alça. La memòria de treball i l'atenció mostren millora mesurable."
+  },
+  "alcohol-heart-bronze": {
+    "title": "Holiday heart, desestimat",
+    "description": "La hipertensió induïda per l'alcohol comença a normalitzar-se. Els episodis de fibril·lació auricular — el fenomen 'holiday heart' — baixen en freqüència. El miocardi deixa d'estar crònicament estressat."
+  },
+  "alcohol-stomach-bronze": {
+    "title": "S'ha acabat cremar a l'alba",
+    "description": "La cicatrització de la mucosa gàstrica s'accelera. La hipersecreció àcida cedeix en cessar l'estimulació de les cèl·lules parietals. Les lesions de gastritis erosiva comencen a tancar-se."
+  },
+  "alcohol-pancreas-bronze": {
+    "title": "El pàncrees fora del quiròfan",
+    "description": "Les cèl·lules acinars es recuperen de l'estrès tòxic crònic. La resposta inflamatòria cedeix. La producció d'enzims digestius es reestabilitza a poc a poc."
+  },
+  "alcohol-sleep-bronze": {
+    "title": "Torna el son REM",
+    "description": "El consum crònic d'alcohol suprimeix el REM i fragmenta el son profund. A mesura que el sistema es neteja, el REM rebota — de vegades amb somnis vívids — i l'arquitectura del son profund comença a reassemblar-se. Els matins comencen a sentir-se com a descans."
+  },
+  "alcohol-vta-silver": {
+    "title": "El circuit de recompensa reinicia",
+    "description": "La senyalització dopaminèrgica comença a recuperar-se de la supressió crònica. Les recompenses naturals comencen a obrir-se pas entre el soroll."
+  },
+  "alcohol-prefrontal-silver": {
+    "title": "Charles Xavier ja no em controla",
+    "description": "El volum de substància grisa al còrtex prefrontal augmenta substancialment. Funció executiva, control d'impulsos i presa de decisions milloren. Conduces tu l'autobús una altra vegada."
+  },
+  "alcohol-liver-silver": {
+    "title": "El fetge recorda com es feia",
+    "description": "Les transaminases s'aproximen a rangs normals. El contingut gras del fetge es redueix substancialment. La capacitat regenerativa hepàtica — de les més fortes del cos — està fent la seva feina."
+  },
+  "alcohol-hippocampus-silver": {
+    "title": "Els blackouts tenen contraargument",
+    "description": "El volum hipocampal es recupera de forma mesurable. La codificació de memòria episòdica s'estabilitza. El substrat neural que l'alcohol trencava més fiablement — el que hi ha darrere dels blackouts i les nits perdudes — s'està reconstruint."
+  },
+  "alcohol-heart-silver": {
+    "title": "Múscul cardíac, recuperant-se",
+    "description": "La miocardiopatia alcohòlica reverteix substancialment amb abstinència sostinguda. La fracció d'ejecció millora, la dilatació ventricular regressiona. El cor, donat prou temps, és un dels millors perdonadors."
+  },
+  "alcohol-prefrontal-silver-2": {
+    "title": "Funció executiva sostinguda",
+    "description": "La recuperació prefrontal ja no és episòdica — és la nova línia base. Planificació, abstracció i memòria de treball operen sense el soroll crònic. L'àrbitre cortical ja no necessita dies per recuperar-se de cada cap de setmana."
+  },
+  "alcohol-pancreas-silver": {
+    "title": "La insulina al seu lloc",
+    "description": "Les funcions exocrina i endocrina del pàncrees es normalitzen. La sensibilitat a la insulina millora si no hi ha dany crònic irreversible."
+  },
+  "alcohol-stomach-silver": {
+    "title": "Estómac de ferro restaurat",
+    "description": "La mucosa gàstrica s'ha regenerat completament. El recanvi epitelial de 3-7 dies ha fet la seva feina. L'equilibri àcid i la funció digestiva han tornat a la línia base."
+  },
+  "alcohol-hippocampus-gold": {
+    "title": "La memòria, plenament en acta",
+    "description": "Volum i funció hipocampals s'aproximen a la línia base. Consolidació de memòria a llarg termini, navegació espacial i aprenentatge contextual operen a plena capacitat. Anys de nits que no podies recordar — el cervell ha après a guardar una altra vegada."
+  },
+  "alcohol-liver-gold": {
+    "title": "Millor que la regeneració de Wolverine",
+    "description": "El fetge ha regenerat la major part del seu teixit funcional. La fibrosi lleu, si n'hi havia, ha revertit parcialment. Pocs òrgans del cos podrien fer això."
+  },
+  "alcohol-vta-gold": {
+    "title": "El plaer ja no està llogat",
+    "description": "La densitat de receptors de dopamina s'aproxima a la línia base. Les recompenses naturals es tornen a sentir reals, l'anhedònia es resol substancialment. El cervell ha recordat com celebrar sense ajuda."
+  },
+  "alcohol-sovereignty-platinum": {
+    "title": "Cada sistema, retornat",
+    "description": "Fetge, cor, pàncrees, estómac, hipocamp, còrtex prefrontal, eix mesolímbic, arquitectura del son — cada sistema que l'alcohol va tocar funciona ara amb els seus propis senyals. La substància més punitiva fisiològicament de deixar és plenament enrere. El cos és teu una altra vegada, sencer."
+  },
+
+  "nicotine-bronchi-bronze-1": {
+    "title": "Els cilis estirant-se després d'un llarg son",
+    "description": "En les primeres 24-72 hores del cessament, els cilis bronquials paralitzats comencen a recuperar el seu moviment rítmic. L'ascensor mucociliar es desperta."
+  },
+  "nicotine-bronchi-bronze-2": {
+    "title": "La xemeneia s'està escurant",
+    "description": "Els cilis bronquials eliminen l'alquitrà i les partícules acumulades amb eficiència mesurable. La tos productiva en aquesta fase és el sistema expulsant residus — no és un problema, és la solució."
+  },
+  "nicotine-bronchi-silver": {
+    "title": "Respirar sense pagar peatges",
+    "description": "La mucosa bronquial s'ha recuperat en gran part. La tos crònica cedeix, la tolerància a l'exercici millora visiblement. Cada respiració costa menys."
+  },
+  "nicotine-lungs-bronze": {
+    "title": "Macròfags en torn de neteja",
+    "description": "Els macròfags alveolars, sobrecarregats de partícules d'alquitrà, intensifiquen la seva feina de neteja. La capacitat de difusió comença a pujar."
+  },
+  "nicotine-lungs-silver": {
+    "title": "FEV1 per sobre del llindar de la dignitat",
+    "description": "El volum espiratori forçat millora. La taxa de declivi funcional pulmonar associada a l'edat s'ha normalitzat a la d'un no-fumador."
+  },
+  "nicotine-lungs-gold": {
+    "title": "Pulmons de Black Bolt",
+    "description": "La capacitat pulmonar s'aproxima a la línia base d'un no-fumador. L'emfisema persistent, si n'hi havia, ha deixat de progressar. Els pulmons treballen a prop de la seva capacitat plena."
+  },
+  "nicotine-heart-bronze": {
+    "title": "L'endoteli recorda com es relaxa",
+    "description": "La vasoconstricció induïda per la nicotina cedeix. La funció endotelial comença a recuperar-se. El risc cardiovascular agut cau amb cada dia sense tabac."
+  },
+  "nicotine-heart-silver": {
+    "title": "Pols en repòs, descans real",
+    "description": "La freqüència cardíaca en repòs es normalitza. El monòxid de carboni ja no competeix amb l'oxigen. L'hemoglobina torna a la seva feina de veritat."
+  },
+  "nicotine-heart-gold": {
+    "title": "Risc cardiovascular tallat per la meitat",
+    "description": "El risc d'infart cau dràsticament. Agregació plaquetària, funció endotelial i perfil lipídic s'aproximen a rangs de no-fumador."
+  },
+  "nicotine-vta-bronze": {
+    "title": "L'alarma de la nicotina baixa el volum",
+    "description": "Els receptors nicotínics d'acetilcolina, sobreexpressats, comencen a tornar a densitat normal. Quan arriba la urgència, colpeja menys receptors."
+  },
+  "nicotine-vta-silver": {
+    "title": "El cervell deixa de demanar",
+    "description": "La densitat de nAChR s'aproxima a la línia base. Intensitat i freqüència de la urgència cauen substancialment. La demanda neuroquímica de nicotina s'està dissolent."
+  },
+  "nicotine-vta-gold": {
+    "title": "El circuit de recompensa, per fi lliure",
+    "description": "L'alliberament de dopamina en resposta a recompenses naturals es normalitza. El cervell ja no depèn de nicotina per activar el plaer. El segrest ha acabat."
+  },
+  "nicotine-sovereignty-platinum": {
+    "title": "La xemeneia ha desaparegut",
+    "description": "Pulmons, bronquis, cor, vasculatura, eix mesolímbic — cada sistema que la nicotina i el fum del tabac van tocar funciona ara amb els seus propis senyals. Densitat de nAChR a la línia base. Els perfils de risc cardiovascular i pulmonar són indistingibles dels d'un no-fumador. L'addicció legal més letal és plenament enrere."
+  },
+
+  "cannabis-vta-bronze-1": {
+    "title": "La boira comença a aixecar-se",
+    "description": "El núvol neuroquímic agut de l'abstinència comença a dissipar-se. Els receptors CB1, regulats a la baixa per la saturació crònica de THC, inicien el lent ascens cap a la densitat basal."
+  },
+  "cannabis-prefrontal-bronze-1": {
+    "title": "El primer matí tranquil",
+    "description": "L'ansietat, irritabilitat i reactivitat emocional pròpies de l'abstinència comencen a cedir. El còrtex prefrontal recupera un mínim de control top-down sobre el soroll límbic. La primera setmana és la més empinada — i l'estàs pujant."
+  },
+  "cannabis-bronchi-bronze": {
+    "title": "Netejant residus de combustió",
+    "description": "Els cilis bronquials, suprimits per la irritació del fum i l'alquitrà, reprenen el seu escombrat rítmic. La tos productiva en aquesta fase és neteja mucociliar — no és retrocés, és avenç."
+  },
+  "cannabis-hippocampus-bronze": {
+    "title": "La memòria de treball torna en línia",
+    "description": "La memòria a curt termini i el record verbal milloren de forma mesurable a mesura que la senyalització CB1 hipocampal es renormalitza. La boira del 'on he deixat les claus' s'aclareix."
+  },
+  "cannabis-vta-bronze-2": {
+    "title": "La motivació té pols",
+    "description": "La boira amotivacional comença a trencar-se. El to dopaminèrgic de l'eix mesolímbic es recupera prou perquè els objectius deixin de sentir-se abstractes. El voler torna abans que l'agradar."
+  },
+  "cannabis-prefrontal-silver-1": {
+    "title": "El pilot està sobri",
+    "description": "Funció executiva, presa de decisions i control d'impulsos substancialment restaurats. L'àrbitre cortical torna al ring; el sistema límbic ja no guanya per incompareixença."
+  },
+  "cannabis-hippocampus-silver": {
+    "title": "Emmagatzematge a llarg termini en línia",
+    "description": "La consolidació de memòria de curt a llarg termini es recupera. L'aprenentatge es queda. El sistema CB1 hipocampal, dens i central en la codificació, està trobant la seva línia base."
+  },
+  "cannabis-bronchi-silver": {
+    "title": "Pulmons sense el cascavelleig",
+    "description": "La inflamació bronquial crònica s'ha resolt en gran part. La tolerància a l'exercici puja, la tos productiva cedeix, respirar deixa de carregar amb endarreriments."
+  },
+  "cannabis-prefrontal-silver-2": {
+    "title": "Temps emocional, no clima emocional",
+    "description": "Regulació sostinguda de l'estat d'ànim i l'afecte. La irritabilitat reactiva i l'aplanament emocional donen pas al rang — els sentiments van i vénen sense desbordar el sistema."
+  },
+  "cannabis-vta-silver-1": {
+    "title": "Receptors CB1 reconstruint-se",
+    "description": "Una neuroimatge PET amb [11C]OMAR ara mostraria densitat de receptors CB1 aproximant-se a nivells control a l'eix mesolímbic. La major part de la finestra de recuperació de quatre setmanes és enrere. El sistema endocannabinoide està trobant el seu propi ritme."
+  },
+  "cannabis-vta-silver-2": {
+    "title": "Anhedònia, desestimada",
+    "description": "Les recompenses naturals tornen a arribar amb pes ple. Música, menjar, sexe, conversa — la resposta dopaminèrgica al plaer ordinari ja no està atenuada. El síndrome amotivacional, funcionalment resolt."
+  },
+  "cannabis-hippocampus-gold": {
+    "title": "La biblioteca està plenament indexada",
+    "description": "Volum i funció hipocampals s'aproximen a la línia base. Codificació de memòria, navegació espacial i aprenentatge contextual operen a plena capacitat. El cervell recorda com recordar."
+  },
+  "cannabis-prefrontal-gold": {
+    "title": "Despatx executiu restaurat",
+    "description": "Funció del còrtex prefrontal a prop de la línia base. Memòria de treball, planificació, raonament abstracte, control d'impulsos — tot el que el THC va anar atenuant silenciosament durant anys — operant a ple ample de banda."
+  },
+  "cannabis-vta-gold": {
+    "title": "Sobirania endocannabinoide",
+    "description": "Densitat de receptors CB1 i to cannabinoide endogen (anandamida, 2-AG) normalitzats. El sistema cannabinoide propi del cos porta les regnes — no es requereix anul·lació externa."
+  },
+  "cannabis-sovereignty-platinum": {
+    "title": "La boira s'ha dissipat, per sempre",
+    "description": "Recalibració completa del sistema endocannabinoide. Recompensa, memòria, emoció, motivació, respiració — cada sistema que el cànnabis va tocar funciona ara amb els seus propis senyals. El cos és teu, sense partir."
+  },
+  "cocaine-vta-bronze-1": {
+    "title": "El primer píxel de color",
+    "description": "El sistema de recompensa comença a netejar el soroll. Els receptors D2, ofegats per l'excés crònic, detecten els primers espurneigs de dopamina natural."
+  },
+  "cocaine-heart-bronze-1": {
+    "title": "Estabilitzant el reactor arc",
+    "description": "El cor deixa de ser una bomba a punt d'esclatar. Freqüència cardíaca i pressió arterial en repòs abandonen la zona de combat."
+  },
+  "cocaine-heart-bronze-2": {
+    "title": "Treva coronària",
+    "description": "La vasoconstricció crònica cedeix a l'arbre coronari. Les artèries ja no estan en espasme permanent; la sang torna a circular sense por."
+  },
+  "cocaine-bronchi-bronze-1": {
+    "title": "Via aèria baixa despejada",
+    "description": "L'epiteli bronquial es recupera de la inflamació crònica causada per vapors inhalats i irritants aspirats. L'ascensor mucociliar recupera el seu ritme."
+  },
+  "cocaine-vta-bronze-2": {
+    "title": "Dopamina de collita pròpia",
+    "description": "L'eix mesolímbic torna a fabricar el seu propi plaer. L'anhedònia profunda comença a trencar-se. Benvingut de tornada al món real."
+  },
+  "cocaine-vta-bronze-3": {
+    "title": "Torna el dispar tònic",
+    "description": "Les neurones dopaminèrgiques de l'ATV recuperen el seu dispar tònic basal. El sistema ja no està atrapat entre la fam i l'afartament — torna la senyalització tranquil·la i sostinguda."
+  },
+  "cocaine-heart-bronze-3": {
+    "title": "Torna el color a la perifèria",
+    "description": "La microcirculació cutània i perifèrica es recupera. La pal·lidesa s'aixeca a mesura que la vasoconstricció sistèmica afluixa — el sistema cardiovascular en el seu conjunt està deixant anar l'agafada."
+  },
+  "cocaine-stomach-bronze-1": {
+    "title": "El calderó es refreda",
+    "description": "El sistema digestiu recupera l'equilibri. La irritació gàstrica pel degoteig postnasal i l'estrès simpàtic desapareix."
+  },
+  "cocaine-liver-bronze-1": {
+    "title": "Metabolisme de referència",
+    "description": "El fetge acaba de processar els metabòlits tòxics persistents. La química interna recupera el seu ritme natural de processament."
+  },
+  "cocaine-prefrontal-silver-1": {
+    "title": "La Guàrdia de la Nit es retira",
+    "description": "El còrtex prefrontal recupera el control top-down sobre l'impuls noradrenèrgic límbic. La hipervigilància constant i la paranoia cedeixen davant d'una calma més profunda."
+  },
+  "cocaine-heart-silver-1": {
+    "title": "Cor d'adamantium",
+    "description": "El risc d'arítmies letals i mort sobtada es desploma. El teixit cardíac recupera el seu ritme natural i estable."
+  },
+  "cocaine-prefrontal-silver-2": {
+    "title": "L'arquitecte reprèn el comandament",
+    "description": "El còrtex prefrontal recupera el control sobre l'impuls. Ja no ets passatger; tornes a ser el pilot."
+  },
+  "cocaine-vta-silver-1": {
+    "title": "Rebel·lió a l'accumbens",
+    "description": "El segrest neuroquímic ha fracassat. L'eix mesolímbic ara respon a la música i al contacte humà, no a la pols."
+  },
+  "cocaine-prefrontal-silver-3": {
+    "title": "L'àrbitre torna al ring",
+    "description": "El control inhibitori top-down del còrtex prefrontal sobre els circuits límbics es recalibra. L'ansietat reactiva disminueix a mesura que el fre cortical torna a estar en línia."
+  },
+  "cocaine-prefrontal-silver-4": {
+    "title": "La simulació està corrent",
+    "description": "Capacitat millorada de projecció a futur. El cervell torna a planejar a llarg termini sense la urgència de l'«ara» químic."
+  },
+  "cocaine-heart-silver-2": {
+    "title": "Restaurant el pols vital",
+    "description": "La resposta vascular se sincronitza. La salut circulatòria permet al cos respondre amb eficiència a l'esforç físic."
+  },
+  "cocaine-heart-silver-3": {
+    "title": "Neteja endotelial profunda",
+    "description": "L'elasticitat arterial s'ha restaurat substancialment. El sistema cardiovascular treballa amb una fluïdesa que semblava perduda."
+  },
+  "cocaine-hippocampus-gold-1": {
+    "title": "Protocol Llàtzer neuronal",
+    "description": "L'hipocamp registra recuperació cel·lular profunda. La neurogènesi al gir dentat es reprèn; la plasticitat cerebral és al seu pic, reconstruint el que es va danyar."
+  },
+  "cocaine-vta-gold-1": {
+    "title": "Sobirania dopaminèrgica",
+    "description": "Densitat de receptors D2 normalitzada. Has recuperat la capacitat de sentir felicitat sense pagar peatge d'esgotament."
+  },
+  "cocaine-heart-gold-1": {
+    "title": "Malla de vibranium",
+    "description": "Salut cardiovascular optimitzada. El dany estructural està minimitzat i el sistema circulatori funciona a plena capacitat."
+  },
+  "cocaine-liver-gold-1": {
+    "title": "La fortalesa reconstruïda",
+    "description": "La maquinària hepàtica de detoxificació torna a plena potència. Reserves de glutatió reposades, els metabòlits reactius de la cocaïna (norcocaïna, N-hidroxinorcocaïna) ja no desborden el sistema. L'estrès oxidatiu, derrotat per la regeneració cel·lular."
+  },
+  "cocaine-sovereignty-platinum": {
+    "title": "El dictador ha caigut",
+    "description": "Llibertat neuroquímica absoluta. El circuit de recompensa està plenament restaurat. Ets l'únic propietari de la teva biologia."
+  },
+
+  "caffeine-vta-bronze-1": {
+    "title": "El mal de cap cedeix",
+    "description": "El rebot de vasodilatació cerebral — símptoma cardinal de l'abstinència — es resol a mesura que la senyalització A2A d'adenosina sobre la vasculatura cerebral es recalibra. Els primers 2-9 dies són els més empinats, i els has passat."
+  },
+  "caffeine-vta-bronze-2": {
+    "title": "Receptors d'adenosina recalibrant-se",
+    "description": "Els receptors A2A d'adenosina, regulats a la baixa per compensar el bloqueig crònic de la cafeïna, comencen a recuperar densitat basal. La pressió de son i els cicles naturals d'alerta s'estan renormalitzant."
+  },
+  "caffeine-heart-bronze": {
+    "title": "To cardiovascular en repòs normalitzat",
+    "description": "Freqüència cardíaca i pressió arterial en repòs tornen a la línia base sense cafeïna. Palpitacions i batecs ectòpics induïts per cafeïna cedeixen."
+  },
+  "caffeine-stomach-bronze": {
+    "title": "Equilibri de l'àcid gàstric restaurat",
+    "description": "La secreció àcida gàstrica basal torna a rang normal. Els símptomes de reflux i dispèpsia atribuïbles a la cafeïna es resolen."
+  },
+  "caffeine-vta-silver-1": {
+    "title": "Son profund, per fi",
+    "description": "L'arquitectura del son profund es recupera. La supressió del son d'ona lenta que causa la cafeïna — fins i tot 12 hores després de l'última dosi — s'aixeca. Els matins comencen a sentir-se com a matins."
+  },
+  "caffeine-vta-silver-2": {
+    "title": "Equilibri adenosinèrgic restaurat",
+    "description": "La densitat de receptors d'adenosina s'ha normalitzat substancialment. L'inici natural del son, l'alerta diürna i l'energia matinal ja no requereixen estimulació externa."
+  },
+  "caffeine-vta-silver-3": {
+    "title": "Energia sense el precipici",
+    "description": "El cicle cafeïna-baixada-cafeïna s'ha trencat. L'alerta puja i baixa seguint la seva pròpia corba circadiana, no l'horari de la teva última tassa. El mur de les 3 de la tarda deixa d'existir."
+  },
+  "caffeine-vta-silver-4": {
+    "title": "Sensibilitat recuperada",
+    "description": "Densitat de receptors d'adenosina a la línia base. Una sola tassa ara pega com pegava abans que es construís la tolerància — la cafeïna torna a ser una eina, no una dosi de manteniment."
+  }
+}

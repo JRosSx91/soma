@@ -1,0 +1,82 @@
+{
+  "alcohol": {
+    "gaba": {
+      "acute_withdrawal": "Was Sie fühlen können: Angst, Unruhe, Schlaflosigkeit, Zittern, möglicherweise Krampfanfälle in schweren Fällen. Ihr GABA-System war durch die hemmende Wirkung des Alkohols unterdrückt; ohne ihn steigt die neuronale Erregbarkeit stark an. Während der ersten Woche wird medizinische Überwachung empfohlen.",
+      "post_acute": "Was Sie fühlen können: schwankende Angst, Schlafstörungen, emotionale Reaktivität. Die GABA-A-Rezeptoren stellen ihre Empfindlichkeit schrittweise wieder her. Die Symptome verbessern sich typischerweise zwischen Woche 2 und 8.",
+      "normalizing": "Die GABAerge Funktion nähert sich der Ausgangslinie. Eine gewisse emotionale Empfindlichkeit kann mehrere Monate andauern, aber die störendsten Symptome sind vorbei."
+    },
+    "glutamate": {
+      "acute_withdrawal": "Was Sie fühlen können: Unruhe, Überempfindlichkeit gegenüber Reizen, rasende Gedanken, mögliche Krampfanfälle. Die Glutamatsignalisierung springt über normale Werte zurück — das ist die gefährliche Seite des akuten Alkoholentzugs. Suchen Sie medizinische Hilfe, wenn sich die Symptome verstärken.",
+      "post_acute": "Eine leichte verbleibende Übererregbarkeit kann sich als Reizbarkeit oder Geräuschempfindlichkeit zeigen. Die Glutamatsignalisierung normalisiert sich.",
+      "normalizing": "Glutamat ist nahe der Ausgangslinie. Das System hat sich angepasst."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Was Sie fühlen können: gedrückte Stimmung, Motivationsmangel, Anhedonie. Das Belohnungssystem ist nach chronischer Stimulation erschöpft. Dies ist Teil der Neukalibrierung.",
+      "post_acute": "Motivation und die Fähigkeit, Freude zu empfinden, kehren langsam zurück. Geduld ist hier keine Option — das System baut sich selbst wieder auf, es kann nicht erzwungen werden.",
+      "normalizing": "Das Belohnungssystem nähert sich der Ausgangslinie. Das Vergnügen an alltäglichen Aktivitäten sollte sich zugänglicher anfühlen."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Was Sie fühlen können: gedrückte Stimmung, Reizbarkeit, mögliche Veränderungen des Appetits. Das serotonerge Gleichgewicht wurde durch chronischen Alkoholkonsum gestört.",
+      "post_acute": "Die Stimmung stabilisiert sich. Eine gewisse emotionale Volatilität ist zu erwarten, tendiert aber zur Normalität.",
+      "normalizing": "Die serotonerge Funktion ist nahe der Ausgangslinie."
+    }
+  },
+  "cocaine": {
+    "dopamine": {
+      "acute_withdrawal": "Was Sie fühlen können: tiefe Anhedonie, Apathie, intensive Erschöpfung, Hypersomnie, starkes Verlangen. Dies ist der 'Crash' — Ihr Dopaminsystem hat lange mit geliehenem Neurotransmitter funktioniert und ist nun erschöpft. Die Intensität ist real, aber vorübergehend.",
+      "post_acute": "Was Sie fühlen können: anhaltend niedrige Motivation, gedämpfte Freude, intermittierendes Verlangen. Das Belohnungssystem baut die Rezeptorempfindlichkeit wieder auf. Diese Phase ist schwer, aber vorhersehbar — die Symptome lassen zwischen Woche 2 und 8 schrittweise nach.",
+      "normalizing": "Die dopaminerge Funktion nähert sich der Ausgangslinie. Die Reaktion auf Freude und Motivation kehren zurück. Eine gewisse Empfindlichkeit gegenüber Auslösern kann monatelang anhalten."
+    },
+    "norepinephrine": {
+      "acute_withdrawal": "Was Sie fühlen können: körperliche Erschöpfung paradoxerweise kombiniert mit mentaler Unruhe, Schlafstörungen trotz Müdigkeit. Das noradrenerge System ist erschöpft, aber noch nicht neu ausbalanciert. Der Schlaf wird zurückkehren.",
+      "post_acute": "Was Sie fühlen können: schwankende Energie, manchmal aktiviert, manchmal flach. Die Schlaf-Wach-Regulation erholt sich. Das Gefühl, 'müde aber nicht schläfrig zu sein', gehört dazu.",
+      "normalizing": "Die noradrenerge Regulation ist nahe der Ausgangslinie. Energie und Schlafzyklen sollten sich berechenbarer anfühlen."
+    },
+    "serotonin": {
+      "acute_withdrawal": "Was Sie fühlen können: Dysphorie, Reizbarkeit, emotionale Reaktivität. Die serotonerge Signalisierung war durch Kokain erhöht und ist jetzt defizitär.",
+      "post_acute": "Die Stimmung stabilisiert sich schrittweise. Eine gewisse Persistenz der emotionalen Empfindlichkeit ist normal.",
+      "normalizing": "Die serotonerge Funktion ist nahe der Ausgangslinie."
+    }
+  },
+  "nicotine": {
+    "acetylcholine": {
+      "acute_withdrawal": "Was Sie fühlen können: Reizbarkeit, Konzentrationsschwierigkeiten, Unruhe, starkes Verlangen — Höhepunkt an Tag 1 bis 3. Die nikotinischen Rezeptoren waren hochreguliert, um die chronische Stimulation zu kompensieren; ohne Nikotin sind sie übermäßig aktiv. Diese Phase ist kurz, aber intensiv.",
+      "post_acute": "Was Sie fühlen können: verbleibende Konzentrationsschwierigkeiten, gelegentliches Verlangen. Die Rezeptordichte kehrt zur Normalität zurück — dies geschieht schneller als in anderen Systemen.",
+      "normalizing": "Die cholinerge Funktion ist nahe der Ausgangslinie. Die Rezeptoren wurden herunterreguliert. Verlangen, wenn es auftritt, ist typischerweise situativ und nicht physiologisch."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Was Sie fühlen können: gedrückte Stimmung, Motivationsmangel, leichte Anhedonie. Die Dopaminfreisetzung, die Nikotin ausgelöst hat, ist nun absent.",
+      "post_acute": "Die Motivation kehrt schrittweise zurück. Das Belohnungssystem passt sich an.",
+      "normalizing": "Die dopaminerge Funktion ist nahe der Ausgangslinie."
+    }
+  },
+  "cannabis": {
+    "endocannabinoid": {
+      "acute_withdrawal": "Was Sie fühlen können: Reizbarkeit, Schlaflosigkeit, lebhafte oder beunruhigende Träume, Angst, verminderter Appetit. Ihre CB1-Rezeptoren waren herunterreguliert, um THC zu kompensieren; ohne externe Cannabinoide ist das System kurzzeitig unteraktiviert. Die lebhaften Träume sind charakteristisch — der REM-Schlaf erholt sich von der Unterdrückung.",
+      "post_acute": "Was Sie fühlen können: sich verbessernder, aber instabiler Schlaf, verbleibende Reizbarkeit, leichte Angst. Die CB1-Rezeptordichte erholt sich.",
+      "normalizing": "Das Endocannabinoid-System nähert sich der Ausgangslinie. Die Schlaf- und Stimmungsregulation sollte sich stabiler anfühlen."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Leichter Motivationsrückgang. Der Beitrag von Cannabis zu Ihrem Belohnungskreislauf war bescheiden, daher ist diese Phase entsprechend mild.",
+      "post_acute": "Die Motivation stabilisiert sich.",
+      "normalizing": "Die dopaminerge Funktion ist nahe der Ausgangslinie."
+    },
+    "gaba": {
+      "acute_withdrawal": "Leichter Beitrag zu Angstsymptomen. Das GABAerge Gleichgewicht wurde durch Cannabis moduliert und kalibriert sich neu.",
+      "post_acute": "Das GABAerge Gleichgewicht verbessert sich.",
+      "normalizing": "Die GABAerge Funktion ist nahe der Ausgangslinie."
+    }
+  },
+  "caffeine": {
+    "adenosine": {
+      "acute_withdrawal": "Was Sie fühlen können: Kopfschmerzen (oft stark), Erschöpfung, Schläfrigkeit, Konzentrationsschwierigkeiten, Reizbarkeit. Höhepunkt bei 24-48 Stunden. Ihre Adenosinrezeptoren waren hochreguliert, um die chronische Blockade durch Koffein zu kompensieren; ohne Koffein trifft das angesammelte Adenosinsignal überempfindliche Rezeptoren. Die Kopfschmerzen sind real und vorhersehbar.",
+      "post_acute": "Was Sie fühlen können: verbleibende Erschöpfung, leichte Konzentrationsschwierigkeiten am Nachmittag, gelegentliche Kopfschmerzen. Die Adenosinrezeptordichte kehrt schrittweise zur Ausgangslinie zurück.",
+      "normalizing": "Das adenosinerge Gleichgewicht nähert sich der Normalität. Die Regulation des Schlafdrucks, morgendliche Wachheit und nachmittägliche Energie stabilisieren sich ohne externe Stimulation."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Leichter Motivationsrückgang. Der dopaminerge Beitrag von Koffein ist indirekt (über Adenosin-A2A-Rezeptoren), daher ist diese Phase entsprechend mild.",
+      "post_acute": "Die Motivation stabilisiert sich.",
+      "normalizing": "Die dopaminerge Funktion nahe der Ausgangslinie."
+    }
+  }
+}

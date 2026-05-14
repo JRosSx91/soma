@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Il tuo corpo si sta riprendendo proprio adesso.",
+    "subtitle": "Soma te lo mostra — organo per organo, recettore per recettore, con basi scientifiche reali.",
+    "cta": "Inizia la tua mappa di recupero",
+    "login": "Hai già un account? Accedi"
+  },
+  "what": {
+    "eyebrow": "COS'È SOMA",
+    "title": "Non è l'ennesima app di benessere.",
+    "p1": "Soma è un tracker gamificato di recupero corporeo per persone in astinenza da sostanze. Mappa i cambiamenti fisiologici reali che stanno avvenendo dentro di te — dalla normalizzazione degli enzimi epatici alla ripopolazione dei recettori della dopamina — e li trasforma in progressi visibili e misurabili.",
+    "p2": "Niente frasi motivazionali. Niente contatori di giorni. Il tuo vero corpo, che si riprende in tempo reale, basato su letteratura medica pubblicata.",
+    "p3": "Quando non sappiamo qualcosa con certezza, te lo diciamo. Ogni dato porta un livello di confidenza. Onestà sull'incertezza — non precisione finta."
+  },
+  "how": {
+    "eyebrow": "COME FUNZIONA",
+    "title": "Tre passi. Nessuna congettura.",
+    "step1_title": "Racconta a Soma cosa consumavi",
+    "step1_desc": "Indica le tue sostanze, la storia di consumo e quando hai smesso. Soma costruisce il tuo modello di recupero personale.",
+    "step2_title": "Guarda il tuo corpo guarire",
+    "step2_desc": "Un modello anatomico 3D mostra lo stato di recupero di ogni organo in tempo reale. Fegato, polmoni, cuore, regioni cerebrali — tutti mappati sulla tua linea temporale.",
+    "step3_title": "Guadagna trofei reali",
+    "step3_desc": "77 traguardi legati a veri traguardi fisiologici. Non 'Badge del giorno 30' — 'I tuoi recettori D2 hanno ripopolato lo striato.'"
+  },
+  "science": {
+    "eyebrow": "LA SCIENZA",
+    "title": "Costruito sui dati, non sulla speranza.",
+    "p1": "Le curve di recupero per ogni coppia sostanza × organo sono modellate dalla letteratura peer-reviewed. Logaritmiche, sigmoidali o esponenziali — quella che corrisponde alla fisiologia reale.",
+    "p2": "Ogni dato medico in Soma porta un livello di confidenza: alto, medio o basso. Quando l'evidenza è solida, lo diciamo. Quando è approssimativa, anche.",
+    "p3": "Cinque sostanze modellate finora — alcol, nicotina, cannabis, cocaina, caffeina — attraverso molteplici sistemi organici e vie di neurotrasmettitori. Altre in arrivo."
+  },
+  "trophies": {
+    "eyebrow": "TRAGUARDI",
+    "title": "Ogni traguardo che il tuo corpo supera, riconosciuto.",
+    "p1": "77 trofei in cinque sostanze. Bronzo per i primi giorni. Argento per le settimane. Oro per i mesi. Platino per la sovranità totale sulla tua biologia.",
+    "example1_title": "Attraverso la tempesta",
+    "example1_desc": "Sopravvivere alla fase acuta di astinenza — la più pericolosa fisiologicamente di qualsiasi sostanza.",
+    "example2_title": "Il piacere non è più in affitto",
+    "example2_desc": "La densità dei recettori della dopamina si avvicina alla linea di base. Le ricompense naturali si sentono di nuovo reali.",
+    "example3_title": "Il dittatore è caduto",
+    "example3_desc": "Libertà neurochimica assoluta. Il circuito di ricompensa è pienamente ripristinato.",
+    "hidden_note": "Alcuni trofei sono nascosti. Li scoprirai quando il tuo corpo lo farà."
+  },
+  "footer": {
+    "tagline": "Il tuo corpo sta già facendo il lavoro. Soma ti permette di vederlo.",
+    "cta": "Inizia ora",
+    "login": "Accedi"
+  }
+}

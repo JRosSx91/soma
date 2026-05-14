@@ -1,0 +1,326 @@
+{
+  "hidden": {
+    "title": "???",
+    "description": "Jarraitu. Trofeo hau irabazten duzunean agertzen da."
+  },
+
+  "alcohol-acute-survival-bronze": {
+    "title": "Ekaitza zeharkatuz",
+    "description": "Abstinentzia-fase akutua — edozein substantziaren fisiologikoki arriskutsuena — hausten ari da. GABA-A hartzaileak, etanol kronikoak beherako erregulatu dituenak, berreskuratzen hasten dira. Glutamato-errebotea gutxitzen da. Dardara, antsietatea eta okerrena igaro dira. Lehen 72 orduak gogorrenetakoak dira — eta atzean daude."
+  },
+  "alcohol-liver-bronze-1": {
+    "title": "Lehen pausoak Mordor-en",
+    "description": "Gibel-entzimen markatzaileak (AST, ALT, GGT) kontsumo kronikoko gailurretatik jaisten hasten dira. Gibelak aldaketa egunetan erregistratzen du."
+  },
+  "alcohol-vta-bronze": {
+    "title": "Lehen txinparta dopaminergikoa",
+    "description": "Sari-zirkuitua, zapalkuntza GABAergiko kronikoak eta dopamina beherako-erregulazioak zapalduta, lehen seinale naturalak erregistratzen ditu. Anhedonia oraindik ez da altxatu — baina hardwarea berriro erantzuten hasten da."
+  },
+  "alcohol-liver-bronze-2": {
+    "title": "Esteatosia atzeratzen",
+    "description": "Esteatosi hepatikoa abstinentziaren lehen bi asteetan alderantzikatzen hasten da. Lipido-metaketak metabolizatzen dira eta hepatozitoen funtzioa modu neurgarrian hobetzen da."
+  },
+  "alcohol-prefrontal-bronze": {
+    "title": "Tony Stark-en garuna berotzen",
+    "description": "Berreskuratze kortikalaren lehen seinaleak. Markatzaile bolupmetrikoak gorantz jotzen hasten dira. Lan-memoria eta arretak hobekuntza neurgarria erakusten dute."
+  },
+  "alcohol-heart-bronze": {
+    "title": "Holiday heart, baztertua",
+    "description": "Alkoholak eragindako hipertentsioa normalizatzen hasten da. Fibrilazio aurikularreko episodioak — 'holiday heart' fenomenoa — maiztasunez jaisten dira. Miokardioa kronikoki estresatuta egoteari uzten dio."
+  },
+  "alcohol-stomach-bronze": {
+    "title": "Ez dago gehiago egunsenti erretzea",
+    "description": "Mukosa gastrikoaren orbaintzea azeleratzen da. Azido-hipersekrezioa zelula parietalen estimulazioa amaitzean gelditzen da. Gastritis erosiboaren lesioak ixten hasten dira."
+  },
+  "alcohol-pancreas-bronze": {
+    "title": "Pankrea ebakuntza-gelatik kanpo",
+    "description": "Zelula azinarrak estres toxiko kronikotik berreskuratzen dira. Erantzun inflamatorioa gutxitzen da. Elikadura-entzimen ekoizpena pixkanaka berregonkortzen da."
+  },
+  "alcohol-sleep-bronze": {
+    "title": "REM loa itzultzen da",
+    "description": "Alkohol kontsumo kronikoak REM zapaltzen du eta lo sakona zatitzen du. Sistema garbitzen den heinean, REM errepikatzen da — batzuetan amets bizioekin — eta lo sakonaren arkitektura berreraikitzen hasten da. Goizak atsedentzat sentitzen hasten dira."
+  },
+  "alcohol-vta-silver": {
+    "title": "Sari-zirkuitua berrabiarazten da",
+    "description": "Seinaleztapen dopaminergikoa zapalkuntza kronikotik berreskuratzen hasten da. Sari naturalak zarataren artean irekitzen hasten dira."
+  },
+  "alcohol-prefrontal-silver": {
+    "title": "Charles Xavier-ek jada ez nau kontrolatzen",
+    "description": "Substanzia grisaren bolumena kortex prefrontalean nabarmen handitzen da. Funtzio exekutiboa, pultsuen kontrola eta erabakiak hartzea hobetzen dira. Zuk gidatzen duzu autobusa berriro."
+  },
+  "alcohol-liver-silver": {
+    "title": "Gibelak gogoratzen du nola egiten zen",
+    "description": "Transaminasak maila normaletara hurbiltzen dira. Gibelaren gantz-edukia nabarmen gutxitzen da. Gibelaren birsortze-gaitasuna — gorputzeko indartsuenetarikoa — bere lana egiten ari da."
+  },
+  "alcohol-hippocampus-silver": {
+    "title": "Blackout-ek kontraargumentua dute",
+    "description": "Hipokampo bolumena modu neurgarrian berreskuratzen da. Memoria episodiko-kodeketa egonkortzen da. Alkoholak fidagarrien apurtzen zuen substrato neurala — blackout-en eta galdutako gauen atzean dagoena — berreraikitzen ari da."
+  },
+  "alcohol-heart-silver": {
+    "title": "Bihotz-muskulu, berreskuratzen",
+    "description": "Miokardiopatia alkoholikoa nabarmen alderantzikatzen da abstinentzia iraunkor batekin. Eiekzio-frakzioa hobetzen da, bentrikulu-dilatazioa atzeratzen da. Bihotzak, nahikoa denbora emanez, barkatzaile onenetarikoa da."
+  },
+  "alcohol-prefrontal-silver-2": {
+    "title": "Funtzio exekutibo iraunkorra",
+    "description": "Berreskuratze prefrontala jada ez da episodikoa — oinarri-lerro berria da. Planifikazioa, abstrakzioa eta lan-memoria zarata kronikorik gabe funtzionatzen dute. Arbitro kortikalak jada ez du egunik behar asteburura bakoitzetik berreskuratzeko."
+  },
+  "alcohol-pancreas-silver": {
+    "title": "Insulina bere lekuan",
+    "description": "Pankrearen funtzio exokrinoa eta endokrinoa normalizatzen dira. Insulinarekiko sentikortasuna hobetzen da kalte kroniko itzulezinik ez bada."
+  },
+  "alcohol-stomach-silver": {
+    "title": "Burdinazko urdaila berrezarria",
+    "description": "Mukosa gastrikoa guztiz birsortuta dago. 3-7 eguneko epitelio-berriztapenak bere lana egin du. Azido oreka eta digestio-funtzioa oinarri-lerrora itzuli dira."
+  },
+  "alcohol-hippocampus-gold": {
+    "title": "Memoria, guztiz aktan",
+    "description": "Hipokampo bolumen eta funtzioa oinarri-lerrora hurbiltzen dira. Epe luzeko memoria-finkapena, nabigazio espaziala eta ikaskuntza kontestuala gaitasun osoan dihardute. Gogoratu ezin zenituen urteetako gauak — garunak gordetzea berriro ikasi du."
+  },
+  "alcohol-liver-gold": {
+    "title": "Wolverine-ren birsorkuntza baino hobea",
+    "description": "Gibelak bere ehun funtzionalaren zatirik handiena birsortuta du. Fibrosi arina, bazegoen, partzialki alderantzikatu da. Gorputzeko organo gutxik lor dezakete hau."
+  },
+  "alcohol-vta-gold": {
+    "title": "Plazera jada ez dago alokatuta",
+    "description": "Dopamina hartzaileen dentsitatea oinarri-lerrora hurbiltzen da. Sari naturalak berriro errealak sentitzen dira, anhedonia nabarmen ebazten da. Garunak laguntzarik gabe ospatzea gogoratu du."
+  },
+  "alcohol-sovereignty-platinum": {
+    "title": "Sistema guztiak, itzulita",
+    "description": "Gibela, bihotza, pankrea, urdaila, hipokampoa, kortex prefrontala, ardatz mesolimbikoa, lo-arkitektura — alkoholak ukitu zuen sistema bakoitza bere seinale propioekin funtzionatzen du orain. Fisiologikoki uzteko substantziarik zigorgarriena guztiz atzean dago. Gorputza zurea da berriro, osoa."
+  },
+
+  "nicotine-bronchi-bronze-1": {
+    "title": "Ziliak lo luze baten ondoren luzatzen",
+    "description": "Etetea ondorengo lehen 24-72 orduetan, bronkio-zilio paralizatuak beren mugimendu erritmikoa berreskuratzen hasten dira. Igogailu mukozialiarra esnatzen da."
+  },
+  "nicotine-bronchi-bronze-2": {
+    "title": "Tximinia garbitzen ari da",
+    "description": "Bronkio-zilioek pilatutako alquitrana eta partikulak efizientzia neurgarriz kentzen dituzte. Fase honetako eztul produktiboa sistema hondakinak kanporatzen ari dela da — ez da arazo bat, irtenbidea da."
+  },
+  "nicotine-bronchi-silver": {
+    "title": "Arnasa hartu bidesaririk gabe",
+    "description": "Bronkio-mukosa neurri handi batean berreskuratu da. Eztul kronikoa gutxitzen da, ariketa fisikoarekiko tolerantzia nabarmen hobetzen da. Arnasketa bakoitzak gutxiago kostatzen da."
+  },
+  "nicotine-lungs-bronze": {
+    "title": "Makrofagoak garbiketa-txandan",
+    "description": "Makrofago albeolarrek, alquitran-partikulekin gainkargatuta, garbiketa-lana bizitzen dute. Difusio-gaitasuna igotzen hasten da."
+  },
+  "nicotine-lungs-silver": {
+    "title": "FEV1 duintasun-atalasearen gainetik",
+    "description": "Bolumen espiratorio behartua hobetzen da. Adinarekin lotutako birikien funtzio-jaitsieraren tasa ez-erretzaile batenera normalizatu da."
+  },
+  "nicotine-lungs-gold": {
+    "title": "Black Bolt-en birikiak",
+    "description": "Birikien gaitasuna ez-erretzaile baten oinarri-lerrora hurbiltzen da. Enfisema iraunkorra, bazegoen, aurrera egiteari utzi dio. Birikiak gaitasun osotik gertu dihardute."
+  },
+  "nicotine-heart-bronze": {
+    "title": "Endotelioak erlaxatzea gogoratzen du",
+    "description": "Nikotinak eragindako basoestutzea gutxitzen da. Funtzio endoteliala berreskuratzen hasten da. Arrisku kardiobaskular akutua tabako gabeko egun bakoitzarekin jaisten da."
+  },
+  "nicotine-heart-silver": {
+    "title": "Atsedeneako pultsua, benetako atsedena",
+    "description": "Atsedeneako bihotz-maiztasuna normalizatzen da. Karbono monoxidoa jada ez da oxigenoarekin lehiatzen. Hemoglobinak bere benetako lanera itzultzen da."
+  },
+  "nicotine-heart-gold": {
+    "title": "Arrisku kardiobaskularra erdira murriztua",
+    "description": "Infartua izateko arriskua nabarmen jaisten da. Plaketa-agregazioa, funtzio endoteliala eta lipido-profila ez-erretzaileen tartetara hurbiltzen dira."
+  },
+  "nicotine-vta-bronze": {
+    "title": "Nikotina-alarmak bolumena jaisten du",
+    "description": "Azetilkolina hartzaile nikotinikoak, gainadierazita, dentsitate normalera itzultzen hasten dira. Premia iristen denean, hartzaile gutxiago kolpatzen ditu."
+  },
+  "nicotine-vta-silver": {
+    "title": "Garunak eskatzeari uzten dio",
+    "description": "nAChR dentsitatea oinarri-lerrora hurbiltzen da. Premiaren intentsitatea eta maiztasuna nabarmen jaisten dira. Nikotinaren eskakizun neurokimikoa disolbatzen ari da."
+  },
+  "nicotine-vta-gold": {
+    "title": "Sari-zirkuitua, azkenean aske",
+    "description": "Sari naturalei erantzunez dopamina-askatzea normalizatzen da. Garuna jada ez da nikotinaren mende plazera aktibatzeko. Bahiketa amaitu da."
+  },
+  "nicotine-sovereignty-platinum": {
+    "title": "Tximinia desagertu da",
+    "description": "Birikiak, bronkioak, bihotza, baskulatura, ardatz mesolimbikoa — nikotinak eta tabakoaren keak ukitu zuten sistema bakoitza bere seinale propioekin funtzionatzen du orain. nAChR dentsitatea oinarri-lerroan. Arrisku kardiobaskular eta birikietako profilak ez-erretzaile batenetatik bereiztezinak dira. Adikzio legal hilgarriena guztiz atzean dago."
+  },
+
+  "cannabis-vta-bronze-1": {
+    "title": "Lainoa altxatzen hasten da",
+    "description": "Abstinentziaren hodei neurokimiko akutua dissipatzen hasten da. CB1 hartzaileak, THC saturazio kronikoak beherako erregulatuta, dentsitate basalerako goranzko bide motela hasten dute."
+  },
+  "cannabis-prefrontal-bronze-1": {
+    "title": "Lehen goiz lasaia",
+    "description": "Abstinentziari dagozkion antsietatea, suminkortasuna eta erreaktibotasun emozionala gutxitzen hasten dira. Kortex prefrontalak zarata linbikoaren gaineko top-down kontrolaren pixka bat berreskuratzen du. Lehen astea da maldarik gogorrena — eta igotzen ari zara."
+  },
+  "cannabis-bronchi-bronze": {
+    "title": "Errekuntza-hondakinak garbitzen",
+    "description": "Bronkio-ziliak, kearen eta alquitranaren narritadurak zapalduta, beren errazte erritmikoa berreskuratzen dute. Fase honetako eztul produktiboa garbiketa mukozialiarra da — ez da atzerakada, aurrerakada da."
+  },
+  "cannabis-hippocampus-bronze": {
+    "title": "Lan-memoria berriro linean",
+    "description": "Epe laburreko memoria eta ahozko oroitzapena modu neurgarrian hobetzen dira CB1 seinaleztapen hipokampala bernormalizatzen den heinean. 'Non utzi ditut giltzak' lainoa argitzen da."
+  },
+  "cannabis-vta-bronze-2": {
+    "title": "Motibazioak pultsu du",
+    "description": "Laino amotibazionala apurtzen hasten da. Ardatz mesolimbikoko tonu dopaminergikoa nahikoa berreskuratzen da helburuak abstraktu sentitzeari uzteko. Nahia gustatzearen aurretik itzultzen da."
+  },
+  "cannabis-prefrontal-silver-1": {
+    "title": "Pilotua sobre dago",
+    "description": "Funtzio exekutiboa, erabakiak hartzea eta pultsuen kontrola nabarmen berrezarrita. Arbitro kortikala berriro ringean dago; sistema linbikoak jada ez du irabazten agertu ez delako."
+  },
+  "cannabis-hippocampus-silver": {
+    "title": "Epe luzeko biltegiratzea linean",
+    "description": "Epe laburreko memoriatik epe luzekora finkatzea berreskuratzen da. Ikaskuntza geratzen da. CB1 sistema hipokampala, trinkoa eta kodeketan zentrala, bere oinarri-lerroa aurkitzen ari da."
+  },
+  "cannabis-bronchi-silver": {
+    "title": "Birikiak kaskabilorik gabe",
+    "description": "Bronkio-hantura kronikoa neurri handi batean ebatzi da. Ariketa fisikoarekiko tolerantzia igotzen da, eztul produktiboa gutxitzen da, arnasa hartzeak atzerapenak eramateari uzten dio."
+  },
+  "cannabis-prefrontal-silver-2": {
+    "title": "Eguraldia emozionala, ez klima emozionala",
+    "description": "Aldarte eta afektuaren erregulazio iraunkorra. Suminkortasun erreaktiboa eta zapalantza emozionala tarteari leku ematen diote — sentimenduak joan eta etortzen dira sistema desbordatu gabe."
+  },
+  "cannabis-vta-silver-1": {
+    "title": "CB1 hartzaileak berreraikitzen",
+    "description": "[11C]OMAR-ekin PET neuroimaginak orain CB1 hartzaile-dentsitatea kontrol-mailetara hurbiltzen erakutsiko luke ardatz mesolimbikoan. Lau asteko berreskuratze-leihoaren zatirik handiena atzean dago. Sistema endokannabinoidea bere erritmoa aurkitzen ari da."
+  },
+  "cannabis-vta-silver-2": {
+    "title": "Anhedonia, baztertua",
+    "description": "Sari naturalak berriro pisu osoz iristen dira. Musika, janaria, sexua, elkarrizketa — plazer arrunterako erantzun dopaminergikoa jada ez dago atenuatuta. Sindrome amotibazionala, funtzionalki ebatzita."
+  },
+  "cannabis-hippocampus-gold": {
+    "title": "Liburutegia guztiz indexatuta",
+    "description": "Hipokampo bolumen eta funtzioa oinarri-lerrora hurbiltzen dira. Memoria-kodeketa, nabigazio espaziala eta ikaskuntza kontestuala gaitasun osoan dihardute. Garunak gogoratzea gogoratzen du."
+  },
+  "cannabis-prefrontal-gold": {
+    "title": "Bulego exekutiboa berrezarrita",
+    "description": "Kortex prefrontalaren funtzioa oinarri-lerrotik gertu. Lan-memoria, planifikazioa, arrazonamendu abstraktua, pultsuen kontrola — THC-ak urtez isilik atenuatzen zuen guztia — zabalera-banda osoan funtzionatzen."
+  },
+  "cannabis-vta-gold": {
+    "title": "Subiranotasun endokannabinoidea",
+    "description": "CB1 hartzaile-dentsitatea eta tonu kannabinoide endogenoa (anandamida, 2-AG) normalizatuta. Gorputzaren kannabinoide-sistema propioak agintzen du — ez da kanpoko ezespen bat behar."
+  },
+  "cannabis-sovereignty-platinum": {
+    "title": "Lainoa dissipatu da, betirako",
+    "description": "Sistema endokannabinoidearen birkalibrazio osoa. Saria, memoria, emozioa, motibazioa, arnasa — kannabiaren ukitutako sistema bakoitza bere seinale propioekin funtzionatzen du orain. Gorputza zurea da, zatitu gabe."
+  },
+  "cocaine-vta-bronze-1": {
+    "title": "Kolorearen lehen pixela",
+    "description": "Sari-sistema zarata garbitzen hasten da. D2 hartzaileak, gehiegizko kronikoak itotzat, dopamina naturalaren lehen txinpartak detektatzen dituzte."
+  },
+  "cocaine-heart-bronze-1": {
+    "title": "Arc erreaktore egonkortzen",
+    "description": "Bihotza lehertzear dagoen bonba izateari uzten dio. Atsedeneako bihotz-maiztasuna eta odol-presioa borroka-eremuareantzik kanpo dago."
+  },
+  "cocaine-heart-bronze-2": {
+    "title": "Tregua koronarioa",
+    "description": "Basoestutze kronikoa zuhaitz koronarioan gutxitzen da. Arteriak jada ez daude espasmo iraunkorrean; odola berriro beldurrik gabe zirkulatzen du."
+  },
+  "cocaine-bronchi-bronze-1": {
+    "title": "Beheko aire-bidea garbituta",
+    "description": "Bronkio-epitelioa inhalatutako lurrunek eta aspiraziozko irritatzaileek eragindako hantura kronikotik berreskuratzen da. Igogailu mukoziliarra bere erritmoa berreskuratzen du."
+  },
+  "cocaine-vta-bronze-2": {
+    "title": "Etxeko uzta dopamina",
+    "description": "Ardatz mesolimbikoak berriro bere plazera fabrikatzen hasten da. Anhedonia sakona apurtzen hasten da. Ongi etorri berriro mundu errealera."
+  },
+  "cocaine-vta-bronze-3": {
+    "title": "Tiro tonikoa itzultzen da",
+    "description": "ATV-ko neurona dopaminergikoek oinarri tiro tonikoa berreskuratzen dute. Sistema jada ez dago gosearen eta gehiegizko jatearen artean harrapatuta — seinaleztapen lasaia eta iraunkorra itzultzen da."
+  },
+  "cocaine-heart-bronze-3": {
+    "title": "Kolorea periferiara itzultzen da",
+    "description": "Azaleko eta periferiako mikrozirkulazioa berreskuratzen da. Zurbiltasuna altxatzen da basoestutze sistemikoa lasatzen den heinean — sistema kardiobaskularra bere osotasunean bere helduera askatzen ari da."
+  },
+  "cocaine-stomach-bronze-1": {
+    "title": "Galdara hozten da",
+    "description": "Digestio-sistema oreka berreskuratzen du. Suduretik ondorengo tanta eta estres sinpatikoak eragindako narritadura gastrikoa desagertzen da."
+  },
+  "cocaine-liver-bronze-1": {
+    "title": "Erreferentziazko metabolismoa",
+    "description": "Gibelak metabolito toxiko iraunkorrak prozesatzen amaitzen du. Barneko kimika bere prozesatze-erritmo naturala berreskuratzen du."
+  },
+  "cocaine-prefrontal-silver-1": {
+    "title": "Gaueko Guardia erretiratzen da",
+    "description": "Kortex prefrontalak top-down kontrola berreskuratzen du pultsu noradrenergiko linbikoaren gainean. Hipergilantzia etengabea eta paranoia kalma sakonago bati leku ematen diote."
+  },
+  "cocaine-heart-silver-1": {
+    "title": "Adamantium bihotza",
+    "description": "Arritmia hilgarrien eta bat-bateko heriotzaren arriskua nabarmen jaisten da. Bihotz-ehunak bere erritmo natural eta egonkorra berreskuratzen du."
+  },
+  "cocaine-prefrontal-silver-2": {
+    "title": "Arkitektoak agintea berreskuratzen du",
+    "description": "Kortex prefrontalak pultsuaren gaineko kontrola berreskuratzen du. Jada ez zara bidaiaria; berriro pilotua zara."
+  },
+  "cocaine-vta-silver-1": {
+    "title": "Matxinada accumbens-ean",
+    "description": "Bahiketza neurokimikoa huts egin du. Ardatz mesolimbikoak orain musikari eta giza kontaktuari erantzuten dio, ez hautsari."
+  },
+  "cocaine-prefrontal-silver-3": {
+    "title": "Arbitroa berriro ringera",
+    "description": "Kortex prefrontalaren top-down kontrol inhibitorioa zirkuitu linbikoekiko birkalibratzen da. Antsietate erreaktiboa gutxitzen da balazta kortikal berriro linean jartzen den heinean."
+  },
+  "cocaine-prefrontal-silver-4": {
+    "title": "Simulazioa martxan dago",
+    "description": "Etorkizunerako proiekzio-gaitasun hobetua. Garunak berriro epe luzera planifikatzen du «orain» kimikoaren premiarik gabe."
+  },
+  "cocaine-heart-silver-2": {
+    "title": "Pultsu bitala berrezartzen",
+    "description": "Erantzun baskularra sinkronizatzen da. Osasun zirkulatorioak gorputzari esfortzu fisikoari eraginkortasunez erantzutea ahalbidetzen dio."
+  },
+  "cocaine-heart-silver-3": {
+    "title": "Garbiketa endotelial sakona",
+    "description": "Arterien elastikotasuna nabarmen berrezarri da. Sistema kardiobaskularra galdutako jariotasun batekin funtzionatzen du."
+  },
+  "cocaine-hippocampus-gold-1": {
+    "title": "Lazaro protokolo neuronala",
+    "description": "Hipokampoak zelula-berreskuratze sakona erregistratzen du. Neurogenesia hortzetako birean berrekiten da; garunaren plastikotasuna bere gailurrean dago, kaltetutakoa berreraikitzen."
+  },
+  "cocaine-vta-gold-1": {
+    "title": "Subiranotasun dopaminergikoa",
+    "description": "D2 hartzaile-dentsitatea normalizatuta. Zoriontsutasuna sentitzeko gaitasuna berreskuratu duzu agortzeko bidesaririk ordaindu gabe."
+  },
+  "cocaine-heart-gold-1": {
+    "title": "Vibranium sarea",
+    "description": "Osasun kardiobaskularra optimizatuta. Kalte estrukturala minimizatuta dago eta sistema zirkulatorioa gaitasun osoan funtzionatzen du."
+  },
+  "cocaine-liver-gold-1": {
+    "title": "Gotorlekua berreraikita",
+    "description": "Gibelaren detoxifikazio-makineria berriro potentzia osoan. Glutation-erreserbak berrituta, kokainaren metabolito erreaktiboak (norcocaina, N-hydroxinorcocaina) jada ez dute sistema gainezka egiten. Estres oxidatiboa, zelula-birsortzearen bidez garaitu."
+  },
+  "cocaine-sovereignty-platinum": {
+    "title": "Diktadorea erori da",
+    "description": "Askatasun neurokimiko absolutua. Sari-zirkuitua guztiz berrezarrita dago. Zure biologiaren jabe bakarra zara."
+  },
+
+  "caffeine-vta-bronze-1": {
+    "title": "Buruko mina gutxitzen da",
+    "description": "Garuneko basodilatazioa errebotea — abstinentziaren sintoma kardinala — A2A adenosina seinaleztapena garuneko baskulaturan birkalibratu ahala ebazten da. Lehen 2-9 egunak maldatsuenetakoak dira, eta igaro dituzu."
+  },
+  "caffeine-vta-bronze-2": {
+    "title": "Adenosina hartzaileak birkalbratzen",
+    "description": "A2A adenosina hartzaileak, kafeinaren blokeo kronikoa konpentsatzeko beherako erregulatuta, oinarri-dentsitatea berreskuratzen hasten dira. Lo-presioa eta alerta-ziklo naturalak bernormalizatzen ari dira."
+  },
+  "caffeine-heart-bronze": {
+    "title": "Atsedeneako tonu kardiobaskularra normalizatuta",
+    "description": "Atsedeneako bihotz-maiztasuna eta odol-presioa kafeinarik gabeko oinarri-lerrora itzultzen dira. Kafeinak eragindako palpitazioak eta taupada ektopikoak gutxitzen dira."
+  },
+  "caffeine-stomach-bronze": {
+    "title": "Azido gastrikoaren oreka berrezarrita",
+    "description": "Oinarrizko azido gastriko-sekrezioa maila normalera itzultzen da. Kafeinari egotz dakizkiokeen erreflusu eta dispepsia-sintomak ebazten dira."
+  },
+  "caffeine-vta-silver-1": {
+    "title": "Lo sakona, azkenean",
+    "description": "Lo sakonaren arkitektura berreskuratzen da. Kafeinak eragiten duen uhin geldoko loaren zapalkuntzak — azken dosaren ondorengo 12 ordu igaro arren — altxatzen da. Goizak goiz bezala sentitzen hasten dira."
+  },
+  "caffeine-vta-silver-2": {
+    "title": "Oreka adenosinergikoa berrezarrita",
+    "description": "Adenosina hartzaileen dentsitatea nabarmen normalizatu da. Loaren hasiera naturala, eguneko alerta eta goizeko energia jada ez dute kanpoko estimulaziorik behar."
+  },
+  "caffeine-vta-silver-3": {
+    "title": "Energia amildegirk gabe",
+    "description": "Kafeina-jaitsiera-kafeina zikloa apurtu da. Alerta bere kurba zirkadiano propioa jarraituz igotzen eta jaisten da, ez zure azken katilukadaren ordutegian. Arratsaldeko 3etako pareta existitzeari uzten dio."
+  },
+  "caffeine-vta-silver-4": {
+    "title": "Sentikortasuna berreskuratuta",
+    "description": "Adenosina hartzaileen dentsitatea oinarri-lerroan. Katilukada bakar batek orain tolerantzia eraiki aurretik jotzen zuen bezala jotzen du — kafeina berriro tresna da, ez mantenuzko dosi bat."
+  }
+}

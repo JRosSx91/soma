@@ -1,0 +1,38 @@
+{
+  "dopamine": {
+    "name": "Dopamina",
+    "shortDescription": "Recompensa, motivació, plaer"
+  },
+  "serotonin": {
+    "name": "Serotonina",
+    "shortDescription": "Estat d'ànim, son, benestar"
+  },
+  "gaba": {
+    "name": "GABA",
+    "shortDescription": "Inhibició, calma"
+  },
+  "glutamate": {
+    "name": "Glutamat",
+    "shortDescription": "Excitació, aprenentatge"
+  },
+  "acetylcholine": {
+    "name": "Acetilcolina",
+    "shortDescription": "Atenció, activació, cognició"
+  },
+  "norepinephrine": {
+    "name": "Noradrenalina",
+    "shortDescription": "Alerta, resposta a l'estrès"
+  },
+  "endocannabinoid": {
+    "name": "Endocannabinoide",
+    "shortDescription": "Homeòstasi, modulació de l'estrès"
+  },
+  "endorphin": {
+    "name": "Endorfina",
+    "shortDescription": "Recompensa, modulació del dolor"
+  },
+  "adenosine": {
+    "name": "Adenosina",
+    "shortDescription": "Pressió de son, regulació de l'alerta"
+  }
+}

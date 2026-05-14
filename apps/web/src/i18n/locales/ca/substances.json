@@ -1,0 +1,22 @@
+{
+  "alcohol": {
+    "name": "Alcohol",
+    "shortDescription": "Depressor del sistema nerviós central. El consum crònic danya el fetge, les estructures cerebrals i el sistema cardiovascular."
+  },
+  "nicotine": {
+    "name": "Nicotina",
+    "shortDescription": "Estimulant que activa els receptors nicotínics d'acetilcolina. Danya els pulmons, els bronquis i el sistema cardiovascular a través del fum del tabac."
+  },
+  "cannabis": {
+    "name": "Cànnabis",
+    "shortDescription": "Cannabinoide que actua sobre els receptors CB1 i CB2. Afecta la memòria, la cognició i el sistema de recompensa del cervell."
+  },
+  "cocaine": {
+    "name": "Cocaïna",
+    "shortDescription": "Estimulant potent que bloqueja la recaptació de dopamina. Danya el sistema cardiovascular i les estructures dopaminèrgiques del cervell."
+  },
+  "caffeine": {
+    "name": "Cafeïna",
+    "shortDescription": "Antagonista dels receptors d'adenosina. El consum crònic afecta principalment el sistema nerviós central a través de l'adaptació adenosinèrgica, amb efectes secundaris sobre els sistemes cardiovascular i gastrointestinal."
+  }
+}

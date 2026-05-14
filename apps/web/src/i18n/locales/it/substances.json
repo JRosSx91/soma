@@ -1,0 +1,22 @@
+{
+  "alcohol": {
+    "name": "Alcol",
+    "shortDescription": "Depressore del sistema nervoso centrale. Il consumo cronico danneggia il fegato, le strutture cerebrali e il sistema cardiovascolare."
+  },
+  "nicotine": {
+    "name": "Nicotina",
+    "shortDescription": "Stimolante che attiva i recettori nicotinici dell'acetilcolina. Danneggia i polmoni, i bronchi e il sistema cardiovascolare attraverso il fumo di tabacco."
+  },
+  "cannabis": {
+    "name": "Cannabis",
+    "shortDescription": "Cannabinoide che agisce sui recettori CB1 e CB2. Influisce sulla memoria, la cognizione e il sistema di ricompensa del cervello."
+  },
+  "cocaine": {
+    "name": "Cocaina",
+    "shortDescription": "Potente stimolante che blocca la ricaptazione della dopamina. Danneggia il sistema cardiovascolare e le strutture dopaminergiche del cervello."
+  },
+  "caffeine": {
+    "name": "Caffeina",
+    "shortDescription": "Antagonista dei recettori dell'adenosina. Il consumo cronico colpisce principalmente il sistema nervoso centrale attraverso l'adattamento adenosinergico, con effetti secondari sui sistemi cardiovascolare e gastrointestinale."
+  }
+}

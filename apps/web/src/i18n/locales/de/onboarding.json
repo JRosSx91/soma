@@ -1,0 +1,23 @@
+{
+  "title": "Erzählen Sie uns von sich",
+  "subtitle": "Markieren Sie für jede Substanz, die Sie nicht mehr verwenden, diese als aktiv und geben Sie an, wann Sie sie zuletzt konsumiert haben. Sie können dies später ändern.",
+  "fields": {
+    "lastUseDate": "Datum des letzten Konsums",
+    "yearStarted": "Anfangsjahr",
+    "frequency": "Häufigkeit"
+  },
+  "frequency": {
+    "daily": "Täglich",
+    "weekly": "Wöchentlich",
+    "monthly": "Monatlich",
+    "occasional": "Gelegentlich"
+  },
+  "submit": "Weiter",
+  "submitting": "Wird gespeichert…",
+  "skip": "Sie können Substanzen überspringen, die Sie nicht konsumiert haben oder nicht verfolgen möchten.",
+  "errors": {
+    "invalidYear": "Ungültiges Jahr für {{substance}}",
+    "lastUseDateRequired": "Datum des letzten Konsums erforderlich für {{substance}}",
+    "saveFailed": "Profil konnte nicht gespeichert werden"
+  }
+}

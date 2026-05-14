@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "El teu cos s'està recuperant ara mateix.",
+    "subtitle": "Soma t'ho mostra — òrgan per òrgan, receptor per receptor, amb base científica real.",
+    "cta": "Comença el teu mapa de recuperació",
+    "login": "Ja tens compte? Inicia sessió"
+  },
+  "what": {
+    "eyebrow": "QUÈ ÉS SOMA",
+    "title": "No és una altra app de benestar.",
+    "p1": "Soma és un tracker gamificat de recuperació corporal per a persones en abstinència de substàncies. Mapeja els canvis fisiològics reals que estan passant dins teu — des de la normalització d'enzims hepàtics fins a la repoblació de receptors de dopamina — i els converteix en progrés visible i mesurable.",
+    "p2": "Sense frases motivacionals. Sense comptadors de dies. El teu cos real, recuperant-se en temps real, basat en literatura mèdica publicada.",
+    "p3": "Quan no sabem alguna cosa amb certesa, t'ho diem. Cada dada porta un nivell de confiança. Honestedat sobre la incertesa — no precisió fingida."
+  },
+  "how": {
+    "eyebrow": "COM FUNCIONA",
+    "title": "Tres passos. Sense endevinalles.",
+    "step1_title": "Explica a Soma què consumies",
+    "step1_desc": "Marca les teves substàncies, historial de consum i quan vas parar. Soma construeix el teu model de recuperació personal.",
+    "step2_title": "Observa com sana el teu cos",
+    "step2_desc": "Un model anatòmic 3D mostra l'estat de recuperació de cada òrgan en temps real. Fetge, pulmons, cor, regions cerebrals — tots mapejats a la teva línia temporal.",
+    "step3_title": "Guanya trofeus reals",
+    "step3_desc": "77 assoliments vinculats a fites fisiològiques reals. No 'Insígnia del dia 30' — 'Els teus receptors D2 han repoblat l'estriat.'"
+  },
+  "science": {
+    "eyebrow": "LA CIÈNCIA",
+    "title": "Construït amb dades, no amb esperança.",
+    "p1": "Les corbes de recuperació per a cada parell substància × òrgan estan modelades des de literatura peer-reviewed. Logarítmiques, sigmoïdals o exponencials — la que encaixi amb la fisiologia real.",
+    "p2": "Cada dada mèdica a Soma porta un nivell de confiança: alt, mitjà o baix. Quan l'evidència és sòlida, ho diem. Quan és aproximada, també.",
+    "p3": "Cinc substàncies modelades fins ara — alcohol, nicotina, cànnabis, cocaïna, cafeïna — a través de múltiples sistemes orgànics i vies de neurotransmissors. Més en camí."
+  },
+  "trophies": {
+    "eyebrow": "ASSOLIMENTS",
+    "title": "Cada fita que el teu cos creua, reconeguda.",
+    "p1": "77 trofeus en cinc substàncies. Bronze per als primers dies. Plata per a les setmanes. Or per als mesos. Platí per a la sobirania plena sobre la teva biologia.",
+    "example1_title": "Travessant la tempesta",
+    "example1_desc": "Sobreviure a la fase aguda d'abstinència — la més perillosa fisiològicament de qualsevol substància.",
+    "example2_title": "El plaer ja no està llogat",
+    "example2_desc": "La densitat de receptors de dopamina s'aproxima a la línia base. Les recompenses naturals es tornen a sentir reals.",
+    "example3_title": "El dictador ha caigut",
+    "example3_desc": "Llibertat neuroquímica absoluta. El circuit de recompensa està plenament restaurat.",
+    "hidden_note": "Alguns trofeus estan ocults. Els descobriràs quan el teu cos ho faci."
+  },
+  "footer": {
+    "tagline": "El teu cos ja està fent la feina. Soma et deixa veure-ho.",
+    "cta": "Comença ara",
+    "login": "Inicia sessió"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "header": {
+    "editProfile": "Editar perfil",
+    "trophies": "Trofeos",
+    "dashboard": "Panel"
+  },
+  "trophies": {
+    "title": "Os teus trofeos",
+    "unlockedRatio": "{{unlocked}} de {{total}} desbloqueados",
+    "unlockedOn": "Conseguido o {{date}}",
+    "lockedHint": "Chega ao {{percent}}% de recuperación en {{organ}}",
+    "hiddenHint": "Trofeo oculto",
+    "toastEyebrow": "NOVO TROFEO",
+    "toastDismiss": "Descartar",
+    "toastDismissAll": "Marcar os {{count}} como vistos"
+  },
+  "panel": {
+    "selectedOrgan": "Órgano seleccionado",
+    "hoverPrompt": "Pasa por riba dun órgano",
+    "clickPrompt": "Fai clic nun órgano para inspeccionalo",
+    "affectedBy": "Afectado por",
+    "causedBy": "Causado por",
+    "daysAbstinent": "Días de abstinencia",
+    "recovery": "Recuperación",
+    "showRecoveryProcess": "Amosar o proceso de recuperación",
+    "hideRecoveryProcess": "Agochar o proceso de recuperación",
+    "noNarrativeData": "Non hai datos do proceso de recuperación para este órgano.",
+    "showNeurotransmitterState": "Amosar o estado dos neurotransmisores",
+    "hideNeurotransmitterState": "Agochar o estado dos neurotransmisores",
+    "noNeurotransmitterData": "Non hai datos de neurotransmisores para este órgano.",
+    "direction": {
+      "depleted": "esgotado",
+      "elevated": "elevado",
+      "oscillating": "oscilando",
+      "normalizing": "normalizándose"
+    },
+    "severity": {
+      "severe": "grave",
+      "moderate": "moderado",
+      "mild": "leve",
+      "normalizing": "normalizándose"
+    }
+  },
+  "empty": {
+    "noSubstances": "Aínda non fas seguimento de ningunha substancia.",
+    "addFirst": "Engade a primeira →"
+  }
+}
