@@ -5,7 +5,7 @@
   "description": "Soma backend API",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc -b",
+    "build": "prisma generate && tsc -b",
     "start": "node dist/main.js",
     "dev": "tsc -b --watch & node --watch dist/main.js",
     "prisma:generate": "prisma generate",
