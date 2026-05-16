@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Trophy, User, LogOut } from 'lucide-react';
 import type { OrganId } from '@soma/shared-types';
 import { useAuth } from '../features/auth/index.js';
 import { useUserProfile, useOrganStates, MOCK_PROFILE } from '../features/profile/index.js';
@@ -16,6 +17,8 @@ import {
   useOrganNarrativeState,
   OrganNarrativePanel,
 } from '../features/organ-narrative-state/index.js';
+import { BottomSheet } from '../components/BottomSheet.js';
+
 
 export function MainPage() {
   const { t } = useTranslation([
@@ -102,37 +105,76 @@ const hasNarrativeData = narrativeForSelected.length > 0;
 
   return (
     <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary">
-      <header className="border-b border-soma-border-subtle px-8 py-4 flex items-center justify-between">
-        <div>
+      <header className="border-b border-soma-border-subtle px-4 md:px-8 py-4 flex items-center justify-between">
+        <div className="min-w-0">
           <h1 className="text-2xl font-light tracking-wide">Soma</h1>
-          <p className="text-xs text-soma-fg-muted mt-1">{user?.displayName ?? '—'}</p>
+          <p className="text-xs text-soma-fg-muted mt-1 hidden md:block">
+            {user?.displayName ?? '—'}
+          </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <LanguageSelector />
           <button
             onClick={() => navigate('/achievements')}
-            className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
+            aria-label={t('main:header.trophies')}
+            title={t('main:header.trophies')}
+            className="
+              flex items-center gap-2
+              text-soma-fg-muted hover:text-soma-fg-secondary
+              transition-colors
+              p-2 md:p-0
+            "
           >
-            {t('main:header.trophies')}
+            <Trophy size={18} aria-hidden="true" />
+            <span className="hidden md:inline text-xs">
+              {t('main:header.trophies')}
+            </span>
           </button>
           <button
             onClick={() => navigate('/onboarding')}
-            className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
+            aria-label={t('main:header.editProfile')}
+            title={t('main:header.editProfile')}
+            className="
+              flex items-center gap-2
+              text-soma-fg-muted hover:text-soma-fg-secondary
+              transition-colors
+              p-2 md:p-0
+            "
           >
-            {t('main:header.editProfile')}
+            <User size={18} aria-hidden="true" />
+            <span className="hidden md:inline text-xs">
+              {t('main:header.editProfile')}
+            </span>
           </button>
           <button
             onClick={logout}
-            className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
+            aria-label={t('common:signOut')}
+            title={t('common:signOut')}
+            className="
+              flex items-center gap-2
+              text-soma-fg-muted hover:text-soma-fg-secondary
+              transition-colors
+              p-2 md:p-0
+            "
           >
-            {t('common:signOut')}
+            <LogOut size={18} aria-hidden="true" />
+            <span className="hidden md:inline text-xs">
+              {t('common:signOut')}
+            </span>
           </button>
-          
         </div>
       </header>
 
-      <main className="grid grid-cols-12 gap-6 p-8 max-w-7xl mx-auto">
-        <section className="col-span-8 bg-soma-bg-surface border border-soma-border-subtle rounded p-2 flex items-center justify-center min-h-[600px]">
+      <main className="md:grid md:grid-cols-12 md:gap-6 md:p-8 md:max-w-7xl md:mx-auto">
+        {/* 3D model area */}
+        <section
+          className="
+            md:col-span-8
+            md:bg-soma-bg-surface md:border md:border-soma-border-subtle md:rounded md:p-2
+            flex items-center justify-center
+            h-[calc(100vh-73px)] md:h-auto md:min-h-[600px]
+          "
+        >
           {loading && <p className="text-soma-fg-secondary">{t('common:loading')}</p>}
           {error && <p className="text-soma-organ-damaged">{error}</p>}
           {!loading && !error && hasNoUsages && (
@@ -158,71 +200,140 @@ const hasNarrativeData = narrativeForSelected.length > 0;
           )}
         </section>
 
-        <aside className="col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
-          <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
-            {selected ? t('main:panel.selectedOrgan') : t('main:panel.clickPrompt')}
-          </h2>
-          {selected && states.has(selected) && (
-            <div className="space-y-2 text-sm">
-              <p className="text-soma-fg-primary text-base">
-                {t(`organs:${selected}`, { defaultValue: states.get(selected)!.organName })}
-              </p>
-              <p className="text-soma-fg-muted">
-                {t('main:panel.affectedBy')}:{' '}
-                <span className="text-soma-fg-secondary capitalize">
-                  {t(`substances:${states.get(selected)!.dominantSubstanceId}.name`, {
-                    defaultValue: states.get(selected)!.dominantSubstanceId,
-                  })}
-                </span>
-              </p>
-              <p className="text-soma-fg-muted">
-                {t('main:panel.daysAbstinent')}:{' '}
-                <span className="text-soma-fg-secondary tabular-nums">
-                  {Math.floor(states.get(selected)!.daysAbstinent)}
-                </span>
-              </p>
-              <p className="text-soma-fg-muted">
-                {t('main:panel.recovery')}:{' '}
-                <span className="text-soma-accent tabular-nums">
-                  {(states.get(selected)!.progressFraction * 100).toFixed(1)}%
-                </span>
-              </p>
-            </div>
-          )}
-
-          {selected && hasNtData && (
-            <div className="mt-4 pt-4 border-t border-soma-border-subtle">
-              <button
-                onClick={() => setShowNeurotransmitters((prev) => !prev)}
-                className="text-xs text-soma-accent hover:underline"
-              >
-                {showNeurotransmitters
-                  ? t('main:panel.hideNeurotransmitterState')
-                  : t('main:panel.showNeurotransmitterState')}
-              </button>
-              {showNeurotransmitters && (
-                <NeurotransmitterPanel entries={ntForSelected} />
-              )}
-            </div>
-          )}
-
-          {selected && hasNarrativeData && (
-  <div className="mt-4 pt-4 border-t border-soma-border-subtle">
-    <button
-      onClick={() => setShowNarrative((prev) => !prev)}
-      className="text-xs text-soma-accent hover:underline"
-    >
-      {showNarrative
-        ? t('main:panel.hideRecoveryProcess')
-        : t('main:panel.showRecoveryProcess')}
-    </button>
-    {showNarrative && (
-      <OrganNarrativePanel entries={narrativeForSelected} />
-    )}
-  </div>
-)}
+        {/* Side panel — desktop only */}
+        <aside className="hidden md:block md:col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
+          <PanelContent
+            selected={selected}
+            states={states}
+            t={t}
+            ntForSelected={ntForSelected}
+            narrativeForSelected={narrativeForSelected}
+            hasNtData={hasNtData}
+            hasNarrativeData={hasNarrativeData}
+            showNeurotransmitters={showNeurotransmitters}
+            setShowNeurotransmitters={setShowNeurotransmitters}
+            showNarrative={showNarrative}
+            setShowNarrative={setShowNarrative}
+          />
         </aside>
       </main>
+
+      {/* Bottom sheet — mobile only */}
+      <div className="md:hidden">
+        <BottomSheet
+          open={selected !== null}
+          onClose={() => handleSelect(null)}
+        >
+          <PanelContent
+            selected={selected}
+            states={states}
+            t={t}
+            ntForSelected={ntForSelected}
+            narrativeForSelected={narrativeForSelected}
+            hasNtData={hasNtData}
+            hasNarrativeData={hasNarrativeData}
+            showNeurotransmitters={showNeurotransmitters}
+            setShowNeurotransmitters={setShowNeurotransmitters}
+            showNarrative={showNarrative}
+            setShowNarrative={setShowNarrative}
+          />
+        </BottomSheet>
+      </div>
     </div>
+  );
+}
+
+interface PanelContentProps {
+  selected: OrganId | null;
+  states: ReturnType<typeof useOrganStates>['states'];
+  t: ReturnType<typeof useTranslation>['t'];
+  ntForSelected: ReturnType<typeof useNeurotransmitterState>['entries'];
+  narrativeForSelected: ReturnType<typeof useOrganNarrativeState>['entries'];
+  hasNtData: boolean;
+  hasNarrativeData: boolean;
+  showNeurotransmitters: boolean;
+  setShowNeurotransmitters: (fn: (prev: boolean) => boolean) => void;
+  showNarrative: boolean;
+  setShowNarrative: (fn: (prev: boolean) => boolean) => void;
+}
+
+function PanelContent({
+  selected,
+  states,
+  t,
+  ntForSelected,
+  narrativeForSelected,
+  hasNtData,
+  hasNarrativeData,
+  showNeurotransmitters,
+  setShowNeurotransmitters,
+  showNarrative,
+  setShowNarrative,
+}: PanelContentProps) {
+  return (
+    <>
+      <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
+        {selected ? t('main:panel.selectedOrgan') : t('main:panel.clickPrompt')}
+      </h2>
+      {selected && states.has(selected) && (
+        <div className="space-y-2 text-sm">
+          <p className="text-soma-fg-primary text-base">
+            {t(`organs:${selected}`, { defaultValue: states.get(selected)!.organName })}
+          </p>
+          <p className="text-soma-fg-muted">
+            {t('main:panel.affectedBy')}:{' '}
+            <span className="text-soma-fg-secondary capitalize">
+              {t(`substances:${states.get(selected)!.dominantSubstanceId}.name`, {
+                defaultValue: states.get(selected)!.dominantSubstanceId,
+              })}
+            </span>
+          </p>
+          <p className="text-soma-fg-muted">
+            {t('main:panel.daysAbstinent')}:{' '}
+            <span className="text-soma-fg-secondary tabular-nums">
+              {Math.floor(states.get(selected)!.daysAbstinent)}
+            </span>
+          </p>
+          <p className="text-soma-fg-muted">
+            {t('main:panel.recovery')}:{' '}
+            <span className="text-soma-accent tabular-nums">
+              {(states.get(selected)!.progressFraction * 100).toFixed(1)}%
+            </span>
+          </p>
+        </div>
+      )}
+
+      {selected && hasNtData && (
+        <div className="mt-4 pt-4 border-t border-soma-border-subtle">
+          <button
+            onClick={() => setShowNeurotransmitters((prev) => !prev)}
+            className="text-xs text-soma-accent hover:underline"
+          >
+            {showNeurotransmitters
+              ? t('main:panel.hideNeurotransmitterState')
+              : t('main:panel.showNeurotransmitterState')}
+          </button>
+          {showNeurotransmitters && (
+            <NeurotransmitterPanel entries={ntForSelected} />
+          )}
+        </div>
+      )}
+
+      {selected && hasNarrativeData && (
+        <div className="mt-4 pt-4 border-t border-soma-border-subtle">
+          <button
+            onClick={() => setShowNarrative((prev) => !prev)}
+            className="text-xs text-soma-accent hover:underline"
+          >
+            {showNarrative
+              ? t('main:panel.hideRecoveryProcess')
+              : t('main:panel.showRecoveryProcess')}
+          </button>
+          {showNarrative && (
+            <OrganNarrativePanel entries={narrativeForSelected} />
+          )}
+        </div>
+      )}
+    </>
   );
 }
