@@ -7,8 +7,11 @@ import { useUserProfile } from '../features/profile/index.js';
 import type { UsageInput } from '../features/profile/index.js';
 import { LanguageSelector } from '../components/LanguageSelector.js';
 
+type UsageMode = 'abstinent' | 'active';
+
 interface SubstanceFormState {
   active: boolean;
+  mode: UsageMode;
   yearStarted: string;
   lastUseDate: string;
   frequency: UsageInput['frequency'];
@@ -28,6 +31,7 @@ const TODAY = new Date().toISOString().split('T')[0];
 
 const EMPTY_STATE: SubstanceFormState = {
   active: false,
+  mode: 'abstinent',
   yearStarted: '',
   lastUseDate: '',
   frequency: 'daily',
@@ -64,8 +68,9 @@ export function OnboardingPage() {
     for (const usage of profile.usages) {
       initial[usage.substanceId] = {
         active: true,
+        mode: usage.status,
         yearStarted: String(usage.yearStarted),
-        lastUseDate: toDateInputValue(usage.lastUseDate),
+        lastUseDate: usage.lastUseDate ? toDateInputValue(usage.lastUseDate) : '',
         frequency: usage.frequency,
       };
     }
@@ -104,7 +109,8 @@ export function OnboardingPage() {
           throw new Error(t('errors.invalidYear', { substance: substance.name }));
         }
 
-        if (!state.lastUseDate) {
+        // lastUseDate is only required for abstinent mode.
+        if (state.mode === 'abstinent' && !state.lastUseDate) {
           throw new Error(
             t('errors.lastUseDateRequired', { substance: substance.name }),
           );
@@ -113,8 +119,9 @@ export function OnboardingPage() {
         usages.push({
           substanceId: substance.id,
           yearStarted,
-          lastUseDate: state.lastUseDate,
+          lastUseDate: state.mode === 'abstinent' ? state.lastUseDate : null,
           frequency: state.frequency,
+          status: state.mode,
         });
       }
 
@@ -176,19 +183,64 @@ export function OnboardingPage() {
 
                 {state.active && (
                   <div className="mt-4 space-y-3 pl-7">
+                    {/* Mode selector — abstinent vs active */}
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t('fields.lastUseDate')}
+                        {t('fields.mode')}
                       </label>
-                      <input
-                        type="date"
-                        required
-                        max={TODAY}
-                        value={state.lastUseDate}
-                        onChange={(e) => updateField(substance.id, 'lastUseDate', e.target.value)}
-                        className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
-                      />
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => updateField(substance.id, 'mode', 'abstinent')}
+                          className={`
+                            px-3 py-2 rounded text-sm transition-colors
+                            border
+                            ${state.mode === 'abstinent'
+                              ? 'border-soma-accent bg-soma-accent/10 text-soma-fg-primary'
+                              : 'border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted'
+                            }
+                          `}
+                        >
+                          {t('mode.abstinent')}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => updateField(substance.id, 'mode', 'active')}
+                          className={`
+                            px-3 py-2 rounded text-sm transition-colors
+                            border
+                            ${state.mode === 'active'
+                              ? 'border-soma-accent bg-soma-accent/10 text-soma-fg-primary'
+                              : 'border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted'
+                            }
+                          `}
+                        >
+                          {t('mode.active')}
+                        </button>
+                      </div>
+                      <p className="text-xs text-soma-fg-muted mt-2">
+                        {state.mode === 'abstinent'
+                          ? t('mode.abstinentDescription')
+                          : t('mode.activeDescription')}
+                      </p>
                     </div>
+
+                    {/* lastUseDate — only for abstinent mode */}
+                    {state.mode === 'abstinent' && (
+                      <div>
+                        <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+                          {t('fields.lastUseDate')}
+                        </label>
+                        <input
+                          type="date"
+                          required
+                          max={TODAY}
+                          value={state.lastUseDate}
+                          onChange={(e) => updateField(substance.id, 'lastUseDate', e.target.value)}
+                          className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+                        />
+                      </div>
+                    )}
 
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
