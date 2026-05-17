@@ -1,14 +1,15 @@
-import type { BiologicalSex, SubstanceId } from '@soma/shared-types';
+import type { BiologicalSex, SubstanceId, UsageStatus } from '@soma/shared-types';
 
 /**
  * Declared substance use for a single substance in the user's profile.
  *
- * Mirrors the shape of the `SubstanceUsage` model on the backend, but
- * lives in the frontend independently because in v1 we don't yet have
- * authentication and persistence — the profile is local-only.
+ * Mirrors the shape of the `SubstanceUsage` model on the backend.
  *
- * When real user accounts land, this type will be replaced (or aliased)
- * to whatever the API returns for `/users/me`.
+ * `status` distinguishes between users who are abstaining (tracking
+ * recovery) and users who are actively consuming (tracking real-time
+ * damage but not planning to stop). When `status === 'active'`,
+ * `lastUseDate` is null — there's no meaningful "last use" when
+ * consumption is ongoing.
  */
 export interface ProfileUsage {
   substanceId: SubstanceId;
@@ -18,16 +19,19 @@ export interface ProfileUsage {
   yearStarted: number;
   /**
    * ISO date of the most recent use. The recovery clock runs from here.
+   * Null when `status === 'active'`.
    */
-  lastUseDate: string;
+  lastUseDate: string | null;
   frequency: 'daily' | 'weekly' | 'monthly' | 'occasional';
+  /**
+   * Whether the user is in abstinence or actively consuming.
+   * Defaults to 'abstinent' for backwards compatibility.
+   */
+  status: UsageStatus;
 }
 
 /**
  * Local user profile.
- *
- * For v1 this is a static mock. PR 7 will replace this with an
- * authenticated user fetched from the API.
  */
 export interface UserProfile {
   displayName: string;

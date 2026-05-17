@@ -29,24 +29,28 @@ export const MOCK_PROFILE: UserProfile = {
       yearStarted: 2010,
       lastUseDate: daysAgo(21),
       frequency: 'daily',
+      status: 'abstinent',
     },
     {
       substanceId: 'cannabis',
       yearStarted: 2012,
       lastUseDate: daysAgo(90),
       frequency: 'daily',
+      status: 'abstinent',
     },
     {
       substanceId: 'alcohol',
       yearStarted: 2008,
       lastUseDate: daysAgo(180),
       frequency: 'weekly',
+      status: 'abstinent',
     },
     {
       substanceId: 'cocaine',
       yearStarted: 2015,
       lastUseDate: daysAgo(300),
       frequency: 'occasional',
+      status: 'abstinent',
     },
   ],
 };
