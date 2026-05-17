@@ -5,6 +5,12 @@ import type { AchievementWithUnlockState, AchievementTier } from '../types.js';
 interface SubstanceTrophyGroupProps {
   substanceId: string;
   achievements: AchievementWithUnlockState[];
+  /**
+   * Whether the user is in active consumption for this substance.
+   * When true, the locked trophies show "available when you stop"
+   * rather than the usual recovery threshold hint.
+   */
+  isActive?: boolean;
 }
 
 const TIER_ORDER: Record<AchievementTier, number> = {
@@ -22,6 +28,7 @@ const TIER_ORDER: Record<AchievementTier, number> = {
 export function SubstanceTrophyGroup({
   substanceId,
   achievements,
+  isActive = false,
 }: SubstanceTrophyGroupProps) {
   const { t } = useTranslation(['main', 'substances']);
 
@@ -53,7 +60,11 @@ export function SubstanceTrophyGroup({
 
       <div className="space-y-2">
         {sorted.map((achievement) => (
-          <TrophyCard key={achievement.id} achievement={achievement} />
+          <TrophyCard
+            key={achievement.id}
+            achievement={achievement}
+            substanceActive={isActive}
+          />
         ))}
       </div>
     </section>
