@@ -12,7 +12,8 @@
   "hiddenHint": "Hidden trophy",
   "toastEyebrow": "NEW TROPHY",
   "toastDismiss": "Dismiss",
-  "toastDismissAll": "Mark all {{count}} as seen"
+  "toastDismissAll": "Mark all {{count}} as seen",
+  "activeSubstanceHint": "Available when you stop using {{substance}}"
 },
   "panel": {
   "selectedOrgan": "Selected organ",
@@ -39,7 +40,9 @@
     "moderate": "moderate",
     "mild": "mild",
     "normalizing": "normalizing"
-  }
+  },
+  "activeConsumption": "ACTIVE USE",
+"activeConsumptionDescription": "This organ isn't recovering because you're still using {{substance}}. The damage you see is real-time."
 },
   "empty": {
     "noSubstances": "No substances tracked yet.",

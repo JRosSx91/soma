@@ -1,10 +1,17 @@
 {
   "title": "Tell us about you",
   "subtitle": "For each substance you've stopped using, mark it active and tell us when you last used it. You can update this later.",
+  "mode": {
+    "abstinent": "I'm quitting",
+    "active": "I still use it",
+    "abstinentDescription": "Track your recovery from this substance.",
+    "activeDescription": "See the real-time impact on your body, without tracking recovery."
+  },
   "fields": {
     "lastUseDate": "Last use date",
     "yearStarted": "Year started",
-    "frequency": "Frequency"
+    "frequency": "Frequency",
+    "mode": "Status"
   },
   "frequency": {
     "daily": "Daily",

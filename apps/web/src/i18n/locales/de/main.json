@@ -12,7 +12,8 @@
     "hiddenHint": "Versteckte Trophäe",
     "toastEyebrow": "NEUE TROPHÄE",
     "toastDismiss": "Schließen",
-    "toastDismissAll": "Alle {{count}} als gesehen markieren"
+    "toastDismissAll": "Alle {{count}} als gesehen markieren",
+    "activeSubstanceHint": "Verfügbar, wenn Sie aufhören, {{substance}} zu konsumieren"
   },
   "panel": {
     "selectedOrgan": "Ausgewähltes Organ",
@@ -39,7 +40,9 @@
       "moderate": "mäßig",
       "mild": "leicht",
       "normalizing": "normalisierend"
-    }
+    },
+    "activeConsumption": "AKTIVER KONSUM",
+"activeConsumptionDescription": "Dieses Organ erholt sich nicht, weil Sie weiterhin {{substance}} konsumieren. Der Schaden, den Sie sehen, ist in Echtzeit."
   },
   "empty": {
     "noSubstances": "Noch keine Substanzen verfolgt.",

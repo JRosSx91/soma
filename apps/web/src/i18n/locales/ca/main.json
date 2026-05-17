@@ -12,7 +12,8 @@
     "hiddenHint": "Trofeu ocult",
     "toastEyebrow": "NOU TROFEU",
     "toastDismiss": "Descarta",
-    "toastDismissAll": "Marca els {{count}} com a vistos"
+    "toastDismissAll": "Marca els {{count}} com a vistos",
+    "activeSubstanceHint": "Disponible quan deixis de consumir {{substance}}"
   },
   "panel": {
     "selectedOrgan": "Òrgan seleccionat",
@@ -39,7 +40,9 @@
       "moderate": "moderat",
       "mild": "lleu",
       "normalizing": "normalitzant-se"
-    }
+    },
+    "activeConsumption": "CONSUM ACTIU",
+"activeConsumptionDescription": "Aquest òrgan no s'està recuperant perquè continues consumint {{substance}}. El dany que veus és en temps real."
   },
   "empty": {
     "noSubstances": "Encara no fas seguiment de cap substància.",

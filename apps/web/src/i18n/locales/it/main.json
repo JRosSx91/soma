@@ -12,7 +12,8 @@
     "hiddenHint": "Trofeo nascosto",
     "toastEyebrow": "NUOVO TROFEO",
     "toastDismiss": "Chiudi",
-    "toastDismissAll": "Segna tutti i {{count}} come visti"
+    "toastDismissAll": "Segna tutti i {{count}} come visti",
+    "activeSubstanceHint": "Disponibile quando smetterai di consumare {{substance}}"
   },
   "panel": {
     "selectedOrgan": "Organo selezionato",
@@ -39,7 +40,9 @@
       "moderate": "moderato",
       "mild": "lieve",
       "normalizing": "in normalizzazione"
-    }
+    },
+    "activeConsumption": "CONSUMO ATTIVO",
+"activeConsumptionDescription": "Questo organo non si sta riprendendo perché continui a consumare {{substance}}. Il danno che vedi è in tempo reale."
   },
   "empty": {
     "noSubstances": "Nessuna sostanza ancora monitorata.",

@@ -1,10 +1,17 @@
 {
   "title": "Erzählen Sie uns von sich",
   "subtitle": "Markieren Sie für jede Substanz, die Sie nicht mehr verwenden, diese als aktiv und geben Sie an, wann Sie sie zuletzt konsumiert haben. Sie können dies später ändern.",
+  "mode": {
+    "abstinent": "Ich höre auf",
+    "active": "Ich konsumiere weiter",
+    "abstinentDescription": "Verfolgen Sie Ihren Erholungsprozess von dieser Substanz.",
+    "activeDescription": "Sehen Sie die Echtzeitauswirkungen auf Ihren Körper, ohne die Erholung zu verfolgen."
+  },
   "fields": {
     "lastUseDate": "Datum des letzten Konsums",
     "yearStarted": "Anfangsjahr",
-    "frequency": "Häufigkeit"
+    "frequency": "Häufigkeit",
+    "mode": "Status"
   },
   "frequency": {
     "daily": "Täglich",

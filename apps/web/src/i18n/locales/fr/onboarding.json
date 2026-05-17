@@ -1,10 +1,17 @@
 {
   "title": "Parlez-nous de vous",
   "subtitle": "Pour chaque substance que vous avez arrêtée, marquez-la comme active et indiquez votre dernière consommation. Vous pourrez modifier ces informations plus tard.",
+  "mode": {
+    "abstinent": "Je suis en train d'arrêter",
+    "active": "Je consomme toujours",
+    "abstinentDescription": "Suivez votre processus de récupération de cette substance.",
+    "activeDescription": "Voyez l'impact en temps réel sur votre corps, sans suivre la récupération."
+  },
   "fields": {
     "lastUseDate": "Date de dernière consommation",
     "yearStarted": "Année de début",
-    "frequency": "Fréquence"
+    "frequency": "Fréquence",
+    "mode": "État"
   },
   "frequency": {
     "daily": "Quotidienne",

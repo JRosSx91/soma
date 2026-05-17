@@ -1,10 +1,17 @@
 {
   "title": "Parlaci di te",
   "subtitle": "Per ogni sostanza che hai smesso di usare, segnalala come attiva e indica l'ultima volta che l'hai consumata. Potrai modificare queste informazioni in seguito.",
+ "mode": {
+    "abstinent": "Sto smettendo",
+    "active": "Continuo a consumare",
+    "abstinentDescription": "Segui il tuo processo di recupero da questa sostanza.",
+    "activeDescription": "Vedi l'impatto in tempo reale sul tuo corpo, senza tracciare il recupero."
+  },
   "fields": {
     "lastUseDate": "Data dell'ultimo consumo",
     "yearStarted": "Anno di inizio",
-    "frequency": "Frequenza"
+    "frequency": "Frequenza",
+    "mode": "Stato"
   },
   "frequency": {
     "daily": "Giornaliera",
