@@ -50,7 +50,14 @@ export class ProfileService {
             userId,
             substanceId: u.substanceId,
             yearStarted: u.yearStarted,
-            lastUseDate: new Date(u.lastUseDate),
+            // status defaults to 'abstinent' if the client doesn't send
+            // it (backwards compatibility). When the user is in active
+            // consumption, lastUseDate is null — there's no "last use".
+            status: u.status ?? 'abstinent',
+            lastUseDate:
+              u.status === 'active' || !u.lastUseDate
+                ? null
+                : new Date(u.lastUseDate),
             frequency: u.frequency,
           })),
         });

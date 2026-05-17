@@ -44,12 +44,31 @@ export class OrganNarrativeStateService {
     const entries: OrganNarrativeStateEntry[] = [];
 
     for (const usage of usages) {
+      // Active consumption: surface the during_use narrative.
+      if (usage.status === 'active') {
+        for (const profile of usage.substance.narrativeProfiles) {
+          const duringUsePhase = profile.phases.find(
+            (p) => p.phase === 'during_use',
+          );
+          if (!duringUsePhase) continue;
+
+          entries.push({
+            organId: profile.organId,
+            sourceSubstanceId: usage.substanceId,
+            phase: 'during_use',
+            narrativeKey: duringUsePhase.narrativeKey,
+            daysSinceLastUse: 0,
+            confidenceLevel: profile.confidenceLevel,
+          });
+        }
+        continue;
+      }
+
+      // Abstinence path.
+      if (!usage.lastUseDate) continue;
       const daysSinceLastUse = Math.floor(
         (now - usage.lastUseDate.getTime()) / DAY_MS,
       );
-      // Match the convention used in neurotransmitter-state: skip
-      // day 0 because the user is at least one day into abstinence
-      // by the time they consult the app.
       if (daysSinceLastUse < 1) continue;
 
       for (const profile of usage.substance.narrativeProfiles) {
