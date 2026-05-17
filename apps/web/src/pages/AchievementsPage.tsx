@@ -6,6 +6,7 @@ import {
   useAchievements,
   SubstanceTrophyGroup,
 } from '../features/achievements/index.js';
+import { useUserProfile } from '../features/profile/index.js';
 import { LanguageSelector } from '../components/LanguageSelector.js';
 
 export function AchievementsPage() {
@@ -13,6 +14,19 @@ export function AchievementsPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { achievements, loading, error } = useAchievements();
+  const { profile } = useUserProfile();
+
+  // Set of substanceIds the user is actively consuming. Used to
+  // signal "this trophy is unreachable until you stop using X" in
+  // the trophy card rather than showing the usual recovery threshold.
+  const activeSubstances = useMemo(() => {
+    const set = new Set<string>();
+    if (!profile) return set;
+    for (const usage of profile.usages) {
+      if (usage.status === 'active') set.add(usage.substanceId);
+    }
+    return set;
+  }, [profile]);
 
   // Group by substance, preserving the substance order seen in the
   // catalog (alcohol, nicotine, cannabis, cocaine, caffeine).
@@ -54,7 +68,6 @@ export function AchievementsPage() {
           </button>
         </div>
       </header>
-
       <main className="max-w-3xl mx-auto px-8 py-10">
         <div className="mb-8">
           <h2 className="text-3xl font-light tracking-wide mb-2">
@@ -67,12 +80,10 @@ export function AchievementsPage() {
             })}
           </p>
         </div>
-
         {loading && (
           <p className="text-soma-fg-secondary">{t('common:loading')}</p>
         )}
         {error && <p className="text-soma-organ-damaged">{error}</p>}
-
         {!loading && !error && (
           <>
             {groupedBySubstance.map(([substanceId, items]) => (
@@ -80,6 +91,7 @@ export function AchievementsPage() {
                 key={substanceId}
                 substanceId={substanceId}
                 achievements={items}
+                isActive={activeSubstances.has(substanceId)}
               />
             ))}
           </>

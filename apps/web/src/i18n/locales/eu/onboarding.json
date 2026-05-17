@@ -1,10 +1,17 @@
 {
   "title": "Kontatu zure buruari buruz",
   "subtitle": "Hartzeari utzi diozun substantzia bakoitzerako, markatu aktibo gisa eta adierazi noiz erabili zenuen azken aldiz. Geroago eguneratu dezakezu.",
+  "mode": {
+    "abstinent": "Uzten ari naiz",
+    "active": "Oraindik kontsumitzen dut",
+    "abstinentDescription": "Jarraitu substantzia honen errekuperazio-prozesua.",
+    "activeDescription": "Ikusi denbora errealean zure gorputzean duen eragina, errekuperazioa jarraitu gabe."
+  },
   "fields": {
     "lastUseDate": "Azken kontsumo data",
     "yearStarted": "Hasiera urtea",
-    "frequency": "Maiztasuna"
+    "frequency": "Maiztasuna",
+    "mode": "Egoera"
   },
   "frequency": {
     "daily": "Egunero",

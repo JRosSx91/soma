@@ -12,7 +12,8 @@
     "hiddenHint": "Trofeo ezkutua",
     "toastEyebrow": "TROFEO BERRIA",
     "toastDismiss": "Baztertu",
-    "toastDismissAll": "{{count}} ikusitako gisa markatu"
+    "toastDismissAll": "{{count}} ikusitako gisa markatu",
+    "activeSubstanceHint": "Eskuragarri {{substance}} kontsumitzeari uzten diozunean"
   },
   "panel": {
     "selectedOrgan": "Hautatutako organoa",
@@ -39,7 +40,9 @@
       "moderate": "ertaina",
       "mild": "arina",
       "normalizing": "normalizatzen"
-    }
+    },
+    "activeConsumption": "KONTSUMO AKTIBOA",
+"activeConsumptionDescription": "Organo hau ez da berreskuratzen ari {{substance}} kontsumitzen jarraitzen duzulako. Ikusten duzun kaltea denbora errealean da."
   },
   "empty": {
     "noSubstances": "Ez duzu oraindik substantziarik jarraipean.",

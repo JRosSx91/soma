@@ -5,10 +5,20 @@ import type { AchievementWithUnlockState } from '../types.js';
 
 interface TrophyCardProps {
   achievement: AchievementWithUnlockState;
+  /**
+   * Whether the substance this trophy belongs to is in active
+   * consumption. When true (and the trophy is locked), the hint
+   * tells the user this is unreachable until they stop consuming,
+   * rather than showing the usual recovery threshold.
+   */
+  substanceActive?: boolean;
 }
 
-export function TrophyCard({ achievement }: TrophyCardProps) {
-  const { t, i18n } = useTranslation(['achievements', 'main', 'organs']);
+export function TrophyCard({
+  achievement,
+  substanceActive = false,
+}: TrophyCardProps) {
+  const { t, i18n } = useTranslation(['achievements', 'main', 'organs', 'substances']);
   const [expanded, setExpanded] = useState(false);
 
   // A trophy is "hidden from the user's perspective" only when it's
@@ -28,7 +38,10 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
     defaultValue: achievement.triggerOrganId,
   });
 
-  // Format the unlock date in the user's locale.
+  const substanceName = t(`substances:${achievement.triggerSubstanceId}.name`, {
+    defaultValue: achievement.triggerSubstanceId,
+  });
+
   const unlockedDate = achievement.unlockedAt
     ? new Date(achievement.unlockedAt).toLocaleDateString(i18n.language, {
         year: 'numeric',
@@ -40,6 +53,23 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
   const thresholdPercent = Math.round(
     achievement.triggerRecoveryThreshold * 100,
   );
+
+  // Hint text logic:
+  // - Unlocked → show date.
+  // - Hidden → show "hidden" placeholder.
+  // - Locked + substance in active consumption → "available when you
+  //   stop using X" (priorities take precedence over the percent hint).
+  // - Otherwise → standard "reach X% in <organ>" hint.
+  const hint = achievement.unlocked && unlockedDate
+    ? t('main:trophies.unlockedOn', { date: unlockedDate })
+    : isHidden
+      ? t('main:trophies.hiddenHint')
+      : substanceActive
+        ? t('main:trophies.activeSubstanceHint', { substance: substanceName })
+        : t('main:trophies.lockedHint', {
+            organ: organName,
+            percent: thresholdPercent,
+          });
 
   return (
     <div
@@ -69,21 +99,9 @@ export function TrophyCard({ achievement }: TrophyCardProps) {
           >
             {title}
           </p>
-          <p className="text-[11px] text-soma-fg-muted mt-0.5">
-            {achievement.unlocked && unlockedDate
-              ? t('main:trophies.unlockedOn', { date: unlockedDate })
-              : isHidden
-                ? t('main:trophies.hiddenHint')
-                : t('main:trophies.lockedHint', {
-                    organ: organName,
-                    percent: thresholdPercent,
-                  })}
-          </p>
+          <p className="text-[11px] text-soma-fg-muted mt-0.5">{hint}</p>
         </div>
-        <span
-          className="text-soma-fg-muted text-xs"
-          aria-hidden="true"
-        >
+        <span className="text-soma-fg-muted text-xs" aria-hidden="true">
           {expanded ? '▴' : '▾'}
         </span>
       </button>

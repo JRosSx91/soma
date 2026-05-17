@@ -1,10 +1,17 @@
 {
   "title": "Cuéntanos sobre ti",
   "subtitle": "Para cada sustancia que hayas dejado, márcala como activa e indícanos cuándo la consumiste por última vez. Puedes actualizar esto más tarde.",
+  "mode": {
+    "abstinent": "Lo estoy dejando",
+    "active": "Sigo consumiendo",
+    "abstinentDescription": "Sigue tu proceso de recuperación de esta sustancia.",
+    "activeDescription": "Mira el impacto en tiempo real en tu cuerpo, sin trackear recuperación."
+  },
   "fields": {
-    "lastUseDate": "Última vez consumida",
-    "yearStarted": "Año en que empezaste",
-    "frequency": "Frecuencia"
+    "lastUseDate": "Fecha del último consumo",
+    "yearStarted": "Año de inicio",
+    "frequency": "Frecuencia",
+    "mode": "Estado"
   },
   "frequency": {
     "daily": "Diaria",

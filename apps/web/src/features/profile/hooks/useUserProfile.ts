@@ -1,11 +1,14 @@
 import { useEffect, useState, useCallback } from 'react';
 import { apiRequest } from '../../auth/client/api.js';
+import type { UsageStatus } from '@soma/shared-types';
 
 export interface UsageInput {
   substanceId: string;
   yearStarted: number;
-  lastUseDate: string;
+  /** Null when status is 'active'. */
+  lastUseDate: string | null;
   frequency: 'daily' | 'weekly' | 'monthly' | 'occasional';
+  status: UsageStatus;
 }
 
 export interface UserProfileResponse {
@@ -22,8 +25,9 @@ export interface UserProfileResponse {
     userId: string;
     substanceId: string;
     yearStarted: number;
-    lastUseDate: string;
+    lastUseDate: string | null;
     frequency: UsageInput['frequency'];
+    status: UsageStatus;
     createdAt: string;
     updatedAt: string;
   }>;

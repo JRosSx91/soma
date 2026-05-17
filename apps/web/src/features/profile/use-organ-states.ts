@@ -28,6 +28,7 @@ export interface OrganState {
   dominantSubstanceId: string;
   /** Confidence level reported by the dominant curve. */
   confidenceLevel: 'high' | 'medium' | 'low';
+  dominantStatus: 'abstinent' | 'active';
 }
 
 interface UseOrganStatesResult {
@@ -63,6 +64,39 @@ export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganSta
       const substance = substancesById.get(usage.substanceId);
       if (!substance) continue;
 
+      // Active consumption: the substance is being used right now. We
+      // hold the organ at its damaged state (progressFraction = 0)
+      // since recovery hasn't started. The UI will surface this
+      // differently from "abstinent and not yet improved" so the user
+      // understands the distinction.
+      if (usage.status === 'active') {
+        for (const curve of substance.recoveryCurves) {
+          const existing = result.get(curve.organId);
+          const candidate: OrganState = {
+            organId: curve.organId,
+            organName: curve.organ.name,
+            progressFraction: 0,
+            absoluteRecovery: 0,
+            daysAbstinent: 0,
+            dominantSubstanceId: usage.substanceId,
+            confidenceLevel: curve.confidenceLevel,
+            dominantStatus: 'active',
+          };
+
+          // Worst state dominates — an active substance with
+          // progressFraction=0 will dominate over any abstinent
+          // substance still recovering. That's the desired behavior:
+          // the organ is being damaged, that's the dominant story.
+          if (!existing || candidate.progressFraction < existing.progressFraction) {
+            result.set(curve.organId, candidate);
+          }
+        }
+        continue;
+      }
+
+      // Abstinence path: lastUseDate guaranteed by the data model.
+      if (!usage.lastUseDate) continue;
+
       for (const curve of substance.recoveryCurves) {
         const recovery = computeRecovery(
           {
@@ -83,10 +117,9 @@ export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganSta
           daysAbstinent: recovery.daysAbstinent,
           dominantSubstanceId: usage.substanceId,
           confidenceLevel: curve.confidenceLevel,
+          dominantStatus: 'abstinent',
         };
 
-        // Keep the worst (lowest progressFraction) — it dominates the
-        // visible state of the organ.
         if (!existing || candidate.progressFraction < existing.progressFraction) {
           result.set(curve.organId, candidate);
         }

@@ -1,10 +1,17 @@
 {
   "title": "Fálanos de ti",
   "subtitle": "Para cada substancia que deixaches de consumir, márcaa como activa e indícanos cando a usaches por última vez. Podes actualizalo máis adiante.",
+  "mode": {
+    "abstinent": "Estouno a deixar",
+    "active": "Aínda consumo",
+    "abstinentDescription": "Segue o teu proceso de recuperación desta substancia.",
+    "activeDescription": "Mira o impacto en tempo real no teu corpo, sen seguir a recuperación."
+  },
   "fields": {
     "lastUseDate": "Data do último consumo",
     "yearStarted": "Ano de inicio",
-    "frequency": "Frecuencia"
+    "frequency": "Frecuencia",
+    "mode": "Estado"
   },
   "frequency": {
     "daily": "Diaria",

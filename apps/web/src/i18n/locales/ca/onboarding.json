@@ -1,10 +1,17 @@
 {
   "title": "Explica'ns sobre tu",
   "subtitle": "Per a cada substància que has deixat de consumir, marca-la com a activa i indica'ns quan la vas fer servir per última vegada. Pots actualitzar-ho més endavant.",
+  "mode": {
+    "abstinent": "Ho estic deixant",
+    "active": "Encara en consumeixo",
+    "abstinentDescription": "Segueix el teu procés de recuperació d'aquesta substància.",
+    "activeDescription": "Veu l'impacte en temps real al teu cos, sense rastrejar la recuperació."
+  },
   "fields": {
     "lastUseDate": "Data de l'últim consum",
     "yearStarted": "Any d'inici",
-    "frequency": "Freqüència"
+    "frequency": "Freqüència",
+    "mode": "Estat"
   },
   "frequency": {
     "daily": "Diària",
