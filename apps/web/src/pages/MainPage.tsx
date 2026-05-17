@@ -70,6 +70,7 @@ export function MainPage() {
         yearStarted: u.yearStarted,
         lastUseDate: u.lastUseDate,
         frequency: u.frequency,
+        status: u.status,
       })),
     };
   }, [serverProfile]);
@@ -275,33 +276,60 @@ function PanelContent({
       <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
         {selected ? t('main:panel.selectedOrgan') : t('main:panel.clickPrompt')}
       </h2>
-      {selected && states.has(selected) && (
-        <div className="space-y-2 text-sm">
-          <p className="text-soma-fg-primary text-base">
-            {t(`organs:${selected}`, { defaultValue: states.get(selected)!.organName })}
-          </p>
-          <p className="text-soma-fg-muted">
-            {t('main:panel.affectedBy')}:{' '}
-            <span className="text-soma-fg-secondary capitalize">
-              {t(`substances:${states.get(selected)!.dominantSubstanceId}.name`, {
-                defaultValue: states.get(selected)!.dominantSubstanceId,
-              })}
-            </span>
-          </p>
-          <p className="text-soma-fg-muted">
-            {t('main:panel.daysAbstinent')}:{' '}
-            <span className="text-soma-fg-secondary tabular-nums">
-              {Math.floor(states.get(selected)!.daysAbstinent)}
-            </span>
-          </p>
-          <p className="text-soma-fg-muted">
-            {t('main:panel.recovery')}:{' '}
-            <span className="text-soma-accent tabular-nums">
-              {(states.get(selected)!.progressFraction * 100).toFixed(1)}%
-            </span>
-          </p>
-        </div>
-      )}
+      {selected && states.has(selected) && (() => {
+        const state = states.get(selected)!;
+        const isActive = state.dominantStatus === 'active';
+        return (
+          <div className="space-y-2 text-sm">
+            <p className="text-soma-fg-primary text-base">
+              {t(`organs:${selected}`, { defaultValue: state.organName })}
+            </p>
+
+            {/* Active consumption badge */}
+            {isActive && (
+              <div className="my-3 p-2 rounded border border-soma-organ-damaged/40 bg-soma-organ-damaged/10">
+                <p className="text-xs text-soma-organ-damaged font-semibold uppercase tracking-wider">
+                  {t('main:panel.activeConsumption')}
+                </p>
+                <p className="text-xs text-soma-fg-secondary mt-1 leading-relaxed">
+                  {t('main:panel.activeConsumptionDescription', {
+                    substance: t(`substances:${state.dominantSubstanceId}.name`, {
+                      defaultValue: state.dominantSubstanceId,
+                    }),
+                  })}
+                </p>
+              </div>
+            )}
+
+            <p className="text-soma-fg-muted">
+              {t('main:panel.affectedBy')}:{' '}
+              <span className="text-soma-fg-secondary capitalize">
+                {t(`substances:${state.dominantSubstanceId}.name`, {
+                  defaultValue: state.dominantSubstanceId,
+                })}
+              </span>
+            </p>
+
+            {/* Days abstinent / recovery — only meaningful for abstinent state */}
+            {!isActive && (
+              <>
+                <p className="text-soma-fg-muted">
+                  {t('main:panel.daysAbstinent')}:{' '}
+                  <span className="text-soma-fg-secondary tabular-nums">
+                    {Math.floor(state.daysAbstinent)}
+                  </span>
+                </p>
+                <p className="text-soma-fg-muted">
+                  {t('main:panel.recovery')}:{' '}
+                  <span className="text-soma-accent tabular-nums">
+                    {(state.progressFraction * 100).toFixed(1)}%
+                  </span>
+                </p>
+              </>
+            )}
+          </div>
+        );
+      })()}
 
       {selected && hasNtData && (
         <div className="mt-4 pt-4 border-t border-soma-border-subtle">
