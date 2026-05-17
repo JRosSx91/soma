@@ -63,6 +63,52 @@ export class NeurotransmitterStateService {
     const bestByOrganNT = new Map<string, NeurotransmitterStateEntry>();
 
     for (const usage of usages) {
+      // Active consumption: the substance is being used right now. We
+      // surface the `during_use` phase narrative so the user sees what
+      // their neurotransmitter system is enduring in this moment,
+      // rather than calculating a recovery phase that doesn't apply.
+      if (usage.status === 'active') {
+        for (const profile of usage.substance.neurotransmitterProfiles) {
+          const duringUsePhase = profile.phases.find(
+            (p) => p.phase === 'during_use',
+          );
+          if (!duringUsePhase) continue;
+
+          for (const [organId, neurotransmitters] of Object.entries(
+            ORGAN_NEUROTRANSMITTERS,
+          )) {
+            if (!neurotransmitters.includes(profile.neurotransmitter)) continue;
+
+            const key = `${organId}:${profile.neurotransmitter}`;
+            const candidate: NeurotransmitterStateEntry = {
+              neurotransmitter: profile.neurotransmitter,
+              organId,
+              phase: 'during_use',
+              direction: duringUsePhase.direction,
+              severity: duringUsePhase.severity,
+              symptomKey: duringUsePhase.symptomKey,
+              daysSinceLastUse: 0,
+              sourceSubstanceId: usage.substanceId,
+              confidenceLevel: profile.confidenceLevel,
+            };
+
+            const existing = bestByOrganNT.get(key);
+            if (
+              !existing ||
+              SEVERITY_RANK[candidate.severity] >
+                SEVERITY_RANK[existing.severity]
+            ) {
+              bestByOrganNT.set(key, candidate);
+            }
+          }
+        }
+        continue;
+      }
+
+      // Abstinence path: we know lastUseDate is non-null because the
+      // DTO + service enforce that abstinent usages have a date.
+      // The non-null assertion is safe by domain invariant.
+      if (!usage.lastUseDate) continue;
       const daysSinceLastUse = Math.floor(
         (now - usage.lastUseDate.getTime()) / DAY_MS,
       );

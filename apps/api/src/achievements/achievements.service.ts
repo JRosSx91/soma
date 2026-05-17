@@ -89,6 +89,13 @@ export class AchievementsService {
       // not apply.
       if (!usage) continue;
 
+      // Active consumption: achievements measure recovery, which only
+      // makes sense in abstinence. Skip the substance entirely.
+      if (usage.status === 'active') continue;
+
+      // From here on, abstinence is guaranteed → lastUseDate is set.
+      if (!usage.lastUseDate) continue;
+
       const curve = curveByPair.get(
         `${achievement.triggerOrganId}:${achievement.triggerSubstanceId}`,
       );
