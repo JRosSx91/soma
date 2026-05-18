@@ -18,6 +18,7 @@ import {
   OrganNarrativePanel,
 } from '../features/organ-narrative-state/index.js';
 import { BottomSheet } from '../components/BottomSheet.js';
+import { useIsMobile } from '../hooks/useIsMobile.js';
 
 
 export function MainPage() {
@@ -103,6 +104,8 @@ export function MainPage() {
   : [];
 const hasNarrativeData = narrativeForSelected.length > 0;
   const hasNtData = ntForSelected.length > 0;
+
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary">
@@ -219,8 +222,10 @@ const hasNarrativeData = narrativeForSelected.length > 0;
         </aside>
       </main>
 
-      {/* Bottom sheet — mobile only */}
-      <div className="md:hidden">
+      {/* Bottom sheet — mobile only. Conditionally rendered (not just
+          hidden with CSS) so the body scroll lock effect doesn't run
+          on desktop. */}
+      {isMobile && (
         <BottomSheet
           open={selected !== null}
           onClose={() => handleSelect(null)}
@@ -239,7 +244,7 @@ const hasNarrativeData = narrativeForSelected.length > 0;
             setShowNarrative={setShowNarrative}
           />
         </BottomSheet>
-      </div>
+      )}
     </div>
   );
 }
@@ -304,9 +309,13 @@ function PanelContent({
             <p className="text-soma-fg-muted">
               {t('main:panel.affectedBy')}:{' '}
               <span className="text-soma-fg-secondary capitalize">
-                {t(`substances:${state.dominantSubstanceId}.name`, {
-                  defaultValue: state.dominantSubstanceId,
-                })}
+                {state.contributingSubstances
+                  .map((c) =>
+                    t(`substances:${c.substanceId}.name`, {
+                      defaultValue: c.substanceId,
+                    }),
+                  )
+                  .join(', ')}
               </span>
             </p>
 
