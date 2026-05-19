@@ -91,6 +91,66 @@ export const RECOVERY_CURVES = [
     referenceSource:
       "Apte et al. (2010). Acute pancreatitis resolves but chronic changes may persist. [NEEDS-VERIFICATION]",
   },
+  {
+    substanceId: "alcohol",
+    organId: "intestines",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 60,
+    recoveryCeiling: 0.9,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Bishehsari et al. (2017). Gut mucosal integrity and microbiome composition partially recover within weeks to months of abstinence. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "spleen",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 180,
+    recoveryCeiling: 0.75,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "Splenomegaly secondary to portal hypertension partially resolves with abstinence; degree depends on hepatic recovery. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "oral-mucosa",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 30,
+    recoveryCeiling: 0.95,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Oral mucosal irritation resolves rapidly; oncological risk reduction requires sustained abstinence. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "teeth",
+    shape: "linear" as const,
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.6,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "Enamel erosion from acid exposure is largely irreversible; periodontal tissue improves with abstinence. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "eyes",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 30,
+    recoveryCeiling: 0.95,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Conjunctival redness and periorbital puffiness resolve within weeks; retinal vascular changes improve over months. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "skin",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 90,
+    recoveryCeiling: 0.85,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Skin hydration and rosacea improve within weeks to months of abstinence. [NEEDS-VERIFICATION]",
+  },
 
   // ---------------------------------------------------------------------------
   // Nicotine
@@ -164,6 +224,46 @@ export const RECOVERY_CURVES = [
     confidenceLevel: "medium" as const,
     referenceSource:
       "Microcirculation and collagen metabolism improve within months; deep wrinkles partially irreversible. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "oral-mucosa",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 90,
+    recoveryCeiling: 0.9,
+    confidenceLevel: "high" as const,
+    referenceSource:
+      "USDHHS (2014). Mucosal lesions resolve within weeks to months of cessation.",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "nasal-mucosa",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 60,
+    recoveryCeiling: 0.9,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Nasal mucosal irritation and dryness resolve within weeks of cessation. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "teeth",
+    shape: "linear" as const,
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.7,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Periodontal disease risk decreases with cessation; staining partially reversible with dental treatment. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "eyes",
+    shape: "sigmoidal" as const,
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.8,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Retinal vascular resistance improves with cessation; macular degeneration risk reduction over years. [NEEDS-VERIFICATION]",
   },
 
   // ---------------------------------------------------------------------------
@@ -268,6 +368,56 @@ export const RECOVERY_CURVES = [
     referenceSource:
       "Brents (2016). Hormonal cycle normalization typically within months. [NEEDS-VERIFICATION]",
   },
+  {
+    substanceId: "cannabis",
+    organId: "intestines",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 30,
+    recoveryCeiling: 1.0,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "CB1 receptor-mediated motility effects resolve within weeks of cessation. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "oral-mucosa",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 60,
+    recoveryCeiling: 0.95,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Mucosal irritation from smoke resolves within weeks; xerostomia resolves rapidly. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "nasal-mucosa",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 30,
+    recoveryCeiling: 0.95,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "Nasal irritation from smoke inhalation resolves within weeks. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "teeth",
+    shape: "linear" as const,
+    daysTo95Recovery: 180,
+    recoveryCeiling: 0.8,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "Xerostomia and bruxism resolve with cessation; some enamel wear irreversible. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "eyes",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 14,
+    recoveryCeiling: 1.0,
+    confidenceLevel: "high" as const,
+    referenceSource:
+      "Conjunctival vasodilation and redness resolve within days of cessation. Periorbital darkening from sleep disruption improves over weeks.",
+  },
 
   // ---------------------------------------------------------------------------
   // Cocaine
@@ -362,6 +512,47 @@ export const RECOVERY_CURVES = [
     referenceSource:
       "Hepatic recovery rapid in absence of coexisting alcohol use. [NEEDS-VERIFICATION]",
   },
+{
+    substanceId: "cocaine",
+    organId: "nasal-mucosa",
+    shape: "sigmoidal" as const,
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.7,
+    confidenceLevel: "high" as const,
+    referenceSource:
+      "Mucosal vasoconstriction resolves within days; mucosal atrophy and septal damage recover over months to years, if at all. Septum perforation is irreversible.",
+  },
+  {
+    substanceId: "cocaine",
+    organId: "teeth",
+    shape: "linear" as const,
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.6,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Bruxism resolves with cessation; enamel erosion from acidic cocaine residue largely irreversible. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cocaine",
+    organId: "eyes",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 30,
+    recoveryCeiling: 0.9,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Mydriasis resolves within hours; periorbital darkening from sleep deprivation improves over weeks. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cocaine",
+    organId: "skin",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 90,
+    recoveryCeiling: 0.9,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Peripheral vasoconstriction resolves within days; skin tone and texture improve over months. [NEEDS-VERIFICATION]",
+  },
+
   // ---------------------------------------------------------------------------
   // Caffeine
   // ---------------------------------------------------------------------------
@@ -384,6 +575,16 @@ export const RECOVERY_CURVES = [
     confidenceLevel: "medium" as const,
     referenceSource:
       "ACG 2020; reviews on caffeine gastric mucosa recovery. [NEEDS-VERIFICATION]",
+  },
+   {
+    substanceId: "caffeine",
+    organId: "intestines",
+    shape: "logarithmic" as const,
+    daysTo95Recovery: 14,
+    recoveryCeiling: 1.0,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Caffeine-stimulated colonic motility normalizes within days to weeks of cessation. [NEEDS-VERIFICATION]",
   },
 ] satisfies Array<{
   substanceId: string;

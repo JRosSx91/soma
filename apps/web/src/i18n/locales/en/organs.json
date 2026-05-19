@@ -13,5 +13,11 @@
   "brain-amygdala": "Amygdala",
   "skin": "Skin",
   "testes": "Testes",
-  "ovaries": "Ovaries"
+  "ovaries": "Ovaries",
+  "intestines": "Intestines",
+  "spleen": "Spleen",
+  "oral-mucosa": "Oral mucosa",
+  "nasal-mucosa": "Nasal mucosa",
+  "teeth": "Teeth",
+  "eyes": "Eyes"
 }

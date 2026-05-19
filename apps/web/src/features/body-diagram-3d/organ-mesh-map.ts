@@ -29,6 +29,12 @@ export const ORGAN_TO_MESH_NAME: Record<OrganId, string | null> = {
   skin: "skin",
   testes: "testes",
   ovaries: null,
+  intestines: null,
+  spleen: null,
+  'oral-mucosa': null,
+  'nasal-mucosa': null,
+  teeth: null,
+  eyes: null,
 };
 
 /**

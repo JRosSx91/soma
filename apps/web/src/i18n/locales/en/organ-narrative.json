@@ -21,6 +21,140 @@
       "normalizing": "Kidney function returns to baseline. The renal damage from alcohol alone (without other comorbidities) is largely reversible."
     }
   },
+  "intestines": {
+    "alcohol": {
+      "during_use": "Chronic alcohol exposure increases intestinal permeability ('leaky gut'), disrupting the mucosal barrier and allowing bacterial endotoxins to enter the portal circulation. The gut microbiome is progressively dysregulated. Motility is altered by direct smooth muscle effects.",
+      "acute_withdrawal": "Intestinal permeability begins to decrease within days. The mucosal barrier starts repairing. Gut motility normalizes as alcohol's direct effects resolve.",
+      "post_acute": "Microbiome composition gradually recovers toward baseline. Mucosal integrity continues to improve. Inflammatory markers in gut tissue decline.",
+      "normalizing": "Intestinal barrier function approaches baseline. Microbiome diversity recovers over weeks to months. Malabsorption secondary to mucosal damage resolves."
+    },
+    "cannabis": {
+      "during_use": "THC activates CB1 receptors throughout the gastrointestinal tract, slowing motility and reducing gastric emptying. Appetite stimulation (the 'munchies') reflects hypothalamic CB1 activation with secondary gut effects.",
+      "acute_withdrawal": "CB1-mediated motility suppression resolves within days. Gastric emptying rate normalizes. Appetite regulation returns toward baseline.",
+      "post_acute": "Gut motility continues to stabilize. CB1 receptor density in the GI tract recovers toward baseline levels.",
+      "normalizing": "Gastrointestinal function approaches baseline. Motility and appetite regulation normalize fully."
+    },
+    "caffeine": {
+      "during_use": "Caffeine stimulates colonic motility via adenosine receptor blockade and secondary catecholamine release. This produces the well-known laxative effect in regular users. Chronic use upregulates adenosine receptors in gut tissue.",
+      "acute_withdrawal": "Colonic motility decreases transiently as the stimulant effect is removed. Mild constipation is common in the first few days. Adenosine receptor density begins to normalize.",
+      "post_acute": "Gut motility stabilizes. The transient constipation resolves. Receptor sensitivity returns toward baseline.",
+      "normalizing": "Colonic motility approaches non-caffeinated baseline. The gut adapts to endogenous adenosine signaling without external blockade."
+    }
+  },
+  "spleen": {
+    "alcohol": {
+      "during_use": "Chronic alcohol use causes portal hypertension through hepatic fibrosis, forcing the spleen to enlarge (congestive splenomegaly). Immune dysregulation reduces the spleen's filtration efficiency. White pulp architecture is progressively disrupted.",
+      "acute_withdrawal": "Portal pressure begins to decrease as hepatic inflammation subsides. Splenic engorgement starts to reduce. Immune cell production begins to normalize.",
+      "post_acute": "Spleen size gradually decreases as portal hypertension improves. Immune function continues to recover. Macrophage activity normalizes.",
+      "normalizing": "Splenic size and function approach baseline proportionally to hepatic recovery. If significant cirrhosis persists, some splenomegaly may remain. Immune function largely restores."
+    }
+  },
+  "oral-mucosa": {
+    "alcohol": {
+      "during_use": "Direct ethanol contact irritates and desiccates oral mucosa. Chronic exposure disrupts the epithelial barrier and alters salivary composition. Long-term risk of oral mucosal lesions and oncological changes.",
+      "acute_withdrawal": "Mucosal irritation begins to resolve within days. Salivary flow and composition normalize. Epithelial barrier repair is rapid given the high turnover of oral mucosa.",
+      "post_acute": "Oral mucosa heals progressively. Pre-existing leukoplakia or mucosal lesions begin to regress. Salivary protective function restores.",
+      "normalizing": "Oral mucosal integrity approaches baseline. Oncological risk decreases with sustained abstinence, though pre-existing dysplastic changes require monitoring."
+    },
+    "nicotine": {
+      "during_use": "Tobacco smoke and nicotine cause direct mucosal irritation, vasoconstriction of mucosal blood vessels, and sustained oncological risk. Gingival recession and mucosal thickening develop with chronic use.",
+      "acute_withdrawal": "Mucosal blood flow improves rapidly as vasoconstriction resolves. Gingival tissue begins to recover. Mucosal irritation subsides.",
+      "post_acute": "Gingival health continues to improve. Mucosal lesions (smoker's melanosis, leukoplakia) begin to regress. Salivary antibacterial function recovers.",
+      "normalizing": "Oral mucosal health approaches non-smoker baseline. Oncological risk decreases substantially with sustained abstinence."
+    },
+    "cannabis": {
+      "during_use": "Cannabis smoke directly irritates oral mucosa. THC causes xerostomia (dry mouth) via CB1-mediated reduction of salivary flow, creating a cariogenic environment. Chronic exposure increases mucosal inflammation.",
+      "acute_withdrawal": "Salivary flow normalizes within days as CB1-mediated suppression resolves. Mucosal irritation subsides. Oral environment becomes less cariogenic.",
+      "post_acute": "Mucosal healing continues. Xerostomia resolves fully. Gingival inflammation decreases.",
+      "normalizing": "Oral mucosal function approaches baseline. Salivary protective mechanisms are fully restored."
+    }
+  },
+  "nasal-mucosa": {
+    "cocaine": {
+      "during_use": "Intranasal cocaine causes intense vasoconstriction of nasal mucosal blood vessels, producing ischemia of the septal cartilage and turbinate tissue. Chronic use leads to mucosal atrophy, loss of cilia, and progressive septal perforation risk.",
+      "acute_withdrawal": "Vasoconstriction resolves within hours. Mucosal blood flow returns. Nasal congestion ('rebound rhinitis') is common in the first days as vessels dilate after prolonged constriction.",
+      "post_acute": "Mucosal tissue begins to regenerate. Cilia regrow in areas of atrophy. Septal cartilage integrity stabilizes if perforation has not occurred.",
+      "normalizing": "Nasal mucosal function recovers substantially if structural damage is limited. Septal perforation, if present, is irreversible without surgical intervention. Olfactory function partially recovers."
+    },
+    "nicotine": {
+      "during_use": "Nicotine causes nasal mucosal vasoconstriction and dryness. Ciliary function is impaired. Chronic exposure increases susceptibility to nasal infections.",
+      "acute_withdrawal": "Nasal mucosal blood flow normalizes within days. Ciliary activity recovers. Mucus production normalizes.",
+      "post_acute": "Nasal mucosal health continues to improve. Infection susceptibility decreases. Olfactory sensitivity begins to recover.",
+      "normalizing": "Nasal mucosal function approaches baseline. Olfactory function largely recovers within weeks to months."
+    },
+    "cannabis": {
+      "during_use": "Cannabis smoke irritates nasal mucosa and impairs ciliary function. Chronic exposure causes mucosal thickening and increased mucus production.",
+      "acute_withdrawal": "Mucosal irritation subsides within days. Ciliary function begins to recover. Mucus production normalizes.",
+      "post_acute": "Nasal mucosal healing continues. Ciliary clearance improves progressively.",
+      "normalizing": "Nasal mucosal function approaches baseline. Ciliary function is largely restored."
+    }
+  },
+  "teeth": {
+    "alcohol": {
+      "during_use": "Acidic alcoholic beverages directly erode enamel. Alcohol-induced vomiting exposes teeth to gastric acid. Dry mouth from dehydration reduces salivary protection. Bruxism risk increases with heavy use.",
+      "acute_withdrawal": "Enamel erosion ceases. Salivary flow normalizes, restoring remineralizing capacity. Bruxism associated with withdrawal may temporarily increase teeth grinding.",
+      "post_acute": "Salivary remineralization works on early enamel lesions. Gingival health begins to improve. Existing structural enamel loss is not reversed.",
+      "normalizing": "Dental health stabilizes. Remineralization continues on superficial lesions. Deep enamel erosion remains irreversible."
+    },
+    "nicotine": {
+      "during_use": "Nicotine causes gingival vasoconstriction masking periodontal inflammation. Tobacco smoke deposits tar and staining compounds. Chronic use leads to progressive bone loss around teeth.",
+      "acute_withdrawal": "Gingival blood flow increases as vasoconstriction resolves — paradoxically, gums may appear more inflamed initially as previously masked inflammation becomes visible. This is a sign of recovery, not worsening.",
+      "post_acute": "Periodontal health genuinely improves. Bone loss rate slows significantly. Staining can be addressed with dental cleaning.",
+      "normalizing": "Periodontal health approaches non-smoker baseline. Bone loss that has already occurred is not recovered, but further progression stops."
+    },
+    "cannabis": {
+      "during_use": "Cannabis-induced xerostomia reduces salivary protection, increasing caries risk. Bruxism associated with cannabis use accelerates enamel wear. Smoke exposure irritates gingival tissue.",
+      "acute_withdrawal": "Salivary flow normalizes within days. Xerostomia resolves. Bruxism associated with use ceases.",
+      "post_acute": "Gingival health improves. Caries risk decreases as saliva protection is restored. Existing enamel wear remains.",
+      "normalizing": "Dental health stabilizes. Salivary protective mechanisms are fully restored."
+    },
+    "cocaine": {
+      "during_use": "Cocaine causes intense bruxism (teeth grinding), direct enamel erosion from acidic cocaine residue, and gingival vasoconstriction leading to tissue necrosis with chronic topical application. Crack cocaine smoking adds heat damage.",
+      "acute_withdrawal": "Bruxism resolves. Gingival vasoconstriction resolves. Existing structural damage to enamel and soft tissue is assessed.",
+      "post_acute": "Gingival tissue heals from vasoconstriction-induced ischemia. Periodontal health improves. Enamel erosion is static.",
+      "normalizing": "Dental soft tissue approaches baseline. Enamel loss from bruxism and acid erosion is permanent. Gingival and periodontal health substantially recover."
+    }
+  },
+  "eyes": {
+    "alcohol": {
+      "during_use": "Alcohol causes systemic vasodilation producing conjunctival redness. Dehydration reduces tear production, causing ocular dryness. Chronic heavy use is associated with retinal vascular changes and increased risk of optic neuropathy.",
+      "acute_withdrawal": "Conjunctival redness resolves within days as systemic vasodilation subsides. Tear production normalizes as hydration is restored. Periorbital puffiness from fluid retention decreases.",
+      "post_acute": "Ocular surface health continues to improve. Dry eye symptoms resolve. Retinal vascular markers begin to normalize.",
+      "normalizing": "Eye health approaches baseline. Retinal vascular health improves substantially with sustained abstinence."
+    },
+    "nicotine": {
+      "during_use": "Nicotine causes retinal vasoconstriction, reducing blood flow to the macula. Chronic exposure is a major modifiable risk factor for age-related macular degeneration. Periorbital microcirculation is reduced.",
+      "acute_withdrawal": "Retinal vasoconstriction begins to resolve within days. Periorbital circulation improves. Ocular surface dryness from reduced tear production normalizes.",
+      "post_acute": "Retinal blood flow continues to improve. Macular degeneration risk begins to decrease. Periorbital skin tone improves.",
+      "normalizing": "Ocular vascular health approaches non-smoker baseline over months to years. Macular degeneration risk decreases substantially with sustained abstinence."
+    },
+    "cannabis": {
+      "during_use": "THC causes pronounced conjunctival vasodilation — the characteristic red eyes. Intraocular pressure is transiently reduced (studied as potential glaucoma treatment). Periorbital darkening from sleep disruption is common with chronic use.",
+      "acute_withdrawal": "Conjunctival vasodilation resolves within hours to days. Intraocular pressure returns to baseline. Sleep normalization reduces periorbital darkening over weeks.",
+      "post_acute": "Ocular surface health normalizes. Sleep quality improves, reducing periorbital signs. Intraocular pressure is stable.",
+      "normalizing": "Eye health approaches baseline. Periorbital darkening resolves as sleep architecture normalizes fully."
+    },
+    "cocaine": {
+      "during_use": "Cocaine causes mydriasis (pupil dilation) via sympathomimetic effects. Retinal vasospasm can cause transient visual disturbances. Periorbital darkening from sleep deprivation is common. Crack cocaine smoke irritates the ocular surface.",
+      "acute_withdrawal": "Mydriasis resolves within hours. Retinal vasospasm subsides. Ocular surface irritation decreases.",
+      "post_acute": "Sleep normalization reduces periorbital darkening. Retinal vascular health stabilizes. Ocular surface heals.",
+      "normalizing": "Eye health approaches baseline. Periorbital signs resolve as sleep and vascular health normalize."
+    }
+  },
+  "skin": {
+    "alcohol": {
+      "during_use": "Chronic alcohol use causes systemic dehydration, depleting skin moisture. Vasodilation produces facial flushing and rosacea. Nutritional deficiencies impair collagen synthesis. Liver dysfunction reduces protein production affecting skin integrity.",
+      "acute_withdrawal": "Skin hydration begins to improve as alcohol's diuretic effect resolves. Facial flushing decreases. Nutritional status begins to recover.",
+      "post_acute": "Skin moisture and tone continue to improve. Rosacea symptoms decrease. Collagen synthesis recovers as nutritional deficiencies resolve.",
+      "normalizing": "Skin health approaches baseline. Hydration, tone, and collagen integrity improve substantially. Some deep vascular changes may persist."
+    },
+    "cocaine": {
+      "during_use": "Cocaine causes intense peripheral vasoconstriction, reducing skin perfusion and producing a grayish pallor. Hyperhidrosis (excessive sweating) occurs during use. Chronic use impairs wound healing through sustained vasoconstriction.",
+      "acute_withdrawal": "Peripheral vasoconstriction resolves within days. Skin perfusion normalizes. Hyperhidrosis resolves.",
+      "post_acute": "Skin tone and color continue to normalize. Wound healing capacity recovers. Peripheral circulation stabilizes.",
+      "normalizing": "Skin health approaches baseline. Perfusion, tone, and healing capacity substantially recover."
+    }
+  },
   "pancreas": {
     "alcohol": {
       "during_use": "Pancreatic acinar cells are under chronic toxic stress from alcohol metabolites. Both exocrine (digestive enzyme) and endocrine (insulin) functions can be progressively impaired. Risk of acute pancreatitis.",

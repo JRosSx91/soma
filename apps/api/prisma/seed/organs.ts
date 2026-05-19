@@ -41,6 +41,13 @@ export const ORGANS = [
     shortDescription:
       "Airway passages lined with ciliated epithelium. Ciliary function recovers within days of cessation, making early respiratory recovery highly visible.",
   },
+  {
+    id: "nasal-mucosa",
+    name: "Nasal mucosa",
+    system: "respiratory" as const,
+    shortDescription:
+      "Mucous membrane lining the nasal cavity. Severely damaged by intranasal cocaine use (vasoconstriction, septal perforation in chronic use). Also affected by nicotine and cannabis smoke.",
+  },
 
   // Renal system
   {
@@ -65,6 +72,29 @@ export const ORGANS = [
     system: "digestive" as const,
     shortDescription:
       "Exocrine and endocrine gland. Alcoholic pancreatitis is a major complication; recovery depends on whether acute episodes have occurred.",
+  },
+  {
+    id: "intestines",
+    name: "Intestines",
+    system: "digestive" as const,
+    shortDescription:
+      "Small and large intestine. Affected by alcohol (mucosal permeability, microbiome disruption), cannabis (motility via CB1), and caffeine (motility stimulation). Recovers well under abstinence.",
+  },
+  {
+    id: "oral-mucosa",
+    name: "Oral mucosa",
+    system: "digestive" as const,
+    shortDescription:
+      "Mucous membrane lining the mouth. Directly irritated by alcohol, nicotine, and cannabis smoke. Chronic exposure increases oncological risk. Regenerates rapidly under abstinence.",
+  },
+
+  // Immune system
+  {
+    id: "spleen",
+    name: "Spleen",
+    system: "immune" as const,
+    shortDescription:
+      "Largest lymphoid organ. Affected primarily by chronic alcohol use through portal hypertension and immune dysregulation. Recovery is slow and depends on degree of hepatic involvement.",
   },
 
   // Central nervous system — modeled at structure-level granularity
@@ -112,6 +142,22 @@ export const ORGANS = [
     shortDescription:
       "Affected primarily by nicotine through reduced microcirculation and altered collagen metabolism. Some photoaging is irreversible.",
   },
+  {
+    id: "teeth",
+    name: "Teeth",
+    system: "integumentary" as const,
+    shortDescription:
+      "Dental enamel and periodontal tissue. Affected by acid erosion (alcohol, cocaine), bruxism (cocaine, cannabis), xerostomia (cannabis), and periodontal disease (nicotine). Some enamel loss is irreversible.",
+  },
+
+  // Sensory system
+  {
+    id: "eyes",
+    name: "Eyes",
+    system: "sensory" as const,
+    shortDescription:
+      "Ocular tissue including conjunctiva, retinal vasculature, and periorbital skin. Affected by vasoconstriction (nicotine, cocaine), vasodilation (cannabis, alcohol), sleep disruption, and chronic dehydration. Periorbital darkening and conjunctival redness recover within days to weeks of abstinence.",
+  },
 
   // Reproductive system
   {
@@ -142,7 +188,8 @@ export const ORGANS = [
     | "reproductive"
     | "digestive"
     | "immune"
-    | "integumentary";
+    | "integumentary"
+    | "sensory";
   shortDescription: string;
 }>;
 

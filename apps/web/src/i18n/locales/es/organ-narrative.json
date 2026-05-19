@@ -7,6 +7,140 @@
       "normalizing": "La estructura hepática se aproxima a la línea base si no había fibrosis avanzada. Los marcadores enzimáticos se normalizan en 3-6 meses. El daño estructural preexistente (cirrosis) es en gran medida irreversible, pero la inflamación remite y los hepatocitos restantes funcionan con más eficiencia."
     }
   },
+  "intestines": {
+    "alcohol": {
+      "during_use": "La exposición crónica al alcohol aumenta la permeabilidad intestinal ('intestino permeable'), alterando la barrera mucosa y permitiendo que endotoxinas bacterianas entren en la circulación portal. La microbiota intestinal se desregula progresivamente. La motilidad se altera por efectos directos sobre el músculo liso.",
+      "acute_withdrawal": "La permeabilidad intestinal comienza a disminuir en días. La barrera mucosa inicia su reparación. La motilidad intestinal se normaliza al resolverse los efectos directos del alcohol.",
+      "post_acute": "La composición de la microbiota se recupera gradualmente hacia la línea base. La integridad mucosa continúa mejorando. Los marcadores inflamatorios en el tejido intestinal descienden.",
+      "normalizing": "La función de la barrera intestinal se aproxima a la línea base. La diversidad de la microbiota se recupera a lo largo de semanas o meses. La malabsorción secundaria al daño mucoso se resuelve."
+    },
+    "cannabis": {
+      "during_use": "El THC activa los receptores CB1 en todo el tracto gastrointestinal, enlenteciendo la motilidad y reduciendo el vaciamiento gástrico. El aumento del apetito refleja la activación hipotalámica de CB1 con efectos intestinales secundarios.",
+      "acute_withdrawal": "La supresión de la motilidad mediada por CB1 se resuelve en días. La tasa de vaciamiento gástrico se normaliza. La regulación del apetito regresa hacia la línea base.",
+      "post_acute": "La motilidad intestinal continúa estabilizándose. La densidad de receptores CB1 en el tracto gastrointestinal se recupera hacia niveles basales.",
+      "normalizing": "La función gastrointestinal se aproxima a la línea base. La motilidad y la regulación del apetito se normalizan completamente."
+    },
+    "caffeine": {
+      "during_use": "La cafeína estimula la motilidad del colon vía bloqueo de receptores de adenosina y liberación secundaria de catecolaminas. El uso crónico regula al alza los receptores de adenosina en el tejido intestinal.",
+      "acute_withdrawal": "La motilidad del colon disminuye transitoriamente al retirar el efecto estimulante. El estreñimiento leve es común en los primeros días. La densidad de receptores de adenosina comienza a normalizarse.",
+      "post_acute": "La motilidad intestinal se estabiliza. El estreñimiento transitorio se resuelve. La sensibilidad de los receptores regresa hacia la línea base.",
+      "normalizing": "La motilidad del colon se aproxima a la línea base sin cafeína. El intestino se adapta a la señalización endógena de adenosina sin bloqueo externo."
+    }
+  },
+  "spleen": {
+    "alcohol": {
+      "during_use": "El uso crónico de alcohol causa hipertensión portal a través de fibrosis hepática, forzando al bazo a agrandarse (esplenomegalia congestiva). La disregulación inmune reduce la eficiencia de filtración del bazo. La arquitectura de la pulpa blanca se altera progresivamente.",
+      "acute_withdrawal": "La presión portal comienza a disminuir al remitir la inflamación hepática. La congestión esplénica comienza a reducirse. La producción de células inmunes empieza a normalizarse.",
+      "post_acute": "El tamaño del bazo disminuye gradualmente conforme mejora la hipertensión portal. La función inmune continúa recuperándose. La actividad de los macrófagos se normaliza.",
+      "normalizing": "El tamaño y la función del bazo se aproximan a la línea base proporcionalmente a la recuperación hepática. Si persiste cirrosis significativa, puede mantenerse cierta esplenomegalia. La función inmune se restaura en gran medida."
+    }
+  },
+  "oral-mucosa": {
+    "alcohol": {
+      "during_use": "El contacto directo con etanol irrita y reseca la mucosa oral. La exposición crónica altera la barrera epitelial y la composición salival. Riesgo a largo plazo de lesiones de la mucosa oral y cambios oncológicos.",
+      "acute_withdrawal": "La irritación de la mucosa comienza a resolverse en días. El flujo y la composición salival se normalizan. La reparación de la barrera epitelial es rápida dado el alto recambio de la mucosa oral.",
+      "post_acute": "La mucosa oral cicatriza progresivamente. Las leucoplasias o lesiones mucosas preexistentes comienzan a regresar. La función protectora salival se restaura.",
+      "normalizing": "La integridad de la mucosa oral se aproxima a la línea base. El riesgo oncológico disminuye con la abstinencia sostenida, aunque los cambios displásicos preexistentes requieren seguimiento."
+    },
+    "nicotine": {
+      "during_use": "El humo del tabaco y la nicotina causan irritación directa de la mucosa, vasoconstricción de los vasos sanguíneos mucosales y riesgo oncológico sostenido. La recesión gingival y el engrosamiento mucoso se desarrollan con el uso crónico.",
+      "acute_withdrawal": "El flujo sanguíneo mucosal mejora rápidamente al resolverse la vasoconstricción. El tejido gingival comienza a recuperarse. La irritación mucosa remite.",
+      "post_acute": "La salud gingival continúa mejorando. Las lesiones mucosas (melanosis del fumador, leucoplasia) comienzan a regresar. La función antibacteriana salival se recupera.",
+      "normalizing": "La salud de la mucosa oral se aproxima a la línea base del no fumador. El riesgo oncológico disminuye sustancialmente con la abstinencia sostenida."
+    },
+    "cannabis": {
+      "during_use": "El humo del cannabis irrita directamente la mucosa oral. El THC causa xerostomía (boca seca) vía reducción CB1-mediada del flujo salival, creando un ambiente cariogénico. La exposición crónica aumenta la inflamación mucosa.",
+      "acute_withdrawal": "El flujo salival se normaliza en días al resolverse la supresión CB1-mediada. La irritación mucosa remite. El entorno oral se vuelve menos cariogénico.",
+      "post_acute": "La cicatrización mucosa continúa. La xerostomía se resuelve completamente. La inflamación gingival disminuye.",
+      "normalizing": "La función de la mucosa oral se aproxima a la línea base. Los mecanismos protectores salivales se restauran completamente."
+    }
+  },
+  "nasal-mucosa": {
+    "cocaine": {
+      "during_use": "La cocaína intranasal causa intensa vasoconstricción de los vasos sanguíneos de la mucosa nasal, produciendo isquemia del cartílago septal y el tejido de los cornetes. El uso crónico lleva a atrofia mucosa, pérdida de cilios y riesgo progresivo de perforación septal.",
+      "acute_withdrawal": "La vasoconstricción se resuelve en horas. El flujo sanguíneo mucosal regresa. La congestión nasal ('rinitis de rebote') es común en los primeros días conforme los vasos se dilatan tras la constricción prolongada.",
+      "post_acute": "El tejido mucoso comienza a regenerarse. Los cilios crecen de nuevo en áreas de atrofia. La integridad del cartílago septal se estabiliza si no ha ocurrido perforación.",
+      "normalizing": "La función de la mucosa nasal se recupera sustancialmente si el daño estructural es limitado. La perforación septal, si está presente, es irreversible sin intervención quirúrgica. La función olfativa se recupera parcialmente."
+    },
+    "nicotine": {
+      "during_use": "La nicotina causa vasoconstricción de la mucosa nasal y sequedad. La función ciliar está alterada. La exposición crónica aumenta la susceptibilidad a infecciones nasales.",
+      "acute_withdrawal": "El flujo sanguíneo de la mucosa nasal se normaliza en días. La actividad ciliar se recupera. La producción de moco se normaliza.",
+      "post_acute": "La salud de la mucosa nasal continúa mejorando. La susceptibilidad a infecciones disminuye. La sensibilidad olfativa comienza a recuperarse.",
+      "normalizing": "La función de la mucosa nasal se aproxima a la línea base. La función olfativa se recupera en gran medida en semanas a meses."
+    },
+    "cannabis": {
+      "during_use": "El humo del cannabis irrita la mucosa nasal y altera la función ciliar. La exposición crónica causa engrosamiento mucoso y aumento de la producción de moco.",
+      "acute_withdrawal": "La irritación mucosa remite en días. La función ciliar comienza a recuperarse. La producción de moco se normaliza.",
+      "post_acute": "La cicatrización de la mucosa nasal continúa. La eliminación ciliar mejora progresivamente.",
+      "normalizing": "La función de la mucosa nasal se aproxima a la línea base. La función ciliar se restaura en gran medida."
+    }
+  },
+  "teeth": {
+    "alcohol": {
+      "during_use": "Las bebidas alcohólicas ácidas erosionan directamente el esmalte. Los vómitos inducidos por alcohol exponen los dientes al ácido gástrico. La boca seca por deshidratación reduce la protección salival. El riesgo de bruxismo aumenta con el consumo elevado.",
+      "acute_withdrawal": "La erosión del esmalte cesa. El flujo salival se normaliza, restaurando la capacidad de remineralización. El bruxismo asociado a la abstinencia puede aumentar temporalmente el rechinamiento de dientes.",
+      "post_acute": "La remineralización salival actúa sobre las lesiones tempranas del esmalte. La salud gingival comienza a mejorar. La pérdida estructural de esmalte existente no se revierte.",
+      "normalizing": "La salud dental se estabiliza. La remineralización continúa en lesiones superficiales. La erosión profunda del esmalte permanece irreversible."
+    },
+    "nicotine": {
+      "during_use": "La nicotina causa vasoconstricción gingival que enmascara la inflamación periodontal. El humo del tabaco deposita alquitrán y compuestos de tinción. El uso crónico lleva a pérdida ósea progresiva alrededor de los dientes.",
+      "acute_withdrawal": "El flujo sanguíneo gingival aumenta al resolverse la vasoconstricción — paradójicamente, las encías pueden parecer más inflamadas inicialmente ya que la inflamación previamente enmascarada se hace visible. Es una señal de recuperación, no de empeoramiento.",
+      "post_acute": "La salud periodontal mejora genuinamente. La tasa de pérdida ósea disminuye significativamente. La tinción puede tratarse con limpieza dental.",
+      "normalizing": "La salud periodontal se aproxima a la línea base del no fumador. La pérdida ósea ya ocurrida no se recupera, pero la progresión posterior se detiene."
+    },
+    "cannabis": {
+      "during_use": "La xerostomía inducida por cannabis reduce la protección salival, aumentando el riesgo de caries. El bruxismo asociado al consumo de cannabis acelera el desgaste del esmalte. La exposición al humo irrita el tejido gingival.",
+      "acute_withdrawal": "El flujo salival se normaliza en días. La xerostomía se resuelve. El bruxismo asociado al consumo cesa.",
+      "post_acute": "La salud gingival mejora. El riesgo de caries disminuye al restaurarse la protección salival. El desgaste del esmalte existente permanece.",
+      "normalizing": "La salud dental se estabiliza. Los mecanismos protectores salivales se restauran completamente."
+    },
+    "cocaine": {
+      "during_use": "La cocaína causa bruxismo intenso, erosión directa del esmalte por residuos ácidos de cocaína y vasoconstricción gingival que lleva a necrosis tisular con la aplicación tópica crónica. El crack añade daño térmico.",
+      "acute_withdrawal": "El bruxismo se resuelve. La vasoconstricción gingival se resuelve. El daño estructural existente al esmalte y los tejidos blandos se evalúa.",
+      "post_acute": "El tejido gingival se recupera de la isquemia inducida por vasoconstricción. La salud periodontal mejora. La erosión del esmalte es estática.",
+      "normalizing": "Los tejidos blandos dentales se aproximan a la línea base. La pérdida de esmalte por bruxismo y erosión ácida es permanente. La salud gingival y periodontal se recupera sustancialmente."
+    }
+  },
+  "eyes": {
+    "alcohol": {
+      "during_use": "El alcohol causa vasodilatación sistémica produciendo enrojecimiento conjuntival. La deshidratación reduce la producción lagrimal, causando sequedad ocular. El uso crónico elevado se asocia a cambios vasculares retinianos y mayor riesgo de neuropatía óptica.",
+      "acute_withdrawal": "El enrojecimiento conjuntival se resuelve en días al remitir la vasodilatación sistémica. La producción lagrimal se normaliza al restaurarse la hidratación. La hinchazón periorbitaria por retención de líquidos disminuye.",
+      "post_acute": "La salud de la superficie ocular continúa mejorando. Los síntomas de ojo seco se resuelven. Los marcadores vasculares retinianos comienzan a normalizarse.",
+      "normalizing": "La salud ocular se aproxima a la línea base. La salud vascular retiniana mejora sustancialmente con la abstinencia sostenida."
+    },
+    "nicotine": {
+      "during_use": "La nicotina causa vasoconstricción retiniana, reduciendo el flujo sanguíneo a la mácula. La exposición crónica es un factor de riesgo modificable importante para la degeneración macular asociada a la edad. La microcirculación periorbitaria está reducida.",
+      "acute_withdrawal": "La vasoconstricción retiniana comienza a resolverse en días. La circulación periorbitaria mejora. La sequedad ocular por reducción de la producción lagrimal se normaliza.",
+      "post_acute": "El flujo sanguíneo retiniano continúa mejorando. El riesgo de degeneración macular comienza a disminuir. El tono de la piel periorbitaria mejora.",
+      "normalizing": "La salud vascular ocular se aproxima a la línea base del no fumador a lo largo de meses a años. El riesgo de degeneración macular disminuye sustancialmente con la abstinencia sostenida."
+    },
+    "cannabis": {
+      "during_use": "El THC causa pronunciada vasodilatación conjuntival — los característicos ojos rojos. La presión intraocular se reduce transitoriamente. El oscurecimiento periorbitario por alteración del sueño es común con el uso crónico.",
+      "acute_withdrawal": "La vasodilatación conjuntival se resuelve en horas a días. La presión intraocular regresa a la línea base. La normalización del sueño reduce el oscurecimiento periorbitario a lo largo de semanas.",
+      "post_acute": "La salud de la superficie ocular se normaliza. La calidad del sueño mejora, reduciendo los signos periorbitarios. La presión intraocular es estable.",
+      "normalizing": "La salud ocular se aproxima a la línea base. El oscurecimiento periorbitario se resuelve al normalizarse completamente la arquitectura del sueño."
+    },
+    "cocaine": {
+      "during_use": "La cocaína causa midriasis (dilatación pupilar) vía efectos simpaticomiméticos. El vasoespasmo retiniano puede causar alteraciones visuales transitorias. El oscurecimiento periorbitario por privación de sueño es común. El humo de crack irrita la superficie ocular.",
+      "acute_withdrawal": "La midriasis se resuelve en horas. El vasoespasmo retiniano remite. La irritación de la superficie ocular disminuye.",
+      "post_acute": "La normalización del sueño reduce el oscurecimiento periorbitario. La salud vascular retiniana se estabiliza. La superficie ocular cicatriza.",
+      "normalizing": "La salud ocular se aproxima a la línea base. Los signos periorbitarios se resuelven al normalizarse el sueño y la salud vascular."
+    }
+  },
+  "skin": {
+    "alcohol": {
+      "during_use": "El uso crónico de alcohol causa deshidratación sistémica, agotando la humedad de la piel. La vasodilatación produce enrojecimiento facial y rosácea. Las deficiencias nutricionales deterioran la síntesis de colágeno. La disfunción hepática reduce la producción de proteínas que afectan la integridad cutánea.",
+      "acute_withdrawal": "La hidratación cutánea comienza a mejorar al resolverse el efecto diurético del alcohol. El enrojecimiento facial disminuye. El estado nutricional comienza a recuperarse.",
+      "post_acute": "La humedad y el tono de la piel continúan mejorando. Los síntomas de rosácea disminuyen. La síntesis de colágeno se recupera al resolverse las deficiencias nutricionales.",
+      "normalizing": "La salud cutánea se aproxima a la línea base. La hidratación, el tono y la integridad del colágeno mejoran sustancialmente. Algunos cambios vasculares profundos pueden persistir."
+    },
+    "cocaine": {
+      "during_use": "La cocaína causa intensa vasoconstricción periférica, reduciendo la perfusión cutánea y produciendo palidez grisácea. La hiperhidrosis (sudoración excesiva) ocurre durante el consumo. El uso crónico deteriora la cicatrización por vasoconstricción sostenida.",
+      "acute_withdrawal": "La vasoconstricción periférica se resuelve en días. La perfusión cutánea se normaliza. La hiperhidrosis se resuelve.",
+      "post_acute": "El tono y el color de la piel continúan normalizándose. La capacidad de cicatrización se recupera. La circulación periférica se estabiliza.",
+      "normalizing": "La salud cutánea se aproxima a la línea base. La perfusión, el tono y la capacidad de cicatrización se recuperan sustancialmente."
+    }
+  },
   "kidneys": {
     "cocaine": {
       "during_use": "La cocaína causa vasoconstricción sistémica, incluidas las arterias renales. Las células tubulares experimentan estrés isquémico repetido. Riesgo de daño renal agudo durante el consumo.",

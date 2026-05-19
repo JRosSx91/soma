@@ -227,19 +227,27 @@ export function MainPage() {
               />
             </>
           ) : (
-            <PanelContent
-              selected={selected}
-              states={states}
-              t={t}
-              ntForSelected={ntForSelected}
-              narrativeForSelected={narrativeForSelected}
-              hasNtData={hasNtData}
-              hasNarrativeData={hasNarrativeData}
-              showNeurotransmitters={showNeurotransmitters}
-              setShowNeurotransmitters={setShowNeurotransmitters}
-              showNarrative={showNarrative}
-              setShowNarrative={setShowNarrative}
-            />
+            <>
+              <button
+                onClick={() => handleSelect(null)}
+                className="flex items-center gap-1 text-xs text-soma-fg-muted hover:text-soma-fg-secondary mb-4 transition-colors"
+              >
+                ← {t("main:panel.affectedOrgans")}
+              </button>
+              <PanelContent
+                selected={selected}
+                states={states}
+                t={t}
+                ntForSelected={ntForSelected}
+                narrativeForSelected={narrativeForSelected}
+                hasNtData={hasNtData}
+                hasNarrativeData={hasNarrativeData}
+                showNeurotransmitters={showNeurotransmitters}
+                setShowNeurotransmitters={setShowNeurotransmitters}
+                showNarrative={showNarrative}
+                setShowNarrative={setShowNarrative}
+              />
+            </>
           )}
         </aside>
       </main>
