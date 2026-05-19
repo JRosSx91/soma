@@ -44,8 +44,8 @@
       "mild": "lleu",
       "normalizing": "normalitzant-se"
     },
-    "activeConsumption": "CONSUM ACTIU",
-    "activeConsumptionDescription": "Aquest òrgan no s'està recuperant perquè continues consumint {{substance}}. El dany que veus és en temps real."
+    "activeConsumption": "DANY ACTIU",
+"activeConsumptionDescription": "Encara continues consumint {{substance}}. La recuperació d'altres substàncies continua, però aquest òrgan està sent danyat en paral·lel."
   },
   "empty": {
     "noSubstances": "Encara no fas seguiment de cap substància.",

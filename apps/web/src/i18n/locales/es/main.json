@@ -44,8 +44,8 @@
       "mild": "leve",
       "normalizing": "normalizando"
     },
-    "activeConsumption": "CONSUMO ACTIVO",
-    "activeConsumptionDescription": "Este órgano no se está recuperando porque sigues consumiendo {{substance}}. El daño que ves es en tiempo real."
+    "activeConsumption": "DAÑO ACTIVO",
+    "activeConsumptionDescription": "Sigues consumiendo {{substance}}. La recuperación de otras sustancias continúa, pero este órgano está siendo dañado en paralelo."
   },
   "empty": {
     "noSubstances": "Aún no hay sustancias registradas.",

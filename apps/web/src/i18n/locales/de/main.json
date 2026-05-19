@@ -44,8 +44,8 @@
       "mild": "leicht",
       "normalizing": "normalisierend"
     },
-    "activeConsumption": "AKTIVER KONSUM",
-    "activeConsumptionDescription": "Dieses Organ erholt sich nicht, weil Sie weiterhin {{substance}} konsumieren. Der Schaden, den Sie sehen, ist in Echtzeit."
+    "activeConsumption": "AKTIVER SCHADEN",
+    "activeConsumptionDescription": "Du konsumierst noch {{substance}}. Die Erholung von anderen Substanzen geht weiter, aber dieses Organ wird gleichzeitig aktiv geschädigt."
   },
   "empty": {
     "noSubstances": "Noch keine Substanzen verfolgt.",

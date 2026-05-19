@@ -44,8 +44,8 @@
       "mild": "mild",
       "normalizing": "normalizing"
     },
-    "activeConsumption": "ACTIVE USE",
-    "activeConsumptionDescription": "This organ isn't recovering because you're still using {{substance}}. The damage you see is real-time."
+    "activeConsumption": "ACTIVE DAMAGE",
+    "activeConsumptionDescription": "You're still using {{substance}}. Recovery from other substances continues, but this organ is being actively damaged in parallel."
   },
   "empty": {
     "noSubstances": "No substances tracked yet.",
