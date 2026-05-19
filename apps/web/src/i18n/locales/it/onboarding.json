@@ -1,7 +1,7 @@
 {
   "title": "Parlaci di te",
   "subtitle": "Per ogni sostanza che hai smesso di usare, segnalala come attiva e indica l'ultima volta che l'hai consumata. Potrai modificare queste informazioni in seguito.",
- "mode": {
+  "mode": {
     "abstinent": "Sto smettendo",
     "active": "Continuo a consumare",
     "abstinentDescription": "Segui il tuo processo di recupero da questa sostanza.",

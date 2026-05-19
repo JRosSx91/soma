@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@prisma/client';
+import type { PrismaClient } from "@prisma/client";
 
 /**
  * Catálogo estático de sustancias disponibles en Soma v1.
@@ -8,44 +8,51 @@ import type { PrismaClient } from '@prisma/client';
  */
 export const SUBSTANCES = [
   {
-    id: 'alcohol',
-    name: 'Alcohol',
-    category: 'depressant' as const,
+    id: "alcohol",
+    name: "Alcohol",
+    category: "depressant" as const,
     shortDescription:
-      'Central nervous system depressant. Chronic use primarily affects the liver, brain, and cardiovascular system.',
+      "Central nervous system depressant. Chronic use primarily affects the liver, brain, and cardiovascular system.",
   },
   {
-    id: 'nicotine',
-    name: 'Nicotine',
-    category: 'nicotine' as const,
+    id: "nicotine",
+    name: "Nicotine",
+    category: "nicotine" as const,
     shortDescription:
-      'Stimulant alkaloid found in tobacco. Chronic use primarily affects the respiratory and cardiovascular systems, and produces strong neuroadaptive changes.',
+      "Stimulant alkaloid found in tobacco. Chronic use primarily affects the respiratory and cardiovascular systems, and produces strong neuroadaptive changes.",
   },
   {
-    id: 'cannabis',
-    name: 'Cannabis',
-    category: 'cannabinoid' as const,
+    id: "cannabis",
+    name: "Cannabis",
+    category: "cannabinoid" as const,
     shortDescription:
-      'Acts through CB1 and CB2 receptors. Chronic use primarily affects the endocannabinoid system, with secondary effects on memory, mood, and (in smoked consumption) the respiratory system.',
+      "Acts through CB1 and CB2 receptors. Chronic use primarily affects the endocannabinoid system, with secondary effects on memory, mood, and (in smoked consumption) the respiratory system.",
   },
   {
-    id: 'cocaine',
-    name: 'Cocaine',
-    category: 'stimulant' as const,
+    id: "cocaine",
+    name: "Cocaine",
+    category: "stimulant" as const,
     shortDescription:
-      'Potent stimulant that blocks monoamine reuptake. Chronic use strongly impacts the cardiovascular system and the dopaminergic reward circuits.',
+      "Potent stimulant that blocks monoamine reuptake. Chronic use strongly impacts the cardiovascular system and the dopaminergic reward circuits.",
   },
   {
-    id: 'caffeine',
-    name: 'Caffeine',
-    category: 'stimulant' as const,
+    id: "caffeine",
+    name: "Caffeine",
+    category: "stimulant" as const,
     shortDescription:
-      'Adenosine receptor antagonist. Chronic use primarily affects the central nervous system through adenosinergic adaptation, with secondary effects on the cardiovascular and gastrointestinal systems.',
+      "Adenosine receptor antagonist. Chronic use primarily affects the central nervous system through adenosinergic adaptation, with secondary effects on the cardiovascular and gastrointestinal systems.",
   },
 ] satisfies Array<{
   id: string;
   name: string;
-  category: 'depressant' | 'stimulant' | 'cannabinoid' | 'nicotine' | 'opioid' | 'hallucinogen' | 'dissociative';
+  category:
+    | "depressant"
+    | "stimulant"
+    | "cannabinoid"
+    | "nicotine"
+    | "opioid"
+    | "hallucinogen"
+    | "dissociative";
   shortDescription: string;
 }>;
 

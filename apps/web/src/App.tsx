@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { LoginPage } from './pages/LoginPage.js';
-import { RegisterPage } from './pages/RegisterPage.js';
-import { OnboardingPage } from './pages/OnboardingPage.js';
-import { MainPage } from './pages/MainPage.js';
-import { AchievementsPage } from './pages/AchievementsPage.js';
-import { LandingPage } from './pages/LandingPage.js';
-import { ProtectedLayout } from './components/ProtectedLayout.js';
-import { useAuth } from './features/auth/index.js';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { LoginPage } from "./pages/LoginPage.js";
+import { RegisterPage } from "./pages/RegisterPage.js";
+import { OnboardingPage } from "./pages/OnboardingPage.js";
+import { MainPage } from "./pages/MainPage.js";
+import { AchievementsPage } from "./pages/AchievementsPage.js";
+import { LandingPage } from "./pages/LandingPage.js";
+import { ProtectedLayout } from "./components/ProtectedLayout.js";
+import { useAuth } from "./features/auth/index.js";
 
 function RootRoute() {
   const { user, loading } = useAuth();

@@ -1,6 +1,6 @@
-import type { OrganId } from '@soma/shared-types';
-import { INACTIVE_ORGAN_COLOR, organFillColor } from '../coloring.js';
-import type { OrganVisualState } from '../types.js';
+import type { OrganId } from "@soma/shared-types";
+import { INACTIVE_ORGAN_COLOR, organFillColor } from "../coloring.js";
+import type { OrganVisualState } from "../types.js";
 
 interface OrganPathProps {
   organId: OrganId;
@@ -30,12 +30,17 @@ export function OrganPath({
       d={d}
       data-organ-id={organId}
       fill={fill}
-      stroke={highlighted ? 'var(--soma-accent-focus)' : 'var(--soma-border-default)'}
+      stroke={
+        highlighted ? "var(--soma-accent-focus)" : "var(--soma-border-default)"
+      }
       strokeWidth={highlighted ? 1.5 : 0.5}
       style={{
-        cursor: isActive ? 'pointer' : 'default',
-        transition: 'fill 200ms ease, stroke 150ms ease, stroke-width 150ms ease',
-        filter: highlighted ? 'drop-shadow(0 0 4px var(--soma-accent-default))' : 'none',
+        cursor: isActive ? "pointer" : "default",
+        transition:
+          "fill 200ms ease, stroke 150ms ease, stroke-width 150ms ease",
+        filter: highlighted
+          ? "drop-shadow(0 0 4px var(--soma-accent-default))"
+          : "none",
         opacity: isActive ? 1 : 0.6,
       }}
       onMouseEnter={isActive ? () => onHover(organId) : undefined}

@@ -1,13 +1,13 @@
-import { useEffect, useState, useCallback } from 'react';
-import { apiRequest } from '../../auth/client/api.js';
-import type { UsageStatus } from '@soma/shared-types';
+import { useEffect, useState, useCallback } from "react";
+import { apiRequest } from "../../auth/client/api.js";
+import type { UsageStatus } from "@soma/shared-types";
 
 export interface UsageInput {
   substanceId: string;
   yearStarted: number;
   /** Null when status is 'active'. */
   lastUseDate: string | null;
-  frequency: 'daily' | 'weekly' | 'monthly' | 'occasional';
+  frequency: "daily" | "weekly" | "monthly" | "occasional";
   status: UsageStatus;
 }
 
@@ -16,7 +16,7 @@ export interface UserProfileResponse {
     id: string;
     email: string;
     displayName: string;
-    biologicalSex: 'male' | 'female';
+    biologicalSex: "male" | "female";
     birthYear: number;
     weightKg: number | null;
   };
@@ -26,7 +26,7 @@ export interface UserProfileResponse {
     substanceId: string;
     yearStarted: number;
     lastUseDate: string | null;
-    frequency: UsageInput['frequency'];
+    frequency: UsageInput["frequency"];
     status: UsageStatus;
     createdAt: string;
     updatedAt: string;
@@ -54,18 +54,18 @@ export function useUserProfile(): UseUserProfileResult {
     setLoading(true);
     setError(null);
     try {
-      const data = await apiRequest<UserProfileResponse>('/me/profile');
+      const data = await apiRequest<UserProfileResponse>("/me/profile");
       setProfile(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load profile');
+      setError(err instanceof Error ? err.message : "Failed to load profile");
     } finally {
       setLoading(false);
     }
   }, []);
 
   const saveProfile = useCallback(async (usages: UsageInput[]) => {
-    const data = await apiRequest<UserProfileResponse>('/me/profile', {
-      method: 'PUT',
+    const data = await apiRequest<UserProfileResponse>("/me/profile", {
+      method: "PUT",
       body: { usages },
     });
     setProfile(data);

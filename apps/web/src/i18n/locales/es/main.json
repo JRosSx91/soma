@@ -2,49 +2,51 @@
   "header": {
     "editProfile": "Editar perfil",
     "trophies": "Trofeos",
-"dashboard": "Inicio"
+    "dashboard": "Inicio"
   },
   "trophies": {
-  "title": "Tus trofeos",
-  "unlockedRatio": "{{unlocked}} de {{total}} desbloqueados",
-  "unlockedOn": "Conseguido el {{date}}",
-  "lockedHint": "Alcanza {{percent}}% de recuperación en {{organ}}",
-  "hiddenHint": "Trofeo oculto",
-  "toastEyebrow": "NUEVO TROFEO",
-  "toastDismiss": "Descartar",
-  "toastDismissAll": "Marcar los {{count}} como vistos",
-  "activeSubstanceHint": "Disponible cuando dejes de consumir {{substance}}"
-},
+    "title": "Tus trofeos",
+    "unlockedRatio": "{{unlocked}} de {{total}} desbloqueados",
+    "unlockedOn": "Conseguido el {{date}}",
+    "lockedHint": "Alcanza {{percent}}% de recuperación en {{organ}}",
+    "hiddenHint": "Trofeo oculto",
+    "toastEyebrow": "NUEVO TROFEO",
+    "toastDismiss": "Descartar",
+    "toastDismissAll": "Marcar los {{count}} como vistos",
+    "activeSubstanceHint": "Disponible cuando dejes de consumir {{substance}}"
+  },
   "panel": {
-  "selectedOrgan": "Órgano seleccionado",
-  "hoverPrompt": "Pasa el ratón por un órgano",
-  "clickPrompt": "Haz clic en un órgano para inspeccionar",
-  "affectedBy": "Afectado por",
-  "causedBy": "Causado por",
-  "daysAbstinent": "Días sin consumir",
-  "recovery": "Recuperación",
-  "showRecoveryProcess": "Ver proceso de recuperación",
-"hideRecoveryProcess": "Ocultar proceso de recuperación",
-"noNarrativeData": "Sin información de proceso de recuperación para este órgano.",
-  "showNeurotransmitterState": "Ver estado de neurotransmisores",
-  "hideNeurotransmitterState": "Ocultar estado de neurotransmisores",
-  "noNeurotransmitterData": "Sin datos de neurotransmisores para este órgano.",
-  "multiSource": "Múltiples fuentes",
-  "direction": {
-    "depleted": "depletado",
-    "elevated": "elevado",
-    "oscillating": "oscilando",
-    "normalizing": "normalizando"
+    "selectedOrgan": "Órgano seleccionado",
+    "affectedOrgans": "Órganos afectados",
+    "noOrgansAffected": "Ningún órgano afectado",
+    "hoverPrompt": "Pasa el ratón por un órgano",
+    "clickPrompt": "Haz clic en un órgano para inspeccionar",
+    "affectedBy": "Afectado por",
+    "causedBy": "Causado por",
+    "daysAbstinent": "Días sin consumir",
+    "recovery": "Recuperación",
+    "showRecoveryProcess": "Ver proceso de recuperación",
+    "hideRecoveryProcess": "Ocultar proceso de recuperación",
+    "noNarrativeData": "Sin información de proceso de recuperación para este órgano.",
+    "showNeurotransmitterState": "Ver estado de neurotransmisores",
+    "hideNeurotransmitterState": "Ocultar estado de neurotransmisores",
+    "noNeurotransmitterData": "Sin datos de neurotransmisores para este órgano.",
+    "multiSource": "Múltiples fuentes",
+    "direction": {
+      "depleted": "depletado",
+      "elevated": "elevado",
+      "oscillating": "oscilando",
+      "normalizing": "normalizando"
+    },
+    "severity": {
+      "severe": "severo",
+      "moderate": "moderado",
+      "mild": "leve",
+      "normalizing": "normalizando"
+    },
+    "activeConsumption": "DAÑO ACTIVO",
+    "activeConsumptionDescription": "Sigues consumiendo {{substance}}. La recuperación de otras sustancias continúa, pero este órgano está siendo dañado en paralelo."
   },
-  "severity": {
-    "severe": "severo",
-    "moderate": "moderado",
-    "mild": "leve",
-    "normalizing": "normalizando"
-  },
-  "activeConsumption": "CONSUMO ACTIVO",
-"activeConsumptionDescription": "Este órgano no se está recuperando porque sigues consumiendo {{substance}}. El daño que ves es en tiempo real."
-},
   "empty": {
     "noSubstances": "Aún no hay sustancias registradas.",
     "addFirst": "Añade la primera →"

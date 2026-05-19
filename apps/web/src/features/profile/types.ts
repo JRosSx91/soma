@@ -1,4 +1,8 @@
-import type { BiologicalSex, SubstanceId, UsageStatus } from '@soma/shared-types';
+import type {
+  BiologicalSex,
+  SubstanceId,
+  UsageStatus,
+} from "@soma/shared-types";
 
 /**
  * Declared substance use for a single substance in the user's profile.
@@ -22,7 +26,7 @@ export interface ProfileUsage {
    * Null when `status === 'active'`.
    */
   lastUseDate: string | null;
-  frequency: 'daily' | 'weekly' | 'monthly' | 'occasional';
+  frequency: "daily" | "weekly" | "monthly" | "occasional";
   /**
    * Whether the user is in abstinence or actively consuming.
    * Defaults to 'abstinent' for backwards compatibility.

@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from 'react';
-import { apiRequest } from '../../auth/client/api.js';
-import type { ComposedNTState } from '../types.js';
+import { useEffect, useState, useCallback } from "react";
+import { apiRequest } from "../../auth/client/api.js";
+import type { ComposedNTState } from "../types.js";
 
 interface UseNeurotransmitterStateResult {
   entries: ComposedNTState[];
@@ -19,14 +19,14 @@ export function useNeurotransmitterState(): UseNeurotransmitterStateResult {
     setError(null);
     try {
       const data = await apiRequest<ComposedNTState[]>(
-        '/me/neurotransmitter-state',
+        "/me/neurotransmitter-state",
       );
       setEntries(data);
     } catch (err) {
       setError(
         err instanceof Error
           ? err.message
-          : 'Failed to load neurotransmitter state',
+          : "Failed to load neurotransmitter state",
       );
     } finally {
       setLoading(false);

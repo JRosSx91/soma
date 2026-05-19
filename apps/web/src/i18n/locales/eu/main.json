@@ -17,6 +17,8 @@
   },
   "panel": {
     "selectedOrgan": "Hautatutako organoa",
+    "affectedOrgans": "Kaltetutako organoak",
+    "noOrgansAffected": "Ez dago organo kalteturik",
     "hoverPrompt": "Pasa organo baten gainetik",
     "clickPrompt": "Egin klik organo batean ikuskatzeko",
     "affectedBy": "Honegatik kaltetuta",
@@ -42,8 +44,8 @@
       "mild": "arina",
       "normalizing": "normalizatzen"
     },
-    "activeConsumption": "KONTSUMO AKTIBOA",
-"activeConsumptionDescription": "Organo hau ez da berreskuratzen ari {{substance}} kontsumitzen jarraitzen duzulako. Ikusten duzun kaltea denbora errealean da."
+    "activeConsumption": "KALTE AKTIBOA",
+    "activeConsumptionDescription": "Oraindik {{substance}} kontsumitzen ari zara. Beste substantzien errekuperazioa jarraitzen du, baina organo hau aldi berean kaltetzen ari da."
   },
   "empty": {
     "noSubstances": "Ez duzu oraindik substantziarik jarraipean.",

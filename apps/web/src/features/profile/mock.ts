@@ -1,4 +1,4 @@
-import type { UserProfile } from './types.js';
+import type { UserProfile } from "./types.js";
 
 /**
  * Generic demo profile for v1 development.
@@ -19,38 +19,38 @@ function daysAgo(days: number): string {
 }
 
 export const MOCK_PROFILE: UserProfile = {
-  displayName: 'Demo user',
-  biologicalSex: 'male',
+  displayName: "Demo user",
+  biologicalSex: "male",
   birthYear: 1990,
   weightKg: 78,
   usages: [
     {
-      substanceId: 'nicotine',
+      substanceId: "nicotine",
       yearStarted: 2010,
       lastUseDate: daysAgo(21),
-      frequency: 'daily',
-      status: 'abstinent',
+      frequency: "daily",
+      status: "abstinent",
     },
     {
-      substanceId: 'cannabis',
+      substanceId: "cannabis",
       yearStarted: 2012,
       lastUseDate: daysAgo(90),
-      frequency: 'daily',
-      status: 'abstinent',
+      frequency: "daily",
+      status: "abstinent",
     },
     {
-      substanceId: 'alcohol',
+      substanceId: "alcohol",
       yearStarted: 2008,
       lastUseDate: daysAgo(180),
-      frequency: 'weekly',
-      status: 'abstinent',
+      frequency: "weekly",
+      status: "abstinent",
     },
     {
-      substanceId: 'cocaine',
+      substanceId: "cocaine",
       yearStarted: 2015,
       lastUseDate: daysAgo(300),
-      frequency: 'occasional',
-      status: 'abstinent',
+      frequency: "occasional",
+      status: "abstinent",
     },
   ],
 };

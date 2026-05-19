@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 import type {
   Neurotransmitter,
   NeurotransmitterDirection,
   NeurotransmitterSeverity,
   WithdrawalPhase,
-} from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { ORGAN_NEUROTRANSMITTERS } from './organ-neurotransmitter-map.js';
+} from "@prisma/client";
+import { PrismaService } from "../prisma/prisma.service.js";
+import { ORGAN_NEUROTRANSMITTERS } from "./organ-neurotransmitter-map.js";
 
 const DAY_MS = 1000 * 60 * 60 * 24;
 
@@ -17,7 +17,7 @@ const SEVERITY_RANK: Record<NeurotransmitterSeverity, number> = {
   normalizing: 0,
 };
 
-const CONFIDENCE_RANK: Record<'high' | 'medium' | 'low', number> = {
+const CONFIDENCE_RANK: Record<"high" | "medium" | "low", number> = {
   high: 2,
   medium: 1,
   low: 0,
@@ -31,7 +31,7 @@ export interface NTSource {
   severity: NeurotransmitterSeverity;
   symptomKey: string;
   daysSinceLastUse: number;
-  confidenceLevel: 'high' | 'medium' | 'low';
+  confidenceLevel: "high" | "medium" | "low";
 }
 
 export interface ComposedNTState {
@@ -40,7 +40,7 @@ export interface ComposedNTState {
   resultingSeverity: NeurotransmitterSeverity;
   resultingDirection: NeurotransmitterDirection;
   resultingSymptomKey: string;
-  confidenceLevel: 'high' | 'medium' | 'low';
+  confidenceLevel: "high" | "medium" | "low";
   sources: NTSource[];
 }
 
@@ -52,7 +52,7 @@ function worstSource(sources: NTSource[]): NTSource {
   );
 }
 
-function lowestConfidence(sources: NTSource[]): 'high' | 'medium' | 'low' {
+function lowestConfidence(sources: NTSource[]): "high" | "medium" | "low" {
   return sources.reduce((lowest, current) => {
     const currentRank = CONFIDENCE_RANK[current.confidenceLevel];
     const lowestRank = CONFIDENCE_RANK[lowest.confidenceLevel];
@@ -83,10 +83,10 @@ export class NeurotransmitterStateService {
     const sourcesByOrganNT = new Map<string, NTSource[]>();
 
     for (const usage of usages) {
-      if (usage.status === 'active') {
+      if (usage.status === "active") {
         for (const profile of usage.substance.neurotransmitterProfiles) {
           const duringUsePhase = profile.phases.find(
-            (p) => p.phase === 'during_use',
+            (p) => p.phase === "during_use",
           );
           if (!duringUsePhase) continue;
 
@@ -99,7 +99,7 @@ export class NeurotransmitterStateService {
             const source: NTSource = {
               substanceId: usage.substanceId,
               mechanismKey: profile.mechanismKey,
-              phase: 'during_use',
+              phase: "during_use",
               direction: duringUsePhase.direction,
               severity: duringUsePhase.severity,
               symptomKey: duringUsePhase.symptomKey,
@@ -128,7 +128,7 @@ export class NeurotransmitterStateService {
             (p.endDay === null || daysSinceLastUse <= p.endDay),
         );
         if (!activePhase) continue;
-        if (activePhase.phase === 'during_use') continue;
+        if (activePhase.phase === "during_use") continue;
 
         for (const [organId, neurotransmitters] of Object.entries(
           ORGAN_NEUROTRANSMITTERS,
@@ -157,7 +157,7 @@ export class NeurotransmitterStateService {
     const result: ComposedNTState[] = [];
 
     for (const [key, sources] of sourcesByOrganNT.entries()) {
-      const [organId, neurotransmitter] = key.split(':') as [string, string];
+      const [organId, neurotransmitter] = key.split(":") as [string, string];
       const worst = worstSource(sources);
 
       result.push({

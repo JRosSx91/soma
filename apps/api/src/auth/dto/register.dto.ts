@@ -7,8 +7,8 @@ import {
   Max,
   Min,
   MinLength,
-} from 'class-validator';
-import { BiologicalSex } from '@prisma/client';
+} from "class-validator";
+import { BiologicalSex } from "@prisma/client";
 
 export class RegisterDto {
   @IsEmail()

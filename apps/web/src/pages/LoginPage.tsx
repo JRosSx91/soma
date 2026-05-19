@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import type { FormEvent } from 'react';
-import { LanguageSelector } from '../components/LanguageSelector.js';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuth, translateAuthError } from '../features/auth/index.js';
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { LanguageSelector } from "../components/LanguageSelector.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useAuth, translateAuthError } from "../features/auth/index.js";
 
 export function LoginPage() {
-  const { t } = useTranslation('auth');
+  const { t } = useTranslation("auth");
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -20,10 +20,10 @@ export function LoginPage() {
     setSubmitting(true);
     try {
       await login({ email, password });
-      navigate('/app', { replace: true });
+      navigate("/app", { replace: true });
     } catch (err) {
-  setError(translateAuthError(err, t, 'errors.loginFailed'));
-} finally {
+      setError(translateAuthError(err, t, "errors.loginFailed"));
+    } finally {
       setSubmitting(false);
     }
   };
@@ -35,14 +35,16 @@ export function LoginPage() {
       </div>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">{t('appName')}</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">{t('login.subtitle')}</p>
+          <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
+          <p className="text-xs text-soma-fg-muted mt-2">
+            {t("login.subtitle")}
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('login.email')}
+              {t("login.email")}
             </label>
             <input
               type="email"
@@ -56,7 +58,7 @@ export function LoginPage() {
 
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('login.password')}
+              {t("login.password")}
             </label>
             <input
               type="password"
@@ -75,14 +77,14 @@ export function LoginPage() {
             disabled={submitting}
             className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? t('login.submitting') : t('login.submit')}
+            {submitting ? t("login.submitting") : t("login.submit")}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-soma-fg-muted">
-          {t('login.noAccount')}{' '}
+          {t("login.noAccount")}{" "}
           <Link to="/register" className="text-soma-accent hover:underline">
-            {t('login.createOne')}
+            {t("login.createOne")}
           </Link>
         </p>
       </div>

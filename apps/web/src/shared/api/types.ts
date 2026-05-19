@@ -6,7 +6,7 @@ import type {
   OrganId,
   BodySystem,
   AchievementTier,
-} from '@soma/shared-types';
+} from "@soma/shared-types";
 
 /**
  * Shape of the response returned by GET /substances on the API.

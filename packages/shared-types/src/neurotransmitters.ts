@@ -1,9 +1,21 @@
-import type { ConfidenceLevel } from './evidence.js';
+import type { ConfidenceLevel } from "./evidence.js";
 
 export type { ConfidenceLevel };
-export type NeurotransmitterSeverity = 'severe' | 'moderate' | 'mild' | 'normalizing';
-export type NeurotransmitterDirection = 'depleted' | 'elevated' | 'oscillating' | 'normalizing';
-export type WithdrawalPhase = 'during_use' | 'acute_withdrawal' | 'post_acute' | 'normalizing';
+export type NeurotransmitterSeverity =
+  | "severe"
+  | "moderate"
+  | "mild"
+  | "normalizing";
+export type NeurotransmitterDirection =
+  | "depleted"
+  | "elevated"
+  | "oscillating"
+  | "normalizing";
+export type WithdrawalPhase =
+  | "during_use"
+  | "acute_withdrawal"
+  | "post_acute"
+  | "normalizing";
 
 export interface NTSource {
   substanceId: string;

@@ -1,7 +1,7 @@
-import 'reflect-metadata';
-import { NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module.js';
+import "reflect-metadata";
+import { NestFactory } from "@nestjs/core";
+import { Logger, ValidationPipe } from "@nestjs/common";
+import { AppModule } from "./app.module.js";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,7 +20,7 @@ async function bootstrap() {
 
   // CORS — allow the frontend dev server to call the API.
   // Tightened in production via env var.
-  const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
+  const corsOrigin = process.env.CORS_ORIGIN ?? "http://localhost:5173";
   app.enableCors({
     origin: corsOrigin,
     credentials: true,
@@ -28,8 +28,8 @@ async function bootstrap() {
 
   const port = Number(process.env.PORT ?? 3000);
   await app.listen(port);
-  Logger.log(`Soma API listening on http://localhost:${port}`, 'Bootstrap');
-  Logger.log(`CORS origin allowed: ${corsOrigin}`, 'Bootstrap');
+  Logger.log(`Soma API listening on http://localhost:${port}`, "Bootstrap");
+  Logger.log(`CORS origin allowed: ${corsOrigin}`, "Bootstrap");
 }
 
 bootstrap();

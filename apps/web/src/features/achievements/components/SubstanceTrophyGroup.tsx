@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
-import { TrophyCard } from './TrophyCard.js';
-import type { AchievementWithUnlockState, AchievementTier } from '../types.js';
+import { useTranslation } from "react-i18next";
+import { TrophyCard } from "./TrophyCard.js";
+import type { AchievementWithUnlockState, AchievementTier } from "../types.js";
 
 interface SubstanceTrophyGroupProps {
   substanceId: string;
@@ -30,7 +30,7 @@ export function SubstanceTrophyGroup({
   achievements,
   isActive = false,
 }: SubstanceTrophyGroupProps) {
-  const { t } = useTranslation(['main', 'substances']);
+  const { t } = useTranslation(["main", "substances"]);
 
   const sorted = [...achievements].sort((a, b) => {
     const tierDiff = TIER_ORDER[a.tier] - TIER_ORDER[b.tier];
@@ -51,7 +51,7 @@ export function SubstanceTrophyGroup({
           {substanceName}
         </h2>
         <span className="text-xs text-soma-fg-muted tabular-nums">
-          {t('main:trophies.unlockedRatio', {
+          {t("main:trophies.unlockedRatio", {
             unlocked: unlockedCount,
             total,
           })}

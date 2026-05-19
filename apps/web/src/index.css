@@ -1,14 +1,19 @@
-@import './shared/styles/tokens.css';
+@import "./shared/styles/tokens.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html, body {
+  html,
+  body {
     background-color: var(--soma-bg-base);
     color: var(--soma-fg-primary);
-    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 

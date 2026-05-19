@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { TrophyIcon } from './TrophyIcon.js';
-import type { AchievementWithUnlockState } from '../types.js';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { TrophyIcon } from "./TrophyIcon.js";
+import type { AchievementWithUnlockState } from "../types.js";
 
 interface TrophyCardProps {
   achievement: AchievementWithUnlockState;
@@ -18,7 +18,12 @@ export function TrophyCard({
   achievement,
   substanceActive = false,
 }: TrophyCardProps) {
-  const { t, i18n } = useTranslation(['achievements', 'main', 'organs', 'substances']);
+  const { t, i18n } = useTranslation([
+    "achievements",
+    "main",
+    "organs",
+    "substances",
+  ]);
   const [expanded, setExpanded] = useState(false);
 
   // A trophy is "hidden from the user's perspective" only when it's
@@ -27,11 +32,11 @@ export function TrophyCard({
   const isHidden = achievement.hidden && !achievement.unlocked;
 
   const title = isHidden
-    ? t('achievements:hidden.title')
+    ? t("achievements:hidden.title")
     : t(`achievements:${achievement.titleKey}`);
 
   const description = isHidden
-    ? t('achievements:hidden.description')
+    ? t("achievements:hidden.description")
     : t(`achievements:${achievement.descriptionKey}`);
 
   const organName = t(`organs:${achievement.triggerOrganId}`, {
@@ -44,9 +49,9 @@ export function TrophyCard({
 
   const unlockedDate = achievement.unlockedAt
     ? new Date(achievement.unlockedAt).toLocaleDateString(i18n.language, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       })
     : null;
 
@@ -60,23 +65,24 @@ export function TrophyCard({
   // - Locked + substance in active consumption → "available when you
   //   stop using X" (priorities take precedence over the percent hint).
   // - Otherwise → standard "reach X% in <organ>" hint.
-  const hint = achievement.unlocked && unlockedDate
-    ? t('main:trophies.unlockedOn', { date: unlockedDate })
-    : isHidden
-      ? t('main:trophies.hiddenHint')
-      : substanceActive
-        ? t('main:trophies.activeSubstanceHint', { substance: substanceName })
-        : t('main:trophies.lockedHint', {
-            organ: organName,
-            percent: thresholdPercent,
-          });
+  const hint =
+    achievement.unlocked && unlockedDate
+      ? t("main:trophies.unlockedOn", { date: unlockedDate })
+      : isHidden
+        ? t("main:trophies.hiddenHint")
+        : substanceActive
+          ? t("main:trophies.activeSubstanceHint", { substance: substanceName })
+          : t("main:trophies.lockedHint", {
+              organ: organName,
+              percent: thresholdPercent,
+            });
 
   return (
     <div
       className={`border rounded transition-colors ${
         achievement.unlocked
-          ? 'border-soma-border-subtle bg-soma-bg-surface'
-          : 'border-soma-border-subtle/40 bg-soma-bg-surface/30'
+          ? "border-soma-border-subtle bg-soma-bg-surface"
+          : "border-soma-border-subtle/40 bg-soma-bg-surface/30"
       }`}
     >
       <button
@@ -93,8 +99,8 @@ export function TrophyCard({
           <p
             className={`text-sm ${
               achievement.unlocked
-                ? 'text-soma-fg-primary'
-                : 'text-soma-fg-muted'
+                ? "text-soma-fg-primary"
+                : "text-soma-fg-muted"
             }`}
           >
             {title}
@@ -102,7 +108,7 @@ export function TrophyCard({
           <p className="text-[11px] text-soma-fg-muted mt-0.5">{hint}</p>
         </div>
         <span className="text-soma-fg-muted text-xs" aria-hidden="true">
-          {expanded ? '▴' : '▾'}
+          {expanded ? "▴" : "▾"}
         </span>
       </button>
       {expanded && (

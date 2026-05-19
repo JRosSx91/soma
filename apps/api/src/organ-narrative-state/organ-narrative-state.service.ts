@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import type { WithdrawalPhase } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service.js';
+import { Injectable } from "@nestjs/common";
+import type { WithdrawalPhase } from "@prisma/client";
+import { PrismaService } from "../prisma/prisma.service.js";
 
 const DAY_MS = 1000 * 60 * 60 * 24;
 
@@ -10,7 +10,7 @@ export interface OrganNarrativeStateEntry {
   phase: WithdrawalPhase;
   narrativeKey: string;
   daysSinceLastUse: number;
-  confidenceLevel: 'high' | 'medium' | 'low';
+  confidenceLevel: "high" | "medium" | "low";
 }
 
 @Injectable()
@@ -45,17 +45,17 @@ export class OrganNarrativeStateService {
 
     for (const usage of usages) {
       // Active consumption: surface the during_use narrative.
-      if (usage.status === 'active') {
+      if (usage.status === "active") {
         for (const profile of usage.substance.narrativeProfiles) {
           const duringUsePhase = profile.phases.find(
-            (p) => p.phase === 'during_use',
+            (p) => p.phase === "during_use",
           );
           if (!duringUsePhase) continue;
 
           entries.push({
             organId: profile.organId,
             sourceSubstanceId: usage.substanceId,
-            phase: 'during_use',
+            phase: "during_use",
             narrativeKey: duringUsePhase.narrativeKey,
             daysSinceLastUse: 0,
             confidenceLevel: profile.confidenceLevel,
@@ -78,7 +78,7 @@ export class OrganNarrativeStateService {
             (p.endDay === null || daysSinceLastUse <= p.endDay),
         );
         if (!activePhase) continue;
-        if (activePhase.phase === 'during_use') continue;
+        if (activePhase.phase === "during_use") continue;
 
         entries.push({
           organId: profile.organId,

@@ -22,7 +22,5 @@
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules", "prisma"],
-  "references": [
-    { "path": "../../packages/shared-types" }
-  ]
+  "references": [{ "path": "../../packages/shared-types" }]
 }

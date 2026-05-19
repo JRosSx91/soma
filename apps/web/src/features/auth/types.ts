@@ -1,4 +1,4 @@
-import type { BiologicalSex } from '@soma/shared-types';
+import type { BiologicalSex } from "@soma/shared-types";
 
 /**
  * Authenticated user as returned by the backend.
@@ -19,7 +19,7 @@ export interface AuthUser {
  */
 export interface AuthResponse {
   accessToken: string;
-  user: Pick<AuthUser, 'id' | 'email' | 'displayName'>;
+  user: Pick<AuthUser, "id" | "email" | "displayName">;
 }
 
 /**

@@ -3,13 +3,13 @@
  * Se usa para agrupación visual y para asociar patrones de recuperación comunes.
  */
 export type SubstanceCategory =
-  | 'depressant'       // alcohol
-  | 'stimulant'        // cocaína, anfetaminas
-  | 'cannabinoid'      // cannabis
-  | 'nicotine'         // tabaco, vaping
-  | 'opioid'           // heroína, opioides de prescripción
-  | 'hallucinogen'     // LSD, psilocibina
-  | 'dissociative';    // ketamina, DXM
+  | "depressant" // alcohol
+  | "stimulant" // cocaína, anfetaminas
+  | "cannabinoid" // cannabis
+  | "nicotine" // tabaco, vaping
+  | "opioid" // heroína, opioides de prescripción
+  | "hallucinogen" // LSD, psilocibina
+  | "dissociative"; // ketamina, DXM
 
 /**
  * Identificador canónico de sustancia.
@@ -17,11 +17,11 @@ export type SubstanceCategory =
  * y permite exhaustiveness checking en el frontend.
  */
 export type SubstanceId =
-  | 'alcohol'
-  | 'nicotine'
-  | 'cannabis'
-  | 'cocaine'
-  | 'caffeine';
+  | "alcohol"
+  | "nicotine"
+  | "cannabis"
+  | "cocaine"
+  | "caffeine";
 
 export interface Substance {
   id: SubstanceId;

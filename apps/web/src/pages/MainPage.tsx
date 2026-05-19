@@ -1,38 +1,42 @@
-import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Trophy, User, LogOut } from 'lucide-react';
-import type { OrganId } from '@soma/shared-types';
-import { useAuth } from '../features/auth/index.js';
-import { useUserProfile, useOrganStates, MOCK_PROFILE } from '../features/profile/index.js';
-import type { UserProfile } from '../features/profile/types.js';
-import { BodyDiagram3D } from '../features/body-diagram-3d/index.js';
-import type { OrganStateMap } from '../features/body-diagram-3d/index.js';
+import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Trophy, User, LogOut } from "lucide-react";
+import type { OrganId } from "@soma/shared-types";
+import { useAuth } from "../features/auth/index.js";
+import {
+  useUserProfile,
+  useOrganStates,
+  MOCK_PROFILE,
+} from "../features/profile/index.js";
+import type { UserProfile } from "../features/profile/types.js";
+import { BodyDiagram3D } from "../features/body-diagram-3d/index.js";
+import type { OrganStateMap } from "../features/body-diagram-3d/index.js";
 import {
   useNeurotransmitterState,
   NeurotransmitterPanel,
-} from '../features/neurotransmitter-state/index.js';
-import { LanguageSelector } from '../components/LanguageSelector.js';
+} from "../features/neurotransmitter-state/index.js";
+import { LanguageSelector } from "../components/LanguageSelector.js";
 import {
   useOrganNarrativeState,
   OrganNarrativePanel,
-} from '../features/organ-narrative-state/index.js';
-import { BottomSheet } from '../components/BottomSheet.js';
-import { useIsMobile } from '../hooks/useIsMobile.js';
-
+} from "../features/organ-narrative-state/index.js";
+import { BottomSheet } from "../components/BottomSheet.js";
+import { OrganListPanel } from "../features/organ-list/index.js";
+import { useIsMobile } from "../hooks/useIsMobile.js";
 
 export function MainPage() {
   const { t } = useTranslation([
-  'main',
-  'common',
-  'organs',
-  'substances',
-  'neurotransmitters',
-  'neurotransmitter-phases',
-  'phases',
-  'organ-narrative',
-  'achievements',
-]);
+    "main",
+    "common",
+    "organs",
+    "substances",
+    "neurotransmitters",
+    "neurotransmitter-phases",
+    "phases",
+    "organ-narrative",
+    "achievements",
+  ]);
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -54,10 +58,10 @@ export function MainPage() {
   const [showNarrative, setShowNarrative] = useState(false);
 
   const handleSelect = (organId: OrganId | null) => {
-  setSelected((prev) => (prev === organId ? null : organId));
-  setShowNeurotransmitters(false);
-  setShowNarrative(false);
-};
+    setSelected((prev) => (prev === organId ? null : organId));
+    setShowNeurotransmitters(false);
+    setShowNarrative(false);
+  };
 
   const adaptedProfile: UserProfile = useMemo(() => {
     if (!serverProfile) return MOCK_PROFILE;
@@ -67,7 +71,8 @@ export function MainPage() {
       birthYear: serverProfile.user.birthYear,
       weightKg: serverProfile.user.weightKg ?? undefined,
       usages: serverProfile.usages.map((u) => ({
-        substanceId: u.substanceId as UserProfile['usages'][number]['substanceId'],
+        substanceId:
+          u.substanceId as UserProfile["usages"][number]["substanceId"],
         yearStarted: u.yearStarted,
         lastUseDate: u.lastUseDate,
         frequency: u.frequency,
@@ -100,9 +105,9 @@ export function MainPage() {
     ? ntEntries.filter((e) => e.organId === selected)
     : [];
   const narrativeForSelected = selected
-  ? narrativeEntries.filter((e) => e.organId === selected)
-  : [];
-const hasNarrativeData = narrativeForSelected.length > 0;
+    ? narrativeEntries.filter((e) => e.organId === selected)
+    : [];
+  const hasNarrativeData = narrativeForSelected.length > 0;
   const hasNtData = ntForSelected.length > 0;
 
   const isMobile = useIsMobile();
@@ -113,15 +118,15 @@ const hasNarrativeData = narrativeForSelected.length > 0;
         <div className="min-w-0">
           <h1 className="text-2xl font-light tracking-wide">Soma</h1>
           <p className="text-xs text-soma-fg-muted mt-1 hidden md:block">
-            {user?.displayName ?? '—'}
+            {user?.displayName ?? "—"}
           </p>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSelector />
           <button
-            onClick={() => navigate('/achievements')}
-            aria-label={t('main:header.trophies')}
-            title={t('main:header.trophies')}
+            onClick={() => navigate("/achievements")}
+            aria-label={t("main:header.trophies")}
+            title={t("main:header.trophies")}
             className="
               flex items-center gap-2
               text-soma-fg-muted hover:text-soma-fg-secondary
@@ -131,13 +136,13 @@ const hasNarrativeData = narrativeForSelected.length > 0;
           >
             <Trophy size={18} aria-hidden="true" />
             <span className="hidden md:inline text-xs">
-              {t('main:header.trophies')}
+              {t("main:header.trophies")}
             </span>
           </button>
           <button
-            onClick={() => navigate('/onboarding')}
-            aria-label={t('main:header.editProfile')}
-            title={t('main:header.editProfile')}
+            onClick={() => navigate("/onboarding")}
+            aria-label={t("main:header.editProfile")}
+            title={t("main:header.editProfile")}
             className="
               flex items-center gap-2
               text-soma-fg-muted hover:text-soma-fg-secondary
@@ -147,13 +152,13 @@ const hasNarrativeData = narrativeForSelected.length > 0;
           >
             <User size={18} aria-hidden="true" />
             <span className="hidden md:inline text-xs">
-              {t('main:header.editProfile')}
+              {t("main:header.editProfile")}
             </span>
           </button>
           <button
             onClick={logout}
-            aria-label={t('common:signOut')}
-            title={t('common:signOut')}
+            aria-label={t("common:signOut")}
+            title={t("common:signOut")}
             className="
               flex items-center gap-2
               text-soma-fg-muted hover:text-soma-fg-secondary
@@ -163,7 +168,7 @@ const hasNarrativeData = narrativeForSelected.length > 0;
           >
             <LogOut size={18} aria-hidden="true" />
             <span className="hidden md:inline text-xs">
-              {t('common:signOut')}
+              {t("common:signOut")}
             </span>
           </button>
         </div>
@@ -179,16 +184,20 @@ const hasNarrativeData = narrativeForSelected.length > 0;
             h-[calc(100vh-73px)] md:h-auto md:min-h-[600px]
           "
         >
-          {loading && <p className="text-soma-fg-secondary">{t('common:loading')}</p>}
+          {loading && (
+            <p className="text-soma-fg-secondary">{t("common:loading")}</p>
+          )}
           {error && <p className="text-soma-organ-damaged">{error}</p>}
           {!loading && !error && hasNoUsages && (
             <div className="text-center px-8 py-12">
-              <p className="text-soma-fg-secondary mb-4">{t('main:empty.noSubstances')}</p>
+              <p className="text-soma-fg-secondary mb-4">
+                {t("main:empty.noSubstances")}
+              </p>
               <button
-                onClick={() => navigate('/onboarding')}
+                onClick={() => navigate("/onboarding")}
                 className="text-soma-accent hover:underline"
               >
-                {t('main:empty.addFirst')}
+                {t("main:empty.addFirst")}
               </button>
             </div>
           )}
@@ -206,19 +215,32 @@ const hasNarrativeData = narrativeForSelected.length > 0;
 
         {/* Side panel — desktop only */}
         <aside className="hidden md:block md:col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
-          <PanelContent
-            selected={selected}
-            states={states}
-            t={t}
-            ntForSelected={ntForSelected}
-            narrativeForSelected={narrativeForSelected}
-            hasNtData={hasNtData}
-            hasNarrativeData={hasNarrativeData}
-            showNeurotransmitters={showNeurotransmitters}
-            setShowNeurotransmitters={setShowNeurotransmitters}
-            showNarrative={showNarrative}
-            setShowNarrative={setShowNarrative}
-          />
+          {selected === null ? (
+            <>
+              <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
+                {t("main:panel.affectedOrgans")}
+              </h2>
+              <OrganListPanel
+                organStates={organStates}
+                onOrganClick={handleSelect}
+                selected={selected}
+              />
+            </>
+          ) : (
+            <PanelContent
+              selected={selected}
+              states={states}
+              t={t}
+              ntForSelected={ntForSelected}
+              narrativeForSelected={narrativeForSelected}
+              hasNtData={hasNtData}
+              hasNarrativeData={hasNarrativeData}
+              showNeurotransmitters={showNeurotransmitters}
+              setShowNeurotransmitters={setShowNeurotransmitters}
+              showNarrative={showNarrative}
+              setShowNarrative={setShowNarrative}
+            />
+          )}
         </aside>
       </main>
 
@@ -251,10 +273,10 @@ const hasNarrativeData = narrativeForSelected.length > 0;
 
 interface PanelContentProps {
   selected: OrganId | null;
-  states: ReturnType<typeof useOrganStates>['states'];
-  t: ReturnType<typeof useTranslation>['t'];
-  ntForSelected: ReturnType<typeof useNeurotransmitterState>['entries'];
-  narrativeForSelected: ReturnType<typeof useOrganNarrativeState>['entries'];
+  states: ReturnType<typeof useOrganStates>["states"];
+  t: ReturnType<typeof useTranslation>["t"];
+  ntForSelected: ReturnType<typeof useNeurotransmitterState>["entries"];
+  narrativeForSelected: ReturnType<typeof useOrganNarrativeState>["entries"];
   hasNtData: boolean;
   hasNarrativeData: boolean;
   showNeurotransmitters: boolean;
@@ -279,66 +301,70 @@ function PanelContent({
   return (
     <>
       <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
-        {selected ? t('main:panel.selectedOrgan') : t('main:panel.clickPrompt')}
+        {selected ? t("main:panel.selectedOrgan") : t("main:panel.clickPrompt")}
       </h2>
-      {selected && states.has(selected) && (() => {
-        const state = states.get(selected)!;
-        const isActive = state.dominantStatus === 'active';
-        return (
-          <div className="space-y-2 text-sm">
-            <p className="text-soma-fg-primary text-base">
-              {t(`organs:${selected}`, { defaultValue: state.organName })}
-            </p>
+      {selected &&
+        states.has(selected) &&
+        (() => {
+          const state = states.get(selected)!;
+          const isActive = state.dominantStatus === "active";
+          return (
+            <div className="space-y-2 text-sm">
+              <p className="text-soma-fg-primary text-base">
+                {t(`organs:${selected}`, { defaultValue: state.organName })}
+              </p>
 
-            {/* Active consumption badge */}
-            {isActive && (
-              <div className="my-3 p-2 rounded border border-soma-organ-damaged/40 bg-soma-organ-damaged/10">
-                <p className="text-xs text-soma-organ-damaged font-semibold uppercase tracking-wider">
-                  {t('main:panel.activeConsumption')}
-                </p>
-                <p className="text-xs text-soma-fg-secondary mt-1 leading-relaxed">
-                  {t('main:panel.activeConsumptionDescription', {
-                    substance: t(`substances:${state.dominantSubstanceId}.name`, {
-                      defaultValue: state.dominantSubstanceId,
-                    }),
-                  })}
-                </p>
-              </div>
-            )}
+              {/* Active consumption badge */}
+              {isActive && (
+                <div className="my-3 p-2 rounded border border-soma-organ-damaged/40 bg-soma-organ-damaged/10">
+                  <p className="text-xs text-soma-organ-damaged font-semibold uppercase tracking-wider">
+                    {t("main:panel.activeConsumption")}
+                  </p>
+                  <p className="text-xs text-soma-fg-secondary mt-1 leading-relaxed">
+                    {(() => {
+                      const activeSubstances = state.contributingSubstances
+                        .filter((c) => c.status === 'active')
+                        .map((c) => t(`substances:${c.substanceId}.name`, { defaultValue: c.substanceId }))
+                        .join(', ');
+                      return t('main:panel.activeConsumptionDescription', { substance: activeSubstances });
+                    })()}
+                  </p>
+                </div>
+              )}
 
-            <p className="text-soma-fg-muted">
-              {t('main:panel.affectedBy')}:{' '}
-              <span className="text-soma-fg-secondary capitalize">
-                {state.contributingSubstances
-                  .map((c) =>
-                    t(`substances:${c.substanceId}.name`, {
-                      defaultValue: c.substanceId,
-                    }),
-                  )
-                  .join(', ')}
-              </span>
-            </p>
+              <p className="text-soma-fg-muted">
+                {t("main:panel.affectedBy")}:{" "}
+                <span className="text-soma-fg-secondary capitalize">
+                  {state.contributingSubstances
+                    .map((c) =>
+                      t(`substances:${c.substanceId}.name`, {
+                        defaultValue: c.substanceId,
+                      }),
+                    )
+                    .join(", ")}
+                </span>
+              </p>
 
-            {/* Days abstinent / recovery — only meaningful for abstinent state */}
-            {!isActive && (
-              <>
-                <p className="text-soma-fg-muted">
-                  {t('main:panel.daysAbstinent')}:{' '}
-                  <span className="text-soma-fg-secondary tabular-nums">
-                    {Math.floor(state.daysAbstinent)}
-                  </span>
-                </p>
-                <p className="text-soma-fg-muted">
-                  {t('main:panel.recovery')}:{' '}
-                  <span className="text-soma-accent tabular-nums">
-                    {(state.progressFraction * 100).toFixed(1)}%
-                  </span>
-                </p>
-              </>
-            )}
-          </div>
-        );
-      })()}
+              {/* Days abstinent / recovery — only meaningful for abstinent state */}
+              {state.progressFraction > 0 && (
+                <>
+                  <p className="text-soma-fg-muted">
+                    {t("main:panel.daysAbstinent")}:{" "}
+                    <span className="text-soma-fg-secondary tabular-nums">
+                      {Math.floor(state.daysAbstinent)}
+                    </span>
+                  </p>
+                  <p className="text-soma-fg-muted">
+                    {t("main:panel.recovery")}:{" "}
+                    <span className="text-soma-accent tabular-nums">
+                      {(state.progressFraction * 100).toFixed(1)}%
+                    </span>
+                  </p>
+                </>
+              )}
+            </div>
+          );
+        })()}
 
       {selected && hasNtData && (
         <div className="mt-4 pt-4 border-t border-soma-border-subtle">
@@ -347,8 +373,8 @@ function PanelContent({
             className="text-xs text-soma-accent hover:underline"
           >
             {showNeurotransmitters
-              ? t('main:panel.hideNeurotransmitterState')
-              : t('main:panel.showNeurotransmitterState')}
+              ? t("main:panel.hideNeurotransmitterState")
+              : t("main:panel.showNeurotransmitterState")}
           </button>
           {showNeurotransmitters && (
             <NeurotransmitterPanel entries={ntForSelected} />
@@ -363,8 +389,8 @@ function PanelContent({
             className="text-xs text-soma-accent hover:underline"
           >
             {showNarrative
-              ? t('main:panel.hideRecoveryProcess')
-              : t('main:panel.showRecoveryProcess')}
+              ? t("main:panel.hideRecoveryProcess")
+              : t("main:panel.showRecoveryProcess")}
           </button>
           {showNarrative && (
             <OrganNarrativePanel entries={narrativeForSelected} />

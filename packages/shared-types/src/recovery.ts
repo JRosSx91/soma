@@ -1,6 +1,6 @@
-import type { ConfidenceLevel } from './evidence.js';
-import type { OrganId } from './organs.js';
-import type { SubstanceId } from './substances.js';
+import type { ConfidenceLevel } from "./evidence.js";
+import type { OrganId } from "./organs.js";
+import type { SubstanceId } from "./substances.js";
 
 /**
  * Forma matemática de la curva de recuperación de un órgano
@@ -17,10 +17,10 @@ import type { SubstanceId } from './substances.js';
  *                    continua.
  */
 export type RecoveryCurveShape =
-  | 'logarithmic'
-  | 'sigmoidal'
-  | 'linear'
-  | 'stepwise';
+  | "logarithmic"
+  | "sigmoidal"
+  | "linear"
+  | "stepwise";
 
 /**
  * Estado basal de daño de un órgano dada una sustancia consumida.

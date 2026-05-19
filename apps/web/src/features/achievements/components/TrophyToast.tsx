@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
-import { TrophyIcon } from './TrophyIcon.js';
-import type { AchievementTier, AchievementWithUnlockState } from '../types.js';
+import { useTranslation } from "react-i18next";
+import { TrophyIcon } from "./TrophyIcon.js";
+import type { AchievementTier, AchievementWithUnlockState } from "../types.js";
 
 interface TrophyToastProps {
   achievement: AchievementWithUnlockState;
@@ -8,14 +8,14 @@ interface TrophyToastProps {
 }
 
 const TIER_ACCENT: Record<AchievementTier, { rail: string; glow: string }> = {
-  bronze:   { rail: '#CD7F32', glow: 'rgba(205, 127, 50, 0.18)' },
-  silver:   { rail: '#C0C0C0', glow: 'rgba(192, 192, 192, 0.18)' },
-  gold:     { rail: '#FFD700', glow: 'rgba(255, 215, 0, 0.22)' },
-  platinum: { rail: '#E5E4E2', glow: 'rgba(229, 228, 226, 0.28)' },
+  bronze: { rail: "#CD7F32", glow: "rgba(205, 127, 50, 0.18)" },
+  silver: { rail: "#C0C0C0", glow: "rgba(192, 192, 192, 0.18)" },
+  gold: { rail: "#FFD700", glow: "rgba(255, 215, 0, 0.22)" },
+  platinum: { rail: "#E5E4E2", glow: "rgba(229, 228, 226, 0.28)" },
 };
 
 export function TrophyToast({ achievement, onDismiss }: TrophyToastProps) {
-  const { t } = useTranslation(['achievements', 'main']);
+  const { t } = useTranslation(["achievements", "main"]);
 
   const title = t(`achievements:${achievement.titleKey}`);
   const description = t(`achievements:${achievement.descriptionKey}`);
@@ -45,14 +45,10 @@ export function TrophyToast({ achievement, onDismiss }: TrophyToastProps) {
         aria-hidden="true"
       />
 
-      <TrophyIcon
-        tier={achievement.tier}
-        unlocked={true}
-        size={44}
-      />
+      <TrophyIcon tier={achievement.tier} unlocked={true} size={44} />
       <div className="flex-1 min-w-0">
         <p className="text-[10px] uppercase tracking-wider text-soma-fg-muted leading-tight">
-          {t('main:trophies.toastEyebrow')}
+          {t("main:trophies.toastEyebrow")}
         </p>
         <p className="text-sm text-soma-fg-primary leading-snug mt-0.5 line-clamp-1">
           {title}
@@ -60,10 +56,10 @@ export function TrophyToast({ achievement, onDismiss }: TrophyToastProps) {
         <p
           className="text-[11px] text-soma-fg-secondary leading-snug mt-1 line-clamp-2"
           style={{
-            display: '-webkit-box',
-            WebkitBoxOrient: 'vertical',
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
             WebkitLineClamp: 2,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
         >
           {description}
@@ -76,7 +72,7 @@ export function TrophyToast({ achievement, onDismiss }: TrophyToastProps) {
           text-lg leading-none px-1
           transition-colors flex-shrink-0
         "
-        aria-label={t('main:trophies.toastDismiss')}
+        aria-label={t("main:trophies.toastDismiss")}
       >
         ×
       </button>

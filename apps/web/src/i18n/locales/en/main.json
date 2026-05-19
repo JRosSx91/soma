@@ -5,46 +5,48 @@
     "dashboard": "Dashboard"
   },
   "trophies": {
-  "title": "Your trophies",
-  "unlockedRatio": "{{unlocked}} of {{total}} unlocked",
-  "unlockedOn": "Unlocked on {{date}}",
-  "lockedHint": "Reach {{percent}}% recovery in {{organ}}",
-  "hiddenHint": "Hidden trophy",
-  "toastEyebrow": "NEW TROPHY",
-  "toastDismiss": "Dismiss",
-  "toastDismissAll": "Mark all {{count}} as seen",
-  "activeSubstanceHint": "Available when you stop using {{substance}}"
-},
+    "title": "Your trophies",
+    "unlockedRatio": "{{unlocked}} of {{total}} unlocked",
+    "unlockedOn": "Unlocked on {{date}}",
+    "lockedHint": "Reach {{percent}}% recovery in {{organ}}",
+    "hiddenHint": "Hidden trophy",
+    "toastEyebrow": "NEW TROPHY",
+    "toastDismiss": "Dismiss",
+    "toastDismissAll": "Mark all {{count}} as seen",
+    "activeSubstanceHint": "Available when you stop using {{substance}}"
+  },
   "panel": {
-  "selectedOrgan": "Selected organ",
-  "hoverPrompt": "Hover an organ",
-  "clickPrompt": "Click an organ to inspect",
-  "affectedBy": "Affected by",
-  "causedBy": "Caused by",
-  "daysAbstinent": "Days abstinent",
-  "recovery": "Recovery",
-  "showRecoveryProcess": "Show recovery process",
-"hideRecoveryProcess": "Hide recovery process",
-"noNarrativeData": "No recovery process data available for this organ.",
-  "showNeurotransmitterState": "Show neurotransmitter state",
-  "hideNeurotransmitterState": "Hide neurotransmitter state",
-  "noNeurotransmitterData": "No neurotransmitter data available for this organ.",
-  "multiSource": "Multiple sources",
-  "direction": {
-    "depleted": "depleted",
-    "elevated": "elevated",
-    "oscillating": "oscillating",
-    "normalizing": "normalizing" 
+    "selectedOrgan": "Selected organ",
+    "affectedOrgans": "Affected organs",
+    "noOrgansAffected": "No organs affected",
+    "hoverPrompt": "Hover an organ",
+    "clickPrompt": "Click an organ to inspect",
+    "affectedBy": "Affected by",
+    "causedBy": "Caused by",
+    "daysAbstinent": "Days abstinent",
+    "recovery": "Recovery",
+    "showRecoveryProcess": "Show recovery process",
+    "hideRecoveryProcess": "Hide recovery process",
+    "noNarrativeData": "No recovery process data available for this organ.",
+    "showNeurotransmitterState": "Show neurotransmitter state",
+    "hideNeurotransmitterState": "Hide neurotransmitter state",
+    "noNeurotransmitterData": "No neurotransmitter data available for this organ.",
+    "multiSource": "Multiple sources",
+    "direction": {
+      "depleted": "depleted",
+      "elevated": "elevated",
+      "oscillating": "oscillating",
+      "normalizing": "normalizing"
+    },
+    "severity": {
+      "severe": "severe",
+      "moderate": "moderate",
+      "mild": "mild",
+      "normalizing": "normalizing"
+    },
+    "activeConsumption": "ACTIVE DAMAGE",
+    "activeConsumptionDescription": "You're still using {{substance}}. Recovery from other substances continues, but this organ is being actively damaged in parallel."
   },
-  "severity": {
-    "severe": "severe",
-    "moderate": "moderate",
-    "mild": "mild",
-    "normalizing": "normalizing"
-  },
-  "activeConsumption": "ACTIVE USE",
-"activeConsumptionDescription": "This organ isn't recovering because you're still using {{substance}}. The damage you see is real-time."
-},
   "empty": {
     "noSubstances": "No substances tracked yet.",
     "addFirst": "Add your first one →"

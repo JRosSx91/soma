@@ -1,4 +1,4 @@
-import type { RecoveryCurveShape } from '@soma/shared-types';
+import type { RecoveryCurveShape } from "@soma/shared-types";
 
 /**
  * Input to the recovery engine: everything needed to compute the current

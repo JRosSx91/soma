@@ -1,11 +1,11 @@
-import { useMemo, useEffect } from 'react';
-import * as THREE from 'three';
-import type { ThreeEvent } from '@react-three/fiber';
-import type { OrganId } from '@soma/shared-types';
-import { useBodyModel } from '../hooks/useBodyModel.js';
-import { ORGAN_TO_MESH_NAME, MESH_NAME_TO_ORGAN } from '../organ-mesh-map.js';
-import type { OrganStateMap } from '../types.js';
-import { interpolateOrganColor } from '../anatomical-colors.js';
+import { useMemo, useEffect } from "react";
+import * as THREE from "three";
+import type { ThreeEvent } from "@react-three/fiber";
+import type { OrganId } from "@soma/shared-types";
+import { useBodyModel } from "../hooks/useBodyModel.js";
+import { ORGAN_TO_MESH_NAME, MESH_NAME_TO_ORGAN } from "../organ-mesh-map.js";
+import type { OrganStateMap } from "../types.js";
+import { interpolateOrganColor } from "../anatomical-colors.js";
 
 interface BodyModelProps {
   organStates: OrganStateMap;
@@ -87,31 +87,31 @@ export function BodyModel({
     const map = new Map<string, THREE.ShaderMaterial>();
 
     organMeshes.forEach((meshes, organName) => {
-      const isSkin = organName === 'skin';
+      const isSkin = organName === "skin";
 
       if (isSkin) {
         const material = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    roughness: 0.15,
-    metalness: 0.0,
-    transmission: 0.9,
-    thickness: 0.1,
-    ior: 1.05,
-    opacity: 0.75,
-    transparent: true,
-    side: THREE.FrontSide,
-    depthWrite: false,
-  });
+          color: 0xffffff,
+          roughness: 0.15,
+          metalness: 0.0,
+          transmission: 0.9,
+          thickness: 0.1,
+          ior: 1.05,
+          opacity: 0.75,
+          transparent: true,
+          side: THREE.FrontSide,
+          depthWrite: false,
+        });
 
-  meshes.forEach((mesh) => {
-    mesh.material = material;
-    mesh.renderOrder = 999;
-    mesh.raycast = () => null;
-  });
+        meshes.forEach((mesh) => {
+          mesh.material = material;
+          mesh.renderOrder = 999;
+          mesh.raycast = () => null;
+        });
 
-  // Skin no se mete en el Map de organMaterials porque
-  // los useEffect de coloreado y highlight no la tocan.
-  return;
+        // Skin no se mete en el Map de organMaterials porque
+        // los useEffect de coloreado y highlight no la tocan.
+        return;
       }
 
       const material = new THREE.ShaderMaterial({
@@ -141,7 +141,11 @@ export function BodyModel({
       if (!(obj instanceof THREE.Mesh)) return;
       if (!(obj.material instanceof THREE.ShaderMaterial)) return;
       if (obj.material.uniforms.uColor) {
-        obj.material.uniforms.uColor.value = new THREE.Vector3(0.35, 0.31, 0.28);
+        obj.material.uniforms.uColor.value = new THREE.Vector3(
+          0.35,
+          0.31,
+          0.28,
+        );
       }
     });
 
@@ -150,9 +154,12 @@ export function BodyModel({
       const meshName = ORGAN_TO_MESH_NAME[organId];
       if (!meshName) return;
       if (!state.active) return;
-      if (meshName === 'skin') return;
+      if (meshName === "skin") return;
 
-      const colorString = interpolateOrganColor(organId, state.progressFraction);
+      const colorString = interpolateOrganColor(
+        organId,
+        state.progressFraction,
+      );
       const tempColor = new THREE.Color(colorString);
       const vec = new THREE.Vector3(tempColor.r, tempColor.g, tempColor.b);
 

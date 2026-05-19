@@ -3,17 +3,17 @@
  * para permitir capas on/off y agrupación de logros.
  */
 export type BodySystem =
-  | 'respiratory'
-  | 'cardiovascular'
-  | 'hepatic'
-  | 'renal'
-  | 'nervous-central'
-  | 'nervous-peripheral'
-  | 'endocrine'
-  | 'reproductive'
-  | 'digestive'
-  | 'immune'
-  | 'integumentary';
+  | "respiratory"
+  | "cardiovascular"
+  | "hepatic"
+  | "renal"
+  | "nervous-central"
+  | "nervous-peripheral"
+  | "endocrine"
+  | "reproductive"
+  | "digestive"
+  | "immune"
+  | "integumentary";
 
 /**
  * Identificador canónico de órgano/estructura.
@@ -22,21 +22,21 @@ export type BodySystem =
  * porque los patrones de recuperación difieren entre ellas.
  */
 export type OrganId =
-  | 'liver'
-  | 'heart'
-  | 'lungs'
-  | 'bronchi'
-  | 'kidneys'
-  | 'stomach'
-  | 'pancreas'
-  | 'brain-prefrontal-cortex'
-  | 'brain-hippocampus'
-  | 'brain-vta'              // área tegmental ventral (dopamina)
-  | 'brain-nucleus-accumbens'
-  | 'brain-amygdala'
-  | 'skin'
-  | 'testes'
-  | 'ovaries';
+  | "liver"
+  | "heart"
+  | "lungs"
+  | "bronchi"
+  | "kidneys"
+  | "stomach"
+  | "pancreas"
+  | "brain-prefrontal-cortex"
+  | "brain-hippocampus"
+  | "brain-vta" // área tegmental ventral (dopamina)
+  | "brain-nucleus-accumbens"
+  | "brain-amygdala"
+  | "skin"
+  | "testes"
+  | "ovaries";
 
 export interface Organ {
   id: OrganId;

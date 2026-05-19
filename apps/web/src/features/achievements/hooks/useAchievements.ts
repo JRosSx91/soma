@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from 'react';
-import { fetchAchievements } from '../client/achievements-api.js';
-import type { AchievementWithUnlockState } from '../types.js';
+import { useEffect, useState, useCallback } from "react";
+import { fetchAchievements } from "../client/achievements-api.js";
+import type { AchievementWithUnlockState } from "../types.js";
 
 interface UseAchievementsResult {
   achievements: AchievementWithUnlockState[];
@@ -15,9 +15,9 @@ interface UseAchievementsResult {
  * crossed thresholds.
  */
 export function useAchievements(): UseAchievementsResult {
-  const [achievements, setAchievements] = useState<AchievementWithUnlockState[]>(
-    [],
-  );
+  const [achievements, setAchievements] = useState<
+    AchievementWithUnlockState[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,7 +29,7 @@ export function useAchievements(): UseAchievementsResult {
       setAchievements(data);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'Failed to load achievements',
+        err instanceof Error ? err.message : "Failed to load achievements",
       );
     } finally {
       setLoading(false);

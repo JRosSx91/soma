@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Injectable } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
 
 /**
  * Marker guard that activates the 'jwt' Passport strategy.
@@ -7,4 +7,4 @@ import { AuthGuard } from '@nestjs/passport';
  * requires authentication.
  */
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {}
+export class JwtAuthGuard extends AuthGuard("jwt") {}

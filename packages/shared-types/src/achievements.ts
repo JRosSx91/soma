@@ -1,10 +1,10 @@
 import type { OrganId } from "./organs";
-import type { SubstanceId } from './substances.js';
+import type { SubstanceId } from "./substances.js";
 
 /**
  * Tipo de logro. Estilo PlayStation con jerarquía visual.
  */
-export type AchievementTier = 'bronze' | 'silver' | 'gold' | 'platinum';
+export type AchievementTier = "bronze" | "silver" | "gold" | "platinum";
 
 /**
  * Condición que dispara el logro. Todo logro está vinculado a un evento

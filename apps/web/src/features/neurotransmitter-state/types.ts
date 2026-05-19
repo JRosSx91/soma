@@ -1,33 +1,33 @@
 export type Neurotransmitter =
-  | 'dopamine'
-  | 'serotonin'
-  | 'gaba'
-  | 'glutamate'
-  | 'acetylcholine'
-  | 'norepinephrine'
-  | 'endocannabinoid'
-  | 'endorphin'
-  | 'adenosine';
+  | "dopamine"
+  | "serotonin"
+  | "gaba"
+  | "glutamate"
+  | "acetylcholine"
+  | "norepinephrine"
+  | "endocannabinoid"
+  | "endorphin"
+  | "adenosine";
 
 export type WithdrawalPhase =
-  | 'during_use'
-  | 'acute_withdrawal'
-  | 'post_acute'
-  | 'normalizing';
+  | "during_use"
+  | "acute_withdrawal"
+  | "post_acute"
+  | "normalizing";
 
 export type NeurotransmitterDirection =
-  | 'depleted'
-  | 'elevated'
-  | 'oscillating'
-  | 'normalizing';
+  | "depleted"
+  | "elevated"
+  | "oscillating"
+  | "normalizing";
 
 export type NeurotransmitterSeverity =
-  | 'severe'
-  | 'moderate'
-  | 'mild'
-  | 'normalizing';
+  | "severe"
+  | "moderate"
+  | "mild"
+  | "normalizing";
 
-export type ConfidenceLevel = 'high' | 'medium' | 'low';
+export type ConfidenceLevel = "high" | "medium" | "low";
 
 /** @deprecated — usar ComposedNTState. Mantenido hasta migración completa. */
 export interface NeurotransmitterStateEntry {

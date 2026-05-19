@@ -43,7 +43,7 @@
   --soma-accent-focus: #f0d078;
 
   /* Confidence level indicators (subtle) */
-  --soma-confidence-high: #8aaa6e;     /* sage green */
-  --soma-confidence-medium: #c9a06e;   /* warm tan */
-  --soma-confidence-low: #b87a6e;      /* dusty rose */
+  --soma-confidence-high: #8aaa6e; /* sage green */
+  --soma-confidence-medium: #c9a06e; /* warm tan */
+  --soma-confidence-low: #b87a6e; /* dusty rose */
 }

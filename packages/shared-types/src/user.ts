@@ -1,6 +1,6 @@
-import type { SubstanceId } from './substances.js';
+import type { SubstanceId } from "./substances.js";
 
-export type BiologicalSex = 'male' | 'female';
+export type BiologicalSex = "male" | "female";
 
 /**
  * Status of the user's consumption of a given substance.
@@ -10,7 +10,7 @@ export type BiologicalSex = 'male' | 'female';
  *   `lastUseDate` is null. The organ is shown in damaged state
  *   (during-use phase) rather than recovering.
  */
-export type UsageStatus = 'abstinent' | 'active';
+export type UsageStatus = "abstinent" | "active";
 
 /**
  * Consumo declarado por el usuario para una sustancia.
@@ -30,7 +30,7 @@ export interface SubstanceUsage {
    * Frecuencia de consumo reportada. Categórica para v1 —
    * números precisos son poco fiables en auto-reporte.
    */
-  frequency: 'daily' | 'weekly' | 'monthly' | 'occasional';
+  frequency: "daily" | "weekly" | "monthly" | "occasional";
   /**
    * Whether the user is in abstinence or actively consuming.
    * Default `abstinent` for backwards compatibility with the original

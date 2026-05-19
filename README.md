@@ -2,8 +2,8 @@
 
 Physiological recovery visualization app for substance abstinence.
 
-Soma tracks the biological recovery of the human body during abstinence from 
-psychoactive substances, rendering the process as an interactive anatomical 
+Soma tracks the biological recovery of the human body during abstinence from
+psychoactive substances, rendering the process as an interactive anatomical
 visualization backed by peer-reviewed medical data.
 
 ## Stack

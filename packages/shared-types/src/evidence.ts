@@ -12,4 +12,4 @@
  *             extrapolados de modelos animales. El frontend debe
  *             visualizar la incertidumbre.
  */
-export type ConfidenceLevel = 'high' | 'medium' | 'low';
+export type ConfidenceLevel = "high" | "medium" | "low";

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
-import type { OrganNarrativeStateEntry } from '../types.js';
+import { useTranslation } from "react-i18next";
+import type { OrganNarrativeStateEntry } from "../types.js";
 
 interface OrganNarrativePanelProps {
   entries: OrganNarrativeStateEntry[];
@@ -15,16 +15,16 @@ interface OrganNarrativePanelProps {
  */
 export function OrganNarrativePanel({ entries }: OrganNarrativePanelProps) {
   const { t } = useTranslation([
-    'organ-narrative',
-    'phases',
-    'substances',
-    'main',
+    "organ-narrative",
+    "phases",
+    "substances",
+    "main",
   ]);
 
   if (entries.length === 0) {
     return (
       <p className="text-xs text-soma-fg-muted italic">
-        {t('main:panel.noNarrativeData')}
+        {t("main:panel.noNarrativeData")}
       </p>
     );
   }
@@ -33,10 +33,9 @@ export function OrganNarrativePanel({ entries }: OrganNarrativePanelProps) {
     <div className="space-y-3 mt-4">
       {entries.map((entry) => {
         const phaseLabel = t(`phases:${entry.phase}`);
-        const sourceName = t(
-          `substances:${entry.sourceSubstanceId}.name`,
-          { defaultValue: entry.sourceSubstanceId },
-        );
+        const sourceName = t(`substances:${entry.sourceSubstanceId}.name`, {
+          defaultValue: entry.sourceSubstanceId,
+        });
         const narrativeText = t(`organ-narrative:${entry.narrativeKey}`);
 
         return (

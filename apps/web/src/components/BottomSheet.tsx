@@ -1,5 +1,5 @@
-import { useEffect, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, type ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface BottomSheetProps {
   open: boolean;
@@ -25,17 +25,17 @@ export function BottomSheet({ open, onClose, children }: BottomSheetProps) {
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
   }, [open, onClose]);
 
   // Lock body scroll while open
   useEffect(() => {
     if (!open) return;
     const original = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = original;
     };
@@ -68,10 +68,14 @@ export function BottomSheet({ open, onClose, children }: BottomSheetProps) {
               max-h-[80vh]
               flex flex-col
             "
-            initial={{ y: '100%' }}
+            initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'tween', duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ y: "100%" }}
+            transition={{
+              type: "tween",
+              duration: 0.3,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
             {/* Drag handle */}
             <div

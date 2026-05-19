@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@prisma/client';
+import type { PrismaClient } from "@prisma/client";
 
 /**
  * Seeds the neurotransmitter profiles for each substance Soma models.
@@ -24,30 +24,22 @@ import type { PrismaClient } from '@prisma/client';
  * on each run, so editing this file and re-seeding works cleanly.
  */
 
-type Phase =
-  | 'during_use'
-  | 'acute_withdrawal'
-  | 'post_acute'
-  | 'normalizing';
+type Phase = "during_use" | "acute_withdrawal" | "post_acute" | "normalizing";
 
-type Severity = 'severe' | 'moderate' | 'mild' | 'normalizing';
+type Severity = "severe" | "moderate" | "mild" | "normalizing";
 
-type Direction =
-  | 'depleted'
-  | 'elevated'
-  | 'oscillating'
-  | 'normalizing';
+type Direction = "depleted" | "elevated" | "oscillating" | "normalizing";
 
 type Neurotransmitter =
-  | 'dopamine'
-  | 'serotonin'
-  | 'gaba'
-  | 'glutamate'
-  | 'acetylcholine'
-  | 'norepinephrine'
-  | 'endocannabinoid'
-  | 'endorphin'
-  | 'adenosine';
+  | "dopamine"
+  | "serotonin"
+  | "gaba"
+  | "glutamate"
+  | "acetylcholine"
+  | "norepinephrine"
+  | "endocannabinoid"
+  | "endorphin"
+  | "adenosine";
 
 interface PhaseDefinition {
   phase: Phase;
@@ -60,7 +52,7 @@ interface PhaseDefinition {
 interface ProfileDefinition {
   substanceId: string;
   neurotransmitter: Neurotransmitter;
-  confidenceLevel: 'high' | 'medium' | 'low';
+  confidenceLevel: "high" | "medium" | "low";
   referenceSource: string;
   mechanismKey: string;
   phases: PhaseDefinition[];
@@ -71,12 +63,13 @@ interface ProfileDefinition {
  * future enhancement. For v1 these uniform ranges reflect the broad
  * pattern across substances modeled.
  */
-const PHASE_RANGES: Record<Phase, { startDay: number; endDay: number | null }> = {
-  during_use:       { startDay: 0,   endDay: 0   },
-  acute_withdrawal: { startDay: 1,   endDay: 7   },
-  post_acute:       { startDay: 8,   endDay: 56  },
-  normalizing:      { startDay: 57,  endDay: null },
-};
+const PHASE_RANGES: Record<Phase, { startDay: number; endDay: number | null }> =
+  {
+    during_use: { startDay: 0, endDay: 0 },
+    acute_withdrawal: { startDay: 1, endDay: 7 },
+    post_acute: { startDay: 8, endDay: 56 },
+    normalizing: { startDay: 57, endDay: null },
+  };
 
 function makePhase(
   phase: Phase,
@@ -93,28 +86,198 @@ function makePhase(
 
 const PROFILES: ProfileDefinition[] = [
   // Alcohol
-  { substanceId: 'alcohol', neurotransmitter: 'gaba', mechanismKey: 'GABAA_POTENTIATION', confidenceLevel: 'high', referenceSource: 'DSM-5-TR; Stahl 2021 ch. 14; Koob & Volkow 2016', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','depleted'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'alcohol', neurotransmitter: 'glutamate', mechanismKey: 'NMDA_INHIBITION', confidenceLevel: 'high', referenceSource: 'Stahl 2021 ch. 14; Goodman & Gilman 14th ed.', phases: [makePhase('during_use','moderate','depleted'),makePhase('acute_withdrawal','severe','elevated'),makePhase('post_acute','mild','elevated'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'alcohol', neurotransmitter: 'dopamine', mechanismKey: 'MESOLIMBIC_INDIRECT', confidenceLevel: 'medium', referenceSource: 'Koob & Volkow 2016; NIDA Alcohol Research Report', phases: [makePhase('during_use','mild','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'alcohol', neurotransmitter: 'serotonin', mechanismKey: 'SERT_MODULATION', confidenceLevel: 'medium', referenceSource: 'Stahl 2021 ch. 14', phases: [makePhase('during_use','moderate','oscillating'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
+  {
+    substanceId: "alcohol",
+    neurotransmitter: "gaba",
+    mechanismKey: "GABAA_POTENTIATION",
+    confidenceLevel: "high",
+    referenceSource: "DSM-5-TR; Stahl 2021 ch. 14; Koob & Volkow 2016",
+    phases: [
+      makePhase("during_use", "severe", "elevated"),
+      makePhase("acute_withdrawal", "severe", "depleted"),
+      makePhase("post_acute", "moderate", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "alcohol",
+    neurotransmitter: "glutamate",
+    mechanismKey: "NMDA_INHIBITION",
+    confidenceLevel: "high",
+    referenceSource: "Stahl 2021 ch. 14; Goodman & Gilman 14th ed.",
+    phases: [
+      makePhase("during_use", "moderate", "depleted"),
+      makePhase("acute_withdrawal", "severe", "elevated"),
+      makePhase("post_acute", "mild", "elevated"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "alcohol",
+    neurotransmitter: "dopamine",
+    mechanismKey: "MESOLIMBIC_INDIRECT",
+    confidenceLevel: "medium",
+    referenceSource: "Koob & Volkow 2016; NIDA Alcohol Research Report",
+    phases: [
+      makePhase("during_use", "mild", "elevated"),
+      makePhase("acute_withdrawal", "moderate", "depleted"),
+      makePhase("post_acute", "mild", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "alcohol",
+    neurotransmitter: "serotonin",
+    mechanismKey: "SERT_MODULATION",
+    confidenceLevel: "medium",
+    referenceSource: "Stahl 2021 ch. 14",
+    phases: [
+      makePhase("during_use", "moderate", "oscillating"),
+      makePhase("acute_withdrawal", "moderate", "depleted"),
+      makePhase("post_acute", "mild", "normalizing"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
 
   // Cocaine
-  { substanceId: 'cocaine', neurotransmitter: 'dopamine', mechanismKey: 'DAT_BLOCKADE', confidenceLevel: 'high', referenceSource: 'Koob & Volkow 2016; NIDA Cocaine Research Report; Stahl 2021', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','depleted'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'cocaine', neurotransmitter: 'norepinephrine', mechanismKey: 'NET_BLOCKADE', confidenceLevel: 'high', referenceSource: 'Goodman & Gilman 14th ed.; Stahl 2021', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','oscillating'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'cocaine', neurotransmitter: 'serotonin', mechanismKey: 'SERT_BLOCKADE', confidenceLevel: 'medium', referenceSource: 'Stahl 2021 ch. 14', phases: [makePhase('during_use','moderate','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
+  {
+    substanceId: "cocaine",
+    neurotransmitter: "dopamine",
+    mechanismKey: "DAT_BLOCKADE",
+    confidenceLevel: "high",
+    referenceSource:
+      "Koob & Volkow 2016; NIDA Cocaine Research Report; Stahl 2021",
+    phases: [
+      makePhase("during_use", "severe", "elevated"),
+      makePhase("acute_withdrawal", "severe", "depleted"),
+      makePhase("post_acute", "moderate", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "cocaine",
+    neurotransmitter: "norepinephrine",
+    mechanismKey: "NET_BLOCKADE",
+    confidenceLevel: "high",
+    referenceSource: "Goodman & Gilman 14th ed.; Stahl 2021",
+    phases: [
+      makePhase("during_use", "severe", "elevated"),
+      makePhase("acute_withdrawal", "severe", "depleted"),
+      makePhase("post_acute", "moderate", "oscillating"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "cocaine",
+    neurotransmitter: "serotonin",
+    mechanismKey: "SERT_BLOCKADE",
+    confidenceLevel: "medium",
+    referenceSource: "Stahl 2021 ch. 14",
+    phases: [
+      makePhase("during_use", "moderate", "elevated"),
+      makePhase("acute_withdrawal", "moderate", "depleted"),
+      makePhase("post_acute", "mild", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
 
   // Nicotine
-  { substanceId: 'nicotine', neurotransmitter: 'acetylcholine', mechanismKey: 'nAChR_STIMULATION', confidenceLevel: 'high', referenceSource: 'NIDA Tobacco Research Report; Stahl 2021 ch. 14', phases: [makePhase('during_use','moderate','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','depleted'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'nicotine', neurotransmitter: 'dopamine', mechanismKey: 'nAChR_MESOLIMBIC', confidenceLevel: 'high', referenceSource: 'Koob & Volkow 2016; NIDA Tobacco Research Report', phases: [makePhase('during_use','moderate','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
+  {
+    substanceId: "nicotine",
+    neurotransmitter: "acetylcholine",
+    mechanismKey: "nAChR_STIMULATION",
+    confidenceLevel: "high",
+    referenceSource: "NIDA Tobacco Research Report; Stahl 2021 ch. 14",
+    phases: [
+      makePhase("during_use", "moderate", "elevated"),
+      makePhase("acute_withdrawal", "severe", "depleted"),
+      makePhase("post_acute", "moderate", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "nicotine",
+    neurotransmitter: "dopamine",
+    mechanismKey: "nAChR_MESOLIMBIC",
+    confidenceLevel: "high",
+    referenceSource: "Koob & Volkow 2016; NIDA Tobacco Research Report",
+    phases: [
+      makePhase("during_use", "moderate", "elevated"),
+      makePhase("acute_withdrawal", "moderate", "depleted"),
+      makePhase("post_acute", "mild", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
 
   // Cannabis
-  { substanceId: 'cannabis', neurotransmitter: 'endocannabinoid', mechanismKey: 'CB1_AGONISM', confidenceLevel: 'high', referenceSource: 'NIDA Marijuana Research Report; Stahl 2021 ch. 14', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'cannabis', neurotransmitter: 'dopamine', mechanismKey: 'CB1_PRESYNAPTIC_INDIRECT', confidenceLevel: 'medium', referenceSource: 'Koob & Volkow 2016', phases: [makePhase('during_use','mild','elevated'),makePhase('acute_withdrawal','mild','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'cannabis', neurotransmitter: 'gaba', mechanismKey: 'CB1_GABAergic', confidenceLevel: 'medium', referenceSource: 'Stahl 2021 ch. 14', phases: [makePhase('during_use','mild','oscillating'),makePhase('acute_withdrawal','mild','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
+  {
+    substanceId: "cannabis",
+    neurotransmitter: "endocannabinoid",
+    mechanismKey: "CB1_AGONISM",
+    confidenceLevel: "high",
+    referenceSource: "NIDA Marijuana Research Report; Stahl 2021 ch. 14",
+    phases: [
+      makePhase("during_use", "severe", "elevated"),
+      makePhase("acute_withdrawal", "moderate", "depleted"),
+      makePhase("post_acute", "mild", "depleted"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "cannabis",
+    neurotransmitter: "dopamine",
+    mechanismKey: "CB1_PRESYNAPTIC_INDIRECT",
+    confidenceLevel: "medium",
+    referenceSource: "Koob & Volkow 2016",
+    phases: [
+      makePhase("during_use", "mild", "elevated"),
+      makePhase("acute_withdrawal", "mild", "depleted"),
+      makePhase("post_acute", "mild", "normalizing"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "cannabis",
+    neurotransmitter: "gaba",
+    mechanismKey: "CB1_GABAergic",
+    confidenceLevel: "medium",
+    referenceSource: "Stahl 2021 ch. 14",
+    phases: [
+      makePhase("during_use", "mild", "oscillating"),
+      makePhase("acute_withdrawal", "mild", "depleted"),
+      makePhase("post_acute", "mild", "normalizing"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
 
   // Caffeine
-  { substanceId: 'caffeine', neurotransmitter: 'adenosine', mechanismKey: 'ADENOSINE_RECEPTOR_BLOCKADE', confidenceLevel: 'high', referenceSource: 'Fredholm et al. 1999; Stahl 2021 ch. 14; Goodman & Gilman 14th ed.', phases: [makePhase('during_use','moderate','depleted'),makePhase('acute_withdrawal','severe','elevated'),makePhase('post_acute','moderate','elevated'),makePhase('normalizing','mild','normalizing')] },
-  { substanceId: 'caffeine', neurotransmitter: 'dopamine', mechanismKey: 'ADENOSINE_DOPAMINE_CROSSTALK', confidenceLevel: 'medium', referenceSource: 'Volkow et al. 2015 (caffeine and dopamine receptors)', phases: [makePhase('during_use','mild','elevated'),makePhase('acute_withdrawal','mild','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
+  {
+    substanceId: "caffeine",
+    neurotransmitter: "adenosine",
+    mechanismKey: "ADENOSINE_RECEPTOR_BLOCKADE",
+    confidenceLevel: "high",
+    referenceSource:
+      "Fredholm et al. 1999; Stahl 2021 ch. 14; Goodman & Gilman 14th ed.",
+    phases: [
+      makePhase("during_use", "moderate", "depleted"),
+      makePhase("acute_withdrawal", "severe", "elevated"),
+      makePhase("post_acute", "moderate", "elevated"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
+  {
+    substanceId: "caffeine",
+    neurotransmitter: "dopamine",
+    mechanismKey: "ADENOSINE_DOPAMINE_CROSSTALK",
+    confidenceLevel: "medium",
+    referenceSource: "Volkow et al. 2015 (caffeine and dopamine receptors)",
+    phases: [
+      makePhase("during_use", "mild", "elevated"),
+      makePhase("acute_withdrawal", "mild", "depleted"),
+      makePhase("post_acute", "mild", "normalizing"),
+      makePhase("normalizing", "mild", "normalizing"),
+    ],
+  },
 ];
 
 function buildSymptomKey(
@@ -140,7 +303,7 @@ export async function seedNeurotransmitterProfiles(
         neurotransmitter: profile.neurotransmitter,
         confidenceLevel: profile.confidenceLevel,
         referenceSource: profile.referenceSource,
-        mechanismKey: profile.mechanismKey, 
+        mechanismKey: profile.mechanismKey,
         phases: {
           create: profile.phases.map((phase) => ({
             phase: phase.phase,

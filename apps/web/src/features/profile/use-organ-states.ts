@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
-import type { OrganId } from '@soma/shared-types';
-import { useSubstances } from '../substances/index.js';
-import type { ApiSubstance } from '../substances/index.js';
-import { computeRecovery } from '../recovery-engine/index.js';
-import { MOCK_PROFILE } from './mock.js';
-import type { UserProfile } from './types.js';
+import { useMemo } from "react";
+import type { OrganId } from "@soma/shared-types";
+import { useSubstances } from "../substances/index.js";
+import type { ApiSubstance } from "../substances/index.js";
+import { computeRecovery } from "../recovery-engine/index.js";
+import { MOCK_PROFILE } from "./mock.js";
+import type { UserProfile } from "./types.js";
 
 /**
  * Per-organ computed state for the current user.
@@ -27,11 +27,11 @@ export interface OrganState {
   /** Substance currently dominating this organ's state (the worst one). */
   dominantSubstanceId: string;
   /** Confidence level reported by the dominant curve. */
-  confidenceLevel: 'high' | 'medium' | 'low';
-  dominantStatus: 'abstinent' | 'active';
+  confidenceLevel: "high" | "medium" | "low";
+  dominantStatus: "abstinent" | "active";
   contributingSubstances: Array<{
     substanceId: string;
-    status: 'abstinent' | 'active';
+    status: "abstinent" | "active";
     progressFraction: number;
   }>;
 }
@@ -51,7 +51,9 @@ interface UseOrganStatesResult {
  * Reactive to the substance catalog loading. Stable identity for the
  * resulting Map across renders thanks to useMemo over inputs.
  */
-export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganStatesResult {
+export function useOrganStates(
+  profile: UserProfile = MOCK_PROFILE,
+): UseOrganStatesResult {
   const { data, loading, error } = useSubstances();
 
   const states = useMemo<Map<OrganId, OrganState>>(() => {
@@ -68,12 +70,12 @@ export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganSta
     // Each entry tracks one (substance, curve) impact on an organ.
     interface Contribution {
       substanceId: string;
-      status: 'abstinent' | 'active';
+      status: "abstinent" | "active";
       progressFraction: number;
       absoluteRecovery: number;
       daysAbstinent: number;
       organName: string;
-      confidenceLevel: 'high' | 'medium' | 'low';
+      confidenceLevel: "high" | "medium" | "low";
     }
     const contributionsByOrgan = new Map<OrganId, Contribution[]>();
 
@@ -83,12 +85,12 @@ export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganSta
 
       // Active consumption: organ is being damaged in real time.
       // progressFraction is 0; we don't compute recovery for this path.
-      if (usage.status === 'active') {
+      if (usage.status === "active") {
         for (const curve of substance.recoveryCurves) {
           const list = contributionsByOrgan.get(curve.organId) ?? [];
           list.push({
             substanceId: usage.substanceId,
-            status: 'active',
+            status: "active",
             progressFraction: 0,
             absoluteRecovery: 0,
             daysAbstinent: 0,
@@ -117,7 +119,7 @@ export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganSta
         const list = contributionsByOrgan.get(curve.organId) ?? [];
         list.push({
           substanceId: usage.substanceId,
-          status: 'abstinent',
+          status: "abstinent",
           progressFraction: recovery.progressFraction,
           absoluteRecovery: recovery.absoluteRecovery,
           daysAbstinent: recovery.daysAbstinent,
@@ -131,22 +133,28 @@ export function useOrganStates(profile: UserProfile = MOCK_PROFILE): UseOrganSta
     // Second pass: build the final OrganState for each organ,
     // sorting contributions by severity (worst first).
     contributionsByOrgan.forEach((contributions, organId) => {
-      // Sort by progressFraction ascending (worst = lowest progress
-      // = least recovered = first). Active substances at 0 naturally
-      // sort to the front.
-      contributions.sort((a, b) => a.progressFraction - b.progressFraction);
+      const activeContribs = contributions.filter((c) => c.status === 'active');
+      const abstinentContribs = contributions.filter((c) => c.status === 'abstinent');
 
-      const dominant = contributions[0];
+      // Sort abstinent by worst progress first
+      abstinentContribs.sort((a, b) => a.progressFraction - b.progressFraction);
+
+      const hasActive = activeContribs.length > 0;
+      const worstAbstinent = abstinentContribs[0] ?? null;
+
+      // Dominant for visual progress: worst abstinent substance.
+      // If only active substances affect this organ, progress is 0.
+      const dominant = worstAbstinent ?? activeContribs[0];
 
       result.set(organId, {
         organId,
         organName: dominant.organName,
-        progressFraction: dominant.progressFraction,
-        absoluteRecovery: dominant.absoluteRecovery,
-        daysAbstinent: dominant.daysAbstinent,
+        progressFraction: worstAbstinent?.progressFraction ?? 0,
+        absoluteRecovery: worstAbstinent?.absoluteRecovery ?? 0,
+        daysAbstinent: worstAbstinent?.daysAbstinent ?? 0,
         dominantSubstanceId: dominant.substanceId,
         confidenceLevel: dominant.confidenceLevel,
-        dominantStatus: dominant.status,
+        dominantStatus: hasActive ? 'active' : 'abstinent',
         contributingSubstances: contributions.map((c) => ({
           substanceId: c.substanceId,
           status: c.status,

@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import type { User, BiologicalSex } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service.js';
+import { Injectable } from "@nestjs/common";
+import type { User, BiologicalSex } from "@prisma/client";
+import { PrismaService } from "../prisma/prisma.service.js";
 
 /**
  * Encapsulates all access to the User table. Other modules (auth,

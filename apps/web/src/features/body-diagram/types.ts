@@ -1,6 +1,6 @@
-import type { BiologicalSex, OrganId } from '@soma/shared-types';
+import type { BiologicalSex, OrganId } from "@soma/shared-types";
 
-export type BodyView = 'front' | 'back';
+export type BodyView = "front" | "back";
 
 /**
  * Visual state of a single organ in the diagram.

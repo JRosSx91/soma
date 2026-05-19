@@ -17,6 +17,8 @@
   },
   "panel": {
     "selectedOrgan": "Ausgewähltes Organ",
+    "affectedOrgans": "Betroffene Organe",
+    "noOrgansAffected": "Keine betroffenen Organe",
     "hoverPrompt": "Fahren Sie über ein Organ",
     "clickPrompt": "Klicken Sie auf ein Organ, um es zu inspizieren",
     "affectedBy": "Betroffen von",
@@ -42,8 +44,8 @@
       "mild": "leicht",
       "normalizing": "normalisierend"
     },
-    "activeConsumption": "AKTIVER KONSUM",
-"activeConsumptionDescription": "Dieses Organ erholt sich nicht, weil Sie weiterhin {{substance}} konsumieren. Der Schaden, den Sie sehen, ist in Echtzeit."
+    "activeConsumption": "AKTIVER SCHADEN",
+    "activeConsumptionDescription": "Du konsumierst noch {{substance}}. Die Erholung von anderen Substanzen geht weiter, aber dieses Organ wird gleichzeitig aktiv geschädigt."
   },
   "empty": {
     "noSubstances": "Noch keine Substanzen verfolgt.",
