@@ -45,6 +45,7 @@ enum BodySystem {
   digestive
   immune
   integumentary
+  sensory
 }
 
 enum RecoveryCurveShape {
