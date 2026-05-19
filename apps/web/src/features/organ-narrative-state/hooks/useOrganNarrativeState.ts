@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from 'react';
-import { apiRequest } from '../../auth/client/api.js';
-import type { OrganNarrativeStateEntry } from '../types.js';
+import { useEffect, useState, useCallback } from "react";
+import { apiRequest } from "../../auth/client/api.js";
+import type { OrganNarrativeStateEntry } from "../types.js";
 
 interface UseOrganNarrativeStateResult {
   entries: OrganNarrativeStateEntry[];
@@ -28,14 +28,14 @@ export function useOrganNarrativeState(): UseOrganNarrativeStateResult {
     setError(null);
     try {
       const data = await apiRequest<OrganNarrativeStateEntry[]>(
-        '/me/organ-narrative-state',
+        "/me/organ-narrative-state",
       );
       setEntries(data);
     } catch (err) {
       setError(
         err instanceof Error
           ? err.message
-          : 'Failed to load organ narrative state',
+          : "Failed to load organ narrative state",
       );
     } finally {
       setLoading(false);

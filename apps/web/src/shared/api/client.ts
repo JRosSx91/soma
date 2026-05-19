@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 export class ApiError extends Error {
   public readonly status: number;
@@ -7,7 +7,7 @@ export class ApiError extends Error {
 
   constructor(status: number, statusText: string, body: unknown) {
     super(`API error ${status}: ${statusText}`);
-    this.name = 'ApiError';
+    this.name = "ApiError";
     this.status = status;
     this.statusText = statusText;
     this.body = body;
@@ -22,8 +22,8 @@ export class ApiError extends Error {
  */
 export async function apiGet<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: 'GET',
-    headers: { 'Accept': 'application/json' },
+    method: "GET",
+    headers: { Accept: "application/json" },
   });
 
   if (!response.ok) {

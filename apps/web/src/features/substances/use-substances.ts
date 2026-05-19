@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { fetchSubstances } from './substances.js';
-import type { ApiSubstance } from '../../shared/api/types.js';
+import { useEffect, useState } from "react";
+import { fetchSubstances } from "./substances.js";
+import type { ApiSubstance } from "../../shared/api/types.js";
 
 interface UseSubstancesState {
   data: ApiSubstance[] | null;

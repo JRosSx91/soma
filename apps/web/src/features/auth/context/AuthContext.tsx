@@ -1,22 +1,22 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import {
   login as loginApi,
   register as registerApi,
   logout as logoutApi,
   fetchCurrentUser,
-} from '../client/auth-api.js';
+} from "../client/auth-api.js";
 import {
   clearStoredToken,
   getStoredToken,
   UNAUTHORIZED_EVENT,
-} from '../client/api.js';
+} from "../client/api.js";
 import type {
   AuthState,
   AuthUser,
   LoginCredentials,
   RegisterCredentials,
-} from '../types.js';
+} from "../types.js";
 
 interface AuthContextValue extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
@@ -79,7 +79,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const fullUser = await fetchCurrentUser();
       setUser(fullUser);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Login failed';
+      const message = err instanceof Error ? err.message : "Login failed";
       setError(message);
       throw err;
     }
@@ -93,7 +93,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser(fullUser);
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : 'Registration failed';
+        err instanceof Error ? err.message : "Registration failed";
       setError(message);
       throw err;
     }

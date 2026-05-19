@@ -1,39 +1,39 @@
-import { PrismaClient } from '@prisma/client';
-import { seedSubstances } from './seed/substances.js';
-import { seedOrgans } from './seed/organs.js';
-import { seedDamageProfiles } from './seed/damage-profiles.js';
-import { seedRecoveryCurves } from './seed/recovery-curves.js';
-import { seedAchievements } from './seed/achievements.js';
-import { seedUsers } from './seed/users.js';
-import { seedNeurotransmitterProfiles } from './seed/neurotransmitter-profiles.js';
-import { seedOrganNarratives } from './seed/organ-narratives.js';
+import { PrismaClient } from "@prisma/client";
+import { seedSubstances } from "./seed/substances.js";
+import { seedOrgans } from "./seed/organs.js";
+import { seedDamageProfiles } from "./seed/damage-profiles.js";
+import { seedRecoveryCurves } from "./seed/recovery-curves.js";
+import { seedAchievements } from "./seed/achievements.js";
+import { seedUsers } from "./seed/users.js";
+import { seedNeurotransmitterProfiles } from "./seed/neurotransmitter-profiles.js";
+import { seedOrganNarratives } from "./seed/organ-narratives.js";
 
 const prisma = new PrismaClient();
 
 async function main(): Promise<void> {
-  console.log('Seeding Soma database...\n');
-  console.log('  - substances');
+  console.log("Seeding Soma database...\n");
+  console.log("  - substances");
   await seedSubstances(prisma);
-  console.log('  - organs');
+  console.log("  - organs");
   await seedOrgans(prisma);
-  console.log('  - damage profiles');
+  console.log("  - damage profiles");
   await seedDamageProfiles(prisma);
-  console.log('  - recovery curves');
+  console.log("  - recovery curves");
   await seedRecoveryCurves(prisma);
-  console.log('  - achievements');
+  console.log("  - achievements");
   await seedAchievements(prisma);
-  console.log('  - neurotransmitter profiles');
+  console.log("  - neurotransmitter profiles");
   await seedNeurotransmitterProfiles(prisma);
-  console.log('  - organ narratives');
+  console.log("  - organ narratives");
   await seedOrganNarratives(prisma);
-  console.log('  - users');
+  console.log("  - users");
   await seedUsers(prisma);
-  console.log('\nDone.');
+  console.log("\nDone.");
 }
 
 main()
   .catch((error) => {
-    console.error('Seed failed:', error);
+    console.error("Seed failed:", error);
     process.exit(1);
   })
   .finally(async () => {

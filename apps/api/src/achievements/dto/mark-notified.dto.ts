@@ -1,4 +1,4 @@
-import { ArrayUnique, IsArray, IsString } from 'class-validator';
+import { ArrayUnique, IsArray, IsString } from "class-validator";
 
 export class MarkNotifiedDto {
   @IsArray()

@@ -79,18 +79,18 @@
       "during_use": "What you may feel: muscle relaxation, reduced anxiety, sedation at higher doses. CB1 receptor activation modulates GABAergic transmission — effects vary significantly by dose and brain region."
     }
   },
-"caffeine": {
-  "adenosine": {
-    "acute_withdrawal": "What you may feel: headache (often severe), fatigue, drowsiness, difficulty concentrating, irritability. Peaks at 24-48 hours. Your adenosine receptors were upregulated to compensate for chronic blockade by caffeine; without caffeine, the accumulated adenosine signal hits hypersensitive receptors. The headache is real and predictable.",
-    "post_acute": "What you may feel: residual fatigue, mild concentration difficulty in the afternoon, occasional headache. Adenosine receptor density is gradually returning to baseline.",
-    "normalizing": "Adenosinergic balance approaches normal. Sleep pressure regulation, morning alertness, and afternoon energy stabilize without external stimulation.",
-    "during_use": "What you may feel: alertness, reduced fatigue, improved concentration, elevated mood. Caffeine blocks adenosine receptors competitively — adenosine is the brain's primary sleep-pressure signal. Chronic blockade causes receptor upregulation, which is why tolerance develops and withdrawal produces rebound fatigue and headache."
-  },
-  "dopamine": {
-    "acute_withdrawal": "Mild motivational dip. The dopaminergic contribution of caffeine is indirect (via adenosine A2A receptors), so this phase is correspondingly mild.",
-    "post_acute": "Motivation stabilizes.",
-    "normalizing": "Dopamine function near baseline.",
-    "during_use": "What you may feel: mild mood elevation, increased motivation. Caffeine indirectly enhances dopamine signaling via adenosine A2A receptor blockade, which disinhibits dopaminergic neurons."
+  "caffeine": {
+    "adenosine": {
+      "acute_withdrawal": "What you may feel: headache (often severe), fatigue, drowsiness, difficulty concentrating, irritability. Peaks at 24-48 hours. Your adenosine receptors were upregulated to compensate for chronic blockade by caffeine; without caffeine, the accumulated adenosine signal hits hypersensitive receptors. The headache is real and predictable.",
+      "post_acute": "What you may feel: residual fatigue, mild concentration difficulty in the afternoon, occasional headache. Adenosine receptor density is gradually returning to baseline.",
+      "normalizing": "Adenosinergic balance approaches normal. Sleep pressure regulation, morning alertness, and afternoon energy stabilize without external stimulation.",
+      "during_use": "What you may feel: alertness, reduced fatigue, improved concentration, elevated mood. Caffeine blocks adenosine receptors competitively — adenosine is the brain's primary sleep-pressure signal. Chronic blockade causes receptor upregulation, which is why tolerance develops and withdrawal produces rebound fatigue and headache."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Mild motivational dip. The dopaminergic contribution of caffeine is indirect (via adenosine A2A receptors), so this phase is correspondingly mild.",
+      "post_acute": "Motivation stabilizes.",
+      "normalizing": "Dopamine function near baseline.",
+      "during_use": "What you may feel: mild mood elevation, increased motivation. Caffeine indirectly enhances dopamine signaling via adenosine A2A receptor blockade, which disinhibits dopaminergic neurons."
+    }
   }
-}
 }

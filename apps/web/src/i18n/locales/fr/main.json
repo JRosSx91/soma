@@ -43,7 +43,7 @@
       "normalizing": "en normalisation"
     },
     "activeConsumption": "CONSOMMATION ACTIVE",
-"activeConsumptionDescription": "Cet organe ne récupère pas car vous consommez toujours {{substance}}. Les dommages que vous voyez sont en temps réel."
+    "activeConsumptionDescription": "Cet organe ne récupère pas car vous consommez toujours {{substance}}. Les dommages que vous voyez sont en temps réel."
   },
   "empty": {
     "noSubstances": "Aucune substance suivie pour le moment.",

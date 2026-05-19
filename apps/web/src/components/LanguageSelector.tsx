@@ -1,16 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import type { SupportedLanguage } from '../i18n/index.js';
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import type { SupportedLanguage } from "../i18n/index.js";
 
-const LANGUAGES: Array<{ code: SupportedLanguage; iso: string; native: string }> = [
-  { code: 'en', iso: 'EN', native: 'English'  },
-  { code: 'es', iso: 'ES', native: 'Español'  },
-  { code: 'ca', iso: 'CA', native: 'Català'   },
-  { code: 'gl', iso: 'GL', native: 'Galego'   },
-  { code: 'eu', iso: 'EU', native: 'Euskera'  },
-  { code: 'fr', iso: 'FR', native: 'Français' },
-  { code: 'it', iso: 'IT', native: 'Italiano' },
-  { code: 'de', iso: 'DE', native: 'Deutsch'  },
+const LANGUAGES: Array<{
+  code: SupportedLanguage;
+  iso: string;
+  native: string;
+}> = [
+  { code: "en", iso: "EN", native: "English" },
+  { code: "es", iso: "ES", native: "Español" },
+  { code: "ca", iso: "CA", native: "Català" },
+  { code: "gl", iso: "GL", native: "Galego" },
+  { code: "eu", iso: "EU", native: "Euskera" },
+  { code: "fr", iso: "FR", native: "Français" },
+  { code: "it", iso: "IT", native: "Italiano" },
+  { code: "de", iso: "DE", native: "Deutsch" },
 ];
 
 /**
@@ -24,7 +28,7 @@ const LANGUAGES: Array<{ code: SupportedLanguage; iso: string; native: string }>
  */
 export function LanguageSelector() {
   const { i18n } = useTranslation();
-  const activeLang = i18n.language.split('-')[0] as SupportedLanguage;
+  const activeLang = i18n.language.split("-")[0] as SupportedLanguage;
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,22 +45,25 @@ export function LanguageSelector() {
   useEffect(() => {
     if (!open) return;
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, [open]);
 
   // Close on Escape
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === "Escape") setOpen(false);
     };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
   }, [open]);
 
   return (
@@ -76,7 +83,7 @@ export function LanguageSelector() {
       >
         {active.iso}
         <span className="text-[10px] text-soma-fg-muted" aria-hidden="true">
-          {open ? '▴' : '▾'}
+          {open ? "▴" : "▾"}
         </span>
       </button>
 
@@ -103,9 +110,10 @@ export function LanguageSelector() {
                 w-full text-left px-3 py-1.5
                 text-xs transition-colors
                 flex items-center justify-between gap-4
-                ${lang.code === activeLang
-                  ? 'text-soma-accent bg-soma-bg-surface'
-                  : 'text-soma-fg-secondary hover:text-soma-fg-primary hover:bg-soma-bg-surface'
+                ${
+                  lang.code === activeLang
+                    ? "text-soma-accent bg-soma-bg-surface"
+                    : "text-soma-fg-secondary hover:text-soma-fg-primary hover:bg-soma-bg-surface"
                 }
               `}
             >

@@ -1,4 +1,4 @@
-import type { OrganId } from '@soma/shared-types';
+import type { OrganId } from "@soma/shared-types";
 
 /**
  * Mapping from Soma's OrganId (backend domain) to mesh name in
@@ -14,20 +14,20 @@ import type { OrganId } from '@soma/shared-types';
  *   - (Future) `ovaries`: not in the male model.
  */
 export const ORGAN_TO_MESH_NAME: Record<OrganId, string | null> = {
-  liver: 'liver',
-  heart: 'heart',
-  lungs: 'lungs',
-  bronchi: 'bronchi',
-  kidneys: 'kidneys',
-  stomach: 'stomach',
-  pancreas: 'pancreas',
-  'brain-prefrontal-cortex': 'brain_prefrontal_cortex',
-  'brain-hippocampus': 'brain_hippocampus',
-  'brain-vta': 'brain_vta_accumbens',
-  'brain-nucleus-accumbens': 'brain_vta_accumbens',
-  'brain-amygdala': 'brain_amygdala',
-  skin: 'skin',
-  testes: 'testes',
+  liver: "liver",
+  heart: "heart",
+  lungs: "lungs",
+  bronchi: "bronchi",
+  kidneys: "kidneys",
+  stomach: "stomach",
+  pancreas: "pancreas",
+  "brain-prefrontal-cortex": "brain_prefrontal_cortex",
+  "brain-hippocampus": "brain_hippocampus",
+  "brain-vta": "brain_vta_accumbens",
+  "brain-nucleus-accumbens": "brain_vta_accumbens",
+  "brain-amygdala": "brain_amygdala",
+  skin: "skin",
+  testes: "testes",
   ovaries: null,
 };
 

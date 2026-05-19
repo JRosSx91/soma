@@ -1,4 +1,4 @@
-import type { RecoveryInput, RecoveryOutput } from './types.js';
+import type { RecoveryInput, RecoveryOutput } from "./types.js";
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -55,17 +55,26 @@ export function computeRecovery(
 
   let progressFraction: number;
   switch (input.shape) {
-    case 'logarithmic':
-      progressFraction = logarithmicProgress(daysAbstinent, input.daysTo95Recovery);
+    case "logarithmic":
+      progressFraction = logarithmicProgress(
+        daysAbstinent,
+        input.daysTo95Recovery,
+      );
       break;
-    case 'sigmoidal':
-      progressFraction = sigmoidalProgress(daysAbstinent, input.daysTo95Recovery);
+    case "sigmoidal":
+      progressFraction = sigmoidalProgress(
+        daysAbstinent,
+        input.daysTo95Recovery,
+      );
       break;
-    case 'linear':
+    case "linear":
       progressFraction = linearProgress(daysAbstinent, input.daysTo95Recovery);
       break;
-    case 'stepwise':
-      progressFraction = stepwiseProgress(daysAbstinent, input.daysTo95Recovery);
+    case "stepwise":
+      progressFraction = stepwiseProgress(
+        daysAbstinent,
+        input.daysTo95Recovery,
+      );
       break;
   }
 

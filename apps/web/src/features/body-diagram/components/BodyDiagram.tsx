@@ -1,5 +1,5 @@
-import { MaleFront } from './views/MaleFront.js';
-import type { BodyDiagramProps } from '../types.js';
+import { MaleFront } from "./views/MaleFront.js";
+import type { BodyDiagramProps } from "../types.js";
 
 export function BodyDiagram({
   biologicalSex,
@@ -9,8 +9,8 @@ export function BodyDiagram({
   onOrganHover = () => {},
   onOrganClick = () => {},
 }: BodyDiagramProps) {
-  if (biologicalSex !== 'male' || view !== 'front') {
-    if (typeof console !== 'undefined') {
+  if (biologicalSex !== "male" || view !== "front") {
+    if (typeof console !== "undefined") {
       console.warn(
         `BodyDiagram: variant ${biologicalSex}/${view} not yet implemented, falling back to male/front`,
       );

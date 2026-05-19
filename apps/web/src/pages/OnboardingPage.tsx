@@ -1,40 +1,40 @@
-import { useEffect, useState } from 'react';
-import type { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useSubstances } from '../features/substances/index.js';
-import { useUserProfile } from '../features/profile/index.js';
-import type { UsageInput } from '../features/profile/index.js';
-import { LanguageSelector } from '../components/LanguageSelector.js';
+import { useEffect, useState } from "react";
+import type { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useSubstances } from "../features/substances/index.js";
+import { useUserProfile } from "../features/profile/index.js";
+import type { UsageInput } from "../features/profile/index.js";
+import { LanguageSelector } from "../components/LanguageSelector.js";
 
-type UsageMode = 'abstinent' | 'active';
+type UsageMode = "abstinent" | "active";
 
 interface SubstanceFormState {
   active: boolean;
   mode: UsageMode;
   yearStarted: string;
   lastUseDate: string;
-  frequency: UsageInput['frequency'];
+  frequency: UsageInput["frequency"];
 }
 
 const FREQUENCY_KEYS: Array<{
-  value: UsageInput['frequency'];
+  value: UsageInput["frequency"];
   labelKey: string;
 }> = [
-  { value: 'daily', labelKey: 'frequency.daily' },
-  { value: 'weekly', labelKey: 'frequency.weekly' },
-  { value: 'monthly', labelKey: 'frequency.monthly' },
-  { value: 'occasional', labelKey: 'frequency.occasional' },
+  { value: "daily", labelKey: "frequency.daily" },
+  { value: "weekly", labelKey: "frequency.weekly" },
+  { value: "monthly", labelKey: "frequency.monthly" },
+  { value: "occasional", labelKey: "frequency.occasional" },
 ];
 
-const TODAY = new Date().toISOString().split('T')[0];
+const TODAY = new Date().toISOString().split("T")[0];
 
 const EMPTY_STATE: SubstanceFormState = {
   active: false,
-  mode: 'abstinent',
-  yearStarted: '',
-  lastUseDate: '',
-  frequency: 'daily',
+  mode: "abstinent",
+  yearStarted: "",
+  lastUseDate: "",
+  frequency: "daily",
 };
 
 /**
@@ -42,17 +42,19 @@ const EMPTY_STATE: SubstanceFormState = {
  * into the YYYY-MM-DD format expected by <input type="date">.
  */
 function toDateInputValue(isoDate: string): string {
-  return isoDate.split('T')[0];
+  return isoDate.split("T")[0];
 }
 
 export function OnboardingPage() {
-  const { t } = useTranslation(['onboarding', 'substances', 'common']);
+  const { t } = useTranslation(["onboarding", "substances", "common"]);
   const navigate = useNavigate();
   const { data: substances, loading: loadingSubstances } = useSubstances();
   const { profile, loading: loadingProfile, saveProfile } = useUserProfile();
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [formState, setFormState] = useState<Record<string, SubstanceFormState>>({});
+  const [formState, setFormState] = useState<
+    Record<string, SubstanceFormState>
+  >({});
   const [initialized, setInitialized] = useState(false);
 
   /**
@@ -70,7 +72,9 @@ export function OnboardingPage() {
         active: true,
         mode: usage.status,
         yearStarted: String(usage.yearStarted),
-        lastUseDate: usage.lastUseDate ? toDateInputValue(usage.lastUseDate) : '',
+        lastUseDate: usage.lastUseDate
+          ? toDateInputValue(usage.lastUseDate)
+          : "",
         frequency: usage.frequency,
       };
     }
@@ -106,29 +110,31 @@ export function OnboardingPage() {
 
         const yearStarted = parseInt(state.yearStarted, 10);
         if (Number.isNaN(yearStarted)) {
-          throw new Error(t('errors.invalidYear', { substance: substance.name }));
+          throw new Error(
+            t("errors.invalidYear", { substance: substance.name }),
+          );
         }
 
         // lastUseDate is only required for abstinent mode.
-        if (state.mode === 'abstinent' && !state.lastUseDate) {
+        if (state.mode === "abstinent" && !state.lastUseDate) {
           throw new Error(
-            t('errors.lastUseDateRequired', { substance: substance.name }),
+            t("errors.lastUseDateRequired", { substance: substance.name }),
           );
         }
 
         usages.push({
           substanceId: substance.id,
           yearStarted,
-          lastUseDate: state.mode === 'abstinent' ? state.lastUseDate : null,
+          lastUseDate: state.mode === "abstinent" ? state.lastUseDate : null,
           frequency: state.frequency,
           status: state.mode,
         });
       }
 
       await saveProfile(usages);
-      navigate('/app', { replace: true });
+      navigate("/app", { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('errors.saveFailed'));
+      setError(err instanceof Error ? err.message : t("errors.saveFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -137,7 +143,7 @@ export function OnboardingPage() {
   if (loadingSubstances || loadingProfile || !substances) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        {t('common:loading')}
+        {t("common:loading")}
       </div>
     );
   }
@@ -149,8 +155,10 @@ export function OnboardingPage() {
       </div>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-light tracking-wide mb-2">{t('title')}</h1>
-          <p className="text-sm text-soma-fg-muted">{t('subtitle')}</p>
+          <h1 className="text-3xl font-light tracking-wide mb-2">
+            {t("title")}
+          </h1>
+          <p className="text-sm text-soma-fg-muted">{t("subtitle")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -166,12 +174,16 @@ export function OnboardingPage() {
                   <input
                     type="checkbox"
                     checked={state.active}
-                    onChange={(e) => updateField(substance.id, 'active', e.target.checked)}
+                    onChange={(e) =>
+                      updateField(substance.id, "active", e.target.checked)
+                    }
                     className="w-4 h-4"
                   />
                   <div className="flex-1">
                     <p className="text-soma-fg-primary capitalize">
-                      {t(`substances:${substance.id}.name`, { defaultValue: substance.name })}
+                      {t(`substances:${substance.id}.name`, {
+                        defaultValue: substance.name,
+                      })}
                     </p>
                     <p className="text-xs text-soma-fg-muted">
                       {t(`substances:${substance.id}.shortDescription`, {
@@ -186,57 +198,69 @@ export function OnboardingPage() {
                     {/* Mode selector — abstinent vs active */}
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t('fields.mode')}
+                        {t("fields.mode")}
                       </label>
                       <div className="grid grid-cols-2 gap-2">
                         <button
                           type="button"
-                          onClick={() => updateField(substance.id, 'mode', 'abstinent')}
+                          onClick={() =>
+                            updateField(substance.id, "mode", "abstinent")
+                          }
                           className={`
                             px-3 py-2 rounded text-sm transition-colors
                             border
-                            ${state.mode === 'abstinent'
-                              ? 'border-soma-accent bg-soma-accent/10 text-soma-fg-primary'
-                              : 'border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted'
+                            ${
+                              state.mode === "abstinent"
+                                ? "border-soma-accent bg-soma-accent/10 text-soma-fg-primary"
+                                : "border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted"
                             }
                           `}
                         >
-                          {t('mode.abstinent')}
+                          {t("mode.abstinent")}
                         </button>
                         <button
                           type="button"
-                          onClick={() => updateField(substance.id, 'mode', 'active')}
+                          onClick={() =>
+                            updateField(substance.id, "mode", "active")
+                          }
                           className={`
                             px-3 py-2 rounded text-sm transition-colors
                             border
-                            ${state.mode === 'active'
-                              ? 'border-soma-accent bg-soma-accent/10 text-soma-fg-primary'
-                              : 'border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted'
+                            ${
+                              state.mode === "active"
+                                ? "border-soma-accent bg-soma-accent/10 text-soma-fg-primary"
+                                : "border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted"
                             }
                           `}
                         >
-                          {t('mode.active')}
+                          {t("mode.active")}
                         </button>
                       </div>
                       <p className="text-xs text-soma-fg-muted mt-2">
-                        {state.mode === 'abstinent'
-                          ? t('mode.abstinentDescription')
-                          : t('mode.activeDescription')}
+                        {state.mode === "abstinent"
+                          ? t("mode.abstinentDescription")
+                          : t("mode.activeDescription")}
                       </p>
                     </div>
 
                     {/* lastUseDate — only for abstinent mode */}
-                    {state.mode === 'abstinent' && (
+                    {state.mode === "abstinent" && (
                       <div>
                         <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                          {t('fields.lastUseDate')}
+                          {t("fields.lastUseDate")}
                         </label>
                         <input
                           type="date"
                           required
                           max={TODAY}
                           value={state.lastUseDate}
-                          onChange={(e) => updateField(substance.id, 'lastUseDate', e.target.value)}
+                          onChange={(e) =>
+                            updateField(
+                              substance.id,
+                              "lastUseDate",
+                              e.target.value,
+                            )
+                          }
                           className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
                         />
                       </div>
@@ -244,7 +268,7 @@ export function OnboardingPage() {
 
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t('fields.yearStarted')}
+                        {t("fields.yearStarted")}
                       </label>
                       <input
                         type="number"
@@ -252,22 +276,28 @@ export function OnboardingPage() {
                         min={1900}
                         max={new Date().getFullYear()}
                         value={state.yearStarted}
-                        onChange={(e) => updateField(substance.id, 'yearStarted', e.target.value)}
+                        onChange={(e) =>
+                          updateField(
+                            substance.id,
+                            "yearStarted",
+                            e.target.value,
+                          )
+                        }
                         className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t('fields.frequency')}
+                        {t("fields.frequency")}
                       </label>
                       <select
                         value={state.frequency}
                         onChange={(e) =>
                           updateField(
                             substance.id,
-                            'frequency',
-                            e.target.value as UsageInput['frequency'],
+                            "frequency",
+                            e.target.value as UsageInput["frequency"],
                           )
                         }
                         className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
@@ -292,11 +322,13 @@ export function OnboardingPage() {
             disabled={submitting}
             className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-3 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? t('submitting') : t('submit')}
+            {submitting ? t("submitting") : t("submit")}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-soma-fg-muted">{t('skip')}</p>
+        <p className="mt-6 text-center text-xs text-soma-fg-muted">
+          {t("skip")}
+        </p>
       </div>
     </div>
   );

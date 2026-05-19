@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import type {
   ComposedNTState,
   NeurotransmitterDirection,
   NeurotransmitterSeverity,
-} from '../types.js';
+} from "../types.js";
 
 interface NeurotransmitterPanelProps {
   entries: ComposedNTState[];
@@ -17,33 +17,33 @@ const SEVERITY_FILL: Record<NeurotransmitterSeverity, number> = {
 };
 
 const DIRECTION_COLOR: Record<NeurotransmitterDirection, string> = {
-  depleted: 'bg-red-700/70',
-  elevated: 'bg-amber-600/70',
-  oscillating: 'bg-violet-600/70',
-  normalizing: 'bg-emerald-700/60',
+  depleted: "bg-red-700/70",
+  elevated: "bg-amber-600/70",
+  oscillating: "bg-violet-600/70",
+  normalizing: "bg-emerald-700/60",
 };
 
 const DIRECTION_TRACK: Record<NeurotransmitterDirection, string> = {
-  depleted: 'bg-red-950/40',
-  elevated: 'bg-amber-950/40',
-  oscillating: 'bg-violet-950/40',
-  normalizing: 'bg-emerald-950/40',
+  depleted: "bg-red-950/40",
+  elevated: "bg-amber-950/40",
+  oscillating: "bg-violet-950/40",
+  normalizing: "bg-emerald-950/40",
 };
 
 export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
   const { t } = useTranslation([
-    'neurotransmitters',
-    'neurotransmitter-phases',
-    'phases',
-    'substances',
-    'main',
-    'mechanisms',
+    "neurotransmitters",
+    "neurotransmitter-phases",
+    "phases",
+    "substances",
+    "main",
+    "mechanisms",
   ]);
 
   if (entries.length === 0) {
     return (
       <p className="text-xs text-soma-fg-muted italic">
-        {t('main:panel.noNeurotransmitterData')}
+        {t("main:panel.noNeurotransmitterData")}
       </p>
     );
   }
@@ -55,13 +55,23 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
         const fillClass = DIRECTION_COLOR[entry.resultingDirection];
         const trackClass = DIRECTION_TRACK[entry.resultingDirection];
         const ntName = t(`neurotransmitters:${entry.neurotransmitter}.name`);
-        const symptomText = t(`neurotransmitter-phases:${entry.resultingSymptomKey}`);
-        const directionLabel = t(`main:panel.direction.${entry.resultingDirection}`);
-        const severityLabel = t(`main:panel.severity.${entry.resultingSeverity}`);
+        const symptomText = t(
+          `neurotransmitter-phases:${entry.resultingSymptomKey}`,
+        );
+        const directionLabel = t(
+          `main:panel.direction.${entry.resultingDirection}`,
+        );
+        const severityLabel = t(
+          `main:panel.severity.${entry.resultingSeverity}`,
+        );
 
         const sourceNames = entry.sources
-          .map((s) => t(`substances:${s.substanceId}.name`, { defaultValue: s.substanceId }))
-          .join(', ');
+          .map((s) =>
+            t(`substances:${s.substanceId}.name`, {
+              defaultValue: s.substanceId,
+            }),
+          )
+          .join(", ");
 
         const multiSource = entry.sources.length > 1;
 
@@ -74,11 +84,13 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
               <p className="text-soma-fg-primary text-sm">{ntName}</p>
               {multiSource && (
                 <span className="text-[10px] uppercase tracking-wider text-soma-accent">
-                  {t('main:panel.multiSource')}
+                  {t("main:panel.multiSource")}
                 </span>
               )}
             </div>
-            <div className={`relative h-1.5 rounded-full overflow-hidden ${trackClass}`}>
+            <div
+              className={`relative h-1.5 rounded-full overflow-hidden ${trackClass}`}
+            >
               <div
                 className={`h-full ${fillClass} transition-all duration-500`}
                 style={{ width: `${fill * 100}%` }}
@@ -86,27 +98,36 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
             </div>
             <p className="text-[11px] text-soma-fg-secondary mt-2">
               <span className="capitalize">{directionLabel}</span>
-              {', '}
+              {", "}
               <span>{severityLabel}</span>
             </p>
             <p className="text-[11px] text-soma-fg-muted mt-1">
-              {t('main:panel.causedBy')}:{' '}
+              {t("main:panel.causedBy")}:{" "}
               <span className="text-soma-fg-secondary">{sourceNames}</span>
             </p>
             {multiSource && (
               <div className="mt-2 space-y-1">
                 {entry.sources.map((s) => (
-                  <p key={s.substanceId} className="text-[10px] text-soma-fg-muted">
+                  <p
+                    key={s.substanceId}
+                    className="text-[10px] text-soma-fg-muted"
+                  >
                     <span className="text-soma-fg-secondary">
-                      {t(`substances:${s.substanceId}.name`, { defaultValue: s.substanceId })}
+                      {t(`substances:${s.substanceId}.name`, {
+                        defaultValue: s.substanceId,
+                      })}
                     </span>
                     {s.mechanismKey && (
                       <span className="ml-1 opacity-60">
-                        ({t(`mechanisms:${s.mechanismKey}`, { defaultValue: s.mechanismKey })})
+                        (
+                        {t(`mechanisms:${s.mechanismKey}`, {
+                          defaultValue: s.mechanismKey,
+                        })}
+                        )
                       </span>
                     )}
-                    {' — '}
-                    {t(`main:panel.direction.${s.direction}`)},{' '}
+                    {" — "}
+                    {t(`main:panel.direction.${s.direction}`)},{" "}
                     {t(`main:panel.severity.${s.severity}`)}
                   </p>
                 ))}

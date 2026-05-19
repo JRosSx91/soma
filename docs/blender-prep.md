@@ -36,19 +36,19 @@ duplicated into an export collection prior to glTF export.
 
 These have a direct, unambiguous mesh in the Z-Anatomy hierarchy:
 
-| Soma OrganId | Z-Anatomy path |
-|---|---|
-| `liver` | `8 → Visceral systems.g → Digestive system.g → Liver` |
-| `heart` | `5 → Arterial system.g → Heart.g` |
-| `lungs` | `8 → Visceral systems.g → Respiratory system.g → Lungs.g` |
-| `bronchi` | `8 → Visceral systems.g → Respiratory system.g → Tracheobronchial tree.g → Bronchi.g` |
-| `kidneys` | `8 → Visceral systems.g → Urinary system.g → Kidney.l + Kidney.r` |
-| `stomach` | `8 → Visceral systems.g → Digestive system.g → Digestive canal.g → Stomach` |
-| `pancreas` | `8 → Visceral systems.g → Digestive system.g → Pancreas` |
-| `brain-amygdala` | `7 → Brain.g → Cerebrum.g → Telencephalon.g → Basal forebrain.g → Amygdaloid body.l + .r` |
-| `brain-hippocampus` | `7 → Brain.g → Cerebrum.g → Telencephalon.g → Limbic lobe.g → Hippocampus.l + .r` |
-| `testes` | `8 → Genital systems.g → Male genital system.g → Male internal genitalia.g → Testis.l + .r` |
-| `skin` | `9 → Regions of human body.g (excluding Hairs.g)` |
+| Soma OrganId        | Z-Anatomy path                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `liver`             | `8 → Visceral systems.g → Digestive system.g → Liver`                                       |
+| `heart`             | `5 → Arterial system.g → Heart.g`                                                           |
+| `lungs`             | `8 → Visceral systems.g → Respiratory system.g → Lungs.g`                                   |
+| `bronchi`           | `8 → Visceral systems.g → Respiratory system.g → Tracheobronchial tree.g → Bronchi.g`       |
+| `kidneys`           | `8 → Visceral systems.g → Urinary system.g → Kidney.l + Kidney.r`                           |
+| `stomach`           | `8 → Visceral systems.g → Digestive system.g → Digestive canal.g → Stomach`                 |
+| `pancreas`          | `8 → Visceral systems.g → Digestive system.g → Pancreas`                                    |
+| `brain-amygdala`    | `7 → Brain.g → Cerebrum.g → Telencephalon.g → Basal forebrain.g → Amygdaloid body.l + .r`   |
+| `brain-hippocampus` | `7 → Brain.g → Cerebrum.g → Telencephalon.g → Limbic lobe.g → Hippocampus.l + .r`           |
+| `testes`            | `8 → Genital systems.g → Male genital system.g → Male internal genitalia.g → Testis.l + .r` |
+| `skin`              | `9 → Regions of human body.g (excluding Hairs.g)`                                           |
 
 ### Approximate mappings (2 organs)
 
@@ -56,19 +56,19 @@ These exist in Soma's domain model but Z-Anatomy does not provide them
 as isolated meshes. We map to the smallest available containing region
 and document the approximation:
 
-| Soma OrganId | Z-Anatomy mesh used | Reason |
-|---|---|---|
-| `brain-prefrontal-cortex` | `Frontal lobe.g` (whole frontal lobe) | Z-Anatomy does not subdivide the frontal lobe into prefrontal/motor/premotor regions. |
-| `brain-vta` | `Tegmentum of midbrain.g` (whole tegmentum) | The ventral tegmental area is a functional region defined by neuron type and projection, not by a discrete anatomical capsule. Atlases of the whole body rarely isolate it. |
+| Soma OrganId              | Z-Anatomy mesh used                         | Reason                                                                                                                                                                      |
+| ------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `brain-prefrontal-cortex` | `Frontal lobe.g` (whole frontal lobe)       | Z-Anatomy does not subdivide the frontal lobe into prefrontal/motor/premotor regions.                                                                                       |
+| `brain-vta`               | `Tegmentum of midbrain.g` (whole tegmentum) | The ventral tegmental area is a functional region defined by neuron type and projection, not by a discrete anatomical capsule. Atlases of the whole body rarely isolate it. |
 
 ### Unmapped (2 organs)
 
 These exist in Soma's domain model but have no mesh in Z-Anatomy:
 
-| Soma OrganId | Status | Plan |
-|---|---|---|
+| Soma OrganId              | Status                                                                        | Plan                                                                                                                                                                                                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `brain-nucleus-accumbens` | Not modeled. Z-Anatomy includes only the dorsal striatum (caudate + putamen). | Collapse with `brain-vta` for v1. Both share identical recovery curves per substance, and together form the mesolimbic axis. Backend keeps them separate; frontend renders them as a single "reward circuit" node mapped to `Tegmentum of midbrain.g`. |
-| `ovaries` | Z-Anatomy is a male-only model. | Female anatomical coverage is out of scope for PR 6. A future PR will source a female model (BodyParts3D or alternative) and add `BodyDiagram3DFemale` as a sibling component. |
+| `ovaries`                 | Z-Anatomy is a male-only model.                                               | Female anatomical coverage is out of scope for PR 6. A future PR will source a female model (BodyParts3D or alternative) and add `BodyDiagram3DFemale` as a sibling component.                                                                         |
 
 ## Naming convention for export
 

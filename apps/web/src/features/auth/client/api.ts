@@ -7,26 +7,30 @@
  *     clear the user.
  */
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-const TOKEN_STORAGE_KEY = 'soma.auth.token';
+const TOKEN_STORAGE_KEY = "soma.auth.token";
 
 /**
  * Custom event emitted when the API receives a 401. The auth context
  * listens and clears the user state. Decoupled this way so the API
  * client doesn't depend on React.
  */
-export const UNAUTHORIZED_EVENT = 'soma:auth:unauthorized';
+export const UNAUTHORIZED_EVENT = "soma:auth:unauthorized";
 
 export class ApiError extends Error {
   public readonly status: number;
   public readonly code?: string;
   public readonly details?: unknown;
 
-  constructor(status: number, message: string, code?: string, details?: unknown) {
+  constructor(
+    status: number,
+    message: string,
+    code?: string,
+    details?: unknown,
+  ) {
     super(message);
-    this.name = 'ApiError';
+    this.name = "ApiError";
     this.status = status;
     this.code = code;
     this.details = details;
@@ -46,7 +50,7 @@ export function clearStoredToken(): void {
 }
 
 interface RequestOptions {
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   /**
    * If true, the request is sent without the Authorization header.
@@ -59,18 +63,18 @@ export async function apiRequest<T>(
   path: string,
   options: RequestOptions = {},
 ): Promise<T> {
-  const { method = 'GET', body, anonymous = false } = options;
+  const { method = "GET", body, anonymous = false } = options;
 
   const headers: Record<string, string> = {};
 
   if (body !== undefined) {
-    headers['Content-Type'] = 'application/json';
+    headers["Content-Type"] = "application/json";
   }
 
   if (!anonymous) {
     const token = getStoredToken();
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
   }
 
@@ -88,25 +92,25 @@ export async function apiRequest<T>(
 
   // Try to parse JSON error body for nicer messages.
   if (!response.ok) {
-  let message = `HTTP ${response.status}`;
-  let code: string | undefined;
-  let details: unknown;
-  try {
-    const errorBody = await response.json();
-    details = errorBody;
-    if (typeof errorBody.message === 'string') {
-      message = errorBody.message;
-    } else if (Array.isArray(errorBody.message)) {
-      message = errorBody.message.join('; ');
+    let message = `HTTP ${response.status}`;
+    let code: string | undefined;
+    let details: unknown;
+    try {
+      const errorBody = await response.json();
+      details = errorBody;
+      if (typeof errorBody.message === "string") {
+        message = errorBody.message;
+      } else if (Array.isArray(errorBody.message)) {
+        message = errorBody.message.join("; ");
+      }
+      if (typeof errorBody.code === "string") {
+        code = errorBody.code;
+      }
+    } catch {
+      // Body is not JSON. Use default message.
     }
-    if (typeof errorBody.code === 'string') {
-      code = errorBody.code;
-    }
-  } catch {
-    // Body is not JSON. Use default message.
+    throw new ApiError(response.status, message, code, details);
   }
-  throw new ApiError(response.status, message, code, details);
-}
 
   // 204 No Content returns no body.
   if (response.status === 204) {

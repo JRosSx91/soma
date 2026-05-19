@@ -1,4 +1,4 @@
-export type AchievementTier = 'bronze' | 'silver' | 'gold' | 'platinum';
+export type AchievementTier = "bronze" | "silver" | "gold" | "platinum";
 
 /**
  * Mirrors the response of GET /me/achievements from the backend.

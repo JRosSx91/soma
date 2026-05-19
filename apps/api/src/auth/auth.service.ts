@@ -2,13 +2,13 @@ import {
   ConflictException,
   Injectable,
   UnauthorizedException,
-} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import bcrypt from 'bcrypt';
-import { UsersService } from '../users/users.service.js';
-import { RegisterDto } from './dto/register.dto.js';
-import { LoginDto } from './dto/login.dto.js';
-import { CodedConflictException } from '../common/exceptions/coded-exception.js';
+} from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import bcrypt from "bcrypt";
+import { UsersService } from "../users/users.service.js";
+import { RegisterDto } from "./dto/register.dto.js";
+import { LoginDto } from "./dto/login.dto.js";
+import { CodedConflictException } from "../common/exceptions/coded-exception.js";
 
 const SALT_ROUNDS = 10;
 
@@ -42,7 +42,10 @@ export class AuthService {
   async register(dto: RegisterDto): Promise<AuthenticatedResponse> {
     const existing = await this.usersService.findByEmail(dto.email);
     if (existing) {
-      throw new CodedConflictException('AUTH_EMAIL_EXISTS', 'Email already registered');
+      throw new CodedConflictException(
+        "AUTH_EMAIL_EXISTS",
+        "Email already registered",
+      );
     }
 
     const hashedPassword = await bcrypt.hash(dto.password, SALT_ROUNDS);
@@ -64,7 +67,7 @@ export class AuthService {
     if (!user) {
       // Same error for both cases to avoid leaking whether the email
       // is registered.
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException("Invalid credentials");
     }
 
     const passwordMatches = await bcrypt.compare(
@@ -72,7 +75,7 @@ export class AuthService {
       user.hashedPassword,
     );
     if (!passwordMatches) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException("Invalid credentials");
     }
 
     return this.buildAuthResponse(user.id, user.email, user.displayName);

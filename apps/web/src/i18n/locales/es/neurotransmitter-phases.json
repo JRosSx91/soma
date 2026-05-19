@@ -79,18 +79,18 @@
       "during_use": "Qué puedes sentir: relajación muscular, reducción de la ansiedad, sedación a dosis altas. La activación del receptor CB1 modula la transmisión GABAérgica — los efectos varían significativamente según la dosis y la región cerebral."
     }
   },
-"caffeine": {
-  "adenosine": {
-    "acute_withdrawal": "Qué puedes sentir: cefalea (a menudo intensa), fatiga, somnolencia, dificultad para concentrarse, irritabilidad. Pico a las 24-48 horas. Tus receptores de adenosina estaban upregulated para compensar el bloqueo crónico por cafeína; sin cafeína, la señal acumulada de adenosina golpea receptores hipersensibles. La cefalea es real y predecible.",
-    "post_acute": "Qué puedes sentir: fatiga residual, dificultad leve de concentración por la tarde, cefalea ocasional. La densidad de receptores de adenosina regresa gradualmente a la línea base.",
-    "normalizing": "El equilibrio adenosinérgico se aproxima a la normalidad. La regulación de la presión de sueño, la alerta matutina y la energía vespertina se estabilizan sin estimulación externa.",
-    "during_use": "Qué puedes sentir: alerta, fatiga reducida, concentración mejorada, estado de ánimo elevado. La cafeína bloquea competitivamente los receptores de adenosina — la señal principal de presión de sueño del cerebro. El bloqueo crónico causa upregulación de receptores, por eso se desarrolla tolerancia y la abstinencia produce fatiga de rebote y cefalea."
-  },
-  "dopamine": {
-    "acute_withdrawal": "Caída motivacional leve. La contribución dopaminérgica de la cafeína es indirecta (vía receptores A2A de adenosina), por lo que esta fase es correspondientemente leve.",
-    "post_acute": "La motivación se estabiliza.",
-    "normalizing": "Función de la dopamina cerca de la línea base.",
-    "during_use": "Qué puedes sentir: leve elevación del estado de ánimo, mayor motivación. La cafeína potencia indirectamente la señalización dopaminérgica mediante el bloqueo del receptor de adenosina A2A, que desinhibe las neuronas dopaminérgicas."
+  "caffeine": {
+    "adenosine": {
+      "acute_withdrawal": "Qué puedes sentir: cefalea (a menudo intensa), fatiga, somnolencia, dificultad para concentrarse, irritabilidad. Pico a las 24-48 horas. Tus receptores de adenosina estaban upregulated para compensar el bloqueo crónico por cafeína; sin cafeína, la señal acumulada de adenosina golpea receptores hipersensibles. La cefalea es real y predecible.",
+      "post_acute": "Qué puedes sentir: fatiga residual, dificultad leve de concentración por la tarde, cefalea ocasional. La densidad de receptores de adenosina regresa gradualmente a la línea base.",
+      "normalizing": "El equilibrio adenosinérgico se aproxima a la normalidad. La regulación de la presión de sueño, la alerta matutina y la energía vespertina se estabilizan sin estimulación externa.",
+      "during_use": "Qué puedes sentir: alerta, fatiga reducida, concentración mejorada, estado de ánimo elevado. La cafeína bloquea competitivamente los receptores de adenosina — la señal principal de presión de sueño del cerebro. El bloqueo crónico causa upregulación de receptores, por eso se desarrolla tolerancia y la abstinencia produce fatiga de rebote y cefalea."
+    },
+    "dopamine": {
+      "acute_withdrawal": "Caída motivacional leve. La contribución dopaminérgica de la cafeína es indirecta (vía receptores A2A de adenosina), por lo que esta fase es correspondientemente leve.",
+      "post_acute": "La motivación se estabiliza.",
+      "normalizing": "Función de la dopamina cerca de la línea base.",
+      "during_use": "Qué puedes sentir: leve elevación del estado de ánimo, mayor motivación. La cafeína potencia indirectamente la señalización dopaminérgica mediante el bloqueo del receptor de adenosina A2A, que desinhibe las neuronas dopaminérgicas."
+    }
   }
-}
 }

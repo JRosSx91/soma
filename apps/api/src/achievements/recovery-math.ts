@@ -1,4 +1,4 @@
-import type { RecoveryCurveShape } from '@prisma/client';
+import type { RecoveryCurveShape } from "@prisma/client";
 
 /**
  * Recovery math, ported from apps/web/src/features/recovery-engine.
@@ -53,16 +53,16 @@ export function computeProgress(
 ): number {
   let progress: number;
   switch (params.shape) {
-    case 'logarithmic':
+    case "logarithmic":
       progress = logarithmicProgress(daysAbstinent, params.daysTo95Recovery);
       break;
-    case 'sigmoidal':
+    case "sigmoidal":
       progress = sigmoidalProgress(daysAbstinent, params.daysTo95Recovery);
       break;
-    case 'linear':
+    case "linear":
       progress = linearProgress(daysAbstinent, params.daysTo95Recovery);
       break;
-    case 'stepwise':
+    case "stepwise":
       progress = linearProgress(daysAbstinent, params.daysTo95Recovery);
       break;
   }
@@ -94,7 +94,7 @@ export function daysToReachThreshold(
   if (daysTo95 <= 0) return 0;
 
   // Logarithmic: 1 - exp(-k*d) = t  =>  d = -ln(1 - t) / k
-  if (shape === 'logarithmic') {
+  if (shape === "logarithmic") {
     if (threshold >= 1) return Infinity;
     const k = -Math.log(0.05) / daysTo95;
     return -Math.log(1 - threshold) / k;
@@ -102,7 +102,7 @@ export function daysToReachThreshold(
 
   // Sigmoidal: 1 / (1 + exp(-k*(d - mid))) = t
   //   =>  d = mid - ln(1/t - 1) / k
-  if (shape === 'sigmoidal') {
+  if (shape === "sigmoidal") {
     if (threshold >= 1) return Infinity;
     const mid = daysTo95 / 2;
     const k = (2 * Math.log(19)) / daysTo95;
@@ -110,7 +110,7 @@ export function daysToReachThreshold(
   }
 
   // Linear / stepwise: d / (daysTo95 / 0.95) = t  =>  d = t * daysTo95 / 0.95
-  if (shape === 'linear' || shape === 'stepwise') {
+  if (shape === "linear" || shape === "stepwise") {
     if (threshold > 1) return Infinity;
     return (threshold * daysTo95) / 0.95;
   }
@@ -129,4 +129,4 @@ export function daysBetween(fromDate: Date, toDate: Date): number {
 
 export function dateAfterDays(fromDate: Date, days: number): Date {
   return new Date(fromDate.getTime() + days * MS_PER_DAY);
-}   
+}

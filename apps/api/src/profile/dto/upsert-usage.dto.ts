@@ -7,8 +7,8 @@ import {
   Max,
   Min,
   ValidateIf,
-} from 'class-validator';
-import { UsageFrequency, UsageStatus } from '@prisma/client';
+} from "class-validator";
+import { UsageFrequency, UsageStatus } from "@prisma/client";
 
 export class UpsertUsageDto {
   @IsString()
@@ -24,7 +24,7 @@ export class UpsertUsageDto {
    * `status` is 'active' — if you're still using, there is no
    * meaningful "last use date".
    */
-  @ValidateIf((o: UpsertUsageDto) => o.status === 'abstinent')
+  @ValidateIf((o: UpsertUsageDto) => o.status === "abstinent")
   @IsDateString()
   lastUseDate?: string | null;
 

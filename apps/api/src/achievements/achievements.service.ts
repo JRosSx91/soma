@@ -1,12 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import type { Achievement, AchievementTier, UserAchievement } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service.js';
+import { Injectable } from "@nestjs/common";
+import type {
+  Achievement,
+  AchievementTier,
+  UserAchievement,
+} from "@prisma/client";
+import { PrismaService } from "../prisma/prisma.service.js";
 import {
   computeProgress,
   dateAfterDays,
   daysBetween,
   daysToReachThreshold,
-} from './recovery-math.js';
+} from "./recovery-math.js";
 
 export interface AchievementWithUnlockState {
   id: string;
@@ -91,7 +95,7 @@ export class AchievementsService {
 
       // Active consumption: achievements measure recovery, which only
       // makes sense in abstinence. Skip the substance entirely.
-      if (usage.status === 'active') continue;
+      if (usage.status === "active") continue;
 
       // From here on, abstinence is guaranteed → lastUseDate is set.
       if (!usage.lastUseDate) continue;
@@ -159,8 +163,8 @@ export class AchievementsService {
     const [achievements, unlocks] = await Promise.all([
       this.prisma.achievement.findMany({
         orderBy: [
-          { triggerSubstanceId: 'asc' },
-          { triggerRecoveryThreshold: 'asc' },
+          { triggerSubstanceId: "asc" },
+          { triggerRecoveryThreshold: "asc" },
         ],
       }),
       this.prisma.userAchievement.findMany({ where: { userId } }),

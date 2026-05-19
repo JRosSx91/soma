@@ -43,7 +43,7 @@
       "normalizing": "normalizatzen"
     },
     "activeConsumption": "KONTSUMO AKTIBOA",
-"activeConsumptionDescription": "Organo hau ez da berreskuratzen ari {{substance}} kontsumitzen jarraitzen duzulako. Ikusten duzun kaltea denbora errealean da."
+    "activeConsumptionDescription": "Organo hau ez da berreskuratzen ari {{substance}} kontsumitzen jarraitzen duzulako. Ikusten duzun kaltea denbora errealean da."
   },
   "empty": {
     "noSubstances": "Ez duzu oraindik substantziarik jarraipean.",

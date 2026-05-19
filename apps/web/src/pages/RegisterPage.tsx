@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import type { FormEvent } from 'react';
-import { LanguageSelector } from '../components/LanguageSelector.js';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import type { BiologicalSex } from '@soma/shared-types';
-import { useAuth, translateAuthError } from '../features/auth/index.js';
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { LanguageSelector } from "../components/LanguageSelector.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import type { BiologicalSex } from "@soma/shared-types";
+import { useAuth, translateAuthError } from "../features/auth/index.js";
 
 export function RegisterPage() {
-  const { t } = useTranslation('auth');
+  const { t } = useTranslation("auth");
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [biologicalSex, setBiologicalSex] = useState<BiologicalSex>('male');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [biologicalSex, setBiologicalSex] = useState<BiologicalSex>("male");
   const [birthYear, setBirthYear] = useState<number>(1990);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -30,10 +30,10 @@ export function RegisterPage() {
         biologicalSex,
         birthYear,
       });
-      navigate('/onboarding', { replace: true });
+      navigate("/onboarding", { replace: true });
     } catch (err) {
-  setError(translateAuthError(err, t, 'errors.registrationFailed'));
-} finally {
+      setError(translateAuthError(err, t, "errors.registrationFailed"));
+    } finally {
       setSubmitting(false);
     }
   };
@@ -45,14 +45,16 @@ export function RegisterPage() {
       </div>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">{t('appName')}</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">{t('register.subtitle')}</p>
+          <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
+          <p className="text-xs text-soma-fg-muted mt-2">
+            {t("register.subtitle")}
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('register.displayName')}
+              {t("register.displayName")}
             </label>
             <input
               type="text"
@@ -65,7 +67,7 @@ export function RegisterPage() {
 
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('register.email')}
+              {t("register.email")}
             </label>
             <input
               type="email"
@@ -79,7 +81,7 @@ export function RegisterPage() {
 
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('register.password')}
+              {t("register.password")}
             </label>
             <input
               type="password"
@@ -90,26 +92,32 @@ export function RegisterPage() {
               className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
               autoComplete="new-password"
             />
-            <p className="text-xs text-soma-fg-muted mt-1">{t('register.passwordHint')}</p>
+            <p className="text-xs text-soma-fg-muted mt-1">
+              {t("register.passwordHint")}
+            </p>
           </div>
 
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('register.biologicalSex')}
+              {t("register.biologicalSex")}
             </label>
             <select
               value={biologicalSex}
-              onChange={(e) => setBiologicalSex(e.target.value as BiologicalSex)}
+              onChange={(e) =>
+                setBiologicalSex(e.target.value as BiologicalSex)
+              }
               className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
             >
-              <option value="male">{t('register.biologicalSexMale')}</option>
-              <option value="female">{t('register.biologicalSexFemale')}</option>
+              <option value="male">{t("register.biologicalSexMale")}</option>
+              <option value="female">
+                {t("register.biologicalSexFemale")}
+              </option>
             </select>
           </div>
 
           <div>
             <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-              {t('register.birthYear')}
+              {t("register.birthYear")}
             </label>
             <input
               type="number"
@@ -129,14 +137,14 @@ export function RegisterPage() {
             disabled={submitting}
             className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? t('register.submitting') : t('register.submit')}
+            {submitting ? t("register.submitting") : t("register.submit")}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-soma-fg-muted">
-          {t('register.haveAccount')}{' '}
+          {t("register.haveAccount")}{" "}
           <Link to="/login" className="text-soma-accent hover:underline">
-            {t('register.signIn')}
+            {t("register.signIn")}
           </Link>
         </p>
       </div>

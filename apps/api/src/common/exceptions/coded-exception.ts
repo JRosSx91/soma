@@ -2,7 +2,7 @@ import {
   ConflictException,
   UnauthorizedException,
   NotFoundException,
-} from '@nestjs/common';
+} from "@nestjs/common";
 
 export class CodedConflictException extends ConflictException {
   public readonly code: string;

@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute.js';
-import { TrophyToastStack } from '../features/achievements/index.js';
+import { Outlet } from "react-router-dom";
+import { ProtectedRoute } from "./ProtectedRoute.js";
+import { TrophyToastStack } from "../features/achievements/index.js";
 
 /**
  * Layout for all authenticated routes. Wraps children in

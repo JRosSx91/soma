@@ -1,5 +1,5 @@
-import type { TFunction } from 'i18next';
-import { ApiError } from '../client/api.js';
+import type { TFunction } from "i18next";
+import { ApiError } from "../client/api.js";
 
 /**
  * Maps backend error codes to i18n translation keys.
@@ -13,10 +13,10 @@ import { ApiError } from '../client/api.js';
  * back to the provided fallback key.
  */
 const ERROR_CODE_TO_KEY: Record<string, string> = {
-  AUTH_INVALID_CREDENTIALS: 'errors.invalidCredentials',
-  AUTH_EMAIL_EXISTS: 'errors.emailAlreadyRegistered',
-  AUTH_USER_NOT_FOUND: 'errors.userNotFound',
-  PROFILE_USER_NOT_FOUND: 'errors.userNotFound',
+  AUTH_INVALID_CREDENTIALS: "errors.invalidCredentials",
+  AUTH_EMAIL_EXISTS: "errors.emailAlreadyRegistered",
+  AUTH_USER_NOT_FOUND: "errors.userNotFound",
+  PROFILE_USER_NOT_FOUND: "errors.userNotFound",
 };
 
 export function translateAuthError(

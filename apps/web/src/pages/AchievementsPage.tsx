@@ -1,16 +1,16 @@
-import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuth } from '../features/auth/index.js';
+import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "../features/auth/index.js";
 import {
   useAchievements,
   SubstanceTrophyGroup,
-} from '../features/achievements/index.js';
-import { useUserProfile } from '../features/profile/index.js';
-import { LanguageSelector } from '../components/LanguageSelector.js';
+} from "../features/achievements/index.js";
+import { useUserProfile } from "../features/profile/index.js";
+import { LanguageSelector } from "../components/LanguageSelector.js";
 
 export function AchievementsPage() {
-  const { t } = useTranslation(['main', 'common']);
+  const { t } = useTranslation(["main", "common"]);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { achievements, loading, error } = useAchievements();
@@ -23,7 +23,7 @@ export function AchievementsPage() {
     const set = new Set<string>();
     if (!profile) return set;
     for (const usage of profile.usages) {
-      if (usage.status === 'active') set.add(usage.substanceId);
+      if (usage.status === "active") set.add(usage.substanceId);
     }
     return set;
   }, [profile]);
@@ -49,39 +49,39 @@ export function AchievementsPage() {
         <div>
           <h1 className="text-2xl font-light tracking-wide">Soma</h1>
           <p className="text-xs text-soma-fg-muted mt-1">
-            {user?.displayName ?? '—'}
+            {user?.displayName ?? "—"}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
           <button
-            onClick={() => navigate('/app')}
+            onClick={() => navigate("/app")}
             className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
           >
-            {t('main:header.dashboard')}
+            {t("main:header.dashboard")}
           </button>
           <button
             onClick={logout}
             className="text-xs text-soma-fg-muted hover:text-soma-fg-secondary transition-colors"
           >
-            {t('common:signOut')}
+            {t("common:signOut")}
           </button>
         </div>
       </header>
       <main className="max-w-3xl mx-auto px-8 py-10">
         <div className="mb-8">
           <h2 className="text-3xl font-light tracking-wide mb-2">
-            {t('main:trophies.title')}
+            {t("main:trophies.title")}
           </h2>
           <p className="text-sm text-soma-fg-muted tabular-nums">
-            {t('main:trophies.unlockedRatio', {
+            {t("main:trophies.unlockedRatio", {
               unlocked: totalUnlocked,
               total: totalCount,
             })}
           </p>
         </div>
         {loading && (
-          <p className="text-soma-fg-secondary">{t('common:loading')}</p>
+          <p className="text-soma-fg-secondary">{t("common:loading")}</p>
         )}
         {error && <p className="text-soma-organ-damaged">{error}</p>}
         {!loading && !error && (

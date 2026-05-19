@@ -1,6 +1,6 @@
-import { useGLTF } from '@react-three/drei';
+import { useGLTF } from "@react-three/drei";
 
-const BODY_MALE_PATH = '/models/body_male.glb';
+const BODY_MALE_PATH = "/models/body_male.glb";
 
 /**
  * Loads the male body glTF model. Cached by drei across components.

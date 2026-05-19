@@ -43,7 +43,7 @@
       "normalizing": "normalisierend"
     },
     "activeConsumption": "AKTIVER KONSUM",
-"activeConsumptionDescription": "Dieses Organ erholt sich nicht, weil Sie weiterhin {{substance}} konsumieren. Der Schaden, den Sie sehen, ist in Echtzeit."
+    "activeConsumptionDescription": "Dieses Organ erholt sich nicht, weil Sie weiterhin {{substance}} konsumieren. Der Schaden, den Sie sehen, ist in Echtzeit."
   },
   "empty": {
     "noSubstances": "Noch keine Substanzen verfolgt.",

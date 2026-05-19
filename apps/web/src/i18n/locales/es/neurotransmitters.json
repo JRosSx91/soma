@@ -31,8 +31,8 @@
     "name": "Endorfina",
     "shortDescription": "Recompensa, modulación del dolor"
   },
-"adenosine": {
-  "name": "Adenosina",
-  "shortDescription": "Presión de sueño, regulación de la alerta"
-}
+  "adenosine": {
+    "name": "Adenosina",
+    "shortDescription": "Presión de sueño, regulación de la alerta"
+  }
 }

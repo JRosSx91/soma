@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useUnreadAchievements } from '../hooks/useUnreadAchievements.js';
-import { TrophyToast } from './TrophyToast.js';
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useUnreadAchievements } from "../hooks/useUnreadAchievements.js";
+import { TrophyToast } from "./TrophyToast.js";
 
 /**
  * Stack of trophy unlock notifications, anchored to the bottom-right
@@ -17,7 +17,7 @@ import { TrophyToast } from './TrophyToast.js';
  *     stack empties, or on unmount.
  */
 export function TrophyToastStack() {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation("main");
   const { unread, markAsRead } = useUnreadAchievements();
 
   // Local state — we manage the visible stack independently from the
@@ -87,7 +87,7 @@ export function TrophyToastStack() {
             transition-colors
           "
         >
-          {t('trophies.toastDismissAll', { count: visible.length })}
+          {t("trophies.toastDismissAll", { count: visible.length })}
         </button>
       )}
       <div className="flex flex-col gap-2 pointer-events-auto overflow-y-auto pr-1">

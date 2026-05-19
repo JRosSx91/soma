@@ -1,5 +1,5 @@
-import type { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import type { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 /**
  * Seeds a single demo user with a known credential set, useful for
@@ -24,24 +24,24 @@ function daysAgo(days: number): Date {
 }
 
 export async function seedUsers(prisma: PrismaClient): Promise<void> {
-  const hashedPassword = await bcrypt.hash('soma123', SALT_ROUNDS);
+  const hashedPassword = await bcrypt.hash("soma123", SALT_ROUNDS);
 
   const user = await prisma.user.upsert({
-    where: { email: 'demo@soma.dev' },
+    where: { email: "demo@soma.dev" },
     update: {
       // On re-seed, refresh the password and profile fields but keep
       // the same row (so foreign keys from usages remain valid).
       hashedPassword,
-      displayName: 'Demo user',
-      biologicalSex: 'male',
+      displayName: "Demo user",
+      biologicalSex: "male",
       birthYear: 1990,
       weightKg: 78,
     },
     create: {
-      email: 'demo@soma.dev',
+      email: "demo@soma.dev",
       hashedPassword,
-      displayName: 'Demo user',
-      biologicalSex: 'male',
+      displayName: "Demo user",
+      biologicalSex: "male",
       birthYear: 1990,
       weightKg: 78,
     },
@@ -51,28 +51,28 @@ export async function seedUsers(prisma: PrismaClient): Promise<void> {
   // hard-coded MOCK_PROFILE in the frontend.
   const usages = [
     {
-      substanceId: 'nicotine',
+      substanceId: "nicotine",
       yearStarted: 2010,
       lastUseDate: daysAgo(21),
-      frequency: 'daily' as const,
+      frequency: "daily" as const,
     },
     {
-      substanceId: 'cannabis',
+      substanceId: "cannabis",
       yearStarted: 2012,
       lastUseDate: daysAgo(90),
-      frequency: 'daily' as const,
+      frequency: "daily" as const,
     },
     {
-      substanceId: 'alcohol',
+      substanceId: "alcohol",
       yearStarted: 2008,
       lastUseDate: daysAgo(180),
-      frequency: 'weekly' as const,
+      frequency: "weekly" as const,
     },
     {
-      substanceId: 'cocaine',
+      substanceId: "cocaine",
       yearStarted: 2015,
       lastUseDate: daysAgo(300),
-      frequency: 'occasional' as const,
+      frequency: "occasional" as const,
     },
   ];
 

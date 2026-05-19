@@ -1,5 +1,5 @@
-export { useNeurotransmitterState } from './hooks/useNeurotransmitterState.js';
-export { NeurotransmitterPanel } from './components/NeurotransmitterPanel.js';
+export { useNeurotransmitterState } from "./hooks/useNeurotransmitterState.js";
+export { NeurotransmitterPanel } from "./components/NeurotransmitterPanel.js";
 export type {
   NeurotransmitterStateEntry,
   Neurotransmitter,
@@ -7,4 +7,4 @@ export type {
   NeurotransmitterDirection,
   NeurotransmitterSeverity,
   ConfidenceLevel,
-} from './types.js';
+} from "./types.js";

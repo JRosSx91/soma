@@ -1,4 +1,4 @@
-import type { Neurotransmitter } from '@prisma/client';
+import type { Neurotransmitter } from "@prisma/client";
 
 /**
  * Maps each organ to the neurotransmitters whose imbalance is
@@ -12,12 +12,17 @@ import type { Neurotransmitter } from '@prisma/client';
  * neurotransmitter panel.
  */
 export const ORGAN_NEUROTRANSMITTERS: Record<string, Neurotransmitter[]> = {
-  'brain-prefrontal-cortex': ['dopamine', 'serotonin', 'norepinephrine', 'adenosine'],
-  'brain-vta': ['dopamine', 'gaba'],
-  'brain-nucleus-accumbens': ['dopamine', 'endocannabinoid', 'endorphin'],
-  'brain-amygdala': ['gaba', 'norepinephrine', 'serotonin'],
-  'brain-hippocampus': ['glutamate', 'acetylcholine', 'adenosine'],
-  heart: ['norepinephrine', 'adenosine'],
+  "brain-prefrontal-cortex": [
+    "dopamine",
+    "serotonin",
+    "norepinephrine",
+    "adenosine",
+  ],
+  "brain-vta": ["dopamine", "gaba"],
+  "brain-nucleus-accumbens": ["dopamine", "endocannabinoid", "endorphin"],
+  "brain-amygdala": ["gaba", "norepinephrine", "serotonin"],
+  "brain-hippocampus": ["glutamate", "acetylcholine", "adenosine"],
+  heart: ["norepinephrine", "adenosine"],
 };
 
 export function getNeurotransmittersForOrgan(

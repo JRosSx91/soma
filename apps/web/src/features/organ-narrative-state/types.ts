@@ -1,10 +1,10 @@
 export type WithdrawalPhase =
-  | 'during_use'
-  | 'acute_withdrawal'
-  | 'post_acute'
-  | 'normalizing';
+  | "during_use"
+  | "acute_withdrawal"
+  | "post_acute"
+  | "normalizing";
 
-export type ConfidenceLevel = 'high' | 'medium' | 'low';
+export type ConfidenceLevel = "high" | "medium" | "low";
 
 export interface OrganNarrativeStateEntry {
   organId: string;
