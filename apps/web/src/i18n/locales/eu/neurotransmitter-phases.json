@@ -3,80 +3,94 @@
     "gaba": {
       "acute_withdrawal": "Zer senti dezakezu: antsietatea, urduria, lo ezina, dardara, konbultsioak kasu larrietan. Zure GABA sistema alkoholaren ekintza inhibitzaileak zapalduta zegoen; hori gabe, kitzikapen neuronala gogor errepikatzen da. Lehen astean gainbegirapen medikoa gomendatzen da.",
       "post_acute": "Zer senti dezakezu: antsietate gorabeheratua, lo-nahasketak, erreaktibotasun emozionala. GABA-A hartzaileak pixkanaka sentikortasuna berreskuratzen ari dira. Sintomak 2-8 asteen artean hobetu ohi dira.",
-      "normalizing": "GABA funtzioa oinarri-lerrora hurbiltzen ari da. Sentikortasun emozional batzuk hilabete batzuez iraun dezakete, baina sintomarik larrienetarik igaro dira."
+      "normalizing": "GABA funtzioa oinarri-lerrora hurbiltzen ari da. Sentikortasun emozional batzuk hilabete batzuez iraun dezakete, baina sintomarik larrienetarik igaro dira.",
+      "during_use": "Zer senti dezakezu: sedazioa, antsietatearen murrizketa, muskulu-erlaxazioa, erreflexu motelduak. Alkoholak GABA-A hartzaileak zuzenean potentziatu egiten ditu — hau da 'erlaxazio' sentsazioaren oinarri kimikoa. Erabilera kronikoak garuna konpentsatzera behartzen du hartzaileen sentikortasuna murriztuz."
     },
     "glutamate": {
       "acute_withdrawal": "Zer senti dezakezu: agitazioa, estimuluekiko hipersentsibilitatea, pentsamendu azkarrak, konbultsio posibleak. Glutamato seinaleztapena maila normalen gainetik errepikatzen ari da — hau da alkoholaren abstinentzia akutuaren alde arriskutsua. Bilatu arreta medikoa sintomak areagotzen badira.",
       "post_acute": "Hiperexkitabilitate arin bat suminkortasun edo zaratarekiko sentikortasun gisa ager daiteke. Glutamato seinaleztapena normalizatzen ari da.",
-      "normalizing": "Glutamatoa oinarri-lerrotik gertu dago. Sistema egokitu da."
+      "normalizing": "Glutamatoa oinarri-lerrotik gertu dago. Sistema egokitu da.",
+      "during_use": "Zer senti dezakezu: pentsamendu moteldu, memoria kaltetua, erreakzio-denbora murriztua. Alkoholak NMDA glutamato hartzaileak suprimitten ditu — ikaskuntza eta memoriaren finkatzearen arduradunak."
     },
     "dopamine": {
       "acute_withdrawal": "Zer senti dezakezu: aldarte baxua, motibazioa falta, anhedonia. Sari-zirkuitua agortuta dago estimulazio kronikoa ondoren. Hau birkalibratzea da.",
       "post_acute": "Motibazioa eta plazera sentitzeko gaitasuna poliki-poliki itzultzen dira. Pazientzia hemen ez da aukerakoa — sistema bere kabuz berreraikitzen da, ezin da behartu.",
-      "normalizing": "Sari-sistema oinarri-lerrora hurbiltzen ari da. Eguneroko jardueren plazera irisgarriagoa sentitu beharko litzateke."
+      "normalizing": "Sari-sistema oinarri-lerrora hurbiltzen ari da. Eguneroko jardueren plazera irisgarriagoa sentitu beharko litzateke.",
+      "during_use": "Zer senti dezakezu: euforia arina, soziabilitatea, desinhibizioa. Alkoholak zeharka dopamina askatzea aktibatzen du bide mesolimbikoan — substantzia gehienek aktibatzen duten zirkuitu bera."
     },
     "serotonin": {
       "acute_withdrawal": "Zer senti dezakezu: aldarte baxua, suminkortasuna, janeko aldaketa posibleak. Oreka serotoninergikoa alkohol kontsumo kronikoak aldatua zegoen.",
       "post_acute": "Aldartea egonkortzen ari da. Hegazkortasun emozional batzuk espero daitezke baina normaltasunera jotzen du.",
-      "normalizing": "Serotonina funtzioa oinarri-lerrotik gertu dago."
+      "normalizing": "Serotonina funtzioa oinarri-lerrotik gertu dago.",
+      "during_use": "Zer senti dezakezu: aldarte-igoera, desinhibizio emozionala, batzuetan inpultsibitate handiagoa. Alkoholak serotonina-seinalea modulatzen du — efektuak aldakorrak dira eta dosi eta oinarrizko mailaren araberakoak dira."
     }
   },
   "cocaine": {
     "dopamine": {
       "acute_withdrawal": "Zer senti dezakezu: anhedonia sakona, apatia, neke bizia, hipersomnesia, desira bizia. Hau 'crash' delakoa da — zure dopamina sistemak denbora luzez maileguan hartutako neurotransmisorearekin funtzionatu du eta orain agortuta dago. Intentsitatea erreala da baina iragankorra.",
       "post_acute": "Zer senti dezakezu: motibazio baxu iraunkorra, plazera moteldu, tartekako desirak. Sari-sistema hartzaileen sentikortasuna berreraikitzen ari da. Fase hau gogorra da baina aurreikusgarria — sintomak pixkanaka ahultzen dira 2-8 asteen artean.",
-      "normalizing": "Dopamina funtzioa oinarri-lerrora hurbiltzen ari da. Plazer-erantzuna eta motibazioa itzultzen ari dira. Trigger-ekiko sentikortasun bat hilabete batzuez iraun dezake."
+      "normalizing": "Dopamina funtzioa oinarri-lerrora hurbiltzen ari da. Plazer-erantzuna eta motibazioa itzultzen ari dira. Trigger-ekiko sentikortasun bat hilabete batzuez iraun dezake.",
+      "during_use": "Zer senti dezakezu: euforia bizia, energia-olatua, konfiantza, gosea murriztua. Kokainak dopamina garraiatzailea blokeatzen du, sinapsian dopamina uholde bat sortuz. Efektu honen intentsitateak dosi konpultsiboa bultzatzen du — eta ondorengo deplezioaren larritasunaren arrazoia da."
     },
     "norepinephrine": {
       "acute_withdrawal": "Zer senti dezakezu: neke fisikoa paradoxikoki urduri mentalarekin konbinatuta, lo-nahasketak nekea izan arren. Sistema noradrenergikoa agortuta dago baina oraindik ez da berrorekatu. Loa itzuliko da.",
       "post_acute": "Zer senti dezakezu: energia gorabeheratua, batzuetan aktibatuta, batzuetan zapaldua. Lo-esna erregulazioa berreskuratzen ari da. 'Nekatuta baina logurarik gabe' sentsazioa horren parte da.",
-      "normalizing": "Erregulazio noradrenergikoa oinarri-lerrotik gertu dago. Energia eta lo-zikloak aurreikusgarriagoak sentitu beharko lirateke."
+      "normalizing": "Erregulazio noradrenergikoa oinarri-lerrotik gertu dago. Energia eta lo-zikloak aurreikusgarriagoak sentitu beharko lirateke.",
+      "during_use": "Zer senti dezakezu: takikardia, odol-presio altua, alerta handitua, nekea murriztua. Kokainak norepinefrina garraiatzailea ere blokeatzen du — hau da bere arrisku kardiobaskulaen oinarria."
     },
     "serotonin": {
       "acute_withdrawal": "Zer senti dezakezu: disforia, suminkortasuna, erreaktibotasun emozionala. Serotonina seinaleztapena kokainak altatuta zegoen eta orain defizitean dago.",
       "post_acute": "Aldartea pixkanaka egonkortzen ari da. Sentikortasun emozionalaren iraunkortasun bat normala da.",
-      "normalizing": "Serotonina funtzioa oinarri-lerrotik gertu dago."
+      "normalizing": "Serotonina funtzioa oinarri-lerrotik gertu dago.",
+      "during_use": "Zer senti dezakezu: aldarte altua, desinhibizio soziala. Kokainak serotonina birkaptazioaren blokeoa egiten du dopaminarekin eta norepinefrinarekin batera, nahiz eta ekarpen hori dopaminergikoa baino bigarren mailakoa den."
     }
   },
   "nicotine": {
     "acetylcholine": {
       "acute_withdrawal": "Zer senti dezakezu: suminkortasuna, kontzentratzeko zailtasuna, urduria, desira bizia — gailurra 1-3 egunetan. Hartzaile nikotinikoak gainadierazita zeuden estimulazio kronikoa konpentsatzeko; nikotinarik gabe gehiegi aktiboak daude. Fase hau laburra da baina bizia.",
       "post_acute": "Zer senti dezakezu: kontzentrazio zailtasun erremanentea, tartekako desirak. Hartzaile-dentsitatea normalera itzultzen ari da — hau beste sistemetan baino azkarrago gertatzen da.",
-      "normalizing": "Funtzio kolinergikoa oinarri-lerrotik gertu dago. Hartzaileak beherako erregulatu dira. Desirak, agertzen direnean, egoerako izaten dira fisiologikoak baino."
+      "normalizing": "Funtzio kolinergikoa oinarri-lerrotik gertu dago. Hartzaileak beherako erregulatu dira. Desirak, agertzen direnean, egoerako izaten dira fisiologikoak baino.",
+      "during_use": "Zer senti dezakezu: alerta, kontzentrazio hobetua, erlaxazio arina estimulazioarekin paradoxikoki konbinatua. Nikotinak zuzenean lotzen zaie azetilkolina hartzaile nikotinikoak. Estimulazio kronikoak hartzaileen upreregulazioa eragiten du — dependentziaren oinarria."
     },
     "dopamine": {
       "acute_withdrawal": "Zer senti dezakezu: aldarte baxua, motibazioa falta, anhedonia arina. Nikotinak eragiten zuen dopamina askapena orain ez dago.",
       "post_acute": "Motibazioa pixkanaka itzultzen ari da. Sari-sistema egokitzen da.",
-      "normalizing": "Dopamina funtzioa oinarri-lerrotik gertu dago."
+      "normalizing": "Dopamina funtzioa oinarri-lerrotik gertu dago.",
+      "during_use": "Zer senti dezakezu: plazer arina, estresaren arintze, sari-sentsazioa. Bide mesolimbikoko hartzaile nikotinikoen aktibazioak dopamina askatzea eragiten du — tabako-dependentziaren indarpen-mekanismo nagusia."
     }
   },
   "cannabis": {
     "endocannabinoid": {
       "acute_withdrawal": "Zer senti dezakezu: suminkortasuna, lo ezina, amets bizioak edo kezkagarriak, antsietatea, janaren gutxitzea. Zure CB1 hartzaileak beherako erregulatuta zeuden THC-a konpentsatzeko; kanpoko kannabinoiderik gabe sistema laburki infraaktiboa dago. Amets bizioak bereizgarriak dira — REM loa zapalkuntza ondoren errepikatzen ari da.",
       "post_acute": "Zer senti dezakezu: loa hobetzen baina ezegonkorra, suminkortasun erremanentea, antsietate arina. CB1 hartzaile-dentsitatea berreskuratzen ari da.",
-      "normalizing": "Sistema endokannabinoidea oinarri-lerrora hurbiltzen ari da. Lo eta aldarte erregulazioa egonkorragoa sentitu beharko lirateke."
+      "normalizing": "Sistema endokannabinoidea oinarri-lerrora hurbiltzen ari da. Lo eta aldarte erregulazioa egonkorragoa sentitu beharko lirateke.",
+      "during_use": "Zer senti dezakezu: euforia, erlaxazioa, aldatutako zentzumen-pertzepzioa, gosea handitua, denbora-pertzepzioa moteldua. THCk CB1 hartzaileei lotzen zaie agonista partzial gisa, endokanabinoideiak imitatuz baina indar eta iraupena handiagoarekin. Erabilera kronikoak CB1 hartzaile-dentsitatea murrizten du."
     },
     "dopamine": {
       "acute_withdrawal": "Motibazio-jaitsiera arina. Kannabiaren ekarpena zure sari-zirkuituari apala zen, beraz fase hau proportzionalki leuna da.",
       "post_acute": "Motibazioa egonkortzen da.",
-      "normalizing": "Dopamina funtzioa oinarri-lerrotik gertu dago."
+      "normalizing": "Dopamina funtzioa oinarri-lerrotik gertu dago.",
+      "during_use": "Zer senti dezakezu: euforia arina, zentzumen-esperientzia intentsuagoa. Cannabisak zeharka dopamina askatzea handitzen du bide mesolimbikoko neurona GABAergikoetan CB1 hartzaileen aktibazioa bidez."
     },
     "gaba": {
       "acute_withdrawal": "Ekarpen arina antsietate-sintomaei. GABA oreka kannabiaren bidez modulatua zegoen eta birkalibratzean dago.",
       "post_acute": "GABA oreka hobetzen ari da.",
-      "normalizing": "GABA funtzioa oinarri-lerrotik gertu dago."
+      "normalizing": "GABA funtzioa oinarri-lerrotik gertu dago.",
+      "during_use": "Zer senti dezakezu: muskulu-erlaxazioa, antsietatearen murrizketa, sedazioa dosi altuetan. CB1 hartzailearen aktibazioak transmisio GABAergikoa modulatzen du — efektuak nabarmen aldatzen dira dosiaren eta garun-eskualdearen arabera."
     }
   },
   "caffeine": {
     "adenosine": {
       "acute_withdrawal": "Zer senti dezakezu: buruko mina (sarritan bizia), nekea, logura, kontzentratzeko zailtasuna, suminkortasuna. Gailurra 24-48 ordutan. Zure adenosina hartzaileak gainadierazita zeuden kafeinaren blokeo kronikoa konpentsatzeko; kafeinarik gabe, pilatutako adenosina seinaleak hartzaile hipersentsibleak kolpatzen ditu. Buruko mina erreala eta aurreikusgarria da.",
       "post_acute": "Zer senti dezakezu: neke erremanentea, arratsaldean kontzentrazio zailtasun arina, tartekako buruko mina. Adenosina hartzaile-dentsitatea pixkanaka oinarri-lerrora itzultzen ari da.",
-      "normalizing": "Oreka adenosinergikoa normaltasunera hurbiltzen da. Lo-presioaren erregulazioa, goizeko alerta eta arratsaldeko energia kanpoko estimulaziorik gabe egonkortzen dira."
+      "normalizing": "Oreka adenosinergikoa normaltasunera hurbiltzen da. Lo-presioaren erregulazioa, goizeko alerta eta arratsaldeko energia kanpoko estimulaziorik gabe egonkortzen dira.",
+      "during_use": "Zer senti dezakezu: alerta, neke murriztua, kontzentrazio hobetua, aldarte altua. Kafeinak adenosina hartzaileak lehiakor blokeatzen ditu — garuneko lo-presioren seinale nagusia. Blokeo kronikoak hartzaileen upreregulazioa eragiten du, horregatik garatzen da tolerantzia eta abstinentzia-garaian neke errebound eta buruko mina agertzen dira."
     },
     "dopamine": {
       "acute_withdrawal": "Motibazio-jaitsiera arina. Kafeinaren ekarpen dopaminergikoa zeharkakoa da (adenosina A2A hartzaileen bidez), beraz fase hau proportzionalki leuna da.",
       "post_acute": "Motibazioa egonkortzen da.",
-      "normalizing": "Dopamina funtzioa oinarri-lerrotik gertu dago."
+      "normalizing": "Dopamina funtzioa oinarri-lerrotik gertu dago.",
+      "during_use": "Zer senti dezakezu: aldarte-igoera arina, motibazio handiagoa. Kafeinak zeharka dopamina-seinalea indartzen du adenosina A2A hartzailearen blokeoaren bidez, neurona dopaminergikoetan desinhibizioa eraginez."
     }
   }
 }
