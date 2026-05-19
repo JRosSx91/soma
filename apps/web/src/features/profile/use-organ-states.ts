@@ -133,22 +133,28 @@ export function useOrganStates(
     // Second pass: build the final OrganState for each organ,
     // sorting contributions by severity (worst first).
     contributionsByOrgan.forEach((contributions, organId) => {
-      // Sort by progressFraction ascending (worst = lowest progress
-      // = least recovered = first). Active substances at 0 naturally
-      // sort to the front.
-      contributions.sort((a, b) => a.progressFraction - b.progressFraction);
+      const activeContribs = contributions.filter((c) => c.status === 'active');
+      const abstinentContribs = contributions.filter((c) => c.status === 'abstinent');
 
-      const dominant = contributions[0];
+      // Sort abstinent by worst progress first
+      abstinentContribs.sort((a, b) => a.progressFraction - b.progressFraction);
+
+      const hasActive = activeContribs.length > 0;
+      const worstAbstinent = abstinentContribs[0] ?? null;
+
+      // Dominant for visual progress: worst abstinent substance.
+      // If only active substances affect this organ, progress is 0.
+      const dominant = worstAbstinent ?? activeContribs[0];
 
       result.set(organId, {
         organId,
         organName: dominant.organName,
-        progressFraction: dominant.progressFraction,
-        absoluteRecovery: dominant.absoluteRecovery,
-        daysAbstinent: dominant.daysAbstinent,
+        progressFraction: worstAbstinent?.progressFraction ?? 0,
+        absoluteRecovery: worstAbstinent?.absoluteRecovery ?? 0,
+        daysAbstinent: worstAbstinent?.daysAbstinent ?? 0,
         dominantSubstanceId: dominant.substanceId,
         confidenceLevel: dominant.confidenceLevel,
-        dominantStatus: dominant.status,
+        dominantStatus: hasActive ? 'active' : 'abstinent',
         contributingSubstances: contributions.map((c) => ({
           substanceId: c.substanceId,
           status: c.status,

@@ -17,6 +17,8 @@
   },
   "panel": {
     "selectedOrgan": "Hautatutako organoa",
+    "affectedOrgans": "Kaltetutako organoak",
+    "noOrgansAffected": "Ez dago organo kalteturik",
     "hoverPrompt": "Pasa organo baten gainetik",
     "clickPrompt": "Egin klik organo batean ikuskatzeko",
     "affectedBy": "Honegatik kaltetuta",

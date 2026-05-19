@@ -22,6 +22,7 @@ import {
   OrganNarrativePanel,
 } from "../features/organ-narrative-state/index.js";
 import { BottomSheet } from "../components/BottomSheet.js";
+import { OrganListPanel } from "../features/organ-list/index.js";
 import { useIsMobile } from "../hooks/useIsMobile.js";
 
 export function MainPage() {
@@ -214,19 +215,32 @@ export function MainPage() {
 
         {/* Side panel — desktop only */}
         <aside className="hidden md:block md:col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
-          <PanelContent
-            selected={selected}
-            states={states}
-            t={t}
-            ntForSelected={ntForSelected}
-            narrativeForSelected={narrativeForSelected}
-            hasNtData={hasNtData}
-            hasNarrativeData={hasNarrativeData}
-            showNeurotransmitters={showNeurotransmitters}
-            setShowNeurotransmitters={setShowNeurotransmitters}
-            showNarrative={showNarrative}
-            setShowNarrative={setShowNarrative}
-          />
+          {selected === null ? (
+            <>
+              <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
+                {t("main:panel.affectedOrgans")}
+              </h2>
+              <OrganListPanel
+                organStates={organStates}
+                onOrganClick={handleSelect}
+                selected={selected}
+              />
+            </>
+          ) : (
+            <PanelContent
+              selected={selected}
+              states={states}
+              t={t}
+              ntForSelected={ntForSelected}
+              narrativeForSelected={narrativeForSelected}
+              hasNtData={hasNtData}
+              hasNarrativeData={hasNarrativeData}
+              showNeurotransmitters={showNeurotransmitters}
+              setShowNeurotransmitters={setShowNeurotransmitters}
+              showNarrative={showNarrative}
+              setShowNarrative={setShowNarrative}
+            />
+          )}
         </aside>
       </main>
 
@@ -307,14 +321,13 @@ function PanelContent({
                     {t("main:panel.activeConsumption")}
                   </p>
                   <p className="text-xs text-soma-fg-secondary mt-1 leading-relaxed">
-                    {t("main:panel.activeConsumptionDescription", {
-                      substance: t(
-                        `substances:${state.dominantSubstanceId}.name`,
-                        {
-                          defaultValue: state.dominantSubstanceId,
-                        },
-                      ),
-                    })}
+                    {(() => {
+                      const activeSubstances = state.contributingSubstances
+                        .filter((c) => c.status === 'active')
+                        .map((c) => t(`substances:${c.substanceId}.name`, { defaultValue: c.substanceId }))
+                        .join(', ');
+                      return t('main:panel.activeConsumptionDescription', { substance: activeSubstances });
+                    })()}
                   </p>
                 </div>
               )}
@@ -333,7 +346,7 @@ function PanelContent({
               </p>
 
               {/* Days abstinent / recovery — only meaningful for abstinent state */}
-              {!isActive && (
+              {state.progressFraction > 0 && (
                 <>
                   <p className="text-soma-fg-muted">
                     {t("main:panel.daysAbstinent")}:{" "}

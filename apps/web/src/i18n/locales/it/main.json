@@ -17,6 +17,8 @@
   },
   "panel": {
     "selectedOrgan": "Organo selezionato",
+    "affectedOrgans": "Organi interessati",
+    "noOrgansAffected": "Nessun organo interessato",
     "hoverPrompt": "Passa sopra un organo",
     "clickPrompt": "Clicca su un organo per ispezionarlo",
     "affectedBy": "Colpito da",
