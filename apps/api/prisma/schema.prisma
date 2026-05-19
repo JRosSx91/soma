@@ -248,7 +248,7 @@ model NeurotransmitterProfile {
   neurotransmitter Neurotransmitter
   confidenceLevel  ConfidenceLevel
   referenceSource  String
-
+  mechanismKey     String?
   substance        Substance               @relation(fields: [substanceId], references: [id])
   phases           NeurotransmitterPhase[]
 
