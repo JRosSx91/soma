@@ -6,7 +6,7 @@ import { useCameraStore } from "../store/useCamaraStore";
 import { ORGAN_TO_MESH_NAME } from "../organ-mesh-map.js";
 
 const FOCUS_DURATION_MS = 600;
-const FOCUS_OFFSET = new THREE.Vector3(0, 0, 2.5);
+const FOCUS_OFFSET = new THREE.Vector3(0, 0, 0);
 
 interface AnimState {
   active: boolean;
@@ -49,7 +49,10 @@ export function CameraController() {
       new THREE.Vector3();
 
     const endTarget = center.clone();
-    const endPos = center.clone().add(FOCUS_OFFSET);
+    const currentOffset = camera.position.clone().sub(
+      (controls as unknown as OrbitControlsType)?.target ?? new THREE.Vector3()
+    );
+    const endPos = center.clone().add(currentOffset);
 
     animRef.current = {
       active: true,

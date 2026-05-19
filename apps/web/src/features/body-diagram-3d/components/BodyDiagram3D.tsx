@@ -3,7 +3,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Bounds } from "@react-three/drei";
 import { Suspense } from "react";
 import { BodyModel } from "./BodyModel.js";
-import { CameraController } from "./CamaraController.js";
 import type { BodyDiagram3DProps } from "../types.js";
 
 export function BodyDiagram3D({
@@ -26,7 +25,7 @@ export function BodyDiagram3D({
         <Environment preset="apartment" />
 
         <Suspense fallback={null}>
-          <Bounds fit clip margin={0.65}>
+          <Bounds fit clip margin={0.45}>
             <BodyModel
               organStates={organStates}
               onOrganHover={onOrganHover}
@@ -42,7 +41,6 @@ export function BodyDiagram3D({
           maxDistance={10}
           makeDefault
         />
-        <CameraController />
       </Canvas>
     </div>
   );
