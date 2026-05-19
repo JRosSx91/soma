@@ -78,6 +78,54 @@ export const DAMAGE_PROFILES = [
     referenceSource:
       "Apte et al. (2010). Mechanisms of alcoholic pancreatitis. [NEEDS-VERIFICATION]",
   },
+  {
+    substanceId: "alcohol",
+    organId: "intestines",
+    maxSeverity: 55,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "Bishehsari et al. (2017). Alcohol and gut-derived inflammation. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "spleen",
+    maxSeverity: 45,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "AASLD 2019. Portal hypertension and splenomegaly in alcohol-related liver disease. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "oral-mucosa",
+    maxSeverity: 50,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "IARC Monographs. Alcohol and oral cancer risk. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "teeth",
+    maxSeverity: 40,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "ADA reviews on alcohol and dental erosion. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "eyes",
+    maxSeverity: 35,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "AAO reviews on alcohol and ocular health. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "alcohol",
+    organId: "skin",
+    maxSeverity: 40,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "AAD clinical reviews on alcohol and dermatology. [NEEDS-VERIFICATION]",
+  },
 
   // ---------------------------------------------------------------------------
   // Nicotine — see docs/recovery-curves/nicotine.md
@@ -137,6 +185,38 @@ export const DAMAGE_PROFILES = [
     confidenceLevel: "medium" as const,
     referenceSource:
       "Morita (2007). Tobacco smoke causes premature skin aging. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "oral-mucosa",
+    maxSeverity: 65,
+    confidenceLevel: "high" as const,
+    referenceSource:
+      "USDHHS (2014). Tobacco and oral health. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "nasal-mucosa",
+    maxSeverity: 40,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "U.S. Surgeon General 2014. Tobacco nasal effects. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "teeth",
+    maxSeverity: 60,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "ADA tobacco and periodontal disease reviews. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "nicotine",
+    organId: "eyes",
+    maxSeverity: 50,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "USDHHS (2014). Smoking and macular degeneration. AAO reviews. [NEEDS-VERIFICATION]",
   },
 
   // ---------------------------------------------------------------------------
@@ -222,6 +302,47 @@ export const DAMAGE_PROFILES = [
     referenceSource:
       "Brents (2016). Marijuana, the endocannabinoid system and the female reproductive system. [NEEDS-VERIFICATION]",
   },
+  {
+    substanceId: "cannabis",
+    organId: "intestines",
+    maxSeverity: 30,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "NIDA Marijuana Research Report. CB1 and GI motility. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "oral-mucosa",
+    maxSeverity: 35,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "ADA reviews on cannabis and oral health. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "nasal-mucosa",
+    maxSeverity: 25,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "NIDA Marijuana Research Report. Limited literature on nasal effects. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "teeth",
+    maxSeverity: 35,
+    confidenceLevel: "low" as const,
+    referenceSource:
+      "ADA reviews on cannabis and oral health. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cannabis",
+    organId: "eyes",
+    maxSeverity: 20,
+    confidenceLevel: "high" as const,
+    referenceSource:
+      "Flach (2002). The miotic effect of marijuana. AAO reviews. [NEEDS-VERIFICATION]",
+  },
+
 
   // ---------------------------------------------------------------------------
   // Cocaine — see docs/recovery-curves/cocaine.md
@@ -298,6 +419,39 @@ export const DAMAGE_PROFILES = [
     referenceSource:
       "Cocaethylene formation in combined alcohol and cocaine use. [NEEDS-VERIFICATION]",
   },
+{
+    substanceId: "cocaine",
+    organId: "nasal-mucosa",
+    maxSeverity: 90,
+    confidenceLevel: "high" as const,
+    referenceSource:
+      "NIDA Cocaine Research Report. ENT reviews on intranasal cocaine damage. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cocaine",
+    organId: "teeth",
+    maxSeverity: 65,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "NIDA Cocaine Research Report. Dental erosion and bruxism. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cocaine",
+    organId: "eyes",
+    maxSeverity: 40,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "NIDA Cocaine Research Report. AAO reviews on cocaine ocular effects. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "cocaine",
+    organId: "skin",
+    maxSeverity: 45,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "NIDA Cocaine Research Report. Dermatology reviews on stimulant skin effects. [NEEDS-VERIFICATION]",
+  },
+
   // ---------------------------------------------------------------------------
   // Caffeine — see docs/recovery-curves/caffeine.md
   // ---------------------------------------------------------------------------
@@ -316,6 +470,14 @@ export const DAMAGE_PROFILES = [
     confidenceLevel: "medium" as const,
     referenceSource:
       "ACG (2020). Reflux guidelines. Clinical reviews on caffeine and gastric acid secretion. [NEEDS-VERIFICATION]",
+  },
+  {
+    substanceId: "caffeine",
+    organId: "intestines",
+    maxSeverity: 20,
+    confidenceLevel: "medium" as const,
+    referenceSource:
+      "ACG 2020. Caffeine and colonic motility. [NEEDS-VERIFICATION]",
   },
 ] satisfies Array<{
   substanceId: string;
