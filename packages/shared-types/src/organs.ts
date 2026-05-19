@@ -13,7 +13,8 @@ export type BodySystem =
   | "reproductive"
   | "digestive"
   | "immune"
-  | "integumentary";
+  | "integumentary"
+  | "sensory";
 
 /**
  * Identificador canónico de órgano/estructura.
@@ -36,7 +37,13 @@ export type OrganId =
   | "brain-amygdala"
   | "skin"
   | "testes"
-  | "ovaries";
+  | "ovaries"
+  | "intestines"
+  | "spleen"
+  | "oral-mucosa"
+  | "nasal-mucosa"
+  | "teeth"
+  | "eyes";
 
 export interface Organ {
   id: OrganId;
