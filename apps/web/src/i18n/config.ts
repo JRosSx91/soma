@@ -15,6 +15,7 @@ import enOrgans from './locales/en/organs.json';
 import enOrganNarrative from './locales/en/organ-narrative.json';
 import enAchievements from './locales/en/achievements.json';
 import enLanding from './locales/en/landing.json';
+import enMechanisms from './locales/en/mechanisms.json';
 
 // Spanish
 import esSubstances from './locales/es/substances.json';
@@ -29,6 +30,7 @@ import esOrgans from './locales/es/organs.json';
 import esOrganNarrative from './locales/es/organ-narrative.json';
 import esAchievements from './locales/es/achievements.json';
 import esLanding from './locales/es/landing.json';
+import esMechanisms from './locales/es/mechanisms.json';
 
 // Catalan
 import caSubstances from './locales/ca/substances.json';
@@ -43,6 +45,7 @@ import caOrgans from './locales/ca/organs.json';
 import caOrganNarrative from './locales/ca/organ-narrative.json';
 import caAchievements from './locales/ca/achievements.json';
 import caLanding from './locales/ca/landing.json';
+import caMechanisms from './locales/ca/mechanisms.json';
 
 // Galician
 import glSubstances from './locales/gl/substances.json';
@@ -57,6 +60,7 @@ import glOrgans from './locales/gl/organs.json';
 import glOrganNarrative from './locales/gl/organ-narrative.json';
 import glAchievements from './locales/gl/achievements.json';
 import glLanding from './locales/gl/landing.json';
+import glMechanisms from './locales/gl/mechanisms.json';
 
 // Basque
 import euSubstances from './locales/eu/substances.json';
@@ -71,6 +75,7 @@ import euOrgans from './locales/eu/organs.json';
 import euOrganNarrative from './locales/eu/organ-narrative.json';
 import euAchievements from './locales/eu/achievements.json';
 import euLanding from './locales/eu/landing.json';
+import euMechanisms from './locales/eu/mechanisms.json';
 
 // French
 import frSubstances from './locales/fr/substances.json';
@@ -85,6 +90,7 @@ import frOrgans from './locales/fr/organs.json';
 import frOrganNarrative from './locales/fr/organ-narrative.json';
 import frAchievements from './locales/fr/achievements.json';
 import frLanding from './locales/fr/landing.json';
+import frMechanisms from './locales/fr/mechanisms.json';
 
 // Italian
 import itSubstances from './locales/it/substances.json';
@@ -99,6 +105,7 @@ import itOrgans from './locales/it/organs.json';
 import itOrganNarrative from './locales/it/organ-narrative.json';
 import itAchievements from './locales/it/achievements.json';
 import itLanding from './locales/it/landing.json';
+import itMechanisms from './locales/it/mechanisms.json';
 
 // German
 import deSubstances from './locales/de/substances.json';
@@ -113,6 +120,7 @@ import deOrgans from './locales/de/organs.json';
 import deOrganNarrative from './locales/de/organ-narrative.json';
 import deAchievements from './locales/de/achievements.json';
 import deLanding from './locales/de/landing.json';
+import deMechanisms from './locales/de/mechanisms.json';
 
 /**
  * i18next configuration for Soma.
@@ -149,6 +157,7 @@ i18n
       'organ-narrative',
       'achievements',
       'landing',
+      'mechanisms'
     ],
     defaultNS: 'common',
     interpolation: {
@@ -173,6 +182,7 @@ i18n
         'organ-narrative': enOrganNarrative,
         achievements: enAchievements,
         landing: enLanding,
+        mechanisms: enMechanisms,
       },
       es: {
         common: esCommon,
@@ -187,6 +197,7 @@ i18n
         'organ-narrative': esOrganNarrative,
         achievements: esAchievements,
         landing: esLanding,
+        mechanisms: esMechanisms,
       },
       ca: {
         common: caCommon,
@@ -201,6 +212,7 @@ i18n
         'organ-narrative': caOrganNarrative,
         achievements: caAchievements,
         landing: caLanding,
+        mechanisms: caMechanisms,
       },
       gl: {
         common: glCommon,
@@ -215,6 +227,7 @@ i18n
         'organ-narrative': glOrganNarrative,
         achievements: glAchievements,
         landing: glLanding,
+        mechanisms: glMechanisms,
       },
       eu: {
         common: euCommon,
@@ -229,6 +242,7 @@ i18n
         'organ-narrative': euOrganNarrative,
         achievements: euAchievements,
         landing: euLanding,
+        mechanisms: euMechanisms,
       },
       fr: {
         common: frCommon,
@@ -243,6 +257,7 @@ i18n
         'organ-narrative': frOrganNarrative,
         achievements: frAchievements,
         landing: frLanding,
+        mechanisms: frMechanisms,
       },
       it: {
         common: itCommon,
@@ -257,6 +272,7 @@ i18n
         'organ-narrative': itOrganNarrative,
         achievements: itAchievements,
         landing: itLanding,
+        mechanisms: itMechanisms,
       },
       de: {
         common: deCommon,
@@ -271,6 +287,7 @@ i18n
         'organ-narrative': deOrganNarrative,
         achievements: deAchievements,
         landing: deLanding,
+        mechanisms: deMechanisms,
       },
     },
   });
