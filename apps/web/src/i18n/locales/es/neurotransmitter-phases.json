@@ -3,80 +3,94 @@
     "gaba": {
       "acute_withdrawal": "Qué puedes sentir: ansiedad, inquietud, insomnio, temblor, posibles convulsiones en casos severos. Tu sistema GABA estuvo suprimido por la acción inhibidora del alcohol; sin él, la excitabilidad neuronal rebota bruscamente. Se recomienda supervisión médica durante la primera semana.",
       "post_acute": "Qué puedes sentir: ansiedad fluctuante, alteraciones del sueño, reactividad emocional. Los receptores GABA-A están restaurando gradualmente su sensibilidad. Los síntomas suelen mejorar entre las semanas 2 y 8.",
-      "normalizing": "La función GABA se aproxima a la línea base. Cierta sensibilidad emocional puede persistir varios meses, pero los síntomas más disruptivos han pasado."
+      "normalizing": "La función GABA se aproxima a la línea base. Cierta sensibilidad emocional puede persistir varios meses, pero los síntomas más disruptivos han pasado.",
+      "during_use": "Qué puedes sentir: sedación, reducción de la ansiedad, relajación muscular, reflejos enlentecidos. El alcohol potencia directamente los receptores GABA-A — esta es la base química de la sensación de 'relajación'. El uso crónico obliga al cerebro a compensar reduciendo la sensibilidad de los receptores."
     },
     "glutamate": {
       "acute_withdrawal": "Qué puedes sentir: agitación, hipersensibilidad a estímulos, pensamientos acelerados, posibles convulsiones. La señalización del glutamato está rebotando por encima de niveles normales — este es el lado peligroso de la abstinencia aguda del alcohol. Busca atención médica si los síntomas se intensifican.",
       "post_acute": "Una hiperexcitabilidad residual leve puede manifestarse como irritabilidad o sensibilidad al ruido. La señalización del glutamato se está normalizando.",
-      "normalizing": "El glutamato está cerca de la línea base. El sistema se ha adaptado."
+      "normalizing": "El glutamato está cerca de la línea base. El sistema se ha adaptado.",
+      "during_use": "Qué puedes sentir: pensamiento enlentecido, memoria deteriorada, tiempo de reacción reducido. El alcohol suprime los receptores NMDA de glutamato — el sistema responsable del aprendizaje y la consolidación de memoria."
     },
     "dopamine": {
       "acute_withdrawal": "Qué puedes sentir: bajo estado de ánimo, falta de motivación, anhedonia. El circuito de recompensa está depletado tras estimulación crónica. Esto es parte de la recalibración.",
       "post_acute": "La motivación y la capacidad de sentir placer regresan lentamente. La paciencia aquí no es opcional — el sistema se reconstruye solo, no puede ser forzado.",
-      "normalizing": "El sistema de recompensa se aproxima a la línea base. El placer de actividades cotidianas debería sentirse más accesible."
+      "normalizing": "El sistema de recompensa se aproxima a la línea base. El placer de actividades cotidianas debería sentirse más accesible.",
+      "during_use": "Qué puedes sentir: euforia leve, sociabilidad, desinhibición. El alcohol activa indirectamente la liberación de dopamina en la vía mesolímbica — el mismo circuito activado por la mayoría de sustancias adictivas."
     },
     "serotonin": {
       "acute_withdrawal": "Qué puedes sentir: bajo estado de ánimo, irritabilidad, posibles cambios de apetito. El equilibrio serotoninérgico fue alterado por el consumo crónico de alcohol.",
       "post_acute": "El estado de ánimo se estabiliza. Cierta volatilidad emocional es esperable pero tiende hacia lo normal.",
-      "normalizing": "La función de la serotonina está cerca de la línea base."
+      "normalizing": "La función de la serotonina está cerca de la línea base.",
+      "during_use": "Qué puedes sentir: elevación del estado de ánimo, desinhibición emocional, a veces mayor impulsividad. El alcohol modula la señalización serotoninérgica — los efectos son variables y dependen mucho de la dosis y el nivel basal individual."
     }
   },
   "cocaine": {
     "dopamine": {
       "acute_withdrawal": "Qué puedes sentir: anhedonia profunda, apatía, fatiga intensa, hipersomnia, craving fuerte. Esto es el 'crash' — tu sistema de dopamina ha estado operando con neurotransmisor prestado durante mucho tiempo y ahora está exhausto. La intensidad es real pero transitoria.",
       "post_acute": "Qué puedes sentir: motivación baja persistente, placer atenuado, craving intermitente. El sistema de recompensa está reconstruyendo la sensibilidad de los receptores. Esta fase es dura pero predecible — los síntomas se atenúan gradualmente entre las semanas 2 y 8.",
-      "normalizing": "La función de la dopamina se aproxima a la línea base. La respuesta de placer y la motivación están regresando. Cierta sensibilidad a desencadenantes puede persistir meses."
+      "normalizing": "La función de la dopamina se aproxima a la línea base. La respuesta de placer y la motivación están regresando. Cierta sensibilidad a desencadenantes puede persistir meses.",
+      "during_use": "Qué puedes sentir: euforia intensa, oleada de energía, confianza, apetito reducido. La cocaína bloquea el transportador de dopamina, inundando la sinapsis. La intensidad de este efecto es lo que impulsa la redosificación compulsiva — y lo que hace tan severa la depleción posterior."
     },
     "norepinephrine": {
       "acute_withdrawal": "Qué puedes sentir: agotamiento físico paradójicamente combinado con inquietud mental, alteraciones del sueño pese al cansancio. El sistema noradrenérgico está depletado pero aún no reequilibrado. El sueño volverá.",
       "post_acute": "Qué puedes sentir: energía oscilante, a veces acelerado, a veces apagado. La regulación del ciclo sueño-vigilia se está recuperando. La sensación de 'cansado pero sin sueño' es parte de esto.",
-      "normalizing": "La regulación noradrenérgica está cerca de la línea base. La energía y los ciclos de sueño deberían sentirse más predecibles."
+      "normalizing": "La regulación noradrenérgica está cerca de la línea base. La energía y los ciclos de sueño deberían sentirse más predecibles.",
+      "during_use": "Qué puedes sentir: taquicardia, presión arterial elevada, alerta aumentada, fatiga reducida. La cocaína también bloquea el transportador de norepinefrina — esta es la base de sus riesgos cardiovasculares."
     },
     "serotonin": {
       "acute_withdrawal": "Qué puedes sentir: disforia, irritabilidad, reactividad emocional. La señalización de la serotonina estuvo elevada por la cocaína y ahora está en déficit.",
       "post_acute": "El estado de ánimo se estabiliza gradualmente. Cierta persistencia de la sensibilidad emocional es normal.",
-      "normalizing": "La función de la serotonina está cerca de la línea base."
+      "normalizing": "La función de la serotonina está cerca de la línea base.",
+      "during_use": "Qué puedes sentir: estado de ánimo elevado, desinhibición social. La cocaína bloquea la recaptación de serotonina junto con dopamina y norepinefrina, aunque esta contribución es secundaria al efecto dopaminérgico."
     }
   },
   "nicotine": {
     "acetylcholine": {
       "acute_withdrawal": "Qué puedes sentir: irritabilidad, dificultad para concentrarse, inquietud, craving intenso — alcanza su pico en los días 1 a 3. Los receptores nicotínicos estaban upregulated para compensar la estimulación crónica; sin nicotina están excesivamente activos. Esta fase es corta pero intensa.",
       "post_acute": "Qué puedes sentir: dificultad de concentración residual, craving ocasional. La densidad de receptores está volviendo a la normalidad — esto ocurre más rápido que en otros sistemas.",
-      "normalizing": "La función colinérgica está cerca de la línea base. Los receptores se han downregulated. Los antojos, cuando aparecen, son típicamente situacionales más que fisiológicos."
+      "normalizing": "La función colinérgica está cerca de la línea base. Los receptores se han downregulated. Los antojos, cuando aparecen, son típicamente situacionales más que fisiológicos.",
+      "during_use": "Qué puedes sentir: alerta, concentración mejorada, relajación leve combinada paradójicamente con estimulación. La nicotina se une directamente a los receptores nicotínicos de acetilcolina. La estimulación crónica causa upregulación de receptores — la base de la dependencia."
     },
     "dopamine": {
       "acute_withdrawal": "Qué puedes sentir: bajo estado de ánimo, falta de motivación, anhedonia leve. La liberación de dopamina que provocaba la nicotina ya no está.",
       "post_acute": "La motivación regresa gradualmente. El sistema de recompensa se adapta.",
-      "normalizing": "La función de la dopamina está cerca de la línea base."
+      "normalizing": "La función de la dopamina está cerca de la línea base.",
+      "during_use": "Qué puedes sentir: placer leve, alivio del estrés, sensación de recompensa. La activación de receptores nicotínicos en la vía mesolímbica desencadena la liberación de dopamina — el mecanismo de refuerzo central de la dependencia al tabaco."
     }
   },
   "cannabis": {
     "endocannabinoid": {
       "acute_withdrawal": "Qué puedes sentir: irritabilidad, insomnio, sueños vívidos o perturbadores, ansiedad, disminución del apetito. Tus receptores CB1 estaban downregulated para compensar el THC; sin cannabinoides externos el sistema está brevemente sub-activado. Los sueños vívidos son característicos — el sueño REM está rebotando tras la supresión.",
       "post_acute": "Qué puedes sentir: sueño en mejora pero inestable, irritabilidad residual, ansiedad leve. La densidad de receptores CB1 se está recuperando.",
-      "normalizing": "El sistema endocannabinoide se aproxima a la línea base. La regulación del sueño y el ánimo deberían sentirse más estables."
+      "normalizing": "El sistema endocannabinoide se aproxima a la línea base. La regulación del sueño y el ánimo deberían sentirse más estables.",
+      "during_use": "Qué puedes sentir: euforia, relajación, percepción sensorial alterada, aumento del apetito, percepción del tiempo enlentecida. El THC se une a los receptores CB1 como agonista parcial, imitando los endocannabinoides pero con mayor potencia y duración. El uso crónico reduce la densidad de receptores CB1."
     },
     "dopamine": {
       "acute_withdrawal": "Caída motivacional leve. La contribución del cannabis a tu circuito de recompensa fue modesta, por lo que esta fase es correspondientemente leve.",
       "post_acute": "La motivación se estabiliza.",
-      "normalizing": "La función de la dopamina está cerca de la línea base."
+      "normalizing": "La función de la dopamina está cerca de la línea base.",
+      "during_use": "Qué puedes sentir: euforia leve, experiencia sensorial intensificada. El cannabis aumenta indirectamente la liberación de dopamina vía activación de receptores CB1 en interneuronas GABAérgicas de la vía mesolímbica."
     },
     "gaba": {
       "acute_withdrawal": "Contribución leve a síntomas de ansiedad. El equilibrio GABAérgico fue modulado por el cannabis y se está recalibrando.",
       "post_acute": "El equilibrio GABA está mejorando.",
-      "normalizing": "La función GABA está cerca de la línea base."
+      "normalizing": "La función GABA está cerca de la línea base.",
+      "during_use": "Qué puedes sentir: relajación muscular, reducción de la ansiedad, sedación a dosis altas. La activación del receptor CB1 modula la transmisión GABAérgica — los efectos varían significativamente según la dosis y la región cerebral."
     }
   },
 "caffeine": {
   "adenosine": {
     "acute_withdrawal": "Qué puedes sentir: cefalea (a menudo intensa), fatiga, somnolencia, dificultad para concentrarse, irritabilidad. Pico a las 24-48 horas. Tus receptores de adenosina estaban upregulated para compensar el bloqueo crónico por cafeína; sin cafeína, la señal acumulada de adenosina golpea receptores hipersensibles. La cefalea es real y predecible.",
     "post_acute": "Qué puedes sentir: fatiga residual, dificultad leve de concentración por la tarde, cefalea ocasional. La densidad de receptores de adenosina regresa gradualmente a la línea base.",
-    "normalizing": "El equilibrio adenosinérgico se aproxima a la normalidad. La regulación de la presión de sueño, la alerta matutina y la energía vespertina se estabilizan sin estimulación externa."
+    "normalizing": "El equilibrio adenosinérgico se aproxima a la normalidad. La regulación de la presión de sueño, la alerta matutina y la energía vespertina se estabilizan sin estimulación externa.",
+    "during_use": "Qué puedes sentir: alerta, fatiga reducida, concentración mejorada, estado de ánimo elevado. La cafeína bloquea competitivamente los receptores de adenosina — la señal principal de presión de sueño del cerebro. El bloqueo crónico causa upregulación de receptores, por eso se desarrolla tolerancia y la abstinencia produce fatiga de rebote y cefalea."
   },
   "dopamine": {
     "acute_withdrawal": "Caída motivacional leve. La contribución dopaminérgica de la cafeína es indirecta (vía receptores A2A de adenosina), por lo que esta fase es correspondientemente leve.",
     "post_acute": "La motivación se estabiliza.",
-    "normalizing": "Función de la dopamina cerca de la línea base."
+    "normalizing": "Función de la dopamina cerca de la línea base.",
+    "during_use": "Qué puedes sentir: leve elevación del estado de ánimo, mayor motivación. La cafeína potencia indirectamente la señalización dopaminérgica mediante el bloqueo del receptor de adenosina A2A, que desinhibe las neuronas dopaminérgicas."
   }
 }
 }
