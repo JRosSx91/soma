@@ -29,11 +29,12 @@
   "showNeurotransmitterState": "Show neurotransmitter state",
   "hideNeurotransmitterState": "Hide neurotransmitter state",
   "noNeurotransmitterData": "No neurotransmitter data available for this organ.",
+  "multiSource": "Multiple sources",
   "direction": {
     "depleted": "depleted",
     "elevated": "elevated",
     "oscillating": "oscillating",
-    "normalizing": "normalizing"
+    "normalizing": "normalizing" 
   },
   "severity": {
     "severe": "severe",

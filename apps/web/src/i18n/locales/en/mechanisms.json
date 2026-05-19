@@ -1,0 +1,16 @@
+{
+  "DAT_BLOCKADE": "Dopamine transporter blockade",
+  "NET_BLOCKADE": "Norepinephrine transporter blockade",
+  "SERT_BLOCKADE": "Serotonin transporter blockade",
+  "SERT_MODULATION": "Serotonin transporter modulation",
+  "GABAA_POTENTIATION": "GABA-A receptor potentiation",
+  "NMDA_INHIBITION": "NMDA receptor inhibition",
+  "MESOLIMBIC_INDIRECT": "Indirect mesolimbic modulation",
+  "CB1_AGONISM": "CB1 receptor agonism",
+  "CB1_PRESYNAPTIC_INDIRECT": "CB1 presynaptic indirect effect",
+  "CB1_GABAergic": "CB1-mediated GABAergic modulation",
+  "nAChR_STIMULATION": "Nicotinic receptor stimulation",
+  "nAChR_MESOLIMBIC": "Nicotinic mesolimbic pathway",
+  "ADENOSINE_RECEPTOR_BLOCKADE": "Adenosine receptor blockade",
+  "ADENOSINE_DOPAMINE_CROSSTALK": "Adenosine-dopamine receptor crosstalk"
+}

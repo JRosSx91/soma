@@ -29,6 +29,7 @@
     "showNeurotransmitterState": "Mostra l'estat dels neurotransmissors",
     "hideNeurotransmitterState": "Amaga l'estat dels neurotransmissors",
     "noNeurotransmitterData": "No hi ha dades de neurotransmissors per a aquest òrgan.",
+    "multiSource": "Múltiples fonts",
     "direction": {
       "depleted": "esgotat",
       "elevated": "elevat",

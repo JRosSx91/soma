@@ -1,0 +1,16 @@
+{
+  "DAT_BLOCKADE": "Dopamina garraiatzailearen blokeoa",
+  "NET_BLOCKADE": "Norepinefrina garraiatzailearen blokeoa",
+  "SERT_BLOCKADE": "Serotonina garraiatzailearen blokeoa",
+  "SERT_MODULATION": "Serotonina garraiatzailearen modulazioa",
+  "GABAA_POTENTIATION": "GABA-A hartzailearen potentziazio",
+  "NMDA_INHIBITION": "NMDA hartzailearen inhibizioa",
+  "MESOLIMBIC_INDIRECT": "Zeharkako sistema mesolimbikoko modulazioa",
+  "CB1_AGONISM": "CB1 hartzailearen agonismoa",
+  "CB1_PRESYNAPTIC_INDIRECT": "CB1 aurresinaptiko efektu zeharkakoa",
+  "CB1_GABAergic": "CB1-ek bideratutako GABAergic modulazioa",
+  "nAChR_STIMULATION": "Hartzaile nikotinikoaren estimulazioa",
+  "nAChR_MESOLIMBIC": "Bide mesolimbiko nikotinikoa",
+  "ADENOSINE_RECEPTOR_BLOCKADE": "Adenosina hartzailearen blokeoa",
+  "ADENOSINE_DOPAMINE_CROSSTALK": "Adenosina-dopamina hartzaileen crosstalk"
+}

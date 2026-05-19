@@ -62,6 +62,7 @@ interface ProfileDefinition {
   neurotransmitter: Neurotransmitter;
   confidenceLevel: 'high' | 'medium' | 'low';
   referenceSource: string;
+  mechanismKey: string;
   phases: PhaseDefinition[];
 }
 
@@ -91,192 +92,29 @@ function makePhase(
 }
 
 const PROFILES: ProfileDefinition[] = [
-  // ---------------------------------------------------------------------------
   // Alcohol
-  // ---------------------------------------------------------------------------
-  {
-    substanceId: 'alcohol',
-    neurotransmitter: 'gaba',
-    confidenceLevel: 'high',
-    referenceSource: 'DSM-5-TR; Stahl 2021 ch. 14; Koob & Volkow 2016',
-    phases: [
-      makePhase('during_use',       'severe',     'elevated'),
-      makePhase('acute_withdrawal', 'severe',     'depleted'),
-      makePhase('post_acute',       'moderate',   'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'alcohol',
-    neurotransmitter: 'glutamate',
-    confidenceLevel: 'high',
-    referenceSource: 'Stahl 2021 ch. 14; Goodman & Gilman 14th ed.',
-    phases: [
-      makePhase('during_use',       'moderate',   'depleted'),
-      makePhase('acute_withdrawal', 'severe',     'elevated'),
-      makePhase('post_acute',       'mild',       'elevated'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'alcohol',
-    neurotransmitter: 'dopamine',
-    confidenceLevel: 'medium',
-    referenceSource: 'Koob & Volkow 2016; NIDA Alcohol Research Report',
-    phases: [
-      makePhase('during_use',       'mild',       'elevated'),
-      makePhase('acute_withdrawal', 'moderate',   'depleted'),
-      makePhase('post_acute',       'mild',       'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'alcohol',
-    neurotransmitter: 'serotonin',
-    confidenceLevel: 'medium',
-    referenceSource: 'Stahl 2021 ch. 14',
-    phases: [
-      makePhase('during_use',       'moderate',   'oscillating'),
-      makePhase('acute_withdrawal', 'moderate',   'depleted'),
-      makePhase('post_acute',       'mild',       'normalizing'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
+  { substanceId: 'alcohol', neurotransmitter: 'gaba', mechanismKey: 'GABAA_POTENTIATION', confidenceLevel: 'high', referenceSource: 'DSM-5-TR; Stahl 2021 ch. 14; Koob & Volkow 2016', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','depleted'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'alcohol', neurotransmitter: 'glutamate', mechanismKey: 'NMDA_INHIBITION', confidenceLevel: 'high', referenceSource: 'Stahl 2021 ch. 14; Goodman & Gilman 14th ed.', phases: [makePhase('during_use','moderate','depleted'),makePhase('acute_withdrawal','severe','elevated'),makePhase('post_acute','mild','elevated'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'alcohol', neurotransmitter: 'dopamine', mechanismKey: 'MESOLIMBIC_INDIRECT', confidenceLevel: 'medium', referenceSource: 'Koob & Volkow 2016; NIDA Alcohol Research Report', phases: [makePhase('during_use','mild','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'alcohol', neurotransmitter: 'serotonin', mechanismKey: 'SERT_MODULATION', confidenceLevel: 'medium', referenceSource: 'Stahl 2021 ch. 14', phases: [makePhase('during_use','moderate','oscillating'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
 
-  // ---------------------------------------------------------------------------
   // Cocaine
-  // ---------------------------------------------------------------------------
-  {
-    substanceId: 'cocaine',
-    neurotransmitter: 'dopamine',
-    confidenceLevel: 'high',
-    referenceSource: 'Koob & Volkow 2016; NIDA Cocaine Research Report; Stahl 2021',
-    phases: [
-      makePhase('during_use',       'severe',     'elevated'),
-      makePhase('acute_withdrawal', 'severe',     'depleted'),
-      makePhase('post_acute',       'moderate',   'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'cocaine',
-    neurotransmitter: 'norepinephrine',
-    confidenceLevel: 'high',
-    referenceSource: 'Goodman & Gilman 14th ed.; Stahl 2021',
-    phases: [
-      makePhase('during_use',       'severe',     'elevated'),
-      makePhase('acute_withdrawal', 'severe',     'depleted'),
-      makePhase('post_acute',       'moderate',   'oscillating'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'cocaine',
-    neurotransmitter: 'serotonin',
-    confidenceLevel: 'medium',
-    referenceSource: 'Stahl 2021 ch. 14',
-    phases: [
-      makePhase('during_use',       'moderate',   'elevated'),
-      makePhase('acute_withdrawal', 'moderate',   'depleted'),
-      makePhase('post_acute',       'mild',       'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
+  { substanceId: 'cocaine', neurotransmitter: 'dopamine', mechanismKey: 'DAT_BLOCKADE', confidenceLevel: 'high', referenceSource: 'Koob & Volkow 2016; NIDA Cocaine Research Report; Stahl 2021', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','depleted'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'cocaine', neurotransmitter: 'norepinephrine', mechanismKey: 'NET_BLOCKADE', confidenceLevel: 'high', referenceSource: 'Goodman & Gilman 14th ed.; Stahl 2021', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','oscillating'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'cocaine', neurotransmitter: 'serotonin', mechanismKey: 'SERT_BLOCKADE', confidenceLevel: 'medium', referenceSource: 'Stahl 2021 ch. 14', phases: [makePhase('during_use','moderate','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
 
-  // ---------------------------------------------------------------------------
   // Nicotine
-  // ---------------------------------------------------------------------------
-  {
-    substanceId: 'nicotine',
-    neurotransmitter: 'acetylcholine',
-    confidenceLevel: 'high',
-    referenceSource: 'NIDA Tobacco Research Report; Stahl 2021 ch. 14',
-    phases: [
-      makePhase('during_use',       'moderate',   'elevated'),
-      makePhase('acute_withdrawal', 'severe',     'depleted'),
-      makePhase('post_acute',       'moderate',   'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'nicotine',
-    neurotransmitter: 'dopamine',
-    confidenceLevel: 'high',
-    referenceSource: 'Koob & Volkow 2016; NIDA Tobacco Research Report',
-    phases: [
-      makePhase('during_use',       'moderate',   'elevated'),
-      makePhase('acute_withdrawal', 'moderate',   'depleted'),
-      makePhase('post_acute',       'mild',       'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
+  { substanceId: 'nicotine', neurotransmitter: 'acetylcholine', mechanismKey: 'nAChR_STIMULATION', confidenceLevel: 'high', referenceSource: 'NIDA Tobacco Research Report; Stahl 2021 ch. 14', phases: [makePhase('during_use','moderate','elevated'),makePhase('acute_withdrawal','severe','depleted'),makePhase('post_acute','moderate','depleted'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'nicotine', neurotransmitter: 'dopamine', mechanismKey: 'nAChR_MESOLIMBIC', confidenceLevel: 'high', referenceSource: 'Koob & Volkow 2016; NIDA Tobacco Research Report', phases: [makePhase('during_use','moderate','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
 
-  // ---------------------------------------------------------------------------
   // Cannabis
-  // ---------------------------------------------------------------------------
-  {
-    substanceId: 'cannabis',
-    neurotransmitter: 'endocannabinoid',
-    confidenceLevel: 'high',
-    referenceSource: 'NIDA Marijuana Research Report; Stahl 2021 ch. 14',
-    phases: [
-      makePhase('during_use',       'severe',     'elevated'),
-      makePhase('acute_withdrawal', 'moderate',   'depleted'),
-      makePhase('post_acute',       'mild',       'depleted'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'cannabis',
-    neurotransmitter: 'dopamine',
-    confidenceLevel: 'medium',
-    referenceSource: 'Koob & Volkow 2016',
-    phases: [
-      makePhase('during_use',       'mild',       'elevated'),
-      makePhase('acute_withdrawal', 'mild',       'depleted'),
-      makePhase('post_acute',       'mild',       'normalizing'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'cannabis',
-    neurotransmitter: 'gaba',
-    confidenceLevel: 'medium',
-    referenceSource: 'Stahl 2021 ch. 14',
-    phases: [
-      makePhase('during_use',       'mild',       'oscillating'),
-      makePhase('acute_withdrawal', 'mild',       'depleted'),
-      makePhase('post_acute',       'mild',       'normalizing'),
-      makePhase('normalizing',      'mild',       'normalizing'),
-    ],
-  },
-  // ---------------------------------------------------------------------------
+  { substanceId: 'cannabis', neurotransmitter: 'endocannabinoid', mechanismKey: 'CB1_AGONISM', confidenceLevel: 'high', referenceSource: 'NIDA Marijuana Research Report; Stahl 2021 ch. 14', phases: [makePhase('during_use','severe','elevated'),makePhase('acute_withdrawal','moderate','depleted'),makePhase('post_acute','mild','depleted'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'cannabis', neurotransmitter: 'dopamine', mechanismKey: 'CB1_PRESYNAPTIC_INDIRECT', confidenceLevel: 'medium', referenceSource: 'Koob & Volkow 2016', phases: [makePhase('during_use','mild','elevated'),makePhase('acute_withdrawal','mild','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'cannabis', neurotransmitter: 'gaba', mechanismKey: 'CB1_GABAergic', confidenceLevel: 'medium', referenceSource: 'Stahl 2021 ch. 14', phases: [makePhase('during_use','mild','oscillating'),makePhase('acute_withdrawal','mild','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
+
   // Caffeine
-  // ---------------------------------------------------------------------------
-  {
-    substanceId: 'caffeine',
-    neurotransmitter: 'adenosine',
-    confidenceLevel: 'high',
-    referenceSource: 'Fredholm et al. 1999; Stahl 2021 ch. 14; Goodman & Gilman 14th ed.',
-    phases: [
-      makePhase('during_use',       'moderate', 'depleted'),
-      makePhase('acute_withdrawal', 'severe',   'elevated'),
-      makePhase('post_acute',       'moderate', 'elevated'),
-      makePhase('normalizing',      'mild',     'normalizing'),
-    ],
-  },
-  {
-    substanceId: 'caffeine',
-    neurotransmitter: 'dopamine',
-    confidenceLevel: 'medium',
-    referenceSource: 'Volkow et al. 2015 (caffeine and dopamine receptors)',
-    phases: [
-      makePhase('during_use',       'mild', 'elevated'), 
-      makePhase('acute_withdrawal', 'mild', 'depleted'),
-      makePhase('post_acute',       'mild', 'normalizing'),
-      makePhase('normalizing',      'mild', 'normalizing'),
-    ],
-  },
+  { substanceId: 'caffeine', neurotransmitter: 'adenosine', mechanismKey: 'ADENOSINE_RECEPTOR_BLOCKADE', confidenceLevel: 'high', referenceSource: 'Fredholm et al. 1999; Stahl 2021 ch. 14; Goodman & Gilman 14th ed.', phases: [makePhase('during_use','moderate','depleted'),makePhase('acute_withdrawal','severe','elevated'),makePhase('post_acute','moderate','elevated'),makePhase('normalizing','mild','normalizing')] },
+  { substanceId: 'caffeine', neurotransmitter: 'dopamine', mechanismKey: 'ADENOSINE_DOPAMINE_CROSSTALK', confidenceLevel: 'medium', referenceSource: 'Volkow et al. 2015 (caffeine and dopamine receptors)', phases: [makePhase('during_use','mild','elevated'),makePhase('acute_withdrawal','mild','depleted'),makePhase('post_acute','mild','normalizing'),makePhase('normalizing','mild','normalizing')] },
 ];
 
 function buildSymptomKey(
@@ -302,6 +140,7 @@ export async function seedNeurotransmitterProfiles(
         neurotransmitter: profile.neurotransmitter,
         confidenceLevel: profile.confidenceLevel,
         referenceSource: profile.referenceSource,
+        mechanismKey: profile.mechanismKey, 
         phases: {
           create: profile.phases.map((phase) => ({
             phase: phase.phase,

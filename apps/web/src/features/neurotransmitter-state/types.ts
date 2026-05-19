@@ -1,12 +1,3 @@
-/**
- * Neurotransmitter state types for the frontend.
- *
- * Mirrors the response shape of GET /me/neurotransmitter-state
- * from the backend. Kept in the frontend rather than imported from
- * @soma/shared-types because these enums are tied to backend Prisma
- * enums; if we eventually unify, we'll move them.
- */
-
 export type Neurotransmitter =
   | 'dopamine'
   | 'serotonin'
@@ -15,7 +6,8 @@ export type Neurotransmitter =
   | 'acetylcholine'
   | 'norepinephrine'
   | 'endocannabinoid'
-  | 'endorphin';
+  | 'endorphin'
+  | 'adenosine';
 
 export type WithdrawalPhase =
   | 'during_use'
@@ -37,6 +29,7 @@ export type NeurotransmitterSeverity =
 
 export type ConfidenceLevel = 'high' | 'medium' | 'low';
 
+/** @deprecated — usar ComposedNTState. Mantenido hasta migración completa. */
 export interface NeurotransmitterStateEntry {
   neurotransmitter: Neurotransmitter;
   organId: string;
@@ -47,4 +40,25 @@ export interface NeurotransmitterStateEntry {
   daysSinceLastUse: number;
   sourceSubstanceId: string;
   confidenceLevel: ConfidenceLevel;
+}
+
+export interface NTSource {
+  substanceId: string;
+  mechanismKey: string | null;
+  phase: WithdrawalPhase;
+  direction: NeurotransmitterDirection;
+  severity: NeurotransmitterSeverity;
+  symptomKey: string;
+  daysSinceLastUse: number;
+  confidenceLevel: ConfidenceLevel;
+}
+
+export interface ComposedNTState {
+  neurotransmitter: Neurotransmitter;
+  organId: string;
+  resultingSeverity: NeurotransmitterSeverity;
+  resultingDirection: NeurotransmitterDirection;
+  resultingSymptomKey: string;
+  confidenceLevel: ConfidenceLevel;
+  sources: NTSource[];
 }

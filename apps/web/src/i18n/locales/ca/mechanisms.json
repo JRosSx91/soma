@@ -1,0 +1,16 @@
+{
+  "DAT_BLOCKADE": "Bloqueig del transportador de dopamina",
+  "NET_BLOCKADE": "Bloqueig del transportador de norepinefrina",
+  "SERT_BLOCKADE": "Bloqueig del transportador de serotonina",
+  "SERT_MODULATION": "Modulació del transportador de serotonina",
+  "GABAA_POTENTIATION": "Potenciació del receptor GABA-A",
+  "NMDA_INHIBITION": "Inhibició del receptor NMDA",
+  "MESOLIMBIC_INDIRECT": "Modulació mesolímbica indirecta",
+  "CB1_AGONISM": "Agonisme del receptor CB1",
+  "CB1_PRESYNAPTIC_INDIRECT": "Efecte indirecte CB1 presinàptic",
+  "CB1_GABAergic": "Modulació GABAèrgica mediada per CB1",
+  "nAChR_STIMULATION": "Estimulació del receptor nicotínic",
+  "nAChR_MESOLIMBIC": "Via mesolímbica nicotínica",
+  "ADENOSINE_RECEPTOR_BLOCKADE": "Bloqueig del receptor d'adenosina",
+  "ADENOSINE_DOPAMINE_CROSSTALK": "Crosstalk adenosina-dopamina"
+}

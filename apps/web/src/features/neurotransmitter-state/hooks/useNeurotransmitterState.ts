@@ -1,25 +1,16 @@
 import { useEffect, useState, useCallback } from 'react';
 import { apiRequest } from '../../auth/client/api.js';
-import type { NeurotransmitterStateEntry } from '../types.js';
+import type { ComposedNTState } from '../types.js';
 
 interface UseNeurotransmitterStateResult {
-  entries: NeurotransmitterStateEntry[];
+  entries: ComposedNTState[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
 }
 
-/**
- * Loads the current neurotransmitter state for the authenticated user.
- *
- * Refreshes on demand via `refresh()`. Doesn't refresh on its own —
- * the underlying state changes slowly (one phase transition per
- * substance over weeks) so re-querying on a timer would waste cycles.
- * Components that need freshness can call refresh() after a known
- * profile change (e.g. after the user edits their substances).
- */
 export function useNeurotransmitterState(): UseNeurotransmitterStateResult {
-  const [entries, setEntries] = useState<NeurotransmitterStateEntry[]>([]);
+  const [entries, setEntries] = useState<ComposedNTState[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +18,7 @@ export function useNeurotransmitterState(): UseNeurotransmitterStateResult {
     setLoading(true);
     setError(null);
     try {
-      const data = await apiRequest<NeurotransmitterStateEntry[]>(
+      const data = await apiRequest<ComposedNTState[]>(
         '/me/neurotransmitter-state',
       );
       setEntries(data);

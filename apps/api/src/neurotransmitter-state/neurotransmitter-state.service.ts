@@ -10,10 +10,6 @@ import { ORGAN_NEUROTRANSMITTERS } from './organ-neurotransmitter-map.js';
 
 const DAY_MS = 1000 * 60 * 60 * 24;
 
-/**
- * Severity ordering, used to pick the "worst" state when multiple
- * substances affect the same neurotransmitter for a single user.
- */
 const SEVERITY_RANK: Record<NeurotransmitterSeverity, number> = {
   severe: 3,
   moderate: 2,
@@ -21,30 +17,54 @@ const SEVERITY_RANK: Record<NeurotransmitterSeverity, number> = {
   normalizing: 0,
 };
 
-export interface NeurotransmitterStateEntry {
-  neurotransmitter: Neurotransmitter;
-  organId: string;
+const CONFIDENCE_RANK: Record<'high' | 'medium' | 'low', number> = {
+  high: 2,
+  medium: 1,
+  low: 0,
+} as const;
+
+export interface NTSource {
+  substanceId: string;
+  mechanismKey: string | null;
   phase: WithdrawalPhase;
   direction: NeurotransmitterDirection;
   severity: NeurotransmitterSeverity;
   symptomKey: string;
   daysSinceLastUse: number;
-  sourceSubstanceId: string;
   confidenceLevel: 'high' | 'medium' | 'low';
+}
+
+export interface ComposedNTState {
+  neurotransmitter: Neurotransmitter;
+  organId: string;
+  resultingSeverity: NeurotransmitterSeverity;
+  resultingDirection: NeurotransmitterDirection;
+  resultingSymptomKey: string;
+  confidenceLevel: 'high' | 'medium' | 'low';
+  sources: NTSource[];
+}
+
+function worstSource(sources: NTSource[]): NTSource {
+  return sources.reduce((worst, current) =>
+    SEVERITY_RANK[current.severity] > SEVERITY_RANK[worst.severity]
+      ? current
+      : worst,
+  );
+}
+
+function lowestConfidence(sources: NTSource[]): 'high' | 'medium' | 'low' {
+  return sources.reduce((lowest, current) => {
+    const currentRank = CONFIDENCE_RANK[current.confidenceLevel];
+    const lowestRank = CONFIDENCE_RANK[lowest.confidenceLevel];
+    return currentRank < lowestRank ? current : lowest;
+  }).confidenceLevel;
 }
 
 @Injectable()
 export class NeurotransmitterStateService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /**
-   * Returns, for every (organ, neurotransmitter) pair that's affected
-   * by the user's tracked substances, the current state.
-   *
-   * If multiple substances affect the same neurotransmitter, the
-   * worst severity wins.
-   */
-  async getStateForUser(userId: string): Promise<NeurotransmitterStateEntry[]> {
+  async getStateForUser(userId: string): Promise<ComposedNTState[]> {
     const usages = await this.prisma.substanceUsage.findMany({
       where: { userId },
       include: {
@@ -59,14 +79,10 @@ export class NeurotransmitterStateService {
     });
 
     const now = Date.now();
-    // Map of `${organId}:${neurotransmitter}` -> entry
-    const bestByOrganNT = new Map<string, NeurotransmitterStateEntry>();
+    // Map of `${organId}:${neurotransmitter}` -> list of sources
+    const sourcesByOrganNT = new Map<string, NTSource[]>();
 
     for (const usage of usages) {
-      // Active consumption: the substance is being used right now. We
-      // surface the `during_use` phase narrative so the user sees what
-      // their neurotransmitter system is enduring in this moment,
-      // rather than calculating a recovery phase that doesn't apply.
       if (usage.status === 'active') {
         for (const profile of usage.substance.neurotransmitterProfiles) {
           const duringUsePhase = profile.phases.find(
@@ -80,41 +96,29 @@ export class NeurotransmitterStateService {
             if (!neurotransmitters.includes(profile.neurotransmitter)) continue;
 
             const key = `${organId}:${profile.neurotransmitter}`;
-            const candidate: NeurotransmitterStateEntry = {
-              neurotransmitter: profile.neurotransmitter,
-              organId,
+            const source: NTSource = {
+              substanceId: usage.substanceId,
+              mechanismKey: profile.mechanismKey,
               phase: 'during_use',
               direction: duringUsePhase.direction,
               severity: duringUsePhase.severity,
               symptomKey: duringUsePhase.symptomKey,
               daysSinceLastUse: 0,
-              sourceSubstanceId: usage.substanceId,
               confidenceLevel: profile.confidenceLevel,
             };
 
-            const existing = bestByOrganNT.get(key);
-            if (
-              !existing ||
-              SEVERITY_RANK[candidate.severity] >
-                SEVERITY_RANK[existing.severity]
-            ) {
-              bestByOrganNT.set(key, candidate);
-            }
+            const existing = sourcesByOrganNT.get(key) ?? [];
+            existing.push(source);
+            sourcesByOrganNT.set(key, existing);
           }
         }
         continue;
       }
 
-      // Abstinence path: we know lastUseDate is non-null because the
-      // DTO + service enforce that abstinent usages have a date.
-      // The non-null assertion is safe by domain invariant.
       if (!usage.lastUseDate) continue;
       const daysSinceLastUse = Math.floor(
         (now - usage.lastUseDate.getTime()) / DAY_MS,
       );
-      // Day 0 is "during use" — we don't surface that phase to users
-      // because by definition they've abstained for at least a moment
-      // to be using Soma. Day 1+ is where we start.
       if (daysSinceLastUse < 1) continue;
 
       for (const profile of usage.substance.neurotransmitterProfiles) {
@@ -124,40 +128,49 @@ export class NeurotransmitterStateService {
             (p.endDay === null || daysSinceLastUse <= p.endDay),
         );
         if (!activePhase) continue;
-        // Skip during_use phase as noted above.
         if (activePhase.phase === 'during_use') continue;
 
-        // Find which organs this neurotransmitter is expressed in.
         for (const [organId, neurotransmitters] of Object.entries(
           ORGAN_NEUROTRANSMITTERS,
         )) {
           if (!neurotransmitters.includes(profile.neurotransmitter)) continue;
 
           const key = `${organId}:${profile.neurotransmitter}`;
-          const candidate: NeurotransmitterStateEntry = {
-            neurotransmitter: profile.neurotransmitter,
-            organId,
+          const source: NTSource = {
+            substanceId: usage.substanceId,
+            mechanismKey: profile.mechanismKey,
             phase: activePhase.phase,
             direction: activePhase.direction,
             severity: activePhase.severity,
             symptomKey: activePhase.symptomKey,
             daysSinceLastUse,
-            sourceSubstanceId: usage.substanceId,
             confidenceLevel: profile.confidenceLevel,
           };
 
-          const existing = bestByOrganNT.get(key);
-          if (
-            !existing ||
-            SEVERITY_RANK[candidate.severity] >
-              SEVERITY_RANK[existing.severity]
-          ) {
-            bestByOrganNT.set(key, candidate);
-          }
+          const existing = sourcesByOrganNT.get(key) ?? [];
+          existing.push(source);
+          sourcesByOrganNT.set(key, existing);
         }
       }
     }
 
-    return Array.from(bestByOrganNT.values());
+    const result: ComposedNTState[] = [];
+
+    for (const [key, sources] of sourcesByOrganNT.entries()) {
+      const [organId, neurotransmitter] = key.split(':') as [string, string];
+      const worst = worstSource(sources);
+
+      result.push({
+        neurotransmitter: neurotransmitter as Neurotransmitter,
+        organId,
+        resultingSeverity: worst.severity,
+        resultingDirection: worst.direction,
+        resultingSymptomKey: worst.symptomKey,
+        confidenceLevel: lowestConfidence(sources),
+        sources,
+      });
+    }
+
+    return result;
   }
 }
