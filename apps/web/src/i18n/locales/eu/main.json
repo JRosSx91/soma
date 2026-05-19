@@ -29,6 +29,7 @@
     "showNeurotransmitterState": "Neurotransmisore-egoera erakutsi",
     "hideNeurotransmitterState": "Neurotransmisore-egoera ezkutatu",
     "noNeurotransmitterData": "Ez dago neurotransmisore-daturik organo honetarako.",
+    "multiSource": "Iturri anitzak",
     "direction": {
       "depleted": "agortuta",
       "elevated": "altua",

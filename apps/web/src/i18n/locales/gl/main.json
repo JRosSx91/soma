@@ -29,6 +29,7 @@
     "showNeurotransmitterState": "Amosar o estado dos neurotransmisores",
     "hideNeurotransmitterState": "Agochar o estado dos neurotransmisores",
     "noNeurotransmitterData": "Non hai datos de neurotransmisores para este órgano.",
+    "multiSource": "Múltiples fontes",
     "direction": {
       "depleted": "esgotado",
       "elevated": "elevado",
