@@ -6,7 +6,6 @@ import { useCameraStore } from "../store/useCamaraStore";
 import { ORGAN_TO_MESH_NAME } from "../organ-mesh-map.js";
 
 const FOCUS_DURATION_MS = 600;
-const FOCUS_OFFSET = new THREE.Vector3(0, 0, 0);
 
 interface AnimState {
   active: boolean;
