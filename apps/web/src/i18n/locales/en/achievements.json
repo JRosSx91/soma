@@ -322,5 +322,121 @@
   "caffeine-vta-silver-4": {
     "title": "Sensitivity returned",
     "description": "Adenosine receptor density at baseline. A single cup now hits the way it used to before tolerance built up — caffeine is back to being a tool, not a maintenance dose."
+  },
+    "alcohol-intestines-bronze": {
+    "title": "The intestinal wall reconstitutes",
+    "description": "Alcohol loosens the tight junctions of the intestinal epithelium, allowing bacterial endotoxins to cross the gut wall and reach portal circulation, fueling systemic inflammation. At this threshold, epithelial repair is underway. The gut is closing its doors again. Leaky gut is not a metaphor here — it was measurable, and now it's reversing."
+  },
+  "alcohol-intestines-silver": {
+    "title": "The microbiome returns to the table",
+    "description": "Alcohol-associated dysbiosis — collapse of microbial diversity, overgrowth of gram-negative bacteria, loss of butyrate producers — substantially resolves with sustained abstinence. The gut-liver axis stops sending distress signals. The internal ecosystem rebuilds on its own. You don't have to do anything except keep going."
+  },
+  "alcohol-spleen-bronze": {
+    "title": "The spleen stops being the liver's pressure gauge",
+    "description": "Alcohol-related splenomegaly — enlargement driven by portal hypertension secondary to liver damage — begins reversing as hepatic recovery reduces portal pressure. The spleen was acting as a manometer for a failing system. The failure is being repaired."
+  },
+  "alcohol-oral-mucosa-bronze": {
+    "title": "The mouth remembers what normal feels like",
+    "description": "Alcohol is a direct mucosal irritant and carcinogen. Within weeks of abstinence, inflammatory markers in the oral epithelium drop, salivary composition normalizes, and chronic xerostomia begins to reverse. The mouth starts not hurting in the background."
+  },
+  "alcohol-oral-mucosa-silver": {
+    "title": "The carcinogen has vacated the premises",
+    "description": "Acetaldehyde — the mutagenic metabolite of alcohol, classified as a Group 1 carcinogen by the IARC — is no longer a daily occupant of your oral mucosa. Epithelial DNA repair outpaces new damage. The carcinogenic pressure on the oral epithelium has lifted."
+  },
+  "alcohol-teeth-bronze": {
+    "title": "Enamel erosion on pause",
+    "description": "Alcohol-related dental erosion has two mechanisms: direct acid exposure and gastric reflux secondary to gastritis. Both are subsiding. New enamel loss stops. What's already gone doesn't come back — but the damage stops accumulating. Sometimes stopping is enough of a victory."
+  },
+  "alcohol-eyes-bronze": {
+    "title": "The whites of the eyes go white again",
+    "description": "Scleral jaundice — the yellowing of the sclera from hyperbilirubinemia secondary to hepatic dysfunction — begins fading as liver function recovers. It's one of the most visible markers of internal recovery. Others see it before you do."
+  },
+  "alcohol-eyes-silver": {
+    "title": "The optic nerve out of siege",
+    "description": "Alcoholic optic neuropathy — driven by nutritional deficiencies (thiamine, B12) and direct toxic damage — substantially stabilizes and partially reverses. Visual acuity and contrast sensitivity improve as the nerve recovers from chronic metabolic insult. Eyes that were going blurry, clearing."
+  },
+  "nicotine-oral-mucosa-bronze": {
+    "title": "The mouth stops tasting like an ashtray",
+    "description": "The oral mucosa is among the first to register abstinence. Within days, chronic inflammation of the buccal epithelium begins to reverse, salivary production normalizes, and taste receptors — dulled by smoke — start recovering sensitivity. Food begins to actually taste like something."
+  },
+  "nicotine-oral-mucosa-silver": {
+    "title": "Leukoplakia losing ground",
+    "description": "Oral leukoplakia lesions associated with tobacco — white precancerous plaques on the mucosa — show partial regression with sustained abstinence. The oral epithelium has exited its state of permanent carcinogenic alert. What tobacco turned into at-risk tissue, time is turning back into healthy tissue."
+  },
+  "nicotine-nasal-mucosa-bronze": {
+    "title": "The sense of smell climbs out of the basement",
+    "description": "The nasal mucosa, inflamed and atrophied by chronic smoke exposure, begins to regenerate. Nasal cilia recover motility. The sense of smell — one of the senses tobacco steals most quietly — starts coming back. First you smell the obvious. Then you smell the subtle."
+  },
+  "nicotine-nasal-mucosa-silver": {
+    "title": "Nasal filter back online",
+    "description": "The nasal mucosa has recovered its barrier and filtration function. Nasal mucociliary clearance is normalized. The epithelium that smoke stripped bare for years is doing its job again: warming, humidifying, and filtering air before it reaches the lungs."
+  },
+  "nicotine-teeth-bronze": {
+    "title": "The gums stop bleeding in silence",
+    "description": "Tobacco-associated periodontal disease has an insidious component: nicotine masks gingival inflammation by vasoconstricting the vessels, so gums bleed less during use — and much more when quitting. That initial bleeding is the real inflammation coming to light. Within weeks, the gingival inflammatory response normalizes."
+  },
+  "nicotine-teeth-silver": {
+    "title": "Alveolar bone stops retreating",
+    "description": "Alveolar bone loss — one of the most permanent periodontal damages of tobacco — stops with sustained abstinence. What was already lost doesn't return, but progression halts. The teeth that remain now have solid ground beneath them."
+  },
+  "nicotine-eyes-bronze": {
+    "title": "AMD has one fewer enemy",
+    "description": "Smoking is the leading modifiable risk factor for age-related macular degeneration. The mechanism is twofold: oxidative stress on the retinal pigment epithelium and chronic choroidal vasoconstriction. With abstinence, both relent. AMD risk starts dropping from the first month."
+  },
+  "nicotine-eyes-silver": {
+    "title": "The retina breathes",
+    "description": "Choroidal perfusion — the blood flow nourishing the retina — improves substantially with sustained abstinence. Intraocular pressure normalizes. The retinal pigment epithelium, under chronic oxidative stress for years, operates with a damage load that no longer grows. Eyes that were looking through smoke, clearing."
+  },
+  "cannabis-intestines-bronze": {
+    "title": "The intestinal cannabinoid system regulates again",
+    "description": "CB1 receptors throughout the gastrointestinal tract — saturated by chronic THC, disrupting motility and secretion — begin recovering density and sensitivity. Nausea episodes, cannabinoid hyperemesis syndrome in severe cases, and erratic motility normalize. The gut functions again without external chemical supervision."
+  },
+  "cannabis-oral-mucosa-bronze": {
+    "title": "The mouth without smoke",
+    "description": "The oral mucosa recovers from the thermal and chemical irritation of cannabis smoke. Xerostomia — the characteristic dry mouth of cannabis use, mediated by CB1 receptors in salivary glands — remits as receptors renormalize. Saliva returns. With it, the first line of oral immune defense."
+  },
+  "cannabis-nasal-mucosa-bronze": {
+    "title": "The nasal passages remember what they're for",
+    "description": "The nasal mucosa recovers from chronic irritation by smoke and, in users who vaporize or use other forms, from direct contact with irritants. Nasal mucociliary function improves. The sense of smell, partially dulled, starts to sharpen."
+  },
+  "cannabis-teeth-bronze": {
+    "title": "The gums without the veil",
+    "description": "Cannabis is associated with higher rates of periodontal disease, xerostomia, and compromised oral hygiene tied to usage patterns. With abstinence, gingival inflammation remits and saliva — which protects enamel and neutralizes acids — flows normally again."
+  },
+  "cannabis-eyes-bronze": {
+    "title": "The red fades",
+    "description": "Conjunctival hyperemia — the characteristic red eyes of THC, caused by CB1-mediated vasodilation in ocular vasculature — disappears within hours of last use. With sustained abstinence, the ocular vasomotor response normalizes completely. The sclera goes white again. You no longer carry your use written on your face."
+  },
+  "cocaine-nasal-mucosa-bronze-1": {
+    "title": "The bleeding stops",
+    "description": "Chronic epistaxis — recurrent nosebleeds from ischemic vasoconstriction of the mucosa — ceases with abstinence. Cocaine blocks noradrenaline reuptake, causing sustained vasoconstriction that kills tissue through ischemia. Without the vasoconstrictor, mucosal circulation begins to recover. The first thing you notice is that you no longer bleed."
+  },
+  "cocaine-nasal-mucosa-bronze-2": {
+    "title": "The septum starts to close",
+    "description": "The septal mucosa, subjected to chronic ischemia and direct chemical trauma, initiates epithelial repair. In cases without established perforation, tissue reconstitutes. In cases with perforation, the edges stabilize and stop necrosing. The most visible damage of cocaine — the one doctors use to diagnose it without the patient admitting it — is stopping."
+  },
+  "cocaine-nasal-mucosa-silver": {
+    "title": "Cartilage that holds",
+    "description": "Septal cartilage necrosis stops with sustained abstinence. The mucosa that survived has consolidated as functional epithelium. What was lost doesn't return — cocaine is the only drug of abuse that destroys cartilage directly and irreversibly — but the destruction is over. What remains is yours."
+  },
+  "cocaine-nasal-mucosa-gold": {
+    "title": "The nose rebuilt from within",
+    "description": "Maximum tissue recovery achievable without surgical intervention. Pseudostratified respiratory epithelium — the correct tissue, not scar tissue — has repopulated most of the mucosal surface. The sense of smell, if not destroyed by extensive necrosis, has recovered real sensitivity. What cocaine undid over years, the body has remade with what it had."
+  },
+  "cocaine-teeth-bronze": {
+    "title": "The bruxism relents",
+    "description": "Cocaine-induced teeth grinding and clenching — mediated by dopaminergic and noradrenergic excess — remit with abstinence. The enamel stops being ground from within. Direct chemical erosion from the alkaloid applied to gums also ceases. The teeth have a truce, for the first time in a long time."
+  },
+  "cocaine-teeth-silver": {
+    "title": "The gums reclaim their territory",
+    "description": "Cocaine-accelerated periodontal disease — chronic gingival vasoconstriction, xerostomia, bruxism, direct alkaloid application — shows substantial reversal. Gingival inflammation remits, salivary flow normalizes, alveolar bone stops retreating. What looked like a mouth decades older, rejuvenating."
+  },
+  "cocaine-eyes-bronze": {
+    "title": "Ocular vasoconstriction surrenders",
+    "description": "Cocaine constricts the vessels of the retina and choroid with the same brutality as those of the nasal septum. With abstinence, retinal perfusion normalizes. The risk of retinal vascular occlusion — one of the mechanisms of acute visual loss associated with use — disappears. The eyes have enough blood again."
+  },
+  "cocaine-eyes-silver": {
+    "title": "The retina out of danger",
+    "description": "Choroidal and retinal perfusion has stabilized within normal ranges on a sustained basis. The risk of acute ocular vascular events is now comparable to the general population. Eyes that watched too many sleepless nights with vessels in spasm now have stable supply. They see more. They hurt less."
   }
 }
