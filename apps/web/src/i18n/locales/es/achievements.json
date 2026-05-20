@@ -323,5 +323,121 @@
   "caffeine-vta-silver-4": {
     "title": "Sensibilidad recuperada",
     "description": "Densidad de receptores de adenosina en la línea base. Una sola taza ahora pega como pegaba antes de que se construyera la tolerancia — la cafeína vuelve a ser una herramienta, no una dosis de mantenimiento."
+  },
+    "alcohol-intestines-bronze": {
+    "title": "La muralla intestinal se reconstituye",
+    "description": "El alcohol afloja las uniones estrechas del epitelio intestinal — las tight junctions — permitiendo que endotoxinas bacterianas atraviesen la pared y lleguen a la circulación portal, alimentando inflamación sistémica. A este umbral, la reparación epitelial está en marcha. El intestino está cerrando sus puertas de nuevo. El \"leaky gut\" no es metáfora: era medible, y ahora está revirtiendo."
+  },
+  "alcohol-intestines-silver": {
+    "title": "El microbioma vuelve a la mesa",
+    "description": "La disbiosis asociada al alcohol — colapso de diversidad microbiana, sobrecrecimiento de bacterias gramnegativas, caída de productores de butirato — se resuelve sustancialmente con la abstinencia sostenida. El eje intestino-hígado deja de enviar señales de alarma. El ecosistema interno se reconstruye solo. Tú no tienes que hacer nada más que seguir."
+  },
+  "alcohol-spleen-bronze": {
+    "title": "El bazo deja de ser el termómetro del hígado",
+    "description": "La esplenomegalia alcohólica — el agrandamiento del bazo por hipertensión portal secundaria al daño hepático — comienza a revertir a medida que el hígado se recupera y la presión portal baja. El bazo estaba actuando como manómetro de una avería. La avería se está reparando."
+  },
+  "alcohol-oral-mucosa-bronze": {
+    "title": "La boca recuerda lo que es normal",
+    "description": "El alcohol es un irritante directo y carcinógeno de la mucosa oral. En pocas semanas de abstinencia, los marcadores inflamatorios del epitelio oral bajan, la composición salival se normaliza y la xerostomía crónica comienza a revertir. La boca empieza a no doler de fondo."
+  },
+  "alcohol-oral-mucosa-silver": {
+    "title": "El carcinógeno ha desalojado el edificio",
+    "description": "El acetaldehído — el metabolito mutagénico del alcohol, clasificado como carcinógeno Grupo 1 por la IARC — ya no es un huésped diario de tu mucosa oral. La reparación del ADN epitelial supera el daño nuevo. La presión carcinogénica sobre el epitelio oral se ha levantado."
+  },
+  "alcohol-teeth-bronze": {
+    "title": "La erosión del esmalte entra en pausa",
+    "description": "El daño dental por alcohol tiene dos vías: exposición ácida directa y reflujo gástrico secundario a la gastritis. Ambas están remitiendo. La pérdida de esmalte nuevo se detiene. Lo que ya no está no vuelve — pero el daño deja de acumularse. A veces parar es suficiente victoria."
+  },
+  "alcohol-eyes-bronze": {
+    "title": "El blanco de los ojos vuelve a ser blanco",
+    "description": "La ictericia escleral — el amarillo en la esclerótica por hiperbilirrubinemia secundaria a disfunción hepática — comienza a desvanecerse a medida que el hígado recupera capacidad. Es uno de los marcadores más visibles de recuperación interna. Lo ven antes que tú."
+  },
+  "alcohol-eyes-silver": {
+    "title": "El nervio óptico sale del asedio",
+    "description": "La neuropatía óptica alcohólica — causada por déficits nutricionales (tiamina, B12) y daño tóxico directo — estabiliza y revierte parcialmente. La agudeza visual y la sensibilidad al contraste mejoran a medida que el nervio se recupera del insulto metabólico crónico. Ojos que volvían a ver borroso, despejándose."
+  },
+  "nicotine-oral-mucosa-bronze": {
+    "title": "La boca deja de saber a cenicero",
+    "description": "La mucosa oral es de las primeras en notar la abstinencia. En días, la inflamación crónica del epitelio bucal comienza a revertir, la producción salival se normaliza y los receptores gustativos — embotados por el humo — empiezan a recuperar sensibilidad. La comida empieza a tener sabor de verdad."
+  },
+  "nicotine-oral-mucosa-silver": {
+    "title": "La leucoplasia cede terreno",
+    "description": "Las lesiones de leucoplasia oral asociadas al tabaco — placas blanquecinas precancerosas en la mucosa — muestran regresión parcial con abstinencia sostenida. El epitelio oral ha salido del estado de alarma carcinogénica permanente. Lo que el tabaco convirtió en tejido de riesgo, el tiempo lo está devolviendo a tejido sano."
+  },
+  "nicotine-nasal-mucosa-bronze": {
+    "title": "El olfato sale del sótano",
+    "description": "La mucosa nasal, inflamada y atrofiada por la exposición crónica al humo, comienza a regenerarse. Los cilios nasales recuperan movilidad. El olfato — uno de los sentidos que el tabaco roba más silenciosamente — empieza a volver. Primero hueles lo obvio. Luego hueles lo sutil."
+  },
+  "nicotine-nasal-mucosa-silver": {
+    "title": "Filtro nasal operativo",
+    "description": "La mucosa nasal ha recuperado su función de barrera y filtrado. La aclaración mucociliar nasal está normalizada. El epitelio que el humo desnudó durante años vuelve a hacer su trabajo: calentar, humedecer y filtrar el aire antes de que llegue a los pulmones."
+  },
+  "nicotine-teeth-bronze": {
+    "title": "Las encías dejan de sangrar en silencio",
+    "description": "La enfermedad periodontal asociada al tabaco tiene un componente insidioso: la nicotina enmascara la inflamación gingival vasoconstrictando los vasos, así que las encías sangran menos durante el consumo — y mucho más al dejarlo. Ese sangrado inicial es la inflamación real saliendo a la luz. En pocas semanas, la respuesta inflamatoria gingival se normaliza."
+  },
+  "nicotine-teeth-silver": {
+    "title": "El hueso alveolar para de retroceder",
+    "description": "La pérdida ósea alveolar — uno de los daños periodontales más permanentes del tabaco — se detiene con la abstinencia sostenida. Lo que ya se perdió no vuelve, pero la progresión se frena. Los dientes que quedaron tienen ahora suelo firme bajo ellos."
+  },
+  "nicotine-eyes-bronze": {
+    "title": "La DMAE tiene un enemigo menos",
+    "description": "Fumar es el principal factor de riesgo modificable para la degeneración macular asociada a la edad. El mecanismo es doble: estrés oxidativo en el epitelio pigmentario retiniano y vasoconstricción coroidea crónica. Con la abstinencia, ambos ceden. El riesgo de DMAE empieza a bajar desde el primer mes."
+  },
+  "nicotine-eyes-silver": {
+    "title": "La retina respira",
+    "description": "La perfusión coroidea — el flujo sanguíneo que nutre la retina — mejora sustancialmente con la abstinencia sostenida. La presión intraocular se normaliza. El epitelio pigmentario retiniano, bajo estrés oxidativo crónico durante años, opera con una carga de daño que ya no crece. Los ojos que miraban a través del humo, despejándose."
+  },
+  "cannabis-intestines-bronze": {
+    "title": "El sistema cannabinoide intestinal vuelve a regular",
+    "description": "Los receptores CB1 del tracto gastrointestinal — que el THC crónico había saturado, alterando la motilidad y la secreción — comienzan a recuperar densidad y sensibilidad. Los episodios de náuseas, el síndrome de hiperémesis cannabinoide en casos severos, y la motilidad errática se normalizan. El intestino vuelve a funcionar sin supervisión química externa."
+  },
+  "cannabis-oral-mucosa-bronze": {
+    "title": "La boca sin humo",
+    "description": "La mucosa oral se recupera de la irritación térmica y química del humo de cannabis. La xerostomía — la sequedad bucal característica del consumo, mediada por CB1 en glándulas salivales — remite a medida que los receptores renormalizan. La saliva vuelve. Con ella, la primera línea de defensa inmune oral."
+  },
+  "cannabis-nasal-mucosa-bronze": {
+    "title": "Las fosas nasales recuerdan para qué sirven",
+    "description": "La mucosa nasal se recupera de la irritación crónica por humo y, en consumidores que vaporizan o consumen en otras formas, del contacto directo con irritantes. La función mucociliar nasal mejora. El olfato, parcialmente embotado, empieza a afinar."
+  },
+  "cannabis-teeth-bronze": {
+    "title": "Las encías sin el velo",
+    "description": "El cannabis se asocia a mayor incidencia de enfermedad periodontal, xerostomía e higiene oral comprometida por el patrón de consumo. Con la abstinencia, la inflamación gingival remite y la saliva — que protege el esmalte y neutraliza ácidos — vuelve a fluir con normalidad."
+  },
+  "cannabis-eyes-bronze": {
+    "title": "El rojo se va",
+    "description": "La hiperemia conjuntival — los ojos rojos característicos del THC, causados por vasodilatación mediada por CB1 en la vasculatura ocular — desaparece en horas tras el último consumo. Con la abstinencia sostenida, la respuesta vasomotora ocular se normaliza completamente. La esclerótica vuelve a ser blanca. Ya no llevas el consumo escrito en la cara."
+  },
+  "cocaine-nasal-mucosa-bronze-1": {
+    "title": "La hemorragia se detiene",
+    "description": "Las epistaxis crónicas — el sangrado nasal recurrente por vasoconstricción isquémica de la mucosa — cesan con la abstinencia. La cocaína bloquea la recaptación de noradrenalina causando vasoconstricción sostenida que mata tejido por isquemia. Sin el vasoconstrictor, la circulación mucosa comienza a recuperarse. Lo primero que notas es que ya no sangras."
+  },
+  "cocaine-nasal-mucosa-bronze-2": {
+    "title": "El tabique empieza a cerrar",
+    "description": "La mucosa septal, sometida a isquemia crónica y trauma químico directo, inicia reparación epitelial. En casos sin perforación establecida, el tejido se reconstituye. En casos con perforación, los bordes se estabilizan y dejan de necrosar. El daño más visible de la cocaína — el que los médicos usan para diagnosticarla sin que el paciente lo admita — está parando."
+  },
+  "cocaine-nasal-mucosa-silver": {
+    "title": "Cartílago que no cede más",
+    "description": "La necrosis del cartílago septal se detiene con abstinencia sostenida. La mucosa que sobrevivió se ha consolidado como epitelio funcional. Lo que se perdió no vuelve — la cocaína es el único fármaco de abuso que destruye cartílago de forma directa e irreversible — pero la destrucción ha terminado. Lo que queda, es tuyo."
+  },
+  "cocaine-nasal-mucosa-gold": {
+    "title": "La nariz reconstruida desde dentro",
+    "description": "Máxima recuperación tisular alcanzable sin intervención quirúrgica. El epitelio respiratorio pseudoestratificado — el tejido correcto, no tejido cicatricial — ha repoblado la mayor parte de la superficie mucosa. El olfato, si no fue destruido por necrosis extensa, ha recuperado sensibilidad real. Lo que la cocaína deshizo durante años, el cuerpo lo ha rehecho con lo que tenía."
+  },
+  "cocaine-teeth-bronze": {
+    "title": "El bruxismo cede",
+    "description": "El apretamiento y rechinamiento dentales inducidos por cocaína — mediados por el exceso dopaminérgico y noradrenérgico — remiten con la abstinencia. El esmalte deja de ser triturado desde dentro. La erosión química directa por el alcaloide aplicado sobre encías también cesa. Los dientes tienen por primera vez en mucho tiempo una tregua."
+  },
+  "cocaine-teeth-silver": {
+    "title": "Las encías recuperan su territorio",
+    "description": "La enfermedad periodontal acelerada por cocaína — vasoconstricción gingival crónica, xerostomía, bruxismo, aplicación directa del alcaloide — muestra reversión sustancial. La inflamación gingival remite, el flujo salival se normaliza, el hueso alveolar para de retroceder. Lo que parecía una boca de décadas más, rejuvenece."
+  },
+  "cocaine-eyes-bronze": {
+    "title": "La vasoconstricción ocular se rinde",
+    "description": "La cocaína contrae los vasos de la retina y la coroides con la misma brutalidad que los del tabique nasal. Con la abstinencia, la perfusión retiniana se normaliza. El riesgo de oclusión vascular retiniana — uno de los mecanismos de pérdida visual aguda asociados al consumo — desaparece. Los ojos vuelven a tener sangre suficiente."
+  },
+  "cocaine-eyes-silver": {
+    "title": "La retina fuera de peligro",
+    "description": "La perfusión coroidea y retiniana se ha estabilizado en rangos normales de forma sostenida. El riesgo de eventos vasculares oculares agudos es ya comparable al de la población general. Los ojos que miraron demasiadas noches sin dormir, con los vasos en espasmo, tienen ahora suministro estable. Ven más. Duelen menos."
   }
 }
