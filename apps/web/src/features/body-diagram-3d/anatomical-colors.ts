@@ -74,6 +74,30 @@ export const ANATOMICAL_COLORS: Record<OrganId, OrganColorPair> = {
     damaged: "#5a4a40",
     healthy: "#a08070",
   },
+  intestines: {
+    damaged: "#6a5040",
+    healthy: "#c89878",  // rosa-salmón, mucosa intestinal
+  },
+  spleen: {
+    damaged: "#4a3a48",
+    healthy: "#8a5a7a",  // púrpura oscuro, tejido linfoide
+  },
+  'oral-mucosa': {
+    damaged: "#7a4a48",
+    healthy: "#c87878",  // rosa mucosa oral
+  },
+  'nasal-mucosa': {
+    damaged: "#7a4a48",
+    healthy: "#c87878",
+  },
+  teeth: {
+    damaged: "#8a8878",
+    healthy: "#e8e8d8",  // marfil
+  },
+  eyes: {
+    damaged: "#5a6a6a",
+    healthy: "#a8c8c8",  // azul-gris esclera
+  },
 };
 
 export function interpolateOrganColor(
