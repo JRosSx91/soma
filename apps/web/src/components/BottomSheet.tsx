@@ -62,8 +62,8 @@ export function BottomSheet({ open, onClose, children }: BottomSheetProps) {
             aria-modal="true"
             className="
               fixed bottom-0 left-0 right-0 z-50
-              bg-soma-bg-surface
-              border-t border-soma-border-subtle
+              bg-soma-surface
+              border-t border-soma-line
               rounded-t-2xl
               max-h-[80vh]
               flex flex-col
@@ -78,13 +78,14 @@ export function BottomSheet({ open, onClose, children }: BottomSheetProps) {
             }}
           >
             {/* Drag handle */}
-            <div
-              className="flex justify-center py-3 cursor-pointer"
+            <button
+              type="button"
+              className="flex justify-center py-3 w-full bg-transparent cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-soma-focus"
               onClick={onClose}
               aria-label="Close"
             >
-              <div className="w-10 h-1 bg-soma-fg-muted/40 rounded-full" />
-            </div>
+              <div className="w-10 h-1 bg-soma-ink-muted/40 rounded-full" />
+            </button>
 
             {/* Scrollable content */}
             <div className="overflow-y-auto px-6 pb-8">{children}</div>

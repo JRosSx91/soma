@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import type { OrganId } from "@soma/shared-types";
-import { useCameraStore } from "../../body-diagram-3d/store/useCamaraStore";
 import type { OrganStateMap } from "../../body-diagram-3d/types.js";
 
 interface OrganListPanelProps {
@@ -9,11 +8,8 @@ interface OrganListPanelProps {
   selected: OrganId | null;
 }
 
-const PROGRESS_COLOR = (fraction: number): string => {
-  if (fraction < 0.33) return "bg-soma-organ-damaged";
-  if (fraction < 0.66) return "bg-soma-organ-mid";
-  return "bg-soma-organ-healthy";
-};
+const focusRing =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-soma-focus";
 
 export function OrganListPanel({
   organStates,
@@ -21,7 +17,6 @@ export function OrganListPanel({
   selected,
 }: OrganListPanelProps) {
   const { t } = useTranslation(["organs", "main"]);
-  const focusOrgan = useCameraStore((s) => s.focusOrgan);
 
   const activeOrgans = Array.from(organStates.entries()).filter(
     ([, state]) => state.active,
@@ -29,7 +24,7 @@ export function OrganListPanel({
 
   if (activeOrgans.length === 0) {
     return (
-      <p className="text-xs text-soma-fg-muted italic">
+      <p className="text-xs text-soma-ink-muted italic">
         {t("main:panel.noOrgansAffected")}
       </p>
     );
@@ -46,28 +41,28 @@ export function OrganListPanel({
             key={organId}
             onClick={() => {
               onOrganClick(organId);
-              focusOrgan(organId);
             }}
             className={`
               w-full text-left px-3 py-2 rounded border transition-colors
+              ${focusRing}
               ${
                 isSelected
-                  ? "border-soma-accent bg-soma-bg-elevated"
-                  : "border-soma-border-subtle bg-soma-bg-base/40 hover:border-soma-accent/50 hover:bg-soma-bg-elevated/50"
+                  ? "border-soma-action bg-soma-raised"
+                  : "border-soma-line bg-soma-canvas/40 hover:border-soma-action/50 hover:bg-soma-raised/50"
               }
             `}
           >
             <div className="flex items-baseline justify-between mb-1">
-              <span className="text-xs text-soma-fg-primary">
+              <span className="text-xs text-soma-ink">
                 {t(`organs:${organId}`, { defaultValue: organId })}
               </span>
-              <span className="text-[10px] text-soma-fg-muted tabular-nums">
+              <span className="text-[10px] text-soma-physiology tabular-nums">
                 {pct}%
               </span>
             </div>
-            <div className="relative h-1 rounded-full overflow-hidden bg-soma-bg-elevated">
+            <div className="relative h-1 rounded-full overflow-hidden bg-soma-raised">
               <div
-                className={`h-full transition-all duration-500 ${PROGRESS_COLOR(state.progressFraction)}`}
+                className="h-full transition-all duration-500 bg-soma-physiology"
                 style={{ width: `${pct}%` }}
               />
             </div>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TrophyIcon } from "../features/achievements/components/TrophyIcon.js";
+import { LungAnimation } from "../features/landing/LungAnimation.js";
 import heroImage from "../assets/soma-hero.png";
 import { motion } from "framer-motion";
 
@@ -61,6 +62,38 @@ export function LandingPage() {
               >
                 {t("hero.login")}
               </Link>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-col items-center md:items-start gap-3 pt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6, ease }}
+            >
+              <p className="text-xs text-soma-fg-muted tracking-widest uppercase">
+                106 trofeos · 5 sustancias · 8 idiomas
+              </p>
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                aria-hidden="true"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 4v12M4 10l6 6 6-6"
+                    stroke="var(--soma-fg-muted)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </motion.div>
             </motion.div>
           </div>
 
@@ -203,6 +236,7 @@ export function LandingPage() {
               <p className="text-soma-fg-secondary leading-relaxed">
                 {t(`how.step${n}_desc`)}
               </p>
+              {n === 2 && <LungAnimation />}
             </motion.div>
           ))}
         </div>
@@ -334,8 +368,8 @@ export function LandingPage() {
         <div className="space-y-4 max-w-2xl">
           {[
             { tier: "bronze" as const, key: "example1", delay: 0.3 },
-            { tier: "gold" as const, key: "example2", delay: 0.45 },
-            { tier: "platinum" as const, key: "example3", delay: 0.6 },
+            { tier: "silver" as const, key: "example2", delay: 0.45 },
+            { tier: "gold" as const, key: "example3", delay: 0.6 },
           ].map(({ tier, key, delay }) => (
             <motion.div
               key={key}
