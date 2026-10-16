@@ -8,19 +8,21 @@ export const demoDisclaimer =
   "Cifras y textos ficticios. No son mediciones clínicas.";
 
 export const previewSections = [
-  { id: "inicio", label: "Inicio", mobileLabel: "Inicio" },
+  { id: "inicio", label: "Inicio", mobileLabel: "Inicio", to: "/preview" },
   {
     id: "recuperacion",
     label: "Mi recuperación",
     mobileLabel: "Recuperación",
+    to: "/preview/recovery",
   },
-  { id: "explorar", label: "Explorar", mobileLabel: "Explorar" },
+  { id: "explorar", label: "Explorar", mobileLabel: "Explorar", to: "/preview/explore" },
   {
     id: "anatomia",
     label: "Explorador anatómico",
     mobileLabel: "Anatomía",
+    to: "/preview/anatomy",
   },
-  { id: "logros", label: "Logros", mobileLabel: "Logros" },
+  { id: "logros", label: "Logros", mobileLabel: "Logros", to: "/preview/achievements" },
 ] as const;
 
 export type PreviewSectionId = (typeof previewSections)[number]["id"];

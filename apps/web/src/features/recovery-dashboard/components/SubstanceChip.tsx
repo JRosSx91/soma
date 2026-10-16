@@ -1,6 +1,6 @@
-import { Cigarette, Leaf, Mountain } from "lucide-react";
 import type { DemoSubstance } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
+import { SubstanceIllustration } from "./SubstanceIllustration.js";
 
 interface SubstanceChipProps {
   substance: DemoSubstance;
@@ -8,20 +8,12 @@ interface SubstanceChipProps {
   onSelect: (id: string) => void;
 }
 
-const icons = {
-  cannabis: Leaf,
-  nicotine: Cigarette,
-  cocaine: Mountain,
-} as const;
-
 /** Compact substance control used in the mobile composition. */
 export function SubstanceChip({
   substance,
   selected,
   onSelect,
 }: SubstanceChipProps) {
-  const Icon = icons[substance.id as keyof typeof icons] ?? Leaf;
-
   return (
     <button
       type="button"
@@ -36,7 +28,11 @@ export function SubstanceChip({
             : "border-soma-line bg-soma-surface text-soma-ink-secondary"
         }`}
       >
-        <Icon className="h-5 w-5" aria-hidden="true" />
+        <SubstanceIllustration
+          name={substance.id}
+          className="h-10 w-10"
+          iconClassName="h-5 w-5"
+        />
       </span>
       <span className="text-xs text-soma-ink-secondary">{substance.abstinence}</span>
     </button>

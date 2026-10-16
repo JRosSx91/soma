@@ -37,11 +37,11 @@ export function HeroFilaments() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute z-0 hidden aspect-[700/210] [mask-image:radial-gradient(ellipse_at_66%_58%,black_48%,transparent_86%)] md:block md:right-[10rem] md:top-[7rem] md:h-[8rem] lg:right-[11.5rem] lg:top-[8.5rem] lg:h-[10rem] xl:right-[10rem] xl:top-[10rem] xl:h-[13rem]"
+      className="pointer-events-none absolute z-0 hidden overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_22%,black_82%,transparent)] md:block md:right-0 md:top-6 md:h-32 md:w-40 lg:top-2 lg:h-40 lg:w-52 xl:right-[-1rem] xl:top-0 xl:h-52 xl:w-64 2xl:right-[-4rem] 2xl:h-60 2xl:w-72 min-[1650px]:right-[-8rem] min-[1650px]:h-64 min-[1650px]:w-[24rem]"
     >
       <svg
         viewBox="0 0 700 210"
-        className="h-full w-full"
+        className="absolute h-56 w-auto max-w-none md:left-[-18rem] md:top-[-1.5rem] lg:left-[-22rem] lg:h-72 xl:left-[-28rem] xl:top-[-1rem] xl:h-80 2xl:left-[-34rem] 2xl:h-[24rem] min-[1650px]:left-[-44.75rem] min-[1650px]:top-[-0.5rem] min-[1650px]:h-[26rem]"
         fill="none"
         preserveAspectRatio="xMidYMid meet"
       >
