@@ -9,6 +9,7 @@ import { PreviewPage } from "./pages/PreviewPage.js";
 import { PreviewHome } from "./features/recovery-dashboard/components/PreviewHome.js";
 import { RecoveryPage } from "./features/recovery-dashboard/pages/RecoveryPage.js";
 import { ExplorePage } from "./features/recovery-dashboard/pages/ExplorePage.js";
+import { AnatomyExplorerPage } from "./features/recovery-dashboard/pages/AnatomyExplorerPage.js";
 import { AchievementsPage as PreviewAchievementsPage } from "./features/recovery-dashboard/pages/AchievementsPage.js";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
@@ -47,6 +48,7 @@ function App() {
           <Route index element={<PreviewHome />} />
           <Route path="recovery" element={<RecoveryPage />} />
           <Route path="explore" element={<ExplorePage />} />
+          <Route path="anatomy" element={<AnatomyExplorerPage />} />
           <Route path="achievements" element={<PreviewAchievementsPage />} />
         </Route>
 
