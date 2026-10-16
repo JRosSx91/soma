@@ -4,5 +4,6 @@ export * from "./evidence.js";
 export * from "./recovery.js";
 export * from "./user.js";
 export * from "./achievements.js";
+export * from "./achievement-progress.js";
 export * from "./recovery-math.js";
 export * from "./neurotransmitters.js";

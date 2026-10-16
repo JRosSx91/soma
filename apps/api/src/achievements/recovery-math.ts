@@ -5,6 +5,7 @@ import {
   daysToReachCurveProgress,
   estimateCurve,
   planAchievementUnlocks,
+  readAchievementProgress,
   type CurveModel,
 } from "@soma/shared-types";
 
@@ -35,5 +36,5 @@ export function daysToReachThreshold(threshold: number, params: CurveParams): nu
   });
 }
 
-export { dateAfterDays, daysBetween, planAchievementUnlocks };
+export { dateAfterDays, daysBetween, planAchievementUnlocks, readAchievementProgress };
 export type { CurveModel };
