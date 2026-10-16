@@ -23,7 +23,7 @@ export function OrganNarrativePanel({ entries }: OrganNarrativePanelProps) {
 
   if (entries.length === 0) {
     return (
-      <p className="text-xs text-soma-fg-muted italic">
+      <p className="text-xs text-soma-ink-muted italic">
         {t("main:panel.noNarrativeData")}
       </p>
     );
@@ -41,18 +41,18 @@ export function OrganNarrativePanel({ entries }: OrganNarrativePanelProps) {
         return (
           <div
             key={`${entry.organId}:${entry.sourceSubstanceId}`}
-            className="border border-soma-border-subtle rounded p-3 bg-soma-bg-base/40"
+            className="border border-soma-line rounded p-3 bg-soma-canvas/40"
           >
             <div className="flex items-baseline justify-between mb-2">
-              <p className="text-soma-fg-primary text-sm capitalize">
+              <p className="text-soma-ink text-sm capitalize">
                 {sourceName}
               </p>
-              <span className="text-[10px] uppercase tracking-wider text-soma-fg-muted">
+              <span className="text-[10px] uppercase tracking-wider text-soma-physiology">
                 {phaseLabel}
               </span>
             </div>
 
-            <p className="text-xs text-soma-fg-secondary leading-relaxed">
+            <p className="text-xs text-soma-ink-secondary leading-relaxed">
               {narrativeText}
             </p>
           </div>

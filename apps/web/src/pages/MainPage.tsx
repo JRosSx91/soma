@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Trophy, User, LogOut } from "lucide-react";
@@ -11,6 +11,7 @@ import {
 } from "../features/profile/index.js";
 import type { UserProfile } from "../features/profile/types.js";
 import { BodyDiagram3D } from "../features/body-diagram-3d/index.js";
+import { useCameraStore } from "../features/body-diagram-3d/store/useCamaraStore.js";
 import type { OrganStateMap } from "../features/body-diagram-3d/index.js";
 import {
   useNeurotransmitterState,
@@ -24,6 +25,9 @@ import {
 import { BottomSheet } from "../components/BottomSheet.js";
 import { OrganListPanel } from "../features/organ-list/index.js";
 import { useIsMobile } from "../hooks/useIsMobile.js";
+
+const focusRing =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-soma-focus";
 
 export function MainPage() {
   const { t } = useTranslation([
@@ -57,11 +61,20 @@ export function MainPage() {
   const { entries: narrativeEntries } = useOrganNarrativeState();
   const [showNarrative, setShowNarrative] = useState(false);
 
+  const requestFocus = useCameraStore((state) => state.requestFocus);
+
   const handleSelect = (organId: OrganId | null) => {
     setSelected((prev) => (prev === organId ? null : organId));
     setShowNeurotransmitters(false);
     setShowNarrative(false);
   };
+
+  // The resolved selection is the only camera signal. A second click toggles
+  // back to null, which returns the camera to the overview instead of
+  // framing the same organ again. Hover never writes this state.
+  useEffect(() => {
+    requestFocus(selected);
+  }, [selected, requestFocus]);
 
   const adaptedProfile: UserProfile = useMemo(() => {
     if (!serverProfile) return MOCK_PROFILE;
@@ -113,11 +126,11 @@ export function MainPage() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary">
-      <header className="border-b border-soma-border-subtle px-4 md:px-8 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-soma-canvas text-soma-ink">
+      <header className="border-b border-soma-line px-4 md:px-8 py-4 flex items-center justify-between">
         <div className="min-w-0">
           <h1 className="text-2xl font-light tracking-wide">Soma</h1>
-          <p className="text-xs text-soma-fg-muted mt-1 hidden md:block">
+          <p className="text-xs text-soma-ink-muted mt-1 hidden md:block">
             {user?.displayName ?? "—"}
           </p>
         </div>
@@ -127,12 +140,14 @@ export function MainPage() {
             onClick={() => navigate("/achievements")}
             aria-label={t("main:header.trophies")}
             title={t("main:header.trophies")}
-            className="
+            className={`
               flex items-center gap-2
-              text-soma-fg-muted hover:text-soma-fg-secondary
+              text-soma-reward hover:text-soma-ink
               transition-colors
               p-2 md:p-0
-            "
+              rounded-sm
+              ${focusRing}
+            `}
           >
             <Trophy size={18} aria-hidden="true" />
             <span className="hidden md:inline text-xs">
@@ -143,12 +158,14 @@ export function MainPage() {
             onClick={() => navigate("/onboarding")}
             aria-label={t("main:header.editProfile")}
             title={t("main:header.editProfile")}
-            className="
+            className={`
               flex items-center gap-2
-              text-soma-fg-muted hover:text-soma-fg-secondary
+              text-soma-ink-muted hover:text-soma-ink-secondary
               transition-colors
               p-2 md:p-0
-            "
+              rounded-sm
+              ${focusRing}
+            `}
           >
             <User size={18} aria-hidden="true" />
             <span className="hidden md:inline text-xs">
@@ -159,12 +176,14 @@ export function MainPage() {
             onClick={logout}
             aria-label={t("common:signOut")}
             title={t("common:signOut")}
-            className="
+            className={`
               flex items-center gap-2
-              text-soma-fg-muted hover:text-soma-fg-secondary
+              text-soma-ink-muted hover:text-soma-ink-secondary
               transition-colors
               p-2 md:p-0
-            "
+              rounded-sm
+              ${focusRing}
+            `}
           >
             <LogOut size={18} aria-hidden="true" />
             <span className="hidden md:inline text-xs">
@@ -179,23 +198,23 @@ export function MainPage() {
         <section
           className="
             md:col-span-8
-            md:bg-soma-bg-surface md:border md:border-soma-border-subtle md:rounded md:p-2
+            md:bg-soma-surface md:border md:border-soma-line md:rounded md:p-2
             flex items-center justify-center
             h-[calc(100vh-73px)] md:h-auto md:min-h-[600px]
           "
         >
           {loading && (
-            <p className="text-soma-fg-secondary">{t("common:loading")}</p>
+            <p className="text-soma-ink-secondary">{t("common:loading")}</p>
           )}
-          {error && <p className="text-soma-organ-damaged">{error}</p>}
+          {error && <p className="text-soma-danger">{error}</p>}
           {!loading && !error && hasNoUsages && (
             <div className="text-center px-8 py-12">
-              <p className="text-soma-fg-secondary mb-4">
+              <p className="text-soma-ink-secondary mb-4">
                 {t("main:empty.noSubstances")}
               </p>
               <button
                 onClick={() => navigate("/onboarding")}
-                className="text-soma-accent hover:underline"
+                className={`text-soma-action hover:text-soma-action-hover hover:underline rounded-sm ${focusRing}`}
               >
                 {t("main:empty.addFirst")}
               </button>
@@ -214,10 +233,10 @@ export function MainPage() {
         </section>
 
         {/* Side panel — desktop only */}
-        <aside className="hidden md:block md:col-span-4 bg-soma-bg-surface border border-soma-border-subtle rounded p-6">
+        <aside className="hidden md:block md:col-span-4 bg-soma-surface border border-soma-line rounded p-6">
           {selected === null ? (
             <>
-              <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
+              <h2 className="text-soma-ink-secondary text-sm uppercase tracking-wider mb-3">
                 {t("main:panel.affectedOrgans")}
               </h2>
               <OrganListPanel
@@ -230,7 +249,7 @@ export function MainPage() {
             <>
               <button
                 onClick={() => handleSelect(null)}
-                className="flex items-center gap-1 text-xs text-soma-fg-muted hover:text-soma-fg-secondary mb-4 transition-colors"
+                className={`flex items-center gap-1 text-xs text-soma-ink-muted hover:text-soma-ink-secondary mb-4 transition-colors rounded-sm ${focusRing}`}
               >
                 ← {t("main:panel.affectedOrgans")}
               </button>
@@ -308,7 +327,7 @@ function PanelContent({
 }: PanelContentProps) {
   return (
     <>
-      <h2 className="text-soma-fg-secondary text-sm uppercase tracking-wider mb-3">
+      <h2 className="text-soma-ink-secondary text-sm uppercase tracking-wider mb-3">
         {selected ? t("main:panel.selectedOrgan") : t("main:panel.clickPrompt")}
       </h2>
       {selected &&
@@ -318,17 +337,17 @@ function PanelContent({
           const isActive = state.dominantStatus === "active";
           return (
             <div className="space-y-2 text-sm">
-              <p className="text-soma-fg-primary text-base">
+              <p className="text-soma-ink text-base">
                 {t(`organs:${selected}`, { defaultValue: state.organName })}
               </p>
 
               {/* Active consumption badge */}
               {isActive && (
-                <div className="my-3 p-2 rounded border border-soma-organ-damaged/40 bg-soma-organ-damaged/10">
-                  <p className="text-xs text-soma-organ-damaged font-semibold uppercase tracking-wider">
+                <div className="my-3 p-2 rounded border border-soma-warning/40 bg-soma-warning/10">
+                  <p className="text-xs text-soma-warning font-semibold uppercase tracking-wider">
                     {t("main:panel.activeConsumption")}
                   </p>
-                  <p className="text-xs text-soma-fg-secondary mt-1 leading-relaxed">
+                  <p className="text-xs text-soma-ink-secondary mt-1 leading-relaxed">
                     {(() => {
                       const activeSubstances = state.contributingSubstances
                         .filter((c) => c.status === 'active')
@@ -340,9 +359,9 @@ function PanelContent({
                 </div>
               )}
 
-              <p className="text-soma-fg-muted">
+              <p className="text-soma-ink-muted">
                 {t("main:panel.affectedBy")}:{" "}
-                <span className="text-soma-fg-secondary capitalize">
+                <span className="text-soma-ink-secondary capitalize">
                   {state.contributingSubstances
                     .map((c) =>
                       t(`substances:${c.substanceId}.name`, {
@@ -356,15 +375,15 @@ function PanelContent({
               {/* Days abstinent / recovery — only meaningful for abstinent state */}
               {state.progressFraction > 0 && (
                 <>
-                  <p className="text-soma-fg-muted">
+                  <p className="text-soma-ink-muted">
                     {t("main:panel.daysAbstinent")}:{" "}
-                    <span className="text-soma-fg-secondary tabular-nums">
+                    <span className="text-soma-physiology tabular-nums">
                       {Math.floor(state.daysAbstinent)}
                     </span>
                   </p>
-                  <p className="text-soma-fg-muted">
+                  <p className="text-soma-ink-muted">
                     {t("main:panel.recovery")}:{" "}
-                    <span className="text-soma-accent tabular-nums">
+                    <span className="text-soma-physiology tabular-nums">
                       {(state.progressFraction * 100).toFixed(1)}%
                     </span>
                   </p>
@@ -375,10 +394,10 @@ function PanelContent({
         })()}
 
       {selected && hasNtData && (
-        <div className="mt-4 pt-4 border-t border-soma-border-subtle">
+        <div className="mt-4 pt-4 border-t border-soma-line">
           <button
             onClick={() => setShowNeurotransmitters((prev) => !prev)}
-            className="text-xs text-soma-accent hover:underline"
+            className={`text-xs text-soma-physiology hover:underline rounded-sm ${focusRing}`}
           >
             {showNeurotransmitters
               ? t("main:panel.hideNeurotransmitterState")
@@ -391,10 +410,10 @@ function PanelContent({
       )}
 
       {selected && hasNarrativeData && (
-        <div className="mt-4 pt-4 border-t border-soma-border-subtle">
+        <div className="mt-4 pt-4 border-t border-soma-line">
           <button
             onClick={() => setShowNarrative((prev) => !prev)}
-            className="text-xs text-soma-accent hover:underline"
+            className={`text-xs text-soma-physiology hover:underline rounded-sm ${focusRing}`}
           >
             {showNarrative
               ? t("main:panel.hideRecoveryProcess")

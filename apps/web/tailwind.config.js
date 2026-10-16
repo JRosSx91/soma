@@ -1,3 +1,6 @@
+/** Space-separated RGB channels. Enables bg-soma-action/40 in Tailwind 3. */
+const channel = (cssVariable) => `rgb(var(${cssVariable}) / <alpha-value>)`;
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -22,6 +25,21 @@ export default {
           "confidence-high": "var(--soma-confidence-high)",
           "confidence-medium": "var(--soma-confidence-medium)",
           "confidence-low": "var(--soma-confidence-low)",
+          canvas: channel("--soma-canvas"),
+          surface: channel("--soma-surface"),
+          raised: channel("--soma-raised"),
+          ink: channel("--soma-ink"),
+          "ink-secondary": channel("--soma-ink-secondary"),
+          "ink-muted": channel("--soma-ink-muted"),
+          line: channel("--soma-line"),
+          "line-strong": channel("--soma-line-strong"),
+          action: channel("--soma-action"),
+          "action-hover": channel("--soma-action-hover"),
+          focus: channel("--soma-focus"),
+          physiology: channel("--soma-physiology"),
+          reward: channel("--soma-reward"),
+          danger: channel("--soma-danger"),
+          warning: channel("--soma-warning"),
         },
       },
       keyframes: {

@@ -46,4 +46,34 @@
   --soma-confidence-high: #8aaa6e; /* sage green */
   --soma-confidence-medium: #c9a06e; /* warm tan */
   --soma-confidence-low: #b87a6e; /* dusty rose */
+
+  /*
+   * Semantic channels for the main panel.
+   * Space-separated RGB so Tailwind 3 can apply alpha:
+   *   rgb(var(--soma-action) / <alpha-value>)
+   *
+   * Existing --soma-bg-*, --soma-fg-*, --soma-accent-* and
+   * --soma-organ-* names above keep their warm values. Other
+   * screens still use those names and must not pick up this palette
+   * until they are redesigned.
+   *
+   * Anatomical organ colors for the 3D model live in
+   * features/body-diagram-3d/anatomical-colors.ts and are not these
+   * tokens.
+   */
+  --soma-canvas: 16 24 32; /* #101820 */
+  --soma-surface: 28 42 53; /* #1C2A35 */
+  --soma-raised: 36 56 72; /* #243848 */
+  --soma-ink: 232 238 242; /* #E8EEF2 */
+  --soma-ink-secondary: 176 198 210; /* #B0C6D2 */
+  --soma-ink-muted: 148 170 182; /* #94AAB6 */
+  --soma-line: 52 74 88; /* #344A58 */
+  --soma-line-strong: 78 106 122; /* #4E6A7A */
+  --soma-action: 104 216 192; /* #68D8C0 */
+  --soma-action-hover: 142 226 208; /* #8EE2D0 */
+  --soma-focus: 104 216 192; /* same hue as action, separate role */
+  --soma-physiology: 134 183 232; /* #86B7E8 */
+  --soma-reward: 216 182 120; /* #D8B678 */
+  --soma-danger: 240 164 156; /* #F0A49C */
+  --soma-warning: 232 184 106; /* #E8B86A */
 }

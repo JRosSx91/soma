@@ -17,17 +17,17 @@ const SEVERITY_FILL: Record<NeurotransmitterSeverity, number> = {
 };
 
 const DIRECTION_COLOR: Record<NeurotransmitterDirection, string> = {
-  depleted: "bg-red-700/70",
-  elevated: "bg-amber-600/70",
-  oscillating: "bg-violet-600/70",
-  normalizing: "bg-emerald-700/60",
+  depleted: "bg-soma-danger",
+  elevated: "bg-soma-warning",
+  oscillating: "bg-soma-physiology",
+  normalizing: "bg-soma-action",
 };
 
 const DIRECTION_TRACK: Record<NeurotransmitterDirection, string> = {
-  depleted: "bg-red-950/40",
-  elevated: "bg-amber-950/40",
-  oscillating: "bg-violet-950/40",
-  normalizing: "bg-emerald-950/40",
+  depleted: "bg-soma-danger/20",
+  elevated: "bg-soma-warning/20",
+  oscillating: "bg-soma-physiology/20",
+  normalizing: "bg-soma-action/20",
 };
 
 export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
@@ -42,7 +42,7 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
 
   if (entries.length === 0) {
     return (
-      <p className="text-xs text-soma-fg-muted italic">
+      <p className="text-xs text-soma-ink-muted italic">
         {t("main:panel.noNeurotransmitterData")}
       </p>
     );
@@ -78,12 +78,12 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
         return (
           <div
             key={`${entry.organId}:${entry.neurotransmitter}`}
-            className="border border-soma-border-subtle rounded p-3 bg-soma-bg-base/40"
+            className="border border-soma-line rounded p-3 bg-soma-canvas/40"
           >
             <div className="flex items-baseline justify-between mb-2">
-              <p className="text-soma-fg-primary text-sm">{ntName}</p>
+              <p className="text-soma-ink text-sm">{ntName}</p>
               {multiSource && (
-                <span className="text-[10px] uppercase tracking-wider text-soma-accent">
+                <span className="text-[10px] uppercase tracking-wider text-soma-physiology">
                   {t("main:panel.multiSource")}
                 </span>
               )}
@@ -96,23 +96,23 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
                 style={{ width: `${fill * 100}%` }}
               />
             </div>
-            <p className="text-[11px] text-soma-fg-secondary mt-2">
+            <p className="text-[11px] text-soma-ink-secondary mt-2">
               <span className="capitalize">{directionLabel}</span>
               {", "}
               <span>{severityLabel}</span>
             </p>
-            <p className="text-[11px] text-soma-fg-muted mt-1">
+            <p className="text-[11px] text-soma-ink-muted mt-1">
               {t("main:panel.causedBy")}:{" "}
-              <span className="text-soma-fg-secondary">{sourceNames}</span>
+              <span className="text-soma-ink-secondary">{sourceNames}</span>
             </p>
             {multiSource && (
               <div className="mt-2 space-y-1">
                 {entry.sources.map((s) => (
                   <p
                     key={s.substanceId}
-                    className="text-[10px] text-soma-fg-muted"
+                    className="text-[10px] text-soma-ink-muted"
                   >
-                    <span className="text-soma-fg-secondary">
+                    <span className="text-soma-ink-secondary">
                       {t(`substances:${s.substanceId}.name`, {
                         defaultValue: s.substanceId,
                       })}
@@ -133,7 +133,7 @@ export function NeurotransmitterPanel({ entries }: NeurotransmitterPanelProps) {
                 ))}
               </div>
             )}
-            <p className="text-xs text-soma-fg-secondary mt-2 leading-relaxed">
+            <p className="text-xs text-soma-ink-secondary mt-2 leading-relaxed">
               {symptomText}
             </p>
           </div>
