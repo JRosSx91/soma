@@ -4,6 +4,7 @@ import { previewFocus } from "../focus.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
 import type { AtlasSystem, AtlasViewId } from "../anatomy/atlas-types.js";
+import { educationalAnatomy } from "../anatomy/anatomy-education.js";
 import {
   narrativePhases,
   narrativeSubstances,
@@ -404,27 +405,58 @@ function SummaryCopy({
   organ: AtlasSystem["organs"][number] | null;
   onEffects: () => void;
 }) {
+  const entry = organ ? educationalAnatomy(organ.id) : null;
   const hasNarratives = organ ? narrativeSubstances(organ.id).length > 0 : false;
   return (
     <div className="space-y-3">
       <p>{summaryIntro(system, organ)}</p>
-      {organ ? (
-        <div className="space-y-2">
-          <p className="text-xs leading-relaxed text-soma-ink-muted">
-            Todavía no hay una descripción anatómica en español para esta ficha.
-          </p>
-          {hasNarratives ? (
-            <button
-              type="button"
-              onClick={onEffects}
-              className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
-            >
-              Ver efectos
-            </button>
-          ) : null}
+      {entry ? (
+        <div className="space-y-3">
+          <AnatomyNote title="Anatomía" text={entry.anatomy} />
+          <AnatomyNote title="Función" text={entry.physiology} />
+          <AnatomyNote title="Relación" text={entry.relations} />
+          <div>
+            <h3 className="text-xs font-semibold text-soma-ink">Fuentes</h3>
+            <ul className="mt-1 space-y-1">
+              {entry.sources.map((source) => (
+                <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
+                  <a
+                    href={source.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
+                  >
+                    {source.citation}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
+      ) : organ ? (
+        <p className="text-xs leading-relaxed text-soma-ink-muted">
+          Todavía no hay una descripción anatómica en español para esta ficha.
+        </p>
+      ) : null}
+      {hasNarratives ? (
+        <button
+          type="button"
+          onClick={onEffects}
+          className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
+        >
+          Ver efectos
+        </button>
       ) : null}
     </div>
+  );
+}
+
+function AnatomyNote({ title, text }: { title: string; text: string }) {
+  return (
+    <section className="space-y-1">
+      <h3 className="text-xs font-semibold text-soma-ink">{title}</h3>
+      <p>{text}</p>
+    </section>
   );
 }
 
