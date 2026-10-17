@@ -1,6 +1,7 @@
-import { ChevronRight, Cigarette, Leaf, Mountain } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import type { DemoSubstance } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
+import { SubstanceIllustration } from "./SubstanceIllustration.js";
 
 interface SubstanceCardProps {
   substance: DemoSubstance;
@@ -8,19 +9,11 @@ interface SubstanceCardProps {
   onSelect: (id: string) => void;
 }
 
-const icons = {
-  cannabis: Leaf,
-  nicotine: Cigarette,
-  cocaine: Mountain,
-} as const;
-
 export function SubstanceCard({
   substance,
   selected,
   onSelect,
 }: SubstanceCardProps) {
-  const Icon = icons[substance.id as keyof typeof icons] ?? Leaf;
-
   return (
     <button
       type="button"
@@ -34,8 +27,8 @@ export function SubstanceCard({
     >
       <span className="flex items-center justify-between gap-3">
         <span className="flex min-w-0 items-center gap-2">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-soma-canvas text-soma-action">
-            <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-soma-canvas p-0.5 text-soma-action">
+            <SubstanceIllustration name={substance.id} iconClassName="h-3.5 w-3.5" />
           </span>
           <span className="text-xs text-soma-ink-secondary">{substance.name}</span>
         </span>

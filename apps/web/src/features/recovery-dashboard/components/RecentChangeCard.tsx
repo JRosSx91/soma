@@ -1,24 +1,31 @@
 import type { DemoChange } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
-import { OrganGlyph } from "./OrganGlyph.js";
+import { AnatomyIllustration } from "./AnatomyIllustration.js";
 
 interface RecentChangeCardProps {
   change: DemoChange;
   featured?: boolean;
+  onOpen?: () => void;
 }
 
-export function RecentChangeCard({ change, featured = false }: RecentChangeCardProps) {
+export function RecentChangeCard({ change, featured = false, onOpen }: RecentChangeCardProps) {
   return (
     <button
       type="button"
+      onClick={onOpen}
       className={`${previewFocus} grid w-full overflow-hidden rounded-2xl border border-soma-line bg-soma-surface text-left transition-colors hover:border-soma-line-strong hover:bg-soma-raised/40 ${
         featured
           ? "grid-cols-[5.5rem_minmax(0,1fr)]"
           : "grid-cols-[5.25rem_minmax(0,1fr)]"
       }`}
     >
-      <span className="flex items-center justify-center bg-gradient-to-b from-soma-physiology/25 to-soma-canvas text-soma-physiology">
-        <OrganGlyph icon={change.icon} className={featured ? "h-10 w-10" : "h-9 w-9"} />
+      <span className="flex h-full items-center justify-center px-1 py-1.5">
+        <AnatomyIllustration
+          name={change.icon}
+          alt=""
+          loading={featured ? "lazy" : "eager"}
+          className={featured ? "h-24 w-full" : "h-[4.5rem] w-full"}
+        />
       </span>
       <span className={`flex min-w-0 flex-col ${featured ? "p-3 sm:p-4" : "p-2.5"}`}>
         {featured ? (

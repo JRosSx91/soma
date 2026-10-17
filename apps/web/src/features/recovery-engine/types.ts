@@ -43,21 +43,20 @@ export interface RecoveryOutput {
    */
   daysAbstinent: number;
   /**
-   * Recovery progress as a fraction of the achievable ceiling.
-   * Range [0, 1]. A value of 1.0 means "as recovered as this organ
-   * can possibly get" — which, if `recoveryCeiling` is 0.75, still
-   * means 25% of damage is permanent.
+   * Heuristic progress along the recovery curve. Range [0, 1].
+   * A value of 1.0 means the curve has reached its own end, not that
+   * the organ matches a pre-use baseline. The ceiling is applied only
+   * in `absoluteRecovery`.
    *
-   * This is the value the UI uses to interpolate organ colors. It
-   * answers the question "how far along is this user on their possible
-   * recovery journey?" rather than "how close is this organ to a
-   * pre-use state?".
+   * Organ color uses this fraction. Achievement unlocks compare it
+   * with the catalog threshold.
    */
   progressFraction: number;
   /**
-   * Recovery as an absolute fraction relative to the pre-use baseline.
-   * Range [0, recoveryCeiling]. Useful for achievement triggers that
-   * are defined in absolute terms.
+   * Heuristic estimate relative to a pre-use baseline.
+   * Range [0, recoveryCeiling]. This is progressFraction times the
+   * ceiling. Achievement unlocks do not use it; they compare
+   * progressFraction with the catalog threshold.
    *
    * Example: with recoveryCeiling = 0.75 and progressFraction = 1.0,
    * absoluteRecovery = 0.75.

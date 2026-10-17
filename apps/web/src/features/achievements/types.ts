@@ -17,4 +17,17 @@ export interface AchievementWithUnlockState {
   unlocked: boolean;
   unlockedAt: string | null;
   notifiedAt: string | null;
+  /**
+   * Share of the catalog threshold already covered, in [0, 1].
+   * Null when the model cannot calculate it. Heuristic, not clinical.
+   * Absent on responses from an older API.
+   */
+  achievementProgress?: number | null;
+  progressAvailability?:
+    | "ready"
+    | "not_tracked"
+    | "active_use"
+    | "missing_date"
+    | "pending_review"
+    | "concealed";
 }
