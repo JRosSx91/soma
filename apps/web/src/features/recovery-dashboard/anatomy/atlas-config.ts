@@ -6,11 +6,6 @@ function organ(id: AtlasOrgan["id"], name: string, plate: AtlasPlate | null = nu
   return { id, name, plate, regions: { ...noRegions } };
 }
 
-const brainPlate: AtlasPlate = {
-  src: "/images/anatomy/brain.png",
-  depicts: "Cerebro en vista lateral. No separa las estructuras del catálogo.",
-};
-
 const lungsPlate: AtlasPlate = {
   src: "/images/anatomy/lungs.png",
   depicts: "Pulmones y vía aérea central. No separa bronquios ni mucosa nasal.",
@@ -24,12 +19,6 @@ const bronchiPlate: AtlasPlate = {
 const nasalMucosaPlate: AtlasPlate = {
   src: "/images/anatomy/nasal-mucosa.png",
   depicts: "Corte de la cavidad nasal. No incluye bronquios ni pulmones.",
-};
-
-const respiratorySystemPlate: AtlasPlate = {
-  src: "/images/anatomy/respiratory-highlight-anterior.png",
-  depicts: "Cuerpo en vista anterior con el sistema respiratorio resaltado. Sin regiones de órganos.",
-  aspectRatio: "1024 / 1536",
 };
 
 const heartPlate: AtlasPlate = {
@@ -52,11 +41,70 @@ const kidneysPlate: AtlasPlate = {
   depicts: "Riñones.",
 };
 
-const reproductivePlate: AtlasPlate = {
-  src: "/images/anatomy/reproductive.png",
-  depicts:
-    "Lámina conjunta de los aparatos reproductores. Incluye estructuras que no son órganos del catálogo.",
-};
+/** Full-body anterior system plate aligned with the body master (1024×1536). */
+function systemPlate(src: string, depicts: string): AtlasPlate {
+  return { src, depicts, aspectRatio: "1024 / 1536" };
+}
+
+const centralNervousSystemPlate = systemPlate(
+  "/images/anatomy/system-central-nervous.png",
+  "Cuerpo en vista anterior con encéfalo y médula espinal resaltados. Sin regiones de órganos.",
+);
+
+const cardiovascularSystemPlate = systemPlate(
+  "/images/anatomy/system-cardiovascular.png",
+  "Cuerpo en vista anterior con el sistema cardiovascular resaltado. Sin regiones de órganos.",
+);
+
+const respiratorySystemPlate = systemPlate(
+  "/images/anatomy/respiratory-highlight-anterior.png",
+  "Cuerpo en vista anterior con el sistema respiratorio resaltado. Sin regiones de órganos.",
+);
+
+const digestiveSystemPlate = systemPlate(
+  "/images/anatomy/system-digestive.png",
+  "Cuerpo en vista anterior con el tracto digestivo resaltado. El hígado también aparece; el sistema hepático del catálogo tiene su propia lámina.",
+);
+
+const hepaticSystemPlate = systemPlate(
+  "/images/anatomy/system-hepatic.png",
+  "Cuerpo en vista anterior con el hígado y la vía biliar resaltados. Sin regiones de órganos.",
+);
+
+const renalSystemPlate = systemPlate(
+  "/images/anatomy/system-renal.png",
+  "Cuerpo en vista anterior con riñones, uréteres y vejiga resaltados. Sin regiones de órganos.",
+);
+
+const immuneSystemPlate = systemPlate(
+  "/images/anatomy/system-immune.png",
+  "Cuerpo en vista anterior con órganos y estructuras inmunitarias resaltados. Sin regiones de órganos.",
+);
+
+const reproductiveSystemPlate = systemPlate(
+  "/images/anatomy/system-reproductive.png",
+  "Cuerpo en vista anterior con el aparato reproductor masculino resaltado. Sin regiones de órganos.",
+);
+
+const integumentarySystemPlate = systemPlate(
+  "/images/anatomy/system-integumentary.png",
+  "Cuerpo en vista anterior con piel y anexos cutáneos resaltados. Sin regiones de órganos.",
+);
+
+const sensorySystemPlate = systemPlate(
+  "/images/anatomy/system-sensory.png",
+  "Cuerpo en vista anterior con órganos de los sentidos resaltados. Sin regiones de órganos.",
+);
+
+const endocrineSystemPlate = systemPlate(
+  "/images/anatomy/system-endocrine.png",
+  "Cuerpo en vista anterior con glándulas endocrinas resaltadas. Sin regiones de órganos.",
+);
+
+const peripheralNervousSystemPlate = systemPlate(
+  "/images/anatomy/system-peripheral-nervous.png",
+  "Cuerpo en vista anterior con nervios periféricos resaltados; encéfalo y médula atenuados. Sin regiones de órganos.",
+);
 
 /**
  * Systems and organs follow the Soma catalog. Plates are bound only when
@@ -68,7 +116,7 @@ export const atlasSystems: readonly AtlasSystem[] = [
     id: "nervous-central",
     catalogSystem: "nervous-central",
     name: "Sistema nervioso central",
-    plates: { anterior: brainPlate, posterior: null },
+    plates: { anterior: centralNervousSystemPlate, posterior: null },
     organs: [
       organ("brain-prefrontal-cortex", "Corteza prefrontal"),
       organ("brain-hippocampus", "Hipocampo"),
@@ -81,7 +129,7 @@ export const atlasSystems: readonly AtlasSystem[] = [
     id: "cardiovascular",
     catalogSystem: "cardiovascular",
     name: "Sistema cardiovascular",
-    plates: { anterior: heartPlate, posterior: null },
+    plates: { anterior: cardiovascularSystemPlate, posterior: null },
     organs: [organ("heart", "Corazón", heartPlate)],
   },
   {
@@ -99,7 +147,7 @@ export const atlasSystems: readonly AtlasSystem[] = [
     id: "digestive",
     catalogSystem: "digestive",
     name: "Sistema digestivo",
-    plates: { anterior: null, posterior: null },
+    plates: { anterior: digestiveSystemPlate, posterior: null },
     organs: [
       organ("stomach", "Estómago"),
       organ("pancreas", "Páncreas", pancreasPlate),
@@ -111,56 +159,56 @@ export const atlasSystems: readonly AtlasSystem[] = [
     id: "hepatic",
     catalogSystem: "hepatic",
     name: "Sistema hepático",
-    plates: { anterior: liverPlate, posterior: null },
+    plates: { anterior: hepaticSystemPlate, posterior: null },
     organs: [organ("liver", "Hígado", liverPlate)],
   },
   {
     id: "renal",
     catalogSystem: "renal",
     name: "Sistema renal",
-    plates: { anterior: kidneysPlate, posterior: null },
+    plates: { anterior: renalSystemPlate, posterior: null },
     organs: [organ("kidneys", "Riñones", kidneysPlate)],
   },
   {
     id: "immune",
     catalogSystem: "immune",
     name: "Sistema inmunitario",
-    plates: { anterior: null, posterior: null },
+    plates: { anterior: immuneSystemPlate, posterior: null },
     organs: [organ("spleen", "Bazo")],
   },
   {
     id: "reproductive",
     catalogSystem: "reproductive",
     name: "Sistema reproductor",
-    plates: { anterior: reproductivePlate, posterior: null },
+    plates: { anterior: reproductiveSystemPlate, posterior: null },
     organs: [organ("testes", "Testículos"), organ("ovaries", "Ovarios")],
   },
   {
     id: "integumentary",
     catalogSystem: "integumentary",
     name: "Sistema tegumentario",
-    plates: { anterior: null, posterior: null },
+    plates: { anterior: integumentarySystemPlate, posterior: null },
     organs: [organ("skin", "Piel"), organ("teeth", "Dientes")],
   },
   {
     id: "sensory",
     catalogSystem: "sensory",
     name: "Sistema sensorial",
-    plates: { anterior: null, posterior: null },
+    plates: { anterior: sensorySystemPlate, posterior: null },
     organs: [organ("eyes", "Ojos")],
   },
   {
     id: "endocrine",
     catalogSystem: "endocrine",
     name: "Sistema endocrino",
-    plates: { anterior: null, posterior: null },
+    plates: { anterior: endocrineSystemPlate, posterior: null },
     organs: [],
   },
   {
     id: "nervous-peripheral",
     catalogSystem: "nervous-peripheral",
     name: "Sistema nervioso periférico",
-    plates: { anterior: null, posterior: null },
+    plates: { anterior: peripheralNervousSystemPlate, posterior: null },
     organs: [],
   },
 ];
@@ -186,9 +234,14 @@ export const bodyAtlasView: {
 
 export const unboundAnatomyFiles: readonly UnboundAnatomyFile[] = [
   {
+    src: "/images/anatomy/brain.png",
+    reason:
+      "Lámina de órgano aislado. El sistema nervioso central usa la lámina de cuerpo completo system-central-nervous.png.",
+  },
+  {
     src: "/images/anatomy/digestive.png",
     reason:
-      "Mezcla hígado, estómago, páncreas e intestinos. El hígado pertenece a otro sistema del catálogo, así que la lámina no se usa como mapa.",
+      "Mezcla hígado, estómago, páncreas e intestinos. El sistema digestivo usa system-digestive.png; esta lámina no se usa como mapa.",
   },
   {
     src: "/images/anatomy/immune.png",
@@ -201,6 +254,11 @@ export const unboundAnatomyFiles: readonly UnboundAnatomyFile[] = [
   {
     src: "/images/anatomy/thyroid.png",
     reason: "No hay un órgano tiroides en el catálogo.",
+  },
+  {
+    src: "/images/anatomy/reproductive.png",
+    reason:
+      "Lámina conjunta antigua. El sistema reproductor usa system-reproductive.png; esta copia no se enlaza.",
   },
   {
     src: "/images/anatomy/muscular.png",
