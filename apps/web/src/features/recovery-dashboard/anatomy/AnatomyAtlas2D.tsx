@@ -130,13 +130,13 @@ export function AnatomyAtlas2D({
           <ViewButton
             pressed={view === "posterior"}
             disabled={!posteriorAvailable}
-            disabledReason="La vista posterior todavía no tiene lámina."
+            disabledReason="La vista posterior todavía no está disponible."
             onClick={() => onViewChange("posterior")}
           >
             Vista posterior
           </ViewButton>
         </div>
-        <div role="group" aria-label="Escala de la lámina" className="flex gap-1.5">
+        <div role="group" aria-label="Zoom de la ilustración" className="flex gap-1.5">
           <ToolButton
             label="Alejar"
             disabled={zoomIndex === 0}
@@ -161,20 +161,17 @@ export function AnatomyAtlas2D({
 
       <div className="relative overflow-hidden rounded-3xl border border-soma-line bg-[#101820] shadow-[inset_0_0_80px_rgba(104,216,192,0.08)]">
         <div
-          className={
-            plate && fillView
-              ? "relative flex h-[28rem] items-center justify-center sm:h-[34rem] lg:h-[min(40rem,calc(100svh-21rem))]"
-              : "relative"
-          }
+          className="relative flex h-[22rem] w-full items-center justify-center sm:h-[28rem] md:h-[32rem] lg:h-[min(48rem,calc(100svh-15.5rem))]"
+          style={{ containerType: "size" }}
         >
         {plate && fillView ? (
           <div
             role="img"
-            aria-label={`${label}. ${plate.depicts}`}
+            aria-label={`${label}, vista ${view === "anterior" ? "anterior" : "posterior"}`}
             className="relative max-w-full"
             style={{
-              aspectRatio: plate.aspectRatio ?? "2 / 3",
-              height: "100%",
+              aspectRatio: plate.aspectRatio ?? "1024 / 1536",
+              height: "min(100cqh, calc(100cqw * 1536 / 1024))",
               width: "auto",
               transform: zoom === 1 ? undefined : `scale(${zoom})`,
             }}
@@ -198,11 +195,11 @@ export function AnatomyAtlas2D({
         <svg
           viewBox={`0 0 ${ATLAS_VIEWBOX.width} ${ATLAS_VIEWBOX.height}`}
           role={plate && fillView ? "presentation" : "img"}
-          aria-label={plate && fillView ? undefined : plate ? `${label}. ${plate.depicts}` : unavailableMessage}
+          aria-label={plate && fillView ? undefined : plate ? `${label}, vista ${view === "anterior" ? "anterior" : "posterior"}` : unavailableMessage}
           className={
             plate && fillView
               ? "pointer-events-none absolute inset-0 h-full w-full"
-              : "mx-auto h-[28rem] w-full sm:h-[34rem] lg:h-[min(40rem,calc(100svh-21rem))]"
+              : "h-full max-h-full w-full"
           }
         >
           <defs>
@@ -247,7 +244,7 @@ export function AnatomyAtlas2D({
                   fontSize="64"
                   fontFamily="inherit"
                 >
-                  Recurso no disponible
+                  Sin ilustración
                 </text>
               </g>
             )}
@@ -281,12 +278,10 @@ export function AnatomyAtlas2D({
         </div>
         {!plate ? (
           <p className="px-4 pb-4 text-center text-sm text-soma-ink-secondary">{unavailableMessage}</p>
-        ) : (
-          <p className="px-4 pb-4 text-center text-xs leading-relaxed text-soma-ink-muted">{plate.depicts}</p>
-        )}
+        ) : null}
       </div>
       {!posteriorAvailable && view === "anterior" ? (
-        <p className="text-xs text-soma-ink-muted">La vista posterior todavía no tiene lámina.</p>
+        <p className="text-xs text-soma-ink-muted">La vista posterior todavía no está disponible.</p>
       ) : null}
     </div>
   );
