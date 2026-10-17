@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
 import type { AtlasSystem, AtlasViewId } from "../anatomy/atlas-types.js";
+import {
+  narrativePhases,
+  narrativeSubstances,
+  phaseWindowLabel,
+  resolveEducationalNarrative,
+  selectNarrativeSubstance,
+  type NarrativePhase,
+} from "../anatomy/narrative-catalog.js";
 import { PageHeading } from "../components/PageHeading.js";
+import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 
 const tabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;
 type AnatomyTab = (typeof tabs)[number];
@@ -20,6 +30,8 @@ export function AnatomyExplorerPage() {
   const [organId, setOrganId] = useState<string | null>(null);
   const [view, setView] = useState<AtlasViewId>("anterior");
   const [tab, setTab] = useState<AnatomyTab>("resumen");
+  const [substanceId, setSubstanceId] = useState<string | null>(null);
+  const [phase, setPhase] = useState<NarrativePhase>("during_use");
 
   const system = atlasSystems.find((item) => item.id === systemId) ?? null;
   const organ = system?.organs.find((item) => item.id === organId) ?? null;
@@ -47,7 +59,7 @@ export function AnatomyExplorerPage() {
     : view === "posterior" && !posteriorAvailable
       ? `La vista posterior de ${system.name} todavía no está disponible.`
       : organ && !organ.plate
-        ? `${organ.name} todavía no tiene una ilustración propia.`
+        ? `${organ.name}. La ilustración individual todavía no está disponible.`
         : `${system.name} todavía no tiene ilustración.`;
 
   return (
@@ -153,7 +165,11 @@ export function AnatomyExplorerPage() {
           system={system}
           organId={organId}
           tab={tab}
+          substanceId={substanceId}
+          phase={phase}
           onTab={setTab}
+          onSubstance={setSubstanceId}
+          onPhase={setPhase}
           onSystem={(id) => {
             setSystemId(id);
             setOrganId(null);
@@ -171,55 +187,90 @@ function SystemPanel({
   system,
   organId,
   tab,
+  substanceId,
+  phase,
   onTab,
+  onSubstance,
+  onPhase,
   onSystem,
   onOrgan,
 }: {
   system: AtlasSystem | null;
   organId: string | null;
   tab: AnatomyTab;
+  substanceId: string | null;
+  phase: NarrativePhase;
   onTab: (tab: AnatomyTab) => void;
+  onSubstance: (id: string) => void;
+  onPhase: (phase: NarrativePhase) => void;
   onSystem: (id: string) => void;
   onOrgan: (id: string) => void;
 }) {
   const organ = system?.organs.find((item) => item.id === organId) ?? null;
   const illustrated = atlasSystems.filter((item) => item.plates.anterior);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (node) node.scrollTop = 0;
+    const header = headerRef.current;
+    if (header && header.getBoundingClientRect().top < 0) {
+      header.scrollIntoView({ block: "nearest" });
+    }
+  }, [system?.id, organId, tab]);
 
   return (
-    <aside className="rounded-2xl border border-soma-line bg-soma-surface p-4 lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:overflow-y-auto">
-      <h2 className="text-lg font-semibold text-soma-ink">
-        {organ?.name ?? system?.name ?? "Cuerpo humano"}
-      </h2>
+    <aside className="flex min-w-0 flex-col overflow-x-hidden rounded-2xl border border-soma-line bg-soma-surface lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:overflow-hidden">
+      <header ref={headerRef} className="shrink-0 px-4 pb-3 pt-4">
+        <h2 className="text-lg font-semibold leading-snug text-soma-ink">
+          {organ?.name ?? system?.name ?? "Cuerpo humano"}
+        </h2>
 
-      {system ? (
-        <div role="tablist" aria-label="Ficha del sistema" className="mt-4 flex flex-wrap gap-1.5">
-          {tabs.map((item) => (
-            <button
-              key={item}
-              type="button"
-              role="tab"
-              id={`anatomy-tab-${item}`}
-              aria-selected={tab === item}
-              aria-controls="anatomy-tab-panel"
-              onClick={() => onTab(item)}
-              className={`${previewFocus} rounded-full px-2.5 py-1 text-xs ${
-                tab === item ? "bg-soma-action text-[#081018]" : "bg-soma-canvas text-soma-ink-secondary"
-              }`}
-            >
-              {tabLabel[item]}
-            </button>
-          ))}
-        </div>
-      ) : null}
+        {system ? (
+          <div role="tablist" aria-label="Ficha del sistema" className="mt-4 flex flex-wrap gap-1.5">
+            {tabs.map((item) => (
+              <button
+                key={item}
+                type="button"
+                role="tab"
+                id={`anatomy-tab-${item}`}
+                aria-selected={tab === item}
+                aria-controls="anatomy-tab-panel"
+                onClick={() => onTab(item)}
+                className={`${previewFocus} rounded-full px-2.5 py-1 text-xs ${
+                  tab === item ? "bg-soma-action text-[#081018]" : "bg-soma-canvas text-soma-ink-secondary"
+                }`}
+              >
+                {tabLabel[item]}
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </header>
 
-      <p
+      <div
+        ref={scrollRef}
+        className="min-w-0 lg:min-h-0 lg:flex-1 lg:overflow-x-hidden lg:overflow-y-auto lg:overscroll-contain"
+      >
+      <div className="px-4 pb-4">
+      <div
         id="anatomy-tab-panel"
         role={system ? "tabpanel" : undefined}
         aria-labelledby={system ? `anatomy-tab-${tab}` : undefined}
-        className="mt-3 text-sm leading-relaxed text-soma-ink-secondary"
+        className="text-sm leading-relaxed text-soma-ink-secondary"
       >
-        {panelCopy(system, organ, tab)}
-      </p>
+        <PanelBody
+          system={system}
+          organ={organ}
+          tab={tab}
+          substanceId={substanceId}
+          phase={phase}
+          onSubstance={onSubstance}
+          onPhase={onPhase}
+          onEffects={() => onTab("efectos")}
+        />
+      </div>
 
       {!system ? (
         <>
@@ -281,34 +332,113 @@ function SystemPanel({
           </ul>
         </>
       )}
+      </div>
+      </div>
     </aside>
   );
 }
 
-function panelCopy(
-  system: AtlasSystem | null,
-  organ: AtlasSystem["organs"][number] | null,
-  tab: AnatomyTab,
-): string {
+function PanelBody({
+  system,
+  organ,
+  tab,
+  substanceId,
+  phase,
+  onSubstance,
+  onPhase,
+  onEffects,
+}: {
+  system: AtlasSystem | null;
+  organ: AtlasSystem["organs"][number] | null;
+  tab: AnatomyTab;
+  substanceId: string | null;
+  phase: NarrativePhase;
+  onSubstance: (id: string) => void;
+  onPhase: (phase: NarrativePhase) => void;
+  onEffects: () => void;
+}) {
   if (!system) {
-    return "Una vista anterior del organismo. Abre un sistema para ver sus órganos y la ilustración disponible.";
+    return (
+      <p>
+        Una vista anterior del organismo. Abre un sistema para ver sus órganos y la ilustración
+        disponible.
+      </p>
+    );
   }
   if (tab === "efectos") {
-    return "Los efectos ligados a cada sustancia todavía no aparecen en esta ficha.";
+    return (
+      <EffectsPanel
+        system={system}
+        organ={organ}
+        substanceId={substanceId}
+        phase={phase}
+        onSubstance={onSubstance}
+        onPhase={onPhase}
+      />
+    );
   }
   if (tab === "recuperacion") {
-    return "Tu recuperación no se muestra en esta vista.";
+    return (
+      <p>
+        Soma dispone de modelos orientativos de recuperación para algunas combinaciones de órgano y
+        sustancia. Esta vista todavía no presenta estimaciones individuales.
+      </p>
+    );
   }
   if (tab === "consejos") {
-    return "Todavía no hay consejos para esta ficha.";
+    return (
+      <p className="rounded-xl border border-dashed border-soma-line px-3 py-4 text-soma-ink-muted">
+        Todavía no hay consejos para esta ficha.
+      </p>
+    );
+  }
+  return <SummaryCopy system={system} organ={organ} onEffects={onEffects} />;
+}
+
+function SummaryCopy({
+  system,
+  organ,
+  onEffects,
+}: {
+  system: AtlasSystem;
+  organ: AtlasSystem["organs"][number] | null;
+  onEffects: () => void;
+}) {
+  const hasNarratives = organ ? narrativeSubstances(organ.id).length > 0 : false;
+  return (
+    <div className="space-y-3">
+      <p>{summaryIntro(system, organ)}</p>
+      {organ ? (
+        <div className="space-y-2">
+          <p className="text-xs leading-relaxed text-soma-ink-muted">
+            Todavía no hay una descripción anatómica en español para esta ficha.
+          </p>
+          {hasNarratives ? (
+            <button
+              type="button"
+              onClick={onEffects}
+              className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
+            >
+              Ver efectos
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function summaryIntro(
+  system: AtlasSystem,
+  organ: AtlasSystem["organs"][number] | null,
+): string {
+  if (organ?.id === "lungs") {
+    return "Ilustración de los pulmones y de la vía aérea central. Bronquios y mucosa nasal se abren en sus propias fichas.";
+  }
+  if (organ && !organ.plate) {
+    return `${organ.name}. Esta ficha todavía no tiene una ilustración propia.`;
   }
   if (organ) {
-    if (organ.id === "lungs") {
-      return "Ilustración de los pulmones y de la vía aérea central. Bronquios y mucosa nasal se abren en sus propias fichas.";
-    }
-    if (!organ.plate) {
-      return `${organ.name}. Esta ficha todavía no tiene una ilustración propia.`;
-    }
     return organ.name;
   }
   if (system.id === "respiratory") {
@@ -319,6 +449,131 @@ function panelCopy(
   }
   const names = system.organs.map((item) => item.name).join(", ");
   return `${system.name}. Incluye ${names}.`;
+}
+
+function choiceClass(selected: boolean): string {
+  return `${previewFocus} flex min-w-0 cursor-pointer rounded-xl border has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-soma-focus ${
+    selected
+      ? "border-soma-action/80 bg-soma-raised/40 text-soma-ink"
+      : "border-soma-line bg-soma-canvas/40 text-soma-ink-secondary"
+  }`;
+}
+
+function EffectsPanel({
+  system,
+  organ,
+  substanceId,
+  phase,
+  onSubstance,
+  onPhase,
+}: {
+  system: AtlasSystem;
+  organ: AtlasSystem["organs"][number] | null;
+  substanceId: string | null;
+  phase: NarrativePhase;
+  onSubstance: (id: string) => void;
+  onPhase: (phase: NarrativePhase) => void;
+}) {
+  const { t } = useTranslation(["organ-narrative", "phases", "substances"]);
+  const substances = organ ? narrativeSubstances(organ.id) : [];
+  const selectedSubstance = organ ? selectNarrativeSubstance(substanceId, organ.id) : null;
+  const narrative =
+    organ && selectedSubstance
+      ? resolveEducationalNarrative(organ.id, selectedSubstance, phase)
+      : null;
+  const narrativeText = narrative
+    ? t(`organ-narrative:${narrative.narrativeKey}`, { lng: "es", defaultValue: "" })
+    : "";
+
+  if (!organ) {
+    return (
+      <p>
+        {system.organs.length === 0
+          ? "Este sistema todavía no tiene órganos que se puedan abrir."
+          : "Abre un órgano para consultar los efectos descritos para cada sustancia."}
+      </p>
+    );
+  }
+
+  if (substances.length === 0 || !selectedSubstance || !narrative) {
+    return <p>No hay narrativas de efectos para este órgano.</p>;
+  }
+
+  return (
+    <div className="space-y-3">
+      <fieldset className="min-w-0 border-0 p-0">
+        <legend className="sr-only">Sustancia</legend>
+        <div className="flex gap-1.5">
+          {substances.map((id) => {
+            const selected = id === selectedSubstance;
+            return (
+              <label
+                key={id}
+                className={`${choiceClass(selected)} flex-1 flex-col items-center gap-1 px-1 py-1.5`}
+              >
+                <input
+                  type="radio"
+                  name={`anatomy-substance-${organ.id}`}
+                  value={id}
+                  checked={selected}
+                  onChange={() => onSubstance(id)}
+                  className="sr-only"
+                />
+                <span className="flex h-8 w-8 items-center justify-center">
+                  <SubstanceIllustration name={id} className="h-8 w-8" iconClassName="h-4 w-4" />
+                </span>
+                <span className="max-w-full truncate text-[11px] leading-tight">
+                  {t(`substances:${id}.name`, { lng: "es", defaultValue: id })}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <fieldset className="min-w-0 border-0 p-0">
+        <legend className="sr-only">Fase</legend>
+        <div className="grid grid-cols-2 gap-1.5">
+          {narrativePhases.map((item) => {
+            const selected = item === phase;
+            const windowLabel = phaseWindowLabel(item);
+            return (
+              <label key={item} className={`${choiceClass(selected)} flex-col px-2 py-1.5 text-left`}>
+                <input
+                  type="radio"
+                  name={`anatomy-phase-${organ.id}`}
+                  value={item}
+                  checked={selected}
+                  onChange={() => onPhase(item)}
+                  className="sr-only"
+                />
+                <span className="block text-[11px] leading-tight">
+                  {t(`phases:${item}`, { lng: "es" })}
+                </span>
+                {windowLabel ? (
+                  <span className="mt-0.5 block text-[10px] leading-tight text-soma-ink-muted">
+                    {windowLabel}
+                  </span>
+                ) : null}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <p className="text-xs leading-relaxed text-soma-ink-muted">
+        Información educativa general. No sustituye una evaluación médica individual.
+      </p>
+
+      <p className="text-sm leading-relaxed text-soma-ink-secondary">
+        {narrativeText || "Este texto no está disponible en el idioma actual."}
+      </p>
+
+      <p className="text-[11px] leading-relaxed text-soma-ink-muted">
+        Fuente: {narrative.referenceSource}. Registro del catálogo: {narrative.confidenceLabel}.
+      </p>
+    </div>
+  );
 }
 
 function Crumb({

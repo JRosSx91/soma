@@ -1,3 +1,4 @@
+import { ImageOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { previewFocus } from "../focus.js";
 import {
@@ -194,8 +195,13 @@ export function AnatomyAtlas2D({
         ) : null}
         <svg
           viewBox={`0 0 ${ATLAS_VIEWBOX.width} ${ATLAS_VIEWBOX.height}`}
-          role={plate && fillView ? "presentation" : "img"}
-          aria-label={plate && fillView ? undefined : plate ? `${label}, vista ${view === "anterior" ? "anterior" : "posterior"}` : unavailableMessage}
+          role={plate && !fillView ? "img" : "presentation"}
+          aria-hidden={plate && !fillView ? undefined : true}
+          aria-label={
+            plate && !fillView
+              ? `${label}, vista ${view === "anterior" ? "anterior" : "posterior"}`
+              : undefined
+          }
           className={
             plate && fillView
               ? "pointer-events-none absolute inset-0 h-full w-full"
@@ -224,30 +230,7 @@ export function AnatomyAtlas2D({
                 height={frame.height}
                 preserveAspectRatio="xMidYMid meet"
               />
-            ) : plate ? null : (
-              <g>
-                <rect
-                  x={frame.x}
-                  y={frame.y}
-                  width={frame.width}
-                  height={frame.height}
-                  rx="28"
-                  fill="rgb(28 42 53 / 0.65)"
-                  stroke="rgb(143 163 184 / 0.45)"
-                  strokeDasharray="10 8"
-                />
-                <text
-                  x={ATLAS_VIEWBOX.width / 2}
-                  y={ATLAS_VIEWBOX.height / 2}
-                  textAnchor="middle"
-                  fill="#d5e2ee"
-                  fontSize="64"
-                  fontFamily="inherit"
-                >
-                  Sin ilustración
-                </text>
-              </g>
-            )}
+            ) : null}
             {regions.map((region) => (
               <path
                 key={region.organId}
@@ -275,10 +258,15 @@ export function AnatomyAtlas2D({
             ))}
           </g>
         </svg>
-        </div>
         {!plate ? (
-          <p className="px-4 pb-4 text-center text-sm text-soma-ink-secondary">{unavailableMessage}</p>
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-8">
+            <div className="flex max-w-[16rem] flex-col items-center gap-3 text-center">
+              <ImageOff className="h-8 w-8 text-soma-ink-muted" aria-hidden="true" />
+              <p className="text-sm leading-relaxed text-soma-ink-secondary">{unavailableMessage}</p>
+            </div>
+          </div>
         ) : null}
+        </div>
       </div>
       {!posteriorAvailable && view === "anterior" ? (
         <p className="text-xs text-soma-ink-muted">La vista posterior todavía no está disponible.</p>
