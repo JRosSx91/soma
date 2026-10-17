@@ -84,10 +84,12 @@ test("the summary uses the anatomical catalog and the other tabs stay in place",
   const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
   assert.match(page, /educationalAnatomy/);
   assert.match(page, /narrative-catalog\.js/);
+  assert.match(page, /recovery-catalog\.js/);
   assert.match(page, /id=\{`anatomy-tab-\$\{item\}`\}/);
   for (const tab of ["resumen", "efectos", "recuperacion", "consejos"]) {
     assert.match(page, new RegExp(`"${tab}"`));
   }
   assert.match(page, /Todavía no hay consejos para esta ficha/);
-  assert.match(page, /no presenta estimaciones individuales/);
+  assert.match(page, /No es una estimación personal ni un plazo médico/);
+  assert.match(page, /resolveEducationalRecovery/);
 });

@@ -13,6 +13,11 @@ import {
   selectNarrativeSubstance,
   type NarrativePhase,
 } from "../anatomy/narrative-catalog.js";
+import {
+  recoverySubstances,
+  resolveEducationalRecovery,
+  selectRecoverySubstance,
+} from "../anatomy/recovery-catalog.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 
@@ -270,6 +275,7 @@ function SystemPanel({
           onSubstance={onSubstance}
           onPhase={onPhase}
           onEffects={() => onTab("efectos")}
+          onRecovery={() => onTab("recuperacion")}
         />
       </div>
 
@@ -348,6 +354,7 @@ function PanelBody({
   onSubstance,
   onPhase,
   onEffects,
+  onRecovery,
 }: {
   system: AtlasSystem | null;
   organ: AtlasSystem["organs"][number] | null;
@@ -357,6 +364,7 @@ function PanelBody({
   onSubstance: (id: string) => void;
   onPhase: (phase: NarrativePhase) => void;
   onEffects: () => void;
+  onRecovery: () => void;
 }) {
   if (!system) {
     return (
@@ -380,10 +388,7 @@ function PanelBody({
   }
   if (tab === "recuperacion") {
     return (
-      <p>
-        Soma dispone de modelos orientativos de recuperación para algunas combinaciones de órgano y
-        sustancia. Esta vista todavía no presenta estimaciones individuales.
-      </p>
+      <RecoveryPanel system={system} organ={organ} substanceId={substanceId} onSubstance={onSubstance} />
     );
   }
   if (tab === "consejos") {
@@ -393,20 +398,25 @@ function PanelBody({
       </p>
     );
   }
-  return <SummaryCopy system={system} organ={organ} onEffects={onEffects} />;
+  return (
+    <SummaryCopy system={system} organ={organ} onEffects={onEffects} onRecovery={onRecovery} />
+  );
 }
 
 function SummaryCopy({
   system,
   organ,
   onEffects,
+  onRecovery,
 }: {
   system: AtlasSystem;
   organ: AtlasSystem["organs"][number] | null;
   onEffects: () => void;
+  onRecovery: () => void;
 }) {
   const entry = organ ? educationalAnatomy(organ.id) : null;
   const hasNarratives = organ ? narrativeSubstances(organ.id).length > 0 : false;
+  const hasCurves = organ ? recoverySubstances(organ.id).length > 0 : false;
   return (
     <div className="space-y-3">
       <p>{summaryIntro(system, organ)}</p>
@@ -438,14 +448,27 @@ function SummaryCopy({
           Todavía no hay una descripción anatómica en español para esta ficha.
         </p>
       ) : null}
-      {hasNarratives ? (
-        <button
-          type="button"
-          onClick={onEffects}
-          className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
-        >
-          Ver efectos
-        </button>
+      {hasNarratives || hasCurves ? (
+        <div className="flex flex-wrap gap-3">
+          {hasNarratives ? (
+            <button
+              type="button"
+              onClick={onEffects}
+              className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
+            >
+              Ver efectos
+            </button>
+          ) : null}
+          {hasCurves ? (
+            <button
+              type="button"
+              onClick={onRecovery}
+              className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
+            >
+              Ver recuperación
+            </button>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );
@@ -603,6 +626,104 @@ function EffectsPanel({
 
       <p className="text-[11px] leading-relaxed text-soma-ink-muted">
         Fuente: {narrative.referenceSource}. Registro del catálogo: {narrative.confidenceLabel}.
+      </p>
+    </div>
+  );
+}
+
+function RecoveryPanel({
+  system,
+  organ,
+  substanceId,
+  onSubstance,
+}: {
+  system: AtlasSystem;
+  organ: AtlasSystem["organs"][number] | null;
+  substanceId: string | null;
+  onSubstance: (id: string) => void;
+}) {
+  const { t } = useTranslation(["substances"]);
+  const substances = organ ? recoverySubstances(organ.id) : [];
+  const selectedSubstance = organ ? selectRecoverySubstance(substanceId, organ.id) : null;
+  const curve =
+    organ && selectedSubstance
+      ? resolveEducationalRecovery(organ.id, selectedSubstance)
+      : null;
+
+  if (!organ) {
+    return (
+      <p>
+        {system.organs.length === 0
+          ? "Este sistema todavía no tiene órganos que se puedan abrir."
+          : "Abre un órgano para consultar el modelo orientativo de recuperación del catálogo."}
+      </p>
+    );
+  }
+
+  if (substances.length === 0 || !selectedSubstance || !curve) {
+    return (
+      <p className="rounded-xl border border-dashed border-soma-line px-3 py-4 text-soma-ink-muted">
+        No hay un modelo de recuperación catalogado para este órgano.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <fieldset className="min-w-0 border-0 p-0">
+        <legend className="sr-only">Sustancia</legend>
+        <div className="flex flex-wrap gap-1.5">
+          {substances.map((id) => {
+            const selected = id === selectedSubstance;
+            return (
+              <label
+                key={id}
+                className={`${choiceClass(selected)} flex-1 flex-col items-center gap-1 px-1 py-1.5`}
+              >
+                <input
+                  type="radio"
+                  name={`anatomy-recovery-substance-${organ.id}`}
+                  value={id}
+                  checked={selected}
+                  onChange={() => onSubstance(id)}
+                  className="sr-only"
+                />
+                <span className="flex h-8 w-8 items-center justify-center">
+                  <SubstanceIllustration name={id} className="h-8 w-8" iconClassName="h-4 w-4" />
+                </span>
+                <span className="max-w-full truncate text-[11px] leading-tight">
+                  {t(`substances:${id}.name`, { lng: "es", defaultValue: id })}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <p className="text-xs leading-relaxed text-soma-ink-muted">
+        Modelo orientativo del catálogo Soma. No es una estimación personal ni un plazo médico: la
+        evolución real depende de factores individuales.
+      </p>
+
+      <dl className="space-y-2 text-sm text-soma-ink-secondary">
+        <div>
+          <dt className="text-xs font-semibold text-soma-ink">Forma de la curva</dt>
+          <dd>{curve.shapeLabel}</dd>
+        </div>
+        <div>
+          <dt className="text-xs font-semibold text-soma-ink">
+            Días orientativos hacia el 95&nbsp;% del techo
+          </dt>
+          <dd>{curve.daysTo95Recovery} días</dd>
+        </div>
+        <div>
+          <dt className="text-xs font-semibold text-soma-ink">Techo de recuperación del catálogo</dt>
+          <dd>{curve.ceilingPercentLabel}</dd>
+        </div>
+      </dl>
+
+      <p className="text-[11px] leading-relaxed text-soma-ink-muted">
+        Fuente: {curve.referenceSource}. Registro del catálogo: {curve.confidenceLabel}.
       </p>
     </div>
   );

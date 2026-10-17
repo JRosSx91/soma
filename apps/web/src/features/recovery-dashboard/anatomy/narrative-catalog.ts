@@ -1,7 +1,7 @@
 import type { OrganId, SubstanceId } from "@soma/shared-types";
 
 /**
- * Read-only index for the respiratory narratives already published in Soma 1.0.
+ * Read-only index of organ narratives already published in Soma 1.0.
  *
  * The prose stays in `organ-narrative` (`órgano.sustancia.fase`).
  * Confidence and source mirror `apps/api/prisma/seed/organ-narratives.ts`.
@@ -44,10 +44,46 @@ interface NarrativeProfile {
 }
 
 /**
- * Respiratory pairs that have a narrative in the seed.
+ * Pairs that have a narrative in the seed.
  * Order is the deterministic fallback when the current substance is absent.
  */
-const respiratoryProfiles: readonly NarrativeProfile[] = [
+const narrativeProfiles: readonly NarrativeProfile[] = [
+  {
+    organId: "liver",
+    substanceId: "alcohol",
+    confidenceLevel: "high",
+    referenceSource: "AASLD 2019; ALF clinical reviews",
+  },
+  {
+    organId: "kidneys",
+    substanceId: "cocaine",
+    confidenceLevel: "medium",
+    referenceSource: "NIDA Cocaine Research Report; UpToDate renal complications",
+  },
+  {
+    organId: "kidneys",
+    substanceId: "alcohol",
+    confidenceLevel: "medium",
+    referenceSource: "AASLD 2019; UpToDate alcohol and renal function",
+  },
+  {
+    organId: "pancreas",
+    substanceId: "alcohol",
+    confidenceLevel: "high",
+    referenceSource: "NIDDK; ACG guidelines on alcoholic pancreatitis",
+  },
+  {
+    organId: "stomach",
+    substanceId: "alcohol",
+    confidenceLevel: "high",
+    referenceSource: "ACG guidelines on gastritis; Goodman & Gilman 14th ed.",
+  },
+  {
+    organId: "stomach",
+    substanceId: "nicotine",
+    confidenceLevel: "medium",
+    referenceSource: "U.S. Surgeon General 2014; clinical reviews on tobacco GI effects",
+  },
   {
     organId: "lungs",
     substanceId: "nicotine",
@@ -73,11 +109,64 @@ const respiratoryProfiles: readonly NarrativeProfile[] = [
     referenceSource: "NIDA Marijuana Research Report",
   },
   {
+    organId: "heart",
+    substanceId: "caffeine",
+    confidenceLevel: "medium",
+    referenceSource: "AHA 2019 statement; Cano-Marquina et al. 2013",
+  },
+  {
+    organId: "stomach",
+    substanceId: "caffeine",
+    confidenceLevel: "medium",
+    referenceSource: "ACG 2020; clinical reviews on caffeine and gastric acid",
+  },
+  {
+    organId: "intestines",
+    substanceId: "alcohol",
+    confidenceLevel: "medium",
+    referenceSource: "Bishehsari et al. (2017); NIAAA reviews on gut-liver axis",
+  },
+  {
+    organId: "intestines",
+    substanceId: "cannabis",
+    confidenceLevel: "medium",
+    referenceSource: "NIDA Marijuana Research Report; CB1 and GI motility reviews",
+  },
+  {
+    organId: "intestines",
+    substanceId: "caffeine",
+    confidenceLevel: "medium",
+    referenceSource: "ACG 2020; clinical reviews on caffeine and colonic motility",
+  },
+  {
+    organId: "spleen",
+    substanceId: "alcohol",
+    confidenceLevel: "low",
+    referenceSource: "AASLD 2019; reviews on portal hypertension and splenomegaly",
+  },
+  {
+    organId: "oral-mucosa",
+    substanceId: "alcohol",
+    confidenceLevel: "medium",
+    referenceSource: "IARC Monographs; ADA clinical reviews on alcohol and oral health",
+  },
+  {
+    organId: "oral-mucosa",
+    substanceId: "nicotine",
+    confidenceLevel: "high",
+    referenceSource: "U.S. Surgeon General 2014; ADA tobacco cessation guidelines",
+  },
+  {
+    organId: "oral-mucosa",
+    substanceId: "cannabis",
+    confidenceLevel: "medium",
+    referenceSource: "NIDA Marijuana Research Report; ADA clinical reviews",
+  },
+  {
     organId: "nasal-mucosa",
     substanceId: "cocaine",
     confidenceLevel: "high",
-    referenceSource:
-      "NIDA Cocaine Research Report; ENT clinical reviews on intranasal cocaine damage",
+    referenceSource: "NIDA Cocaine Research Report; ENT clinical reviews on intranasal cocaine damage",
   },
   {
     organId: "nasal-mucosa",
@@ -91,6 +180,66 @@ const respiratoryProfiles: readonly NarrativeProfile[] = [
     confidenceLevel: "low",
     referenceSource: "NIDA Marijuana Research Report; limited literature on nasal effects",
   },
+  {
+    organId: "teeth",
+    substanceId: "alcohol",
+    confidenceLevel: "low",
+    referenceSource: "ADA reviews on alcohol and dental erosion; Goodman & Gilman 14th ed.",
+  },
+  {
+    organId: "teeth",
+    substanceId: "nicotine",
+    confidenceLevel: "medium",
+    referenceSource: "U.S. Surgeon General 2014; ADA tobacco and periodontal disease reviews",
+  },
+  {
+    organId: "teeth",
+    substanceId: "cannabis",
+    confidenceLevel: "low",
+    referenceSource: "ADA reviews on cannabis and oral health; limited literature",
+  },
+  {
+    organId: "teeth",
+    substanceId: "cocaine",
+    confidenceLevel: "medium",
+    referenceSource: "NIDA Cocaine Research Report; dental erosion from cocaine reviews",
+  },
+  {
+    organId: "eyes",
+    substanceId: "alcohol",
+    confidenceLevel: "medium",
+    referenceSource: "Clinical reviews on alcohol and ocular health; AAO guidelines",
+  },
+  {
+    organId: "eyes",
+    substanceId: "nicotine",
+    confidenceLevel: "medium",
+    referenceSource: "U.S. Surgeon General 2014; AAO reviews on smoking and macular degeneration",
+  },
+  {
+    organId: "eyes",
+    substanceId: "cannabis",
+    confidenceLevel: "high",
+    referenceSource: "Flach (2002); clinical reviews on cannabis and intraocular pressure",
+  },
+  {
+    organId: "eyes",
+    substanceId: "cocaine",
+    confidenceLevel: "medium",
+    referenceSource: "NIDA Cocaine Research Report; AAO reviews on cocaine ocular effects",
+  },
+  {
+    organId: "skin",
+    substanceId: "alcohol",
+    confidenceLevel: "medium",
+    referenceSource: "Clinical reviews on alcohol and dermatology; AAD guidelines",
+  },
+  {
+    organId: "skin",
+    substanceId: "cocaine",
+    confidenceLevel: "medium",
+    referenceSource: "NIDA Cocaine Research Report; dermatology reviews on stimulant skin effects",
+  }
 ];
 
 export interface EducationalNarrative {
@@ -105,7 +254,7 @@ export interface EducationalNarrative {
 }
 
 export function narrativeSubstances(organId: string): SubstanceId[] {
-  return respiratoryProfiles
+  return narrativeProfiles
     .filter((profile) => profile.organId === organId)
     .map((profile) => profile.substanceId);
 }
@@ -139,7 +288,7 @@ export function resolveEducationalNarrative(
   substanceId: string,
   phase: NarrativePhase,
 ): EducationalNarrative | null {
-  const profile = respiratoryProfiles.find(
+  const profile = narrativeProfiles.find(
     (item) => item.organId === organId && item.substanceId === substanceId,
   );
   if (!profile) return null;
@@ -155,4 +304,12 @@ export function resolveEducationalNarrative(
     referenceSource: profile.referenceSource,
     personalized: false,
   };
+}
+
+/** Snapshot of catalogued pairs for tests and integrity checks. */
+export function narrativeCatalogPairs(): ReadonlyArray<{
+  organId: OrganId;
+  substanceId: SubstanceId;
+}> {
+  return narrativeProfiles.map(({ organId, substanceId }) => ({ organId, substanceId }));
 }

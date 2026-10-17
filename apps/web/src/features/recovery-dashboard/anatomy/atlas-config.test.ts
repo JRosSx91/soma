@@ -3,7 +3,10 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
+import { educationalAnatomy } from "./anatomy-education.ts";
 import { atlasSystems, bodyAtlasView, unboundAnatomyFiles } from "./atlas-config.ts";
+import { narrativeSubstances } from "./narrative-catalog.ts";
+import { recoverySubstances } from "./recovery-catalog.ts";
 
 const catalogOrganIds = [
   "liver",
@@ -214,4 +217,66 @@ test("mixed or non-catalog plates stay unbound", () => {
     atlasSystems.some((system) => system.organs.some((organ) => organ.name === "Tiroides")),
     false,
   );
+});
+
+test("system to organ mapping matches the Soma catalog assignment", () => {
+  const expected: Record<(typeof catalogSystemIds)[number], readonly string[]> = {
+    "nervous-central": [
+      "brain-prefrontal-cortex",
+      "brain-hippocampus",
+      "brain-vta",
+      "brain-nucleus-accumbens",
+      "brain-amygdala",
+    ],
+    cardiovascular: ["heart"],
+    respiratory: ["lungs", "bronchi", "nasal-mucosa"],
+    digestive: ["stomach", "pancreas", "intestines", "oral-mucosa"],
+    hepatic: ["liver"],
+    renal: ["kidneys"],
+    immune: ["spleen"],
+    reproductive: ["testes", "ovaries"],
+    integumentary: ["skin", "teeth"],
+    sensory: ["eyes"],
+    endocrine: [],
+    "nervous-peripheral": [],
+  };
+
+  for (const system of atlasSystems) {
+    assert.deepEqual(
+      system.organs.map((organ) => organ.id),
+      expected[system.id as (typeof catalogSystemIds)[number]],
+    );
+  }
+});
+
+test("educational content is only claimed for organs that have real catalog data", () => {
+  const organsWithAnatomy = atlasSystems
+    .flatMap((system) => system.organs)
+    .filter((organ) => educationalAnatomy(organ.id) !== null)
+    .map((organ) => organ.id);
+  assert.deepEqual(organsWithAnatomy.sort(), ["bronchi", "lungs", "nasal-mucosa"]);
+
+  for (const system of atlasSystems) {
+    for (const organ of system.organs) {
+      const narratives = narrativeSubstances(organ.id);
+      const curves = recoverySubstances(organ.id);
+      assert.equal(new Set(narratives).size, narratives.length);
+      assert.equal(new Set(curves).size, curves.length);
+    }
+  }
+
+  const emptySystems = atlasSystems.filter((system) => system.organs.length === 0);
+  assert.deepEqual(
+    emptySystems.map((system) => system.id).sort(),
+    ["endocrine", "nervous-peripheral"],
+  );
+});
+
+test("organs without narratives or curves stay honestly empty", () => {
+  assert.deepEqual(narrativeSubstances("testes"), []);
+  assert.deepEqual(narrativeSubstances("ovaries"), []);
+  assert.deepEqual(narrativeSubstances("brain-vta"), []);
+  assert.ok(recoverySubstances("testes").includes("cannabis"));
+  assert.ok(recoverySubstances("ovaries").includes("cannabis"));
+  assert.ok(recoverySubstances("brain-vta").length > 0);
 });

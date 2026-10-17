@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
+  narrativeCatalogPairs,
   narrativePhases,
   narrativePhaseWindows,
   narrativeSubstances,
@@ -14,11 +15,50 @@ const esNarratives = JSON.parse(
   readFileSync(new URL("../../../i18n/locales/es/organ-narrative.json", import.meta.url), "utf8"),
 ) as Record<string, Record<string, Record<string, string>>>;
 
+const seedSource = readFileSync(
+  new URL("../../../../../../apps/api/prisma/seed/organ-narratives.ts", import.meta.url),
+  "utf8",
+);
+
 function prose(organId: string, substanceId: string, phase: string): string | undefined {
   return esNarratives[organId]?.[substanceId]?.[phase];
 }
 
+function seedPairs(): Array<{ organId: string; substanceId: string }> {
+  const match = seedSource.match(/const NARRATIVES[^=]*=\s*(\[[\s\S]*?\]);/);
+  assert.ok(match);
+  return eval(match[1].replace(/as const/g, "")) as Array<{
+    organId: string;
+    substanceId: string;
+  }>;
+}
+
+test("catalog mirrors every seeded narrative pair exactly once", () => {
+  const seeded = seedPairs().map(({ organId, substanceId }) => `${organId}|${substanceId}`);
+  const catalogued = narrativeCatalogPairs().map(
+    ({ organId, substanceId }) => `${organId}|${substanceId}`,
+  );
+  assert.equal(catalogued.length, 32);
+  assert.deepEqual([...catalogued].sort(), [...seeded].sort());
+  assert.equal(new Set(catalogued).size, catalogued.length);
+});
+
 test("resolves each catalogued organ, substance and phase to its own key", () => {
+  for (const { organId, substanceId } of narrativeCatalogPairs()) {
+    assert.equal(narrativeSubstances(organId).includes(substanceId), true);
+    for (const phase of narrativePhases) {
+      const resolved = resolveEducationalNarrative(organId, substanceId, phase);
+      assert.ok(resolved);
+      assert.equal(resolved.narrativeKey, `${organId}.${substanceId}.${phase}`);
+      assert.equal(resolved.organId, organId);
+      assert.equal(resolved.substanceId, substanceId);
+      assert.equal(typeof prose(organId, substanceId, phase), "string");
+      assert.notEqual(prose(organId, substanceId, phase), "");
+    }
+  }
+});
+
+test("respiratory pairs remain available without regression", () => {
   const expected = [
     ["lungs", "nicotine"],
     ["lungs", "cannabis"],
@@ -30,16 +70,10 @@ test("resolves each catalogued organ, substance and phase to its own key", () =>
   ] as const;
 
   for (const [organId, substanceId] of expected) {
-    assert.deepEqual(narrativeSubstances(organId), expected.filter(([organ]) => organ === organId).map(([, substance]) => substance));
-    for (const phase of narrativePhases) {
-      const resolved = resolveEducationalNarrative(organId, substanceId, phase);
-      assert.ok(resolved);
-      assert.equal(resolved.narrativeKey, `${organId}.${substanceId}.${phase}`);
-      assert.equal(resolved.organId, organId);
-      assert.equal(resolved.substanceId, substanceId);
-      assert.equal(typeof prose(organId, substanceId, phase), "string");
-      assert.notEqual(prose(organId, substanceId, phase), "");
-    }
+    assert.equal(narrativeSubstances(organId).includes(substanceId), true);
+    const resolved = resolveEducationalNarrative(organId, substanceId, "during_use");
+    assert.ok(resolved);
+    assert.equal(resolved.narrativeKey, `${organId}.${substanceId}.during_use`);
   }
 });
 
@@ -54,7 +88,11 @@ test("undefined combinations resolve to nothing", () => {
     ["nasal-mucosa", "alcohol"],
     ["nasal-mucosa", "caffeine"],
     ["heart", "nicotine"],
-    ["liver", "alcohol"],
+    ["heart", "alcohol"],
+    ["liver", "cocaine"],
+    ["testes", "cannabis"],
+    ["ovaries", "cannabis"],
+    ["brain-vta", "alcohol"],
   ] as const;
 
   for (const [organId, substanceId] of absent) {
@@ -71,7 +109,9 @@ test("changing organ keeps a shared substance and otherwise picks the first avai
   assert.equal(selectNarrativeSubstance(null, "nasal-mucosa"), "cocaine");
   assert.equal(selectNarrativeSubstance("alcohol", "lungs"), "nicotine");
   assert.equal(selectNarrativeSubstance("caffeine", "nasal-mucosa"), "cocaine");
-  assert.equal(selectNarrativeSubstance("nicotine", "heart"), null);
+  assert.equal(selectNarrativeSubstance("nicotine", "heart"), "caffeine");
+  assert.equal(selectNarrativeSubstance("alcohol", "liver"), "alcohol");
+  assert.equal(selectNarrativeSubstance("nicotine", "testes"), null);
 });
 
 test("a narrative is never reused across organs", () => {
@@ -119,7 +159,6 @@ test("the explorer view does not calculate personal recovery", () => {
   for (const token of [
     "estimateCurve",
     "computeRecovery",
-    "recoveryCeiling",
     "maxSeverity",
     "curveProgress",
     "demo-data",
