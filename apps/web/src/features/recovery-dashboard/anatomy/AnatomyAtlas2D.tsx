@@ -108,15 +108,17 @@ export function AnatomyAtlas2D({
     );
   }, [fillView]);
 
-  const frame = fillView
+  const regionFrame = fillView
     ? { x: 0, y: 0, width: ATLAS_VIEWBOX.width, height: ATLAS_VIEWBOX.height }
     : ATLAS_PLATE_FRAME;
-  const centerX = frame.x + frame.width / 2;
-  const centerY = frame.y + frame.height / 2;
-  const zoomTransform =
+  const regionCenterX = regionFrame.x + regionFrame.width / 2;
+  const regionCenterY = regionFrame.y + regionFrame.height / 2;
+  const regionZoomTransform =
     zoom === 1
       ? undefined
-      : `translate(${centerX} ${centerY}) scale(${zoom}) translate(${-centerX} ${-centerY})`;
+      : `translate(${regionCenterX} ${regionCenterY}) scale(${zoom}) translate(${-regionCenterX} ${-regionCenterY})`;
+  const showRegions = regions.length > 0;
+  const viewLabel = view === "anterior" ? "anterior" : "posterior";
 
   return (
     <div className="flex min-w-0 flex-col gap-3">
@@ -160,7 +162,15 @@ export function AnatomyAtlas2D({
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-3xl border border-soma-line bg-[#101820] shadow-[inset_0_0_80px_rgba(104,216,192,0.08)]">
+      <div className="relative overflow-hidden rounded-3xl border border-soma-line bg-[#101820]">
+        {/*
+          Continuous stage fill. Organ plates render as CSS images so SVG
+          letterboxing cannot leave a darker central band over the glow.
+        */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgb(104_216_192/0.14),transparent_68%)]"
+        />
         <div
           className="relative flex h-[22rem] w-full items-center justify-center sm:h-[28rem] md:h-[32rem] lg:h-[min(48rem,calc(100svh-15.5rem))]"
           style={{ containerType: "size" }}
@@ -168,7 +178,7 @@ export function AnatomyAtlas2D({
         {plate && fillView ? (
           <div
             role="img"
-            aria-label={`${label}, vista ${view === "anterior" ? "anterior" : "posterior"}`}
+            aria-label={`${label}, vista ${viewLabel}`}
             className="relative max-w-full"
             style={{
               aspectRatio: plate.aspectRatio ?? "1024 / 1536",
@@ -193,71 +203,51 @@ export function AnatomyAtlas2D({
             ))}
           </div>
         ) : null}
-        <svg
-          viewBox={`0 0 ${ATLAS_VIEWBOX.width} ${ATLAS_VIEWBOX.height}`}
-          role={plate && !fillView ? "img" : "presentation"}
-          aria-hidden={plate && !fillView ? undefined : true}
-          aria-label={
-            plate && !fillView
-              ? `${label}, vista ${view === "anterior" ? "anterior" : "posterior"}`
-              : undefined
-          }
-          className={
-            plate && fillView
-              ? "pointer-events-none absolute inset-0 h-full w-full"
-              : "h-full max-h-full w-full"
-          }
-        >
-          <defs>
-            <radialGradient id="atlas-glow" cx="50%" cy="42%" r="55%">
-              <stop offset="0%" stopColor="rgb(104 216 192 / 0.16)" />
-              <stop offset="70%" stopColor="rgb(16 24 32 / 0)" />
-            </radialGradient>
-          </defs>
-          {plate && fillView ? null : (
-            <>
-              <rect width={ATLAS_VIEWBOX.width} height={ATLAS_VIEWBOX.height} fill="#101820" />
-              <rect width={ATLAS_VIEWBOX.width} height={ATLAS_VIEWBOX.height} fill="url(#atlas-glow)" />
-            </>
-          )}
-          <g transform={zoomTransform}>
-            {plate && !fillView ? (
-              <image
-                href={plate.src}
-                x={frame.x}
-                y={frame.y}
-                width={frame.width}
-                height={frame.height}
-                preserveAspectRatio="xMidYMid meet"
-              />
-            ) : null}
-            {regions.map((region) => (
-              <path
-                key={region.organId}
-                d={region.path}
-                tabIndex={0}
-                role="button"
-                aria-label={region.organId}
-                aria-pressed={selectedOrganId === region.organId}
-                fill={
-                  selectedOrganId === region.organId
-                    ? "rgb(104 216 192 / 0.28)"
-                    : "rgb(104 216 192 / 0.08)"
-                }
-                stroke="#68d8c0"
-                strokeWidth="3"
-                className="cursor-pointer outline-none focus-visible:stroke-white"
-                onClick={() => onSelectOrgan(region.organId)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    onSelectOrgan(region.organId);
+        {plate && !fillView ? (
+          <img
+            src={plate.src}
+            alt={`${label}, vista ${viewLabel}`}
+            className="max-h-full max-w-full object-contain"
+            style={{ transform: zoom === 1 ? undefined : `scale(${zoom})` }}
+            draggable={false}
+          />
+        ) : null}
+        {showRegions || fillView ? (
+          <svg
+            viewBox={`0 0 ${ATLAS_VIEWBOX.width} ${ATLAS_VIEWBOX.height}`}
+            role="presentation"
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 h-full w-full"
+          >
+            <g transform={regionZoomTransform} className={showRegions ? "pointer-events-auto" : undefined}>
+              {regions.map((region) => (
+                <path
+                  key={region.organId}
+                  d={region.path}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={region.organId}
+                  aria-pressed={selectedOrganId === region.organId}
+                  fill={
+                    selectedOrganId === region.organId
+                      ? "rgb(104 216 192 / 0.28)"
+                      : "rgb(104 216 192 / 0.08)"
                   }
-                }}
-              />
-            ))}
-          </g>
-        </svg>
+                  stroke="#68d8c0"
+                  strokeWidth="3"
+                  className="cursor-pointer outline-none focus-visible:stroke-white"
+                  onClick={() => onSelectOrgan(region.organId)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      onSelectOrgan(region.organId);
+                    }
+                  }}
+                />
+              ))}
+            </g>
+          </svg>
+        ) : null}
         {!plate ? (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-8">
             <div className="flex max-w-[16rem] flex-col items-center gap-3 text-center">
@@ -268,9 +258,6 @@ export function AnatomyAtlas2D({
         ) : null}
         </div>
       </div>
-      {!posteriorAvailable && view === "anterior" ? (
-        <p className="text-xs text-soma-ink-muted">La vista posterior todavía no está disponible.</p>
-      ) : null}
     </div>
   );
 }

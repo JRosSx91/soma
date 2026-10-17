@@ -50,7 +50,8 @@ test("respiratory system uses the full highlight and lungs keep their own plate"
     assert.equal(organ.regions.posterior, null);
   }
   assert.equal(respiratory.organs[0]?.plate?.src, "/images/anatomy/lungs.png");
-  assert.equal(respiratory.organs[1]?.plate, null);
+  assert.equal(respiratory.organs[1]?.plate?.src, "/images/anatomy/bronchi.png");
+  assert.equal(respiratory.organs[2]?.plate?.src, "/images/anatomy/nasal-mucosa.png");
   assert.equal(
     atlasSystems.some((system) =>
       [system.plates.anterior?.src, system.plates.posterior?.src].some((src) =>
@@ -62,6 +63,19 @@ test("respiratory system uses the full highlight and lungs keep their own plate"
   assert.equal(
     atlasSystems.find((system) => system.id === "cardiovascular")?.plates.anterior?.src,
     "/images/anatomy/heart.png",
+  );
+});
+
+test("bronchi and nasal mucosa keep their own plate paths", () => {
+  const respiratory = atlasSystems.find((system) => system.id === "respiratory");
+  assert.ok(respiratory);
+  const plateSrc = (id: string) => respiratory.organs.find((organ) => organ.id === id)?.plate?.src;
+  assert.equal(plateSrc("bronchi"), "/images/anatomy/bronchi.png");
+  assert.equal(plateSrc("nasal-mucosa"), "/images/anatomy/nasal-mucosa.png");
+  assert.equal(plateSrc("lungs"), "/images/anatomy/lungs.png");
+  assert.equal(
+    respiratory.plates.anterior?.src,
+    "/images/anatomy/respiratory-highlight-anterior.png",
   );
 });
 

@@ -109,10 +109,10 @@ export function AnatomyExplorerPage() {
         ) : null}
       </nav>
 
-      <div className="grid items-start gap-3 lg:grid-cols-[10.75rem_minmax(0,1fr)_21.5rem] xl:grid-cols-[11.5rem_minmax(0,1fr)_23rem]">
+      <div className="grid min-w-0 items-start gap-3 lg:grid-cols-[10.75rem_minmax(0,1fr)_21.5rem] xl:grid-cols-[11.5rem_minmax(0,1fr)_23rem]">
         <ul
           aria-label="Sistemas"
-          className="flex gap-2 overflow-x-auto pb-1 lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain lg:pr-1"
+          className="flex max-w-full min-w-0 gap-2 overflow-x-auto overscroll-x-contain pb-1 touch-pan-x [-webkit-overflow-scrolling:touch] lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain lg:pr-1 lg:touch-auto"
         >
           {atlasSystems.map((item) => {
             const selected = item.id === system?.id;
@@ -128,7 +128,7 @@ export function AnatomyExplorerPage() {
                     setView("anterior");
                     setTab("resumen");
                   }}
-                  className={`${previewFocus} flex w-full items-center gap-2 rounded-xl border px-2.5 py-1.5 text-left text-xs leading-tight ${
+                  className={`${previewFocus} flex min-h-11 w-full items-center gap-2 rounded-xl border px-2.5 py-2 text-left text-xs leading-tight lg:min-h-0 lg:py-1.5 ${
                     selected
                       ? "border-soma-action/80 bg-soma-raised/50 text-soma-ink"
                       : "border-soma-line bg-soma-surface text-soma-ink-secondary hover:border-soma-line-strong"

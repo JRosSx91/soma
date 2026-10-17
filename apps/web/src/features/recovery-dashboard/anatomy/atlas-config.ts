@@ -16,6 +16,16 @@ const lungsPlate: AtlasPlate = {
   depicts: "Pulmones y vía aérea central. No separa bronquios ni mucosa nasal.",
 };
 
+const bronchiPlate: AtlasPlate = {
+  src: "/images/anatomy/bronchi.png",
+  depicts: "Árbol bronquial. No incluye los alvéolos ni la mucosa nasal.",
+};
+
+const nasalMucosaPlate: AtlasPlate = {
+  src: "/images/anatomy/nasal-mucosa.png",
+  depicts: "Corte de la cavidad nasal. No incluye bronquios ni pulmones.",
+};
+
 const respiratorySystemPlate: AtlasPlate = {
   src: "/images/anatomy/respiratory-highlight-anterior.png",
   depicts: "Cuerpo en vista anterior con el sistema respiratorio resaltado. Sin regiones de órganos.",
@@ -81,8 +91,8 @@ export const atlasSystems: readonly AtlasSystem[] = [
     plates: { anterior: respiratorySystemPlate, posterior: null },
     organs: [
       organ("lungs", "Pulmones", lungsPlate),
-      organ("bronchi", "Bronquios"),
-      organ("nasal-mucosa", "Mucosa nasal"),
+      organ("bronchi", "Bronquios", bronchiPlate),
+      organ("nasal-mucosa", "Mucosa nasal", nasalMucosaPlate),
     ],
   },
   {
