@@ -13,7 +13,13 @@ import request from "supertest";
 import { AuthController } from "./auth.controller.js";
 import { AuthService } from "./auth.service.js";
 import type { AuthenticatedResponse } from "./auth.service.js";
-import { AUTH_LOGIN_THROTTLE, AUTH_REGISTER_THROTTLE } from "./auth-throttle.js";
+import {
+  AUTH_LOGIN_THROTTLE,
+  AUTH_REGISTER_THROTTLE,
+  AUTH_FORGOT_PASSWORD_THROTTLE,
+} from "./auth-throttle.js";
+import { PasswordResetService } from "./password-reset.service.js";
+import { FORGOT_PASSWORD_RESPONSE } from "./password-reset.service.js";
 
 @Injectable()
 class StubAuthService {
@@ -36,6 +42,17 @@ class StubAuthService {
   }
 }
 
+@Injectable()
+class StubPasswordResetService {
+  async requestReset() {
+    return FORGOT_PASSWORD_RESPONSE;
+  }
+
+  async resetPassword() {
+    return { ok: true as const };
+  }
+}
+
 let app: INestApplication;
 
 before(async () => {
@@ -49,7 +66,10 @@ before(async () => {
       ]),
     ],
     controllers: [AuthController],
-    providers: [{ provide: AuthService, useClass: StubAuthService }],
+    providers: [
+      { provide: AuthService, useClass: StubAuthService },
+      { provide: PasswordResetService, useClass: StubPasswordResetService },
+    ],
   }).compile();
 
   app = moduleRef.createNestApplication();
@@ -142,4 +162,19 @@ test("unrelated endpoints are not covered by auth ThrottlerGuard", async () => {
     const profile = await request(server).get("/me/profile");
     assert.equal(profile.status, 200);
   }
+});
+
+test("forgot-password returns 429 after its independent attempt budget", async () => {
+  const server = app.getHttpServer();
+  for (let i = 0; i < AUTH_FORGOT_PASSWORD_THROTTLE.limit; i += 1) {
+    const res = await request(server)
+      .post("/auth/forgot-password")
+      .send({ email: `forgot${i}@example.com` });
+    assert.equal(res.status, 200, `forgot attempt ${i + 1}`);
+  }
+
+  const blocked = await request(server)
+    .post("/auth/forgot-password")
+    .send({ email: "forgot-blocked@example.com" });
+  assert.equal(blocked.status, 429);
 });

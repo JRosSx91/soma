@@ -30,3 +30,21 @@ export const AUTH_REFRESH_THROTTLE = {
   limit: positiveInt(process.env.AUTH_REFRESH_THROTTLE_LIMIT, 30),
   ttl: positiveInt(process.env.AUTH_REFRESH_THROTTLE_TTL_MS, 60 * 1000),
 } as const;
+
+/** forgot-password: 3 requests / hour / IP (default). */
+export const AUTH_FORGOT_PASSWORD_THROTTLE = {
+  limit: positiveInt(process.env.AUTH_FORGOT_PASSWORD_THROTTLE_LIMIT, 3),
+  ttl: positiveInt(
+    process.env.AUTH_FORGOT_PASSWORD_THROTTLE_TTL_MS,
+    60 * 60 * 1000,
+  ),
+} as const;
+
+/** reset-password: 5 attempts / hour / IP (default). */
+export const AUTH_RESET_PASSWORD_THROTTLE = {
+  limit: positiveInt(process.env.AUTH_RESET_PASSWORD_THROTTLE_LIMIT, 5),
+  ttl: positiveInt(
+    process.env.AUTH_RESET_PASSWORD_THROTTLE_TTL_MS,
+    60 * 60 * 1000,
+  ),
+} as const;

@@ -215,6 +215,14 @@ export class RefreshSessionService {
     });
   }
 
+  /** Revokes every active refresh row for a user (all families). */
+  async revokeAllForUser(userId: string): Promise<void> {
+    await this.prisma.refreshToken.updateMany({
+      where: { userId, revokedAt: null },
+      data: { revokedAt: new Date() },
+    });
+  }
+
   async countActiveForUser(userId: string): Promise<number> {
     return this.prisma.refreshToken.count({
       where: {

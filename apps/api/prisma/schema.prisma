@@ -121,11 +121,30 @@ model User {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
-  usages         SubstanceUsage[]
-  achievements   UserAchievement[]
-  refreshTokens  RefreshToken[]
+  usages              SubstanceUsage[]
+  achievements        UserAchievement[]
+  refreshTokens       RefreshToken[]
+  passwordResetTokens PasswordResetToken[]
 
   @@index([email])
+}
+
+/// One-time password-reset tokens. Plaintext is emailed; only tokenHash is stored.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  /// SHA-256 hex digest of the opaque reset token.
+  tokenHash String    @unique
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  /// Set when the token is successfully consumed (or invalidated).
+  usedAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([userId, usedAt])
 }
 
 /// Opaque refresh sessions. The plaintext token is never stored — only tokenHash.

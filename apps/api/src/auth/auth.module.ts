@@ -8,6 +8,11 @@ import { AuthController } from "./auth.controller.js";
 import { JwtStrategy } from "./jwt.strategy.js";
 import { RefreshSessionService } from "./refresh-session.service.js";
 import { AuthOriginGuard } from "./auth-origin.guard.js";
+import { PasswordResetService } from "./password-reset.service.js";
+import {
+  PASSWORD_RESET_MAILER,
+  createPasswordResetMailer,
+} from "./password-reset.mailer.js";
 
 @Module({
   imports: [
@@ -39,7 +44,12 @@ import { AuthOriginGuard } from "./auth-origin.guard.js";
     JwtStrategy,
     RefreshSessionService,
     AuthOriginGuard,
+    PasswordResetService,
+    {
+      provide: PASSWORD_RESET_MAILER,
+      useFactory: () => createPasswordResetMailer(),
+    },
   ],
-  exports: [AuthService, RefreshSessionService],
+  exports: [AuthService, RefreshSessionService, PasswordResetService],
 })
 export class AuthModule {}

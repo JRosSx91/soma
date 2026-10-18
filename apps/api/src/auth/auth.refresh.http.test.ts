@@ -16,6 +16,11 @@ import { AuthService } from "./auth.service.js";
 import type { AuthenticatedSessionResult } from "./auth.service.js";
 import { AuthOriginGuard } from "./auth-origin.guard.js";
 import { REFRESH_COOKIE_NAME } from "./refresh-cookie.js";
+import { PasswordResetService } from "./password-reset.service.js";
+import {
+  FORGOT_PASSWORD_RESPONSE,
+  RESET_PASSWORD_RESPONSE,
+} from "./password-reset.service.js";
 
 const ORIGIN = "http://localhost:5173";
 
@@ -62,6 +67,17 @@ class StubAuthService {
   }
 }
 
+@Injectable()
+class StubPasswordResetService {
+  async requestReset() {
+    return FORGOT_PASSWORD_RESPONSE;
+  }
+
+  async resetPassword() {
+    return RESET_PASSWORD_RESPONSE;
+  }
+}
+
 let app: INestApplication;
 
 before(async () => {
@@ -73,6 +89,7 @@ before(async () => {
     controllers: [AuthController],
     providers: [
       { provide: AuthService, useClass: StubAuthService },
+      { provide: PasswordResetService, useClass: StubPasswordResetService },
       AuthOriginGuard,
     ],
   }).compile();

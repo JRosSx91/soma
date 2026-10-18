@@ -22,6 +22,8 @@ import {
   AUTH_LOGIN_THROTTLE,
   AUTH_REGISTER_THROTTLE,
   AUTH_REFRESH_THROTTLE,
+  AUTH_FORGOT_PASSWORD_THROTTLE,
+  AUTH_RESET_PASSWORD_THROTTLE,
 } from "./auth-throttle.js";
 import { AuthOriginGuard } from "./auth-origin.guard.js";
 import {
@@ -29,10 +31,17 @@ import {
   clearRefreshCookie,
   setRefreshCookie,
 } from "./refresh-cookie.js";
+import { ForgotPasswordDto } from "./dto/forgot-password.dto.js";
+import { ResetPasswordDto } from "./dto/reset-password.dto.js";
+import { PasswordResetService } from "./password-reset.service.js";
 
 @Controller("auth")
 export class AuthController {
-  constructor(@Inject(AuthService) private readonly authService: AuthService) {}
+  constructor(
+    @Inject(AuthService) private readonly authService: AuthService,
+    @Inject(PasswordResetService)
+    private readonly passwordReset: PasswordResetService,
+  ) {}
 
   @Post("register")
   @HttpCode(HttpStatus.CREATED)
@@ -115,6 +124,41 @@ export class AuthController {
     await this.authService.logout(plaintext);
     clearRefreshCookie(res);
     return { ok: true };
+  }
+
+  /**
+   * Starts a password-reset flow. Always returns the same generic body
+   * (no account enumeration). Does not set session cookies.
+   */
+  @Post("forgot-password")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(ThrottlerGuard)
+  @Throttle({
+    default: {
+      limit: AUTH_FORGOT_PASSWORD_THROTTLE.limit,
+      ttl: AUTH_FORGOT_PASSWORD_THROTTLE.ttl,
+    },
+  })
+  async forgotPassword(@Body() dto: ForgotPasswordDto) {
+    return this.passwordReset.requestReset(dto);
+  }
+
+  /**
+   * Consumes a one-time reset token, updates the password hash, and revokes
+   * all refresh sessions. Does not issue a new login session.
+   * Access JWTs issued before the reset remain valid until they expire.
+   */
+  @Post("reset-password")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(ThrottlerGuard)
+  @Throttle({
+    default: {
+      limit: AUTH_RESET_PASSWORD_THROTTLE.limit,
+      ttl: AUTH_RESET_PASSWORD_THROTTLE.ttl,
+    },
+  })
+  async resetPassword(@Body() dto: ResetPasswordDto) {
+    return this.passwordReset.resetPassword(dto);
   }
 
   @Get("me")
