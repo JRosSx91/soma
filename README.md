@@ -105,6 +105,20 @@ Soma is designed to communicate uncertainty rather than conceal it:
 
 The project is evolving. Suggestions, bug reports, and thoughtful feedback are welcome through [GitHub Issues](https://github.com/JRosSx91/soma/issues). Please avoid sharing sensitive personal health information in public issues.
 
+## 💚 Support Soma
+
+Soma is an independent project built with a simple mission: to make recovery education, physiological insights, and progress tracking accessible to everyone.
+
+Developing and maintaining Soma takes time and resources. If you believe in the project and would like to help it grow, you can support its development through a voluntary donation.
+
+☕ [Support Soma on Ko-fi](https://ko-fi.com/somaapp)
+
+Your contribution helps support development, infrastructure, and future improvements.
+
+Soma's essential recovery features will remain free for everyone. Donations are always optional.
+
+Thank you for helping us build something meaningful. 💚
+
 ## License
 
 Check the repository's `LICENSE` file for the applicable terms. If no license is present, **do not assume that the code is open source or available for reuse**.
