@@ -41,10 +41,10 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
     };
   }, [open]);
 
-  function handleLogout() {
+  async function handleLogout() {
     setOpen(false);
-    logout();
-    navigate("/login", { replace: true });
+    await logout();
+    navigate("/", { replace: true });
   }
 
   const triggerClass = compact

@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { getStoredToken } from "../../auth/client/api.js";
 import { useAuth } from "../../auth/index.js";
 import type { AchievementWithUnlockState } from "../../achievements/types.js";
 import {
@@ -51,7 +50,7 @@ const unavailableCopy = {
 export function AchievementsPage() {
   const base = useShellBase();
   const { user, loading: authLoading } = useAuth();
-  const sessionPending = authLoading && Boolean(getStoredToken());
+  const sessionPending = authLoading;
   const live = useLiveAchievements(user?.id ?? null);
   const [substance, setSubstance] = useState<SubstanceFilter>("all");
   const [tier, setTier] = useState<TierFilter>("all");

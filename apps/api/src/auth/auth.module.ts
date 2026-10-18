@@ -25,10 +25,9 @@ import { AuthOriginGuard } from "./auth-origin.guard.js";
         return {
           secret,
           signOptions: {
-            // Access TTL stays at JWT_EXPIRES_IN (default 7d) until
-            // delivery 3 wires automatic refresh on the SPA.
+            // Short-lived access JWT; SPA renews via HttpOnly refresh cookie.
             expiresIn: (config.get<string>("JWT_EXPIRES_IN") ??
-              "7d") as `${number}${"s" | "m" | "h" | "d"}`,
+              "15m") as `${number}${"s" | "m" | "h" | "d"}`,
           },
         };
       },

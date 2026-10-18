@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { getStoredToken } from "../../auth/client/api.js";
 import { useAuth } from "../../auth/index.js";
 import { useOrganStates } from "../../profile/index.js";
 import type { UserProfile } from "../../profile/types.js";
@@ -86,7 +85,7 @@ function liveChartToView(chart: LiveChartModel): DashboardChartView {
  */
 export function usePreviewDashboard(substanceId: string | null = null): PreviewDashboardView {
   const { user, loading: authLoading } = useAuth();
-  const sessionPending = authLoading && Boolean(getStoredToken());
+  const sessionPending = authLoading;
   const liveProfile = useLiveProfile(user?.id ?? null);
   const { data: substances, loading: substancesLoading, error: substancesError } =
     useSubstances();

@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { LanguageSelector } from "../components/LanguageSelector.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 
 export function RegisterPage() {
   const { t } = useTranslation("auth");
-  const { register } = useAuth();
+  const { register, user, loading } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,11 +17,26 @@ export function RegisterPage() {
   const [birthYear, setBirthYear] = useState<number>(1990);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  /** Prevents guest→/app redirect from winning over post-register onboarding. */
+  const completingRegistration = useRef(false);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
+        Loading…
+      </div>
+    );
+  }
+
+  if (user && !completingRegistration.current && !submitting) {
+    return <Navigate to="/app" replace />;
+  }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
     setSubmitting(true);
+    completingRegistration.current = true;
     try {
       await register({
         email,
@@ -32,6 +47,7 @@ export function RegisterPage() {
       });
       navigate("/onboarding", { replace: true });
     } catch (err) {
+      completingRegistration.current = false;
       setError(translateAuthError(err, t, "errors.registrationFailed"));
     } finally {
       setSubmitting(false);
@@ -130,7 +146,11 @@ export function RegisterPage() {
             />
           </div>
 
-          {error && <p className="text-sm text-soma-organ-damaged">{error}</p>}
+          {error && (
+            <p className="text-sm text-soma-organ-damaged" role="alert">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"

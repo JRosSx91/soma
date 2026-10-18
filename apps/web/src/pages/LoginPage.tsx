@@ -1,18 +1,30 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { LanguageSelector } from "../components/LanguageSelector.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 
 export function LoginPage() {
   const { t } = useTranslation("auth");
-  const { login } = useAuth();
+  const { login, user, loading, sessionNotice } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
+        Loading…
+      </div>
+    );
+  }
+
+  if (user) {
+    return <Navigate to="/app" replace />;
+  }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -70,7 +82,16 @@ export function LoginPage() {
             />
           </div>
 
-          {error && <p className="text-sm text-soma-organ-damaged">{error}</p>}
+          {sessionNotice === "session_expired" && !error ? (
+            <p className="text-sm text-soma-organ-damaged" role="alert">
+              {t("errors.sessionExpired")}
+            </p>
+          ) : null}
+          {error && (
+            <p className="text-sm text-soma-organ-damaged" role="alert">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"
