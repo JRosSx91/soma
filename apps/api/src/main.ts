@@ -1,10 +1,13 @@
 import "reflect-metadata";
 import { NestFactory } from "@nestjs/core";
 import { Logger, ValidationPipe } from "@nestjs/common";
+import cookieParser from "cookie-parser";
 import { AppModule } from "./app.module.js";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(cookieParser());
 
   // Activate class-validator on all incoming DTOs.
   // - whitelist: strip properties not declared in the DTO.
@@ -19,7 +22,8 @@ async function bootstrap() {
   );
 
   // CORS — allow the frontend dev server to call the API.
-  // Tightened in production via env var.
+  // credentials: true is required so the browser stores/sends the refresh cookie.
+  // origin must remain an explicit allowlist (single string today).
   const corsOrigin = process.env.CORS_ORIGIN ?? "http://localhost:5173";
   app.enableCors({
     origin: corsOrigin,

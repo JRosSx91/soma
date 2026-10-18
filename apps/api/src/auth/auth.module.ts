@@ -6,6 +6,8 @@ import { UsersModule } from "../users/users.module.js";
 import { AuthService } from "./auth.service.js";
 import { AuthController } from "./auth.controller.js";
 import { JwtStrategy } from "./jwt.strategy.js";
+import { RefreshSessionService } from "./refresh-session.service.js";
+import { AuthOriginGuard } from "./auth-origin.guard.js";
 
 @Module({
   imports: [
@@ -23,9 +25,8 @@ import { JwtStrategy } from "./jwt.strategy.js";
         return {
           secret,
           signOptions: {
-            // Cast required because @nestjs/jwt expects a strict
-            // ms-compatible string literal type, not a generic string
-            // from ConfigService.
+            // Access TTL stays at JWT_EXPIRES_IN (default 7d) until
+            // delivery 3 wires automatic refresh on the SPA.
             expiresIn: (config.get<string>("JWT_EXPIRES_IN") ??
               "7d") as `${number}${"s" | "m" | "h" | "d"}`,
           },
@@ -34,7 +35,12 @@ import { JwtStrategy } from "./jwt.strategy.js";
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [AuthService],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    RefreshSessionService,
+    AuthOriginGuard,
+  ],
+  exports: [AuthService, RefreshSessionService],
 })
 export class AuthModule {}

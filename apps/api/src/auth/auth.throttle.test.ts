@@ -21,10 +21,17 @@ class StubAuthService {
     throw new UnauthorizedException("Invalid credentials");
   }
 
-  register(): AuthenticatedResponse {
+  register(): AuthenticatedResponse & {
+    refresh: { plaintext: string; familyId: string; expiresAt: Date };
+  } {
     return {
       accessToken: "test-token",
       user: { id: "u1", email: "new@example.com", displayName: "New" },
+      refresh: {
+        plaintext: "refresh-for-throttle-test",
+        familyId: "family-throttle",
+        expiresAt: new Date(Date.now() + 86_400_000),
+      },
     };
   }
 }

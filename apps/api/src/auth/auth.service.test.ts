@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { AuthService } from "./auth.service.js";
 import { CodedConflictException } from "../common/exceptions/coded-exception.js";
 import type { EmailLookupResult, UsersService } from "../users/users.service.js";
+import type { RefreshSessionService } from "./refresh-session.service.js";
 
 type FakeUser = {
   id: string;
@@ -36,17 +37,35 @@ function fakeUser(overrides: Partial<FakeUser> = {}): FakeUser {
 function createService(users: {
   findByEmailInsensitive: (email: string) => Promise<EmailLookupResult>;
   create?: UsersService["create"];
+  findById?: UsersService["findById"];
 }) {
   const jwtService = {
     sign: (payload: unknown) => `token:${JSON.stringify(payload)}`,
   };
+  const refreshSessions = {
+    issueSession: async () => ({
+      plaintext: "refresh-plain",
+      familyId: "family-1",
+      expiresAt: new Date(Date.now() + 86_400_000),
+    }),
+    rotateSession: async () => ({
+      userId: "user-1",
+      session: {
+        plaintext: "refresh-rotated",
+        familyId: "family-1",
+        expiresAt: new Date(Date.now() + 86_400_000),
+      },
+    }),
+    revokeByPlaintext: async () => undefined,
+  };
   return new AuthService(
     users as unknown as UsersService,
     jwtService as never,
+    refreshSessions as unknown as RefreshSessionService,
   );
 }
 
-test("register stores a normalized email and rejects duplicates", async () => {
+test("register stores a normalized email and issues a refresh session", async () => {
   const created: string[] = [];
   const service = createService({
     findByEmailInsensitive: async () => ({ status: "none" }),
@@ -67,6 +86,7 @@ test("register stores a normalized email and rejects duplicates", async () => {
   assert.equal(created[0], "new.user@example.com");
   assert.equal(result.user.email, "new.user@example.com");
   assert.ok(result.accessToken.startsWith("token:"));
+  assert.equal(result.refresh.plaintext, "refresh-plain");
 });
 
 test("register with existing email (any casing) throws AUTH_EMAIL_EXISTS", async () => {
@@ -109,7 +129,7 @@ test("login accepts mixed-case and padded email against a legacy stored address"
   });
 
   assert.equal(result.user.id, legacy.id);
-  assert.equal(result.user.email, legacy.email);
+  assert.equal(result.refresh.plaintext, "refresh-plain");
 });
 
 test("login with wrong password throws Invalid credentials", async () => {

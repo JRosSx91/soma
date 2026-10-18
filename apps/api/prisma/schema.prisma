@@ -123,8 +123,34 @@ model User {
 
   usages         SubstanceUsage[]
   achievements   UserAchievement[]
+  refreshTokens  RefreshToken[]
 
   @@index([email])
+}
+
+/// Opaque refresh sessions. The plaintext token is never stored — only tokenHash.
+model RefreshToken {
+  id           String    @id @default(cuid())
+  userId       String
+  /// SHA-256 hex digest of the opaque refresh token.
+  tokenHash    String    @unique
+  /// Groups rotated tokens that belong to one login session.
+  familyId     String
+  createdAt    DateTime  @default(now())
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  /// Next token in a successful rotation chain (null until rotated).
+  replacedById String?
+  /// Truncated User-Agent (optional, diagnostic only).
+  userAgent    String?
+  /// SHA-256 of the client IP (optional). Raw IPs are not stored.
+  ipHash       String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([familyId])
+  @@index([expiresAt])
 }
 
 // -----------------------------------------------------------------------------

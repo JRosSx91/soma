@@ -25,3 +25,8 @@ export const AUTH_REGISTER_THROTTLE = {
   limit: positiveInt(process.env.AUTH_REGISTER_THROTTLE_LIMIT, 3),
   ttl: positiveInt(process.env.AUTH_REGISTER_THROTTLE_TTL_MS, 60 * 60 * 1000),
 } as const;
+
+export const AUTH_REFRESH_THROTTLE = {
+  limit: positiveInt(process.env.AUTH_REFRESH_THROTTLE_LIMIT, 30),
+  ttl: positiveInt(process.env.AUTH_REFRESH_THROTTLE_TTL_MS, 60 * 1000),
+} as const;

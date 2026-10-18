@@ -10,6 +10,11 @@ import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
 import { CodedConflictException } from "../common/exceptions/coded-exception.js";
 import { normalizeEmail } from "./normalize-email.js";
+import {
+  RefreshSessionService,
+  type IssuedRefreshSession,
+  type SessionMeta,
+} from "./refresh-session.service.js";
 
 const SALT_ROUNDS = 10;
 
@@ -33,6 +38,11 @@ export interface AuthenticatedResponse {
   };
 }
 
+/** Internal: JSON body for the SPA plus plaintext refresh for the cookie layer. */
+export interface AuthenticatedSessionResult extends AuthenticatedResponse {
+  refresh: IssuedRefreshSession;
+}
+
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -40,15 +50,17 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly refreshSessions: RefreshSessionService,
   ) {}
 
-  async register(dto: RegisterDto): Promise<AuthenticatedResponse> {
+  async register(
+    dto: RegisterDto,
+    meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
     const email = normalizeEmail(dto.email);
     const existing = await this.usersService.findByEmailInsensitive(email);
 
     if (existing.status === "collision") {
-      // Do not merge identities or pick a winner. Refuse registration
-      // for this address until an operator resolves the duplicate rows.
       this.logger.error(
         `Email collision on register (${existing.count} rows). Refusing new account.`,
       );
@@ -76,16 +88,17 @@ export class AuthService {
       weightKg: dto.weightKg,
     });
 
-    return this.buildAuthResponse(user.id, user.email, user.displayName);
+    return this.buildSession(user.id, user.email, user.displayName, meta);
   }
 
-  async login(dto: LoginDto): Promise<AuthenticatedResponse> {
+  async login(
+    dto: LoginDto,
+    meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
     const email = normalizeEmail(dto.email);
     const lookup = await this.usersService.findByEmailInsensitive(email);
 
     if (lookup.status === "collision") {
-      // Same client-facing error as bad credentials — do not reveal
-      // the data-integrity problem to the caller.
       this.logger.error(
         `Email collision on login (${lookup.count} rows). Refusing authentication.`,
       );
@@ -93,8 +106,6 @@ export class AuthService {
     }
 
     if (lookup.status === "none") {
-      // Same error for both cases to avoid leaking whether the email
-      // is registered.
       throw new UnauthorizedException("Invalid credentials");
     }
 
@@ -107,7 +118,47 @@ export class AuthService {
       throw new UnauthorizedException("Invalid credentials");
     }
 
-    return this.buildAuthResponse(user.id, user.email, user.displayName);
+    return this.buildSession(user.id, user.email, user.displayName, meta);
+  }
+
+  async refreshFromCookie(
+    plaintext: string | undefined,
+    meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
+    if (!plaintext) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    const { userId, session } = await this.refreshSessions.rotateSession(
+      plaintext,
+      meta,
+    );
+    const user = await this.usersService.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    return {
+      ...this.buildAuthResponse(user.id, user.email, user.displayName),
+      refresh: session,
+    };
+  }
+
+  async logout(plaintext: string | undefined): Promise<void> {
+    await this.refreshSessions.revokeByPlaintext(plaintext);
+  }
+
+  private async buildSession(
+    userId: string,
+    email: string,
+    displayName: string,
+    meta: SessionMeta,
+  ): Promise<AuthenticatedSessionResult> {
+    const refresh = await this.refreshSessions.issueSession(userId, meta);
+    return {
+      ...this.buildAuthResponse(userId, email, displayName),
+      refresh,
+    };
   }
 
   private buildAuthResponse(
