@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsEnum,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   Max,
@@ -30,8 +31,9 @@ export class RegisterDto {
   @Max(new Date().getFullYear())
   birthYear!: number;
 
+  /** Optional; Prisma Float? / PG DOUBLE PRECISION — decimals allowed. */
   @IsOptional()
-  @IsInt()
+  @IsNumber({ allowNaN: false, allowInfinity: false })
   @Min(20)
   @Max(400)
   weightKg?: number;

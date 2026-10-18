@@ -14,6 +14,7 @@ import { CurrentUser } from "../auth/current-user.decorator.js";
 import { ProfileService } from "./profile.service.js";
 import { UpsertProfileDto } from "./dto/upsert-profile.dto.js";
 import { UpdateOnboardingStatusDto } from "./dto/update-onboarding-status.dto.js";
+import { UpdateProfileDetailsDto } from "./dto/update-profile-details.dto.js";
 
 /** Explicit expectedType so validation works when design:paramtypes is stripped. */
 function bodyOf(type: new (...args: never[]) => object) {
@@ -48,6 +49,18 @@ export class ProfileController {
     @Body(bodyOf(UpsertProfileDto)) dto: UpsertProfileDto,
   ) {
     return this.profileService.upsertProfile(user.id, dto);
+  }
+
+  /**
+   * Partial update of personal details (displayName, birthYear,
+   * biologicalSex, weightKg). Does not touch usages or onboardingStatus.
+   */
+  @Patch("details")
+  updateProfileDetails(
+    @CurrentUser() user: Omit<User, "hashedPassword">,
+    @Body(bodyOf(UpdateProfileDetailsDto)) dto: UpdateProfileDetailsDto,
+  ) {
+    return this.profileService.updateProfileDetails(user.id, dto);
   }
 
   /**

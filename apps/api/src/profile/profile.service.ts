@@ -3,9 +3,15 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import type { OnboardingStatus, SubstanceUsage, User } from "@prisma/client";
+import type {
+  BiologicalSex,
+  OnboardingStatus,
+  SubstanceUsage,
+  User,
+} from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { UpsertProfileDto } from "./dto/upsert-profile.dto.js";
+import type { UpdateProfileDetailsDto } from "./dto/update-profile-details.dto.js";
 import { isOnboardingTransitionAllowed } from "./onboarding-status.js";
 
 export interface ProfileResponse {
@@ -85,6 +91,58 @@ export class ProfileService {
           })),
         });
       }
+    });
+
+    return this.getProfile(userId);
+  }
+
+  /**
+   * Partial update of editable personal fields only.
+   * Never mutates email, password, onboardingStatus, or SubstanceUsage rows.
+   * Omitted DTO properties are left unchanged; `weightKg: null` clears weight.
+   */
+  async updateProfileDetails(
+    userId: string,
+    dto: UpdateProfileDetailsDto,
+  ): Promise<ProfileResponse> {
+    // Explicit allow-list — never spread the DTO into Prisma.
+    const data: {
+      displayName?: string;
+      biologicalSex?: BiologicalSex;
+      birthYear?: number;
+      weightKg?: number | null;
+    } = {};
+
+    if (dto.displayName !== undefined) {
+      data.displayName = dto.displayName;
+    }
+    if (dto.biologicalSex !== undefined) {
+      data.biologicalSex = dto.biologicalSex;
+    }
+    if (dto.birthYear !== undefined) {
+      data.birthYear = dto.birthYear;
+    }
+    if (dto.weightKg !== undefined) {
+      data.weightKg = dto.weightKg;
+    }
+
+    if (Object.keys(data).length === 0) {
+      throw new BadRequestException(
+        "At least one editable field is required (displayName, biologicalSex, birthYear, or weightKg)",
+      );
+    }
+
+    const existing = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true },
+    });
+    if (!existing) {
+      throw new NotFoundException("User not found");
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data,
     });
 
     return this.getProfile(userId);

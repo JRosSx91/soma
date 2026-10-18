@@ -79,11 +79,31 @@ function createService(store: {
         data,
       }: {
         where: { id: string };
-        data: { onboardingStatus: OnboardingStatus };
+        data: {
+          onboardingStatus?: OnboardingStatus;
+          displayName?: string;
+          biologicalSex?: "male" | "female";
+          birthYear?: number;
+          weightKg?: number | null;
+        };
       }) => {
         const user = store.users.get(where.id);
         if (!user) throw new Error("missing");
-        user.onboardingStatus = data.onboardingStatus;
+        if (data.onboardingStatus !== undefined) {
+          user.onboardingStatus = data.onboardingStatus;
+        }
+        if (data.displayName !== undefined) {
+          user.displayName = data.displayName;
+        }
+        if (data.biologicalSex !== undefined) {
+          user.biologicalSex = data.biologicalSex;
+        }
+        if (data.birthYear !== undefined) {
+          user.birthYear = data.birthYear;
+        }
+        if (data.weightKg !== undefined) {
+          user.weightKg = data.weightKg;
+        }
         return user;
       },
     },
@@ -261,4 +281,109 @@ test("upsertProfile replace preserves other users' usages (isolation)", async ()
   assert.equal(a.usages.length, 0);
   assert.equal(b.usages.length, 2);
   assert.equal(b.onboardingStatus, OnboardingStatus.completed);
+});
+
+test("updateProfileDetails updates a single field", async () => {
+  const user = makeUser();
+  const service = createService({ users: new Map([[user.id, user]]) });
+  const profile = await service.updateProfileDetails(user.id, {
+    displayName: "Renamed",
+  });
+  assert.equal(profile.user.displayName, "Renamed");
+  assert.equal(profile.user.birthYear, 1990);
+  assert.equal(profile.user.biologicalSex, "male");
+});
+
+test("updateProfileDetails updates several fields", async () => {
+  const user = makeUser();
+  const service = createService({ users: new Map([[user.id, user]]) });
+  const profile = await service.updateProfileDetails(user.id, {
+    displayName: "Ada",
+    biologicalSex: "female",
+    birthYear: 1985,
+    weightKg: 70,
+  });
+  assert.equal(profile.user.displayName, "Ada");
+  assert.equal(profile.user.biologicalSex, "female");
+  assert.equal(profile.user.birthYear, 1985);
+  assert.equal(profile.user.weightKg, 70);
+});
+
+test("updateProfileDetails omitted fields stay unchanged", async () => {
+  const user = makeUser();
+  user.weightKg = 80;
+  const service = createService({ users: new Map([[user.id, user]]) });
+  const profile = await service.updateProfileDetails(user.id, {
+    displayName: "OnlyName",
+  });
+  assert.equal(profile.user.displayName, "OnlyName");
+  assert.equal(profile.user.birthYear, 1990);
+  assert.equal(profile.user.weightKg, 80);
+  assert.equal(profile.user.email, user.email);
+});
+
+test("updateProfileDetails allows null weightKg and preserves other fields", async () => {
+  const user = makeUser();
+  user.weightKg = 75;
+  const service = createService({ users: new Map([[user.id, user]]) });
+  const profile = await service.updateProfileDetails(user.id, {
+    weightKg: null,
+  });
+  assert.equal(profile.user.weightKg, null);
+  assert.equal(profile.user.displayName, "Test");
+});
+
+test("updateProfileDetails preserves usages and onboardingStatus", async () => {
+  const user = makeUser({
+    onboardingStatus: OnboardingStatus.completed,
+    usages: [makeUsage("user-1"), makeUsage("user-1", "caffeine")],
+  });
+  const service = createService({ users: new Map([[user.id, user]]) });
+  const profile = await service.updateProfileDetails(user.id, {
+    displayName: "Safe",
+  });
+  assert.equal(profile.onboardingStatus, OnboardingStatus.completed);
+  assert.equal(profile.usages.length, 2);
+});
+
+test("updateProfileDetails isolates users", async () => {
+  const a = makeUser({ id: "a" });
+  const b = makeUser({ id: "b" });
+  b.displayName = "KeepB";
+  const service = createService({
+    users: new Map([
+      [a.id, a],
+      [b.id, b],
+    ]),
+  });
+  await service.updateProfileDetails(a.id, { displayName: "ChangedA" });
+  assert.equal(a.displayName, "ChangedA");
+  assert.equal(b.displayName, "KeepB");
+});
+
+test("updateProfileDetails rejects unknown user", async () => {
+  const service = createService({ users: new Map() });
+  await assert.rejects(
+    () => service.updateProfileDetails("missing", { displayName: "X" }),
+    (err: unknown) => err instanceof NotFoundException,
+  );
+});
+
+test("updateProfileDetails rejects empty patch body", async () => {
+  const user = makeUser();
+  const service = createService({ users: new Map([[user.id, user]]) });
+  await assert.rejects(
+    () => service.updateProfileDetails(user.id, {}),
+    (err: unknown) => err instanceof BadRequestException,
+  );
+  assert.equal(user.displayName, "Test");
+});
+
+test("updateProfileDetails persists decimal weightKg without rounding", async () => {
+  const user = makeUser();
+  const service = createService({ users: new Map([[user.id, user]]) });
+  const profile = await service.updateProfileDetails(user.id, {
+    weightKg: 68.5,
+  });
+  assert.equal(profile.user.weightKg, 68.5);
 });
