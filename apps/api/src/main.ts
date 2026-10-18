@@ -26,6 +26,11 @@ async function bootstrap() {
     credentials: true,
   });
 
+  // Intentionally NOT enabling Express "trust proxy". Auth rate limits key
+  // off the direct socket address; honouring X-Forwarded-For blindly would
+  // let clients spoof IPs. Enable trust proxy only behind a known reverse
+  // proxy and with an explicit hop count when multi-instance limits require it.
+
   const port = Number(process.env.PORT ?? 3000);
   await app.listen(port);
   Logger.log(`Soma API listening on http://localhost:${port}`, "Bootstrap");

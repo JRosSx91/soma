@@ -1,6 +1,6 @@
 import {
-  ConflictException,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
@@ -9,6 +9,7 @@ import { UsersService } from "../users/users.service.js";
 import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
 import { CodedConflictException } from "../common/exceptions/coded-exception.js";
+import { normalizeEmail } from "./normalize-email.js";
 
 const SALT_ROUNDS = 10;
 
@@ -34,14 +35,30 @@ export interface AuthenticatedResponse {
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
 
   async register(dto: RegisterDto): Promise<AuthenticatedResponse> {
-    const existing = await this.usersService.findByEmail(dto.email);
-    if (existing) {
+    const email = normalizeEmail(dto.email);
+    const existing = await this.usersService.findByEmailInsensitive(email);
+
+    if (existing.status === "collision") {
+      // Do not merge identities or pick a winner. Refuse registration
+      // for this address until an operator resolves the duplicate rows.
+      this.logger.error(
+        `Email collision on register (${existing.count} rows). Refusing new account.`,
+      );
+      throw new CodedConflictException(
+        "AUTH_EMAIL_EXISTS",
+        "Email already registered",
+      );
+    }
+
+    if (existing.status === "found") {
       throw new CodedConflictException(
         "AUTH_EMAIL_EXISTS",
         "Email already registered",
@@ -51,7 +68,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(dto.password, SALT_ROUNDS);
 
     const user = await this.usersService.create({
-      email: dto.email,
+      email,
       hashedPassword,
       displayName: dto.displayName,
       biologicalSex: dto.biologicalSex,
@@ -63,13 +80,25 @@ export class AuthService {
   }
 
   async login(dto: LoginDto): Promise<AuthenticatedResponse> {
-    const user = await this.usersService.findByEmail(dto.email);
-    if (!user) {
+    const email = normalizeEmail(dto.email);
+    const lookup = await this.usersService.findByEmailInsensitive(email);
+
+    if (lookup.status === "collision") {
+      // Same client-facing error as bad credentials — do not reveal
+      // the data-integrity problem to the caller.
+      this.logger.error(
+        `Email collision on login (${lookup.count} rows). Refusing authentication.`,
+      );
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    if (lookup.status === "none") {
       // Same error for both cases to avoid leaking whether the email
       // is registered.
       throw new UnauthorizedException("Invalid credentials");
     }
 
+    const user = lookup.user;
     const passwordMatches = await bcrypt.compare(
       dto.password,
       user.hashedPassword,

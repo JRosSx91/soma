@@ -21,6 +21,6 @@
     "resolveJsonModule": true
   },
   "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "prisma"],
+  "exclude": ["dist", "node_modules", "prisma", "**/*.test.ts"],
   "references": [{ "path": "../../packages/shared-types" }]
 }
