@@ -8,11 +8,18 @@ const tierLabel: Record<MedalTier, string> = {
 };
 
 /**
- * Only combinations that exist as files. Alcohol and caffeine are absent.
- * A missing pair falls back to MedalMark; nothing is borrowed from another
- * substance or tier.
+ * Only combinations that exist as files under `/images/achievements/{substance}-{tier}.png`.
+ * A missing pair falls back to MedalMark; nothing is borrowed from another substance or tier.
  */
 const medalArt = {
+  "alcohol:bronze": { src: "/images/achievements/alcohol-bronze.png", width: 1269, height: 1240 },
+  "alcohol:silver": { src: "/images/achievements/alcohol-silver.png", width: 1275, height: 1234 },
+  "alcohol:gold": { src: "/images/achievements/alcohol-gold.png", width: 1286, height: 1223 },
+  "alcohol:platinum": { src: "/images/achievements/alcohol-platinum.png", width: 1278, height: 1230 },
+  "caffeine:bronze": { src: "/images/achievements/caffeine-bronze.png", width: 1254, height: 1254 },
+  "caffeine:silver": { src: "/images/achievements/caffeine-silver.png", width: 1254, height: 1254 },
+  "caffeine:gold": { src: "/images/achievements/caffeine-gold.png", width: 1284, height: 1225 },
+  "caffeine:platinum": { src: "/images/achievements/caffeine-platinum.png", width: 1278, height: 1230 },
   "cannabis:bronze": { src: "/images/achievements/cannabis-bronze.png", width: 1269, height: 1240 },
   "cannabis:silver": { src: "/images/achievements/cannabis-silver.png", width: 1274, height: 1234 },
   "cannabis:gold": { src: "/images/achievements/cannabis-gold.png", width: 1286, height: 1223 },

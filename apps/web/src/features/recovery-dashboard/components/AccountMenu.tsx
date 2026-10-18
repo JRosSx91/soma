@@ -13,6 +13,7 @@ interface AccountMenuProps {
 /**
  * Minimal account affordance for the Soma 2.0 shell.
  * Onboarding + logout when signed in; sign-in link when anonymous (preview).
+ * Does not expose tokens or private profile fields in public preview.
  */
 export function AccountMenu({ compact = false }: AccountMenuProps) {
   const { user, logout } = useAuth();
@@ -77,22 +78,25 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
         <div
           id={menuId}
           role="menu"
-          className={`absolute z-50 min-w-[12rem] rounded-xl border border-soma-line bg-soma-raised py-1 shadow-lg ${
+          className={`absolute z-50 min-w-[14rem] rounded-xl border border-soma-line bg-soma-raised py-1 shadow-lg ${
             compact ? "right-0 top-full mt-2" : "left-0 bottom-full mb-2 w-full"
           }`}
         >
           {user ? (
             <>
-              <p className="truncate px-3 py-2 text-[11px] text-soma-ink-muted">
-                {user.email}
-              </p>
+              <div className="border-b border-soma-line px-3 py-2">
+                <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-soma-ink-muted">
+                  Sesión autenticada
+                </p>
+                <p className="mt-0.5 truncate text-sm text-soma-ink">{user.email}</p>
+              </div>
               <Link
                 role="menuitem"
                 to="/onboarding"
                 className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                 onClick={() => setOpen(false)}
               >
-                Onboarding
+                Editar perfil y sustancias
               </Link>
               {base === "/app" ? (
                 <Link
@@ -101,7 +105,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
                   className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                   onClick={() => setOpen(false)}
                 >
-                  Versión anterior
+                  Abrir Soma 1.0
                 </Link>
               ) : null}
               <button
@@ -115,14 +119,21 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
               </button>
             </>
           ) : (
-            <Link
-              role="menuitem"
-              to="/login"
-              className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-              onClick={() => setOpen(false)}
-            >
-              Iniciar sesión
-            </Link>
+            <>
+              <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
+                {base === "/preview"
+                  ? "Vista pública de demostración. Sin datos de cuenta."
+                  : "No hay sesión iniciada."}
+              </p>
+              <Link
+                role="menuitem"
+                to="/login"
+                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                onClick={() => setOpen(false)}
+              >
+                Iniciar sesión
+              </Link>
+            </>
           )}
         </div>
       ) : null}

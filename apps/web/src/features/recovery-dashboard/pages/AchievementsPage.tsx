@@ -6,6 +6,7 @@ import {
   achievementCatalog,
   achievementHiddenCopy,
 } from "../achievement-catalog.generated.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import { AchievementMedal } from "../components/AchievementMedal.js";
 import { DetailSheet } from "../components/DetailSheet.js";
@@ -16,6 +17,7 @@ import { useLiveAchievements } from "../hooks/useLiveAchievements.js";
 type CatalogItem = (typeof achievementCatalog)[number];
 type SubstanceFilter = "all" | CatalogItem["substanceId"];
 type TierFilter = "all" | MedalTier;
+type StatusFilter = "all" | "unlocked" | "locked" | "indeterminate";
 type LiveRow = AchievementWithUnlockState;
 
 const tierLabel: Record<MedalTier, string> = {
@@ -33,6 +35,13 @@ const tierOptions: { id: TierFilter; label: string }[] = [
   { id: "platinum", label: "Platino" },
 ];
 
+const statusOptions: { id: StatusFilter; label: string }[] = [
+  { id: "all", label: "Todos" },
+  { id: "unlocked", label: "Desbloqueados" },
+  { id: "locked", label: "Bloqueados" },
+  { id: "indeterminate", label: "Sin avance" },
+];
+
 const unavailableCopy = {
   not_tracked: "Esta sustancia no está en tu perfil, así que no hay avance que calcular.",
   active_use: "El consumo sigue activo. El hito mide abstinencia y todavía no tiene avance.",
@@ -40,11 +49,13 @@ const unavailableCopy = {
 };
 
 export function AchievementsPage() {
+  const base = useShellBase();
   const { user, loading: authLoading } = useAuth();
   const sessionPending = authLoading && Boolean(getStoredToken());
   const live = useLiveAchievements(user?.id ?? null);
   const [substance, setSubstance] = useState<SubstanceFilter>("all");
   const [tier, setTier] = useState<TierFilter>("all");
+  const [status, setStatus] = useState<StatusFilter>("all");
   const [openId, setOpenId] = useState<string | null>(null);
 
   const liveById = useMemo(() => {
@@ -59,6 +70,7 @@ export function AchievementsPage() {
   const unlockedCount = showingLive
     ? achievementCatalog.filter((item) => liveById.get(item.id)?.unlocked).length
     : 0;
+  const catalogOnly = !showingLive && !awaitingAccount && !live.error;
 
   const substanceOptions = useMemo(() => {
     const seen = new Map<CatalogItem["substanceId"], string>();
@@ -74,12 +86,16 @@ export function AchievementsPage() {
 
   const items = useMemo(
     () =>
-      achievementCatalog.filter(
-        (item) =>
-          (substance === "all" || item.substanceId === substance) &&
-          (tier === "all" || item.tier === tier),
-      ),
-    [substance, tier],
+      achievementCatalog.filter((item) => {
+        if (substance !== "all" && item.substanceId !== substance) return false;
+        if (tier !== "all" && item.tier !== tier) return false;
+        if (status === "all") return true;
+        if (!showingLive) return status === "locked";
+        const liveRow = liveById.get(item.id) ?? null;
+        const bucket = statusBucket(item, liveRow);
+        return bucket === status;
+      }),
+    [substance, tier, status, showingLive, liveById],
   );
 
   const open = achievementCatalog.find((item) => item.id === openId) ?? null;
@@ -90,13 +106,15 @@ export function AchievementsPage() {
       <PageHeading
         eyebrow="Logros"
         title="Pequeños pasos, grandes cambios."
-        demo={!showingLive && !awaitingAccount && !live.error}
+        demo={catalogOnly && base === "/preview"}
         description={
           showingLive
             ? "Avance hacia el umbral de cada hito, con tus fechas de abstinencia. Es una estimación del modelo de curvas, no una medición clínica ni un porcentaje de salud recuperada."
             : awaitingAccount
               ? "Comprobando la sesión para mostrar el avance guardado en tu cuenta."
-              : "Catálogo original de Soma. Esta vista no inicia sesión: no hay logros desbloqueados ni fechas."
+              : base === "/preview"
+                ? "Catálogo original de Soma. Vista pública: no hay logros desbloqueados ni fechas de cuenta."
+                : "Catálogo de 106 logros. Inicia sesión para ver desbloqueos y progreso real."
         }
       />
 
@@ -139,6 +157,14 @@ export function AchievementsPage() {
             options={tierOptions}
             onChange={setTier}
           />
+          {showingLive ? (
+            <FilterGroup
+              label="Filtrar por estado"
+              value={status}
+              options={statusOptions}
+              onChange={setStatus}
+            />
+          ) : null}
 
           <section className="min-w-0">
             <h2 className="text-base font-semibold text-soma-ink">
@@ -348,6 +374,16 @@ interface CardView {
   progressPercent: number | null;
   unlockedOn: string | null;
   note: string | null;
+}
+
+function statusBucket(
+  item: CatalogItem,
+  live: LiveRow | null,
+): Exclude<StatusFilter, "all"> {
+  if (live?.unlocked) return "unlocked";
+  const view = describeCard(item, live);
+  if (view.review || view.note !== null || live === null) return "indeterminate";
+  return "locked";
 }
 
 function describeCard(item: CatalogItem, live: LiveRow | null | undefined): CardView {
