@@ -106,20 +106,29 @@ enum UsageStatus {
   active
 }
 
+/// Explicit onboarding intent. Independent of SubstanceUsage row count.
+enum OnboardingStatus {
+  pending
+  skipped
+  completed
+}
+
 // -----------------------------------------------------------------------------
 // User domain
 // -----------------------------------------------------------------------------
 
 model User {
-  id             String        @id @default(cuid())
-  email          String        @unique
-  hashedPassword String
-  displayName    String
-  biologicalSex  BiologicalSex
-  birthYear      Int
-  weightKg       Float?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id               String           @id @default(cuid())
+  email            String           @unique
+  hashedPassword   String
+  displayName      String
+  biologicalSex    BiologicalSex
+  birthYear        Int
+  weightKg         Float?
+  /// pending until the user skips or completes substance setup.
+  onboardingStatus OnboardingStatus @default(pending)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 
   usages              SubstanceUsage[]
   achievements        UserAchievement[]

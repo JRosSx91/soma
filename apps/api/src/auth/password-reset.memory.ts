@@ -178,6 +178,7 @@ export class MemoryPasswordResetPrisma {
       biologicalSex: partial.biologicalSex ?? "male",
       birthYear: partial.birthYear ?? 1990,
       weightKg: partial.weightKg ?? null,
+      onboardingStatus: partial.onboardingStatus ?? "pending",
       createdAt: partial.createdAt ?? new Date(),
       updatedAt: partial.updatedAt ?? new Date(),
     };
