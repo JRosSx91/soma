@@ -152,9 +152,121 @@ const statPearlsOralMucosa: AnatomySource = {
   verified: true,
 };
 
+const openStaxHeart: AnatomySource = {
+  citation: "OpenStax. Anatomy and Physiology 2e. Sección 19.1, Heart Anatomy.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy",
+  verified: true,
+};
+
+const openStaxKidney: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 25.3, Gross Anatomy of the Kidney.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-3-gross-anatomy-of-the-kidney",
+  verified: true,
+};
+
+const openStaxLymphatic: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 21.1, Anatomy of the Lymphatic and Immune Systems.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems",
+  verified: true,
+};
+
+const openStaxSkin: AnatomySource = {
+  citation: "OpenStax. Anatomy and Physiology 2e. Sección 5.1, Layers of the Skin.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/5-1-layers-of-the-skin",
+  verified: true,
+};
+
+const openStaxSensory: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 14.1, Sensory Perception.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception",
+  verified: true,
+};
+
+const openStaxTestes: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 27.1, Anatomy and Physiology of the Testicular Reproductive System.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/27-1-anatomy-and-physiology-of-the-testicular-reproductive-system",
+  verified: true,
+};
+
+const openStaxOvaries: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 27.2, Anatomy and Physiology of the Ovarian Reproductive System.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/27-2-anatomy-and-physiology-of-the-ovarian-reproductive-system",
+  verified: true,
+};
+
+const statPearlsHeart: AnatomySource = {
+  citation:
+    "Rehman I, Rehman A. Anatomy, Thorax, Heart. StatPearls, NCBI Bookshelf. Actualización del 28 de agosto de 2023. NBK470256.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK470256/",
+  verified: true,
+};
+
+const statPearlsLiver: AnatomySource = {
+  citation:
+    "Vernon H, Wehrle CJ, Alia VSK, Kasi A. Anatomy, Abdomen and Pelvis: Liver. StatPearls, NCBI Bookshelf. Actualización del 26 de noviembre de 2022. NBK500014.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK500014/",
+  verified: true,
+};
+
+const statPearlsKidneys: AnatomySource = {
+  citation:
+    "Garza FA, Leslie SW. Anatomy, Abdomen and Pelvis: Kidneys. StatPearls, NCBI Bookshelf. Actualización del 15 de septiembre de 2025. NBK482385.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK482385/",
+  verified: true,
+};
+
+const statPearlsSpleen: AnatomySource = {
+  citation:
+    "Anatomy, Abdomen and Pelvis, Spleen. StatPearls, NCBI Bookshelf. NBK482235.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK482235/",
+  verified: true,
+};
+
+const statPearlsTestes: AnatomySource = {
+  citation:
+    "Tiwana MS, Leslie SW. Anatomy, Abdomen and Pelvis: Testes. StatPearls, NCBI Bookshelf. Actualización del 15 de abril de 2023. NBK470201.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK470201/",
+  verified: true,
+};
+
+const statPearlsOvary: AnatomySource = {
+  citation:
+    "Gibson E, Mahdy H. Anatomy, Abdomen and Pelvis, Ovary. StatPearls, NCBI Bookshelf. Actualización del 24 de julio de 2023. NBK545187.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK545187/",
+  verified: true,
+};
+
+const statPearlsSkin: AnatomySource = {
+  citation:
+    "Anatomy, Skin (Integument). StatPearls, NCBI Bookshelf. NBK441980.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK441980/",
+  verified: true,
+};
+
+const statPearlsTeeth: AnatomySource = {
+  citation:
+    "Anatomy, Head and Neck, Teeth. StatPearls, NCBI Bookshelf. NBK557543.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK557543/",
+  verified: true,
+};
+
+const statPearlsEye: AnatomySource = {
+  citation:
+    "Anatomy, Head and Neck, Eye. StatPearls, NCBI Bookshelf. NBK482428.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK482428/",
+  verified: true,
+};
+
 const respiratoryEducation: readonly AnatomyEducationEntry[] = [
   {
     organId: "lungs",
+    location:
+      "En la cavidad torácica, a ambos lados del mediastino, dentro de la caja costal y apoyados sobre el diafragma.",
     anatomy:
       "Los pulmones alojan el territorio en el que el aire queda junto a la sangre. Dentro de cada pulmón, la vía aérea continúa más allá de los bronquios: se divide en bronquiolos y desemboca en alvéolos, pequeños sacos rodeados de capilares. Los bronquiolos no son bronquios. Son conductos más finos y carecen de cartílago.",
     physiology:
@@ -165,6 +277,8 @@ const respiratoryEducation: readonly AnatomyEducationEntry[] = [
   },
   {
     organId: "bronchi",
+    location:
+      "Desde la carina traqueal, en el mediastino, hasta el hilio de cada pulmón, donde continúan el árbol bronquial intrapulmonar.",
     anatomy:
       "Los bronquios son las vías aéreas en que se divide la tráquea, una hacia cada pulmón. Los bronquios principales, antes de entrar en el pulmón, conservan anillos de cartílago parecidos a los de la tráquea. Ya dentro del pulmón, el cartílago forma placas discontinuas, no anillos. Los bronquiolos, más adelante, carecen de cartílago. El revestimiento bronquial es un epitelio con cilios y células caliciformes, que producen moco.",
     physiology:
@@ -175,6 +289,8 @@ const respiratoryEducation: readonly AnatomyEducationEntry[] = [
   },
   {
     organId: "nasal-mucosa",
+    location:
+      "Reviste las paredes de la cavidad nasal, desde las narinas hasta la nasofaringe, incluidas las superficies de los cornetes.",
     anatomy:
       "La mucosa nasal reviste la cavidad nasal. En la región respiratoria, la más extensa, el epitelio tiene cilios y células que secretan moco, sobre un tejido bien vascularizado. En la parte superior hay otra región, la olfatoria, con un epitelio distinto.",
     physiology:
@@ -307,10 +423,146 @@ const digestiveEducation: readonly AnatomyEducationEntry[] = [
   },
 ];
 
+const cardiovascularEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "heart",
+    location:
+      "En el mediastino medio, detrás del esternón y entre los pulmones, ligeramente inclinado hacia la izquierda.",
+    anatomy:
+      "El corazón es un órgano muscular hueco con cuatro cámaras: atrios derecho e izquierdo y ventrículos derecho e izquierdo. El miocardio forma la pared contráctil; el endocardio reviste el interior y el epicardio forma la capa visceral del pericardio. Válvulas auriculoventriculares (tricúspide y mitral) y semilunares (pulmonar y aórtica) orientan el flujo. El tabique interatrial e interventricular separa las mitades derecha e izquierda.",
+    physiology:
+      "Actúa como bomba doble: el lado derecho envía sangre desoxigenada a la circulación pulmonar y el izquierdo impulsa sangre oxigenada a la circulación sistémica. El ciclo cardíaco alterna contracción (sístole) y relajación (diástole). El nódulo sinusal inicia el impulso eléctrico que se propaga por el sistema de conducción; no sustituye la regulación hormonal ni el tono vascular periférico.",
+    relations:
+      "Recibe retorno venoso por las venas cavas y el seno coronario hacia el atrio derecho, y por las venas pulmonares hacia el atrio izquierdo. Expulsa sangre por la arteria pulmonar y la aorta. Las arterias coronarias irrigan el propio miocardio. Queda relacionado anatómicamente con pericardio, diafragma y grandes vasos del mediastino.",
+    sources: [openStaxHeart, statPearlsHeart],
+  },
+];
+
+const hepaticEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "liver",
+    location:
+      "En el cuadrante superior derecho del abdomen, bajo el diafragma, mayormente intraperitoneal salvo el área desnuda posterior.",
+    anatomy:
+      "El hígado es la glándula más voluminosa del cuerpo. Se describen lóbulos anatómicos derecho e izquierdo, más caudado y cuadrado; la división funcional en segmentos sigue la irrigación portal y hepática. El parénquima se organiza en lobulillos con hepatocitos alrededor de una vena central, sinusoides y tríadas portales (rama de la arteria hepática, vena porta y conducto biliar). La bilis fluye por canalículos hacia los conductos hepáticos.",
+    physiology:
+      "Procesa nutrientes absorbidos en el intestino, sintetiza proteínas plasmáticas, almacena glucógeno y regula aspectos del metabolismo lipídico. Detoxifica y transforma muchos compuestos antes de devolverlos a la sangre o excretarlos en la bilis. Produce bilis para emulsionar lípidos en el intestino delgado. No digiere el bolo como el estómago ni filtra la sangre como el riñón.",
+    relations:
+      "Recibe sangre oxigenada por la arteria hepática y sangre rica en nutrientes por la vena porta. Drena hacia las venas hepáticas y la cava inferior. Se relaciona con la vesícula biliar y el conducto biliar común, que desembocan en el duodeno junto con el jugo pancreático. El ligamento falciforme y el omento menor lo fijan a la pared y al estómago.",
+    sources: [openStaxAccessoryDigestive, statPearlsLiver],
+  },
+];
+
+const renalEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "kidneys",
+    location:
+      "Órganos pares retroperitoneales a ambos lados de la columna, aproximadamente entre T12 y L3; el derecho suele quedar algo más bajo por el hígado.",
+    anatomy:
+      "Cada riñón presenta corteza externa y médula con pirámides renales. El hilio medial da paso a vasos, nervios y uréter. La unidad funcional es el nefrón: corpúsculo renal (glomérulo y cápsula de Bowman) y túbulo (proximal, asa de Henle, distal) que desemboca en conductos colectores. La orina se recoge en cálices y pelvis renal antes del uréter.",
+    physiology:
+      "Filtran la sangre plasmática en el glomérulo y reabsorben o secretan solutos y agua a lo largo del túbulo, regulando volumen extracelular, electrolitos y equilibrio ácido-base. Excretan residuos nitrogenados y participan en la presión arterial mediante el aparato yuxtaglomerular. También producen eritropoyetina y contribuyen a la activación de vitamina D. No realizan intercambio gaseoso ni digestión enzimática.",
+    relations:
+      "Las arterias renales nacen de la aorta; las venas renales drenan a la cava inferior. Cada riñón se continúa con un uréter hacia la vejiga. Las glándulas suprarrenales se asientan en el polo superior, pero son órganos endocrinos distintos. El riñón izquierdo se relaciona con bazo, estómago y cola del páncreas; el derecho, con el hígado y el duodeno.",
+    sources: [openStaxKidney, statPearlsKidneys],
+  },
+];
+
+const immuneEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "spleen",
+    location:
+      "En el hipocondrio izquierdo, entre el diafragma y el fundus gástrico, protegido aproximadamente por las costillas 9 a 11.",
+    anatomy:
+      "El bazo es el mayor órgano del sistema linfático. Tiene cápsula fibrosa, hilio vascular y parénquima dividido en pulpa blanca (vainas linfoides periarteriolares y folículos) y pulpa roja (cuerdas de Billroth y sinusoides venosos), separadas por una zona marginal. No es un ganglio linfático ni un órgano del tubo digestivo.",
+    physiology:
+      "Filtra la sangre: elimina eritrocitos envejecidos o dañados y captura antígenos circulantes. La pulpa blanca inicia respuestas inmunitarias adaptativas frente a patógenos sanguíneos. También puede secuestrar plaquetas y otros elementos formes. No sintetiza bilis ni orina.",
+    relations:
+      "La arteria esplénica llega desde el tronco celíaco; la vena esplénica contribuye a formar la vena porta. Ligamentos esplenorrenal y gastrosplénico lo fijan. Se relaciona con estómago, riñón izquierdo, flexura cólica izquierda y cola del páncreas. Cooperación inmunitaria con ganglios y tejido linfoide mucoso, sin confundirse con ellos.",
+    sources: [openStaxLymphatic, statPearlsSpleen],
+  },
+];
+
+const reproductiveEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "testes",
+    location:
+      "En el escroto, fuera de la cavidad pélvica, suspendidos por el cordón espermático; el izquierdo suele quedar algo más bajo.",
+    anatomy:
+      "Cada testículo es una gónada oval revestida por túnica albugínea. El parénquima se organiza en lóbulos con túbulos seminíferos, donde se produce la espermatogénesis. Entre los túbulos hay células de Leydig. El epidídimo se adosa al borde posterior. No incluye próstata ni vesículas seminales, que son glándulas accesorias distintas.",
+    physiology:
+      "Función exocrina: producir espermatozoides. Función endocrina: sintetizar testosterona y otras hormonas sexuales que mantienen caracteres sexuales secundarios y regulan, por retroalimentación, el eje hipotálamo-hipófisis. La maduración espermática continúa en el epidídimo. No equivale a todo el aparato reproductor masculino.",
+    relations:
+      "El cordón espermático lleva vasos, nervios y el conducto deferente hacia la pelvis. Se relaciona con el epidídimo y, vía deferente, con las vías eyaculadoras. Temperatura escrotal más baja que la corporal favorece la espermatogénesis. En Soma el órgano canónico es el testículo, no el escroto ni las glándulas accesorias.",
+    sources: [openStaxTestes, statPearlsTestes],
+  },
+  {
+    organId: "ovaries",
+    location:
+      "Pares, en la cavidad pélvica dentro de la fosa ovárica, cerca del extremo distal de cada trompa uterina.",
+    anatomy:
+      "Cada ovario presenta epitelio superficial, túnica albugínea, corteza con folículos en distintos estadios y médula vascular en el hilio. Es una gónada intraperitoneal unida por el mesovario y el ligamento suspensorio. No incluye útero ni trompas como parte del mismo órgano canónico.",
+    physiology:
+      "Produce ovocitos mediante foliculogénesis y ovulación, y secreta estrógenos, progesterona e inhibina según la fase del ciclo. Tras la ovulación, el cuerpo lúteo mantiene progesterona si hay señal adecuada; si no, degenera. Esas hormonas actúan sobre endometrio, mama y eje hipotálamo-hipófisis. No gestiona por sí solo la implantación ni el embarazo.",
+    relations:
+      "El ovocito ovulado es captado por la trompa uterina. El ligamento suspensorio lleva vasos ováricos. Se relaciona con útero, trompas y peritoneo pélvico. Funcionalmente acoplado al ciclo menstrual y, en embarazo, a la transición hormonal hacia la placenta, sin confundirse con ella.",
+    sources: [openStaxOvaries, statPearlsOvary],
+  },
+];
+
+const integumentaryEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "skin",
+    location:
+      "Cubre toda la superficie externa del cuerpo y se continúa con mucosas en orificios naturales (labios, narinas, ano, genitales).",
+    anatomy:
+      "La piel comprende epidermis (epitelio escamoso estratificado queratinizado, con estratos desde basal hasta córneo), dermis (papilar y reticular, con colágeno, vasos y anexos) e hipodermis o tejido subcutáneo. Los anexos —folículos pilosos, glándulas sudoríparas y sebáceas— se originan en la epidermis pero se alojan en dermis. El grosor y la queratinización varían por región.",
+    physiology:
+      "Barrera frente a microorganismos, deshidratación, traumatismos y radiación ultravioleta. Participa en termorregulación (vasos y sudor), sensibilidad (receptores cutáneos), síntesis inicial de vitamina D y vigilancia inmunitaria local. No es mucosa oral ni nasal: esas membranas húmedas tienen fichas propias.",
+    relations:
+      "Se continua con mucosas en las uniones mucocutáneas. Irrigación e inervación cutáneas la conectan con sistemas cardiovascular y nervioso. Los anexos y el tejido subcutáneo forman parte del sistema tegumentario en sentido amplio; en este atlas el órgano canónico «Piel» designa el órgano cutáneo, distinto de «Dientes».",
+    sources: [openStaxSkin, statPearlsSkin],
+  },
+  {
+    organId: "teeth",
+    location:
+      "Fijos en los procesos alveolares del maxilar y la mandíbula, dentro de la cavidad oral.",
+    anatomy:
+      "Cada diente tiene corona (visible, cubierta de esmalte) y raíz (en el hueso alveolar, cubierta de cemento), unidas en la unión cementoesmalte. La dentina forma el núcleo alrededor de la pulpa neurovascular. Humanos son heterodonto (incisivos, caninos, premolares y molares) y difiodonto (dentición temporal y permanente). No son mucosa oral: la encía y el resto de la mucosa tienen su propia ficha.",
+    physiology:
+      "Cortan, desgarran y muelen el alimento; también intervienen en el habla y en la morfología facial. El periodonto (ligamento periodontal, cemento y hueso alveolar) ancla el diente y amortigua fuerzas. La pulpa aporta inervación y vascularización. No digieren químicamente el bolo: esa digestión continúa en estómago e intestino.",
+    relations:
+      "Se relacionan con la mucosa oral en la encía y con las glándulas salivales que humedecen la cavidad. El bolo masticado pasa a faringe y esófago. En el catálogo Soma, «Dientes» pertenece al sistema tegumentario junto a la piel; no sustituye la ficha de mucosa oral.",
+    sources: [openStaxMouth, statPearlsTeeth],
+  },
+];
+
+const sensoryEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "eyes",
+    location:
+      "En las órbitas óseas del cráneo, protegidos por párpados, conjuntiva y aparato lagrimal.",
+    anatomy:
+      "El globo ocular tiene tres capas: fibrosa (córnea y esclerótica), vascular (coroides, cuerpo ciliar e iris) y neural (retina). El humor acuoso, el cristalino y el humor vítreo completan el aparato óptico. La retina contiene fotoreceptores y neuronas que forman el nervio óptico. No incluye la corteza visual ni el oído.",
+    physiology:
+      "Enfoca la luz sobre la retina, donde fotoreceptores convierten el estímulo en señales nerviosas. El iris regula la entrada de luz; el cristalino acomoda la distancia focal. Las vías ópticas llevan la información al cerebro para la percepción visual. El ojo no interpreta por sí solo el significado de lo visto: eso requiere procesamiento central.",
+    relations:
+      "Músculos extrínsecos mueven el globo en la órbita. Nervios craneales (sobre todo II, III, IV y VI) lo conectan con el tronco del encéfalo. La circulación retinal y uveal nutre las capas internas. Cooperación con párpados y lágrimas para protección; distinto del sistema nervioso central, aunque sus vías terminen en él.",
+    sources: [openStaxSensory, statPearlsEye],
+  },
+];
+
 const educationEntries: readonly AnatomyEducationEntry[] = [
   ...respiratoryEducation,
   ...centralNervousEducation,
   ...digestiveEducation,
+  ...cardiovascularEducation,
+  ...hepaticEducation,
+  ...renalEducation,
+  ...immuneEducation,
+  ...reproductiveEducation,
+  ...integumentaryEducation,
+  ...sensoryEducation,
 ];
 
 const byOrganId = new Map(educationEntries.map((entry) => [entry.organId, entry]));

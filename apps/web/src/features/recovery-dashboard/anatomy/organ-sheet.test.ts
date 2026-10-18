@@ -32,26 +32,54 @@ test("respiratory organs resolve a complete sheet without inventing ids", () => 
     assert.ok(sheet.physiology && sheet.physiology.length > 40);
     assert.ok(sheet.relations && sheet.relations.length > 40);
     assert.ok(sheet.sources.length > 0);
-    assert.equal(sheet.location, null);
+    assert.ok(sheet.location && sheet.location.length > 20);
   }
 });
 
-test("heart has a plate but no anatomical ficha", () => {
+test("heart resolves plate and complete anatomical ficha", () => {
   const cardio = systemById("cardiovascular");
   const heart = cardio.organs[0];
   assert.ok(heart);
   const sheet = resolveOrganSheet(cardio, heart);
   assert.equal(sheet.organId, "heart");
   assert.equal(sheet.availability.hasPlate, true);
-  assert.equal(sheet.availability.hasEducation, false);
-  assert.equal(sheet.education, null);
-  assert.equal(sheet.anatomy, null);
-  assert.equal(sheet.physiology, null);
-  assert.equal(sheet.relations, null);
-  assert.deepEqual(sheet.sources, []);
+  assert.equal(sheet.availability.hasEducation, true);
+  assert.ok(sheet.education);
+  assert.ok(sheet.location);
+  assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
+  assert.ok(sheet.physiology && sheet.physiology.length > 40);
+  assert.ok(sheet.relations && sheet.relations.length > 40);
+  assert.ok(sheet.sources.length > 0);
   assert.equal(sheet.availability.hasNarratives, true);
   assert.equal(sheet.availability.hasRecoveryCurves, true);
   assert.ok(sheet.availability.narrativeSubstanceIds.includes("caffeine"));
+});
+
+test("organs without individual plates still expose educational sheets", () => {
+  for (const id of ["spleen", "testes", "ovaries", "skin", "teeth", "eyes"] as const) {
+    const sheet = resolveOrganSheetById(atlasSystems, id);
+    assert.ok(sheet, id);
+    assert.equal(sheet.availability.hasPlate, false, id);
+    assert.equal(sheet.availability.hasEducation, true, id);
+    assert.ok(sheet.location, id);
+    assert.ok(sheet.anatomy && sheet.anatomy.length > 40, id);
+    assert.ok(sheet.sources.length > 0, id);
+  }
+});
+
+test("every atlas organ resolves a complete educational sheet", () => {
+  const sheets = atlasSystems.flatMap((system) => listOrganSheets(system));
+  assert.equal(sheets.length, 21);
+  for (const sheet of sheets) {
+    assert.equal(sheet.availability.hasEducation, true, sheet.organId);
+    assert.ok(sheet.location, sheet.organId);
+    assert.ok(sheet.anatomy && sheet.anatomy.length > 40, sheet.organId);
+    assert.ok(sheet.physiology && sheet.physiology.length > 40, sheet.organId);
+    assert.ok(sheet.relations && sheet.relations.length > 40, sheet.organId);
+    assert.ok(sheet.sources.length > 0, sheet.organId);
+    assert.ok(sheet.systemId);
+    assert.ok(sheet.catalogSystem);
+  }
 });
 
 test("central nervous organs resolve plates and fichas without narratives", () => {

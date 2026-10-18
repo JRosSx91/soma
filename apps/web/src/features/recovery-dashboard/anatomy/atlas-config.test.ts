@@ -278,14 +278,47 @@ test("educational content is only claimed for organs that have real catalog data
       "brain-prefrontal-cortex",
       "brain-vta",
       "bronchi",
+      "eyes",
+      "heart",
       "intestines",
+      "kidneys",
+      "liver",
       "lungs",
       "nasal-mucosa",
       "oral-mucosa",
+      "ovaries",
       "pancreas",
+      "skin",
+      "spleen",
       "stomach",
+      "teeth",
+      "testes",
     ],
   );
+
+  const organsWithPlate = atlasSystems
+    .flatMap((system) => system.organs)
+    .filter((organ) => organ.plate !== null)
+    .map((organ) => organ.id)
+    .sort();
+  assert.deepEqual(organsWithPlate, [
+    "brain-amygdala",
+    "brain-hippocampus",
+    "brain-nucleus-accumbens",
+    "brain-prefrontal-cortex",
+    "brain-vta",
+    "bronchi",
+    "heart",
+    "intestines",
+    "kidneys",
+    "liver",
+    "lungs",
+    "nasal-mucosa",
+    "oral-mucosa",
+    "pancreas",
+    "stomach",
+  ]);
+  assert.equal(organsWithPlate.length, 15);
 
   for (const system of atlasSystems) {
     for (const organ of system.organs) {
