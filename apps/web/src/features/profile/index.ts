@@ -12,6 +12,7 @@ export { destinationAfterLogin, isOnboardingStatus } from "./onboarding-status.j
 export {
   fetchUserProfile,
   patchOnboardingStatus,
+  patchProfileDetails,
   saveUserUsages,
 } from "./client/profile-api.js";
 export {
@@ -23,3 +24,13 @@ export {
 export { shouldConfirmClearUsages } from "./lib/clear-usages-guard.js";
 export { outcomeFromProfileFetch } from "./lib/post-auth-profile.js";
 export type { PostAuthProfileOutcome } from "./lib/post-auth-profile.js";
+export {
+  buildProfileDetailsPatch,
+  draftFromProfile,
+  parseWeightInput,
+} from "./lib/profile-details.js";
+export type {
+  ProfileDetailsDraft,
+  ProfileDetailsFields,
+  ProfileDetailsPatch,
+} from "./lib/profile-details.js";

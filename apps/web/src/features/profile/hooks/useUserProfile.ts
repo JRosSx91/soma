@@ -4,8 +4,10 @@ import type { OnboardingStatus } from "../onboarding-status.js";
 import {
   fetchUserProfile,
   patchOnboardingStatus,
+  patchProfileDetails,
   saveUserUsages,
 } from "../client/profile-api.js";
+import type { ProfileDetailsPatch } from "../lib/profile-details.js";
 
 export interface UsageInput {
   substanceId: string;
@@ -54,6 +56,8 @@ interface UseUserProfileResult {
   setOnboardingStatus: (
     status: OnboardingStatus,
   ) => Promise<UserProfileResponse>;
+  /** Partial personal-details update. Updates local profile only on success. */
+  updateDetails: (patch: ProfileDetailsPatch) => Promise<UserProfileResponse>;
 }
 
 /**
@@ -103,6 +107,13 @@ export function useUserProfile(
     return data;
   }, []);
 
+  const updateDetails = useCallback(async (patch: ProfileDetailsPatch) => {
+    // Do not touch `profile` until the backend confirms — keeps memory honest on failure.
+    const data = await patchProfileDetails(patch);
+    setProfile(data);
+    return data;
+  }, []);
+
   useEffect(() => {
     void refresh();
   }, [refresh]);
@@ -114,5 +125,6 @@ export function useUserProfile(
     refresh,
     saveProfile,
     setOnboardingStatus,
+    updateDetails,
   };
 }

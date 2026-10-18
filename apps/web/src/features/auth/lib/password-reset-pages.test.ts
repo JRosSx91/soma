@@ -47,6 +47,7 @@ const guestAuth = {
   login: async () => undefined,
   register: async () => undefined,
   logout: async () => ({ remoteRevoked: true }),
+  applyProfileUser: () => undefined,
 };
 
 test("ForgotPasswordPage renders email field and back link", async () => {

@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { LogOut, User } from "lucide-react";
 import { useAuth } from "../../auth/index.js";
 import { previewFocus } from "../focus.js";
@@ -16,6 +17,7 @@ interface AccountMenuProps {
  * Does not expose tokens or private profile fields in public preview.
  */
 export function AccountMenu({ compact = false }: AccountMenuProps) {
+  const { t } = useTranslation("account");
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const base = useShellBase();
@@ -56,7 +58,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
       <button
         type="button"
         className={triggerClass}
-        aria-label="Cuenta"
+        aria-label={t("menuLabel")}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
@@ -69,7 +71,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soma-surface text-soma-ink">
               <User className="h-4 w-4" aria-hidden="true" />
             </span>
-            Cuenta
+            {t("menuLabel")}
           </>
         )}
       </button>
@@ -86,17 +88,30 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
             <>
               <div className="border-b border-soma-line px-3 py-2">
                 <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-soma-ink-muted">
-                  Sesión autenticada
+                  {t("menuSession")}
                 </p>
-                <p className="mt-0.5 truncate text-sm text-soma-ink">{user.email}</p>
+                <p className="mt-0.5 truncate text-sm text-soma-ink">
+                  {user.displayName}
+                </p>
+                <p className="mt-0.5 truncate text-xs text-soma-ink-muted">
+                  {user.email}
+                </p>
               </div>
+              <Link
+                role="menuitem"
+                to={`${base}/account`}
+                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                onClick={() => setOpen(false)}
+              >
+                {t("menuAccount")}
+              </Link>
               <Link
                 role="menuitem"
                 to="/onboarding"
                 className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                 onClick={() => setOpen(false)}
               >
-                Editar perfil y sustancias
+                {t("menuSubstances")}
               </Link>
               {base === "/app" ? (
                 <Link
@@ -105,7 +120,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
                   className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                   onClick={() => setOpen(false)}
                 >
-                  Abrir Soma 1.0
+                  {t("menuOpenLegacy")}
                 </Link>
               ) : null}
               <button
@@ -115,15 +130,15 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
                 onClick={handleLogout}
               >
                 <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
-                Cerrar sesión
+                {t("menuLogout")}
               </button>
             </>
           ) : (
             <>
               <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
                 {base === "/preview"
-                  ? "Vista pública de demostración. Sin datos de cuenta."
-                  : "No hay sesión iniciada."}
+                  ? t("menuPreviewGuest")
+                  : t("menuAnonymous")}
               </p>
               <Link
                 role="menuitem"
@@ -131,7 +146,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
                 className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                 onClick={() => setOpen(false)}
               >
-                Iniciar sesión
+                {t("menuSignIn")}
               </Link>
             </>
           )}

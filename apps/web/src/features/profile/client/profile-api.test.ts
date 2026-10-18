@@ -3,6 +3,7 @@ import { afterEach, beforeEach, test } from "node:test";
 import {
   fetchUserProfile,
   patchOnboardingStatus,
+  patchProfileDetails,
   saveUserUsages,
 } from "./profile-api.js";
 import { clearAccessToken, setAccessToken } from "../../auth/client/access-token.js";
@@ -67,4 +68,28 @@ test("patchOnboardingStatus PATCHes status only", async () => {
   assert.deepEqual(JSON.parse(String(calls[0]!.init?.body)), {
     status: "skipped",
   });
+});
+
+test("patchProfileDetails PATCHes /me/profile/details with numeric fields", async () => {
+  mockJson(200, {
+    ...sampleProfile,
+    user: { ...sampleProfile.user, displayName: "Ada", weightKg: 68.5 },
+  });
+  const data = await patchProfileDetails({
+    displayName: "Ada",
+    weightKg: 68.5,
+  });
+  assert.equal(data.user.displayName, "Ada");
+  assert.equal(data.user.weightKg, 68.5);
+  assert.equal(calls[0]!.init?.method, "PATCH");
+  assert.match(calls[0]!.url, /\/me\/profile\/details$/);
+  assert.deepEqual(JSON.parse(String(calls[0]!.init?.body)), {
+    displayName: "Ada",
+    weightKg: 68.5,
+  });
+});
+
+test("patchProfileDetails rejects empty patch client-side", async () => {
+  await assert.rejects(() => patchProfileDetails({}), /at least one field/i);
+  assert.equal(calls.length, 0);
 });

@@ -244,6 +244,11 @@ export function OnboardingPage() {
   // editable but block skip so it cannot be confused with a delete.
   const busy = submitting || skipping;
   const skipDisabled = busy || confirmClear;
+  // Returning from Account with existing tracking / completed|skipped intent.
+  const isEditingTracking =
+    profile.onboardingStatus === "completed" ||
+    profile.onboardingStatus === "skipped" ||
+    profile.usages.length > 0;
 
   return (
     <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary px-4 py-12 relative">
@@ -253,11 +258,13 @@ export function OnboardingPage() {
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-light tracking-wide mb-2">
-            {t("title")}
+            {t(isEditingTracking ? "editTitle" : "title")}
           </h1>
-          <p className="text-sm text-soma-fg-muted">{t("subtitle")}</p>
+          <p className="text-sm text-soma-fg-muted">
+            {t(isEditingTracking ? "editSubtitle" : "subtitle")}
+          </p>
           <p className="text-xs text-soma-fg-muted mt-3 max-w-lg mx-auto">
-            {t("privacyNote")}
+            {t(isEditingTracking ? "editPrivacyNote" : "privacyNote")}
           </p>
         </div>
 
@@ -473,7 +480,7 @@ export function OnboardingPage() {
                 ? t("submitting")
                 : awaitingStatusRetry
                   ? t("retryStatus")
-                  : t("submit")}
+                  : t(isEditingTracking ? "editSubmit" : "submit")}
             </button>
           )}
         </form>

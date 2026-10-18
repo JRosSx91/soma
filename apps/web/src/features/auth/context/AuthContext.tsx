@@ -16,11 +16,20 @@ import type {
   LoginCredentials,
   RegisterCredentials,
 } from "../types.js";
+import {
+  mergeAuthUserFromProfile,
+  type ProfileUserSnapshot,
+} from "../lib/merge-auth-user.js";
 
 interface AuthContextValue extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
   register: (credentials: RegisterCredentials) => Promise<void>;
   logout: () => Promise<{ remoteRevoked: boolean }>;
+  /**
+   * Sync in-memory AuthUser fields from a successful profile response.
+   * No network, no token changes. No-op when anonymous or id mismatch.
+   */
+  applyProfileUser: (profileUser: ProfileUserSnapshot) => void;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -135,6 +144,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return result;
   }, []);
 
+  const applyProfileUser = useCallback((profileUser: ProfileUserSnapshot) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      return mergeAuthUserFromProfile(prev, profileUser);
+    });
+  }, []);
+
   const loading = status === "checking";
 
   const value: AuthContextValue = {
@@ -147,6 +163,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     register,
     logout,
+    applyProfileUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -16,6 +16,7 @@ import enOrganNarrative from "./locales/en/organ-narrative.json";
 import enAchievements from "./locales/en/achievements.json";
 import enLanding from "./locales/en/landing.json";
 import enMechanisms from "./locales/en/mechanisms.json";
+import enAccount from "./locales/en/account.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -167,6 +168,7 @@ i18n
       "achievements",
       "landing",
       "mechanisms",
+      "account",
     ],
     defaultNS: "common",
     interpolation: {
@@ -192,6 +194,7 @@ i18n
         achievements: enAchievements,
         landing: enLanding,
         mechanisms: enMechanisms,
+        account: enAccount,
       },
       es: {
         common: esCommon,
@@ -207,6 +210,7 @@ i18n
         achievements: esAchievements,
         landing: esLanding,
         mechanisms: esMechanisms,
+        account: enAccount,
       },
       ca: {
         common: caCommon,
@@ -222,6 +226,7 @@ i18n
         achievements: caAchievements,
         landing: caLanding,
         mechanisms: caMechanisms,
+        account: enAccount,
       },
       gl: {
         common: glCommon,
@@ -237,6 +242,7 @@ i18n
         achievements: glAchievements,
         landing: glLanding,
         mechanisms: glMechanisms,
+        account: enAccount,
       },
       eu: {
         common: euCommon,
@@ -252,6 +258,7 @@ i18n
         achievements: euAchievements,
         landing: euLanding,
         mechanisms: euMechanisms,
+        account: enAccount,
       },
       fr: {
         common: frCommon,
@@ -267,6 +274,7 @@ i18n
         achievements: frAchievements,
         landing: frLanding,
         mechanisms: frMechanisms,
+        account: enAccount,
       },
       it: {
         common: itCommon,
@@ -282,6 +290,7 @@ i18n
         achievements: itAchievements,
         landing: itLanding,
         mechanisms: itMechanisms,
+        account: enAccount,
       },
       de: {
         common: deCommon,
@@ -297,6 +306,7 @@ i18n
         achievements: deAchievements,
         landing: deLanding,
         mechanisms: deMechanisms,
+        account: enAccount,
       },
     },
   });

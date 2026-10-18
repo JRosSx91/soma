@@ -15,3 +15,5 @@ export {
   clearAccessToken,
 } from "./client/access-token.js";
 export { translateAuthError } from "./lib/translate-error.js";
+export { mergeAuthUserFromProfile } from "./lib/merge-auth-user.js";
+export type { ProfileUserSnapshot } from "./lib/merge-auth-user.js";

@@ -2,6 +2,10 @@
   "title": "Set up your tracking",
   "subtitle": "Optionally tell us which substances you want to follow. Tracking is voluntary — you can skip this and add or change it later from your account.",
   "privacyNote": "You do not need to share your consumption history to use Soma. Educational pages stay available either way.",
+  "editTitle": "Edit your substance tracking",
+  "editSubtitle": "Update which substances you follow. Changes replace your current tracking list when you save.",
+  "editPrivacyNote": "Saving with no substances selected removes configured tracking after confirmation. Continuing without tracking leaves existing rows unchanged.",
+  "editSubmit": "Save tracking changes",
   "mode": {
     "abstinent": "I'm reducing or quitting",
     "active": "I still use it",
