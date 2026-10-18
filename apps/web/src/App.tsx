@@ -36,7 +36,9 @@ function RootRoute() {
     );
   }
 
-  return user ? <Navigate to="/app" replace /> : <LandingPage />;
+  // Authenticated users resolve onboarding via LoginPage (pending invite vs /app).
+  // Avoids sending pending sessions straight to /app without a coherent invite.
+  return user ? <Navigate to="/login" replace /> : <LandingPage />;
 }
 
 const legacyFallback = (
