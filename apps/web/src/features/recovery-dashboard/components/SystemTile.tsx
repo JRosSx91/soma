@@ -16,9 +16,16 @@ interface SystemTileProps {
   system: DemoSystem;
   selected?: boolean;
   onSelect?: (id: string) => void;
+  /** When true, the percentage is a live catalog estimate, not demo copy. */
+  live?: boolean;
 }
 
-export function SystemTile({ system, selected = false, onSelect }: SystemTileProps) {
+export function SystemTile({
+  system,
+  selected = false,
+  onSelect,
+  live = false,
+}: SystemTileProps) {
   return (
     <button
       type="button"
@@ -40,7 +47,9 @@ export function SystemTile({ system, selected = false, onSelect }: SystemTilePro
         {system.name}
       </span>
       <span className="mt-1 text-sm font-semibold tabular-nums text-soma-ink">
-        <span className="sr-only">Estimación de demostración </span>
+        <span className="sr-only">
+          {live ? "Estimación orientativa " : "Estimación de demostración "}
+        </span>
         {system.endLabel}
       </span>
     </button>

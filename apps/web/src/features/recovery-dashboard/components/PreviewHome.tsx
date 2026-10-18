@@ -1,10 +1,7 @@
-import { useState } from "react";
-import {
-  demoChanges,
-  demoSubstances,
-  demoSystems,
-} from "../demo-data.js";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { previewFocus } from "../focus.js";
+import { usePreviewDashboard } from "../hooks/usePreviewDashboard.js";
 import { AbstinencePill } from "./AbstinencePill.js";
 import { DemoNotice } from "./DemoNotice.js";
 import { EvolutionChart } from "./EvolutionChart.js";
@@ -15,15 +12,88 @@ import { SubstanceCard } from "./SubstanceCard.js";
 import { SubstanceChip } from "./SubstanceChip.js";
 import { SystemTile } from "./SystemTile.js";
 
-const featuredChange = demoChanges[0];
-
 export function PreviewHome() {
-  const [substanceId, setSubstanceId] = useState(demoSubstances[0]?.id ?? "");
+  const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [seriesId, setSeriesId] = useState("general");
-  const selected =
-    demoSubstances.find((item) => item.id === substanceId) ?? demoSubstances[0];
+  const dashboard = usePreviewDashboard(substanceId);
+  const live = dashboard.mode === "live";
 
-  if (!selected || !featuredChange) return null;
+  useEffect(() => {
+    if (dashboard.loading || dashboard.error) return;
+    if (dashboard.substances.length === 0) {
+      setSubstanceId(null);
+      return;
+    }
+    if (!substanceId || !dashboard.substances.some((item) => item.id === substanceId)) {
+      setSubstanceId(dashboard.substances[0]?.id ?? null);
+    }
+  }, [dashboard.error, dashboard.loading, dashboard.substances, substanceId]);
+
+  useEffect(() => {
+    if (seriesId === "general") return;
+    if (!dashboard.chart.series.some((item) => item.id === seriesId)) {
+      setSeriesId("general");
+    }
+  }, [dashboard.chart.series, seriesId]);
+
+  const selected =
+    dashboard.substances.find((item) => item.id === substanceId) ??
+    dashboard.substances[0] ??
+    null;
+  const featuredChange = dashboard.changes[0] ?? null;
+
+  if (dashboard.loading) {
+    return (
+      <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
+        Cargando tu recuperación…
+      </div>
+    );
+  }
+
+  if (dashboard.error) {
+    return (
+      <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
+        <p>No se han podido cargar tus datos.</p>
+        <button
+          type="button"
+          onClick={dashboard.reload}
+          className={`${previewFocus} mt-3 text-soma-action hover:text-soma-action-hover`}
+        >
+          Reintentar
+        </button>
+      </div>
+    );
+  }
+
+  if (live && dashboard.emptyUsages) {
+    return (
+      <div className="relative flex flex-col gap-4">
+        <header>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action">
+              Recovery intelligence
+            </p>
+          </div>
+          <h1 className="mt-2 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
+            <span className="block">Tu cuerpo cambia.</span>
+            <span className="block text-soma-action">Comprende cómo.</span>
+          </h1>
+          <p className="mt-3 max-w-xl rounded-2xl border border-dashed border-soma-line px-4 py-5 text-sm text-soma-ink-secondary">
+            Todavía no hay sustancias en tu perfil. Añádelas en el onboarding para ver
+            estimaciones de recuperación aquí.
+          </p>
+          <Link
+            to="/onboarding"
+            className={`${previewFocus} mt-4 inline-flex text-sm text-soma-action hover:text-soma-action-hover`}
+          >
+            Ir al onboarding
+          </Link>
+        </header>
+      </div>
+    );
+  }
+
+  if (!selected) return null;
 
   return (
     <div className="relative flex flex-col gap-4 lg:gap-2 xl:grid xl:grid-cols-1 xl:grid-rows-[auto_auto_auto_auto] xl:content-start xl:gap-2">
@@ -36,7 +106,7 @@ export function PreviewHome() {
               Recovery intelligence
             </p>
             <span className="flex shrink-0 items-center gap-2">
-              <DemoNotice />
+              {dashboard.showDemoBadge ? <DemoNotice /> : null}
               <AbstinencePill
                 label={selected.pillDetail}
                 className="hidden sm:inline-flex"
@@ -48,15 +118,16 @@ export function PreviewHome() {
             <span className="block text-soma-action">Comprende cómo.</span>
           </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary lg:mt-1 lg:max-w-none lg:text-[13px] lg:leading-snug">
-            Un espacio personal para seguir tu recuperación, explorar los
-            procesos que ocurren en tu organismo y reconocer cada avance.
+            {live
+              ? "Estimaciones orientativas a partir de tu perfil y del catálogo Soma. No sustituyen una evaluación médica."
+              : "Un espacio personal para seguir tu recuperación, explorar los procesos que ocurren en tu organismo y reconocer cada avance."}
           </p>
           <AbstinencePill
             label={selected.pillDetail}
             className="mt-4 w-full justify-between sm:hidden"
           />
           <ul className="mt-4 flex gap-2 lg:hidden">
-            {demoSubstances.map((substance) => (
+            {dashboard.substances.map((substance) => (
               <li key={substance.id}>
                 <SubstanceChip
                   substance={substance}
@@ -67,7 +138,7 @@ export function PreviewHome() {
             ))}
           </ul>
           <ul className="mt-3 hidden gap-2.5 lg:grid lg:grid-cols-3">
-            {demoSubstances.map((substance) => (
+            {dashboard.substances.map((substance) => (
               <li key={substance.id}>
                 <SubstanceCard
                   substance={substance}
@@ -81,22 +152,33 @@ export function PreviewHome() {
       </header>
 
       <div className="relative z-10 overflow-x-clip">
-        <EvolutionChart seriesId={seriesId} onSeries={setSeriesId} />
+        <EvolutionChart
+          seriesId={seriesId}
+          onSeries={setSeriesId}
+          chart={dashboard.chart}
+          live={live}
+        />
       </div>
 
-      <section className="hidden lg:block">
-        <h2 className="text-base font-semibold text-soma-ink">Cambios recientes</h2>
-        <p className="mt-0.5 text-xs text-soma-ink-muted">
-          Procesos destacados que están ocurriendo en tu organismo en esta fase.
-        </p>
-        <ul className="mt-2 grid gap-2.5 lg:grid-cols-3">
-          {demoChanges.map((change) => (
-            <li key={change.id}>
-              <RecentChangeCard change={change} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      {dashboard.changes.length > 0 ? (
+        <section className="hidden lg:block">
+          <h2 className="text-base font-semibold text-soma-ink">
+            {live ? "Órganos con mayor pendiente" : "Cambios recientes"}
+          </h2>
+          <p className="mt-0.5 text-xs text-soma-ink-muted">
+            {live
+              ? "Avance estimado del catálogo para los órganos más rezagados de tu perfil."
+              : "Procesos destacados que están ocurriendo en tu organismo en esta fase."}
+          </p>
+          <ul className="mt-2 grid gap-2.5 lg:grid-cols-3">
+            {dashboard.changes.map((change) => (
+              <li key={change.id}>
+                <RecentChangeCard change={change} live={live} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section>
         <div className="flex items-end justify-between gap-3">
@@ -105,31 +187,45 @@ export function PreviewHome() {
               Sistemas principales
             </h2>
             <p className="mt-0.5 hidden text-xs text-soma-ink-muted lg:block">
-              Explora la evolución estimada por sistemas y órganos.
+              {live
+                ? "Estimación por sistema a partir de los órganos de tu perfil."
+                : "Explora la evolución estimada por sistemas y órganos."}
             </p>
           </div>
-          <button
-            type="button"
-            className={`${previewFocus} shrink-0 text-sm text-soma-action hover:text-soma-action-hover`}
-          >
-            Ver todos
-          </button>
+          {!live ? (
+            <button
+              type="button"
+              className={`${previewFocus} shrink-0 text-sm text-soma-action hover:text-soma-action-hover`}
+            >
+              Ver todos
+            </button>
+          ) : null}
         </div>
-        <ul className="mt-4 flex gap-3 overflow-x-auto pb-1 lg:mt-2 lg:grid lg:grid-cols-3 lg:gap-2.5 lg:overflow-visible xl:grid-cols-6">
-          {demoSystems.map((system) => (
-            <li key={system.id} className="lg:min-w-0">
-              <SystemTile system={system} />
-            </li>
-          ))}
-        </ul>
+        {dashboard.systems.length === 0 ? (
+          <p className="mt-4 rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
+            No hay sistemas con estimación para la selección actual.
+          </p>
+        ) : (
+          <ul className="mt-4 flex gap-3 overflow-x-auto pb-1 lg:mt-2 lg:grid lg:grid-cols-3 lg:gap-2.5 lg:overflow-visible xl:grid-cols-6">
+            {dashboard.systems.map((system) => (
+              <li key={system.id} className="lg:min-w-0">
+                <SystemTile system={system} live={live} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
-      <section className="lg:hidden">
-        <h2 className="text-lg font-semibold text-soma-ink">Cambio destacado hoy</h2>
-        <div className="mt-3">
-          <RecentChangeCard change={featuredChange} featured />
-        </div>
-      </section>
+      {featuredChange ? (
+        <section className="lg:hidden">
+          <h2 className="text-lg font-semibold text-soma-ink">
+            {live ? "Órgano destacado" : "Cambio destacado hoy"}
+          </h2>
+          <div className="mt-3">
+            <RecentChangeCard change={featuredChange} featured live={live} />
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -6,9 +6,17 @@ interface RecentChangeCardProps {
   change: DemoChange;
   featured?: boolean;
   onOpen?: () => void;
+  /** When true, the percentage is a live catalog estimate, not demo copy. */
+  live?: boolean;
 }
 
-export function RecentChangeCard({ change, featured = false, onOpen }: RecentChangeCardProps) {
+export function RecentChangeCard({
+  change,
+  featured = false,
+  onOpen,
+  live = false,
+}: RecentChangeCardProps) {
+  const estimateSr = live ? "Estimación orientativa " : "Estimación de demostración ";
   return (
     <button
       type="button"
@@ -47,7 +55,7 @@ export function RecentChangeCard({ change, featured = false, onOpen }: RecentCha
               {change.body}
             </span>
             <span className="mt-3 text-right text-sm font-medium tabular-nums text-soma-ink">
-              <span className="sr-only">Estimación de demostración </span>
+              <span className="sr-only">{estimateSr}</span>
               {change.endLabel}
             </span>
           </>
@@ -65,7 +73,7 @@ export function RecentChangeCard({ change, featured = false, onOpen }: RecentCha
             <span className="mt-1 flex items-start justify-between gap-2">
               <span className="text-sm font-semibold leading-snug text-soma-ink">{change.title}</span>
               <span className="shrink-0 text-sm font-medium tabular-nums text-soma-ink">
-                <span className="sr-only">Estimación de demostración </span>
+                <span className="sr-only">{estimateSr}</span>
                 {change.endLabel}
               </span>
             </span>
