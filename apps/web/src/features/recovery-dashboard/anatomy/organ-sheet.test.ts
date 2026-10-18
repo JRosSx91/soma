@@ -105,9 +105,31 @@ test("system coverage counts stay within atlas membership", () => {
 
   const digestive = systemSheetCoverage(systemById("digestive"));
   assert.equal(digestive.organCount, 4);
-  assert.equal(digestive.organsWithPlate, 1);
-  assert.equal(digestive.organsWithEducation, 0);
+  assert.equal(digestive.organsWithPlate, 4);
+  assert.equal(digestive.organsWithEducation, 4);
   assert.ok(digestive.organsWithNarratives >= 1);
+});
+
+test("digestive organs resolve plates and fichas with catalog narratives", () => {
+  const digestive = systemById("digestive");
+  assert.equal(digestive.organs.length, 4);
+  const expectedPlates: Record<string, string> = {
+    stomach: "/images/anatomy/stomach.png",
+    pancreas: "/images/anatomy/pancreas.png",
+    intestines: "/images/anatomy/intestines.png",
+    "oral-mucosa": "/images/anatomy/oral-mucosa.png",
+  };
+  for (const organ of digestive.organs) {
+    const sheet = resolveOrganSheet(digestive, organ);
+    assert.equal(sheet.availability.hasPlate, true);
+    assert.equal(sheet.availability.hasEducation, true);
+    assert.equal(organ.plate?.src, expectedPlates[organ.id]);
+    assert.ok(sheet.location);
+    assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
+    assert.ok(sheet.sources.length > 0);
+    assert.equal(sheet.availability.hasNarratives, true);
+    assert.equal(sheet.availability.hasRecoveryCurves, true);
+  }
 });
 
 test("organ sheets never invent parallel organ identifiers", () => {

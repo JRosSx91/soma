@@ -31,9 +31,28 @@ const liverPlate: AtlasPlate = {
   depicts: "Hígado.",
 };
 
+const stomachPlate: AtlasPlate = {
+  src: "/images/anatomy/stomach.png",
+  depicts:
+    "Estómago con porción distal del esófago y duodeno proximal. Ilustración educativa; no es un mapa histológico.",
+};
+
 const pancreasPlate: AtlasPlate = {
   src: "/images/anatomy/pancreas.png",
-  depicts: "Páncreas.",
+  depicts:
+    "Páncreas con asa duodenal y conducto pancreático resaltado. Ilustración educativa; no es un mapa histológico.",
+};
+
+const intestinesPlate: AtlasPlate = {
+  src: "/images/anatomy/intestines.png",
+  depicts:
+    "Intestino delgado e intestino grueso en conjunto. Ilustración educativa; no es un mapa histológico.",
+};
+
+const oralMucosaPlate: AtlasPlate = {
+  src: "/images/anatomy/oral-mucosa.png",
+  depicts:
+    "Cavidad oral con la mucosa resaltada. Ilustración educativa; no sustituye un corte histológico ni representa dientes o glándulas salivales como órgano.",
 };
 
 const kidneysPlate: AtlasPlate = {
@@ -179,10 +198,10 @@ export const atlasSystems: readonly AtlasSystem[] = [
     name: "Sistema digestivo",
     plates: { anterior: digestiveSystemPlate, posterior: null },
     organs: [
-      organ("stomach", "Estómago"),
+      organ("stomach", "Estómago", stomachPlate),
       organ("pancreas", "Páncreas", pancreasPlate),
-      organ("intestines", "Intestinos"),
-      organ("oral-mucosa", "Mucosa oral"),
+      organ("intestines", "Intestinos", intestinesPlate),
+      organ("oral-mucosa", "Mucosa oral", oralMucosaPlate),
     ],
   },
   {

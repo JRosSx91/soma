@@ -103,6 +103,55 @@ const naccLimbicIntegration: AnatomySource = {
   verified: true,
 };
 
+const openStaxStomach: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 23.4, The Stomach.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach",
+  verified: true,
+};
+
+const openStaxIntestines: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 23.5, The Small and Large Intestines.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines",
+  verified: true,
+};
+
+const openStaxAccessoryDigestive: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 23.6, Accessory Organs in Digestion: The Liver, Pancreas, and Gallbladder.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
+  verified: true,
+};
+
+const openStaxMouth: AnatomySource = {
+  citation:
+    "OpenStax. Anatomy and Physiology 2e. Sección 23.3, The Mouth, Pharynx, and Esophagus.",
+  href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus",
+  verified: true,
+};
+
+const statPearlsStomach: AnatomySource = {
+  citation:
+    "Chaudhry SR, Liman MNP, Omole AE, Peterson DC. Anatomy, Abdomen and Pelvis: Stomach. StatPearls, NCBI Bookshelf. Actualización del 17 de julio de 2024. NBK482334.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK482334/",
+  verified: true,
+};
+
+const statPearlsPancreas: AnatomySource = {
+  citation:
+    "Talathi SS, Omole AE, Young M. Anatomy, Abdomen and Pelvis, Pancreas. StatPearls, NCBI Bookshelf. NBK532912.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK532912/",
+  verified: true,
+};
+
+const statPearlsOralMucosa: AnatomySource = {
+  citation:
+    "Brizuela M, Winters R. Histology, Oral Mucosa. StatPearls, NCBI Bookshelf. Actualización del 8 de mayo de 2023. NBK572115.",
+  href: "https://www.ncbi.nlm.nih.gov/books/NBK572115/",
+  verified: true,
+};
+
 const respiratoryEducation: readonly AnatomyEducationEntry[] = [
   {
     organId: "lungs",
@@ -203,9 +252,65 @@ const centralNervousEducation: readonly AnatomyEducationEntry[] = [
   },
 ];
 
+/**
+ * Educational sheets for atlas organs of the digestive system.
+ * Illustrations are didactic highlights, not primary histological references.
+ */
+const digestiveEducation: readonly AnatomyEducationEntry[] = [
+  {
+    organId: "stomach",
+    location:
+      "En el hemiabdomen superior, mayormente a la izquierda de la línea media, entre el esófago por arriba y el duodeno por abajo.",
+    anatomy:
+      "El estómago es la porción más dilatada del tubo digestivo. Se describen cardias (unión esofágica), fundus (cúpula superior), cuerpo (región principal) y píloro (antro y canal que desembocan en el duodeno a través del esfínter pilórico). La pared presenta mucosa, submucosa, muscularis externa —con capas longitudinal, circular y una oblicua interna típica del estómago— y serosa. La mucosa gástrica forma pliegues (rugae) y aloja glándulas que secretan ácido, pepsinógeno, moco y factor intrínseco.",
+    physiology:
+      "Actúa como reservorio temporal y cámara de mezcla: las ondas de contracción trituran el alimento y lo convierten en quimo. La secreción gástrica aporta ácido clorhídrico y pepsinógeno para iniciar la digestión de proteínas; el factor intrínseco es necesario para la absorción ulterior de vitamina B12. El vaciamiento hacia el duodeno está regulado por el píloro y por señales del intestino proximal. La absorción de nutrientes en el estómago es mínima.",
+    relations:
+      "Recibe el bolo desde el esófago y entrega quimo al duodeno. La curvatura menor se relaciona con el omento menor hacia el hígado; la mayor, con el omento mayor. Queda por delante del páncreas y se acopla funcionalmente a la secreción pancreática y biliar cuando el quimo llega al intestino delgado.",
+    sources: [openStaxStomach, statPearlsStomach],
+  },
+  {
+    organId: "pancreas",
+    location:
+      "Glándula retroperitoneal en el abdomen superior, transversal entre el asa en C del duodeno a la derecha y el hilio esplénico a la izquierda, por detrás del estómago.",
+    anatomy:
+      "Se divide en cabeza (alojada en la curvatura duodenal), cuello, cuerpo y cola. La mayor parte del tejido es exocrino: acinos que drenan hacia el conducto pancreático principal, el cual suele unirse al conducto biliar común en la ampolla hepatopancreática antes de abrir en el duodeno. Dispersos entre los acinos hay islotes pancreáticos (de Langerhans), el componente endocrino. No es un órgano del tubo digestivo propiamente dicho, sino una glándula accesoria.",
+    physiology:
+      "La secreción exocrina aporta enzimas digestivas (amilasa, lipasa, proteasas en forma de zimógenos) y bicarbonato, que neutraliza el quimo ácido y crea un entorno adecuado en el intestino delgado. Los islotes liberan a la sangre hormonas como insulina y glucagón, que regulan el metabolismo de la glucosa. Ambas funciones coexisten en la misma glándula sin confundirse con la digestión mecánica del estómago ni con la absorción intestinal.",
+    relations:
+      "La cabeza se apoya en el duodeno; la cola se acerca al bazo. El jugo pancreático y la bilis convergen hacia el duodeno, donde actúan sobre el quimo procedente del estómago. Queda por detrás del estómago y en relación estrecha con vasos mesentéricos superiores en el cuello de la glándula.",
+    sources: [openStaxAccessoryDigestive, statPearlsPancreas],
+  },
+  {
+    organId: "intestines",
+    location:
+      "Ocupan gran parte de la cavidad abdominal, desde el píloro hasta el canal anal: intestino delgado en el centro y intestino grueso formando un marco periférico.",
+    anatomy:
+      "El intestino delgado comprende duodeno, yeyuno e íleon; su mucosa aumenta la superficie con pliegues, vellosidades y microvellosidades. El intestino grueso incluye ciego (con apéndice), colon (ascendente, transverso, descendente y sigmoide) y recto; muestra haustras y tenias coli. Ambos segmentos comparten la arquitectura general del tubo digestivo (mucosa, submucosa, muscular y serosa o adventicia), con especializaciones regionales. En este atlas figuran juntos como «Intestinos», sin órganos separados para delgado y grueso.",
+    physiology:
+      "En el intestino delgado termina la digestión enzimática y ocurre la mayor parte de la absorción de nutrientes, agua y electrolitos. El intestino grueso reabsorbe agua y electrolitos restantes, compacta el residuo y aloja una microbiota que participa en la fermentación de material no digerido y en la síntesis de algunas vitaminas. La motilidad (segmentación, peristalsis y movimientos en masa) desplaza el contenido a lo largo de ambos tramos.",
+    relations:
+      "El duodeno recibe quimo del estómago y secreciones del páncreas y de la vía biliar. El íleon desemboca en el ciego por la válvula ileocecal. El mesenterio y el mesocolon fijan asas a la pared posterior y llevan vasos y nervios. La mucosa oral y el estómago preparan el bolo antes de que llegue a este tramo; el hígado procesa muchos de los nutrientes absorbidos vía vena porta.",
+    sources: [openStaxIntestines, openStaxAccessoryDigestive],
+  },
+  {
+    organId: "oral-mucosa",
+    location:
+      "Revestimiento húmedo de la cavidad oral, desde la mucosa labial hasta los pliegues palatofaríngeos, cubriendo mejillas, suelo de la boca, encía y paladar.",
+    anatomy:
+      "Está formada por un epitelio escamoso estratificado sobre una lámina propia de tejido conjuntivo; en muchas regiones hay también submucosa. Se distinguen mucosa de revestimiento (no queratinizada, en zonas móviles como mejillas y suelo de la boca), mucosa masticatoria (queratinizada o paraqueratinizada, en encía adherida y paladar duro) y mucosa especializada en el dorso de la lengua, con papilas. No es el diente, ni las glándulas salivales mayores, ni el conjunto del aparato bucal: es la membrana mucosa que los rodea y protege.",
+    physiology:
+      "Actúa como barrera mecánica, química y microbiana frente al medio oral. Permite sensibilidad táctil, térmica y dolorosa, y en la mucosa especializada contribuye a la percepción del gusto a través de las papilas. Su permeabilidad y queratinización varían según la región, adaptándose al roce de la masticación o a la movilidad de mejillas y labios.",
+    relations:
+      "Limita con los dientes en la encía y con la orofaringe hacia atrás. Las secreciones salivales la humedecen, pero las glándulas salivales son órganos distintos. Continúa hacia el esófago a través de la faringe; el bolo masticado pasa luego al estómago. No se confunde con la mucosa nasal, que reviste la cavidad nasal.",
+    sources: [statPearlsOralMucosa, openStaxMouth],
+  },
+];
+
 const educationEntries: readonly AnatomyEducationEntry[] = [
   ...respiratoryEducation,
   ...centralNervousEducation,
+  ...digestiveEducation,
 ];
 
 const byOrganId = new Map(educationEntries.map((entry) => [entry.organId, entry]));

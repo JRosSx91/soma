@@ -11,6 +11,7 @@ const centralNervousOrganIds = [
   "brain-nucleus-accumbens",
   "brain-vta",
 ] as const;
+const digestiveOrganIds = ["stomach", "pancreas", "intestines", "oral-mucosa"] as const;
 
 test("the three respiratory organs have complete anatomical entries", () => {
   for (const organId of respiratoryOrganIds) {
@@ -73,10 +74,41 @@ test("bronchial cartilage and the alveolar barrier stay anatomically distinct", 
   assert.equal(bronchi.sources.every((source) => source.verified), true);
 });
 
+test("the four digestive organs have complete anatomical entries", () => {
+  for (const organId of digestiveOrganIds) {
+    const entry = educationalAnatomy(organId);
+    assert.ok(entry);
+    assert.equal(entry.organId, organId);
+    assert.ok(entry.location && entry.location.length > 20);
+    assert.ok(entry.anatomy.length > 40);
+    assert.ok(entry.physiology.length > 40);
+    assert.ok(entry.relations.length > 40);
+    assert.ok(entry.sources.length > 0);
+    for (const source of entry.sources) {
+      assert.equal(source.verified, true);
+      assert.match(source.href, /^https:\/\//);
+      assert.ok(source.citation.length > 10);
+    }
+  }
+
+  const stomach = educationalAnatomy("stomach");
+  const pancreas = educationalAnatomy("pancreas");
+  const intestines = educationalAnatomy("intestines");
+  const oral = educationalAnatomy("oral-mucosa");
+  assert.ok(stomach && pancreas && intestines && oral);
+  assert.match(stomach.anatomy, /cardias|fundus|píloro|antr/i);
+  assert.match(pancreas.physiology, /exocrin|endocrin|bicarbonato|islotes/i);
+  assert.match(intestines.anatomy, /duodeno|yeyuno|íleon|colon/i);
+  assert.match(oral.anatomy, /escamoso estratificado|revestimiento|masticatoria|especializada/i);
+  assert.doesNotMatch(oral.anatomy, /glándulas salivales mayores son la mucosa/i);
+  assert.notEqual(stomach.anatomy, intestines.anatomy);
+  assert.notEqual(pancreas.anatomy, oral.anatomy);
+});
+
 test("an organ without an entry does not receive another organ's text", () => {
   assert.equal(educationalAnatomy("heart"), null);
   assert.equal(educationalAnatomy("liver"), null);
-  assert.equal(educationalAnatomy("oral-mucosa"), null);
+  assert.equal(educationalAnatomy("spleen"), null);
   assert.equal(educationalAnatomy("lungs-copy"), null);
 
   const lungs = educationalAnatomy("lungs");

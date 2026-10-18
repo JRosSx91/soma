@@ -175,6 +175,21 @@ test("bronchi and nasal mucosa keep their own plate paths", () => {
   );
 });
 
+test("digestive organs keep their own plate paths on disk", () => {
+  const digestive = atlasSystems.find((system) => system.id === "digestive");
+  assert.ok(digestive);
+  const expected: Record<string, string> = {
+    stomach: "/images/anatomy/stomach.png",
+    pancreas: "/images/anatomy/pancreas.png",
+    intestines: "/images/anatomy/intestines.png",
+    "oral-mucosa": "/images/anatomy/oral-mucosa.png",
+  };
+  for (const organ of digestive.organs) {
+    assert.equal(organ.plate?.src, expected[organ.id]);
+    assert.equal(existsSync(publicPathFromSrc(expected[organ.id]!)), true);
+  }
+});
+
 test("organ plates remain available when drilling from system to organ", () => {
   const cardiovascular = atlasSystems.find((system) => system.id === "cardiovascular");
   assert.ok(cardiovascular);
@@ -263,8 +278,12 @@ test("educational content is only claimed for organs that have real catalog data
       "brain-prefrontal-cortex",
       "brain-vta",
       "bronchi",
+      "intestines",
       "lungs",
       "nasal-mucosa",
+      "oral-mucosa",
+      "pancreas",
+      "stomach",
     ],
   );
 
