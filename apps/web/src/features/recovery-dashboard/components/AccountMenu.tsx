@@ -84,7 +84,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
             compact ? "right-0 top-full mt-2" : "left-0 bottom-full mb-2 w-full"
           }`}
         >
-          {user ? (
+          {user && base === "/app" ? (
             <>
               <div className="border-b border-soma-line px-3 py-2">
                 <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-soma-ink-muted">
@@ -113,16 +113,38 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
               >
                 {t("menuSubstances")}
               </Link>
-              {base === "/app" ? (
-                <Link
-                  role="menuitem"
-                  to="/app-legacy"
-                  className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                  onClick={() => setOpen(false)}
-                >
-                  {t("menuOpenLegacy")}
-                </Link>
-              ) : null}
+              <Link
+                role="menuitem"
+                to="/app-legacy"
+                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                onClick={() => setOpen(false)}
+              >
+                {t("menuOpenLegacy")}
+              </Link>
+              <button
+                type="button"
+                role="menuitem"
+                className={`${previewFocus} flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-soma-ink hover:bg-soma-surface`}
+                onClick={handleLogout}
+              >
+                <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
+                {t("menuLogout")}
+              </button>
+            </>
+          ) : user && base === "/preview" ? (
+            <>
+              {/* Signed-in on public demo: no private identity or live links. */}
+              <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
+                {t("menuPreviewGuest")}
+              </p>
+              <Link
+                role="menuitem"
+                to="/app"
+                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                onClick={() => setOpen(false)}
+              >
+                {t("menuOpenApp")}
+              </Link>
               <button
                 type="button"
                 role="menuitem"

@@ -51,7 +51,9 @@ export function AchievementsPage() {
   const base = useShellBase();
   const { user, loading: authLoading } = useAuth();
   const sessionPending = authLoading;
-  const live = useLiveAchievements(user?.id ?? null);
+  /** Live unlock state only under /app — /preview stays catalog/demo. */
+  const liveEnabled = Boolean(user) && base === "/app";
+  const live = useLiveAchievements(liveEnabled ? (user?.id ?? null) : null);
   const [substance, setSubstance] = useState<SubstanceFilter>("all");
   const [tier, setTier] = useState<TierFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("all");
@@ -63,8 +65,9 @@ export function AchievementsPage() {
     return map;
   }, [live.rows]);
 
-  const showingLive = Boolean(user) && live.rows !== null;
-  const awaitingAccount = sessionPending || (Boolean(user) && live.loading);
+  const showingLive = liveEnabled && live.rows !== null;
+  const awaitingAccount =
+    sessionPending || (liveEnabled && live.loading);
   const reviewCount = achievementCatalog.filter((item) => item.ruleReview).length;
   const unlockedCount = showingLive
     ? achievementCatalog.filter((item) => liveById.get(item.id)?.unlocked).length

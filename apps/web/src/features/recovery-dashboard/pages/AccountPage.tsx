@@ -94,12 +94,11 @@ export function AccountPage() {
     } catch (err) {
       // Keep draft so the user does not lose typed values.
       // Do not call applyProfileUser on failure.
+      // Never surface raw server/network messages to the UI.
       if (err instanceof ApiError && err.status === 400) {
         setFormError(t("errors.validationFailed"));
       } else {
-        setFormError(
-          err instanceof Error ? err.message : t("errors.saveFailed"),
-        );
+        setFormError(t("errors.saveFailed"));
       }
     } finally {
       setSaving(false);

@@ -7,7 +7,7 @@ import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 
 export function RegisterPage() {
-  const { t } = useTranslation("auth");
+  const { t } = useTranslation(["auth", "common"]);
   const { register, user, loading } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -23,13 +23,16 @@ export function RegisterPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        Loading…
+        {t("common:loading", { defaultValue: "Loading…" })}
       </div>
     );
   }
 
+  // Already signed in: send through /login so pending users see the invite
+  // gate instead of skipping straight into /app. Fresh register sets
+  // completingRegistration and navigates to /onboarding below.
   if (user && !completingRegistration.current && !submitting) {
-    return <Navigate to="/app" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   const handleSubmit = async (event: FormEvent) => {

@@ -32,6 +32,7 @@
   "menuPreviewGuest": "Public demo view. No account data.",
   "menuAnonymous": "Not signed in.",
   "menuOpenLegacy": "Open Soma 1.0",
+  "menuOpenApp": "Open your Soma account",
   "errors": {
     "displayNameRequired": "Enter a display name.",
     "biologicalSexInvalid": "Choose a valid biological sex.",

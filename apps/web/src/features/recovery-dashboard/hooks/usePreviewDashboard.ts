@@ -21,6 +21,7 @@ import {
   buildLiveDashboard,
   type LiveChartModel,
 } from "../dashboard/adapt-live-dashboard.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
 import { useLiveProfile } from "./useLiveProfile.js";
 
 export type DashboardMode = "demo" | "live";
@@ -79,14 +80,17 @@ function liveChartToView(chart: LiveChartModel): DashboardChartView {
 /**
  * Preview Inicio / Recuperación data source.
  *
- * - Signed out → demo snapshot (public design review).
- * - Signed in → profile + Soma 1.0 organ/recovery engine.
+ * - `/preview` → always demo snapshot (even if a session exists).
+ * - `/app` + signed in → profile + Soma 1.0 organ/recovery engine.
  * Never mixes demo figures into a live metric.
  */
 export function usePreviewDashboard(substanceId: string | null = null): PreviewDashboardView {
   const { user, loading: authLoading } = useAuth();
+  const base = useShellBase();
   const sessionPending = authLoading;
-  const liveProfile = useLiveProfile(user?.id ?? null);
+  /** Live private data only under the authenticated app shell. */
+  const isLive = Boolean(user) && base === "/app";
+  const liveProfile = useLiveProfile(isLive ? (user?.id ?? null) : null);
   const { data: substances, loading: substancesLoading, error: substancesError } =
     useSubstances();
 
@@ -97,8 +101,6 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
 
   const { states: organStates, loading: organLoading, error: organError } =
     useOrganStates(adaptedProfile);
-
-  const isLive = Boolean(user);
   const loading =
     sessionPending ||
     (isLive && (liveProfile.loading || substancesLoading || organLoading));

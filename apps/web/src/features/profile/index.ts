@@ -21,6 +21,12 @@ export {
   skipOnboardingWithoutClearingUsages,
   parseOnboardingStatusFromProfile,
 } from "./lib/onboarding-actions.js";
+export {
+  normalizeUsagesPayload,
+  planOnboardingPersist,
+  persistOnboardingCompletion,
+  usagesPayloadEqual,
+} from "./lib/onboarding-persist.js";
 export { shouldConfirmClearUsages } from "./lib/clear-usages-guard.js";
 export { outcomeFromProfileFetch } from "./lib/post-auth-profile.js";
 export type { PostAuthProfileOutcome } from "./lib/post-auth-profile.js";

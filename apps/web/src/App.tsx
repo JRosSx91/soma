@@ -14,6 +14,7 @@ import { ExplorePage } from "./features/recovery-dashboard/pages/ExplorePage.js"
 import { AnatomyExplorerPage } from "./features/recovery-dashboard/pages/AnatomyExplorerPage.js";
 import { AchievementsPage as Soma2AchievementsPage } from "./features/recovery-dashboard/pages/AchievementsPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
+import { useTranslation } from "react-i18next";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
 
@@ -28,11 +29,12 @@ const MainPage = lazy(() =>
 
 function RootRoute() {
   const { user, loading } = useAuth();
+  const { t } = useTranslation("common");
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        Loading…
+        {t("loading")}
       </div>
     );
   }

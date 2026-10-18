@@ -6,8 +6,7 @@ import { useSubstances } from "../features/substances/index.js";
 import { useUserProfile } from "../features/profile/index.js";
 import type { UsageInput } from "../features/profile/index.js";
 import {
-  completeOnboardingStatusOnly,
-  completeOnboardingWithUsages,
+  persistOnboardingCompletion,
   shouldConfirmClearUsages,
   skipOnboardingWithoutClearingUsages,
 } from "../features/profile/index.js";
@@ -67,6 +66,12 @@ export function OnboardingPage() {
   >({});
   const [initialized, setInitialized] = useState(false);
   const inFlight = useRef(false);
+  /** Last PUT payload the backend accepted (wire shape), for retry compare. */
+  const lastSuccessfulPut = useRef<UsageInput[] | null>(null);
+  /** Fingerprint of the empty-clear intent that the user confirmed. */
+  const confirmedClearFingerprint = useRef<string | null>(null);
+  /** Exact validated payload frozen at confirmation time (avoids races). */
+  const confirmedClearUsages = useRef<UsageInput[] | null>(null);
 
   useEffect(() => {
     if (initialized || !profile || !substances) return;
@@ -92,6 +97,10 @@ export function OnboardingPage() {
     field: keyof SubstanceFormState,
     value: string | boolean,
   ) => {
+    // Form edits invalidate a prior clear-all confirmation.
+    setConfirmClear(false);
+    confirmedClearFingerprint.current = null;
+    confirmedClearUsages.current = null;
     setFormState((prev) => ({
       ...prev,
       [substanceId]: {
@@ -130,20 +139,44 @@ export function OnboardingPage() {
     return usages;
   };
 
+  const persistedUsageCount = (): number => {
+    if (lastSuccessfulPut.current !== null) {
+      return lastSuccessfulPut.current.length;
+    }
+    return profile?.usages.length ?? 0;
+  };
+
+  const usagesFingerprint = (usages: UsageInput[]): string =>
+    JSON.stringify(
+      usages
+        .map((u) => ({
+          substanceId: u.substanceId,
+          yearStarted: u.yearStarted,
+          lastUseDate: u.status === "active" ? null : u.lastUseDate,
+          frequency: u.frequency,
+          status: u.status,
+        }))
+        .sort((a, b) => a.substanceId.localeCompare(b.substanceId)),
+    );
+
   const persistUsagesAndComplete = async (usages: UsageInput[]) => {
+    if (inFlight.current) return;
     setSubmitting(true);
     inFlight.current = true;
     try {
-      const result = awaitingStatusRetry
-        ? await completeOnboardingStatusOnly()
-        : await completeOnboardingWithUsages(usages);
+      const result = await persistOnboardingCompletion(usages, {
+        lastSuccessfulPut: lastSuccessfulPut.current,
+        awaitingStatusRetry,
+      });
+
+      lastSuccessfulPut.current = result.lastSuccessfulPut;
 
       if (!result.ok) {
         if (result.phase === "patch" && result.usagesSaved) {
           setAwaitingStatusRetry(true);
           setError(t("errors.statusFailed"));
         } else {
-          setAwaitingStatusRetry(false);
+          // PUT failed — stay out of status-retry; keep draft + prior snapshot.
           setError(t("errors.saveFailed"));
         }
         return;
@@ -151,9 +184,12 @@ export function OnboardingPage() {
 
       setAwaitingStatusRetry(false);
       setConfirmClear(false);
+      confirmedClearFingerprint.current = null;
+      confirmedClearUsages.current = null;
       navigate("/app", { replace: true });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : t("errors.saveFailed"));
+    } catch {
+      // Keep draft; do not invent completed.
+      setError(t("errors.saveFailed"));
     } finally {
       setSubmitting(false);
       inFlight.current = false;
@@ -167,15 +203,22 @@ export function OnboardingPage() {
 
     try {
       const usages = buildUsagesFromForm();
+      const fingerprint = usagesFingerprint(usages);
 
-      if (
-        !awaitingStatusRetry &&
-        shouldConfirmClearUsages(profile.usages.length, usages.length)
-      ) {
-        if (!confirmClear) {
+      if (shouldConfirmClearUsages(persistedUsageCount(), usages.length)) {
+        const confirmedForThis =
+          confirmClear &&
+          confirmedClearFingerprint.current === fingerprint &&
+          confirmedClearUsages.current !== null;
+        if (!confirmedForThis) {
           setConfirmClear(true);
+          confirmedClearFingerprint.current = fingerprint;
+          confirmedClearUsages.current = usages;
           return;
         }
+        // Persist the frozen confirmed payload, not a later form drift.
+        await persistUsagesAndComplete(confirmedClearUsages.current);
+        return;
       }
 
       await persistUsagesAndComplete(usages);
@@ -453,6 +496,8 @@ export function OnboardingPage() {
                   disabled={submitting}
                   onClick={() => {
                     setConfirmClear(false);
+                    confirmedClearFingerprint.current = null;
+                    confirmedClearUsages.current = null;
                   }}
                   className="flex-1 border border-soma-border-subtle rounded px-4 py-2 text-sm hover:border-soma-accent"
                 >
@@ -460,9 +505,38 @@ export function OnboardingPage() {
                 </button>
                 <button
                   type="button"
-                  disabled={submitting}
+                  disabled={submitting || inFlight.current}
                   onClick={() => {
-                    void persistUsagesAndComplete([]);
+                    // Use the payload frozen at confirmation; reject if the
+                    // live form drifted (fingerprint mismatch).
+                    try {
+                      const frozen = confirmedClearUsages.current;
+                      if (!frozen) {
+                        setConfirmClear(false);
+                        return;
+                      }
+                      const live = buildUsagesFromForm();
+                      if (
+                        usagesFingerprint(live) !==
+                          confirmedClearFingerprint.current ||
+                        !shouldConfirmClearUsages(
+                          persistedUsageCount(),
+                          frozen.length,
+                        )
+                      ) {
+                        setConfirmClear(false);
+                        confirmedClearFingerprint.current = null;
+                        confirmedClearUsages.current = null;
+                        return;
+                      }
+                      void persistUsagesAndComplete(frozen);
+                    } catch (err) {
+                      setError(
+                        err instanceof Error
+                          ? err.message
+                          : t("errors.saveFailed"),
+                      );
+                    }
                   }}
                   className="flex-1 bg-soma-accent text-soma-bg-base rounded px-4 py-2 text-sm disabled:opacity-50"
                 >

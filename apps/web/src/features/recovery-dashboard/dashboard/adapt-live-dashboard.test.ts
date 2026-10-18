@@ -456,11 +456,43 @@ test("demo and live stay separated in the preview pages", () => {
   assert.match(recovery, /usePreviewDashboard/);
   assert.match(hook, /mode: "demo"/);
   assert.match(hook, /mode: "live"/);
-  assert.match(hook, /Never mixes demo/);
+  assert.match(hook, /Never mixes demo figures/);
+  assert.match(hook, /base === "\/app"/);
   assert.equal(home.includes("demoSubstances"), false);
   assert.equal(recovery.includes("demoSubstances"), false);
   assert.match(home, /showDemoBadge/);
   assert.match(recovery, /demo=\{dashboard\.showDemoBadge\}/);
+});
+
+test("/preview never wires live profile, achievements, or private identity", () => {
+  const hook = readFileSync(
+    new URL("../hooks/usePreviewDashboard.ts", import.meta.url),
+    "utf8",
+  );
+  const menu = readFileSync(
+    new URL("../components/AccountMenu.tsx", import.meta.url),
+    "utf8",
+  );
+  const account = readFileSync(
+    new URL("../pages/AccountPage.tsx", import.meta.url),
+    "utf8",
+  );
+  const achievements = readFileSync(
+    new URL("../pages/AchievementsPage.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(hook, /isLive = Boolean\(user\) && base === "\/app"/);
+  assert.match(hook, /useLiveProfile\(isLive \? \(user\?\.id/);
+  assert.match(account, /enabled: base === "\/app"/);
+  assert.match(achievements, /liveEnabled = Boolean\(user\) && base === "\/app"/);
+  assert.match(menu, /user && base === "\/app"/);
+  assert.match(menu, /user && base === "\/preview"/);
+  assert.match(menu, /menuPreviewGuest/);
+  // Preview branch must not render email/displayName from the session.
+  const previewBranch = menu.slice(menu.indexOf('base === "/preview"'));
+  assert.equal(previewBranch.includes("user.displayName"), false);
+  assert.equal(previewBranch.includes("user.email"), false);
 });
 
 test("adapter does not redefine recovery formulas", () => {
