@@ -8,7 +8,7 @@
     "build": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "tsx --test src/features/auth/**/*.test.ts"
+    "test": "tsx --tsconfig ./tsconfig.app.json --test \"src/features/auth/**/*.test.ts\""
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

@@ -23,13 +23,14 @@ export type PasswordResetMailerKind =
   | "provider";
 
 /**
- * Delivery-1 mailer port. Delivery 2 plugs Resend / SES / Postmark as `provider`
- * behind the same interface.
+ * Mailer port for password-reset delivery.
  *
  * AUTH_PASSWORD_RESET_MAILER:
  * - unset / `memory` outside production → MemoryPasswordResetMailer (dev-capture)
  * - `log` outside production → LoggingPasswordResetMailer (dev-log)
  * - `disabled` → explicit no-send (safe in production; no token churn)
+ * - `resend` → ResendPasswordResetMailer when RESEND_API_KEY + PASSWORD_RESET_FROM_EMAIL
+ *   are set; otherwise falls back to disabled (no invented secrets)
  * - unset / `memory` / `log` / `none` in production → rejected at bootstrap
  */
 export abstract class PasswordResetMailer {
@@ -128,8 +129,102 @@ export class UnconfiguredPasswordResetMailer extends PasswordResetMailer {
 
   async sendPasswordReset(_payload: PasswordResetMailPayload): Promise<void> {
     throw new Error(
-      "Password reset mailer is not configured. Set AUTH_PASSWORD_RESET_MAILER=disabled or a real provider (delivery 2).",
+      "Password reset mailer is not configured. Set AUTH_PASSWORD_RESET_MAILER=disabled or a real provider (e.g. resend).",
     );
+  }
+}
+
+/** Default outbound timeout for Resend HTTP (ms). Overridable for tests. */
+export const RESEND_SEND_TIMEOUT_MS = 15_000;
+
+/**
+ * Resend transactional adapter (native fetch — no SDK dependency).
+ * Activated only when AUTH_PASSWORD_RESET_MAILER=resend and both
+ * RESEND_API_KEY and PASSWORD_RESET_FROM_EMAIL are non-empty.
+ * Never logs the API key, reset URL, or response body.
+ */
+@Injectable()
+export class ResendPasswordResetMailer extends PasswordResetMailer {
+  readonly kind = "provider" as const;
+  private readonly logger = new Logger(ResendPasswordResetMailer.name);
+
+  canAcceptSend(): boolean {
+    return Boolean(this.apiKey() && this.fromAddress());
+  }
+
+  private apiKey(): string | undefined {
+    const key = process.env.RESEND_API_KEY?.trim();
+    return key || undefined;
+  }
+
+  private fromAddress(): string | undefined {
+    const from = process.env.PASSWORD_RESET_FROM_EMAIL?.trim();
+    return from || undefined;
+  }
+
+  private timeoutMs(): number {
+    const raw = process.env.RESEND_SEND_TIMEOUT_MS;
+    if (raw === undefined || raw === "") return RESEND_SEND_TIMEOUT_MS;
+    const n = Number(raw);
+    return Number.isFinite(n) && n > 0 ? n : RESEND_SEND_TIMEOUT_MS;
+  }
+
+  async sendPasswordReset(payload: PasswordResetMailPayload): Promise<void> {
+    const apiKey = this.apiKey();
+    const from = this.fromAddress();
+    if (!apiKey || !from) {
+      throw new Error(
+        "Resend mailer is missing RESEND_API_KEY or PASSWORD_RESET_FROM_EMAIL",
+      );
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), this.timeoutMs());
+
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          from,
+          to: [payload.to],
+          subject: "Reset your Soma password",
+          text: [
+            "Use this link to reset your Soma password. It expires in 30 minutes.",
+            "",
+            payload.resetUrl,
+            "",
+            "If you did not request this, you can ignore this email.",
+          ].join("\n"),
+        }),
+      });
+
+      // Drain body without inspecting/logging (may contain provider echoes).
+      await response.arrayBuffer().catch(() => undefined);
+
+      if (!response.ok) {
+        this.logger.error(
+          `Resend rejected password-reset send (status=${response.status})`,
+        );
+        throw new Error(`Resend send failed with status ${response.status}`);
+      }
+    } catch (err) {
+      if (err instanceof Error && err.name === "AbortError") {
+        this.logger.error("Resend password-reset send timed out");
+        throw new Error("Resend send timed out");
+      }
+      if (err instanceof Error && /^Resend send failed/.test(err.message)) {
+        throw err;
+      }
+      this.logger.error("Resend password-reset send failed (network)");
+      throw new Error("Resend send failed (network)");
+    } finally {
+      clearTimeout(timer);
+    }
   }
 }
 
@@ -139,6 +234,14 @@ export function createPasswordResetMailer(): PasswordResetMailer {
 
   if (mode === "disabled") {
     return new DisabledPasswordResetMailer();
+  }
+  if (mode === "resend") {
+    const resend = new ResendPasswordResetMailer();
+    // Incomplete credentials → safe no-send (do not invent secrets).
+    if (!resend.canAcceptSend()) {
+      return new DisabledPasswordResetMailer();
+    }
+    return resend;
   }
   if (mode === "memory" || (!isProd && mode === "")) {
     return new MemoryPasswordResetMailer();
@@ -169,8 +272,8 @@ export function assertPasswordResetMailerForRuntime(
   ) {
     throw new Error(
       `Password reset mailer kind "${mailer.kind}" is not allowed in production. ` +
-        `Set AUTH_PASSWORD_RESET_MAILER=disabled until a real provider is wired (delivery 2), ` +
-        `or configure a provider implementation.`,
+        `Set AUTH_PASSWORD_RESET_MAILER=disabled, or AUTH_PASSWORD_RESET_MAILER=resend ` +
+        `with RESEND_API_KEY and PASSWORD_RESET_FROM_EMAIL.`,
     );
   }
 }

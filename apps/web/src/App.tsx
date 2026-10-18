@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage.js";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage.js";
 import { OnboardingPage } from "./pages/OnboardingPage.js";
 import { AchievementsPage } from "./pages/AchievementsPage.js";
 import { LandingPage } from "./pages/LandingPage.js";
@@ -62,6 +64,8 @@ function App() {
         <Route path="/" element={<RootRoute />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/preview" element={<PreviewShell base="/preview" />}>
           {soma2Pages}
         </Route>

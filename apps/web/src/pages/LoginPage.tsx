@@ -80,6 +80,14 @@ export function LoginPage() {
               className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
               autoComplete="current-password"
             />
+            <p className="mt-2 text-right text-xs">
+              <Link
+                to="/forgot-password"
+                className="text-soma-fg-muted hover:text-soma-accent hover:underline"
+              >
+                {t("login.forgotPassword")}
+              </Link>
+            </p>
           </div>
 
           {sessionNotice === "session_expired" && !error ? (
