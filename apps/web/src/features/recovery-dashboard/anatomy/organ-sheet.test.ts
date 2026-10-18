@@ -55,11 +55,20 @@ test("heart resolves plate and complete anatomical ficha", () => {
   assert.ok(sheet.availability.narrativeSubstanceIds.includes("caffeine"));
 });
 
-test("organs without individual plates still expose educational sheets", () => {
-  for (const id of ["spleen", "testes", "ovaries", "skin", "teeth", "eyes"] as const) {
+test("phase 4E organs resolve individual plates and educational sheets", () => {
+  const expected: Record<string, string> = {
+    spleen: "/images/anatomy/spleen.png",
+    testes: "/images/anatomy/testes.png",
+    ovaries: "/images/anatomy/ovaries.png",
+    skin: "/images/anatomy/skin.png",
+    teeth: "/images/anatomy/teeth.png",
+    eyes: "/images/anatomy/eyes.png",
+  };
+  for (const [id, src] of Object.entries(expected)) {
     const sheet = resolveOrganSheetById(atlasSystems, id);
     assert.ok(sheet, id);
-    assert.equal(sheet.availability.hasPlate, false, id);
+    assert.equal(sheet.availability.hasPlate, true, id);
+    assert.equal(sheet.plate?.src, src, id);
     assert.equal(sheet.availability.hasEducation, true, id);
     assert.ok(sheet.location, id);
     assert.ok(sheet.anatomy && sheet.anatomy.length > 40, id);
@@ -67,11 +76,13 @@ test("organs without individual plates still expose educational sheets", () => {
   }
 });
 
-test("every atlas organ resolves a complete educational sheet", () => {
+test("every atlas organ resolves a complete educational sheet and plate", () => {
   const sheets = atlasSystems.flatMap((system) => listOrganSheets(system));
   assert.equal(sheets.length, 21);
   for (const sheet of sheets) {
     assert.equal(sheet.availability.hasEducation, true, sheet.organId);
+    assert.equal(sheet.availability.hasPlate, true, sheet.organId);
+    assert.ok(sheet.plate?.src, sheet.organId);
     assert.ok(sheet.location, sheet.organId);
     assert.ok(sheet.anatomy && sheet.anatomy.length > 40, sheet.organId);
     assert.ok(sheet.physiology && sheet.physiology.length > 40, sheet.organId);

@@ -308,6 +308,7 @@ test("educational content is only claimed for organs that have real catalog data
     "brain-prefrontal-cortex",
     "brain-vta",
     "bronchi",
+    "eyes",
     "heart",
     "intestines",
     "kidneys",
@@ -315,10 +316,30 @@ test("educational content is only claimed for organs that have real catalog data
     "lungs",
     "nasal-mucosa",
     "oral-mucosa",
+    "ovaries",
     "pancreas",
+    "skin",
+    "spleen",
     "stomach",
+    "teeth",
+    "testes",
   ]);
-  assert.equal(organsWithPlate.length, 15);
+  assert.equal(organsWithPlate.length, 21);
+
+  const phase4ePlates: Record<string, string> = {
+    spleen: "/images/anatomy/spleen.png",
+    testes: "/images/anatomy/testes.png",
+    ovaries: "/images/anatomy/ovaries.png",
+    skin: "/images/anatomy/skin.png",
+    teeth: "/images/anatomy/teeth.png",
+    eyes: "/images/anatomy/eyes.png",
+  };
+  for (const [id, src] of Object.entries(phase4ePlates)) {
+    const organ = atlasSystems.flatMap((system) => system.organs).find((item) => item.id === id);
+    assert.ok(organ, id);
+    assert.equal(organ.plate?.src, src);
+    assert.equal(existsSync(publicPathFromSrc(src)), true, src);
+  }
 
   for (const system of atlasSystems) {
     for (const organ of system.organs) {

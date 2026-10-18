@@ -60,6 +60,42 @@ const kidneysPlate: AtlasPlate = {
   depicts: "Riñones.",
 };
 
+const spleenPlate: AtlasPlate = {
+  src: "/images/anatomy/spleen.png",
+  depicts:
+    "Bazo con hilio vascular. Ilustración educativa; no es un mapa histológico.",
+};
+
+const testesPlate: AtlasPlate = {
+  src: "/images/anatomy/testes.png",
+  depicts:
+    "Testículo con epidídimo y vasos. Ilustración educativa; no es un mapa histológico.",
+};
+
+const ovariesPlate: AtlasPlate = {
+  src: "/images/anatomy/ovaries.png",
+  depicts:
+    "Ovarios en contexto de útero y trompas. Ilustración educativa; el órgano canónico sigue siendo ovarios.",
+};
+
+const skinPlate: AtlasPlate = {
+  src: "/images/anatomy/skin.png",
+  depicts:
+    "Corte de piel con epidermis, dermis e hipodermis. Ilustración educativa; no es un mapa histológico.",
+};
+
+const teethPlate: AtlasPlate = {
+  src: "/images/anatomy/teeth.png",
+  depicts:
+    "Corte de diente molar con pulpa, encía y hueso alveolar. Ilustración educativa; no es un mapa histológico.",
+};
+
+const eyesPlate: AtlasPlate = {
+  src: "/images/anatomy/eyes.png",
+  depicts:
+    "Corte del globo ocular con retina, cristalino y nervio óptico. Ilustración educativa; no es un mapa histológico.",
+};
+
 const prefrontalCortexPlate: AtlasPlate = {
   src: "/images/anatomy/prefrontal-cortex.png",
   depicts:
@@ -223,28 +259,31 @@ export const atlasSystems: readonly AtlasSystem[] = [
     catalogSystem: "immune",
     name: "Sistema inmunitario",
     plates: { anterior: immuneSystemPlate, posterior: null },
-    organs: [organ("spleen", "Bazo")],
+    organs: [organ("spleen", "Bazo", spleenPlate)],
   },
   {
     id: "reproductive",
     catalogSystem: "reproductive",
     name: "Sistema reproductor",
     plates: { anterior: reproductiveSystemPlate, posterior: null },
-    organs: [organ("testes", "Testículos"), organ("ovaries", "Ovarios")],
+    organs: [
+      organ("testes", "Testículos", testesPlate),
+      organ("ovaries", "Ovarios", ovariesPlate),
+    ],
   },
   {
     id: "integumentary",
     catalogSystem: "integumentary",
     name: "Sistema tegumentario",
     plates: { anterior: integumentarySystemPlate, posterior: null },
-    organs: [organ("skin", "Piel"), organ("teeth", "Dientes")],
+    organs: [organ("skin", "Piel", skinPlate), organ("teeth", "Dientes", teethPlate)],
   },
   {
     id: "sensory",
     catalogSystem: "sensory",
     name: "Sistema sensorial",
     plates: { anterior: sensorySystemPlate, posterior: null },
-    organs: [organ("eyes", "Ojos")],
+    organs: [organ("eyes", "Ojos", eyesPlate)],
   },
   {
     id: "endocrine",
