@@ -41,6 +41,36 @@ const kidneysPlate: AtlasPlate = {
   depicts: "Riñones.",
 };
 
+const prefrontalCortexPlate: AtlasPlate = {
+  src: "/images/anatomy/prefrontal-cortex.png",
+  depicts:
+    "Encéfalo en vista lateral con la corteza prefrontal resaltada. Ilustración educativa; no es un mapa histológico.",
+};
+
+const hippocampusPlate: AtlasPlate = {
+  src: "/images/anatomy/hippocampus.png",
+  depicts:
+    "Corte sagital del encéfalo con el hipocampo resaltado. Ilustración educativa; no es un mapa histológico.",
+};
+
+const vtaPlate: AtlasPlate = {
+  src: "/images/anatomy/ventral-tegmental-area.png",
+  depicts:
+    "Corte sagital del encéfalo con el área tegmental ventral resaltada. Ilustración educativa; no es un mapa histológico.",
+};
+
+const nucleusAccumbensPlate: AtlasPlate = {
+  src: "/images/anatomy/nucleus-accumbens.png",
+  depicts:
+    "Corte coronal del encéfalo con el núcleo accumbens resaltado. Ilustración educativa; no es un mapa histológico.",
+};
+
+const amygdalaPlate: AtlasPlate = {
+  src: "/images/anatomy/amygdala.png",
+  depicts:
+    "Corte sagital del encéfalo con la amígdala resaltada. Ilustración educativa; no es un mapa histológico.",
+};
+
 /** Full-body anterior system plate aligned with the body master (1024×1536). */
 function systemPlate(src: string, depicts: string): AtlasPlate {
   return { src, depicts, aspectRatio: "1024 / 1536" };
@@ -118,11 +148,11 @@ export const atlasSystems: readonly AtlasSystem[] = [
     name: "Sistema nervioso central",
     plates: { anterior: centralNervousSystemPlate, posterior: null },
     organs: [
-      organ("brain-prefrontal-cortex", "Corteza prefrontal"),
-      organ("brain-hippocampus", "Hipocampo"),
-      organ("brain-vta", "Área tegmental ventral"),
-      organ("brain-nucleus-accumbens", "Núcleo accumbens"),
-      organ("brain-amygdala", "Amígdala"),
+      organ("brain-prefrontal-cortex", "Corteza prefrontal", prefrontalCortexPlate),
+      organ("brain-hippocampus", "Hipocampo", hippocampusPlate),
+      organ("brain-vta", "Área tegmental ventral", vtaPlate),
+      organ("brain-nucleus-accumbens", "Núcleo accumbens", nucleusAccumbensPlate),
+      organ("brain-amygdala", "Amígdala", amygdalaPlate),
     ],
   },
   {

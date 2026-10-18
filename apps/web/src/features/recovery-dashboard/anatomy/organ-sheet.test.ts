@@ -54,16 +54,18 @@ test("heart has a plate but no anatomical ficha", () => {
   assert.ok(sheet.availability.narrativeSubstanceIds.includes("caffeine"));
 });
 
-test("brain regions may have curves without narratives or plates", () => {
+test("central nervous organs resolve plates and fichas without narratives", () => {
   const nervous = systemById("nervous-central");
-  const vta = nervous.organs.find((organ) => organ.id === "brain-vta");
-  assert.ok(vta);
-  const sheet = resolveOrganSheet(nervous, vta);
-  assert.equal(sheet.availability.hasPlate, false);
-  assert.equal(sheet.availability.hasEducation, false);
-  assert.equal(sheet.availability.hasNarratives, false);
-  assert.equal(sheet.availability.hasRecoveryCurves, true);
-  assert.ok(sheet.availability.recoverySubstanceIds.length >= 1);
+  assert.equal(nervous.organs.length, 5);
+  for (const organ of nervous.organs) {
+    const sheet = resolveOrganSheet(nervous, organ);
+    assert.equal(sheet.availability.hasPlate, true);
+    assert.equal(sheet.availability.hasEducation, true);
+    assert.ok(sheet.location);
+    assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
+    assert.equal(sheet.availability.hasNarratives, false);
+    assert.equal(sheet.availability.hasRecoveryCurves, true);
+  }
 });
 
 test("testes have a recovery curve without a narrative", () => {

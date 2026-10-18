@@ -4,6 +4,13 @@ import { test } from "node:test";
 import { educationalAnatomy } from "./anatomy-education.ts";
 
 const respiratoryOrganIds = ["lungs", "bronchi", "nasal-mucosa"] as const;
+const centralNervousOrganIds = [
+  "brain-prefrontal-cortex",
+  "brain-hippocampus",
+  "brain-amygdala",
+  "brain-nucleus-accumbens",
+  "brain-vta",
+] as const;
 
 test("the three respiratory organs have complete anatomical entries", () => {
   for (const organId of respiratoryOrganIds) {
@@ -20,6 +27,34 @@ test("the three respiratory organs have complete anatomical entries", () => {
       assert.ok(source.citation.length > 10);
     }
   }
+});
+
+test("the five central nervous organs have complete anatomical entries", () => {
+  for (const organId of centralNervousOrganIds) {
+    const entry = educationalAnatomy(organId);
+    assert.ok(entry);
+    assert.equal(entry.organId, organId);
+    assert.ok(entry.location && entry.location.length > 20);
+    assert.ok(entry.anatomy.length > 40);
+    assert.ok(entry.physiology.length > 40);
+    assert.ok(entry.relations.length > 40);
+    assert.ok(entry.sources.length > 0);
+    for (const source of entry.sources) {
+      assert.equal(source.verified, true);
+      assert.match(source.href, /^https:\/\//);
+      assert.ok(source.citation.length > 10);
+    }
+  }
+
+  const prefrontal = educationalAnatomy("brain-prefrontal-cortex");
+  const hippocampus = educationalAnatomy("brain-hippocampus");
+  assert.ok(prefrontal && hippocampus);
+  assert.notEqual(prefrontal.anatomy, hippocampus.anatomy);
+  assert.match(prefrontal.physiology, /ejecutiv/i);
+  assert.match(hippocampus.anatomy, /formación hipocampal|giro dentado|CA1/i);
+  assert.match(educationalAnatomy("brain-amygdala")?.anatomy ?? "", /núcleos/i);
+  assert.match(educationalAnatomy("brain-nucleus-accumbens")?.anatomy ?? "", /estriado/i);
+  assert.match(educationalAnatomy("brain-vta")?.location ?? "", /mesencéfalo/i);
 });
 
 test("bronchial cartilage and the alveolar barrier stay anatomically distinct", () => {

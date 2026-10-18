@@ -254,7 +254,19 @@ test("educational content is only claimed for organs that have real catalog data
     .flatMap((system) => system.organs)
     .filter((organ) => educationalAnatomy(organ.id) !== null)
     .map((organ) => organ.id);
-  assert.deepEqual(organsWithAnatomy.sort(), ["bronchi", "lungs", "nasal-mucosa"]);
+  assert.deepEqual(
+    organsWithAnatomy.sort(),
+    [
+      "brain-amygdala",
+      "brain-hippocampus",
+      "brain-nucleus-accumbens",
+      "brain-prefrontal-cortex",
+      "brain-vta",
+      "bronchi",
+      "lungs",
+      "nasal-mucosa",
+    ],
+  );
 
   for (const system of atlasSystems) {
     for (const organ of system.organs) {
