@@ -18,6 +18,7 @@ import {
   resolveEducationalRecovery,
   selectRecoverySubstance,
 } from "../anatomy/recovery-catalog.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 
@@ -32,6 +33,7 @@ const tabLabel: Record<AnatomyTab, string> = {
 };
 
 export function AnatomyExplorerPage() {
+  const base = useShellBase();
   const [systemId, setSystemId] = useState<string | null>(null);
   const [organId, setOrganId] = useState<string | null>(null);
   const [view, setView] = useState<AtlasViewId>("anterior");
@@ -74,6 +76,7 @@ export function AnatomyExplorerPage() {
         eyebrow="Explorador anatómico"
         title="Tu cuerpo, sistema por sistema."
         description="Elige un sistema para recorrer el cuerpo y sus órganos."
+        demo={base === "/preview"}
       />
 
       <nav aria-label="Nivel del atlas" className="flex flex-wrap items-center gap-1.5 text-sm">

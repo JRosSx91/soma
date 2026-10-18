@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import {
   exploreCategories,
@@ -11,6 +12,7 @@ import { PageHeading } from "../components/PageHeading.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 
 export function ExplorePage() {
+  const base = useShellBase();
   const [query, setQuery] = useState("");
   const [categoryId, setCategoryId] = useState(exploreCategories[0]?.id ?? "");
   const [substance, setSubstance] = useState<ExploreSubstance | null>(null);
@@ -40,6 +42,7 @@ export function ExplorePage() {
         eyebrow="Explorar"
         title="Conocimiento para tu recuperación."
         description="Catálogo de demostración. No enlaza estudios ni sustituye una explicación clínica."
+        demo={base === "/preview"}
         aside={
           <label className="relative hidden sm:block">
             <span className="sr-only">Buscar en el catálogo de demostración</span>

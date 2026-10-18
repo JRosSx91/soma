@@ -4,28 +4,15 @@
  * the recovery engine, the API, or a user profile.
  */
 
+import { shellSections, type ShellSectionId } from "./shell-base.js";
+
 export const demoDisclaimer =
   "Cifras y textos ficticios. No son mediciones clínicas.";
 
-export const previewSections = [
-  { id: "inicio", label: "Inicio", mobileLabel: "Inicio", to: "/preview" },
-  {
-    id: "recuperacion",
-    label: "Mi recuperación",
-    mobileLabel: "Recuperación",
-    to: "/preview/recovery",
-  },
-  { id: "explorar", label: "Explorar", mobileLabel: "Explorar", to: "/preview/explore" },
-  {
-    id: "anatomia",
-    label: "Explorador anatómico",
-    mobileLabel: "Anatomía",
-    to: "/preview/anatomy",
-  },
-  { id: "logros", label: "Logros", mobileLabel: "Logros", to: "/preview/achievements" },
-] as const;
+/** Public DEMO section links. Prefer `shellSections(base)` for shell navigation. */
+export const previewSections = shellSections("/preview");
 
-export type PreviewSectionId = (typeof previewSections)[number]["id"];
+export type PreviewSectionId = ShellSectionId;
 
 export interface DemoSubstance {
   id: string;

@@ -1,6 +1,9 @@
-import { PreviewShell } from "../features/recovery-dashboard/index.js";
+import { Navigate } from "react-router-dom";
 
-/** Independent visual route for Soma 2.0. It does not replace /app. */
+/**
+ * Historical entry for the public Soma 2.0 DEMO.
+ * The shell is now mounted directly at `/preview` in App.tsx.
+ */
 export function PreviewPage() {
-  return <PreviewShell />;
+  return <Navigate to="/preview" replace />;
 }

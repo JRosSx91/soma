@@ -2,14 +2,14 @@ import {
   Compass,
   Home,
   PersonStanding,
-  Settings,
   Activity,
   Trophy,
-  User,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { previewSections } from "../demo-data.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
+import { shellSections } from "../shell-base.js";
 import { previewFocus } from "../focus.js";
+import { AccountMenu } from "./AccountMenu.js";
 import { SomaMark } from "./SomaMark.js";
 
 const icons = {
@@ -21,6 +21,9 @@ const icons = {
 } as const;
 
 export function PreviewSidebar() {
+  const base = useShellBase();
+  const sections = shellSections(base);
+
   return (
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-soma-line bg-[#081018]/80 px-3 py-4 backdrop-blur-sm lg:flex">
       <div className="px-2 py-2">
@@ -28,7 +31,7 @@ export function PreviewSidebar() {
       </div>
       <nav className="mt-6" aria-label="Secciones">
         <ul className="flex flex-col gap-1">
-          {previewSections.map((item) => {
+          {sections.map((item) => {
             const Icon = icons[item.id];
             return (
               <li key={item.id}>
@@ -52,24 +55,7 @@ export function PreviewSidebar() {
         </ul>
       </nav>
       <div className="mt-auto flex flex-col gap-2 px-1 pb-2">
-        <button
-          type="button"
-          className={`${previewFocus} flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-soma-ink-secondary transition-colors hover:bg-soma-surface hover:text-soma-ink`}
-          title="Disponible en una fase posterior"
-        >
-          <Settings className="h-4 w-4" aria-hidden="true" />
-          Configuración
-        </button>
-        <button
-          type="button"
-          className={`${previewFocus} flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-soma-ink-secondary transition-colors hover:bg-soma-surface hover:text-soma-ink`}
-          title="Disponible en una fase posterior"
-        >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soma-surface text-soma-ink">
-            <User className="h-4 w-4" aria-hidden="true" />
-          </span>
-          Cuenta
-        </button>
+        <AccountMenu />
       </div>
     </aside>
   );
