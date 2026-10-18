@@ -15,6 +15,11 @@ export interface AnatomySource {
 
 export interface AnatomyEducationEntry {
   organId: OrganId;
+  /**
+   * Optional anatomical site (e.g. cavity, region). Absent until authored.
+   * Not inferred from system membership or another organ's ficha.
+   */
+  location?: string;
   anatomy: string;
   physiology: string;
   relations: string;

@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { atlasSystems } from "../anatomy/atlas-config.js";
-import { educationalAnatomy } from "../anatomy/anatomy-education.js";
 import { narrativeCatalogPairs, narrativePhases } from "../anatomy/narrative-catalog.js";
 import { recoveryCatalogPairs } from "../anatomy/recovery-catalog.js";
+import { listOrganSheets, systemSheetCoverage } from "../anatomy/organ-sheet.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import { DetailSheet } from "../components/DetailSheet.js";
@@ -140,10 +140,7 @@ export function ExplorePage() {
           </p>
           <ul className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {filteredSystems.map((system) => {
-              const withPlate = system.organs.filter((organ) => organ.plate).length;
-              const withEducation = system.organs.filter((organ) =>
-                Boolean(educationalAnatomy(organ.id)),
-              ).length;
+              const coverage = systemSheetCoverage(system);
               return (
                 <li key={system.id}>
                   <button
@@ -153,9 +150,9 @@ export function ExplorePage() {
                   >
                     <span className="block font-semibold text-soma-ink">{system.name}</span>
                     <span className="mt-1 block text-xs leading-snug text-soma-ink-muted">
-                      {system.organs.length === 0
+                      {coverage.emptySystem
                         ? "Sistema sin órganos asociados en el catálogo."
-                        : `${system.organs.length} órganos · ${withPlate} con ilustración · ${withEducation} con ficha anatómica`}
+                        : `${coverage.organCount} órganos · ${coverage.organsWithPlate} con ilustración · ${coverage.organsWithEducation} con ficha anatómica`}
                     </span>
                   </button>
                 </li>
@@ -182,12 +179,7 @@ export function ExplorePage() {
 
       {openSystem ? (
         <DetailSheet title={openSystem.name} onClose={() => setOpenSystemId(null)}>
-          <SystemDetail
-            systemId={openSystem.id}
-            base={base}
-            narrativePairs={narrativePairs}
-            recoveryPairs={recoveryPairs}
-          />
+          <SystemDetail systemId={openSystem.id} base={base} />
         </DetailSheet>
       ) : null}
     </div>
@@ -235,43 +227,34 @@ function SubstanceDetail({
   );
 }
 
-function SystemDetail({
-  systemId,
-  base,
-  narrativePairs,
-  recoveryPairs,
-}: {
-  systemId: string;
-  base: "/app" | "/preview";
-  narrativePairs: ReadonlyArray<{ organId: string; substanceId: string }>;
-  recoveryPairs: ReadonlyArray<{ organId: string; substanceId: string }>;
-}) {
+function SystemDetail({ systemId, base }: { systemId: string; base: "/app" | "/preview" }) {
   const system = atlasSystems.find((item) => item.id === systemId);
   if (!system) return null;
+  const sheets = listOrganSheets(system);
 
   return (
     <div className="space-y-3 text-sm text-soma-ink-secondary">
-      {system.organs.length === 0 ? (
+      {sheets.length === 0 ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-soma-ink-muted">
           Este sistema todavía no tiene órganos asociados en el catálogo del atlas.
         </p>
       ) : (
         <ul className="space-y-2">
-          {system.organs.map((organ) => {
-            const edu = educationalAnatomy(organ.id);
-            const narratives = narrativePairs.filter((pair) => pair.organId === organ.id).length;
-            const curves = recoveryPairs.filter((pair) => pair.organId === organ.id).length;
-            return (
-              <li key={organ.id} className="rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2">
-                <p className="font-medium text-soma-ink">{organ.name}</p>
-                <p className="mt-1 text-xs text-soma-ink-muted">
-                  {organ.plate ? "Ilustración individual disponible." : "Sin ilustración individual."}{" "}
-                  {edu ? "Ficha anatómica disponible." : "Sin ficha anatómica todavía."}{" "}
-                  {narratives} narrativas · {curves} curvas.
-                </p>
-              </li>
-            );
-          })}
+          {sheets.map((sheet) => (
+            <li key={sheet.organId} className="rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2">
+              <p className="font-medium text-soma-ink">{sheet.name}</p>
+              <p className="mt-1 text-xs text-soma-ink-muted">
+                {sheet.availability.hasPlate
+                  ? "Ilustración individual disponible."
+                  : "Sin ilustración individual."}{" "}
+                {sheet.availability.hasEducation
+                  ? "Ficha anatómica disponible."
+                  : "Sin ficha anatómica todavía."}{" "}
+                {sheet.availability.narrativeSubstanceIds.length} narrativas ·{" "}
+                {sheet.availability.recoverySubstanceIds.length} curvas.
+              </p>
+            </li>
+          ))}
         </ul>
       )}
       <p>

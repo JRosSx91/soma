@@ -4,7 +4,6 @@ import { previewFocus } from "../focus.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
 import type { AtlasSystem, AtlasViewId } from "../anatomy/atlas-types.js";
-import { educationalAnatomy } from "../anatomy/anatomy-education.js";
 import {
   narrativePhases,
   narrativeSubstances,
@@ -18,8 +17,13 @@ import {
   resolveEducationalRecovery,
   selectRecoverySubstance,
 } from "../anatomy/recovery-catalog.js";
+import { resolveOrganSheet, systemSheetCoverage } from "../anatomy/organ-sheet.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { PageHeading } from "../components/PageHeading.js";
+import {
+  OrganSheetSummary,
+  SystemSheetSummary,
+} from "../components/OrganSheetSummary.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 
 const tabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;
@@ -417,72 +421,21 @@ function SummaryCopy({
   onEffects: () => void;
   onRecovery: () => void;
 }) {
-  const entry = organ ? educationalAnatomy(organ.id) : null;
-  const hasNarratives = organ ? narrativeSubstances(organ.id).length > 0 : false;
-  const hasCurves = organ ? recoverySubstances(organ.id).length > 0 : false;
-  return (
-    <div className="space-y-3">
-      <p>{summaryIntro(system, organ)}</p>
-      {entry ? (
-        <div className="space-y-3">
-          <AnatomyNote title="Anatomía" text={entry.anatomy} />
-          <AnatomyNote title="Función" text={entry.physiology} />
-          <AnatomyNote title="Relación" text={entry.relations} />
-          <div>
-            <h3 className="text-xs font-semibold text-soma-ink">Fuentes</h3>
-            <ul className="mt-1 space-y-1">
-              {entry.sources.map((source) => (
-                <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
-                  <a
-                    href={source.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
-                  >
-                    {source.citation}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : organ ? (
-        <p className="text-xs leading-relaxed text-soma-ink-muted">
-          Todavía no hay una descripción anatómica en español para esta ficha.
-        </p>
-      ) : null}
-      {hasNarratives || hasCurves ? (
-        <div className="flex flex-wrap gap-3">
-          {hasNarratives ? (
-            <button
-              type="button"
-              onClick={onEffects}
-              className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
-            >
-              Ver efectos
-            </button>
-          ) : null}
-          {hasCurves ? (
-            <button
-              type="button"
-              onClick={onRecovery}
-              className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
-            >
-              Ver recuperación
-            </button>
-          ) : null}
-        </div>
-      ) : null}
-    </div>
-  );
-}
+  const intro = summaryIntro(system, organ);
 
-function AnatomyNote({ title, text }: { title: string; text: string }) {
+  if (!organ) {
+    const coverage = systemSheetCoverage(system);
+    return <SystemSheetSummary intro={intro} emptySystem={coverage.emptySystem} />;
+  }
+
+  const sheet = resolveOrganSheet(system, organ);
   return (
-    <section className="space-y-1">
-      <h3 className="text-xs font-semibold text-soma-ink">{title}</h3>
-      <p>{text}</p>
-    </section>
+    <OrganSheetSummary
+      sheet={sheet}
+      intro={intro}
+      onEffects={onEffects}
+      onRecovery={onRecovery}
+    />
   );
 }
 
