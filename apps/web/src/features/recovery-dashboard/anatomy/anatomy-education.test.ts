@@ -193,7 +193,10 @@ test("the anatomical catalog does not depend on personal or substance data", () 
 test("the summary uses the anatomical catalog and the other tabs stay in place", () => {
   const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
   assert.match(page, /organ-sheet\.js/);
+  assert.match(page, /system-sheet\.js/);
   assert.match(page, /OrganSheetSummary/);
+  assert.match(page, /SystemSheetSummary/);
+  assert.match(page, /resolveSystemSheet/);
   assert.match(page, /narrative-catalog\.js/);
   assert.match(page, /recovery-catalog\.js/);
   assert.match(page, /id=\{`anatomy-tab-\$\{item\}`\}/);

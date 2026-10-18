@@ -17,7 +17,8 @@ import {
   resolveEducationalRecovery,
   selectRecoverySubstance,
 } from "../anatomy/recovery-catalog.js";
-import { resolveOrganSheet, systemSheetCoverage } from "../anatomy/organ-sheet.js";
+import { resolveOrganSheet } from "../anatomy/organ-sheet.js";
+import { resolveSystemSheet } from "../anatomy/system-sheet.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { PageHeading } from "../components/PageHeading.js";
 import {
@@ -424,8 +425,8 @@ function SummaryCopy({
   const intro = summaryIntro(system, organ);
 
   if (!organ) {
-    const coverage = systemSheetCoverage(system);
-    return <SystemSheetSummary intro={intro} emptySystem={coverage.emptySystem} />;
+    const sheet = resolveSystemSheet(system);
+    return <SystemSheetSummary intro={intro} sheet={sheet} />;
   }
 
   const sheet = resolveOrganSheet(system, organ);
@@ -456,7 +457,7 @@ function summaryIntro(
     return "Reúne los pulmones, los bronquios y la mucosa nasal. La ilustración muestra el conjunto sobre el cuerpo, en vista anterior.";
   }
   if (system.organs.length === 0) {
-    return `${system.name} todavía no tiene órganos asociados.`;
+    return `${system.name}. Visión de conjunto del sistema; no hay órganos canónicos asociados en el catálogo.`;
   }
   const names = system.organs.map((item) => item.name).join(", ");
   return `${system.name}. Incluye ${names}.`;
