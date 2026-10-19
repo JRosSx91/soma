@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { DemoOrganIcon, DemoSystem } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
 import { AnatomyIllustration } from "./AnatomyIllustration.js";
@@ -26,6 +27,7 @@ export function SystemTile({
   onSelect,
   live = false,
 }: SystemTileProps) {
+  const { t } = useTranslation("recovery");
   return (
     <button
       type="button"
@@ -48,7 +50,9 @@ export function SystemTile({
       </span>
       <span className="mt-1 text-sm font-semibold tabular-nums text-soma-ink">
         <span className="sr-only">
-          {live ? "Estimación orientativa " : "Estimación de demostración "}
+          {live
+            ? `${t("trajectoryProgressSr")}. ${t("trajectoryProgressShort")}: `
+            : t("estimateSrDemo")}
         </span>
         {system.endLabel}
       </span>

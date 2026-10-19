@@ -12,6 +12,17 @@ import type {
   DemoSubstance,
   DemoSystem,
 } from "../demo-data.js";
+import {
+  fillRecoveryTemplate,
+  SPANISH_RECOVERY_COPY,
+  type RecoveryDashboardCopy,
+} from "./recovery-copy.js";
+import {
+  formatLabeledPercent,
+  formatTrajectoryPercent,
+  isCalculableProgress,
+  modelCeilingPercent,
+} from "./recovery-semantics.js";
 
 /**
  * Atlas `atlasSystems[].name` for BodySystems that stay off the tile/chart
@@ -25,13 +36,7 @@ const ATLAS_CARD_SYSTEM_LABEL: Partial<Record<BodySystem, string>> = {
 /** Axis day marks used for the live chart. Same labels as the demo composition. */
 export const LIVE_AXIS_DAYS = [0, 30, 90, 180, 365] as const;
 
-export const LIVE_AXIS_LABELS = [
-  "Inicio",
-  "1 mes",
-  "3 meses",
-  "6 meses",
-  "1 año",
-] as const;
+export const LIVE_AXIS_LABELS = SPANISH_RECOVERY_COPY.axisLabels;
 
 const SUBSTANCE_NAME_ES: Record<string, string> = {
   alcohol: "Alcohol",
@@ -145,10 +150,19 @@ export function substanceDisplayName(id: string): string {
   return SUBSTANCE_NAME_ES[id] ?? id;
 }
 
-export function formatDaysAbstinent(days: number): string {
+export function formatDaysAbstinent(
+  days: number,
+  copy: RecoveryDashboardCopy = SPANISH_RECOVERY_COPY,
+): string {
   const whole = Math.floor(Math.max(0, days));
-  if (whole === 1) return "1 día";
-  return `${whole} días`;
+  if (whole === 1) return copy.dayOne;
+  return fillRecoveryTemplate(copy.daysMany, { count: whole });
+}
+
+function elapsedDaysSince(lastUseDate: string, now: number): number | null {
+  const start = Date.parse(lastUseDate);
+  if (!Number.isFinite(start)) return null;
+  return Math.max(0, (now - start) / 86_400_000);
 }
 
 /** Maps abstinence days onto the five-mark composition axis (0…1). */
@@ -169,25 +183,64 @@ export function todayPositionOnAxis(daysAbstinent: number): number {
   return 1;
 }
 
+export type TrajectoryAvailability =
+  | "ready"
+  | "active"
+  | "missing-date"
+  | "no-curves"
+  | "unavailable";
+
+export interface SubstanceProgressResult {
+  /** curveProgress — primary UI percentage. Null when not calculable. */
+  progressFraction: number | null;
+  /** curveProgress × recoveryCeiling for the dominating curve. */
+  absoluteRecovery: number | null;
+  /** Ceiling of the dominating (worst progress) curve; null if unknown. */
+  recoveryCeiling: number | null;
+  daysAbstinent: number;
+  confidenceLevel: string | null;
+  availability: TrajectoryAvailability;
+}
+
+function emptyProgress(
+  availability: TrajectoryAvailability,
+  daysAbstinent = 0,
+): SubstanceProgressResult {
+  return {
+    progressFraction: availability === "active" ? 0 : null,
+    absoluteRecovery: availability === "active" ? 0 : null,
+    recoveryCeiling: null,
+    daysAbstinent,
+    confidenceLevel: null,
+    availability,
+  };
+}
+
 /**
- * Worst (lowest) progress for a substance across its recovery curves.
- * Active use and missing dates yield 0 progress.
+ * Worst (lowest) progressFraction for a substance across its recovery curves.
+ * Active use is a valid 0. Missing dates / no curves / invalid values are not.
+ * Display still uses progressFraction; absoluteRecovery is contextual only.
  */
 export function substanceProgress(
   usage: ProfileUsage,
   substance: ApiSubstance | undefined,
   now: number,
-): { progressFraction: number; daysAbstinent: number; confidenceLevel: string | null } {
-  if (!substance) {
-    return { progressFraction: 0, daysAbstinent: 0, confidenceLevel: null };
-  }
-  if (usage.status === "active" || !usage.lastUseDate) {
-    return { progressFraction: 0, daysAbstinent: 0, confidenceLevel: null };
+): SubstanceProgressResult {
+  if (!substance) return emptyProgress("unavailable");
+  if (usage.status === "active") return emptyProgress("active");
+  if (!usage.lastUseDate) return emptyProgress("missing-date");
+  const elapsed = elapsedDaysSince(usage.lastUseDate, now);
+  if (elapsed == null) return emptyProgress("unavailable");
+  if (substance.recoveryCurves.length === 0) {
+    return emptyProgress("no-curves", elapsed);
   }
 
   let worst = 1;
-  let daysAbstinent = 0;
+  let worstAbsolute = 1;
+  let worstCeiling: number | null = null;
+  let daysAbstinent = elapsed;
   let confidence: string | null = null;
+  let sawFinite = false;
 
   for (const curve of substance.recoveryCurves) {
     const recovery = computeRecovery(
@@ -200,20 +253,27 @@ export function substanceProgress(
       now,
     );
     daysAbstinent = recovery.daysAbstinent;
+    if (!isCalculableProgress(recovery.progressFraction)) continue;
+    sawFinite = true;
     if (recovery.progressFraction <= worst) {
       worst = recovery.progressFraction;
+      worstAbsolute = isCalculableProgress(recovery.absoluteRecovery)
+        ? recovery.absoluteRecovery
+        : recovery.progressFraction;
+      worstCeiling = curve.recoveryCeiling;
       confidence = curve.confidenceLevel;
     }
   }
 
-  if (substance.recoveryCurves.length === 0) {
-    return { progressFraction: 0, daysAbstinent: 0, confidenceLevel: null };
-  }
+  if (!sawFinite) return emptyProgress("unavailable", daysAbstinent);
 
   return {
     progressFraction: worst,
+    absoluteRecovery: worstAbsolute,
+    recoveryCeiling: worstCeiling,
     daysAbstinent,
     confidenceLevel: confidence,
+    availability: "ready",
   };
 }
 
@@ -230,17 +290,41 @@ function sampleCurveProgress(
   }).curveProgress;
 }
 
+function worstCurveProgressAtDay(
+  curves: readonly {
+    shape: ApiSubstance["recoveryCurves"][number]["shape"];
+    daysTo95Recovery: number;
+    recoveryCeiling: number;
+  }[],
+  day: number,
+): number {
+  let worst = 1;
+  for (const curve of curves) {
+    const value = sampleCurveProgress(
+      curve.shape,
+      curve.daysTo95Recovery,
+      curve.recoveryCeiling,
+      day,
+    );
+    if (value < worst) worst = value;
+  }
+  return curves.length === 0 ? 0 : worst;
+}
+
 /**
  * Builds the live chart from canonical curves only.
- * Each series is a body system; samples are estimateCurve at fixed day marks.
- * When `substanceId` is set, only that substance's curves contribute.
+ * Axis samples are model checkpoints at fixed day marks (projection).
+ * Legend `endLabel` is today’s trajectory advance (elapsed abstinence days),
+ * not the day-365 sample. `referenceAtYearLabel` keeps the day-365 checkpoint.
  */
 export function buildLiveChart(input: {
   usages: readonly ProfileUsage[];
   substances: readonly ApiSubstance[];
   substanceId: string | null;
   now: number;
+  copy?: RecoveryDashboardCopy;
 }): LiveChartModel {
+  const copy = input.copy ?? SPANISH_RECOVERY_COPY;
   const substancesById = new Map(input.substances.map((item) => [item.id, item]));
   const usages = input.substanceId
     ? input.usages.filter((usage) => usage.substanceId === input.substanceId)
@@ -286,42 +370,44 @@ export function buildLiveChart(input: {
     const meta = SYSTEM_META[system];
     if (!meta || curves.length === 0) continue;
 
-    const samples = LIVE_AXIS_DAYS.map((day) => {
-      let worst = 1;
-      for (const curve of curves) {
-        const value = sampleCurveProgress(
-          curve.shape,
-          curve.daysTo95Recovery,
-          curve.recoveryCeiling,
-          day,
-        );
-        if (value < worst) worst = value;
-      }
-      return worst;
-    });
+    const samples = LIVE_AXIS_DAYS.map((day) =>
+      worstCurveProgressAtDay(curves, day),
+    );
+    const todayProgress = worstCurveProgressAtDay(curves, referenceDays);
+    const yearProgress = samples[samples.length - 1] ?? 0;
 
-    const end = samples[samples.length - 1] ?? 0;
     series.push({
       id: meta.id,
       label: meta.name,
       samples,
-      endLabel: `${Math.round(end * 100)}%`,
+      endLabel: formatLabeledPercent(copy.today, todayProgress),
+      referenceAtYearLabel: formatLabeledPercent(copy.day365, yearProgress),
       color: meta.seriesColor,
     });
   }
 
   series.sort((a, b) => a.label.localeCompare(b.label, "es"));
 
+  const todayLabel =
+    referenceDays > 0
+      ? referenceName
+        ? fillRecoveryTemplate(copy.todayWithDaysAndName, {
+            today: copy.today,
+            days: formatDaysAbstinent(referenceDays, copy),
+            name: referenceName,
+          })
+        : fillRecoveryTemplate(copy.todayWithDays, {
+            today: copy.today,
+            days: formatDaysAbstinent(referenceDays, copy),
+          })
+      : copy.today;
+
   return {
-    axisLabels: LIVE_AXIS_LABELS,
+    axisLabels: copy.axisLabels,
     todayPosition: todayPositionOnAxis(referenceDays),
-    todayLabel:
-      referenceDays > 0
-        ? `Hoy · ${formatDaysAbstinent(referenceDays)}${referenceName ? ` · ${referenceName}` : ""}`
-        : "Hoy",
+    todayLabel,
     series,
-    footnote:
-      "Estimación orientativa a partir de las curvas del catálogo Soma. No es una medición clínica.",
+    footnote: copy.liveFootnote,
   };
 }
 
@@ -331,8 +417,10 @@ export function buildLiveDashboard(input: {
   organStates: ReadonlyMap<OrganId, OrganState>;
   substanceId: string | null;
   now?: number;
+  copy?: RecoveryDashboardCopy;
 }): LiveDashboardModel {
   const now = input.now ?? Date.now();
+  const copy = input.copy ?? SPANISH_RECOVERY_COPY;
   const substancesById = new Map(input.substances.map((item) => [item.id, item]));
   const organSystemById = new Map<OrganId, BodySystem>();
   const organsBySubstance = new Map<string, OrganId[]>();
@@ -352,46 +440,94 @@ export function buildLiveDashboard(input: {
     const name = substanceDisplayName(usage.substanceId);
     const progress = substanceProgress(usage, substance, now);
 
-    if (usage.status === "active") {
+    if (progress.availability === "active") {
       return {
         id: usage.substanceId,
         name,
-        abstinence: "Activo",
-        pillDetail: `Consumo activo de ${name.toLowerCase()}`,
-        phase: "Consumo activo. La recuperación no avanza mientras el consumo continúa.",
+        abstinence: copy.activeShort,
+        pillDetail: fillRecoveryTemplate(copy.pillActive, {
+          name: name.toLowerCase(),
+        }),
+        phase: copy.phaseActive,
         bar: 0,
       };
     }
 
-    if (!usage.lastUseDate) {
+    if (progress.availability === "missing-date") {
       return {
         id: usage.substanceId,
         name,
-        abstinence: "—",
-        pillDetail: `${name}: fecha de último consumo ausente`,
-        phase: "Falta la fecha de la última vez, así que no se puede calcular el avance.",
+        abstinence: copy.unavailable,
+        pillDetail: fillRecoveryTemplate(copy.pillMissingDate, { name }),
+        phase: copy.phaseMissingDate,
         bar: 0,
       };
     }
 
-    const daysLabel = formatDaysAbstinent(progress.daysAbstinent);
+    if (progress.availability === "no-curves") {
+      const daysLabel = formatDaysAbstinent(progress.daysAbstinent, copy);
+      return {
+        id: usage.substanceId,
+        name,
+        abstinence: daysLabel,
+        pillDetail: fillRecoveryTemplate(copy.pillAbstinent, {
+          days: daysLabel,
+          name: name.toLowerCase(),
+        }),
+        phase: copy.phaseNoCurves,
+        bar: 0,
+      };
+    }
+
+    if (
+      progress.availability !== "ready" ||
+      !isCalculableProgress(progress.progressFraction)
+    ) {
+      return {
+        id: usage.substanceId,
+        name,
+        abstinence: copy.unavailable,
+        pillDetail: fillRecoveryTemplate(copy.pillMissingDate, { name }),
+        phase: copy.phaseMissingDate,
+        bar: 0,
+      };
+    }
+
+    const daysLabel = formatDaysAbstinent(progress.daysAbstinent, copy);
     const confidence =
       progress.confidenceLevel === "high"
-        ? "alta"
+        ? copy.confidenceHigh
         : progress.confidenceLevel === "medium"
-          ? "media"
+          ? copy.confidenceMedium
           : progress.confidenceLevel === "low"
-            ? "baja"
+            ? copy.confidenceLow
             : null;
+    const ceilingPct = modelCeilingPercent(progress.recoveryCeiling);
+    const phase =
+      ceilingPct != null && confidence
+        ? fillRecoveryTemplate(copy.substancePhaseCeilingConfidence, {
+            percent: ceilingPct,
+            confidence,
+          })
+        : ceilingPct != null
+          ? fillRecoveryTemplate(copy.substancePhaseCeiling, {
+              percent: ceilingPct,
+            })
+          : confidence
+            ? fillRecoveryTemplate(copy.substancePhaseConfidence, {
+                confidence,
+              })
+            : copy.substancePhaseDefault;
 
     return {
       id: usage.substanceId,
       name,
       abstinence: daysLabel,
-      pillDetail: `${daysLabel} sin ${name.toLowerCase()}`,
-      phase: confidence
-        ? `Estimación de recuperación · confianza ${confidence}`
-        : "Estimación de recuperación según el catálogo Soma",
+      pillDetail: fillRecoveryTemplate(copy.pillAbstinent, {
+        days: daysLabel,
+        name: name.toLowerCase(),
+      }),
+      phase,
       bar: progress.progressFraction,
     };
   });
@@ -427,7 +563,7 @@ export function buildLiveDashboard(input: {
     const substance = substancesById.get(keyed);
     const progress = usage
       ? substanceProgress(usage, substance, now)
-      : { progressFraction: contrib.progressFraction, daysAbstinent: 0, confidenceLevel: null };
+      : { daysAbstinent: 0 };
     return {
       progressFraction: contrib.progressFraction,
       daysAbstinent: progress.daysAbstinent,
@@ -455,7 +591,7 @@ export function buildLiveDashboard(input: {
       return {
         id: meta.id,
         name: meta.name,
-        endLabel: `${Math.round(progress * 100)}%`,
+        endLabel: formatTrajectoryPercent(progress),
         icon: meta.icon,
       };
     })
@@ -478,22 +614,31 @@ export function buildLiveDashboard(input: {
   const changes: DemoChange[] = organEntries.map(({ state, contrib }) => {
     const system = organSystemById.get(state.organId);
     const meta = system ? SYSTEM_META[system] : null;
-    const status = contrib.status === "active" ? "Consumo activo" : "En recuperación";
+    const status =
+      contrib.status === "active" ? copy.statusActive : copy.statusRecovering;
+    const pct = formatTrajectoryPercent(contrib.progressFraction);
     const body =
       contrib.status === "active"
-        ? `${state.organName}: el consumo activo mantiene el avance en 0 % para esta estimación.`
-        : `${state.organName}: avance estimado ${Math.round(contrib.progressFraction * 100)} % tras ${formatDaysAbstinent(contrib.daysAbstinent)} sin ${substanceDisplayName(contrib.substanceId).toLowerCase()}.`;
+        ? fillRecoveryTemplate(copy.organBodyActive, {
+            organ: state.organName,
+          })
+        : fillRecoveryTemplate(copy.organBodyAbstinent, {
+            organ: state.organName,
+            percent: pct,
+            days: formatDaysAbstinent(contrib.daysAbstinent, copy),
+            substance: substanceDisplayName(contrib.substanceId).toLowerCase(),
+          });
 
     return {
       id: state.organId,
       system:
         meta?.name ??
         (system ? ATLAS_CARD_SYSTEM_LABEL[system] : undefined) ??
-        "Órgano",
+        copy.organFallback,
       title: state.organName,
       status,
       body,
-      endLabel: `${Math.round(contrib.progressFraction * 100)}%`,
+      endLabel: pct,
       icon: meta?.icon ?? "brain",
     };
   });
@@ -507,6 +652,7 @@ export function buildLiveDashboard(input: {
       substances: input.substances,
       substanceId: input.substanceId,
       now,
+      copy,
     }),
     organSystemById,
     organsBySubstance,

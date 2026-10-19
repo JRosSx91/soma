@@ -217,7 +217,9 @@ export function OnboardingPage() {
           return;
         }
         // Persist the frozen confirmed payload, not a later form drift.
-        await persistUsagesAndComplete(confirmedClearUsages.current);
+        const frozenClearUsages = confirmedClearUsages.current;
+        if (!frozenClearUsages) return;
+        await persistUsagesAndComplete(frozenClearUsages);
         return;
       }
 

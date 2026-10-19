@@ -74,7 +74,16 @@ export interface DemoSeries {
   label: string;
   /** Visual samples along demoAxisLabels. Not recovery-engine output. */
   samples: readonly number[];
+  /**
+   * Primary legend value.
+   * Live: today’s trajectory advance. Demo: mock “Hoy · …” composition.
+   */
   endLabel: string;
+  /**
+   * Optional day-365 model checkpoint (live). Never replace endLabel.
+   * Demo may omit or use a fictional year mark for copy parity.
+   */
+  referenceAtYearLabel?: string;
   color: string;
 }
 
@@ -83,35 +92,40 @@ export const demoSeries: readonly DemoSeries[] = [
     id: "nervous",
     label: "Sistema nervioso",
     samples: [0.08, 0.24, 0.42, 0.56, 0.68],
-    endLabel: "68%",
+    endLabel: "Hoy · 46%",
+    referenceAtYearLabel: "día 365 · 68%",
     color: "rgb(var(--soma-physiology))",
   },
   {
     id: "reward",
     label: "Sistema de recompensa",
     samples: [0.06, 0.16, 0.3, 0.42, 0.54],
-    endLabel: "54%",
+    endLabel: "Hoy · 28%",
+    referenceAtYearLabel: "día 365 · 54%",
     color: "rgb(var(--soma-action))",
   },
   {
     id: "cardiovascular",
     label: "Función cardiovascular",
     samples: [0.1, 0.28, 0.46, 0.6, 0.72],
-    endLabel: "72%",
+    endLabel: "Hoy · 72%",
+    referenceAtYearLabel: "día 365 · 72%",
     color: "rgb(var(--soma-warning))",
   },
   {
     id: "pulmonary",
     label: "Función pulmonar",
     samples: [0.07, 0.2, 0.36, 0.5, 0.61],
-    endLabel: "61%",
+    endLabel: "Hoy · 61%",
+    referenceAtYearLabel: "día 365 · 61%",
     color: "rgb(var(--soma-danger))",
   },
   {
     id: "cognitive",
     label: "Función cognitiva",
     samples: [0.05, 0.14, 0.26, 0.38, 0.49],
-    endLabel: "49%",
+    endLabel: "Hoy · 26%",
+    referenceAtYearLabel: "día 365 · 49%",
     color: "rgb(var(--soma-ink-secondary))",
   },
 ];

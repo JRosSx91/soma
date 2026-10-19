@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/index.js";
 import { useOrganStates } from "../../profile/index.js";
 import type { UserProfile } from "../../profile/types.js";
@@ -8,8 +9,6 @@ import {
   demoSeries,
   demoSubstances,
   demoSystems,
-  demoAxisLabels,
-  demoTodayLabel,
   demoTodayPosition,
   type DemoChange,
   type DemoSeries,
@@ -19,8 +18,15 @@ import {
 import {
   adaptServerProfile,
   buildLiveDashboard,
+  formatDaysAbstinent,
   type LiveChartModel,
 } from "../dashboard/adapt-live-dashboard.js";
+import {
+  fillRecoveryTemplate,
+  recoveryCopyFromSource,
+  type RecoveryDashboardCopy,
+} from "../dashboard/recovery-copy.js";
+import { formatLabeledPercent } from "../dashboard/recovery-semantics.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { useLiveProfile } from "./useLiveProfile.js";
 
@@ -56,14 +62,31 @@ const EMPTY_PROFILE: UserProfile = {
   usages: [],
 };
 
-function demoChart(): DashboardChartView {
+function percentFromLabel(label: string): number | null {
+  const match = label.match(/(\d+)\s*%/);
+  if (!match?.[1]) return null;
+  return Number(match[1]) / 100;
+}
+
+function demoChart(copy: RecoveryDashboardCopy): DashboardChartView {
   return {
-    axisLabels: demoAxisLabels,
+    axisLabels: copy.axisLabels,
     todayPosition: demoTodayPosition,
-    todayLabel: demoTodayLabel,
-    series: demoSeries,
-    footnote:
-      "Valores de demostración. El eje repite la composición del mockup y no es una escala clínica.",
+    todayLabel: fillRecoveryTemplate(copy.todayWithDays, {
+      today: copy.today,
+      days: formatDaysAbstinent(42, copy),
+    }),
+    series: demoSeries.map((item) => ({
+      ...item,
+      endLabel: formatLabeledPercent(copy.today, percentFromLabel(item.endLabel)),
+      referenceAtYearLabel: item.referenceAtYearLabel
+        ? formatLabeledPercent(
+            copy.day365,
+            percentFromLabel(item.referenceAtYearLabel),
+          )
+        : undefined,
+    })),
+    footnote: copy.demoFootnote,
   };
 }
 
@@ -77,14 +100,32 @@ function liveChartToView(chart: LiveChartModel): DashboardChartView {
   };
 }
 
+function emptyLiveChart(copy: RecoveryDashboardCopy): DashboardChartView {
+  return {
+    axisLabels: copy.axisLabels,
+    todayPosition: 0,
+    todayLabel: copy.today,
+    series: [],
+    footnote: "",
+  };
+}
+
 /**
  * Preview Inicio / Recuperación data source.
  *
  * - `/preview` → always demo snapshot (even if a session exists).
  * - `/app` + signed in → profile + Soma 1.0 organ/recovery engine.
  * Never mixes demo figures into a live metric.
+ *
+ * Copy is resolved from the current i18n language. Changing language
+ * rebuilds labels only; profile, catalog and organ math are not refetched.
  */
 export function usePreviewDashboard(substanceId: string | null = null): PreviewDashboardView {
+  const { t, i18n } = useTranslation("recovery");
+  const copy = useMemo(
+    () => recoveryCopyFromSource((key) => t(key)),
+    [t, i18n.language],
+  );
   const { user, loading: authLoading } = useAuth();
   const base = useShellBase();
   const sessionPending = authLoading;
@@ -118,9 +159,11 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       substances,
       organStates,
       substanceId,
+      copy,
     });
   }, [
     adaptedProfile.usages,
+    copy,
     error,
     isLive,
     liveProfile.profile,
@@ -138,7 +181,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       substances: demoSubstances,
       systems: demoSystems,
       changes: demoChanges,
-      chart: demoChart(),
+      chart: demoChart(copy),
       emptyUsages: false,
       showDemoBadge: true,
     };
@@ -153,13 +196,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       substances: [],
       systems: [],
       changes: [],
-      chart: {
-        axisLabels: LIVE_AXIS_PLACEHOLDER,
-        todayPosition: 0,
-        todayLabel: "Hoy",
-        series: [],
-        footnote: "",
-      },
+      chart: emptyLiveChart(copy),
       emptyUsages: false,
       showDemoBadge: false,
     };
@@ -169,18 +206,12 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
     return {
       mode: "live",
       loading: false,
-      error: error ?? "No se han podido cargar tus datos de recuperación.",
+      error: error ?? copy.loadErrorLive,
       reload: liveProfile.reload,
       substances: [],
       systems: [],
       changes: [],
-      chart: {
-        axisLabels: LIVE_AXIS_PLACEHOLDER,
-        todayPosition: 0,
-        todayLabel: "Hoy",
-        series: [],
-        footnote: "",
-      },
+      chart: emptyLiveChart(copy),
       emptyUsages: false,
       showDemoBadge: false,
     };
@@ -201,5 +232,3 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
     showDemoBadge: false,
   };
 }
-
-const LIVE_AXIS_PLACEHOLDER = ["Inicio", "1 mes", "3 meses", "6 meses", "1 año"] as const;

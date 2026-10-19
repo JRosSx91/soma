@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   changeSubstance,
   chartSeriesForSystem,
@@ -18,6 +19,7 @@ import { SubstanceCard } from "../components/SubstanceCard.js";
 import { SystemTile } from "../components/SystemTile.js";
 
 export function RecoveryPage() {
+  const { t } = useTranslation("recovery");
   const [tab, setTab] = useState<RecoveryTab>("general");
   const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [systemId, setSystemId] = useState<string | null>(null);
@@ -88,7 +90,7 @@ export function RecoveryPage() {
   if (dashboard.loading) {
     return (
       <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
-        Cargando tu recuperación…
+        {t("loading")}
       </div>
     );
   }
@@ -96,13 +98,13 @@ export function RecoveryPage() {
   if (dashboard.error) {
     return (
       <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
-        <p>No se han podido cargar tus datos.</p>
+        <p>{t("loadError")}</p>
         <button
           type="button"
           onClick={dashboard.reload}
           className={`${previewFocus} mt-3 text-soma-action hover:text-soma-action-hover`}
         >
-          Reintentar
+          {t("retry")}
         </button>
       </div>
     );
@@ -112,19 +114,19 @@ export function RecoveryPage() {
     return (
       <div className="flex flex-col gap-4 pb-6">
         <PageHeading
-          eyebrow="Mi recuperación"
-          title="Tu progreso en detalle."
-          description="Cuando registres sustancias en tu perfil, verás aquí las estimaciones del catálogo Soma."
+          eyebrow={t("emptyEyebrow")}
+          title={t("emptyTitle")}
+          description={t("emptyBody")}
           demo={false}
         />
         <p className="rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
-          Todavía no hay sustancias en tu perfil.
+          {t("emptyHint")}
         </p>
         <Link
           to="/onboarding"
           className={`${previewFocus} text-sm text-soma-action hover:text-soma-action-hover`}
         >
-          Ir al onboarding
+          {t("goOnboarding")}
         </Link>
       </div>
     );
@@ -144,18 +146,14 @@ export function RecoveryPage() {
   return (
     <div className="flex flex-col gap-5 pb-6">
       <PageHeading
-        eyebrow="Mi recuperación"
-        title="Tu progreso en detalle."
-        description={
-          live
-            ? "Estimaciones orientativas a partir de tu perfil y de las curvas del catálogo Soma. No son mediciones clínicas."
-            : "Misma colección ficticia que en Inicio: tres sustancias, seis sistemas y tres hitos. Las pestañas solo cambian cómo se agrupan."
-        }
+        eyebrow={t("emptyEyebrow")}
+        title={t("emptyTitle")}
+        description={live ? t("liveDescription") : t("demoDescription")}
         demo={dashboard.showDemoBadge}
         aside={
           <label className="relative">
             <span className="sr-only">
-              {live ? "Sustancia" : "Sustancia de demostración"}
+              {live ? t("substanceSelectLive") : t("substanceSelectDemo")}
             </span>
             <select
               value={substance.id}
@@ -173,7 +171,7 @@ export function RecoveryPage() {
       />
 
       <SegmentedControl
-        label="Vista de la recuperación"
+        label={t("recoveryViewLabel")}
         value={tab}
         options={recoveryTabs}
         onChange={setTab}
@@ -196,7 +194,7 @@ export function RecoveryPage() {
       {tab === "system" ? (
         dashboard.systems.length === 0 ? (
           <p className="rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
-            No hay sistemas con estimación para tu perfil.
+            {t("noSystems")}
           </p>
         ) : (
           <ul className="flex gap-3 overflow-x-auto pb-1 lg:grid lg:grid-cols-3 lg:overflow-visible xl:grid-cols-6">
@@ -233,39 +231,36 @@ export function RecoveryPage() {
 
       {tab === "system" && system && !live && !chartSeriesForSystem[system.id] ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-3 text-sm text-soma-ink-secondary">
-          {system.name} tiene cifra en Inicio ({system.endLabel}) y no tiene serie propia en la
-          gráfica de demostración.
+          {t("demoChartNoSeries", { system: system.name, percent: system.endLabel })}
         </p>
       ) : null}
 
       {tab === "substance" && !live ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-3 text-sm text-soma-ink-secondary">
-          {substance.name}: {substance.phase}. La gráfica de Inicio no se parte por sustancia, así
-          que esta pestaña no inventa otra curva.
+          {t("demoSubstanceNoSplit", { name: substance.name, phase: substance.phase })}
         </p>
       ) : null}
 
       {tab === "substance" && live ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-3 text-sm text-soma-ink-secondary">
-          {substance.name}: {substance.phase}. La gráfica superior usa solo las curvas del catálogo
-          asociadas a esta sustancia.
+          {t("liveSubstanceFilter", { name: substance.name, phase: substance.phase })}
         </p>
       ) : null}
 
       <section>
         <h2 className="text-base font-semibold text-soma-ink">
-          {tab === "timeline" ? "Cronología" : live ? "Órganos estimados" : "Hitos recientes"}
+          {tab === "timeline"
+            ? t("timelineTitle")
+            : live
+              ? t("organsTitleLive")
+              : t("milestonesTitle")}
         </h2>
         <p className="mt-0.5 text-xs text-soma-ink-muted">
-          {live
-            ? "Avance estimado por órgano a partir de tu perfil y del catálogo Soma."
-            : "Los tres textos de Cambios recientes, en el orden del dashboard."}
+          {live ? t("organsLiveHint") : t("milestonesDemoHint")}
         </p>
         {visibleChanges.length === 0 ? (
           <p className="mt-3 rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
-            {live
-              ? "No hay órganos con estimación para esta selección."
-              : "Ningún hito de demostración está asociado a esta selección."}
+            {live ? t("noOrgansLive") : t("noMilestonesDemo")}
           </p>
         ) : (
           <ul className={`mt-3 grid gap-2.5 ${tab === "timeline" ? "" : "lg:grid-cols-3"}`}>
@@ -301,7 +296,7 @@ export function RecoveryPage() {
           <p>{openChange.system}</p>
           <p className="mt-2">{openChange.body}</p>
           <p className="mt-2 text-soma-ink">
-            {live ? "Estimación orientativa" : "Estimación de demostración"} {openChange.endLabel}
+            {live ? t("estimateOrientative") : t("estimateSrDemo")} {openChange.endLabel}
             {!live && demoMoments[openChange.id] ? ` · ${demoMoments[openChange.id]}` : ""}
           </p>
         </DetailSheet>

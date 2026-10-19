@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { DemoChange } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
 import { AnatomyIllustration } from "./AnatomyIllustration.js";
@@ -16,7 +17,8 @@ export function RecentChangeCard({
   onOpen,
   live = false,
 }: RecentChangeCardProps) {
-  const estimateSr = live ? "Estimación orientativa " : "Estimación de demostración ";
+  const { t } = useTranslation("recovery");
+  const estimateSr = live ? t("estimateSrLive") : t("estimateSrDemo");
   return (
     <button
       type="button"

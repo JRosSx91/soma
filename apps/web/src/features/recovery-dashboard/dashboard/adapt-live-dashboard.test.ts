@@ -14,7 +14,21 @@ import {
   LIVE_AXIS_DAYS,
   substanceProgress,
   todayPositionOnAxis,
+  type SubstanceProgressResult,
 } from "./adapt-live-dashboard.ts";
+import { recoveryCopyFromSource, SPANISH_RECOVERY_COPY } from "./recovery-copy.ts";
+import enRecovery from "../../../i18n/locales/en/recovery.json" with { type: "json" };
+
+const ENGLISH_RECOVERY_COPY = recoveryCopyFromSource((key) => {
+  const value = (enRecovery as Record<string, string>)[key];
+  return value ?? key;
+});
+
+function readyFraction(progress: SubstanceProgressResult): number {
+  assert.equal(progress.availability, "ready");
+  assert.ok(progress.progressFraction != null);
+  return progress.progressFraction;
+}
 
 const now = Date.parse("2026-10-18T12:00:00.000Z");
 
@@ -104,9 +118,10 @@ test("single abstinent substance drives cards, systems and chart from computeRec
     status: "abstinent",
   };
   const progress = substanceProgress(usage, nicotine, now);
+  const progressFraction = readyFraction(progress);
   assert.ok(progress.daysAbstinent > 14 && progress.daysAbstinent < 16);
-  assert.ok(progress.progressFraction > 0);
-  assert.ok(progress.progressFraction < 1);
+  assert.ok(progressFraction > 0);
+  assert.ok(progressFraction < 1);
 
   const organStates = new Map<OrganId, OrganState>([
     [
@@ -114,14 +129,14 @@ test("single abstinent substance drives cards, systems and chart from computeRec
       {
         organId: "lungs",
         organName: "Lungs",
-        progressFraction: progress.progressFraction,
-        absoluteRecovery: progress.progressFraction * 0.75,
+        progressFraction,
+        absoluteRecovery: progressFraction * 0.75,
         daysAbstinent: progress.daysAbstinent,
         dominantSubstanceId: "nicotine",
         confidenceLevel: "high",
         dominantStatus: "abstinent",
         contributingSubstances: [
-          { substanceId: "nicotine", status: "abstinent", progressFraction: progress.progressFraction },
+          { substanceId: "nicotine", status: "abstinent", progressFraction },
         ],
       },
     ],
@@ -138,7 +153,7 @@ test("single abstinent substance drives cards, systems and chart from computeRec
   assert.equal(model.substances.length, 1);
   assert.equal(model.substances[0]?.id, "nicotine");
   assert.match(model.substances[0]?.abstinence ?? "", /días/);
-  assert.equal(model.substances[0]?.bar, progress.progressFraction);
+  assert.equal(model.substances[0]?.bar, progressFraction);
   assert.ok(model.systems.some((item) => item.id === "respiratory"));
   assert.ok(model.chart.series.length >= 1);
 
@@ -329,14 +344,15 @@ test("Prisma underscore systems map to hyphen BodySystem ids", () => {
     status: "abstinent",
   };
   const progress = substanceProgress(usage, nervous, now);
+  const progressFraction = readyFraction(progress);
   const organStates = new Map<OrganId, OrganState>([
     [
       "brain",
       {
         organId: "brain",
         organName: "Brain",
-        progressFraction: progress.progressFraction,
-        absoluteRecovery: progress.progressFraction * 0.95,
+        progressFraction,
+        absoluteRecovery: progressFraction * 0.95,
         daysAbstinent: progress.daysAbstinent,
         dominantSubstanceId: "nicotine",
         confidenceLevel: "high",
@@ -345,7 +361,7 @@ test("Prisma underscore systems map to hyphen BodySystem ids", () => {
           {
             substanceId: "nicotine",
             status: "abstinent",
-            progressFraction: progress.progressFraction,
+            progressFraction,
           },
         ],
       },
@@ -387,6 +403,7 @@ test("active consumption reports zero progress without inventing dates", () => {
     status: "active",
   };
   const progress = substanceProgress(usage, nicotine, now);
+  assert.equal(progress.availability, "active");
   assert.equal(progress.progressFraction, 0);
   assert.equal(progress.daysAbstinent, 0);
 
@@ -428,7 +445,8 @@ test("incomplete abstinence date stays empty instead of inventing recovery", () 
     status: "abstinent",
   };
   const progress = substanceProgress(usage, nicotine, now);
-  assert.equal(progress.progressFraction, 0);
+  assert.equal(progress.availability, "missing-date");
+  assert.equal(progress.progressFraction, null);
   const model = buildLiveDashboard({
     usages: [usage],
     substances: [nicotine],
@@ -501,4 +519,305 @@ test("adapter does not redefine recovery formulas", () => {
   assert.match(source, /estimateCurve/);
   assert.equal(source.includes("function estimateCurve"), false);
   assert.equal(source.includes("daysTo95Recovery:"), true);
+});
+
+test("chart endLabel is today trajectory, not day-365 sample", () => {
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: "2026-09-06T00:00:00.000Z", // 42 days before fixture `now`
+    frequency: "daily",
+    status: "abstinent",
+  };
+  const chart = buildLiveChart({
+    usages: [usage],
+    substances: [nicotine],
+    substanceId: null,
+    now,
+  });
+  const cardio = chart.series.find((item) => item.id === "cardiovascular");
+  assert.ok(cardio);
+  const today = estimateCurve(42, {
+    shape: "logarithmic",
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.9,
+  }).curveProgress;
+  const atYear = estimateCurve(365, {
+    shape: "logarithmic",
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.9,
+  }).curveProgress;
+  assert.match(cardio.endLabel, /^Hoy · \d+%/);
+  assert.match(cardio.referenceAtYearLabel ?? "", /^día 365 · \d+%/);
+  assert.equal(cardio.endLabel, `Hoy · ${Math.round(today * 100)}%`);
+  assert.equal(
+    cardio.referenceAtYearLabel,
+    `día 365 · ${Math.round(atYear * 100)}%`,
+  );
+  assert.notEqual(cardio.endLabel, cardio.referenceAtYearLabel);
+  assert.equal(cardio.samples.length, LIVE_AXIS_DAYS.length);
+  assert.equal(cardio.samples[LIVE_AXIS_DAYS.length - 1], atYear);
+});
+
+test("day 0 and >365 keep distinct today vs year labels", () => {
+  const day0 = buildLiveChart({
+    usages: [
+      {
+        substanceId: "nicotine",
+        yearStarted: 2018,
+        lastUseDate: new Date(now).toISOString(),
+        frequency: "daily",
+        status: "abstinent",
+      },
+    ],
+    substances: [nicotine],
+    substanceId: null,
+    now,
+  });
+  const cardio0 = day0.series.find((item) => item.id === "cardiovascular");
+  assert.ok(cardio0);
+  assert.equal(cardio0.endLabel, "Hoy · 0%");
+  assert.equal(day0.todayPosition, 0);
+
+  const far = buildLiveChart({
+    usages: [
+      {
+        substanceId: "nicotine",
+        yearStarted: 2015,
+        lastUseDate: "2024-10-18T00:00:00.000Z", // ~730 days
+        frequency: "daily",
+        status: "abstinent",
+      },
+    ],
+    substances: [nicotine],
+    substanceId: null,
+    now,
+  });
+  assert.equal(far.todayPosition, 1);
+  const cardioFar = far.series.find((item) => item.id === "cardiovascular");
+  assert.ok(cardioFar);
+  assert.match(cardioFar.endLabel, /^Hoy · /);
+  assert.match(cardioFar.referenceAtYearLabel ?? "", /^día 365 · /);
+});
+
+test("ceiling 0.6 keeps progressFraction as primary bar; absoluteRecovery lower", () => {
+  const lowCeiling: ApiSubstance = {
+    ...nicotine,
+    id: "nicotine",
+    recoveryCurves: [curve("heart", "cardiovascular", 180, 0.6)],
+  };
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: "2025-10-18T00:00:00.000Z",
+    frequency: "daily",
+    status: "abstinent",
+  };
+  const progress = substanceProgress(usage, lowCeiling, now);
+  const progressFraction = readyFraction(progress);
+  assert.ok(progressFraction > 0.9);
+  assert.ok((progress.absoluteRecovery ?? 1) < 0.65);
+  assert.equal(progress.recoveryCeiling, 0.6);
+  assert.ok(
+    Math.abs((progress.absoluteRecovery ?? 0) - progressFraction * 0.6) < 1e-9,
+  );
+
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [lowCeiling],
+    organStates: new Map([
+      [
+        "heart",
+        {
+          organId: "heart",
+          organName: "Heart",
+          progressFraction,
+          absoluteRecovery: progress.absoluteRecovery ?? 0,
+          daysAbstinent: progress.daysAbstinent,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            {
+              substanceId: "nicotine",
+              status: "abstinent",
+              progressFraction,
+            },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  assert.equal(model.substances[0]?.bar, progressFraction);
+  assert.match(model.substances[0]?.phase ?? "", /Techo del modelo: 60%/);
+  assert.match(model.changes[0]?.body ?? "", /trayectoria estimada/);
+  assert.doesNotMatch(model.changes[0]?.body ?? "", /Techo del modelo/);
+  assert.equal(
+    model.systems[0]?.endLabel,
+    `${Math.round(progressFraction * 100)}%`,
+  );
+});
+
+test("organ cards never reuse another curve’s ceiling from the same substance", () => {
+  const dual: ApiSubstance = {
+    ...nicotine,
+    recoveryCurves: [
+      curve("heart", "cardiovascular", 365, 0.6),
+      curve("lungs", "respiratory", 30, 0.9),
+    ],
+  };
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: "2026-09-06T00:00:00.000Z",
+    frequency: "daily",
+    status: "abstinent",
+  };
+  const progress = substanceProgress(usage, dual, now);
+  const days = progress.daysAbstinent;
+  const heartToday = estimateCurve(days, {
+    shape: "logarithmic",
+    daysTo95Recovery: 365,
+    recoveryCeiling: 0.6,
+  }).curveProgress;
+  const lungsToday = estimateCurve(days, {
+    shape: "logarithmic",
+    daysTo95Recovery: 30,
+    recoveryCeiling: 0.9,
+  }).curveProgress;
+  assert.ok(heartToday < lungsToday);
+  assert.equal(progress.recoveryCeiling, 0.6);
+  assert.ok(Math.abs(readyFraction(progress) - heartToday) < 1e-9);
+
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [dual],
+    organStates: new Map([
+      [
+        "heart",
+        {
+          organId: "heart",
+          organName: "Heart",
+          progressFraction: heartToday,
+          absoluteRecovery: heartToday * 0.6,
+          daysAbstinent: days,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "abstinent", progressFraction: heartToday },
+          ],
+        },
+      ],
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: lungsToday,
+          absoluteRecovery: lungsToday * 0.9,
+          daysAbstinent: days,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "abstinent", progressFraction: lungsToday },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+
+  assert.match(model.substances[0]?.phase ?? "", /Techo del modelo: 60%/);
+  assert.doesNotMatch(model.substances[0]?.phase ?? "", /90%/);
+  const heartCard = model.changes.find((item) => item.id === "heart");
+  const lungsCard = model.changes.find((item) => item.id === "lungs");
+  assert.ok(heartCard);
+  assert.ok(lungsCard);
+  assert.doesNotMatch(heartCard.body, /Techo del modelo/);
+  assert.doesNotMatch(lungsCard.body, /Techo del modelo/);
+  assert.doesNotMatch(heartCard.body, /90%/);
+  assert.doesNotMatch(lungsCard.body, /60%/);
+});
+
+test("substance without curves shows no invented percentage", () => {
+  const empty: ApiSubstance = { ...nicotine, recoveryCurves: [] };
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: "2026-09-06T00:00:00.000Z",
+    frequency: "daily",
+    status: "abstinent",
+  };
+  const progress = substanceProgress(usage, empty, now);
+  assert.equal(progress.availability, "no-curves");
+  assert.equal(progress.progressFraction, null);
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [empty],
+    organStates: new Map(),
+    substanceId: null,
+    now,
+  });
+  assert.equal(model.substances[0]?.bar, 0);
+  assert.match(model.substances[0]?.phase ?? "", /no tiene curvas/);
+  assert.equal(model.chart.series.length, 0);
+});
+
+test("spanish and english copy change labels without changing trajectory math", () => {
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: "2026-09-06T00:00:00.000Z",
+    frequency: "daily",
+    status: "abstinent",
+  };
+  const progress = substanceProgress(usage, nicotine, now);
+  const progressFraction = readyFraction(progress);
+  const organStates = new Map<OrganId, OrganState>([
+    [
+      "heart",
+      {
+        organId: "heart",
+        organName: "Heart",
+        progressFraction,
+        absoluteRecovery: progress.absoluteRecovery ?? 0,
+        daysAbstinent: progress.daysAbstinent,
+        dominantSubstanceId: "nicotine",
+        confidenceLevel: "high",
+        dominantStatus: "abstinent",
+        contributingSubstances: [
+          { substanceId: "nicotine", status: "abstinent", progressFraction },
+        ],
+      },
+    ],
+  ]);
+  const shared = { usages: [usage], substances: [nicotine], organStates, substanceId: null, now };
+  const es = buildLiveDashboard({ ...shared, copy: SPANISH_RECOVERY_COPY });
+  const en = buildLiveDashboard({ ...shared, copy: ENGLISH_RECOVERY_COPY });
+  assert.equal(es.substances[0]?.bar, en.substances[0]?.bar);
+  assert.equal(es.chart.todayPosition, en.chart.todayPosition);
+  assert.match(es.chart.series[0]?.endLabel ?? "", /^Hoy · /);
+  assert.match(en.chart.series[0]?.endLabel ?? "", /^Today · /);
+  assert.match(es.substances[0]?.phase ?? "", /trayectoria estimada/i);
+  assert.match(en.substances[0]?.phase ?? "", /Estimated trajectory/i);
+  assert.notEqual(es.chart.footnote, en.chart.footnote);
+});
+
+test("live API error path never imports demo series (source)", () => {
+  const hook = readFileSync(
+    new URL("../hooks/usePreviewDashboard.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(hook, /error: error \?\?/);
+  assert.match(hook, /showDemoBadge: false/);
+  assert.equal(hook.includes("demoSeries"), true); // demo branch only
+  // Error return must not assign demoSubstances
+  const errorBlock = hook.slice(hook.indexOf("if (error || !liveModel)"));
+  assert.equal(errorBlock.includes("demoSubstances"), false);
+  assert.equal(errorBlock.includes("demoSeries"), false);
 });

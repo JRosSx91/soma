@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import { usePreviewDashboard } from "../hooks/usePreviewDashboard.js";
 import { AbstinencePill } from "./AbstinencePill.js";
@@ -13,6 +14,7 @@ import { SubstanceChip } from "./SubstanceChip.js";
 import { SystemTile } from "./SystemTile.js";
 
 export function PreviewHome() {
+  const { t } = useTranslation("recovery");
   const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [seriesId, setSeriesId] = useState("general");
   const dashboard = usePreviewDashboard(substanceId);
@@ -45,7 +47,7 @@ export function PreviewHome() {
   if (dashboard.loading) {
     return (
       <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
-        Cargando tu recuperación…
+        {t("loading")}
       </div>
     );
   }
@@ -53,13 +55,13 @@ export function PreviewHome() {
   if (dashboard.error) {
     return (
       <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
-        <p>No se han podido cargar tus datos.</p>
+        <p>{t("loadError")}</p>
         <button
           type="button"
           onClick={dashboard.reload}
           className={`${previewFocus} mt-3 text-soma-action hover:text-soma-action-hover`}
         >
-          Reintentar
+          {t("retry")}
         </button>
       </div>
     );
@@ -79,14 +81,13 @@ export function PreviewHome() {
             <span className="block text-soma-action">Comprende cómo.</span>
           </h1>
           <p className="mt-3 max-w-xl rounded-2xl border border-dashed border-soma-line px-4 py-5 text-sm text-soma-ink-secondary">
-            Todavía no hay sustancias en tu perfil. Añádelas en el onboarding para ver
-            estimaciones de recuperación aquí.
+            {t("homeEmptyBody")}
           </p>
           <Link
             to="/onboarding"
             className={`${previewFocus} mt-4 inline-flex text-sm text-soma-action hover:text-soma-action-hover`}
           >
-            Ir al onboarding
+            {t("goOnboarding")}
           </Link>
         </header>
       </div>
@@ -118,9 +119,7 @@ export function PreviewHome() {
             <span className="block text-soma-action">Comprende cómo.</span>
           </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary lg:mt-1 lg:max-w-none lg:text-[13px] lg:leading-snug">
-            {live
-              ? "Estimaciones orientativas a partir de tu perfil y del catálogo Soma. No sustituyen una evaluación médica."
-              : "Un espacio personal para seguir tu recuperación, explorar los procesos que ocurren en tu organismo y reconocer cada avance."}
+            {live ? t("homeLiveDescription") : t("homeDemoDescription")}
           </p>
           <AbstinencePill
             label={selected.pillDetail}
@@ -163,12 +162,10 @@ export function PreviewHome() {
       {dashboard.changes.length > 0 ? (
         <section className="hidden lg:block">
           <h2 className="text-base font-semibold text-soma-ink">
-            {live ? "Órganos con mayor pendiente" : "Cambios recientes"}
+            {live ? t("homeChangesTitleLive") : t("homeChangesTitleDemo")}
           </h2>
           <p className="mt-0.5 text-xs text-soma-ink-muted">
-            {live
-              ? "Avance estimado del catálogo para los órganos más rezagados de tu perfil."
-              : "Procesos destacados que están ocurriendo en tu organismo en esta fase."}
+            {live ? t("homeChangesLive") : t("homeChangesDemo")}
           </p>
           <ul className="mt-2 grid gap-2.5 lg:grid-cols-3">
             {dashboard.changes.map((change) => (
@@ -184,12 +181,10 @@ export function PreviewHome() {
         <div className="flex items-end justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold text-soma-ink lg:text-base">
-              Sistemas principales
+              {t("homeSystemsTitle")}
             </h2>
             <p className="mt-0.5 hidden text-xs text-soma-ink-muted lg:block">
-              {live
-                ? "Estimación por sistema a partir de los órganos de tu perfil."
-                : "Explora la evolución estimada por sistemas y órganos."}
+              {live ? t("homeSystemsLive") : t("homeSystemsDemo")}
             </p>
           </div>
           {!live ? (
@@ -197,13 +192,13 @@ export function PreviewHome() {
               type="button"
               className={`${previewFocus} shrink-0 text-sm text-soma-action hover:text-soma-action-hover`}
             >
-              Ver todos
+              {t("seeAll")}
             </button>
           ) : null}
         </div>
         {dashboard.systems.length === 0 ? (
           <p className="mt-4 rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
-            No hay sistemas con estimación para la selección actual.
+            {t("noSystems")}
           </p>
         ) : (
           <ul className="mt-4 flex gap-3 overflow-x-auto pb-1 lg:mt-2 lg:grid lg:grid-cols-3 lg:gap-2.5 lg:overflow-visible xl:grid-cols-6">
@@ -219,7 +214,7 @@ export function PreviewHome() {
       {featuredChange ? (
         <section className="lg:hidden">
           <h2 className="text-lg font-semibold text-soma-ink">
-            {live ? "Órgano destacado" : "Cambio destacado hoy"}
+            {live ? t("homeFeaturedLive") : t("homeFeaturedDemo")}
           </h2>
           <div className="mt-3">
             <RecentChangeCard change={featuredChange} featured live={live} />

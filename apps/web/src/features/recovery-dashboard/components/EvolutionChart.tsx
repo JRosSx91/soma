@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import type { DemoSeries } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
 import type { DashboardChartView } from "../hooks/usePreviewDashboard.js";
+import { formatTrajectoryPercent } from "../dashboard/recovery-semantics.js";
 
 interface EvolutionChartProps {
   seriesId: string;
@@ -181,6 +183,10 @@ function ChartPlot({
 /**
  * Evolution chart. Samples come from the dashboard view model
  * (demo snapshot or live curves via estimateCurve / computeRecovery).
+ *
+ * Accessible table: Hoy is elapsed-day advance; axis columns already
+ * include the day-365 checkpoint as “1 year”, so that value is not
+ * duplicated as a second day-365 column.
  */
 export function EvolutionChart({
   seriesId,
@@ -188,6 +194,7 @@ export function EvolutionChart({
   chart,
   live = false,
 }: EvolutionChartProps) {
+  const { t } = useTranslation("recovery");
   const series = chart.series as readonly DemoSeries[];
 
   return (
@@ -195,22 +202,22 @@ export function EvolutionChart({
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-base font-semibold text-soma-ink sm:text-lg lg:text-base">
-            Evolución estimada
+            {t("chartTitle")}
           </h2>
           <p className="mt-1 text-xs text-soma-ink-muted sm:text-sm lg:mt-0.5 lg:text-xs">
-            Progreso general de los principales sistemas afectados
+            {t("chartSubtitle")}
           </p>
         </div>
         <label className="relative shrink-0">
           <span className="sr-only">
-            {live ? "Serie de la gráfica" : "Serie de la gráfica de demostración"}
+            {live ? t("chartSeriesLive") : t("chartSeriesDemo")}
           </span>
           <select
             value={seriesId}
             onChange={(event) => onSeries(event.target.value)}
             className={`${previewFocus} appearance-none rounded-lg border border-soma-line bg-soma-canvas py-1.5 pl-3 pr-8 text-xs text-soma-ink`}
           >
-            <option value="general">Vista general</option>
+            <option value="general">{t("chartOverview")}</option>
             {series.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.label}
@@ -228,7 +235,7 @@ export function EvolutionChart({
 
       {series.length === 0 ? (
         <p className="mt-4 rounded-xl border border-dashed border-soma-line px-3 py-6 text-sm text-soma-ink-muted">
-          Todavía no hay curvas de recuperación para mostrar en esta gráfica.
+          {t("chartEmpty")}
         </p>
       ) : (
         <div className="mt-4 flex flex-col gap-4 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
@@ -260,15 +267,25 @@ export function EvolutionChart({
               return (
                 <li
                   key={item.id}
-                  className={`flex items-center gap-2 text-xs ${dimmed ? "opacity-40" : ""}`}
+                  className={`flex items-start gap-2 text-xs ${dimmed ? "opacity-40" : ""}`}
                 >
                   <span
-                    className="h-2 w-2 shrink-0 rounded-full"
+                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full"
                     style={{ backgroundColor: item.color }}
                     aria-hidden="true"
                   />
-                  <span className="min-w-0 flex-1 text-soma-ink-secondary">{item.label}</span>
-                  <span className="font-medium tabular-nums text-soma-ink">
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-soma-ink-secondary">{item.label}</span>
+                    {item.referenceAtYearLabel ? (
+                      <span className="mt-0.5 block text-[10px] text-soma-ink-muted">
+                        {item.referenceAtYearLabel}
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="shrink-0 text-right font-medium tabular-nums text-soma-ink">
+                    <span className="sr-only">
+                      {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+                    </span>
                     {item.endLabel}
                   </span>
                 </li>
@@ -282,13 +299,12 @@ export function EvolutionChart({
         <div className="sr-only" style={{ contain: "strict" }}>
           <table>
             <caption>
-              {live
-                ? "Estimaciones orientativas del catálogo Soma, no mediciones clínicas."
-                : "Estimaciones de demostración, no mediciones. Cada fila es una serie visual del mockup."}
+              {live ? t("chartCaptionLive") : t("chartCaptionDemo")}
             </caption>
             <thead>
               <tr>
-                <th scope="col">Serie</th>
+                <th scope="col">{t("chartTableSeries")}</th>
+                <th scope="col">{t("chartTableToday")}</th>
                 {chart.axisLabels.map((label) => (
                   <th key={label} scope="col">
                     {label}
@@ -300,9 +316,10 @@ export function EvolutionChart({
               {series.map((item) => (
                 <tr key={item.id}>
                   <th scope="row">{item.label}</th>
+                  <td>{item.endLabel}</td>
                   {item.samples.map((sample, index) => (
                     <td key={chart.axisLabels[index] ?? index}>
-                      {Math.round(sample * 100)}%
+                      {formatTrajectoryPercent(sample)}
                     </td>
                   ))}
                 </tr>
