@@ -73,12 +73,12 @@ export function PreviewHome() {
         <header>
           <div className="flex items-center justify-between gap-3">
             <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action">
-              Recovery intelligence
+              {t("homeEyebrow")}
             </p>
           </div>
           <h1 className="mt-2 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
-            <span className="block">Tu cuerpo cambia.</span>
-            <span className="block text-soma-action">Comprende cómo.</span>
+            <span className="block">{t("homeTitleLead")}</span>
+            <span className="block text-soma-action">{t("homeTitleAccent")}</span>
           </h1>
           <p className="mt-3 max-w-xl rounded-2xl border border-dashed border-soma-line px-4 py-5 text-sm text-soma-ink-secondary">
             {t("homeEmptyBody")}
@@ -104,7 +104,7 @@ export function PreviewHome() {
         <div className="md:pr-[19rem] lg:pr-[22.5rem] xl:pr-[24rem]">
           <div className="flex items-center justify-between gap-3">
             <p className="min-w-0 truncate text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action">
-              Recovery intelligence
+              {t("homeEyebrow")}
             </p>
             <span className="flex shrink-0 items-center gap-2">
               {dashboard.showDemoBadge ? <DemoNotice /> : null}
@@ -115,8 +115,8 @@ export function PreviewHome() {
             </span>
           </div>
           <h1 className="mt-2 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl lg:text-3xl">
-            <span className="block">Tu cuerpo cambia.</span>
-            <span className="block text-soma-action">Comprende cómo.</span>
+            <span className="block">{t("homeTitleLead")}</span>
+            <span className="block text-soma-action">{t("homeTitleAccent")}</span>
           </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary lg:mt-1 lg:max-w-none lg:text-[13px] lg:leading-snug">
             {live ? t("homeLiveDescription") : t("homeDemoDescription")}
