@@ -1,10 +1,18 @@
 import { useMemo, useState } from "react";
+import type { TFunction } from "i18next";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { atlasSystems } from "../anatomy/atlas-config.js";
-import { narrativeCatalogPairs, narrativePhases } from "../anatomy/narrative-catalog.js";
+import { narrativeCatalogPairs } from "../anatomy/narrative-catalog.js";
 import { recoveryCatalogPairs } from "../anatomy/recovery-catalog.js";
-import { listOrganSheets, systemSheetCoverage } from "../anatomy/organ-sheet.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
+import { joinOrganLabels, uniqueOrganIdsForSubstance } from "../explore/explore-organs.js";
+import {
+  localizedCatalogLabel,
+  searchHaystackIncludes,
+  substanceSearchHaystack,
+  systemSearchHaystack,
+} from "../explore/explore-search.js";
 import { previewFocus } from "../focus.js";
 import { DetailSheet } from "../components/DetailSheet.js";
 import { PageHeading } from "../components/PageHeading.js";
@@ -18,167 +26,177 @@ import type { ApiSubstance } from "../../../shared/api/types.js";
  * Does not invent personal recovery estimates from demo figures.
  */
 export function ExplorePage() {
+  const { t, i18n } = useTranslation("explore");
   const base = useShellBase();
   const { data: substances, loading, error } = useSubstances();
   const [query, setQuery] = useState("");
   const [openSubstance, setOpenSubstance] = useState<ApiSubstance | null>(null);
   const [openSystemId, setOpenSystemId] = useState<string | null>(null);
 
-  const narrativePairs = useMemo(() => narrativeCatalogPairs(), []);
-  const recoveryPairs = useMemo(() => recoveryCatalogPairs(), []);
+  const educationalPairs = useMemo(
+    () => [...narrativeCatalogPairs(), ...recoveryCatalogPairs()],
+    [],
+  );
 
-  const needle = query.trim().toLowerCase();
   const filteredSubstances = useMemo(() => {
     if (!substances) return [];
-    if (!needle) return substances;
     return substances.filter((item) =>
-      `${item.name} ${item.shortDescription} ${item.category}`.toLowerCase().includes(needle),
+      searchHaystackIncludes(
+        substanceSearchHaystack({
+          localizedName: substanceName(t, item.id, item.name),
+          localizedDescription: substanceDescription(t, item.id, item.shortDescription),
+          catalogName: item.name,
+          catalogDescription: item.shortDescription,
+          category: item.category,
+          categoryLabel: categoryLabel(t, item.category),
+        }),
+        query,
+      ),
     );
-  }, [needle, substances]);
+  }, [i18n.language, query, substances, t]);
 
   const filteredSystems = useMemo(() => {
-    if (!needle) return atlasSystems;
-    return atlasSystems.filter((system) => {
-      const organNames = system.organs.map((organ) => organ.name).join(" ");
-      return `${system.name} ${organNames}`.toLowerCase().includes(needle);
-    });
-  }, [needle]);
+    return atlasSystems.filter((system) =>
+      searchHaystackIncludes(
+        systemSearchHaystack({
+          localizedName: systemName(t, system.id, system.name),
+          catalogName: system.name,
+          organLabels: system.organs.flatMap((organ) => [
+            organName(t, organ.id, organ.name),
+            organ.name,
+          ]),
+        }),
+        query,
+      ),
+    );
+  }, [i18n.language, query, t]);
 
   const openSystem = atlasSystems.find((item) => item.id === openSystemId) ?? null;
 
   return (
-    <div className="flex flex-col gap-6 pb-6">
+    <div className="flex min-w-0 flex-col gap-6 pb-6">
       <PageHeading
-        eyebrow="Explorar"
-        title="Conocimiento para tu recuperación."
-        description="Catálogo educativo de sustancias y sistemas a partir de los datos canónicos de Soma. No es una evaluación clínica personalizada."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         demo={base === "/preview"}
         aside={
           <label className="relative hidden sm:block">
-            <span className="sr-only">Buscar en el catálogo educativo</span>
+            <span className="sr-only">{t("searchLabel")}</span>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Buscar sustancias o sistemas"
+              placeholder={t("searchPlaceholder")}
               className={`${previewFocus} w-56 rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink placeholder:text-soma-ink-muted`}
             />
           </label>
         }
       />
       <label className="sm:hidden">
-        <span className="sr-only">Buscar en el catálogo educativo</span>
+        <span className="sr-only">{t("searchLabel")}</span>
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Buscar sustancias o sistemas"
+          placeholder={t("searchPlaceholder")}
           className={`${previewFocus} w-full rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink placeholder:text-soma-ink-muted`}
         />
       </label>
 
       {loading ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-8 text-sm text-soma-ink-secondary">
-          Cargando el catálogo de sustancias…
+          {t("loading")}
         </p>
       ) : null}
 
       {error ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
-          No se ha podido cargar el catálogo de sustancias. Los sistemas anatómicos del atlas
-          siguen disponibles más abajo.
+          {t("loadError")}
         </p>
       ) : null}
 
       {!loading && !error && filteredSubstances.length === 0 && filteredSystems.length === 0 ? (
         <p className="rounded-2xl border border-dashed border-soma-line px-4 py-8 text-sm text-soma-ink-muted">
-          Ningún resultado del catálogo para «{query.trim()}».
+          {t("noResults", { query: query.trim() })}
         </p>
       ) : null}
 
       {filteredSubstances.length > 0 ? (
-        <section>
-          <h2 className="text-base font-semibold text-soma-ink">Sustancias</h2>
-          <p className="mt-0.5 text-xs text-soma-ink-muted">
-            Descripciones y cobertura educativa del catálogo Soma.
-          </p>
-          <ul className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-            {filteredSubstances.map((item) => {
-              const narrativeCount = narrativePairs.filter(
-                (pair) => pair.substanceId === item.id,
-              ).length;
-              const recoveryCount = recoveryPairs.filter(
-                (pair) => pair.substanceId === item.id,
-              ).length;
-              return (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenSubstance(item)}
-                    className={`${previewFocus} flex h-full w-full flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface text-left hover:border-soma-line-strong`}
-                  >
-                    <span className="flex h-36 items-center justify-center bg-[#101820] px-3">
-                      <SubstanceIllustration name={item.id} className="h-28 w-full" alt="" />
+        <section className="min-w-0">
+          <h2 className="text-base font-semibold text-soma-ink">{t("substancesTitle")}</h2>
+          <p className="mt-0.5 text-xs text-soma-ink-muted">{t("substancesHint")}</p>
+          <ul className="mt-3 grid grid-cols-2 items-stretch gap-3 md:grid-cols-3 xl:grid-cols-5">
+            {filteredSubstances.map((item) => (
+              <li key={item.id} className="min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setOpenSubstance(item)}
+                  className={`${previewFocus} flex h-full w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface text-left hover:border-soma-line-strong`}
+                >
+                  <span className="flex h-36 shrink-0 items-center justify-center bg-[#101820] px-3">
+                    <SubstanceIllustration name={item.id} className="h-28 w-full" alt="" />
+                  </span>
+                  <span className="flex min-h-0 flex-1 flex-col gap-1 p-3">
+                    <span className="font-semibold text-soma-ink">
+                      {substanceName(t, item.id, item.name)}
                     </span>
-                    <span className="flex flex-1 flex-col gap-1 p-3">
-                      <span className="font-semibold text-soma-ink">{item.name}</span>
-                      <span className="text-xs leading-snug text-soma-ink-muted">
-                        {narrativeCount} narrativas · {recoveryCount} curvas
-                      </span>
+                    <span className="text-xs leading-snug text-soma-ink-muted">
+                      {substanceDescription(t, item.id, item.shortDescription)}
                     </span>
-                  </button>
-                </li>
-              );
-            })}
+                  </span>
+                </button>
+              </li>
+            ))}
           </ul>
         </section>
       ) : null}
 
       {filteredSystems.length > 0 ? (
-        <section>
-          <h2 className="text-base font-semibold text-soma-ink">Sistemas anatómicos</h2>
-          <p className="mt-0.5 text-xs text-soma-ink-muted">
-            Los doce sistemas del atlas. Abre el explorador para ver láminas y fichas disponibles.
-          </p>
-          <ul className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {filteredSystems.map((system) => {
-              const coverage = systemSheetCoverage(system);
-              return (
-                <li key={system.id}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenSystemId(system.id)}
-                    className={`${previewFocus} h-full w-full rounded-2xl border border-soma-line bg-soma-surface p-4 text-left hover:border-soma-line-strong`}
-                  >
-                    <span className="block font-semibold text-soma-ink">{system.name}</span>
-                    <span className="mt-1 block text-xs leading-snug text-soma-ink-muted">
-                      {coverage.emptySystem
-                        ? "Sistema sin órganos asociados en el catálogo."
-                        : `${coverage.organCount} órganos · ${coverage.organsWithPlate} con ilustración · ${coverage.organsWithEducation} con ficha anatómica`}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
+        <section className="min-w-0">
+          <h2 className="text-base font-semibold text-soma-ink">{t("systemsTitle")}</h2>
+          <p className="mt-0.5 text-xs text-soma-ink-muted">{t("systemsHint")}</p>
+          <ul className="mt-3 grid items-stretch gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {filteredSystems.map((system) => (
+              <li key={system.id} className="min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setOpenSystemId(system.id)}
+                  className={`${previewFocus} flex h-full w-full min-w-0 flex-col rounded-2xl border border-soma-line bg-soma-surface p-4 text-left hover:border-soma-line-strong`}
+                >
+                  <span className="block font-semibold text-soma-ink">
+                    {systemName(t, system.id, system.name)}
+                  </span>
+                  <span className="mt-1 block text-xs leading-snug text-soma-ink-muted">
+                    {system.organs.length === 0
+                      ? t("systemEmpty")
+                      : joinOrganLabels(
+                          system.organs.map((organ) => organName(t, organ.id, organ.name)),
+                        )}
+                  </span>
+                </button>
+              </li>
+            ))}
           </ul>
         </section>
       ) : null}
 
       {openSubstance ? (
-        <DetailSheet title={openSubstance.name} onClose={() => setOpenSubstance(null)}>
+        <DetailSheet
+          title={substanceName(t, openSubstance.id, openSubstance.name)}
+          onClose={() => setOpenSubstance(null)}
+        >
           <SubstanceDetail
             substance={openSubstance}
-            narrativeCount={
-              narrativePairs.filter((pair) => pair.substanceId === openSubstance.id).length
-            }
-            recoveryCount={
-              recoveryPairs.filter((pair) => pair.substanceId === openSubstance.id).length
-            }
+            organIds={uniqueOrganIdsForSubstance(openSubstance.id, educationalPairs)}
             anatomyHref={`${base}/anatomy`}
           />
         </DetailSheet>
       ) : null}
 
       {openSystem ? (
-        <DetailSheet title={openSystem.name} onClose={() => setOpenSystemId(null)}>
+        <DetailSheet
+          title={systemName(t, openSystem.id, openSystem.name)}
+          onClose={() => setOpenSystemId(null)}
+        >
           <SystemDetail systemId={openSystem.id} base={base} />
         </DetailSheet>
       ) : null}
@@ -188,39 +206,40 @@ export function ExplorePage() {
 
 function SubstanceDetail({
   substance,
-  narrativeCount,
-  recoveryCount,
+  organIds,
   anatomyHref,
 }: {
   substance: ApiSubstance;
-  narrativeCount: number;
-  recoveryCount: number;
+  organIds: readonly string[];
   anatomyHref: string;
 }) {
+  const { t } = useTranslation("explore");
   return (
     <div className="space-y-3 text-sm text-soma-ink-secondary">
-      <p>{substance.shortDescription}</p>
-      <p>
-        Categoría del catálogo: {substance.category}. Perfiles de daño:{" "}
-        {substance.damageProfiles.length}. Logros asociados: {substance.achievements.length}.
-      </p>
-      <p>
-        Cobertura educativa indexada: {narrativeCount} pares órgano×sustancia con narrativa (
-        {narrativePhases.length} fases cada uno cuando existen) y {recoveryCount} curvas de
-        recuperación en el catálogo. Son datos del modelo, no una predicción clínica personal.
-      </p>
-      {narrativeCount === 0 && recoveryCount === 0 ? (
-        <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-soma-ink-muted">
-          Todavía no hay narrativas ni curvas educativas indexadas para esta sustancia en el
-          explorador.
-        </p>
-      ) : null}
+      <p>{substanceDescription(t, substance.id, substance.shortDescription)}</p>
+      <p>{t("catalogCategory", { category: categoryLabel(t, substance.category) })}</p>
+      <p>{t("catalogNotClinical")}</p>
+      <div>
+        <p className="font-medium text-soma-ink">{t("educationalOrgansTitle")}</p>
+        <p className="mt-1 text-xs text-soma-ink-muted">{t("educationalOrgansHint")}</p>
+        {organIds.length === 0 ? (
+          <p className="mt-2 rounded-xl border border-dashed border-soma-line px-3 py-2 text-soma-ink-muted">
+            {t("educationalOrgansEmpty")}
+          </p>
+        ) : (
+          <ul className="mt-2 space-y-1">
+            {organIds.map((organId) => (
+              <li key={organId}>{organName(t, organId, organId)}</li>
+            ))}
+          </ul>
+        )}
+      </div>
       <p>
         <Link
           to={anatomyHref}
           className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
         >
-          Abrir el explorador anatómico
+          {t("openAnatomy")}
         </Link>
       </p>
     </div>
@@ -228,31 +247,24 @@ function SubstanceDetail({
 }
 
 function SystemDetail({ systemId, base }: { systemId: string; base: "/app" | "/preview" }) {
+  const { t } = useTranslation("explore");
   const system = atlasSystems.find((item) => item.id === systemId);
   if (!system) return null;
-  const sheets = listOrganSheets(system);
 
   return (
     <div className="space-y-3 text-sm text-soma-ink-secondary">
-      {sheets.length === 0 ? (
+      {system.organs.length === 0 ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-soma-ink-muted">
-          Este sistema todavía no tiene órganos asociados en el catálogo del atlas.
+          {t("systemNoOrgans")}
         </p>
       ) : (
         <ul className="space-y-2">
-          {sheets.map((sheet) => (
-            <li key={sheet.organId} className="rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2">
-              <p className="font-medium text-soma-ink">{sheet.name}</p>
-              <p className="mt-1 text-xs text-soma-ink-muted">
-                {sheet.availability.hasPlate
-                  ? "Ilustración individual disponible."
-                  : "Sin ilustración individual."}{" "}
-                {sheet.availability.hasEducation
-                  ? "Ficha anatómica disponible."
-                  : "Sin ficha anatómica todavía."}{" "}
-                {sheet.availability.narrativeSubstanceIds.length} narrativas ·{" "}
-                {sheet.availability.recoverySubstanceIds.length} curvas.
-              </p>
+          {system.organs.map((organ) => (
+            <li
+              key={organ.id}
+              className="rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2 font-medium text-soma-ink"
+            >
+              {organName(t, organ.id, organ.name)}
             </li>
           ))}
         </ul>
@@ -262,9 +274,41 @@ function SystemDetail({ systemId, base }: { systemId: string; base: "/app" | "/p
           to={`${base}/anatomy`}
           className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
         >
-          Ver en el explorador anatómico
+          {t("viewInAnatomy")}
         </Link>
       </p>
     </div>
+  );
+}
+
+function substanceName(t: TFunction, id: string, fallback: string): string {
+  return localizedCatalogLabel(
+    t(`${id}.name`, { ns: "substances", defaultValue: fallback }),
+    fallback,
+    id,
+  );
+}
+
+function substanceDescription(t: TFunction, id: string, fallback: string): string {
+  return localizedCatalogLabel(
+    t(`${id}.shortDescription`, { ns: "substances", defaultValue: fallback }),
+    fallback,
+    id,
+  );
+}
+
+function organName(t: TFunction, id: string, fallback: string): string {
+  return localizedCatalogLabel(t(id, { ns: "organs", defaultValue: fallback }), fallback, id);
+}
+
+function systemName(t: TFunction, id: string, fallback: string): string {
+  return localizedCatalogLabel(t(`systems.${id}`, { defaultValue: fallback }), fallback, id);
+}
+
+function categoryLabel(t: TFunction, category: string): string {
+  return localizedCatalogLabel(
+    t(`categories.${category}`, { defaultValue: category }),
+    category,
+    category,
   );
 }
