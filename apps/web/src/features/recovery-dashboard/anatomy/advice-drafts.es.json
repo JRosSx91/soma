@@ -1,0 +1,151 @@
+{
+  "draft": {
+    "advice": {
+      "meta": {
+        "preliminaryPhases": "La asociación de sustancia y fase es una asignación editorial preliminar. Las fases educativas del atlas no son un calendario clínico personal."
+      },
+      "alcohol": {
+        "withdrawal": {
+          "assessment": {
+            "title": "Asesoramiento antes de reducir el alcohol",
+            "body": "Si puede existir dependencia física del alcohol, busca asesoramiento sanitario antes de reducir o dejar el consumo de forma brusca. Una bajada súbita puede provocar abstinencia grave en personas dependientes."
+          },
+          "emergency": {
+            "title": "Síntomas intensos durante la abstinencia de alcohol",
+            "body": "Las convulsiones, la confusión intensa o la desorientación durante una posible abstinencia de alcohol requieren atención médica inmediata."
+          },
+          "nutrition": {
+            "title": "Vitamina B1 y consumo de alcohol",
+            "body": "El consumo de alcohol de riesgo puede relacionarse con déficit de vitamina B1. Un profesional sanitario puede valorar si necesitas tiamina."
+          }
+        },
+        "overdose": {
+          "emergency": {
+            "title": "Intoxicación grave por alcohol",
+            "body": "La pérdida de conciencia, la respiración lenta o irregular o las convulsiones tras beber pueden ser signos de sobredosis de alcohol. Si las sospechas, llama a emergencias; no esperes a que aparezcan todos los síntomas."
+          }
+        },
+        "interactions": {
+          "sedatives": {
+            "title": "Alcohol y medicamentos sedantes",
+            "body": "Combinar alcohol con benzodiacepinas, opioides o hipnóticos para dormir aumenta el riesgo de sedación intensa y de problemas respiratorios."
+          }
+        }
+      },
+      "nicotine": {
+        "cessation": {
+          "support": {
+            "title": "Apoyo para dejar el tabaco",
+            "body": "El asesoramiento conductual y los tratamientos para dejar el tabaco pueden aumentar las posibilidades de abandonar el consumo. Consulta las opciones disponibles."
+          },
+          "triggers": {
+            "title": "Desencadenantes del consumo de nicotina",
+            "body": "El deseo de fumar a menudo se asocia a personas, lugares o hábitos. Identificar esos disparadores y tener otra actividad a mano (distraerte u ocuparte) puede ayudar."
+          }
+        },
+        "withdrawal": {
+          "cravings": {
+            "title": "Cómo gestionar el deseo de nicotina",
+            "body": "Cuando aparezca el deseo de fumar, prueba a distraerte, caminar o escribir o llamar a alguien de confianza. Ese deseo puede pasar sin fumar."
+          },
+          "sleep": {
+            "title": "Sueño durante la abstinencia de nicotina",
+            "body": "Al dejar de fumar, mantener horarios regulares de sueño y evitar la cafeína por la tarde o noche puede ayudar: al dejar el tabaco la cafeína puede durar más en el cuerpo."
+          },
+          "mood": {
+            "title": "Cambios de ánimo al dejar la nicotina",
+            "body": "Es frecuente experimentar irritabilidad al dejar de fumar. Si los cambios de ánimo son intensos, persisten o dificultan tus actividades cotidianas, consulta con un profesional sanitario."
+          }
+        }
+      },
+      "cannabis": {
+        "withdrawal": {
+          "symptoms": {
+            "title": "Síntomas al reducir el cannabis",
+            "body": "Tras reducir o abandonar un consumo frecuente de cannabis pueden aparecer irritabilidad, ansiedad, problemas de sueño y cambios del apetito. No atribuyas automáticamente cualquier síntoma a la abstinencia."
+          },
+          "sleep": {
+            "title": "Sueño durante la abstinencia de cannabis",
+            "body": "Durante la abstinencia de cannabis pueden aparecer sueños intensos y dificultades para dormir. Si el problema persiste, pide valoración."
+          },
+          "mood": {
+            "title": "Ánimo durante la abstinencia de cannabis",
+            "body": "Si aparecen cambios importantes del ánimo, ansiedad intensa o dificultades para funcionar, solicita valoración profesional."
+          }
+        },
+        "recovery": {
+          "support": {
+            "title": "Apoyo psicológico para el cannabis",
+            "body": "Si te resulta difícil reducir o dejar el cannabis, hay intervenciones psicológicas que pueden ayudarte, como terapias conductuales. Pregunta por las opciones; no sustituyen un plan individual."
+          }
+        },
+        "mental_health": {
+          "support": {
+            "title": "Cannabis y síntomas psicológicos",
+            "body": "Si el consumo de cannabis coincide con síntomas psicológicos preocupantes o con el empeoramiento de problemas previos, busca atención sanitaria. Eso no demuestra por sí solo la causa."
+          }
+        }
+      },
+      "cocaine": {
+        "intoxication": {
+          "chest_pain": {
+            "title": "Dolor torácico y cocaína",
+            "body": "El dolor torácico durante o después del consumo de cocaína requiere valoración médica urgente. La edad no lo hace menos importante."
+          },
+          "neurological": {
+            "title": "Síntomas neurológicos y cocaína",
+            "body": "Las convulsiones o la pérdida de conciencia tras consumir cocaína requieren atención de urgencias. La aparición súbita de debilidad, dificultad para hablar o confusión intensa también requiere asistencia urgente."
+          }
+        },
+        "alcohol": {
+          "interaction": {
+            "title": "Mezclar cocaína y alcohol",
+            "body": "Combinar cocaína y alcohol puede aumentar los riesgos cardiovasculares, incluidos algunos desenlaces graves. Evita mezclar ambas sustancias."
+          }
+        },
+        "recovery": {
+          "behavioral_support": {
+            "title": "Apoyo conductual para estimulantes",
+            "body": "Las guías clínicas recogen intervenciones conductuales para el trastorno por estimulantes, entre ellas el manejo de contingencias. Pregunta por programas especializados. Ningún programa garantiza el resultado."
+          }
+        },
+        "withdrawal": {
+          "mood": {
+            "title": "Ánimo tras dejar la cocaína",
+            "body": "Si al dejar la cocaína aparecen un ánimo muy bajo o pensamientos de autolesión, busca ayuda profesional ahora. Ante peligro inmediato, llama a emergencias. No esperes a una fase del calendario."
+          }
+        }
+      },
+      "caffeine": {
+        "intake": {
+          "sensitivity": {
+            "title": "Tolerancia individual a la cafeína",
+            "body": "La tolerancia a la cafeína varía entre personas. Los 400 mg diarios citados por la FDA para la mayoría de adultos no son un objetivo ni garantizan seguridad individual."
+          }
+        },
+        "withdrawal": {
+          "gradual_reduction": {
+            "title": "Reducir la cafeína de forma gradual",
+            "body": "Si consumes cafeína habitualmente y quieres reducirla, hacerlo gradualmente puede ayudarte a evitar molestias asociadas a la retirada brusca."
+          },
+          "headache": {
+            "title": "Molestias al dejar la cafeína",
+            "body": "Si dejas la cafeína de golpe, pueden aparecer dolor de cabeza, somnolencia e irritabilidad. No presupongas que un síntoma intenso o inusual se debe solo a la abstinencia."
+          }
+        },
+        "sleep": {
+          "anxiety": {
+            "title": "Cafeína, sueño y ansiedad",
+            "body": "Si la cafeína empeora tu sueño o tu ansiedad, considera reducirla. Sus efectos pueden durar varias horas, así que evita tomarla a última hora."
+          }
+        },
+        "medication": {
+          "interactions": {
+            "title": "Cafeína y otros tratamientos",
+            "body": "Algunos medicamentos y enfermedades pueden modificar los riesgos de la cafeína. Consulta con un profesional sanitario si tienes dudas sobre posibles interacciones."
+          }
+        }
+      }
+    }
+  }
+}

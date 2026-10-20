@@ -1,0 +1,151 @@
+{
+  "draft": {
+    "advice": {
+      "meta": {
+        "preliminaryPhases": "The substance and phase association is a preliminary editorial assignment. Atlas educational phases are not a personal clinical timeline."
+      },
+      "alcohol": {
+        "withdrawal": {
+          "assessment": {
+            "title": "Advice before cutting down on alcohol",
+            "body": "If physical alcohol dependence may be present, seek medical advice before abruptly cutting down or stopping. A sudden drop in intake can cause severe withdrawal in dependent drinkers."
+          },
+          "emergency": {
+            "title": "Intense symptoms during alcohol withdrawal",
+            "body": "Seizures, severe confusion, or disorientation during possible alcohol withdrawal require immediate medical attention."
+          },
+          "nutrition": {
+            "title": "Vitamin B1 and alcohol use",
+            "body": "Harmful alcohol use may be associated with vitamin B1 deficiency. A healthcare professional can assess whether thiamine is needed."
+          }
+        },
+        "overdose": {
+          "emergency": {
+            "title": "Severe alcohol intoxication",
+            "body": "Loss of consciousness, slow or irregular breathing, or seizures after drinking may be signs of alcohol overdose. If you suspect it, call emergency services; do not wait for every symptom to appear."
+          }
+        },
+        "interactions": {
+          "sedatives": {
+            "title": "Alcohol and sedative medicines",
+            "body": "Combining alcohol with benzodiazepines, opioids, or hypnotic sleeping medicines increases the risk of profound sedation and breathing problems."
+          }
+        }
+      },
+      "nicotine": {
+        "cessation": {
+          "support": {
+            "title": "Support for stopping tobacco",
+            "body": "Behavioral counseling and tobacco cessation treatments can improve the chances of quitting. Ask about available options."
+          },
+          "triggers": {
+            "title": "Nicotine use triggers",
+            "body": "The urge to smoke is often tied to people, places, or habits. Noticing those triggers and having another activity ready (distraction or keeping busy) may help."
+          }
+        },
+        "withdrawal": {
+          "cravings": {
+            "title": "Managing nicotine cravings",
+            "body": "When the urge to smoke arises, try distracting yourself, taking a walk, or texting or calling someone you trust. The urge can pass without smoking."
+          },
+          "sleep": {
+            "title": "Sleep during nicotine withdrawal",
+            "body": "After quitting smoking, a regular sleep schedule and avoiding caffeine in the afternoon or evening may help: caffeine can last longer in the body after you stop smoking."
+          },
+          "mood": {
+            "title": "Mood changes when stopping nicotine",
+            "body": "Irritability is common after quitting smoking. If mood changes are severe, persistent, or interfere with daily activities, seek advice from a healthcare professional."
+          }
+        }
+      },
+      "cannabis": {
+        "withdrawal": {
+          "symptoms": {
+            "title": "Symptoms when reducing cannabis",
+            "body": "Reducing or stopping frequent cannabis use may cause irritability, anxiety, sleep problems, and appetite changes. Do not automatically attribute every symptom to withdrawal."
+          },
+          "sleep": {
+            "title": "Sleep during cannabis withdrawal",
+            "body": "Vivid or unusual dreams and sleep difficulties may occur during cannabis withdrawal. If the problem persists, seek assessment."
+          },
+          "mood": {
+            "title": "Mood during cannabis withdrawal",
+            "body": "Seek professional assessment if significant mood changes, intense anxiety, or difficulty functioning occur."
+          }
+        },
+        "recovery": {
+          "support": {
+            "title": "Psychological support for cannabis use",
+            "body": "If reducing or stopping cannabis is difficult, psychological interventions such as behavioral therapies may help. Ask about options; they are not a personal guarantee."
+          }
+        },
+        "mental_health": {
+          "support": {
+            "title": "Cannabis and psychological symptoms",
+            "body": "Seek healthcare support if cannabis use coincides with concerning psychological symptoms or with worsening of existing problems. That alone does not prove the cause."
+          }
+        }
+      },
+      "cocaine": {
+        "intoxication": {
+          "chest_pain": {
+            "title": "Chest pain and cocaine",
+            "body": "Chest pain during or after cocaine use requires urgent medical assessment. Age does not make it less important."
+          },
+          "neurological": {
+            "title": "Neurological symptoms and cocaine",
+            "body": "Seizures or loss of consciousness after cocaine use require emergency care. Sudden weakness, trouble speaking, or severe confusion also require emergency care."
+          }
+        },
+        "alcohol": {
+          "interaction": {
+            "title": "Mixing cocaine and alcohol",
+            "body": "Combining cocaine and alcohol may increase cardiovascular risks, including some serious outcomes. Avoid using them together."
+          }
+        },
+        "recovery": {
+          "behavioral_support": {
+            "title": "Behavioral support for stimulant use",
+            "body": "Clinical guidelines include behavioral interventions for stimulant use disorder, including contingency management. Ask about specialized programs. No program guarantees an individual outcome."
+          }
+        },
+        "withdrawal": {
+          "mood": {
+            "title": "Mood after stopping cocaine",
+            "body": "If very low mood or thoughts of self-harm occur after stopping cocaine, seek professional help now. If there is immediate danger, call emergency services. Do not wait for a calendar phase."
+          }
+        }
+      },
+      "caffeine": {
+        "intake": {
+          "sensitivity": {
+            "title": "Individual caffeine tolerance",
+            "body": "Caffeine tolerance varies between individuals. The FDA's 400 mg daily reference for most adults is neither a target nor a guarantee of individual safety."
+          }
+        },
+        "withdrawal": {
+          "gradual_reduction": {
+            "title": "Cutting back on caffeine gradually",
+            "body": "If you regularly consume caffeine and want to cut back, reducing it gradually may help you avoid discomfort associated with stopping suddenly."
+          },
+          "headache": {
+            "title": "Discomfort when stopping caffeine",
+            "body": "If you stop caffeine suddenly, headaches, drowsiness, and irritability can occur. Do not assume severe or unusual symptoms are caused solely by withdrawal."
+          }
+        },
+        "sleep": {
+          "anxiety": {
+            "title": "Caffeine, sleep, and anxiety",
+            "body": "If caffeine worsens your sleep or anxiety, consider cutting back. Effects can last several hours, so avoid it late in the day."
+          }
+        },
+        "medication": {
+          "interactions": {
+            "title": "Caffeine and other treatments",
+            "body": "Certain medicines and medical conditions may affect caffeine-related risks. Ask a healthcare professional if you are concerned about interactions."
+          }
+        }
+      }
+    }
+  }
+}
