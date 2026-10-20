@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
+import type { AnatomySource } from "../anatomy/anatomy-education.js";
+import { presentAnatomySource } from "../anatomy/present-catalog-reference.js";
 import type { OrganAnatomicalSheet } from "../anatomy/organ-sheet.js";
 import type { SystemAnatomicalSheet } from "../anatomy/system-sheet.js";
 
@@ -40,25 +42,7 @@ export function OrganSheetSummary({
           <AnatomyNote title={t("anatomy")} text={education.anatomy} />
           <AnatomyNote title={t("function")} text={education.physiology} />
           <AnatomyNote title={t("relations")} text={education.relations} />
-          {education.sources.length > 0 ? (
-            <div>
-              <h3 className="text-xs font-semibold text-soma-ink">{t("sources")}</h3>
-              <ul className="mt-1 space-y-1">
-                {education.sources.map((source) => (
-                  <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
-                    <a
-                      href={source.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
-                    >
-                      {source.citation}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+          {education.sources.length > 0 ? <AnatomySourceList sources={education.sources} /> : null}
         </div>
       ) : (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs leading-relaxed text-soma-ink-muted">
@@ -123,25 +107,7 @@ export function SystemSheetSummary({
           <AnatomyNote title={t("anatomy")} text={education.anatomy} />
           <AnatomyNote title={t("function")} text={education.physiology} />
           <AnatomyNote title={t("relations")} text={education.relations} />
-          {education.sources.length > 0 ? (
-            <div>
-              <h3 className="text-xs font-semibold text-soma-ink">{t("sources")}</h3>
-              <ul className="mt-1 space-y-1">
-                {education.sources.map((source) => (
-                  <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
-                    <a
-                      href={source.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
-                    >
-                      {source.citation}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+          {education.sources.length > 0 ? <AnatomySourceList sources={education.sources} /> : null}
         </div>
       ) : emptySystem ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs leading-relaxed text-soma-ink-muted">
@@ -190,5 +156,50 @@ function AnatomyNote({ title, text }: { title: string; text: string }) {
       <h3 className="text-xs font-semibold text-soma-ink">{title}</h3>
       <p>{text}</p>
     </section>
+  );
+}
+
+function AnatomySourceList({ sources }: { sources: readonly AnatomySource[] }) {
+  const { t } = useTranslation("anatomy");
+
+  return (
+    <div>
+      <h3 className="text-xs font-semibold text-soma-ink">{t("sources")}</h3>
+      <ul className="mt-1 space-y-1">
+        {sources.map((source) => {
+          const presented = presentAnatomySource(source);
+          return (
+            <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
+              {presented.useVerifiedLinkStyle ? (
+                <a
+                  href={presented.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
+                >
+                  {presented.citation}
+                </a>
+              ) : (
+                <span>
+                  {presented.href ? (
+                    <a
+                      href={presented.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`${previewFocus} underline decoration-soma-line`}
+                    >
+                      {presented.citation}
+                    </a>
+                  ) : (
+                    presented.citation
+                  )}
+                  <span className="mt-0.5 block">{t("anatomySourceUnverified")}</span>
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

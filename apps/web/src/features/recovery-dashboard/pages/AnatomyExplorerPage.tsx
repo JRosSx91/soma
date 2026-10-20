@@ -25,6 +25,7 @@ import { resolveOrganSheet } from "../anatomy/organ-sheet.js";
 import { resolveSystemSheet } from "../anatomy/system-sheet.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { PageHeading } from "../components/PageHeading.js";
+import { CatalogEvidenceNote } from "../components/CatalogEvidenceNote.js";
 import {
   OrganSheetSummary,
   SystemSheetSummary,
@@ -609,6 +610,9 @@ function EffectsPanel({
           >
             {t("signalingTitle")}
           </h3>
+          <p className="text-[11px] leading-relaxed text-soma-ink-muted">
+            {t("signalingAttribution")}
+          </p>
           <ul className="space-y-2">
             {signaling.map((entry) => {
               const mechanism = entry.mechanismKey
@@ -643,12 +647,10 @@ function EffectsPanel({
       ) : null}
 
       {narrative ? (
-        <p className="text-[11px] leading-relaxed text-soma-ink-muted">
-          {t("sourceRecord", {
-            source: narrative.referenceSource,
-            confidence: t(`confidence.${narrative.confidenceLevel}`),
-          })}
-        </p>
+        <CatalogEvidenceNote
+          rawSource={narrative.referenceSource}
+          confidenceLevel={narrative.confidenceLevel}
+        />
       ) : null}
     </div>
   );
@@ -738,12 +740,12 @@ function RecoveryPanel({
         </div>
       </dl>
 
-      <p className="text-[11px] leading-relaxed text-soma-ink-muted">
-        {t("sourceRecord", {
-          source: curve.referenceSource,
-          confidence: t(`confidence.${curve.confidenceLevel}`),
-        })}
-      </p>
+      <p className="text-xs leading-relaxed text-soma-ink">{t("catalogEstimateNotice")}</p>
+
+      <CatalogEvidenceNote
+        rawSource={curve.referenceSource}
+        confidenceLevel={curve.confidenceLevel}
+      />
     </div>
   );
 }

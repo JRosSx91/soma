@@ -32,6 +32,20 @@
   "generalDisclaimer": "General educational information. It does not replace an individual medical assessment.",
   "signalingTitle": "Neurochemical signaling",
   "sourceRecord": "Source: {{source}}. Catalog record: {{confidence}}.",
+  "catalogEstimateNotice": "Educational catalog estimate. It is not an individual measurement or prognosis.",
+  "signalingAttribution": "This block uses educational neurotransmitter profiles from the catalog. An organ-narrative source, when present, does not automatically verify these statements.",
+  "modelConfidence": "Model confidence: {{level}}.",
+  "referenceStatus": {
+    "pending": "This catalog record is pending bibliographic verification. It is not a confirmed source.",
+    "unverified": "Citation as recorded in the catalog. Bibliographic verification has not been confirmed in this explorer.",
+    "insufficient": "No identifiable bibliographic source is recorded for this catalog item."
+  },
+  "confidenceMeaning": {
+    "high": "This describes how consolidated the catalog model is, not whether a source was checked.",
+    "medium": "This describes mixed or limited evidence in the catalog model, not bibliographic verification.",
+    "low": "This describes scarce or uncertain evidence in the catalog model, not bibliographic verification."
+  },
+  "anatomySourceUnverified": "Recorded link; verification of this source is not confirmed on this sheet.",
   "substanceLegend": "Substance",
   "phaseLegend": "Phase",
   "missingScientificText": "This text is not available in the current language.",

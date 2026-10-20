@@ -32,6 +32,20 @@
   "generalDisclaimer": "Información educativa general. No sustituye una evaluación médica individual.",
   "signalingTitle": "Señalización neuroquímica",
   "sourceRecord": "Fuente: {{source}}. Registro del catálogo: {{confidence}}.",
+  "catalogEstimateNotice": "Estimación educativa del catálogo. No representa una medición ni un pronóstico individual.",
+  "signalingAttribution": "Este bloque usa perfiles educativos de neurotransmisores del catálogo. La referencia de la narrativa del órgano, si existe, no verifica automáticamente estas afirmaciones.",
+  "modelConfidence": "Confianza del modelo: {{level}}.",
+  "referenceStatus": {
+    "pending": "Registro del catálogo pendiente de verificación bibliográfica. No es una fuente confirmada.",
+    "unverified": "Cita registrada en el catálogo. En este explorador no se ha confirmado su verificación bibliográfica.",
+    "insufficient": "No hay una referencia bibliográfica identificable para este registro."
+  },
+  "confidenceMeaning": {
+    "high": "Describe cuán consolidado está el modelo del catálogo, no si se comprobó una fuente.",
+    "medium": "Describe evidencia mixta o limitada en el modelo del catálogo, no una verificación bibliográfica.",
+    "low": "Describe evidencia escasa o incierta en el modelo del catálogo, no una verificación bibliográfica."
+  },
+  "anatomySourceUnverified": "Enlace registrado; la verificación de esta fuente no está confirmada en esta ficha.",
   "substanceLegend": "Sustancia",
   "phaseLegend": "Fase",
   "missingScientificText": "Este texto no está disponible en el idioma actual.",
