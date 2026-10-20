@@ -83,7 +83,7 @@ function ChartPlot({
 }) {
   const { width, height, pad } = plot;
   const innerW = width - pad.l - pad.r;
-  const todayX = pad.l + chart.todayPosition * innerW;
+  const todayX = chart.showToday ? pad.l + chart.todayPosition * innerW : null;
   const ticks = [1, 0.75, 0.5, 0.25, 0];
   const axisLabels = chart.axisLabels;
 
@@ -132,34 +132,38 @@ function ChartPlot({
           </text>
         );
       })}
-      <line
-        x1={todayX}
-        x2={todayX}
-        y1={pad.t}
-        y2={height - pad.b}
-        stroke="rgb(var(--soma-ink-muted))"
-        strokeDasharray="3 4"
-      />
-      <g transform={`translate(${todayX}, 4)`}>
-        <rect
-          x="-46"
-          y="0"
-          width="92"
-          height="18"
-          rx="9"
-          fill="rgb(var(--soma-canvas))"
-          stroke="rgb(var(--soma-line))"
-        />
-        <text
-          x="0"
-          y="13"
-          textAnchor="middle"
-          fill="rgb(var(--soma-ink))"
-          fontSize="10"
-        >
-          {chart.todayLabel}
-        </text>
-      </g>
+      {chart.showToday && todayX != null ? (
+        <>
+          <line
+            x1={todayX}
+            x2={todayX}
+            y1={pad.t}
+            y2={height - pad.b}
+            stroke="rgb(var(--soma-ink-muted))"
+            strokeDasharray="3 4"
+          />
+          <g transform={`translate(${todayX}, 4)`}>
+            <rect
+              x="-46"
+              y="0"
+              width="92"
+              height="18"
+              rx="9"
+              fill="rgb(var(--soma-canvas))"
+              stroke="rgb(var(--soma-line))"
+            />
+            <text
+              x="0"
+              y="13"
+              textAnchor="middle"
+              fill="rgb(var(--soma-ink))"
+              fontSize="10"
+            >
+              {chart.todayLabel}
+            </text>
+          </g>
+        </>
+      ) : null}
       {chart.series.map((series) => {
         const dimmed = seriesId !== "general" && seriesId !== series.id;
         return (
@@ -282,12 +286,14 @@ export function EvolutionChart({
                       </span>
                     ) : null}
                   </span>
-                  <span className="shrink-0 text-right font-medium tabular-nums text-soma-ink">
-                    <span className="sr-only">
-                      {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+                  {chart.showToday ? (
+                    <span className="shrink-0 text-right font-medium tabular-nums text-soma-ink">
+                      <span className="sr-only">
+                        {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+                      </span>
+                      {item.endLabel}
                     </span>
-                    {item.endLabel}
-                  </span>
+                  ) : null}
                 </li>
               );
             })}
@@ -299,12 +305,18 @@ export function EvolutionChart({
         <div className="sr-only" style={{ contain: "strict" }}>
           <table>
             <caption>
-              {live ? t("chartCaptionLive") : t("chartCaptionDemo")}
+              {live
+                ? chart.showToday
+                  ? t("chartCaptionLive")
+                  : t("chartCaptionLiveOverlay")
+                : t("chartCaptionDemo")}
             </caption>
             <thead>
               <tr>
                 <th scope="col">{t("chartTableSeries")}</th>
-                <th scope="col">{t("chartTableToday")}</th>
+                {chart.showToday ? (
+                  <th scope="col">{t("chartTableToday")}</th>
+                ) : null}
                 {chart.axisLabels.map((label) => (
                   <th key={label} scope="col">
                     {label}
@@ -316,7 +328,7 @@ export function EvolutionChart({
               {series.map((item) => (
                 <tr key={item.id}>
                   <th scope="row">{item.label}</th>
-                  <td>{item.endLabel}</td>
+                  {chart.showToday ? <td>{item.endLabel}</td> : null}
                   {item.samples.map((sample, index) => (
                     <td key={chart.axisLabels[index] ?? index}>
                       {formatTrajectoryPercent(sample)}

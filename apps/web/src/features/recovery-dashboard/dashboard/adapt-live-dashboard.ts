@@ -114,6 +114,8 @@ export interface LiveChartModel {
   axisLabels: readonly string[];
   todayPosition: number;
   todayLabel: string;
+  /** False when an overlay would imply a single shared abstinence “now”. */
+  showToday: boolean;
   series: readonly DemoSeries[];
   footnote: string;
 }
@@ -316,6 +318,8 @@ function worstCurveProgressAtDay(
  * Axis samples are model checkpoints at fixed day marks (projection).
  * Legend `endLabel` is today’s trajectory advance (elapsed abstinence days),
  * not the day-365 sample. `referenceAtYearLabel` keeps the day-365 checkpoint.
+ * Multi-substance overlays omit Today labels; they would share one elapsed-day
+ * reference that is not each substance’s real abstinence.
  */
 export function buildLiveChart(input: {
   usages: readonly ProfileUsage[];
@@ -365,6 +369,9 @@ export function buildLiveChart(input: {
     }
   }
 
+  const overlaySubstanceCount = new Set(usages.map((usage) => usage.substanceId)).size;
+  const showToday = Boolean(input.substanceId) || overlaySubstanceCount <= 1;
+
   const series: DemoSeries[] = [];
   for (const [system, curves] of curvesBySystem) {
     const meta = SYSTEM_META[system];
@@ -373,14 +380,19 @@ export function buildLiveChart(input: {
     const samples = LIVE_AXIS_DAYS.map((day) =>
       worstCurveProgressAtDay(curves, day),
     );
-    const todayProgress = worstCurveProgressAtDay(curves, referenceDays);
     const yearProgress = samples[samples.length - 1] ?? 0;
+    const todayProgress = showToday
+      ? worstCurveProgressAtDay(curves, referenceDays)
+      : null;
 
     series.push({
       id: meta.id,
       label: meta.name,
       samples,
-      endLabel: formatLabeledPercent(copy.today, todayProgress),
+      endLabel:
+        todayProgress != null
+          ? formatLabeledPercent(copy.today, todayProgress)
+          : "",
       referenceAtYearLabel: formatLabeledPercent(copy.day365, yearProgress),
       color: meta.seriesColor,
     });
@@ -388,8 +400,9 @@ export function buildLiveChart(input: {
 
   series.sort((a, b) => a.label.localeCompare(b.label, "es"));
 
-  const todayLabel =
-    referenceDays > 0
+  const todayLabel = !showToday
+    ? ""
+    : referenceDays > 0
       ? referenceName
         ? fillRecoveryTemplate(copy.todayWithDaysAndName, {
             today: copy.today,
@@ -406,8 +419,9 @@ export function buildLiveChart(input: {
     axisLabels: copy.axisLabels,
     todayPosition: todayPositionOnAxis(referenceDays),
     todayLabel,
+    showToday,
     series,
-    footnote: copy.liveFootnote,
+    footnote: showToday ? copy.liveFootnote : copy.liveFootnoteOverlay,
   };
 }
 

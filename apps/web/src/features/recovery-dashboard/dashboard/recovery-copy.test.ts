@@ -34,4 +34,8 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.match(phaseEs, /confianza alta/);
   assert.match(phaseEn, /confidence high/);
   assert.equal(SPANISH_RECOVERY_COPY.today, es.today);
+  assert.equal(es.liveFootnoteOverlay, SPANISH_RECOVERY_COPY.liveFootnoteOverlay);
+  assert.match(es.liveFootnoteOverlay, /puntos de referencia/);
+  assert.match(en.liveFootnoteOverlay, /checkpoints/);
+  assert.notEqual(es.liveFootnote, es.liveFootnoteOverlay);
 });

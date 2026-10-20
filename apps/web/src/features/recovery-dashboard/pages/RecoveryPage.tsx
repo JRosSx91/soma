@@ -134,6 +134,11 @@ export function RecoveryPage() {
 
   if (!substance) return null;
 
+  const selectSubstance = (id: string) => {
+    setSubstanceId(id);
+    setTab("substance");
+  };
+
   const showChart =
     tab === "general" ||
     (tab === "system" &&
@@ -151,22 +156,28 @@ export function RecoveryPage() {
         description={live ? t("liveDescription") : t("demoDescription")}
         demo={dashboard.showDemoBadge}
         aside={
-          <label className="relative">
-            <span className="sr-only">
-              {live ? t("substanceSelectLive") : t("substanceSelectDemo")}
-            </span>
-            <select
-              value={substance.id}
-              onChange={(event) => setSubstanceId(event.target.value)}
-              className={`${previewFocus} appearance-none rounded-xl border border-soma-line bg-soma-surface py-2 pl-3 pr-8 text-sm text-soma-ink`}
-            >
-              {dashboard.substances.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.pillDetail}
-                </option>
-              ))}
-            </select>
-          </label>
+          tab === "substance" ? (
+            <label className="relative">
+              <span className="sr-only">
+                {live ? t("substanceSelectLive") : t("substanceSelectDemo")}
+              </span>
+              <select
+                value={substance.id}
+                onChange={(event) => selectSubstance(event.target.value)}
+                className={`${previewFocus} appearance-none rounded-xl border border-soma-line bg-soma-surface py-2 pl-3 pr-8 text-sm text-soma-ink`}
+              >
+                {dashboard.substances.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.pillDetail}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : (
+            <p className="rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink">
+              {t("substanceSelectAll")}
+            </p>
+          )
         }
       />
 
@@ -183,8 +194,8 @@ export function RecoveryPage() {
             <li key={item.id}>
               <SubstanceCard
                 substance={item}
-                selected={item.id === substance.id}
-                onSelect={setSubstanceId}
+                selected={tab === "substance" && item.id === substance.id}
+                onSelect={selectSubstance}
               />
             </li>
           ))}

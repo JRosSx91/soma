@@ -36,6 +36,7 @@ export interface DashboardChartView {
   axisLabels: readonly string[];
   todayPosition: number;
   todayLabel: string;
+  showToday: boolean;
   series: readonly DemoSeries[];
   footnote: string;
 }
@@ -76,6 +77,7 @@ function demoChart(copy: RecoveryDashboardCopy): DashboardChartView {
       today: copy.today,
       days: formatDaysAbstinent(42, copy),
     }),
+    showToday: true,
     series: demoSeries.map((item) => ({
       ...item,
       endLabel: formatLabeledPercent(copy.today, percentFromLabel(item.endLabel)),
@@ -95,6 +97,7 @@ function liveChartToView(chart: LiveChartModel): DashboardChartView {
     axisLabels: chart.axisLabels,
     todayPosition: chart.todayPosition,
     todayLabel: chart.todayLabel,
+    showToday: chart.showToday,
     series: chart.series,
     footnote: chart.footnote,
   };
@@ -105,6 +108,7 @@ function emptyLiveChart(copy: RecoveryDashboardCopy): DashboardChartView {
     axisLabels: copy.axisLabels,
     todayPosition: 0,
     todayLabel: copy.today,
+    showToday: false,
     series: [],
     footnote: "",
   };

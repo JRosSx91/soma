@@ -266,6 +266,78 @@ test("filtering by substance uses that substance contribution, not the multi-sub
   assert.doesNotMatch(forCannabis.changes[0]?.body ?? "", /nicotina/);
 });
 
+test("multi-substance overlay hides Today and keeps checkpoint axis", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: "2026-09-18T00:00:00.000Z",
+      frequency: "daily",
+      status: "abstinent",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: "2026-05-18T00:00:00.000Z",
+      frequency: "weekly",
+      status: "abstinent",
+    },
+  ];
+
+  const overlay = buildLiveChart({
+    usages,
+    substances: [nicotine, cannabis],
+    substanceId: null,
+    now,
+  });
+  assert.equal(overlay.showToday, false);
+  assert.equal(overlay.todayLabel, "");
+  assert.equal(overlay.footnote, SPANISH_RECOVERY_COPY.liveFootnoteOverlay);
+  assert.doesNotMatch(overlay.footnote, /«Hoy» usa los días reales/);
+  assert.ok(overlay.series.length > 0);
+  for (const series of overlay.series) {
+    assert.equal(series.endLabel, "");
+    assert.doesNotMatch(series.endLabel, /Hoy/);
+    assert.match(series.referenceAtYearLabel ?? "", /^día 365 · /);
+    assert.equal(series.samples.length, LIVE_AXIS_DAYS.length);
+    assert.deepEqual([...LIVE_AXIS_DAYS], [0, 30, 90, 180, 365]);
+  }
+
+  const filtered = buildLiveChart({
+    usages,
+    substances: [nicotine, cannabis],
+    substanceId: "cannabis",
+    now,
+  });
+  assert.equal(filtered.showToday, true);
+  assert.match(filtered.todayLabel, /^Hoy · .+ · Cannabis$/);
+  assert.equal(filtered.footnote, SPANISH_RECOVERY_COPY.liveFootnote);
+  assert.match(filtered.series[0]?.endLabel ?? "", /^Hoy · \d+%$/);
+  assert.deepEqual([...filtered.axisLabels], [...overlay.axisLabels]);
+  assert.equal(filtered.series[0]?.samples.length, LIVE_AXIS_DAYS.length);
+});
+
+test("single-substance unfiltered chart still shows Today", () => {
+  const chart = buildLiveChart({
+    usages: [
+      {
+        substanceId: "nicotine",
+        yearStarted: 2018,
+        lastUseDate: "2026-09-06T00:00:00.000Z",
+        frequency: "daily",
+        status: "abstinent",
+      },
+    ],
+    substances: [nicotine],
+    substanceId: null,
+    now,
+  });
+  assert.equal(chart.showToday, true);
+  assert.match(chart.todayLabel, /^Hoy · .+ · Nicotina$/);
+  assert.match(chart.series[0]?.endLabel ?? "", /^Hoy · /);
+  assert.equal(chart.footnote, SPANISH_RECOVERY_COPY.liveFootnote);
+});
+
 test("teeth uses atlas integumentary label instead of generic Órgano", () => {
   const nicotineWithTeeth: ApiSubstance = {
     ...nicotine,
@@ -480,6 +552,13 @@ test("demo and live stay separated in the preview pages", () => {
   assert.equal(recovery.includes("demoSubstances"), false);
   assert.match(home, /showDemoBadge/);
   assert.match(recovery, /demo=\{dashboard\.showDemoBadge\}/);
+  assert.match(hook, /showToday: true/);
+  const chart = readFileSync(
+    new URL("../components/EvolutionChart.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(chart, /chart\.showToday && todayX != null/);
+  assert.match(chart, /chartCaptionLiveOverlay/);
 });
 
 test("/preview never wires live profile, achievements, or private identity", () => {

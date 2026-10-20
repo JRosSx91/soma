@@ -10,6 +10,7 @@ export interface RecoveryDashboardCopy {
   day365: string;
   axisLabels: readonly [string, string, string, string, string];
   liveFootnote: string;
+  liveFootnoteOverlay: string;
   demoFootnote: string;
   dayOne: string;
   daysMany: string;
@@ -64,6 +65,7 @@ export function recoveryCopyFromSource(
       t("axis1Year"),
     ],
     liveFootnote: t("liveFootnote"),
+    liveFootnoteOverlay: t("liveFootnoteOverlay"),
     demoFootnote: t("demoFootnote"),
     dayOne: t("dayOne"),
     daysMany: t("daysMany"),
@@ -103,6 +105,8 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   axis1Year: "1 año",
   liveFootnote:
     "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 1 año) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
+  liveFootnoteOverlay:
+    "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo (inicio a 1 año). No hay un «Hoy» único porque los días de abstinencia difieren entre sustancias. No es una medición clínica.",
   demoFootnote:
     "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta. No es una medición clínica.",
   dayOne: "1 día",
