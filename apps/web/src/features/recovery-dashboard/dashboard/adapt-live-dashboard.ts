@@ -31,6 +31,7 @@ import {
  */
 const ATLAS_CARD_SYSTEM_LABEL: Partial<Record<BodySystem, string>> = {
   integumentary: "Sistema tegumentario",
+  reproductive: "Sistema reproductor",
 };
 
 /** Axis day marks used for the live chart. Same labels as the demo composition. */

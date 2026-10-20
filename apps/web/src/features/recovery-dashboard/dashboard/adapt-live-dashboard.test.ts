@@ -396,6 +396,62 @@ test("teeth uses atlas integumentary label instead of generic Órgano", () => {
   );
 });
 
+test("testes uses atlas reproductive label instead of generic Órgano", () => {
+  const cannabisWithGonads: ApiSubstance = {
+    ...cannabis,
+    recoveryCurves: [
+      ...cannabis.recoveryCurves,
+      curve("testes", "reproductive", 180, 0.95),
+    ],
+  };
+  const usage: ProfileUsage = {
+    substanceId: "cannabis",
+    yearStarted: 2020,
+    lastUseDate: "2026-07-23T00:00:00.000Z",
+    frequency: "weekly",
+    status: "abstinent",
+  };
+  const organStates = new Map<OrganId, OrganState>([
+    [
+      "testes",
+      {
+        organId: "testes",
+        organName: "Testes",
+        progressFraction: 0.46,
+        absoluteRecovery: 0.44,
+        daysAbstinent: 87,
+        dominantSubstanceId: "cannabis",
+        confidenceLevel: "low",
+        dominantStatus: "abstinent",
+        contributingSubstances: [
+          { substanceId: "cannabis", status: "abstinent", progressFraction: 0.46 },
+        ],
+      },
+    ],
+  ]);
+
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [cannabisWithGonads],
+    organStates,
+    substanceId: "cannabis",
+    now,
+  });
+
+  const testesCard = model.changes.find((item) => item.id === "testes");
+  assert.ok(testesCard);
+  assert.equal(testesCard.system, "Sistema reproductor");
+  assert.doesNotMatch(testesCard.system, /Órgano/);
+  assert.equal(
+    model.systems.some((item) => item.id === "reproductive"),
+    false,
+  );
+  assert.equal(
+    model.chart.series.some((item) => item.id === "reproductive"),
+    false,
+  );
+});
+
 test("Prisma underscore systems map to hyphen BodySystem ids", () => {
   const nervous: ApiSubstance = {
     id: "nicotine",
