@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
+import { localizedCatalogLabel } from "../explore/explore-search.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
 import type { AtlasSystem, AtlasViewId } from "../anatomy/atlas-types.js";
 import {
   narrativePhases,
-  narrativeSubstances,
-  phaseWindowLabel,
   resolveEducationalNarrative,
-  selectNarrativeSubstance,
   type NarrativePhase,
 } from "../anatomy/narrative-catalog.js";
+import {
+  educationalEffectsSubstances,
+  resolveEducationalSignaling,
+  selectEducationalEffectsSubstance,
+} from "../anatomy/neurotransmitter-education.js";
 import {
   recoverySubstances,
   resolveEducationalRecovery,
@@ -30,14 +34,8 @@ import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 const tabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;
 type AnatomyTab = (typeof tabs)[number];
 
-const tabLabel: Record<AnatomyTab, string> = {
-  resumen: "Resumen",
-  efectos: "Efectos",
-  recuperacion: "Recuperación",
-  consejos: "Consejos",
-};
-
 export function AnatomyExplorerPage() {
+  const { t } = useTranslation(["anatomy", "organs", "explore"]);
   const base = useShellBase();
   const [systemId, setSystemId] = useState<string | null>(null);
   const [organId, setOrganId] = useState<string | null>(null);
@@ -67,24 +65,26 @@ export function AnatomyExplorerPage() {
       return path ? [{ organId: item.id, path }] : [];
     }) ?? [];
 
+  const systemLabel = system ? atlasSystemName(t, system.id, system.name) : t("humanBody");
+  const organLabel = organ ? atlasOrganName(t, organ.id, organ.name) : null;
   const unavailableMessage = !system
-    ? "Elige un sistema para continuar."
+    ? t("chooseSystem")
     : view === "posterior" && !posteriorAvailable
-      ? `La vista posterior de ${system.name} todavía no está disponible.`
+      ? t("posteriorUnavailable", { name: systemLabel })
       : organ && !organ.plate
-        ? `${organ.name}. La ilustración individual todavía no está disponible.`
-        : `${system.name} todavía no tiene ilustración.`;
+        ? t("organNoPlate", { name: organLabel })
+        : t("systemNoPlate", { name: systemLabel });
 
   return (
     <div className="flex flex-col gap-3 pb-2">
       <PageHeading
-        eyebrow="Explorador anatómico"
-        title="Tu cuerpo, sistema por sistema."
-        description="Elige un sistema para recorrer el cuerpo y sus órganos."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        description={t("description")}
         demo={base === "/preview"}
       />
 
-      <nav aria-label="Nivel del atlas" className="flex flex-wrap items-center gap-1.5 text-sm">
+      <nav aria-label={t("crumbAria")} className="flex flex-wrap items-center gap-1.5 text-sm">
         <Crumb
           current={system === null}
           onClick={() => {
@@ -94,7 +94,7 @@ export function AnatomyExplorerPage() {
             setTab("resumen");
           }}
         >
-          Cuerpo humano
+          {t("humanBody")}
         </Crumb>
         {system ? (
           <>
@@ -108,7 +108,7 @@ export function AnatomyExplorerPage() {
                 setTab("resumen");
               }}
             >
-              {system.name}
+              {systemLabel}
             </Crumb>
           </>
         ) : null}
@@ -117,14 +117,14 @@ export function AnatomyExplorerPage() {
             <span aria-hidden="true" className="text-soma-ink-muted">
               /
             </span>
-            <span className="text-soma-ink">{organ.name}</span>
+            <span className="text-soma-ink">{organLabel}</span>
           </>
         ) : null}
       </nav>
 
       <div className="grid min-w-0 items-start gap-3 lg:grid-cols-[10.75rem_minmax(0,1fr)_21.5rem] xl:grid-cols-[11.5rem_minmax(0,1fr)_23rem]">
         <ul
-          aria-label="Sistemas"
+          aria-label={t("systemsAria")}
           className="flex max-w-full min-w-0 gap-2 overflow-x-auto overscroll-x-contain pb-1 touch-pan-x [-webkit-overflow-scrolling:touch] lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain lg:pr-1 lg:touch-auto"
         >
           {atlasSystems.map((item) => {
@@ -155,7 +155,9 @@ export function AnatomyExplorerPage() {
                       className="h-7 w-7 shrink-0 rounded-lg border border-dashed border-soma-line bg-soma-canvas"
                     />
                   )}
-                  <span className="min-w-0 whitespace-nowrap lg:whitespace-normal">{item.name}</span>
+                  <span className="min-w-0 whitespace-nowrap lg:whitespace-normal">
+                    {atlasSystemName(t, item.id, item.name)}
+                  </span>
                 </button>
               </li>
             );
@@ -163,7 +165,7 @@ export function AnatomyExplorerPage() {
         </ul>
 
         <AnatomyAtlas2D
-          label={organ?.name ?? system?.name ?? "Cuerpo humano"}
+          label={organLabel ?? systemLabel}
           plate={view === "posterior" && !posteriorAvailable ? null : plate}
           unavailableMessage={unavailableMessage}
           regions={regions}
@@ -220,6 +222,7 @@ function SystemPanel({
   onSystem: (id: string) => void;
   onOrgan: (id: string) => void;
 }) {
+  const { t } = useTranslation(["anatomy", "organs", "explore"]);
   const organ = system?.organs.find((item) => item.id === organId) ?? null;
   const illustrated = atlasSystems.filter((item) => item.plates.anterior);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -238,11 +241,15 @@ function SystemPanel({
     <aside className="flex min-w-0 flex-col overflow-x-hidden rounded-2xl border border-soma-line bg-soma-surface lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:overflow-hidden">
       <header ref={headerRef} className="shrink-0 px-4 pb-3 pt-4">
         <h2 className="text-lg font-semibold leading-snug text-soma-ink">
-          {organ?.name ?? system?.name ?? "Cuerpo humano"}
+          {organ
+            ? atlasOrganName(t, organ.id, organ.name)
+            : system
+              ? atlasSystemName(t, system.id, system.name)
+              : t("humanBody")}
         </h2>
 
         {system ? (
-          <div role="tablist" aria-label="Ficha del sistema" className="mt-4 flex flex-wrap gap-1.5">
+          <div role="tablist" aria-label={t("tablistAria")} className="mt-4 flex flex-wrap gap-1.5">
             {tabs.map((item) => (
               <button
                 key={item}
@@ -256,7 +263,7 @@ function SystemPanel({
                   tab === item ? "bg-soma-action text-[#081018]" : "bg-soma-canvas text-soma-ink-secondary"
                 }`}
               >
-                {tabLabel[item]}
+                {t(`tabs.${item}`)}
               </button>
             ))}
           </div>
@@ -289,7 +296,7 @@ function SystemPanel({
 
       {!system ? (
         <>
-          <h3 className="mt-5 text-sm font-semibold text-soma-ink">Sistemas con ilustración</h3>
+          <h3 className="mt-5 text-sm font-semibold text-soma-ink">{t("illustratedSystems")}</h3>
           <ul className="mt-2 grid grid-cols-2 gap-2">
             {illustrated.map((item) => (
               <li key={item.id}>
@@ -301,7 +308,7 @@ function SystemPanel({
                   <span className="flex h-14 w-full items-center justify-center">
                     <img src={item.plates.anterior?.src} alt="" className="h-14 w-full object-contain" />
                   </span>
-                  <span className="leading-tight">{item.name}</span>
+                  <span className="leading-tight">{atlasSystemName(t, item.id, item.name)}</span>
                 </button>
               </li>
             ))}
@@ -309,11 +316,11 @@ function SystemPanel({
         </>
       ) : system.organs.length === 0 ? (
         <p className="mt-4 text-xs leading-relaxed text-soma-ink-muted">
-          Este sistema todavía no tiene órganos que se puedan abrir.
+          {t("emptySystemOrgans")}
         </p>
       ) : (
         <>
-          <h3 className="mt-5 text-sm font-semibold text-soma-ink">Órganos principales</h3>
+          <h3 className="mt-5 text-sm font-semibold text-soma-ink">{t("mainOrgans")}</h3>
           <ul className="mt-2 grid grid-cols-3 gap-2">
             {system.organs.map((item) => {
               const selected = item.id === organId;
@@ -335,11 +342,13 @@ function SystemPanel({
                           aria-hidden="true"
                           className="grid h-10 w-10 place-items-center rounded-full bg-soma-surface text-sm text-soma-ink-muted"
                         >
-                          {item.name.slice(0, 1)}
+                          {atlasOrganName(t, item.id, item.name).slice(0, 1)}
                         </span>
                       )}
                     </span>
-                    <span className="text-[11px] leading-tight text-soma-ink-secondary">{item.name}</span>
+                    <span className="text-[11px] leading-tight text-soma-ink-secondary">
+                      {atlasOrganName(t, item.id, item.name)}
+                    </span>
                   </button>
                 </li>
               );
@@ -374,13 +383,9 @@ function PanelBody({
   onEffects: () => void;
   onRecovery: () => void;
 }) {
+  const { t } = useTranslation("anatomy");
   if (!system) {
-    return (
-      <p>
-        Una vista anterior del organismo. Abre un sistema para ver sus órganos y la ilustración
-        disponible.
-      </p>
-    );
+    return <p>{t("rootIntro")}</p>;
   }
   if (tab === "efectos") {
     return (
@@ -402,7 +407,7 @@ function PanelBody({
   if (tab === "consejos") {
     return (
       <p className="rounded-xl border border-dashed border-soma-line px-3 py-4 text-soma-ink-muted">
-        Todavía no hay consejos para esta ficha.
+        {t("advicePlaceholder")}
       </p>
     );
   }
@@ -422,7 +427,8 @@ function SummaryCopy({
   onEffects: () => void;
   onRecovery: () => void;
 }) {
-  const intro = summaryIntro(system, organ);
+  const { t } = useTranslation(["anatomy", "organs", "explore"]);
+  const intro = summaryIntro(t, system, organ);
 
   if (!organ) {
     const sheet = resolveSystemSheet(system);
@@ -441,26 +447,30 @@ function SummaryCopy({
 }
 
 function summaryIntro(
+  t: TFunction,
   system: AtlasSystem,
   organ: AtlasSystem["organs"][number] | null,
 ): string {
   if (organ?.id === "lungs") {
-    return "Ilustración de los pulmones y de la vía aérea central. Bronquios y mucosa nasal se abren en sus propias fichas.";
+    return t("introLungs");
   }
   if (organ && !organ.plate) {
-    return `${organ.name}. Esta ficha todavía no tiene una ilustración propia.`;
+    return t("introOrganNoPlate", { name: atlasOrganName(t, organ.id, organ.name) });
   }
   if (organ) {
-    return organ.name;
+    return atlasOrganName(t, organ.id, organ.name);
   }
   if (system.id === "respiratory") {
-    return "Reúne los pulmones, los bronquios y la mucosa nasal. La ilustración muestra el conjunto sobre el cuerpo, en vista anterior.";
+    return t("introRespiratory");
   }
+  const systemLabel = atlasSystemName(t, system.id, system.name);
   if (system.organs.length === 0) {
-    return `${system.name}. Visión de conjunto del sistema; no hay órganos canónicos asociados en el catálogo.`;
+    return t("introEmptySystem", { name: systemLabel });
   }
-  const names = system.organs.map((item) => item.name).join(", ");
-  return `${system.name}. Incluye ${names}.`;
+  const names = system.organs
+    .map((item) => atlasOrganName(t, item.id, item.name))
+    .join(", ");
+  return t("introSystemIncludes", { name: systemLabel, organs: names });
 }
 
 function choiceClass(selected: boolean): string {
@@ -486,36 +496,44 @@ function EffectsPanel({
   onSubstance: (id: string) => void;
   onPhase: (phase: NarrativePhase) => void;
 }) {
-  const { t } = useTranslation(["organ-narrative", "phases", "substances"]);
-  const substances = organ ? narrativeSubstances(organ.id) : [];
-  const selectedSubstance = organ ? selectNarrativeSubstance(substanceId, organ.id) : null;
+  const { t } = useTranslation([
+    "anatomy",
+    "organ-narrative",
+    "phases",
+    "substances",
+    "neurotransmitters",
+    "neurotransmitter-phases",
+    "mechanisms",
+  ]);
+  const substances = organ ? educationalEffectsSubstances(organ.id) : [];
+  const selectedSubstance = organ ? selectEducationalEffectsSubstance(substanceId, organ.id) : null;
   const narrative =
     organ && selectedSubstance
       ? resolveEducationalNarrative(organ.id, selectedSubstance, phase)
       : null;
-  const narrativeText = narrative
-    ? t(`organ-narrative:${narrative.narrativeKey}`, { lng: "es", defaultValue: "" })
-    : "";
+  const narrativeText = narrative ? t(`organ-narrative:${narrative.narrativeKey}`) : "";
+  const signaling =
+    organ && selectedSubstance
+      ? resolveEducationalSignaling(organ.id, selectedSubstance, phase)
+      : [];
 
   if (!organ) {
     return (
       <p>
-        {system.organs.length === 0
-          ? "Este sistema todavía no tiene órganos que se puedan abrir."
-          : "Abre un órgano para consultar los efectos descritos para cada sustancia."}
+        {system.organs.length === 0 ? t("emptySystemOrgans") : t("openOrganForEffects")}
       </p>
     );
   }
 
-  if (substances.length === 0 || !selectedSubstance || !narrative) {
-    return <p>No hay narrativas de efectos para este órgano.</p>;
+  if (substances.length === 0 || !selectedSubstance) {
+    return <p>{t("noEducationalEffects")}</p>;
   }
 
   return (
     <div className="space-y-3">
       <fieldset className="min-w-0 border-0 p-0">
-        <legend className="sr-only">Sustancia</legend>
-        <div className="flex gap-1.5">
+        <legend className="sr-only">{t("substanceLegend")}</legend>
+        <div className="flex flex-wrap gap-1.5">
           {substances.map((id) => {
             const selected = id === selectedSubstance;
             return (
@@ -531,11 +549,11 @@ function EffectsPanel({
                   onChange={() => onSubstance(id)}
                   className="sr-only"
                 />
-                <span className="flex h-8 w-8 items-center justify-center">
+                <span className="pointer-events-none flex h-8 w-8 items-center justify-center">
                   <SubstanceIllustration name={id} className="h-8 w-8" iconClassName="h-4 w-4" />
                 </span>
                 <span className="max-w-full truncate text-[11px] leading-tight">
-                  {t(`substances:${id}.name`, { lng: "es", defaultValue: id })}
+                  {t(`substances:${id}.name`, { defaultValue: id })}
                 </span>
               </label>
             );
@@ -544,11 +562,11 @@ function EffectsPanel({
       </fieldset>
 
       <fieldset className="min-w-0 border-0 p-0">
-        <legend className="sr-only">Fase</legend>
+        <legend className="sr-only">{t("phaseLegend")}</legend>
         <div className="grid grid-cols-2 gap-1.5">
           {narrativePhases.map((item) => {
             const selected = item === phase;
-            const windowLabel = phaseWindowLabel(item);
+            const windowLabel = item === "during_use" ? null : t(`phaseWindow.${item}`);
             return (
               <label key={item} className={`${choiceClass(selected)} flex-col px-2 py-1.5 text-left`}>
                 <input
@@ -559,9 +577,7 @@ function EffectsPanel({
                   onChange={() => onPhase(item)}
                   className="sr-only"
                 />
-                <span className="block text-[11px] leading-tight">
-                  {t(`phases:${item}`, { lng: "es" })}
-                </span>
+                <span className="block text-[11px] leading-tight">{t(`phases:${item}`)}</span>
                 {windowLabel ? (
                   <span className="mt-0.5 block text-[10px] leading-tight text-soma-ink-muted">
                     {windowLabel}
@@ -573,17 +589,67 @@ function EffectsPanel({
         </div>
       </fieldset>
 
-      <p className="text-xs leading-relaxed text-soma-ink-muted">
-        Información educativa general. No sustituye una evaluación médica individual.
-      </p>
+      <p className="text-xs leading-relaxed text-soma-ink-muted">{t("generalDisclaimer")}</p>
 
-      <p className="text-sm leading-relaxed text-soma-ink-secondary">
-        {narrativeText || "Este texto no está disponible en el idioma actual."}
-      </p>
+      {narrative ? (
+        <p className="text-sm leading-relaxed text-soma-ink-secondary">
+          {narrativeText || t("missingScientificText")}
+        </p>
+      ) : signaling.length > 0 ? (
+        <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs text-soma-ink-muted">
+          {t("noOrganNarrative")}
+        </p>
+      ) : null}
 
-      <p className="text-[11px] leading-relaxed text-soma-ink-muted">
-        Fuente: {narrative.referenceSource}. Registro del catálogo: {narrative.confidenceLabel}.
-      </p>
+      {signaling.length > 0 ? (
+        <section className="space-y-2" aria-labelledby={`anatomy-signaling-${organ.id}`}>
+          <h3
+            id={`anatomy-signaling-${organ.id}`}
+            className="text-xs font-semibold text-soma-ink"
+          >
+            {t("signalingTitle")}
+          </h3>
+          <ul className="space-y-2">
+            {signaling.map((entry) => {
+              const mechanism = entry.mechanismKey
+                ? t(`mechanisms:${entry.mechanismKey}`, { defaultValue: "" })
+                : "";
+              const explanation = t(`neurotransmitter-phases:${entry.phaseKey}`, {
+                defaultValue: "",
+              });
+              return (
+                <li
+                  key={entry.neurotransmitter}
+                  className="rounded-xl border border-soma-line bg-soma-canvas/40 px-3 py-2"
+                >
+                  <p className="text-sm font-medium text-soma-ink">
+                    {t(`neurotransmitters:${entry.neurotransmitter}.name`, {
+                      defaultValue: entry.neurotransmitter,
+                    })}
+                  </p>
+                  {mechanism ? (
+                    <p className="mt-0.5 text-[11px] leading-snug text-soma-ink-muted">{mechanism}</p>
+                  ) : null}
+                  {explanation ? (
+                    <p className="mt-1.5 text-xs leading-relaxed text-soma-ink-secondary">
+                      {explanation}
+                    </p>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {narrative ? (
+        <p className="text-[11px] leading-relaxed text-soma-ink-muted">
+          {t("sourceRecord", {
+            source: narrative.referenceSource,
+            confidence: t(`confidence.${narrative.confidenceLevel}`),
+          })}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -599,7 +665,7 @@ function RecoveryPanel({
   substanceId: string | null;
   onSubstance: (id: string) => void;
 }) {
-  const { t } = useTranslation(["substances"]);
+  const { t } = useTranslation(["anatomy", "substances"]);
   const substances = organ ? recoverySubstances(organ.id) : [];
   const selectedSubstance = organ ? selectRecoverySubstance(substanceId, organ.id) : null;
   const curve =
@@ -610,9 +676,7 @@ function RecoveryPanel({
   if (!organ) {
     return (
       <p>
-        {system.organs.length === 0
-          ? "Este sistema todavía no tiene órganos que se puedan abrir."
-          : "Abre un órgano para consultar el modelo orientativo de recuperación del catálogo."}
+        {system.organs.length === 0 ? t("emptySystemOrgans") : t("openOrganForRecovery")}
       </p>
     );
   }
@@ -620,7 +684,7 @@ function RecoveryPanel({
   if (substances.length === 0 || !selectedSubstance || !curve) {
     return (
       <p className="rounded-xl border border-dashed border-soma-line px-3 py-4 text-soma-ink-muted">
-        No hay un modelo de recuperación catalogado para este órgano.
+        {t("noRecoveryModel")}
       </p>
     );
   }
@@ -628,7 +692,7 @@ function RecoveryPanel({
   return (
     <div className="space-y-3">
       <fieldset className="min-w-0 border-0 p-0">
-        <legend className="sr-only">Sustancia</legend>
+        <legend className="sr-only">{t("substanceLegend")}</legend>
         <div className="flex flex-wrap gap-1.5">
           {substances.map((id) => {
             const selected = id === selectedSubstance;
@@ -649,7 +713,7 @@ function RecoveryPanel({
                   <SubstanceIllustration name={id} className="h-8 w-8" iconClassName="h-4 w-4" />
                 </span>
                 <span className="max-w-full truncate text-[11px] leading-tight">
-                  {t(`substances:${id}.name`, { lng: "es", defaultValue: id })}
+                  {t(`substances:${id}.name`, { defaultValue: id })}
                 </span>
               </label>
             );
@@ -657,32 +721,42 @@ function RecoveryPanel({
         </div>
       </fieldset>
 
-      <p className="text-xs leading-relaxed text-soma-ink-muted">
-        Modelo orientativo del catálogo Soma. No es una estimación personal ni un plazo médico: la
-        evolución real depende de factores individuales.
-      </p>
+      <p className="text-xs leading-relaxed text-soma-ink-muted">{t("recoveryDisclaimer")}</p>
 
       <dl className="space-y-2 text-sm text-soma-ink-secondary">
         <div>
-          <dt className="text-xs font-semibold text-soma-ink">Forma de la curva</dt>
-          <dd>{curve.shapeLabel}</dd>
+          <dt className="text-xs font-semibold text-soma-ink">{t("curveShape")}</dt>
+          <dd>{t(`shape.${curve.shape}`)}</dd>
         </div>
         <div>
-          <dt className="text-xs font-semibold text-soma-ink">
-            Días orientativos hacia el 95&nbsp;% del techo
-          </dt>
-          <dd>{curve.daysTo95Recovery} días</dd>
+          <dt className="text-xs font-semibold text-soma-ink">{t("daysTo95")}</dt>
+          <dd>{t("daysUnit", { count: curve.daysTo95Recovery })}</dd>
         </div>
         <div>
-          <dt className="text-xs font-semibold text-soma-ink">Techo de recuperación del catálogo</dt>
+          <dt className="text-xs font-semibold text-soma-ink">{t("ceiling")}</dt>
           <dd>{curve.ceilingPercentLabel}</dd>
         </div>
       </dl>
 
       <p className="text-[11px] leading-relaxed text-soma-ink-muted">
-        Fuente: {curve.referenceSource}. Registro del catálogo: {curve.confidenceLabel}.
+        {t("sourceRecord", {
+          source: curve.referenceSource,
+          confidence: t(`confidence.${curve.confidenceLevel}`),
+        })}
       </p>
     </div>
+  );
+}
+
+function atlasOrganName(t: TFunction, id: string, fallback: string): string {
+  return localizedCatalogLabel(t(id, { ns: "organs", defaultValue: fallback }), fallback, id);
+}
+
+function atlasSystemName(t: TFunction, id: string, fallback: string): string {
+  return localizedCatalogLabel(
+    t(`systems.${id}`, { ns: "explore", defaultValue: fallback }),
+    fallback,
+    id,
   );
 }
 

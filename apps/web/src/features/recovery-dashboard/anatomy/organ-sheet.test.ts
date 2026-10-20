@@ -103,6 +103,8 @@ test("central nervous organs resolve plates and fichas without narratives", () =
     assert.ok(sheet.location);
     assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
     assert.equal(sheet.availability.hasNarratives, false);
+    assert.equal(sheet.availability.hasEducationalSignaling, true);
+    assert.ok(sheet.availability.signalingSubstanceIds.length > 0);
     assert.equal(sheet.availability.hasRecoveryCurves, true);
   }
 });
@@ -113,6 +115,7 @@ test("testes have a recovery curve without a narrative", () => {
   assert.ok(testes);
   const sheet = resolveOrganSheet(reproductive, testes);
   assert.equal(sheet.availability.hasNarratives, false);
+  assert.equal(sheet.availability.hasEducationalSignaling, false);
   assert.equal(sheet.availability.hasRecoveryCurves, true);
   assert.deepEqual([...sheet.availability.recoverySubstanceIds], ["cannabis"]);
 });

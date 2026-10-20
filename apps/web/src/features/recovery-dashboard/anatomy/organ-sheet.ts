@@ -5,6 +5,7 @@ import {
   type AnatomySource,
 } from "./anatomy-education.ts";
 import { narrativeSubstances } from "./narrative-catalog.ts";
+import { signalingSubstances } from "./neurotransmitter-education.ts";
 import { recoverySubstances } from "./recovery-catalog.ts";
 import type { AtlasOrgan, AtlasPlate, AtlasSystem } from "./atlas-types.ts";
 
@@ -26,9 +27,12 @@ export interface OrganSheetAvailability {
   hasEducation: boolean;
   /** At least one organ×substance narrative in the seed index. */
   hasNarratives: boolean;
+  /** At least one compatible educational neurotransmitter profile for this organ. */
+  hasEducationalSignaling: boolean;
   /** At least one recovery curve in the seed snapshot. */
   hasRecoveryCurves: boolean;
   narrativeSubstanceIds: readonly SubstanceId[];
+  signalingSubstanceIds: readonly SubstanceId[];
   recoverySubstanceIds: readonly SubstanceId[];
 }
 
@@ -69,13 +73,16 @@ export interface SystemSheetCoverage {
 
 function availabilityFor(organId: string, plate: AtlasPlate | null): OrganSheetAvailability {
   const narrativeSubstanceIds = narrativeSubstances(organId);
+  const signalingSubstanceIds = signalingSubstances(organId);
   const recoverySubstanceIds = recoverySubstances(organId);
   return {
     hasPlate: plate !== null,
     hasEducation: educationalAnatomy(organId) !== null,
     hasNarratives: narrativeSubstanceIds.length > 0,
+    hasEducationalSignaling: signalingSubstanceIds.length > 0,
     hasRecoveryCurves: recoverySubstanceIds.length > 0,
     narrativeSubstanceIds,
+    signalingSubstanceIds,
     recoverySubstanceIds,
   };
 }

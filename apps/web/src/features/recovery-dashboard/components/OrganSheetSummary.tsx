@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import type { OrganAnatomicalSheet } from "../anatomy/organ-sheet.js";
 import type { SystemAnatomicalSheet } from "../anatomy/system-sheet.js";
@@ -19,7 +20,9 @@ export function OrganSheetSummary({
   onEffects: () => void;
   onRecovery: () => void;
 }) {
+  const { t } = useTranslation("anatomy");
   const { availability, education } = sheet;
+  const hasEffectsContent = availability.hasNarratives || availability.hasEducationalSignaling;
 
   return (
     <div className="space-y-3">
@@ -27,19 +30,19 @@ export function OrganSheetSummary({
 
       {!availability.hasPlate ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs text-soma-ink-muted">
-          Sin ilustración individual todavía.
+          {t("noPlateYet")}
         </p>
       ) : null}
 
       {education ? (
         <div className="space-y-3">
-          {sheet.location ? <AnatomyNote title="Localización" text={sheet.location} /> : null}
-          <AnatomyNote title="Anatomía" text={education.anatomy} />
-          <AnatomyNote title="Función" text={education.physiology} />
-          <AnatomyNote title="Relación" text={education.relations} />
+          {sheet.location ? <AnatomyNote title={t("location")} text={sheet.location} /> : null}
+          <AnatomyNote title={t("anatomy")} text={education.anatomy} />
+          <AnatomyNote title={t("function")} text={education.physiology} />
+          <AnatomyNote title={t("relations")} text={education.relations} />
           {education.sources.length > 0 ? (
             <div>
-              <h3 className="text-xs font-semibold text-soma-ink">Fuentes</h3>
+              <h3 className="text-xs font-semibold text-soma-ink">{t("sources")}</h3>
               <ul className="mt-1 space-y-1">
                 {education.sources.map((source) => (
                   <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
@@ -59,21 +62,21 @@ export function OrganSheetSummary({
         </div>
       ) : (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs leading-relaxed text-soma-ink-muted">
-          Todavía no hay una descripción anatómica en español para esta ficha.
+          {t("noAnatomyEducation")}
         </p>
       )}
 
       <AvailabilityNotes sheet={sheet} />
 
-      {availability.hasNarratives || availability.hasRecoveryCurves ? (
+      {hasEffectsContent || availability.hasRecoveryCurves ? (
         <div className="flex flex-wrap gap-3">
-          {availability.hasNarratives ? (
+          {hasEffectsContent ? (
             <button
               type="button"
               onClick={onEffects}
               className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
             >
-              Ver efectos
+              {t("viewEffects")}
             </button>
           ) : null}
           {availability.hasRecoveryCurves ? (
@@ -82,7 +85,7 @@ export function OrganSheetSummary({
               onClick={onRecovery}
               className={`${previewFocus} text-xs text-soma-action hover:text-soma-action-hover`}
             >
-              Ver recuperación
+              {t("viewRecovery")}
             </button>
           ) : null}
         </div>
@@ -102,6 +105,7 @@ export function SystemSheetSummary({
   intro: string;
   sheet: SystemAnatomicalSheet;
 }) {
+  const { t } = useTranslation("anatomy");
   const { education, emptySystem, availability } = sheet;
 
   return (
@@ -109,19 +113,19 @@ export function SystemSheetSummary({
       <p>{intro}</p>
       {emptySystem ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs text-soma-ink-muted">
-          Este sistema todavía no tiene órganos asociados en el catálogo.
+          {t("emptySystemCatalog")}
         </p>
       ) : null}
 
       {education ? (
         <div className="space-y-3">
-          {sheet.location ? <AnatomyNote title="Localización" text={sheet.location} /> : null}
-          <AnatomyNote title="Anatomía" text={education.anatomy} />
-          <AnatomyNote title="Función" text={education.physiology} />
-          <AnatomyNote title="Relación" text={education.relations} />
+          {sheet.location ? <AnatomyNote title={t("location")} text={sheet.location} /> : null}
+          <AnatomyNote title={t("anatomy")} text={education.anatomy} />
+          <AnatomyNote title={t("function")} text={education.physiology} />
+          <AnatomyNote title={t("relations")} text={education.relations} />
           {education.sources.length > 0 ? (
             <div>
-              <h3 className="text-xs font-semibold text-soma-ink">Fuentes</h3>
+              <h3 className="text-xs font-semibold text-soma-ink">{t("sources")}</h3>
               <ul className="mt-1 space-y-1">
                 {education.sources.map((source) => (
                   <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
@@ -141,18 +145,14 @@ export function SystemSheetSummary({
         </div>
       ) : emptySystem ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs leading-relaxed text-soma-ink-muted">
-          Todavía no hay una descripción anatómica de sistema para esta ficha.
+          {t("noSystemAnatomy")}
         </p>
       ) : null}
 
       {emptySystem ? (
         <ul className="space-y-1 text-[11px] leading-relaxed text-soma-ink-muted">
-          {!availability.hasNarratives ? (
-            <li>Sin narrativas de sustancias a nivel de sistema: los efectos viven en órganos canónicos.</li>
-          ) : null}
-          {!availability.hasRecoveryCurves ? (
-            <li>Sin curvas de recuperación a nivel de sistema: no se atribuyen a órganos inexistentes.</li>
-          ) : null}
+          {!availability.hasNarratives ? <li>{t("systemNoNarratives")}</li> : null}
+          {!availability.hasRecoveryCurves ? <li>{t("systemNoCurves")}</li> : null}
         </ul>
       ) : null}
     </div>
@@ -160,15 +160,17 @@ export function SystemSheetSummary({
 }
 
 function AvailabilityNotes({ sheet }: { sheet: OrganAnatomicalSheet }) {
+  const { t } = useTranslation("anatomy");
   const { availability } = sheet;
   const notes: string[] = [];
 
-  // Only surface legitimate gaps. Complete sheets (e.g. respiratory) stay quiet.
-  if (!availability.hasNarratives) {
-    notes.push("Sin narrativas de sustancias indexadas para este órgano.");
+  if (!availability.hasNarratives && availability.hasEducationalSignaling) {
+    notes.push(t("signalingInEffectsHint"));
+  } else if (!availability.hasNarratives && !availability.hasEducationalSignaling) {
+    notes.push(t("noEducationalEffects"));
   }
   if (!availability.hasRecoveryCurves) {
-    notes.push("Sin curva de recuperación catalogada (puede ser una ausencia científica legítima).");
+    notes.push(t("noRecoveryCurve"));
   }
 
   if (notes.length === 0) return null;

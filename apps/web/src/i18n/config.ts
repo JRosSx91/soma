@@ -19,6 +19,7 @@ import enMechanisms from "./locales/en/mechanisms.json";
 import enAccount from "./locales/en/account.json";
 import enRecovery from "./locales/en/recovery.json";
 import enExplore from "./locales/en/explore.json";
+import enAnatomy from "./locales/en/anatomy.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -36,6 +37,7 @@ import esLandingV2 from "./locales/es/landing-v2.json";
 import esMechanisms from "./locales/es/mechanisms.json";
 import esRecovery from "./locales/es/recovery.json";
 import esExplore from "./locales/es/explore.json";
+import esAnatomy from "./locales/es/anatomy.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -132,9 +134,9 @@ import deMechanisms from "./locales/de/mechanisms.json";
  * - When a key is missing in the active language, fall back to
  *   English. If still missing, the key string itself is shown
  *   (helpful during development).
- * - Recovery and Explore namespaces: complete for English (base) and Spanish.
+ * - Recovery, Explore and Anatomy namespaces: complete for English (base) and Spanish.
  *   ca, gl, eu, fr, it and de reuse the English bundle as an explicit
- *   interim fallback — not a complete Recovery or Explore translation.
+ *   interim fallback — not a complete Recovery, Explore or Anatomy translation.
  */
 const SUPPORTED_LANGUAGES = [
   "en",
@@ -197,6 +199,7 @@ i18n
       "account",
       "recovery",
       "explore",
+      "anatomy",
     ],
     defaultNS: "common",
     interpolation: {
@@ -229,6 +232,7 @@ i18n
         account: enAccount,
         recovery: enRecovery,
         explore: enExplore,
+        anatomy: enAnatomy,
       },
       es: {
         common: esCommon,
@@ -247,6 +251,7 @@ i18n
         account: enAccount,
         recovery: esRecovery,
         explore: esExplore,
+        anatomy: esAnatomy,
       },
       ca: {
         common: caCommon,
@@ -265,6 +270,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       gl: {
         common: glCommon,
@@ -283,6 +289,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       eu: {
         common: euCommon,
@@ -301,6 +308,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       fr: {
         common: frCommon,
@@ -319,6 +327,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       it: {
         common: itCommon,
@@ -337,6 +346,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       de: {
         common: deCommon,
@@ -355,6 +365,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
     },
   }, () => {

@@ -1,5 +1,6 @@
 import { ImageOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import {
   ATLAS_PLATE_FRAME,
@@ -119,36 +120,37 @@ export function AnatomyAtlas2D({
       : `translate(${regionCenterX} ${regionCenterY}) scale(${zoom}) translate(${-regionCenterX} ${-regionCenterY})`;
   const showRegions = regions.length > 0;
   const viewLabel = view === "anterior" ? "anterior" : "posterior";
+  const { t } = useTranslation("anatomy");
 
   return (
     <div className="flex min-w-0 flex-col gap-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <div role="group" aria-label="Vista anatómica" className="flex gap-1.5">
+        <div role="group" aria-label={t("viewGroup")} className="flex gap-1.5">
           <ViewButton
             pressed={view === "anterior"}
             onClick={() => onViewChange("anterior")}
           >
-            Vista anterior
+            {t("viewAnterior")}
           </ViewButton>
           <ViewButton
             pressed={view === "posterior"}
             disabled={!posteriorAvailable}
-            disabledReason="La vista posterior todavía no está disponible."
+            disabledReason={t("posteriorUnavailableShort")}
             onClick={() => onViewChange("posterior")}
           >
-            Vista posterior
+            {t("viewPosterior")}
           </ViewButton>
         </div>
-        <div role="group" aria-label="Zoom de la ilustración" className="flex gap-1.5">
+        <div role="group" aria-label={t("zoomGroup")} className="flex gap-1.5">
           <ToolButton
-            label="Alejar"
+            label={t("zoomOut")}
             disabled={zoomIndex === 0}
             onClick={() => setZoomIndex((index) => Math.max(0, index - 1))}
           >
             −
           </ToolButton>
           <ToolButton
-            label="Acercar"
+            label={t("zoomIn")}
             disabled={zoomIndex === zoomSteps.length - 1}
             onClick={() =>
               setZoomIndex((index) => Math.min(zoomSteps.length - 1, index + 1))
@@ -156,8 +158,8 @@ export function AnatomyAtlas2D({
           >
             +
           </ToolButton>
-          <ToolButton label="Restablecer" disabled={zoomIndex === 0} onClick={() => setZoomIndex(0)}>
-            Restablecer
+          <ToolButton label={t("reset")} disabled={zoomIndex === 0} onClick={() => setZoomIndex(0)}>
+            {t("reset")}
           </ToolButton>
         </div>
       </div>
