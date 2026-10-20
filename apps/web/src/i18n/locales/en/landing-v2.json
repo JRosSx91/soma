@@ -1,0 +1,159 @@
+{
+  "metaTitle": "Soma — Physiological recovery",
+  "nav": {
+    "preview": "Demo",
+    "signIn": "Sign in"
+  },
+  "hero": {
+    "eyebrow": "Modeled recovery trajectories",
+    "titleLead": "Your body changes.",
+    "titleAccent": "Discover how it evolves.",
+    "subtitle": "Soma visualizes orientative trajectories from scientific literature and a personal timeline. They are educational estimates from catalog curves — not clinical measurements, diagnoses, or a guarantee of individual recovery.",
+    "ctaPrimary": "Create an account",
+    "ctaSecondary": "Explore the demo",
+    "disclaimer": "Educational models. Soma is not a medical device. Panels in the artwork are visual motifs, not measurements or profile data."
+  },
+  "journey": {
+    "eyebrow": "Explore time",
+    "title": "Recovery does not happen overnight.",
+    "subtitle": "Each physiological process has its own pace. Soma helps you explore orientative trajectories grounded in scientific literature and understand how different systems in the body can evolve.",
+    "chartTitle": "Illustrative curve. Not a Soma catalog trajectory.",
+    "sliderLabel": "Explore the timeline",
+    "dayLabel": "Day {{day}}",
+    "axisStart": "Start",
+    "axisEnd": "Day 90 · demo window",
+    "hint": "Drag the control or use the arrow keys.",
+    "caption": "Conceptual demonstration. The shape of the line is not calibrated, not taken from Soma’s scientific catalog, and not a clinical prediction."
+  },
+  "atlas": {
+    "eyebrow": "Explore the body",
+    "title": "Explore the Human Body",
+    "subtitle": "Choose a physiological system to see where it sits in the body. The plates highlight structures; they do not measure or predict recovery.",
+    "systemsLabel": "Systems",
+    "showAll": "View all 12 systems",
+    "showFeatured": "Show featured systems",
+    "overviewAction": "Overview",
+    "overviewTitle": "Overview",
+    "overviewBody": "Anterior view of the body. Select a system to highlight its structures on this reference.",
+    "emptySystem": "This plate illustrates the system. The catalog does not list canonical organs here.",
+    "disclaimer": "Educational anatomical illustrations. They are not clinical measurements or recovery predictions.",
+    "plateAltBody": "Human body in anterior view.",
+    "plateAltSystem": "{{name}} highlighted on the body in anterior view.",
+    "systems": {
+      "nervous-central": "Central nervous system",
+      "cardiovascular": "Cardiovascular system",
+      "respiratory": "Respiratory system",
+      "digestive": "Digestive system",
+      "immune": "Immune system",
+      "hepatic": "Hepatic system",
+      "renal": "Renal system",
+      "reproductive": "Reproductive system",
+      "integumentary": "Integumentary system",
+      "sensory": "Sensory system",
+      "endocrine": "Endocrine system",
+      "nervous-peripheral": "Peripheral nervous system"
+    },
+    "blurbs": {
+      "nervous-central": "Brain and spinal cord, the body’s axis of integration.",
+      "cardiovascular": "Heart and vessels that drive and distribute blood.",
+      "respiratory": "Airways and lungs that allow gas exchange.",
+      "digestive": "Digestive tract that processes food. The liver may also appear; the hepatic system has its own plate.",
+      "immune": "Immune structures that take part in defending the body.",
+      "hepatic": "Liver and biliary tract, central to metabolism.",
+      "renal": "Kidneys and urinary tract that filter blood and help regulate the internal environment.",
+      "reproductive": "Reproductive system. The full-body plate shows male anatomy.",
+      "integumentary": "Skin and cutaneous appendages, the body’s outer boundary.",
+      "sensory": "Sense organs visible in the anterior view.",
+      "endocrine": "Glands that release hormones into the blood and coordinate distant functions.",
+      "nervous-peripheral": "Nerves and ganglia outside the brain and spinal cord."
+    }
+  },
+  "science": {
+    "eyebrow": "The science behind Soma",
+    "title": "From literature to an educational trajectory.",
+    "subtitle": "Evidence suggests a shape and parameters. The continuous stroke is mathematical interpolation, not a measurement of you.",
+    "stages": {
+      "research": {
+        "title": "Research",
+        "body": "Literature and, when they exist, guidelines: which structures, what pace, and how much confidence. It does not measure the user."
+      },
+      "modeling": {
+        "title": "Educational modeling",
+        "body": "Shape, horizon, and ceiling. Between anchors the curve is interpolated: a point on the stroke is not a data point from a study."
+      },
+      "exploration": {
+        "title": "Exploration",
+        "body": "The demo or your timeline places the catalog on days. It is estimated advance, not a biomarker or a diagnosis."
+      }
+    },
+    "shapesLabel": "Schematic shapes",
+    "shapesDetailLabel": "What each shape means",
+    "shapes": {
+      "logarithmic": {
+        "title": "Logarithmic",
+        "body": "More change early on, then it flattens. Used when the literature describes an early gain that then slows."
+      },
+      "sigmoidal": {
+        "title": "Sigmoidal",
+        "body": "Starts slowly, accelerates, then flattens again. Fits processes that take time to get going and then stabilize."
+      },
+      "linear": {
+        "title": "Linear",
+        "body": "Steady advance in the model. Reserved for when the data do not justify another shape; discrete milestones are still drawn as a continuous approximation."
+      }
+    },
+    "shapesCaption": "Illustrative glyphs. They are not clinical curves and not a catalog trajectory drawn to scale.",
+    "confidenceLabel": "Evidence confidence",
+    "confidenceIntro": "Each catalog pair carries a confidence level. It describes how strong the sources are — not a statistical probability and not certainty about an individual outcome.",
+    "confidence": {
+      "high": {
+        "title": "High",
+        "body": "Broad consensus, several longitudinal studies, or established guidelines. The model is still a simplification."
+      },
+      "medium": {
+        "title": "Medium",
+        "body": "Solid literature, with person-to-person variability or limited samples. Uncertainty stays in view."
+      },
+      "low": {
+        "title": "Low",
+        "body": "Emerging evidence, preliminary studies, or extrapolation. It should not be read as a settled clinical fact."
+      }
+    },
+    "notice": "Educational catalog models. They are not clinical measurements or the end of recovery.",
+    "exploreMethod": "Explore the methodology",
+    "limits": "The model represents averages under standard conditions: it does not include individual variability, comorbidities, or interactions between substances. Internal scales are for visualization, not medical percentages. Not every catalog reference has been verified against the primary source. Soma is not a medical device."
+  },
+  "methodology": {
+    "eyebrow": "Methodology",
+    "title": "How to read the model.",
+    "subtitle": "Each shape describes an interpolation pattern. Confidence speaks to the sources. The limits recall what the model cannot claim."
+  },
+  "achievements": {
+    "eyebrow": "Milestones along the way",
+    "title": "Every step deserves to be recognized.",
+    "intro": "Soma recognizes {{count}} achievements tied to thresholds in its educational models. This showcase displays real catalog pieces, not personal progress.",
+    "galleryLabel": "Achievement showcase",
+    "selectedLabel": "Selected milestone",
+    "substance": "Substance",
+    "tier": "Tier",
+    "tiers": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "platinum": "Platinum"
+    },
+    "sealedTitle": "Hidden milestone",
+    "sealedBody": "Some achievements stay sealed until they are reached. This showcase does not reveal the name or the description.",
+    "sealedSubstance": "Still to discover",
+    "note": "Achievements are granted when a modeled educational trajectory crosses a catalog threshold. They are not clinical measurements, and not proof that an organ has recovered."
+  },
+  "closing": {
+    "eyebrow": "Your next chapter",
+    "title": "Your journey starts today.",
+    "subtitle": "Every day is part of a larger story. Discover how to explore your evolution, understand the processes in your body, and recognize the milestones along the way.",
+    "ctaPrimary": "Create an account",
+    "ctaSecondary": "Explore the demo",
+    "note": "Orientative educational models. They do not replace a medical evaluation.",
+    "tagline": "Understanding recovery, one day at a time."
+  }
+}

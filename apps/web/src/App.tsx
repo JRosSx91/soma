@@ -6,7 +6,7 @@ import { ForgotPasswordPage } from "./pages/ForgotPasswordPage.js";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage.js";
 import { OnboardingPage } from "./pages/OnboardingPage.js";
 import { AchievementsPage } from "./pages/AchievementsPage.js";
-import { LandingPage } from "./pages/LandingPage.js";
+import { LandingV2Page } from "./features/landing-v2/LandingV2Page.js";
 import { PreviewShell } from "./features/recovery-dashboard/components/PreviewShell.js";
 import { PreviewHome } from "./features/recovery-dashboard/components/PreviewHome.js";
 import { RecoveryPage } from "./features/recovery-dashboard/pages/RecoveryPage.js";
@@ -33,7 +33,7 @@ function RootRoute() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
+      <div className="flex min-h-screen items-center justify-center bg-[#081018] text-[#68D8C0]">
         {t("loading")}
       </div>
     );
@@ -41,7 +41,7 @@ function RootRoute() {
 
   // Authenticated users resolve onboarding via LoginPage (pending invite vs /app).
   // Avoids sending pending sessions straight to /app without a coherent invite.
-  return user ? <Navigate to="/login" replace /> : <LandingPage />;
+  return user ? <Navigate to="/login" replace /> : <LandingV2Page />;
 }
 
 const legacyFallback = (
@@ -68,6 +68,7 @@ function App() {
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<RootRoute />} />
+        <Route path="/landing-2" element={<Navigate to="/" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />

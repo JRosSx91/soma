@@ -17,6 +17,28 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(134 183 232 / 0.4) transparent;
+  }
+
+  html::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background-color: rgb(134 183 232 / 0.4);
+    border-radius: 999px;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(134 183 232 / 0.55);
+  }
+
   body {
     min-height: 100vh;
   }
