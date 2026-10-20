@@ -31,6 +31,7 @@ import {
   SystemSheetSummary,
 } from "../components/OrganSheetSummary.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
+import { AdvicePanel } from "../components/AdvicePanel.js";
 
 const tabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;
 type AnatomyTab = (typeof tabs)[number];
@@ -407,9 +408,13 @@ function PanelBody({
   }
   if (tab === "consejos") {
     return (
-      <p className="rounded-xl border border-dashed border-soma-line px-3 py-4 text-soma-ink-muted">
-        {t("advicePlaceholder")}
-      </p>
+      <AdvicePanel
+        organId={organ?.id ?? null}
+        substanceId={substanceId}
+        phase={phase}
+        onSubstance={onSubstance}
+        onPhase={onPhase}
+      />
     );
   }
   return (

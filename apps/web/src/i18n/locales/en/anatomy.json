@@ -49,7 +49,15 @@
   "substanceLegend": "Substance",
   "phaseLegend": "Phase",
   "missingScientificText": "This text is not available in the current language.",
-  "advicePlaceholder": "There is no advice for this sheet yet.",
+  "advicePlaceholder": "There is no published advice for this sheet yet.",
+  "adviceDisclaimer": "This advice is educational. The atlas phase is not a diagnosis or a personal clinical timeline.",
+  "adviceEmptySelection": "There is no published advice for the selected substance and phase.",
+  "advicePersistentHeading": "Safety notices",
+  "adviceCategory": {
+    "safety": "Safety",
+    "seek_help": "When to seek help",
+    "self_care": "Self-care"
+  },
   "curveShape": "Curve shape",
   "daysTo95": "Orientative days toward 95% of the ceiling",
   "daysUnit": "{{count}} days",

@@ -65,6 +65,7 @@ export const adviceCatalogIssueCodes = [
   "missing_i18n",
   "invalid_presentation_priority",
   "numeric_day_field",
+  "persistent_safety_requires_substance_phase",
 ] as const;
 
 export type AdviceCatalogIssueCode = (typeof adviceCatalogIssueCodes)[number];
@@ -167,6 +168,14 @@ export function validateDraftAdviceCatalog(
     }
 
     if (item.scope === "organ") {
+      const surface = (item as { alertSurface?: string }).alertSurface;
+      if (surface === "persistent_safety") {
+        issues.push({
+          code: "persistent_safety_requires_substance_phase",
+          recordId,
+          detail: "persistent_safety is only valid on substance_phase items.",
+        });
+      }
       for (const organId of item.organIds) {
         if (!includesString(CANONICAL_ORGAN_IDS, organId)) {
           issues.push({

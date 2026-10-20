@@ -221,6 +221,21 @@ test("unknown substances, phases, and organs are reported", () => {
   assert.equal(codes(unknownOrgan).includes("unknown_organ"), true);
 });
 
+test("persistent_safety on an organ-scoped draft is reported", () => {
+  const issues = validateDraftAdviceCatalog(
+    [
+      {
+        item: {
+          ...draftOrganTestesCannabis.item,
+          alertSurface: "persistent_safety",
+        } as EducationalAdviceItem,
+      },
+    ],
+    sidecarI18n,
+  );
+  assert.equal(codes(issues).includes("persistent_safety_requires_substance_phase"), true);
+});
+
 test("a canonical organ without narrative or recovery is not an integrity error", () => {
   const issues = validateDraftAdviceCatalog([draftOrganTestesCannabis], sidecarI18n);
   assert.deepEqual(issues, []);

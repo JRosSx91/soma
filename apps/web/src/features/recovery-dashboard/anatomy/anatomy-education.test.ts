@@ -203,7 +203,9 @@ test("the summary uses the anatomical catalog and the other tabs stay in place",
   for (const tab of ["resumen", "efectos", "recuperacion", "consejos"]) {
     assert.match(page, new RegExp(`"${tab}"`));
   }
-  assert.match(page, /advicePlaceholder/);
+  assert.match(page, /AdvicePanel/);
+  assert.equal(page.includes("advice-drafts"), false);
+  assert.equal(page.includes("matchApplicableAdvice"), false);
   assert.match(page, /recoveryDisclaimer/);
   assert.match(page, /resolveEducationalRecovery/);
 });

@@ -49,7 +49,15 @@
   "substanceLegend": "Sustancia",
   "phaseLegend": "Fase",
   "missingScientificText": "Este texto no está disponible en el idioma actual.",
-  "advicePlaceholder": "Todavía no hay consejos para esta ficha.",
+  "advicePlaceholder": "Todavía no hay consejos publicados para esta ficha.",
+  "adviceDisclaimer": "Estos consejos son educativos. La fase del atlas no es un diagnóstico ni un calendario clínico personal.",
+  "adviceEmptySelection": "No hay consejos publicados para la sustancia y la fase seleccionadas.",
+  "advicePersistentHeading": "Avisos de seguridad",
+  "adviceCategory": {
+    "safety": "Seguridad",
+    "seek_help": "Cuándo pedir ayuda",
+    "self_care": "Autocuidado"
+  },
   "curveShape": "Forma de la curva",
   "daysTo95": "Días orientativos hacia el 95 % del techo",
   "daysUnit": "{{count}} días",
