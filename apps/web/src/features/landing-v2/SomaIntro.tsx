@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { markLandingV2IntroSeen } from "./soma-intro-session.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -20,7 +20,9 @@ const DRAW_S = 1.0;
 const SHIFT_DELAY_S = 1.0;
 const SHIFT_S = 0.6;
 const WORD_DELAY_S = 1.4;
-const WORD_FADE_S = 0.7;
+const LETTER_STAGGER_S = 0.09;
+const LETTER_FADE_S = 0.5;
+const LETTERS = ["s", "o", "m", "a"] as const;
 const FADE_S = 0.8;
 const SKIP_FADE_S = 0.22;
 const FADE_AT_MS = 3000;
@@ -58,6 +60,7 @@ type SomaIntroProps = {
 };
 
 export function SomaIntro({ onReveal, onComplete }: SomaIntroProps) {
+  const reduceMotion = Boolean(useReducedMotion());
   const overlayRef = useRef<HTMLDivElement>(null);
   const closingRef = useRef(false);
   const revealedRef = useRef(false);
@@ -146,9 +149,13 @@ export function SomaIntro({ onReveal, onComplete }: SomaIntroProps) {
     >
       <motion.div
         className="flex items-center gap-3"
-        initial={{ x: 44 }}
+        initial={reduceMotion ? false : { x: 44 }}
         animate={{ x: 0 }}
-        transition={{ delay: SHIFT_DELAY_S, duration: SHIFT_S, ease }}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : { delay: SHIFT_DELAY_S, duration: SHIFT_S, ease }
+        }
       >
         <svg
           viewBox="0 0 28 16"
@@ -163,20 +170,35 @@ export function SomaIntro({ onReveal, onComplete }: SomaIntroProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
             pathLength={1}
-            initial={{ pathLength: 0 }}
+            initial={reduceMotion ? false : { pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: DRAW_S, ease }}
+            transition={reduceMotion ? { duration: 0 } : { duration: DRAW_S, ease }}
           />
         </svg>
-        <motion.span
+        <span
           aria-hidden="true"
-          className="caret-transparent select-none text-[2rem] font-semibold leading-none tracking-tight text-white"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: WORD_DELAY_S, duration: WORD_FADE_S, ease }}
+          className="inline-flex caret-transparent select-none text-[2rem] font-semibold leading-none tracking-tight text-white"
         >
-          soma
-        </motion.span>
+          {LETTERS.map((letter, index) => (
+            <motion.span
+              key={letter}
+              className="inline-block"
+              initial={reduceMotion ? false : { opacity: 0, y: 7 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : {
+                      delay: WORD_DELAY_S + index * LETTER_STAGGER_S,
+                      duration: LETTER_FADE_S,
+                      ease,
+                    }
+              }
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </span>
       </motion.div>
     </motion.div>
   );
