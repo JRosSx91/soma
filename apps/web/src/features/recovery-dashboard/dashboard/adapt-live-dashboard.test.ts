@@ -440,6 +440,8 @@ test("testes uses atlas reproductive label instead of generic Órgano", () => {
 
   const testesCard = model.changes.find((item) => item.id === "testes");
   assert.ok(testesCard);
+  assert.equal(testesCard.title, "Testes");
+  assert.match(testesCard.body, /Testes/);
   assert.equal(testesCard.system, "Sistema reproductor");
   assert.doesNotMatch(testesCard.system, /Órgano/);
   assert.equal(
@@ -450,6 +452,97 @@ test("testes uses atlas reproductive label instead of generic Órgano", () => {
     model.chart.series.some((item) => item.id === "reproductive"),
     false,
   );
+  assert.equal(testesCard.icon, undefined);
+});
+
+test("organ cards localize title and body from organLabel without changing catalog input", () => {
+  const cannabisWithGonads: ApiSubstance = {
+    ...cannabis,
+    recoveryCurves: [
+      ...cannabis.recoveryCurves,
+      curve("testes", "reproductive", 180, 0.95),
+      curve("ovaries", "reproductive", 180, 0.95),
+    ],
+  };
+  const usage: ProfileUsage = {
+    substanceId: "cannabis",
+    yearStarted: 2020,
+    lastUseDate: "2026-07-23T00:00:00.000Z",
+    frequency: "weekly",
+    status: "abstinent",
+  };
+  const organStates = new Map<OrganId, OrganState>([
+    [
+      "testes",
+      {
+        organId: "testes",
+        organName: "Testes",
+        progressFraction: 0.46,
+        absoluteRecovery: 0.44,
+        daysAbstinent: 87,
+        dominantSubstanceId: "cannabis",
+        confidenceLevel: "low",
+        dominantStatus: "abstinent",
+        contributingSubstances: [
+          { substanceId: "cannabis", status: "abstinent", progressFraction: 0.46 },
+        ],
+      },
+    ],
+    [
+      "ovaries",
+      {
+        organId: "ovaries",
+        organName: "Ovaries",
+        progressFraction: 0.4,
+        absoluteRecovery: 0.38,
+        daysAbstinent: 87,
+        dominantSubstanceId: "cannabis",
+        confidenceLevel: "low",
+        dominantStatus: "abstinent",
+        contributingSubstances: [
+          { substanceId: "cannabis", status: "abstinent", progressFraction: 0.4 },
+        ],
+      },
+    ],
+  ]);
+  const labels: Record<string, string> = {
+    testes: "Testículos",
+    ovaries: "Ovarios",
+  };
+
+  const localized = buildLiveDashboard({
+    usages: [usage],
+    substances: [cannabisWithGonads],
+    organStates,
+    substanceId: "cannabis",
+    now,
+    organLabel: (organId, fallback) => labels[organId] ?? fallback,
+  });
+  const testesCard = localized.changes.find((item) => item.id === "testes");
+  const ovariesCard = localized.changes.find((item) => item.id === "ovaries");
+  assert.ok(testesCard);
+  assert.ok(ovariesCard);
+  assert.equal(testesCard.title, "Testículos");
+  assert.equal(ovariesCard.title, "Ovarios");
+  assert.match(testesCard.body, /^Testículos:/);
+  assert.match(ovariesCard.body, /^Ovarios:/);
+  assert.doesNotMatch(testesCard.body, /Testes/);
+  assert.doesNotMatch(ovariesCard.body, /Ovaries/);
+  assert.equal(organStates.get("testes")?.organName, "Testes");
+  assert.equal(organStates.get("ovaries")?.organName, "Ovaries");
+
+  const missing = buildLiveDashboard({
+    usages: [usage],
+    substances: [cannabisWithGonads],
+    organStates,
+    substanceId: "cannabis",
+    now,
+    organLabel: (organId) => organId,
+  });
+  const fallbackCard = missing.changes.find((item) => item.id === "testes");
+  assert.ok(fallbackCard);
+  assert.equal(fallbackCard.title, "Testes");
+  assert.match(fallbackCard.body, /Testes/);
 });
 
 test("Prisma underscore systems map to hyphen BodySystem ids", () => {
@@ -654,6 +747,73 @@ test("adapter does not redefine recovery formulas", () => {
   assert.match(source, /estimateCurve/);
   assert.equal(source.includes("function estimateCurve"), false);
   assert.equal(source.includes("daysTo95Recovery:"), true);
+});
+
+test("live organ cards do not fall back to the brain system icon", () => {
+  const source = readFileSync(new URL("./adapt-live-dashboard.ts", import.meta.url), "utf8");
+  assert.equal(source.includes('meta?.icon ?? "brain"'), false);
+
+  const cannabisWithOrgans: ApiSubstance = {
+    ...cannabis,
+    recoveryCurves: [
+      curve("testes", "reproductive", 180, 0.95),
+      curve("brain-hippocampus", "nervous-central", 180, 0.9),
+    ],
+  };
+  const usage: ProfileUsage = {
+    substanceId: "cannabis",
+    yearStarted: 2020,
+    lastUseDate: "2026-07-23T00:00:00.000Z",
+    frequency: "weekly",
+    status: "abstinent",
+  };
+  const organStates = new Map<OrganId, OrganState>([
+    [
+      "testes",
+      {
+        organId: "testes",
+        organName: "Testes",
+        progressFraction: 0.4,
+        absoluteRecovery: 0.38,
+        daysAbstinent: 87,
+        dominantSubstanceId: "cannabis",
+        confidenceLevel: "low",
+        dominantStatus: "abstinent",
+        contributingSubstances: [
+          { substanceId: "cannabis", status: "abstinent", progressFraction: 0.4 },
+        ],
+      },
+    ],
+    [
+      "brain-hippocampus",
+      {
+        organId: "brain-hippocampus",
+        organName: "Hippocampus",
+        progressFraction: 0.5,
+        absoluteRecovery: 0.45,
+        daysAbstinent: 87,
+        dominantSubstanceId: "cannabis",
+        confidenceLevel: "low",
+        dominantStatus: "abstinent",
+        contributingSubstances: [
+          { substanceId: "cannabis", status: "abstinent", progressFraction: 0.5 },
+        ],
+      },
+    ],
+  ]);
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [cannabisWithOrgans],
+    organStates,
+    substanceId: "cannabis",
+    now,
+  });
+  const testesCard = model.changes.find((item) => item.id === "testes");
+  const hippocampusCard = model.changes.find((item) => item.id === "brain-hippocampus");
+  assert.ok(testesCard);
+  assert.ok(hippocampusCard);
+  assert.equal(testesCard.icon, undefined);
+  assert.equal(hippocampusCard.icon, undefined);
 });
 
 test("chart endLabel is today trajectory, not day-365 sample", () => {

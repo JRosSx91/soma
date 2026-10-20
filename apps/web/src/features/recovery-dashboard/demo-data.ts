@@ -145,7 +145,8 @@ export interface DemoChange {
   status: string;
   body: string;
   endLabel: string;
-  icon: DemoOrganIcon;
+  /** System glyph for demo cards. Live organ cards resolve a plate by `id`. */
+  icon?: DemoOrganIcon;
 }
 
 export const demoChanges: readonly DemoChange[] = [

@@ -426,6 +426,18 @@ export function buildLiveChart(input: {
   };
 }
 
+/** Prefer a translated label; never surface the raw organ id. */
+export function localizedOrganName(
+  organId: string,
+  fallback: string,
+  translated: string | undefined,
+): string {
+  if (translated == null || translated === "" || translated === organId) {
+    return fallback;
+  }
+  return translated;
+}
+
 export function buildLiveDashboard(input: {
   usages: readonly ProfileUsage[];
   substances: readonly ApiSubstance[];
@@ -433,6 +445,8 @@ export function buildLiveDashboard(input: {
   substanceId: string | null;
   now?: number;
   copy?: RecoveryDashboardCopy;
+  /** Display name for an organ id. Catalog `organName` remains the fallback. */
+  organLabel?: (organId: string, fallback: string) => string;
 }): LiveDashboardModel {
   const now = input.now ?? Date.now();
   const copy = input.copy ?? SPANISH_RECOVERY_COPY;
@@ -632,13 +646,18 @@ export function buildLiveDashboard(input: {
     const status =
       contrib.status === "active" ? copy.statusActive : copy.statusRecovering;
     const pct = formatTrajectoryPercent(contrib.progressFraction);
+    const organName = localizedOrganName(
+      state.organId,
+      state.organName,
+      input.organLabel?.(state.organId, state.organName),
+    );
     const body =
       contrib.status === "active"
         ? fillRecoveryTemplate(copy.organBodyActive, {
-            organ: state.organName,
+            organ: organName,
           })
         : fillRecoveryTemplate(copy.organBodyAbstinent, {
-            organ: state.organName,
+            organ: organName,
             percent: pct,
             days: formatDaysAbstinent(contrib.daysAbstinent, copy),
             substance: substanceDisplayName(contrib.substanceId).toLowerCase(),
@@ -650,11 +669,10 @@ export function buildLiveDashboard(input: {
         meta?.name ??
         (system ? ATLAS_CARD_SYSTEM_LABEL[system] : undefined) ??
         copy.organFallback,
-      title: state.organName,
+      title: organName,
       status,
       body,
       endLabel: pct,
-      icon: meta?.icon ?? "brain",
     };
   });
 

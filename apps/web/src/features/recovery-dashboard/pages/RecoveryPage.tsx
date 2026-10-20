@@ -149,49 +149,51 @@ export function RecoveryPage() {
     (tab === "substance" && live && dashboard.chart.series.length > 0);
 
   return (
-    <div className="flex flex-col gap-5 pb-6">
-      <PageHeading
-        eyebrow={t("emptyEyebrow")}
-        title={t("emptyTitle")}
-        description={live ? t("liveDescription") : t("demoDescription")}
-        demo={dashboard.showDemoBadge}
-        aside={
-          tab === "substance" ? (
-            <label className="relative">
-              <span className="sr-only">
-                {live ? t("substanceSelectLive") : t("substanceSelectDemo")}
-              </span>
-              <select
-                value={substance.id}
-                onChange={(event) => selectSubstance(event.target.value)}
-                className={`${previewFocus} appearance-none rounded-xl border border-soma-line bg-soma-surface py-2 pl-3 pr-8 text-sm text-soma-ink`}
-              >
-                {dashboard.substances.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.pillDetail}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : (
-            <p className="rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink">
-              {t("substanceSelectAll")}
-            </p>
-          )
-        }
-      />
+    <div className="flex min-w-0 flex-col gap-8 pb-6">
+      <div className="flex min-w-0 flex-col gap-3">
+        <PageHeading
+          eyebrow={t("emptyEyebrow")}
+          title={t("emptyTitle")}
+          description={live ? t("liveDescription") : t("demoDescription")}
+          demo={dashboard.showDemoBadge}
+          aside={
+            tab === "substance" ? (
+              <label className="relative">
+                <span className="sr-only">
+                  {live ? t("substanceSelectLive") : t("substanceSelectDemo")}
+                </span>
+                <select
+                  value={substance.id}
+                  onChange={(event) => selectSubstance(event.target.value)}
+                  className={`${previewFocus} appearance-none rounded-xl border border-soma-line bg-soma-surface py-2 pl-3 pr-8 text-sm text-soma-ink`}
+                >
+                  {dashboard.substances.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.pillDetail}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : (
+              <p className="rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink">
+                {t("substanceSelectAll")}
+              </p>
+            )
+          }
+        />
 
-      <SegmentedControl
-        label={t("recoveryViewLabel")}
-        value={tab}
-        options={recoveryTabs}
-        onChange={setTab}
-      />
+        <SegmentedControl
+          label={t("recoveryViewLabel")}
+          value={tab}
+          options={recoveryTabs}
+          onChange={setTab}
+        />
+      </div>
 
       {tab !== "timeline" ? (
-        <ul className="grid gap-2.5 sm:grid-cols-3">
+        <ul className={substanceGridClass(dashboard.substances.length)}>
           {dashboard.substances.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} className="min-w-0">
               <SubstanceCard
                 substance={item}
                 selected={tab === "substance" && item.id === substance.id}
@@ -258,7 +260,7 @@ export function RecoveryPage() {
         </p>
       ) : null}
 
-      <section>
+      <section className="min-w-0">
         <h2 className="text-base font-semibold text-soma-ink">
           {tab === "timeline"
             ? t("timelineTitle")
@@ -270,13 +272,17 @@ export function RecoveryPage() {
           {live ? t("organsLiveHint") : t("milestonesDemoHint")}
         </p>
         {visibleChanges.length === 0 ? (
-          <p className="mt-3 rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
+          <p className="mt-4 rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
             {live ? t("noOrgansLive") : t("noMilestonesDemo")}
           </p>
         ) : (
-          <ul className={`mt-3 grid gap-2.5 ${tab === "timeline" ? "" : "lg:grid-cols-3"}`}>
+          <ul
+            className={`mt-4 grid items-stretch gap-2.5 ${
+              tab === "timeline" ? "" : "sm:grid-cols-2 lg:grid-cols-3"
+            }`}
+          >
             {visibleChanges.map((change) => (
-              <li key={change.id}>
+              <li key={change.id} className="min-w-0">
                 {tab === "timeline" ? (
                   <button
                     type="button"
@@ -314,4 +320,14 @@ export function RecoveryPage() {
       ) : null}
     </div>
   );
+}
+
+function substanceGridClass(count: number): string {
+  if (count <= 1) {
+    return "grid min-w-0 items-stretch gap-2.5 sm:max-w-sm";
+  }
+  if (count === 2) {
+    return "grid min-w-0 items-stretch gap-2.5 sm:grid-cols-2 sm:max-w-3xl";
+  }
+  return "grid min-w-0 items-stretch gap-2.5 sm:grid-cols-3";
 }

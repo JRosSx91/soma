@@ -164,11 +164,15 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       organStates,
       substanceId,
       copy,
+      organLabel: (organId, fallback) =>
+        i18n.t(organId, { ns: "organs", defaultValue: fallback }),
     });
   }, [
     adaptedProfile.usages,
     copy,
     error,
+    i18n,
+    i18n.language,
     isLive,
     liveProfile.profile,
     organStates,
