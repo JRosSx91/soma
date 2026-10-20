@@ -94,6 +94,25 @@ test("atlas chrome uses the anatomy namespace without forced spanish lookups", (
   }
 });
 
+test("the atlas stage does not offer an anterior/posterior view selector", () => {
+  const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
+  const atlas = readFileSync(new URL("./AnatomyAtlas2D.tsx", import.meta.url), "utf8");
+  assert.equal(atlas.includes("ViewButton"), false);
+  assert.equal(atlas.includes("onViewChange"), false);
+  assert.equal(atlas.includes("viewPosterior"), false);
+  assert.equal(atlas.includes("viewGroup"), false);
+  assert.equal(page.includes("setView"), false);
+  assert.equal(page.includes("posteriorAvailable"), false);
+  assert.equal(page.includes("AtlasViewId"), false);
+  assert.match(atlas, /viewAnterior/);
+  assert.equal("viewAnterior" in esAnatomy, true);
+  assert.equal("viewAnterior" in enAnatomy, true);
+  for (const key of ["viewGroup", "viewPosterior", "posteriorUnavailable", "posteriorUnavailableShort"]) {
+    assert.equal(key in esAnatomy, false, key);
+    assert.equal(key in enAnatomy, false, key);
+  }
+});
+
 test("anatomy json values are not unresolved i18n key paths", () => {
   for (const [bundle, label] of [
     [enAnatomy, "en"],

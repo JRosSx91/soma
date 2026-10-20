@@ -5,7 +5,7 @@ import { previewFocus } from "../focus.js";
 import { localizedCatalogLabel } from "../explore/explore-search.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
-import type { AtlasSystem, AtlasViewId } from "../anatomy/atlas-types.js";
+import type { AtlasSystem } from "../anatomy/atlas-types.js";
 import {
   narrativePhases,
   resolveEducationalNarrative,
@@ -41,29 +41,21 @@ export function AnatomyExplorerPage() {
   const base = useShellBase();
   const [systemId, setSystemId] = useState<string | null>(null);
   const [organId, setOrganId] = useState<string | null>(null);
-  const [view, setView] = useState<AtlasViewId>("anterior");
   const [tab, setTab] = useState<AnatomyTab>("resumen");
   const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [phase, setPhase] = useState<NarrativePhase>("during_use");
 
   const system = atlasSystems.find((item) => item.id === systemId) ?? null;
   const organ = system?.organs.find((item) => item.id === organId) ?? null;
-  const posteriorAvailable = system
-    ? Boolean(system.plates.posterior)
-    : Boolean(bodyAtlasView.plates.posterior);
-  const plate =
-    view === "posterior"
-      ? (system?.plates.posterior ?? bodyAtlasView.plates.posterior)
-      : organ
-        ? organ.plate
-        : system
-          ? system.plates.anterior
-          : bodyAtlasView.plates.anterior;
-  const fullBodyPlate =
-    view === "anterior" && !organ && plate?.aspectRatio === "1024 / 1536";
+  const plate = organ
+    ? organ.plate
+    : system
+      ? system.plates.anterior
+      : bodyAtlasView.plates.anterior;
+  const fullBodyPlate = !organ && plate?.aspectRatio === "1024 / 1536";
   const regions =
     system?.organs.flatMap((item) => {
-      const path = item.regions[view];
+      const path = item.regions.anterior;
       return path ? [{ organId: item.id, path }] : [];
     }) ?? [];
 
@@ -71,11 +63,9 @@ export function AnatomyExplorerPage() {
   const organLabel = organ ? atlasOrganName(t, organ.id, organ.name) : null;
   const unavailableMessage = !system
     ? t("chooseSystem")
-    : view === "posterior" && !posteriorAvailable
-      ? t("posteriorUnavailable", { name: systemLabel })
-      : organ && !organ.plate
-        ? t("organNoPlate", { name: organLabel })
-        : t("systemNoPlate", { name: systemLabel });
+    : organ && !organ.plate
+      ? t("organNoPlate", { name: organLabel })
+      : t("systemNoPlate", { name: systemLabel });
 
   return (
     <div className="flex flex-col gap-3 pb-2">
@@ -92,7 +82,6 @@ export function AnatomyExplorerPage() {
           onClick={() => {
             setSystemId(null);
             setOrganId(null);
-            setView("anterior");
             setTab("resumen");
           }}
         >
@@ -140,7 +129,6 @@ export function AnatomyExplorerPage() {
                   onClick={() => {
                     setSystemId(item.id);
                     setOrganId(null);
-                    setView("anterior");
                     setTab("resumen");
                   }}
                   className={`${previewFocus} flex min-h-11 w-full items-center gap-2 rounded-xl border px-2.5 py-2 text-left text-xs leading-tight lg:min-h-0 lg:py-1.5 ${
@@ -168,14 +156,11 @@ export function AnatomyExplorerPage() {
 
         <AnatomyAtlas2D
           label={organLabel ?? systemLabel}
-          plate={view === "posterior" && !posteriorAvailable ? null : plate}
+          plate={plate}
           unavailableMessage={unavailableMessage}
           regions={regions}
           selectedOrganId={organId}
-          view={view}
-          posteriorAvailable={posteriorAvailable}
           fillView={fullBodyPlate}
-          onViewChange={setView}
           onSelectOrgan={setOrganId}
         />
 
@@ -191,7 +176,6 @@ export function AnatomyExplorerPage() {
           onSystem={(id) => {
             setSystemId(id);
             setOrganId(null);
-            setView("anterior");
             setTab("resumen");
           }}
           onOrgan={(id) => setOrganId(id === organId ? null : id)}

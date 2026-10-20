@@ -6,7 +6,6 @@ import {
   ATLAS_PLATE_FRAME,
   ATLAS_VIEWBOX,
   type AtlasPlate,
-  type AtlasViewId,
 } from "./atlas-types.js";
 import {
   applyCrossfadeOpacities,
@@ -30,11 +29,8 @@ interface AnatomyAtlas2DProps {
   unavailableMessage: string;
   regions: readonly AtlasRegionHit[];
   selectedOrganId: string | null;
-  view: AtlasViewId;
-  posteriorAvailable: boolean;
   /** Body plate fills the viewBox. System plates stay in the shared frame. */
   fillView?: boolean;
-  onViewChange: (view: AtlasViewId) => void;
   onSelectOrgan: (organId: string) => void;
 }
 
@@ -48,10 +44,7 @@ export function AnatomyAtlas2D({
   unavailableMessage,
   regions,
   selectedOrganId,
-  view,
-  posteriorAvailable,
   fillView = false,
-  onViewChange,
   onSelectOrgan,
 }: AnatomyAtlas2DProps) {
   const [zoomIndex, setZoomIndex] = useState(0);
@@ -63,10 +56,6 @@ export function AnatomyAtlas2D({
   const layersRef = useRef(layers);
   layersRef.current = layers;
   const zoom = zoomSteps[zoomIndex] ?? 1;
-
-  useEffect(() => {
-    setZoomIndex(0);
-  }, [view]);
 
   useEffect(() => {
     if (!fillView) setZoomIndex(0);
@@ -119,28 +108,12 @@ export function AnatomyAtlas2D({
       ? undefined
       : `translate(${regionCenterX} ${regionCenterY}) scale(${zoom}) translate(${-regionCenterX} ${-regionCenterY})`;
   const showRegions = regions.length > 0;
-  const viewLabel = view === "anterior" ? "anterior" : "posterior";
   const { t } = useTranslation("anatomy");
+  const plateLabel = `${label}, ${t("viewAnterior")}`;
 
   return (
     <div className="flex min-w-0 flex-col gap-3">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div role="group" aria-label={t("viewGroup")} className="flex gap-1.5">
-          <ViewButton
-            pressed={view === "anterior"}
-            onClick={() => onViewChange("anterior")}
-          >
-            {t("viewAnterior")}
-          </ViewButton>
-          <ViewButton
-            pressed={view === "posterior"}
-            disabled={!posteriorAvailable}
-            disabledReason={t("posteriorUnavailableShort")}
-            onClick={() => onViewChange("posterior")}
-          >
-            {t("viewPosterior")}
-          </ViewButton>
-        </div>
+      <div className="flex flex-wrap items-center justify-end gap-2">
         <div role="group" aria-label={t("zoomGroup")} className="flex gap-1.5">
           <ToolButton
             label={t("zoomOut")}
@@ -180,7 +153,7 @@ export function AnatomyAtlas2D({
         {plate && fillView ? (
           <div
             role="img"
-            aria-label={`${label}, vista ${viewLabel}`}
+            aria-label={plateLabel}
             className="relative max-w-full"
             style={{
               aspectRatio: plate.aspectRatio ?? "1024 / 1536",
@@ -208,7 +181,7 @@ export function AnatomyAtlas2D({
         {plate && !fillView ? (
           <img
             src={plate.src}
-            alt={`${label}, vista ${viewLabel}`}
+            alt={plateLabel}
             className="max-h-full max-w-full object-contain"
             style={{ transform: zoom === 1 ? undefined : `scale(${zoom})` }}
             draggable={false}
@@ -261,37 +234,6 @@ export function AnatomyAtlas2D({
         </div>
       </div>
     </div>
-  );
-}
-
-function ViewButton({
-  pressed,
-  disabled = false,
-  disabledReason,
-  onClick,
-  children,
-}: {
-  pressed: boolean;
-  disabled?: boolean;
-  disabledReason?: string;
-  onClick: () => void;
-  children: string;
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={disabled ? undefined : pressed}
-      disabled={disabled}
-      title={disabled ? disabledReason : undefined}
-      onClick={onClick}
-      className={`${previewFocus} rounded-full px-3 py-1.5 text-xs disabled:cursor-not-allowed disabled:opacity-40 ${
-        pressed && !disabled
-          ? "bg-soma-action text-[#081018]"
-          : "bg-soma-surface text-soma-ink-secondary"
-      }`}
-    >
-      {children}
-    </button>
   );
 }
 
