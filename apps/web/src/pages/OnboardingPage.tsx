@@ -10,7 +10,29 @@ import {
   shouldConfirmClearUsages,
   skipOnboardingWithoutClearingUsages,
 } from "../features/profile/index.js";
-import { LanguageSelector } from "../components/LanguageSelector.js";
+import {
+  OnboardingShell,
+  onboardingCardActiveClass,
+  onboardingCardClass,
+  onboardingCardIdleClass,
+  onboardingDetailsClosedClass,
+  onboardingDetailsClass,
+  onboardingDetailsOpenClass,
+  onboardingLabelClass,
+  onboardingSegmentActiveClass,
+  onboardingSegmentButtonClass,
+  onboardingSegmentIdleClass,
+  onboardingSegmentTrackClass,
+} from "../features/onboarding/components/OnboardingShell.js";
+import {
+  authFieldClass,
+  authLinkClass,
+  authPrimaryButtonClass,
+  authSecondaryButtonClass,
+  authSubtitleClass,
+  authTitleClass,
+} from "../features/auth/components/AuthShell.js";
+import { previewFocus } from "../features/recovery-dashboard/focus.js";
 
 type UsageMode = "abstinent" | "active";
 
@@ -252,36 +274,38 @@ export function OnboardingPage() {
 
   if (loadingSubstances || loadingProfile || !substances) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        {t("common:loading")}
-      </div>
+      <OnboardingShell>
+        <p className="text-sm text-soma-ink-secondary">{t("common:loading")}</p>
+      </OnboardingShell>
     );
   }
 
   if (profileError || !profile) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4 gap-4">
-        <p className="text-sm text-soma-organ-damaged" role="alert">
-          {t("loadError")}
-        </p>
-        <p className="text-xs text-soma-fg-muted max-w-sm text-center">
-          {t("loadErrorHint")}
-        </p>
-        <button
-          type="button"
-          onClick={() => void refresh()}
-          className="text-soma-accent hover:underline text-sm"
-        >
-          {t("retryLoad")}
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate("/app", { replace: true })}
-          className="text-sm text-soma-fg-muted hover:underline"
-        >
-          {t("enterAppWithoutSetup")}
-        </button>
-      </div>
+      <OnboardingShell>
+        <div className="space-y-4">
+          <p className="text-sm text-soma-organ-damaged" role="alert">
+            {t("loadError")}
+          </p>
+          <p className="text-xs text-soma-ink-muted">
+            {t("loadErrorHint")}
+          </p>
+          <button
+            type="button"
+            onClick={() => void refresh()}
+            className={authPrimaryButtonClass}
+          >
+            {t("retryLoad")}
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/app", { replace: true })}
+            className={`${authLinkClass} text-sm`}
+          >
+            {t("enterAppWithoutSetup")}
+          </button>
+        </div>
+      </OnboardingShell>
     );
   }
 
@@ -296,19 +320,16 @@ export function OnboardingPage() {
     profile.usages.length > 0;
 
   return (
-    <div className="min-h-screen bg-soma-bg-base text-soma-fg-primary px-4 py-12 relative">
-      <div className="absolute top-4 right-4">
-        <LanguageSelector />
-      </div>
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-light tracking-wide mb-2">
+    <OnboardingShell brandTo={isEditingTracking ? "/app/account" : "/app"}>
+      <div>
+        <div className="mb-8">
+          <h1 className={authTitleClass}>
             {t(isEditingTracking ? "editTitle" : "title")}
           </h1>
-          <p className="text-sm text-soma-fg-muted">
+          <p className={authSubtitleClass}>
             {t(isEditingTracking ? "editSubtitle" : "subtitle")}
           </p>
-          <p className="text-xs text-soma-fg-muted mt-3 max-w-lg mx-auto">
+          <p className="mt-3 max-w-lg text-xs text-soma-ink-muted">
             {t(isEditingTracking ? "editPrivacyNote" : "privacyNote")}
           </p>
         </div>
@@ -320,25 +341,29 @@ export function OnboardingPage() {
             return (
               <div
                 key={substance.id}
-                className="bg-soma-bg-surface border border-soma-border-subtle rounded p-4"
+                className={`${onboardingCardClass} ${
+                  state.active
+                    ? onboardingCardActiveClass
+                    : onboardingCardIdleClass
+                }`}
               >
-                <label className="flex items-center gap-3 cursor-pointer">
+                <label className="flex cursor-pointer items-start gap-3">
                   <input
                     type="checkbox"
                     checked={state.active}
                     onChange={(e) =>
                       updateField(substance.id, "active", e.target.checked)
                     }
-                    className="w-4 h-4"
+                    className={`${previewFocus} mt-1 h-5 w-5 shrink-0 accent-[#68D8C0]`}
                     disabled={busy}
                   />
-                  <div className="flex-1">
-                    <p className="text-soma-fg-primary capitalize">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-base font-medium capitalize tracking-wide text-soma-ink">
                       {t(`substances:${substance.id}.name`, {
                         defaultValue: substance.name,
                       })}
                     </p>
-                    <p className="text-xs text-soma-fg-muted">
+                    <p className="mt-0.5 text-xs leading-relaxed text-soma-ink-muted">
                       {t(`substances:${substance.id}.shortDescription`, {
                         defaultValue: substance.shortDescription,
                       })}
@@ -346,127 +371,129 @@ export function OnboardingPage() {
                   </div>
                 </label>
 
-                {state.active && (
-                  <div className="mt-4 space-y-3 pl-7">
-                    <div>
-                      <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t("fields.mode")}
-                      </label>
-                      <div className="grid grid-cols-2 gap-2">
-                        <button
-                          type="button"
-                          disabled={busy}
-                          onClick={() =>
-                            updateField(substance.id, "mode", "abstinent")
-                          }
-                          className={`
-                            px-3 py-2 rounded text-sm transition-colors
-                            border
-                            ${
-                              state.mode === "abstinent"
-                                ? "border-soma-accent bg-soma-accent/10 text-soma-fg-primary"
-                                : "border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted"
-                            }
-                          `}
-                        >
-                          {t("mode.abstinent")}
-                        </button>
-                        <button
-                          type="button"
-                          disabled={busy}
-                          onClick={() =>
-                            updateField(substance.id, "mode", "active")
-                          }
-                          className={`
-                            px-3 py-2 rounded text-sm transition-colors
-                            border
-                            ${
-                              state.mode === "active"
-                                ? "border-soma-accent bg-soma-accent/10 text-soma-fg-primary"
-                                : "border-soma-border-subtle bg-soma-bg-base text-soma-fg-secondary hover:border-soma-fg-muted"
-                            }
-                          `}
-                        >
-                          {t("mode.active")}
-                        </button>
-                      </div>
-                      <p className="text-xs text-soma-fg-muted mt-2">
-                        {state.mode === "abstinent"
-                          ? t("mode.abstinentDescription")
-                          : t("mode.activeDescription")}
-                      </p>
-                    </div>
-
-                    {state.mode === "abstinent" && (
+                <div
+                  className={`${onboardingDetailsClass} ${
+                    state.active
+                      ? onboardingDetailsOpenClass
+                      : onboardingDetailsClosedClass
+                  }`}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="mt-4 space-y-4 border-t border-white/10 pt-4">
                       <div>
-                        <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                          {t("fields.lastUseDate")}
+                        <label className={onboardingLabelClass}>
+                          {t("fields.mode")}
                         </label>
-                        <input
-                          type="date"
-                          required
-                          max={TODAY}
-                          value={state.lastUseDate}
-                          disabled={busy}
-                          onChange={(e) =>
-                            updateField(
-                              substance.id,
-                              "lastUseDate",
-                              e.target.value,
-                            )
-                          }
-                          className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
-                        />
+                        <div className={onboardingSegmentTrackClass}>
+                          <button
+                            type="button"
+                            disabled={busy || !state.active}
+                            onClick={() =>
+                              updateField(substance.id, "mode", "abstinent")
+                            }
+                            className={`${onboardingSegmentButtonClass} ${
+                              state.mode === "abstinent"
+                                ? onboardingSegmentActiveClass
+                                : onboardingSegmentIdleClass
+                            }`}
+                          >
+                            {t("mode.abstinent")}
+                          </button>
+                          <button
+                            type="button"
+                            disabled={busy || !state.active}
+                            onClick={() =>
+                              updateField(substance.id, "mode", "active")
+                            }
+                            className={`${onboardingSegmentButtonClass} ${
+                              state.mode === "active"
+                                ? onboardingSegmentActiveClass
+                                : onboardingSegmentIdleClass
+                            }`}
+                          >
+                            {t("mode.active")}
+                          </button>
+                        </div>
+                        <p className="mt-2 text-xs leading-relaxed text-soma-ink-muted">
+                          {state.mode === "abstinent"
+                            ? t("mode.abstinentDescription")
+                            : t("mode.activeDescription")}
+                        </p>
                       </div>
-                    )}
 
-                    <div>
-                      <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t("fields.yearStarted")}
-                      </label>
-                      <input
-                        type="number"
-                        required
-                        min={1900}
-                        max={new Date().getFullYear()}
-                        value={state.yearStarted}
-                        disabled={busy}
-                        onChange={(e) =>
-                          updateField(
-                            substance.id,
-                            "yearStarted",
-                            e.target.value,
-                          )
-                        }
-                        className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
-                      />
-                    </div>
+                      {state.mode === "abstinent" && (
+                        <div>
+                          <label className={onboardingLabelClass}>
+                            {t("fields.lastUseDate")}
+                          </label>
+                          <input
+                            type="date"
+                            required={state.active}
+                            max={TODAY}
+                            value={state.lastUseDate}
+                            disabled={busy || !state.active}
+                            onChange={(e) =>
+                              updateField(
+                                substance.id,
+                                "lastUseDate",
+                                e.target.value,
+                              )
+                            }
+                            className={authFieldClass}
+                          />
+                        </div>
+                      )}
 
-                    <div>
-                      <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
-                        {t("fields.frequency")}
-                      </label>
-                      <select
-                        value={state.frequency}
-                        disabled={busy}
-                        onChange={(e) =>
-                          updateField(
-                            substance.id,
-                            "frequency",
-                            e.target.value as UsageInput["frequency"],
-                          )
-                        }
-                        className="w-full bg-soma-bg-base border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
-                      >
-                        {FREQUENCY_KEYS.map((opt) => (
-                          <option key={opt.value} value={opt.value}>
-                            {t(opt.labelKey)}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className={onboardingLabelClass}>
+                            {t("fields.yearStarted")}
+                          </label>
+                          <input
+                            type="number"
+                            required={state.active}
+                            min={1900}
+                            max={new Date().getFullYear()}
+                            value={state.yearStarted}
+                            disabled={busy || !state.active}
+                            onChange={(e) =>
+                              updateField(
+                                substance.id,
+                                "yearStarted",
+                                e.target.value,
+                              )
+                            }
+                            className={authFieldClass}
+                          />
+                        </div>
+
+                        <div>
+                          <label className={onboardingLabelClass}>
+                            {t("fields.frequency")}
+                          </label>
+                          <select
+                            value={state.frequency}
+                            disabled={busy || !state.active}
+                            onChange={(e) =>
+                              updateField(
+                                substance.id,
+                                "frequency",
+                                e.target.value as UsageInput["frequency"],
+                              )
+                            }
+                            className={`${authFieldClass} scheme-dark`}
+                          >
+                            {FREQUENCY_KEYS.map((opt) => (
+                              <option key={opt.value} value={opt.value}>
+                                {t(opt.labelKey)}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
@@ -479,17 +506,17 @@ export function OnboardingPage() {
 
           {confirmClear ? (
             <div
-              className="rounded border border-soma-border-subtle bg-soma-bg-surface p-4 space-y-3"
+              className={`${onboardingCardClass} space-y-3`}
               role="alertdialog"
               aria-labelledby="clear-usages-title"
             >
               <p
                 id="clear-usages-title"
-                className="text-sm text-soma-fg-primary"
+                className="text-sm text-soma-ink"
               >
                 {t("clearConfirmTitle")}
               </p>
-              <p className="text-xs text-soma-fg-muted">
+              <p className="text-xs text-soma-ink-muted">
                 {t("clearConfirmBody")}
               </p>
               <div className="flex flex-col gap-2 sm:flex-row">
@@ -501,7 +528,7 @@ export function OnboardingPage() {
                     confirmedClearFingerprint.current = null;
                     confirmedClearUsages.current = null;
                   }}
-                  className="flex-1 border border-soma-border-subtle rounded px-4 py-2 text-sm hover:border-soma-accent"
+                  className={`${authSecondaryButtonClass} sm:flex-1`}
                 >
                   {t("clearConfirmCancel")}
                 </button>
@@ -540,7 +567,7 @@ export function OnboardingPage() {
                       );
                     }
                   }}
-                  className="flex-1 bg-soma-accent text-soma-bg-base rounded px-4 py-2 text-sm disabled:opacity-50"
+                  className={`${authPrimaryButtonClass} sm:flex-1`}
                 >
                   {submitting ? t("submitting") : t("clearConfirmProceed")}
                 </button>
@@ -550,7 +577,7 @@ export function OnboardingPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-3 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              className={authPrimaryButtonClass}
             >
               {submitting
                 ? t("submitting")
@@ -561,18 +588,18 @@ export function OnboardingPage() {
           )}
         </form>
 
-        <div className="mt-6 space-y-2 text-center">
+        <div className="mt-8 space-y-2 border-t border-white/10 pt-6 text-center">
           <button
             type="button"
             disabled={skipDisabled}
             onClick={() => void handleSkip()}
-            className="text-sm text-soma-accent hover:underline disabled:opacity-50"
+            className={`${authLinkClass} text-sm disabled:opacity-50`}
           >
             {skipping ? t("skipping") : t("skipAction")}
           </button>
-          <p className="text-xs text-soma-fg-muted">{t("skipHint")}</p>
+          <p className="text-xs text-soma-ink-muted">{t("skipHint")}</p>
         </div>
       </div>
-    </div>
+    </OnboardingShell>
   );
 }
