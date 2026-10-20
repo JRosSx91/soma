@@ -1,9 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { LanguageSelector } from "../components/LanguageSelector.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
+import {
+  AuthShell,
+  authFieldClass,
+  authLinkClass,
+  authPrimaryButtonClass,
+  authSecondaryButtonClass,
+  authSubtitleClass,
+  authTitleClass,
+} from "../features/auth/components/AuthShell.js";
 import {
   fetchUserProfile,
   outcomeFromProfileFetch,
@@ -124,25 +132,26 @@ export function LoginPage() {
 
   if (loading || gate.mode === "resolving") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        {t("login.pendingLoading")}
-      </div>
+      <AuthShell>
+        <p className="text-sm text-soma-ink-secondary">
+          {t("login.pendingLoading")}
+        </p>
+      </AuthShell>
     );
   }
 
   if (user && gate.mode === "pending") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4">
-        <div className="absolute top-4 right-4">
-          <LanguageSelector />
-        </div>
-        <div className="w-full max-w-sm space-y-4">
-          <div className="text-center mb-4">
-            <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
-            <p className="text-sm text-soma-fg-secondary mt-3">
+      <AuthShell>
+        <div className="space-y-4">
+          <div className="mb-4">
+            <h1 className="text-3xl font-light tracking-wide text-soma-ink">
+              {t("appName")}
+            </h1>
+            <p className="mt-3 text-sm text-soma-ink-secondary">
               {t("login.pendingTitle")}
             </p>
-            <p className="text-xs text-soma-fg-muted mt-2">
+            <p className="mt-2 text-xs text-soma-ink-muted">
               {t("login.pendingBody")}
             </p>
           </div>
@@ -155,7 +164,7 @@ export function LoginPage() {
             type="button"
             disabled={skipping}
             onClick={() => navigate("/onboarding", { replace: true })}
-            className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50"
+            className={authPrimaryButtonClass}
           >
             {t("login.pendingContinueSetup")}
           </button>
@@ -163,68 +172,62 @@ export function LoginPage() {
             type="button"
             disabled={skipping}
             onClick={() => void handleEnterWithoutTracking()}
-            className="w-full border border-soma-border-subtle text-soma-fg-primary rounded px-4 py-2 hover:border-soma-accent transition-colors disabled:opacity-50"
+            className={authSecondaryButtonClass}
           >
             {skipping
               ? t("login.pendingSkipping")
               : t("login.pendingEnterApp")}
           </button>
         </div>
-      </div>
+      </AuthShell>
     );
   }
 
   if (user && gate.mode === "unknown") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4">
-        <div className="absolute top-4 right-4">
-          <LanguageSelector />
-        </div>
-        <div className="w-full max-w-sm space-y-4">
-          <div className="text-center mb-4">
-            <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
-            <p className="text-sm text-soma-fg-secondary mt-3">
+      <AuthShell>
+        <div className="space-y-4">
+          <div className="mb-4">
+            <h1 className="text-3xl font-light tracking-wide text-soma-ink">
+              {t("appName")}
+            </h1>
+            <p className="mt-3 text-sm text-soma-ink-secondary">
               {t("login.statusUnknownTitle")}
             </p>
-            <p className="text-xs text-soma-fg-muted mt-2">
+            <p className="mt-2 text-xs text-soma-ink-muted">
               {t("login.statusUnknownBody")}
             </p>
           </div>
           <button
             type="button"
             onClick={() => navigate("/app", { replace: true })}
-            className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity"
+            className={authPrimaryButtonClass}
           >
             {t("login.enterAppEducational")}
           </button>
           <button
             type="button"
             onClick={handleRetryStatus}
-            className="w-full border border-soma-border-subtle text-soma-fg-primary rounded px-4 py-2 hover:border-soma-accent transition-colors"
+            className={authSecondaryButtonClass}
           >
             {t("login.retryStatus")}
           </button>
         </div>
-      </div>
+      </AuthShell>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4">
-      <div className="absolute top-4 right-4">
-        <LanguageSelector />
-      </div>
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">
-            {t("login.subtitle")}
-          </p>
+    <AuthShell>
+      <div>
+        <div className="mb-8">
+          <h1 className={authTitleClass}>{t("login.title")}</h1>
+          <p className={authSubtitleClass}>{t("login.subtitle")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("login.email")}
             </label>
             <input
@@ -232,13 +235,13 @@ export function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={authFieldClass}
               autoComplete="email"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("login.password")}
             </label>
             <input
@@ -246,14 +249,11 @@ export function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={authFieldClass}
               autoComplete="current-password"
             />
             <p className="mt-2 text-right text-xs">
-              <Link
-                to="/forgot-password"
-                className="text-soma-fg-muted hover:text-soma-accent hover:underline"
-              >
+              <Link to="/forgot-password" className={authLinkClass}>
                 {t("login.forgotPassword")}
               </Link>
             </p>
@@ -273,19 +273,19 @@ export function LoginPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className={authPrimaryButtonClass}
           >
             {submitting ? t("login.submitting") : t("login.submit")}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-soma-fg-muted">
+        <p className="mt-6 text-center text-sm text-soma-ink-muted">
           {t("login.noAccount")}{" "}
-          <Link to="/register" className="text-soma-accent hover:underline">
+          <Link to="/register" className={authLinkClass}>
             {t("login.createOne")}
           </Link>
         </p>
       </div>
-    </div>
+    </AuthShell>
   );
 }

@@ -1,10 +1,17 @@
 import { useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { LanguageSelector } from "../components/LanguageSelector.js";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
+import {
+  AuthShell,
+  authFieldClass,
+  authLinkClass,
+  authPrimaryButtonClass,
+  authSubtitleClass,
+  authTitleClass,
+} from "../features/auth/components/AuthShell.js";
 
 export function RegisterPage() {
   const { t } = useTranslation(["auth", "common"]);
@@ -22,9 +29,11 @@ export function RegisterPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        {t("common:loading", { defaultValue: "Loading…" })}
-      </div>
+      <AuthShell>
+        <p className="text-sm text-soma-ink-secondary">
+          {t("common:loading", { defaultValue: "Loading…" })}
+        </p>
+      </AuthShell>
     );
   }
 
@@ -58,21 +67,16 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4 py-12">
-      <div className="absolute top-4 right-4">
-        <LanguageSelector />
-      </div>
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">
-            {t("register.subtitle")}
-          </p>
+    <AuthShell>
+      <div>
+        <div className="mb-8">
+          <h1 className={authTitleClass}>{t("register.title")}</h1>
+          <p className={authSubtitleClass}>{t("register.subtitle")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("register.displayName")}
             </label>
             <input
@@ -80,12 +84,12 @@ export function RegisterPage() {
               required
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={authFieldClass}
             />
           </div>
 
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("register.email")}
             </label>
             <input
@@ -93,13 +97,13 @@ export function RegisterPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={authFieldClass}
               autoComplete="email"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("register.password")}
             </label>
             <input
@@ -108,16 +112,16 @@ export function RegisterPage() {
               minLength={8}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={authFieldClass}
               autoComplete="new-password"
             />
-            <p className="text-xs text-soma-fg-muted mt-1">
+            <p className="mt-1 text-xs text-soma-ink-muted">
               {t("register.passwordHint")}
             </p>
           </div>
 
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("register.biologicalSex")}
             </label>
             <select
@@ -125,7 +129,7 @@ export function RegisterPage() {
               onChange={(e) =>
                 setBiologicalSex(e.target.value as BiologicalSex)
               }
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={`${authFieldClass} scheme-dark`}
             >
               <option value="male">{t("register.biologicalSexMale")}</option>
               <option value="female">
@@ -135,7 +139,7 @@ export function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("register.birthYear")}
             </label>
             <input
@@ -145,7 +149,7 @@ export function RegisterPage() {
               max={new Date().getFullYear()}
               value={birthYear}
               onChange={(e) => setBirthYear(Number(e.target.value))}
-              className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+              className={authFieldClass}
             />
           </div>
 
@@ -158,19 +162,19 @@ export function RegisterPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className={authPrimaryButtonClass}
           >
             {submitting ? t("register.submitting") : t("register.submit")}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-soma-fg-muted">
+        <p className="mt-6 text-center text-sm text-soma-ink-muted">
           {t("register.haveAccount")}{" "}
-          <Link to="/login" className="text-soma-accent hover:underline">
+          <Link to="/login" className={authLinkClass}>
             {t("register.signIn")}
           </Link>
         </p>
       </div>
-    </div>
+    </AuthShell>
   );
 }

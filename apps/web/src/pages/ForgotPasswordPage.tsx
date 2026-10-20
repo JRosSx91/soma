@@ -1,9 +1,16 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { LanguageSelector } from "../components/LanguageSelector.js";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { runForgotPasswordRequest } from "../features/auth/lib/forgot-password-flow.js";
+import {
+  AuthShell,
+  authFieldClass,
+  authLinkClass,
+  authPrimaryButtonClass,
+  authSubtitleClass,
+  authTitleClass,
+} from "../features/auth/components/AuthShell.js";
 
 export function ForgotPasswordPage() {
   const { t } = useTranslation("auth");
@@ -29,25 +36,20 @@ export function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4">
-      <div className="absolute top-4 right-4">
-        <LanguageSelector />
-      </div>
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">
-            {t("forgotPassword.subtitle")}
-          </p>
+    <AuthShell>
+      <div>
+        <div className="mb-8">
+          <h1 className={authTitleClass}>{t("forgotPassword.title")}</h1>
+          <p className={authSubtitleClass}>{t("forgotPassword.subtitle")}</p>
         </div>
 
         {submitted ? (
           <div className="space-y-4">
-            <p className="text-sm text-soma-fg-secondary" role="status">
+            <p className="text-sm text-soma-ink-secondary" role="status">
               {t("forgotPassword.confirmation")}
             </p>
-            <p className="text-center text-sm text-soma-fg-muted">
-              <Link to="/login" className="text-soma-accent hover:underline">
+            <p className="text-center text-sm text-soma-ink-muted">
+              <Link to="/login" className={authLinkClass}>
                 {t("forgotPassword.backToLogin")}
               </Link>
             </p>
@@ -56,7 +58,7 @@ export function ForgotPasswordPage() {
           <>
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+                <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
                   {t("forgotPassword.email")}
                 </label>
                 <input
@@ -64,7 +66,7 @@ export function ForgotPasswordPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+                  className={authFieldClass}
                   autoComplete="email"
                 />
               </div>
@@ -78,7 +80,7 @@ export function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className={authPrimaryButtonClass}
               >
                 {submitting
                   ? t("forgotPassword.submitting")
@@ -86,14 +88,14 @@ export function ForgotPasswordPage() {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-soma-fg-muted">
-              <Link to="/login" className="text-soma-accent hover:underline">
+            <p className="mt-6 text-center text-sm text-soma-ink-muted">
+              <Link to="/login" className={authLinkClass}>
                 {t("forgotPassword.backToLogin")}
               </Link>
             </p>
           </>
         )}
       </div>
-    </div>
+    </AuthShell>
   );
 }

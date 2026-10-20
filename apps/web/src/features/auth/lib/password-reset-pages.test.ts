@@ -55,7 +55,7 @@ test("ForgotPasswordPage renders email field and back link", async () => {
   const html = renderToStaticMarkup(
     wrap(createElement(ForgotPasswordPage), ["/forgot-password"]),
   );
-  assert.match(html, /Reset your password/);
+  assert.match(html, /Recover your access/);
   assert.match(html, /Send reset instructions/);
   assert.match(html, /href="\/login"/);
   assert.match(html, /type="email"/);
@@ -83,7 +83,7 @@ test("ResetPasswordPage renders form when token present and strips query", async
     ]),
   );
 
-  assert.match(html, /Choose a new password/);
+  assert.match(html, /Create a new password/);
   assert.match(html, /Update password/);
   assert.match(html, /name="referrer"/);
   assert.match(html, /content="no-referrer"/);
@@ -91,7 +91,7 @@ test("ResetPasswordPage renders form when token present and strips query", async
   assert.ok(replaced.some((u) => !u.includes("token=")));
   assert.match(
     html,
-    /If an account exists|Choose a new password/,
+    /If an account exists|Create a new password/,
   );
 });
 
@@ -151,7 +151,7 @@ test("RegisterPage still renders core fields (no regression)", async () => {
       ["/register"],
     ),
   );
-  assert.match(html, /Create your account/);
+  assert.match(html, /Create your Soma account/);
   assert.match(html, /Create account/);
   assert.match(html, /type="email"/);
   assert.match(html, /href="\/login"/);

@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { LanguageSelector } from "../components/LanguageSelector.js";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { runResetPasswordRequest } from "../features/auth/lib/reset-password-flow.js";
@@ -8,6 +7,14 @@ import {
   clearHeldPasswordResetToken,
   takePasswordResetToken,
 } from "../features/auth/lib/password-reset-validation.js";
+import {
+  AuthShell,
+  authFieldClass,
+  authLinkClass,
+  authPrimaryButtonClass,
+  authSubtitleClass,
+  authTitleClass,
+} from "../features/auth/components/AuthShell.js";
 
 export function ResetPasswordPage() {
   const { t } = useTranslation("auth");
@@ -46,18 +53,13 @@ export function ResetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-primary px-4">
+    <AuthShell>
       {/* Backup if this route was reached via SPA navigation (no index.html bootstrap). */}
       <meta name="referrer" content="no-referrer" />
-      <div className="absolute top-4 right-4">
-        <LanguageSelector />
-      </div>
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-wide">{t("appName")}</h1>
-          <p className="text-xs text-soma-fg-muted mt-2">
-            {t("resetPassword.subtitle")}
-          </p>
+      <div>
+        <div className="mb-8">
+          <h1 className={authTitleClass}>{t("resetPassword.title")}</h1>
+          <p className={authSubtitleClass}>{t("resetPassword.subtitle")}</p>
         </div>
 
         {!token && !success ? (
@@ -65,27 +67,21 @@ export function ResetPasswordPage() {
             <p className="text-sm text-soma-organ-damaged" role="alert">
               {t("resetPassword.missingToken")}
             </p>
-            <p className="text-center text-sm text-soma-fg-muted">
-              <Link
-                to="/forgot-password"
-                className="text-soma-accent hover:underline"
-              >
+            <p className="text-center text-sm text-soma-ink-muted">
+              <Link to="/forgot-password" className={authLinkClass}>
                 {t("resetPassword.requestAnother")}
               </Link>
             </p>
           </div>
         ) : success ? (
           <div className="space-y-4">
-            <p className="text-sm text-soma-fg-secondary" role="status">
-              <span className="block font-medium text-soma-fg-primary mb-1">
+            <p className="text-sm text-soma-ink-secondary" role="status">
+              <span className="mb-1 block font-medium text-soma-ink">
                 {t("resetPassword.successTitle")}
               </span>
               {t("resetPassword.successBody")}
             </p>
-            <Link
-              to="/login"
-              className="block w-full text-center bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity"
-            >
+            <Link to="/login" className={`${authPrimaryButtonClass} block text-center`}>
               {t("resetPassword.goToLogin")}
             </Link>
           </div>
@@ -93,7 +89,7 @@ export function ResetPasswordPage() {
           <>
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+                <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
                   {t("resetPassword.newPassword")}
                 </label>
                 <input
@@ -102,16 +98,16 @@ export function ResetPasswordPage() {
                   minLength={8}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+                  className={authFieldClass}
                   autoComplete="new-password"
                 />
-                <p className="text-xs text-soma-fg-muted mt-1">
+                <p className="mt-1 text-xs text-soma-ink-muted">
                   {t("resetPassword.passwordHint")}
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs text-soma-fg-secondary uppercase tracking-wider mb-2">
+                <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
                   {t("resetPassword.confirmPassword")}
                 </label>
                 <input
@@ -120,7 +116,7 @@ export function ResetPasswordPage() {
                   minLength={8}
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
-                  className="w-full bg-soma-bg-surface border border-soma-border-subtle rounded px-3 py-2 text-soma-fg-primary focus:outline-none focus:border-soma-accent"
+                  className={authFieldClass}
                   autoComplete="new-password"
                 />
               </div>
@@ -134,7 +130,7 @@ export function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-soma-accent text-soma-bg-base rounded px-4 py-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className={authPrimaryButtonClass}
               >
                 {submitting
                   ? t("resetPassword.submitting")
@@ -142,17 +138,14 @@ export function ResetPasswordPage() {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-soma-fg-muted">
-              <Link
-                to="/forgot-password"
-                className="text-soma-accent hover:underline"
-              >
+            <p className="mt-6 text-center text-sm text-soma-ink-muted">
+              <Link to="/forgot-password" className={authLinkClass}>
                 {t("resetPassword.requestAnother")}
               </Link>
             </p>
           </>
         )}
       </div>
-    </div>
+    </AuthShell>
   );
 }
