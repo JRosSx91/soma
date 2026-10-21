@@ -66,6 +66,17 @@
   "substanceLegend": "Sustancia",
   "phaseLegend": "Fase",
   "phaseCategoryNote": "Las fases son categorías de contenido educativo. No forman un calendario individual ni una secuencia obligatoria de recuperación.",
+  "effectsNotice": "Los efectos son educativos y varían entre personas. Las fases agrupan contenido; no son un calendario personal ni un diagnóstico.",
+  "effectsDetailsSummary": "Fuentes y detalles científicos",
+  "recoveryDetailsSummary": "Detalles del modelo y fuentes",
+  "recoveryAspect": "Este recuadro muestra un modelo educativo de recuperación para {{organ}} y {{substance}}.",
+  "recoveryPlainEstimate": "El catálogo describe un plazo orientativo de {{count}} días para la mayor parte de esta evolución modelada.",
+  "recoveryMeaning": {
+    "logarithmic": "En este modelo, el cambio se describe más rápido al principio y más lento después.",
+    "sigmoidal": "En este modelo, el cambio empieza despacio, se acelera y luego se estabiliza.",
+    "linear": "En este modelo, el cambio se describe de forma más uniforme a lo largo del tiempo.",
+    "stepwise": "En este modelo, el cambio se describe por etapas, no de forma continua."
+  },
   "missingScientificText": "Este texto no está disponible en el idioma actual.",
   "advicePlaceholder": "Todavía no hay consejos publicados para esta ficha.",
   "adviceDisclaimer": "Estos consejos son educativos. La fase del atlas no es un diagnóstico ni un calendario clínico personal.",

@@ -138,6 +138,59 @@ test("each atlas system has a useful spanish and english educational intro", () 
   }
 });
 
+test("recovery and effects keep technical catalog details behind a closed disclosure", () => {
+  const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
+  const recovery = page.slice(page.indexOf("function RecoveryPanel"), page.indexOf("function atlasOrganName"));
+  const effects = page.slice(page.indexOf("function EffectsPanel"), page.indexOf("function RecoveryPanel"));
+
+  assert.match(recovery, /recoveryAspect/);
+  assert.match(recovery, /recoveryMeaning/);
+  assert.match(recovery, /recoveryPlainEstimate/);
+  assert.match(recovery, /catalogEstimateNotice/);
+  assert.match(recovery, /recoveryDetailsSummary/);
+  assert.match(recovery, /CatalogDetails/);
+  assert.match(page, /<details className=/);
+  assert.equal(page.includes("<details open"), false);
+  const recoveryPrimary = recovery.slice(0, recovery.indexOf("CatalogDetails"));
+  assert.equal(recoveryPrimary.includes("curveShape"), false);
+  assert.equal(recoveryPrimary.includes('t("daysTo95")'), false);
+  assert.equal(recoveryPrimary.includes('t("ceiling")'), false);
+  assert.equal(recoveryPrimary.includes("CatalogEvidenceNote"), false);
+  assert.match(recovery, /curveShape/);
+  assert.match(recovery, /t\("daysTo95"\)/);
+  assert.match(recovery, /t\("ceiling"\)/);
+  assert.match(recovery, /recoveryDisclaimer/);
+  assert.match(recovery, /CatalogEvidenceNote/);
+  assert.equal(recovery.includes("NEEDS-VERIFICATION"), false);
+  assert.equal(recovery.includes("pending"), false);
+
+  assert.match(effects, /effectsNotice/);
+  assert.match(effects, /effectsDetailsSummary/);
+  assert.equal(effects.includes("generalDisclaimer"), false);
+  assert.equal(effects.includes("phaseCategoryNote"), false);
+  const effectsPrimary = effects.slice(0, effects.indexOf("CatalogDetails"));
+  assert.equal(effectsPrimary.includes("signalingAttribution"), false);
+  assert.equal(effectsPrimary.includes("CatalogEvidenceNote"), false);
+  assert.match(effects, /signalingAttribution/);
+  assert.match(effects, /CatalogEvidenceNote/);
+  assert.equal(effects.includes("NEEDS-VERIFICATION"), false);
+
+  for (const key of [
+    "effectsNotice",
+    "effectsDetailsSummary",
+    "recoveryDetailsSummary",
+    "recoveryAspect",
+    "recoveryPlainEstimate",
+  ] as const) {
+    assert.equal(typeof esAnatomy[key], "string", key);
+    assert.equal(typeof enAnatomy[key], "string", key);
+    assert.notEqual(esAnatomy[key], enAnatomy[key], key);
+  }
+  for (const shape of ["logarithmic", "sigmoidal", "linear", "stepwise"] as const) {
+    assert.notEqual(esAnatomy.recoveryMeaning[shape], enAnatomy.recoveryMeaning[shape], shape);
+  }
+});
+
 test("anatomy json values are not unresolved i18n key paths", () => {
   for (const [bundle, label] of [
     [enAnatomy, "en"],

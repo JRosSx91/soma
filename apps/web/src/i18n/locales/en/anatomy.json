@@ -66,6 +66,17 @@
   "substanceLegend": "Substance",
   "phaseLegend": "Phase",
   "phaseCategoryNote": "Phases are educational content categories. They are not an individual calendar or a required recovery sequence.",
+  "effectsNotice": "These effects are educational and vary from person to person. Phases group content; they are not a personal timeline or a diagnosis.",
+  "effectsDetailsSummary": "Sources and scientific details",
+  "recoveryDetailsSummary": "Model details and sources",
+  "recoveryAspect": "This sheet shows an educational recovery model for {{organ}} and {{substance}}.",
+  "recoveryPlainEstimate": "The catalog describes an orientative window of {{count}} days for most of this modelled course.",
+  "recoveryMeaning": {
+    "logarithmic": "In this model, change is described as faster at first and slower later on.",
+    "sigmoidal": "In this model, change starts slowly, speeds up, then levels off.",
+    "linear": "In this model, change is described as more even over time.",
+    "stepwise": "In this model, change is described in stages, not as a continuous line."
+  },
   "missingScientificText": "This text is not available in the current language.",
   "advicePlaceholder": "There is no published advice for this sheet yet.",
   "adviceDisclaimer": "This advice is educational. The atlas phase is not a diagnosis or a personal clinical timeline.",

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { TFunction } from "i18next";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -477,6 +477,23 @@ function choiceClass(selected: boolean): string {
   }`;
 }
 
+function CatalogDetails({
+  summary,
+  children,
+}: {
+  summary: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="rounded-xl border border-soma-line bg-soma-canvas/30 px-3 py-2">
+      <summary className={`${previewFocus} cursor-pointer text-xs font-medium text-soma-ink`}>
+        {summary}
+      </summary>
+      <div className="mt-2 space-y-2">{children}</div>
+    </details>
+  );
+}
+
 function EffectsPanel({
   system,
   organ,
@@ -559,7 +576,7 @@ function EffectsPanel({
 
       <fieldset
         className="min-w-0 border-0 p-0"
-        aria-describedby={`anatomy-phase-category-note-${organ.id}`}
+        aria-describedby={`anatomy-effects-notice-${organ.id}`}
       >
         <legend className="sr-only">{t("phaseLegend")}</legend>
         <div className="grid grid-cols-2 gap-1.5">
@@ -582,13 +599,11 @@ function EffectsPanel({
         </div>
       </fieldset>
       <p
-        id={`anatomy-phase-category-note-${organ.id}`}
+        id={`anatomy-effects-notice-${organ.id}`}
         className="text-[11px] leading-relaxed text-soma-ink-muted"
       >
-        {t("phaseCategoryNote")}
+        {t("effectsNotice")}
       </p>
-
-      <p className="text-xs leading-relaxed text-soma-ink-muted">{t("generalDisclaimer")}</p>
 
       {narrative ? (
         <p className="text-sm leading-relaxed text-soma-ink-secondary">
@@ -608,9 +623,6 @@ function EffectsPanel({
           >
             {t("signalingTitle")}
           </h3>
-          <p className="text-[11px] leading-relaxed text-soma-ink-muted">
-            {t("signalingAttribution")}
-          </p>
           <p className="text-[11px] leading-relaxed text-soma-ink-muted">{t("signalingMarkLegend")}</p>
           <ul className="space-y-2">
             {signaling.map((entry) => (
@@ -620,11 +632,23 @@ function EffectsPanel({
         </section>
       ) : null}
 
-      {narrative ? (
-        <CatalogEvidenceNote
-          rawSource={narrative.referenceSource}
-          confidenceLevel={narrative.confidenceLevel}
-        />
+      {narrative || signaling.length > 0 ? (
+        <CatalogDetails
+          key={`${organ.id}-${selectedSubstance}-${phase}`}
+          summary={t("effectsDetailsSummary")}
+        >
+          {signaling.length > 0 ? (
+            <p className="text-[11px] leading-relaxed text-soma-ink-muted">
+              {t("signalingAttribution")}
+            </p>
+          ) : null}
+          {narrative ? (
+            <CatalogEvidenceNote
+              rawSource={narrative.referenceSource}
+              confidenceLevel={narrative.confidenceLevel}
+            />
+          ) : null}
+        </CatalogDetails>
       ) : null}
     </div>
   );
@@ -641,7 +665,7 @@ function RecoveryPanel({
   substanceId: string | null;
   onSubstance: (id: string) => void;
 }) {
-  const { t } = useTranslation(["anatomy", "substances"]);
+  const { t } = useTranslation(["anatomy", "substances", "organs"]);
   const substances = organ ? recoverySubstances(organ.id) : [];
   const selectedSubstance = organ ? selectRecoverySubstance(substanceId, organ.id) : null;
   const curve =
@@ -697,29 +721,44 @@ function RecoveryPanel({
         </div>
       </fieldset>
 
-      <p className="text-xs leading-relaxed text-soma-ink-muted">{t("recoveryDisclaimer")}</p>
+      <p className="text-sm leading-relaxed text-soma-ink">
+        {t("recoveryAspect", {
+          organ: atlasOrganName(t, organ.id, organ.name),
+          substance: t(`substances:${selectedSubstance}.name`, { defaultValue: selectedSubstance }),
+        })}
+      </p>
+      <p className="text-sm leading-relaxed text-soma-ink-secondary">
+        {t(`recoveryMeaning.${curve.shape}`)}
+      </p>
+      <p className="text-sm leading-relaxed text-soma-ink-secondary">
+        {t("recoveryPlainEstimate", { count: curve.daysTo95Recovery })}
+      </p>
+      <p className="text-xs leading-relaxed text-soma-ink-muted">{t("catalogEstimateNotice")}</p>
 
-      <dl className="space-y-2 text-sm text-soma-ink-secondary">
-        <div>
-          <dt className="text-xs font-semibold text-soma-ink">{t("curveShape")}</dt>
-          <dd>{t(`shape.${curve.shape}`)}</dd>
-        </div>
-        <div>
-          <dt className="text-xs font-semibold text-soma-ink">{t("daysTo95")}</dt>
-          <dd>{t("daysUnit", { count: curve.daysTo95Recovery })}</dd>
-        </div>
-        <div>
-          <dt className="text-xs font-semibold text-soma-ink">{t("ceiling")}</dt>
-          <dd>{curve.ceilingPercentLabel}</dd>
-        </div>
-      </dl>
-
-      <p className="text-xs leading-relaxed text-soma-ink">{t("catalogEstimateNotice")}</p>
-
-      <CatalogEvidenceNote
-        rawSource={curve.referenceSource}
-        confidenceLevel={curve.confidenceLevel}
-      />
+      <CatalogDetails
+        key={`${organ.id}-${selectedSubstance}`}
+        summary={t("recoveryDetailsSummary")}
+      >
+        <dl className="space-y-2 text-sm text-soma-ink-secondary">
+          <div>
+            <dt className="text-xs font-semibold text-soma-ink">{t("curveShape")}</dt>
+            <dd>{t(`shape.${curve.shape}`)}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-soma-ink">{t("daysTo95")}</dt>
+            <dd>{t("daysUnit", { count: curve.daysTo95Recovery })}</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-semibold text-soma-ink">{t("ceiling")}</dt>
+            <dd>{curve.ceilingPercentLabel}</dd>
+          </div>
+        </dl>
+        <p className="text-xs leading-relaxed text-soma-ink-muted">{t("recoveryDisclaimer")}</p>
+        <CatalogEvidenceNote
+          rawSource={curve.referenceSource}
+          confidenceLevel={curve.confidenceLevel}
+        />
+      </CatalogDetails>
     </div>
   );
 }
