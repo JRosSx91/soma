@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   changeSubstance,
@@ -9,6 +9,7 @@ import {
   type RecoveryTab,
 } from "../pages-data.js";
 import { previewFocus } from "../focus.js";
+import { resolveRecoverySubstance } from "../dashboard/recovery-query.js";
 import { usePreviewDashboard } from "../hooks/usePreviewDashboard.js";
 import { DetailSheet } from "../components/DetailSheet.js";
 import { EvolutionChart } from "../components/EvolutionChart.js";
@@ -20,6 +21,8 @@ import { SystemTile } from "../components/SystemTile.js";
 
 export function RecoveryPage() {
   const { t } = useTranslation("recovery");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const requestedSubstance = searchParams.get("substance");
   const [tab, setTab] = useState<RecoveryTab>("general");
   const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [systemId, setSystemId] = useState<string | null>(null);
@@ -35,10 +38,17 @@ export function RecoveryPage() {
       setSubstanceId(null);
       return;
     }
-    if (!substanceId || !dashboard.substances.some((item) => item.id === substanceId)) {
-      setSubstanceId(dashboard.substances[0]?.id ?? null);
+    const knownIds = dashboard.substances.map((item) => item.id);
+    const fromQuery = resolveRecoverySubstance(requestedSubstance, knownIds);
+    if (fromQuery) {
+      setSubstanceId(fromQuery);
+      setTab("substance");
+      return;
     }
-  }, [dashboard.error, dashboard.loading, dashboard.substances, substanceId]);
+    if (!substanceId || !knownIds.includes(substanceId)) {
+      setSubstanceId(knownIds[0] ?? null);
+    }
+  }, [dashboard.error, dashboard.loading, dashboard.substances, requestedSubstance, substanceId]);
 
   useEffect(() => {
     if (dashboard.loading || dashboard.error) return;
@@ -137,6 +147,18 @@ export function RecoveryPage() {
   const selectSubstance = (id: string) => {
     setSubstanceId(id);
     setTab("substance");
+    setSearchParams({ substance: id }, { replace: true });
+  };
+
+  const selectTab = (next: RecoveryTab) => {
+    setTab(next);
+    if (next === "substance" && substanceId) {
+      setSearchParams({ substance: substanceId }, { replace: true });
+      return;
+    }
+    if (next !== "substance" && requestedSubstance) {
+      setSearchParams({}, { replace: true });
+    }
   };
 
   const showChart =
@@ -186,7 +208,7 @@ export function RecoveryPage() {
           label={t("recoveryViewLabel")}
           value={tab}
           options={recoveryTabs}
-          onChange={setTab}
+          onChange={selectTab}
         />
       </div>
 

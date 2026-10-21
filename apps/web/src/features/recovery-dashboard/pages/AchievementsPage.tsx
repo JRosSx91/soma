@@ -11,6 +11,7 @@ import { AchievementMedal } from "../components/AchievementMedal.js";
 import { DetailSheet } from "../components/DetailSheet.js";
 import { type MedalTier } from "../components/MedalMark.js";
 import { PageHeading } from "../components/PageHeading.js";
+import { quantifiableAchievementProgress } from "../dashboard/home-progress.js";
 import { useLiveAchievements } from "../hooks/useLiveAchievements.js";
 
 type CatalogItem = (typeof achievementCatalog)[number];
@@ -288,15 +289,15 @@ function AchievementCard({
         {" · "}
         {view.status}
       </span>
-      {view.progressPercent !== null ? (
+      {view.progress ? (
         <span className="flex w-full flex-col gap-1" aria-hidden="true">
           <span className="text-[11px] tabular-nums text-soma-ink">
-            Hacia el hito {view.progressPercent}%
+            {view.progress.currentPercent}% / {view.progress.thresholdPercent}%
           </span>
           <span className="h-1 w-full overflow-hidden rounded-full bg-soma-line">
             <span
               className="block h-full rounded-full bg-soma-action"
-              style={{ width: `${view.progressPercent}%` }}
+              style={{ width: `${view.progress.towardPercent}%` }}
             />
           </span>
         </span>
@@ -354,10 +355,10 @@ function AchievementDetail({
           medición clínica.
         </p>
       )}
-      {view.progressPercent !== null ? (
+      {view.progress ? (
         <p className="mt-2">
-          Avance hacia ese hito: {view.progressPercent}%. Es una estimación del modelo, no salud
-          recuperada.
+          Avance actual {view.progress.currentPercent}% hacia el umbral del{" "}
+          {view.progress.thresholdPercent}%. Es una estimación del modelo, no salud recuperada.
         </p>
       ) : null}
       {view.note ? <p className="mt-2">{view.note}</p> : null}
@@ -373,7 +374,7 @@ interface CardView {
   sealed: boolean;
   unlocked: boolean;
   review: boolean;
-  progressPercent: number | null;
+  progress: ReturnType<typeof quantifiableAchievementProgress>;
   unlockedOn: string | null;
   note: string | null;
 }
@@ -393,14 +394,14 @@ function describeCard(item: CatalogItem, live: LiveRow | null | undefined): Card
   const sealed = item.hidden && !unlocked;
   const review = !unlocked && (item.ruleReview || live?.progressAvailability === "pending_review");
   const unlockedOn = unlocked ? formatUnlockedAt(live?.unlockedAt ?? null) : null;
-  const progressPercent =
-    !sealed &&
-    !review &&
-    !unlocked &&
-    live?.progressAvailability === "ready" &&
-    isFraction(live.achievementProgress)
-      ? percentToward(live.achievementProgress)
-      : null;
+  const progress = quantifiableAchievementProgress({
+    unlocked,
+    hidden: sealed,
+    review,
+    progressAvailability: live?.progressAvailability,
+    achievementProgress: live?.achievementProgress,
+    threshold: item.threshold,
+  });
   const gap = !sealed && !review && !unlocked ? gapCopy(live) : null;
   const note = gap?.note ?? null;
 
@@ -412,13 +413,15 @@ function describeCard(item: CatalogItem, live: LiveRow | null | undefined): Card
     : review
       ? "Revisión pendiente"
       : (gap?.status ?? "Bloqueado");
-  const progressLabel = progressPercent !== null ? ` Avance hacia el hito ${progressPercent}%.` : "";
+  const progressLabel = progress
+    ? ` Avance ${progress.currentPercent}% / umbral ${progress.thresholdPercent}%.`
+    : "";
   const noteLabel = note ? ` ${note}` : "";
   const label = sealed
     ? `Logro oculto. Bloqueado. ${item.substanceName}. ${tierLabel[item.tier]}.`
     : `${title}. ${status}.${progressLabel}${noteLabel} ${item.substanceName}. ${tierLabel[item.tier]}.`;
 
-  return { title, status, label, sealed, unlocked, review, progressPercent, unlockedOn, note };
+  return { title, status, label, sealed, unlocked, review, progress, unlockedOn, note };
 }
 
 function gapCopy(
@@ -445,15 +448,6 @@ function gapCopy(
     status: "Sin datos",
     note: "No hay datos suficientes para calcular el avance.",
   };
-}
-
-function isFraction(value: number | null | undefined): value is number {
-  return typeof value === "number" && Number.isFinite(value);
-}
-
-function percentToward(progress: number): number {
-  if (progress >= 1) return 100;
-  return Math.max(0, Math.floor(progress * 100));
 }
 
 function formatUnlockedAt(iso: string | null): string | null {

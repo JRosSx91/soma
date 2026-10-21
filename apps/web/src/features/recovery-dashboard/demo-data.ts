@@ -24,6 +24,8 @@ export interface DemoSubstance {
   phase: string;
   /** Length of the decorative bar, 0–1. Not a recovery fraction. */
   bar: number;
+  /** ISO last-use date when known. Display only; days come from `abstinence`. */
+  lastUseDate?: string | null;
 }
 
 export const demoSubstances: readonly DemoSubstance[] = [

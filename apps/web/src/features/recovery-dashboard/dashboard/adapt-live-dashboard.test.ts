@@ -710,6 +710,26 @@ test("demo and live stay separated in the preview pages", () => {
   assert.match(chart, /chartCaptionLiveOverlay/);
 });
 
+test("home daily summary does not repeat recovery analysis widgets", () => {
+  const home = readFileSync(new URL("../components/PreviewHome.tsx", import.meta.url), "utf8");
+  const recovery = readFileSync(new URL("../pages/RecoveryPage.tsx", import.meta.url), "utf8");
+  assert.equal(home.includes("EvolutionChart"), false);
+  assert.equal(home.includes("SystemTile"), false);
+  assert.equal(home.includes("RecentChangeCard"), false);
+  assert.match(home, /HeroFigure/);
+  assert.match(home, /HeroFilaments/);
+  assert.match(home, /fadeBottom/);
+  assert.match(home, /lg:grid-cols-\[minmax\(0,3fr\)_minmax\(14rem,2fr\)\]/);
+  assert.equal(home.includes("publishedAdvice"), false);
+  assert.equal(home.includes("showTierLabel"), false);
+  assert.match(home, /pickNextLockedAchievement/);
+  assert.match(home, /quantifiableAchievementProgress/);
+  assert.match(home, /pickFeaturedUnlockedAchievement/);
+  assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
+  assert.match(recovery, /EvolutionChart/);
+  assert.match(recovery, /SubstanceCard/);
+});
+
 test("/preview never wires live profile, achievements, or private identity", () => {
   const hook = readFileSync(
     new URL("../hooks/usePreviewDashboard.ts", import.meta.url),
@@ -732,6 +752,8 @@ test("/preview never wires live profile, achievements, or private identity", () 
   assert.match(hook, /useLiveProfile\(isLive \? \(user\?\.id/);
   assert.match(account, /enabled: base === "\/app"/);
   assert.match(achievements, /liveEnabled = Boolean\(user\) && base === "\/app"/);
+  const home = readFileSync(new URL("../components/PreviewHome.tsx", import.meta.url), "utf8");
+  assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(menu, /user && base === "\/app"/);
   assert.match(menu, /user && base === "\/preview"/);
   assert.match(menu, /menuPreviewGuest/);

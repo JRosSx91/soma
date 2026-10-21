@@ -479,6 +479,7 @@ export function buildLiveDashboard(input: {
         }),
         phase: copy.phaseActive,
         bar: 0,
+        lastUseDate: usage.lastUseDate ?? null,
       };
     }
 
@@ -490,6 +491,7 @@ export function buildLiveDashboard(input: {
         pillDetail: fillRecoveryTemplate(copy.pillMissingDate, { name }),
         phase: copy.phaseMissingDate,
         bar: 0,
+        lastUseDate: usage.lastUseDate ?? null,
       };
     }
 
@@ -505,6 +507,7 @@ export function buildLiveDashboard(input: {
         }),
         phase: copy.phaseNoCurves,
         bar: 0,
+        lastUseDate: usage.lastUseDate ?? null,
       };
     }
 
@@ -519,6 +522,7 @@ export function buildLiveDashboard(input: {
         pillDetail: fillRecoveryTemplate(copy.pillMissingDate, { name }),
         phase: copy.phaseMissingDate,
         bar: 0,
+        lastUseDate: usage.lastUseDate ?? null,
       };
     }
 
@@ -558,6 +562,7 @@ export function buildLiveDashboard(input: {
       }),
       phase,
       bar: progress.progressFraction,
+      lastUseDate: usage.lastUseDate ?? null,
     };
   });
 

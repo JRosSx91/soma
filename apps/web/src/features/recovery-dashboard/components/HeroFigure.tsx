@@ -1,5 +1,7 @@
 interface HeroFigureProps {
   className?: string;
+  /** Soften the cropped lower edge into the page background. Off by default. */
+  fadeBottom?: boolean;
 }
 
 /**
@@ -11,11 +13,15 @@ interface HeroFigureProps {
  * overflow only clips the empty tail on the right. The face stays inside
  * the left edge, so the anatomy is not sliced.
  */
-export function HeroFigure({ className }: HeroFigureProps) {
+export function HeroFigure({ className, fadeBottom = false }: HeroFigureProps) {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute right-0 top-0 hidden overflow-hidden md:block ${className ?? ""}`}
+      className={`pointer-events-none overflow-hidden ${className ?? "absolute right-0 top-0"} ${
+        fadeBottom
+          ? "[mask-image:linear-gradient(to_bottom,black_70%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_70%,transparent)]"
+          : ""
+      }`}
     >
       <img
         src="/images/anatomy/soma-hero.png"
