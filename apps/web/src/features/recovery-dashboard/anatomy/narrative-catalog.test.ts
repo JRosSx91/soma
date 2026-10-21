@@ -167,7 +167,7 @@ test("the explorer does not present narrativePhaseWindows as a universal calenda
   assert.equal(page.includes("phaseWindowLabel"), false);
   assert.equal(page.includes("phaseWindow."), false);
   assert.equal(page.includes("t(`phaseWindow"), false);
-  assert.match(page, /phaseCategoryNote/);
+  assert.equal(page.includes("phaseCategoryNote"), false);
   for (const token of ["Días 1–7", "Días 8–56", "Desde el día 57", "Days 1–7", "Days 8–56", "From day 57"]) {
     assert.equal(page.includes(token), false, token);
   }
