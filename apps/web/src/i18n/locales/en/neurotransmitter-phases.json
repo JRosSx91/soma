@@ -84,7 +84,7 @@
       "acute_withdrawal": "What you may feel: headache (often severe), fatigue, drowsiness, difficulty concentrating, irritability. These are common withdrawal symptoms after regular caffeine stops. Timing varies between people. This describes symptoms, not adenosine concentration and not a receptor count.",
       "post_acute": "What you may feel: leftover fatigue, mild afternoon concentration difficulty, occasional headache. Adenosine receptor density is not measured here.",
       "normalizing": "Alertness and sleep pressure often feel more even without caffeine. That is not a measured adenosinergic baseline.",
-      "during_use": "What you may feel: alertness, reduced fatigue, improved concentration, elevated mood. Caffeine blocks adenosine receptors competitively — adenosine is a main sleep-pressure signal. Repeated blockade can contribute to tolerance, and stopping can bring rebound fatigue and headache."
+      "during_use": "What you may feel: alertness, reduced fatigue, improved concentration, elevated mood. Caffeine blocks adenosine receptors — adenosine is a main sleep-pressure signal. Repeated blockade can contribute to tolerance, and stopping can bring rebound fatigue and headache."
     },
     "dopamine": {
       "acute_withdrawal": "Some people notice a motivational dip. Caffeine’s link to dopamine is indirect; how intense withdrawal feels still varies and is not fixed by that link.",
