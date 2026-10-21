@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { TFunction } from "i18next";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { anatomyExplorerHref } from "../anatomy/anatomy-explorer-query.js";
 import { atlasSystems } from "../anatomy/atlas-config.js";
 import { narrativeCatalogPairs } from "../anatomy/narrative-catalog.js";
 import { recoveryCatalogPairs } from "../anatomy/recovery-catalog.js";
@@ -271,7 +272,7 @@ function SystemDetail({ systemId, base }: { systemId: string; base: "/app" | "/p
       )}
       <p>
         <Link
-          to={`${base}/anatomy`}
+          to={anatomyExplorerHref(base, systemId)}
           className={`${previewFocus} text-soma-action hover:text-soma-action-hover`}
         >
           {t("viewInAnatomy")}

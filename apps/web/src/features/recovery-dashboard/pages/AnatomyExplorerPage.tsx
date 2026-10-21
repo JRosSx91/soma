@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import type { TFunction } from "i18next";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import { localizedCatalogLabel } from "../explore/explore-search.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
+import {
+  anatomySearchParams,
+  resolveAnatomyExplorerSelection,
+} from "../anatomy/anatomy-explorer-query.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
 import type { AtlasSystem } from "../anatomy/atlas-types.js";
 import {
@@ -40,11 +45,24 @@ type AnatomyTab = (typeof tabs)[number];
 export function AnatomyExplorerPage() {
   const { t } = useTranslation(["anatomy", "organs", "explore"]);
   const base = useShellBase();
-  const [systemId, setSystemId] = useState<string | null>(null);
-  const [organId, setOrganId] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { systemId, organId } = resolveAnatomyExplorerSelection(
+    searchParams.get("system"),
+    searchParams.get("organ"),
+  );
   const [tab, setTab] = useState<AnatomyTab>("resumen");
   const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [phase, setPhase] = useState<NarrativePhase>("during_use");
+
+  function setSystemId(id: string | null) {
+    const next = resolveAnatomyExplorerSelection(id, null);
+    setSearchParams(anatomySearchParams(next), { replace: true });
+  }
+
+  function setOrganId(id: string | null) {
+    const next = resolveAnatomyExplorerSelection(systemId, id);
+    setSearchParams(anatomySearchParams(next), { replace: true });
+  }
 
   const system = atlasSystems.find((item) => item.id === systemId) ?? null;
   const organ = system?.organs.find((item) => item.id === organId) ?? null;
@@ -82,7 +100,6 @@ export function AnatomyExplorerPage() {
           current={system === null}
           onClick={() => {
             setSystemId(null);
-            setOrganId(null);
             setTab("resumen");
           }}
         >
@@ -129,7 +146,6 @@ export function AnatomyExplorerPage() {
                   aria-pressed={selected}
                   onClick={() => {
                     setSystemId(item.id);
-                    setOrganId(null);
                     setTab("resumen");
                   }}
                   className={`${previewFocus} flex min-h-11 w-full items-center gap-2 rounded-xl border px-2.5 py-2 text-left text-xs leading-tight lg:min-h-0 lg:py-1.5 ${
@@ -176,7 +192,6 @@ export function AnatomyExplorerPage() {
           onPhase={setPhase}
           onSystem={(id) => {
             setSystemId(id);
-            setOrganId(null);
             setTab("resumen");
           }}
           onOrgan={(id) => setOrganId(id === organId ? null : id)}
