@@ -15,6 +15,7 @@ import { ApiError } from "../client/api.js";
 const ERROR_CODE_TO_KEY: Record<string, string> = {
   AUTH_INVALID_CREDENTIALS: "errors.invalidCredentials",
   AUTH_EMAIL_EXISTS: "errors.emailAlreadyRegistered",
+  AUTH_REGISTRATION_UNAVAILABLE: "errors.registrationUnavailable",
   AUTH_USER_NOT_FOUND: "errors.userNotFound",
   PROFILE_USER_NOT_FOUND: "errors.userNotFound",
 };

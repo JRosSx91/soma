@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import type { User, BiologicalSex } from "@prisma/client";
+import type { User, BiologicalSex, Prisma } from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { normalizeEmail } from "../auth/normalize-email.js";
+
+type UserDb = PrismaService | Prisma.TransactionClient;
 
 /**
  * Encapsulates all access to the User table. Other modules (auth,
@@ -50,13 +52,16 @@ export class UsersService {
    * Uses PostgreSQL case-insensitive equality so legacy mixed-case
    * rows remain reachable after input normalization.
    */
-  async findByEmailInsensitive(email: string): Promise<EmailLookupResult> {
+  async findByEmailInsensitive(
+    email: string,
+    db: UserDb = this.prisma,
+  ): Promise<EmailLookupResult> {
     const normalized = normalizeEmail(email);
     if (!normalized) {
       return { status: "none" };
     }
 
-    const matches = await this.prisma.user.findMany({
+    const matches = await db.user.findMany({
       where: {
         email: { equals: normalized, mode: "insensitive" },
       },
@@ -72,8 +77,8 @@ export class UsersService {
     return { status: "found", user: matches[0]! };
   }
 
-  async create(input: CreateUserInput): Promise<User> {
-    return this.prisma.user.create({
+  async create(input: CreateUserInput, db: UserDb = this.prisma): Promise<User> {
+    return db.user.create({
       data: {
         ...input,
         email: normalizeEmail(input.email),

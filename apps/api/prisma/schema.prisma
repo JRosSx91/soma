@@ -134,8 +134,26 @@ model User {
   achievements        UserAchievement[]
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
+  registrationInvite  RegistrationInvite?
 
   @@index([email])
+}
+
+/// One-time closed-beta registration invites. Plaintext is shown once to an
+/// operator; only tokenHash is stored. usedByUserId is set after User insert.
+model RegistrationInvite {
+  id           String    @id
+  tokenHash    String    @unique
+  createdAt    DateTime  @default(now())
+  expiresAt    DateTime
+  usedAt       DateTime?
+  usedByUserId String?   @unique
+  revokedAt    DateTime?
+
+  usedBy User? @relation(fields: [usedByUserId], references: [id], onDelete: SetNull)
+
+  @@index([expiresAt])
+  @@index([usedAt])
 }
 
 /// One-time password-reset tokens. Plaintext is emailed; only tokenHash is stored.

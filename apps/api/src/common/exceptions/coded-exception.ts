@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  ForbiddenException,
   UnauthorizedException,
   NotFoundException,
 } from "@nestjs/common";
@@ -23,6 +24,15 @@ export class CodedUnauthorizedException extends UnauthorizedException {
 }
 
 export class CodedNotFoundException extends NotFoundException {
+  public readonly code: string;
+
+  constructor(code: string, message: string) {
+    super({ message, code });
+    this.code = code;
+  }
+}
+
+export class CodedForbiddenException extends ForbiddenException {
   public readonly code: string;
 
   constructor(code: string, message: string) {

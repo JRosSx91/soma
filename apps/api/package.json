@@ -12,6 +12,7 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "prisma:seed": "prisma db seed",
+    "invite:mint": "tsx scripts/mint-invite.ts",
     "test": "tsx --test src/**/*.test.ts"
   },
   "prisma": {

@@ -4,17 +4,32 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { UsersService } from "../users/users.service.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
-import { CodedConflictException } from "../common/exceptions/coded-exception.js";
+import {
+  CodedConflictException,
+  CodedForbiddenException,
+} from "../common/exceptions/coded-exception.js";
 import { normalizeEmail } from "./normalize-email.js";
 import {
   RefreshSessionService,
   type IssuedRefreshSession,
   type SessionMeta,
 } from "./refresh-session.service.js";
+import { RegistrationInviteService } from "./registration-invite.service.js";
+import {
+  hashRegistrationInviteToken,
+  isRegistrationInviteTokenFormat,
+} from "./invite-token.crypto.js";
+import {
+  REGISTRATION_UNAVAILABLE_CODE,
+  REGISTRATION_UNAVAILABLE_MESSAGE,
+  resolveRegistrationMode,
+} from "./registration-mode.js";
 
 const SALT_ROUNDS = 10;
 
@@ -51,11 +66,31 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly refreshSessions: RefreshSessionService,
+    private readonly prisma: PrismaService,
+    private readonly invites: RegistrationInviteService,
   ) {}
 
   async register(
     dto: RegisterDto,
     meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
+    const mode = resolveRegistrationMode();
+    if (mode === "invite") {
+      return this.registerWithInvite(dto, meta);
+    }
+    return this.registerOpen(dto, meta);
+  }
+
+  private registrationUnavailable(): CodedForbiddenException {
+    return new CodedForbiddenException(
+      REGISTRATION_UNAVAILABLE_CODE,
+      REGISTRATION_UNAVAILABLE_MESSAGE,
+    );
+  }
+
+  private async registerOpen(
+    dto: RegisterDto,
+    meta: SessionMeta,
   ): Promise<AuthenticatedSessionResult> {
     const email = normalizeEmail(dto.email);
     const existing = await this.usersService.findByEmailInsensitive(email);
@@ -89,6 +124,64 @@ export class AuthService {
     });
 
     return this.buildSession(user.id, user.email, user.displayName, meta);
+  }
+
+  private async registerWithInvite(
+    dto: RegisterDto,
+    meta: SessionMeta,
+  ): Promise<AuthenticatedSessionResult> {
+    const inviteToken = dto.inviteToken ?? "";
+    if (!isRegistrationInviteTokenFormat(inviteToken)) {
+      throw this.registrationUnavailable();
+    }
+
+    const email = normalizeEmail(dto.email);
+    const tokenHash = hashRegistrationInviteToken(inviteToken);
+    const hashedPassword = await bcrypt.hash(dto.password, SALT_ROUNDS);
+
+    try {
+      const user = await this.prisma.$transaction(async (tx) => {
+        const claimed = await this.invites.claimUnused(tx, tokenHash);
+        if (!claimed) {
+          throw this.registrationUnavailable();
+        }
+
+        const existing = await this.usersService.findByEmailInsensitive(
+          email,
+          tx,
+        );
+        if (existing.status !== "none") {
+          throw this.registrationUnavailable();
+        }
+
+        const created = await this.usersService.create(
+          {
+            email,
+            hashedPassword,
+            displayName: dto.displayName,
+            biologicalSex: dto.biologicalSex,
+            birthYear: dto.birthYear,
+            weightKg: dto.weightKg,
+          },
+          tx,
+        );
+        await this.invites.attachUser(tx, claimed.id, created.id);
+        return created;
+      });
+
+      return this.buildSession(user.id, user.email, user.displayName, meta);
+    } catch (err) {
+      if (err instanceof CodedForbiddenException) {
+        throw err;
+      }
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2002"
+      ) {
+        throw this.registrationUnavailable();
+      }
+      throw err;
+    }
   }
 
   async login(

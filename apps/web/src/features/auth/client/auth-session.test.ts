@@ -121,6 +121,44 @@ test("register stores access only in memory", async () => {
   });
   assert.equal(getAccessToken(), "access-reg");
   assert.equal(localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY), null);
+  const openBody = JSON.parse(String(calls[0]!.init?.body ?? "{}")) as Record<
+    string,
+    unknown
+  >;
+  assert.equal("inviteToken" in openBody, false);
+});
+
+test("register sends inviteToken only in JSON body and never persists it", async () => {
+  const secret = "inv_json_body_only_secret_value";
+  mockFetch((url) => {
+    if (pathOf(url) === "/auth/register") {
+      return jsonResponse(201, {
+        accessToken: "access-inv",
+        user: { id: "3", email: "i@b.c", displayName: "I" },
+      });
+    }
+    return jsonResponse(404, { message: "no" });
+  });
+
+  await register({
+    email: "i@b.c",
+    password: "password12",
+    displayName: "I",
+    biologicalSex: "female",
+    birthYear: 1988,
+    inviteToken: secret,
+  });
+
+  const sent = JSON.parse(String(calls[0]!.init?.body ?? "{}")) as Record<
+    string,
+    unknown
+  >;
+  assert.equal(sent.inviteToken, secret);
+  assert.equal(pathOf(calls[0]!.url), "/auth/register");
+  assert.equal(String(calls[0]!.url).includes(secret), false);
+  assert.equal(localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY), null);
+  assert.equal(localStorage.getItem("invite"), null);
+  assert.equal(sessionStorage.getItem("invite"), null);
 });
 
 test("bootstrap restoreSession with valid cookie sets memory access", async () => {

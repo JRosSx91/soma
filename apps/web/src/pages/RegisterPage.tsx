@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
+import { takeRegistrationInviteToken } from "../features/auth/lib/registration-invite.js";
 import {
   AuthShell,
   authFieldClass,
@@ -17,6 +18,7 @@ export function RegisterPage() {
   const { t } = useTranslation(["auth", "common"]);
   const { register, user, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -26,6 +28,11 @@ export function RegisterPage() {
   const [submitting, setSubmitting] = useState(false);
   /** Prevents guest→/app redirect from winning over post-register onboarding. */
   const completingRegistration = useRef(false);
+  // Module-scoped capture survives StrictMode remounts after the URL is stripped.
+  const inviteRef = useRef<string | null | undefined>(undefined);
+  if (inviteRef.current === undefined) {
+    inviteRef.current = takeRegistrationInviteToken(location.search);
+  }
 
   if (loading) {
     return (
@@ -56,6 +63,7 @@ export function RegisterPage() {
         displayName,
         biologicalSex,
         birthYear,
+        ...(inviteRef.current ? { inviteToken: inviteRef.current } : {}),
       });
       navigate("/onboarding", { replace: true });
     } catch (err) {
@@ -68,6 +76,7 @@ export function RegisterPage() {
 
   return (
     <AuthShell>
+      <meta name="referrer" content="no-referrer" />
       <div>
         <div className="mb-8">
           <h1 className={authTitleClass}>{t("register.title")}</h1>

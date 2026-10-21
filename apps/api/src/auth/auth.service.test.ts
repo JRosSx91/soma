@@ -62,6 +62,10 @@ function createService(users: {
     users as unknown as UsersService,
     jwtService as never,
     refreshSessions as unknown as RefreshSessionService,
+    { $transaction: async () => {
+      throw new Error("open-mode register must not open a transaction");
+    } } as never,
+    { claimUnused: async () => null, attachUser: async () => undefined } as never,
   );
 }
 
