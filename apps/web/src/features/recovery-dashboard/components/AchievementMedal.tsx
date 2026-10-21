@@ -60,12 +60,17 @@ export function AchievementMedal({
   }
 
   const art = medalArt[`${substanceId}:${tier}` as MedalKey];
+  const lockedTone = locked ? "brightness-[0.72] saturate-[0.45]" : "";
+
   if (!art) {
-    return <MedalMark tier={tier} substanceId={substanceId} size={size} />;
+    return (
+      <span className={lockedTone}>
+        <MedalMark tier={tier} substanceId={substanceId} size={size} />
+      </span>
+    );
   }
 
   const frame = size === "detail" ? "h-52 sm:h-60" : "h-36 sm:h-40";
-  const tone = locked ? "brightness-[0.86] saturate-[0.82]" : "";
 
   return (
     <span className="flex w-full flex-col items-center gap-1">
@@ -76,7 +81,7 @@ export function AchievementMedal({
         alt=""
         decoding="async"
         draggable={false}
-        className={`${frame} w-full object-contain ${tone}`}
+        className={`${frame} w-full object-contain ${lockedTone}`}
       />
       <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">
         {tierLabel[tier]}
