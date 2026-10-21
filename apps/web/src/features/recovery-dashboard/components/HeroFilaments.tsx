@@ -3,6 +3,9 @@ import { useId } from "react";
 /**
  * Geometry copied from public/images/decoration/lineas.svg.
  * ViewBox stays 700×210 so the fan is scaled uniformly.
+ *
+ * Positioning is supplied by the parent. Default fills its container
+ * so the fan can sit behind HeroFigure in the Home anatomy column.
  */
 const fan = [
   ["M 110 207 C 170 145, 330 190, 420 20", "1.5", "0.25"],
@@ -31,17 +34,21 @@ const wisps = [
   ["M 317 210 Q 506 30 690 145", "0.295"],
 ] as const;
 
-export function HeroFilaments() {
+interface HeroFilamentsProps {
+  className?: string;
+}
+
+export function HeroFilaments({ className }: HeroFilamentsProps) {
   const gradientId = `fiber-${useId().replace(/:/g, "")}`;
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute z-0 hidden aspect-[700/210] [mask-image:radial-gradient(ellipse_at_66%_58%,black_48%,transparent_86%)] md:block md:right-[10rem] md:top-[7rem] md:h-[8rem] lg:right-[11.5rem] lg:top-[8.5rem] lg:h-[10rem] xl:right-[10rem] xl:top-[10rem] xl:h-[13rem]"
+      className={`pointer-events-none overflow-hidden ${className ?? "absolute inset-0"}`}
     >
       <svg
         viewBox="0 0 700 210"
-        className="h-full w-full"
+        className="absolute bottom-[4%] left-[-52%] h-[88%] w-auto max-w-none motion-reduce:opacity-80"
         fill="none"
         preserveAspectRatio="xMidYMid meet"
       >

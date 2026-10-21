@@ -42,11 +42,20 @@ export interface RegisterCredentials {
   weightKg?: number;
 }
 
+/** Bootstrap / session lifecycle for the SPA. */
+export type AuthStatus = "checking" | "authenticated" | "anonymous";
+
 /**
  * State exposed by the AuthContext.
  */
 export interface AuthState {
   user: AuthUser | null;
+  /** True while status === "checking" (refresh bootstrap in flight). */
   loading: boolean;
+  status: AuthStatus;
   error: string | null;
+  /** Stable notice key when a session becomes irrecoverable (e.g. session_expired). */
+  sessionNotice: string | null;
+  /** Whether an access JWT is currently held in memory (not persisted). */
+  hasAccessToken: boolean;
 }

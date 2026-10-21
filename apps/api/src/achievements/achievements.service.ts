@@ -4,13 +4,9 @@ import type {
   AchievementTier,
   UserAchievement,
 } from "@prisma/client";
+import type { ProgressAvailability } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
-import {
-  computeProgress,
-  dateAfterDays,
-  daysBetween,
-  daysToReachThreshold,
-} from "./recovery-math.js";
+import { planAchievementUnlocks, readAchievementProgress } from "./recovery-math.js";
 
 export interface AchievementWithUnlockState {
   id: string;
@@ -20,9 +16,13 @@ export interface AchievementWithUnlockState {
   triggerOrganId: string;
   triggerSubstanceId: string;
   triggerRecoveryThreshold: number;
+  hidden: boolean;
   unlocked: boolean;
   unlockedAt: Date | null;
   notifiedAt: Date | null;
+  /** Derived. Null unless progressAvailability is "ready". Not a clinical measure. */
+  achievementProgress: number | null;
+  progressAvailability: ProgressAvailability;
 }
 
 export interface NewlyUnlockedAchievement {
@@ -68,70 +68,29 @@ export class AchievementsService {
     const alreadyUnlockedIds = new Set(
       alreadyUnlocked.map((row) => row.achievementId),
     );
-
-    // Index curves by (organId, substanceId) for fast lookup.
-    const curveByPair = new Map<string, (typeof curves)[number]>();
-    for (const curve of curves) {
-      curveByPair.set(`${curve.organId}:${curve.substanceId}`, curve);
-    }
-
-    // Index usages by substanceId.
-    const usageBySubstance = new Map<string, (typeof usages)[number]>();
-    for (const usage of usages) {
-      usageBySubstance.set(usage.substanceId, usage);
-    }
-
+    const achievementById = new Map(achievements.map((item) => [item.id, item]));
     const now = new Date();
+
+    // Missing curves stay out of this list. They are pending review
+    // and are not granted.
+    const planned = planAchievementUnlocks({
+      achievements: achievements.map((item) => ({
+        id: item.id,
+        organId: item.triggerOrganId,
+        substanceId: item.triggerSubstanceId,
+        threshold: item.triggerRecoveryThreshold,
+      })),
+      curves,
+      usages,
+      alreadyUnlockedIds,
+      now,
+    });
+
     const newUnlocks: NewlyUnlockedAchievement[] = [];
-
-    for (const achievement of achievements) {
-      // Skip already-unlocked achievements.
-      if (alreadyUnlockedIds.has(achievement.id)) continue;
-
-      const usage = usageBySubstance.get(achievement.triggerSubstanceId);
-      // The user is not tracking this substance — achievement does
-      // not apply.
-      if (!usage) continue;
-
-      // Active consumption: achievements measure recovery, which only
-      // makes sense in abstinence. Skip the substance entirely.
-      if (usage.status === "active") continue;
-
-      // From here on, abstinence is guaranteed → lastUseDate is set.
-      if (!usage.lastUseDate) continue;
-
-      const curve = curveByPair.get(
-        `${achievement.triggerOrganId}:${achievement.triggerSubstanceId}`,
-      );
-      // No curve defined for this (organ, substance). Should be
-      // impossible if seed data is consistent; skip defensively.
-      if (!curve) continue;
-
-      const daysAbstinent = daysBetween(usage.lastUseDate, now);
-      const currentProgress = computeProgress(daysAbstinent, {
-        shape: curve.shape,
-        daysTo95Recovery: curve.daysTo95Recovery,
-      });
-
-      // Threshold not yet crossed.
-      if (currentProgress < achievement.triggerRecoveryThreshold) continue;
-
-      // Compute the actual date the threshold was crossed.
-      const daysAtThreshold = daysToReachThreshold(
-        achievement.triggerRecoveryThreshold,
-        {
-          shape: curve.shape,
-          daysTo95Recovery: curve.daysTo95Recovery,
-        },
-      );
-      // Defensive: if the inversion returned Infinity, the threshold
-      // is mathematically unreachable for this curve. Use now() as a
-      // fallback so the achievement still unlocks visibly.
-      const unlockedAt = Number.isFinite(daysAtThreshold)
-        ? dateAfterDays(usage.lastUseDate, daysAtThreshold)
-        : now;
-
-      newUnlocks.push({ achievement, unlockedAt });
+    for (const unlock of planned) {
+      const achievement = achievementById.get(unlock.id);
+      if (!achievement) continue;
+      newUnlocks.push({ achievement, unlockedAt: unlock.unlockedAt });
     }
 
     // Insert all in one batch.
@@ -160,7 +119,7 @@ export class AchievementsService {
   async getUserAchievements(
     userId: string,
   ): Promise<AchievementWithUnlockState[]> {
-    const [achievements, unlocks] = await Promise.all([
+    const [achievements, unlocks, curves, usages] = await Promise.all([
       this.prisma.achievement.findMany({
         orderBy: [
           { triggerSubstanceId: "asc" },
@@ -168,15 +127,40 @@ export class AchievementsService {
         ],
       }),
       this.prisma.userAchievement.findMany({ where: { userId } }),
+      this.prisma.organRecoveryCurve.findMany(),
+      this.prisma.substanceUsage.findMany({ where: { userId } }),
     ]);
 
     const unlockByAchievementId = new Map<string, UserAchievement>();
     for (const u of unlocks) {
       unlockByAchievementId.set(u.achievementId, u);
     }
+    const curveByPair = new Map(
+      curves.map((curve) => [`${curve.organId}:${curve.substanceId}`, curve]),
+    );
+    const usageBySubstance = new Map(usages.map((usage) => [usage.substanceId, usage]));
+    const now = new Date();
 
     return achievements.map((a) => {
       const unlock = unlockByAchievementId.get(a.id);
+      const curve = curveByPair.get(`${a.triggerOrganId}:${a.triggerSubstanceId}`);
+      const usage = usageBySubstance.get(a.triggerSubstanceId);
+      const reading = readAchievementProgress({
+        hidden: a.hidden,
+        persisted: Boolean(unlock),
+        achievementThreshold: a.triggerRecoveryThreshold,
+        curve: curve
+          ? {
+              shape: curve.shape,
+              daysTo95Recovery: curve.daysTo95Recovery,
+              recoveryCeiling: curve.recoveryCeiling,
+            }
+          : null,
+        usage: usage
+          ? { status: usage.status, lastUseDate: usage.lastUseDate }
+          : null,
+        now,
+      });
       return {
         id: a.id,
         tier: a.tier,
@@ -186,9 +170,11 @@ export class AchievementsService {
         triggerSubstanceId: a.triggerSubstanceId,
         triggerRecoveryThreshold: a.triggerRecoveryThreshold,
         hidden: a.hidden,
-        unlocked: !!unlock,
+        unlocked: Boolean(unlock),
         unlockedAt: unlock?.unlockedAt ?? null,
         notifiedAt: unlock?.notifiedAt ?? null,
+        achievementProgress: reading.achievementProgress,
+        progressAvailability: reading.progressAvailability,
       };
     });
   }

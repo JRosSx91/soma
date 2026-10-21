@@ -106,25 +106,79 @@ enum UsageStatus {
   active
 }
 
+/// Explicit onboarding intent. Independent of SubstanceUsage row count.
+enum OnboardingStatus {
+  pending
+  skipped
+  completed
+}
+
 // -----------------------------------------------------------------------------
 // User domain
 // -----------------------------------------------------------------------------
 
 model User {
-  id             String        @id @default(cuid())
-  email          String        @unique
-  hashedPassword String
-  displayName    String
-  biologicalSex  BiologicalSex
-  birthYear      Int
-  weightKg       Float?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id               String           @id @default(cuid())
+  email            String           @unique
+  hashedPassword   String
+  displayName      String
+  biologicalSex    BiologicalSex
+  birthYear        Int
+  weightKg         Float?
+  /// pending until the user skips or completes substance setup.
+  onboardingStatus OnboardingStatus @default(pending)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 
-  usages         SubstanceUsage[]
-  achievements   UserAchievement[]
+  usages              SubstanceUsage[]
+  achievements        UserAchievement[]
+  refreshTokens       RefreshToken[]
+  passwordResetTokens PasswordResetToken[]
 
   @@index([email])
+}
+
+/// One-time password-reset tokens. Plaintext is emailed; only tokenHash is stored.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  /// SHA-256 hex digest of the opaque reset token.
+  tokenHash String    @unique
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  /// Set when the token is successfully consumed (or invalidated).
+  usedAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([userId, usedAt])
+}
+
+/// Opaque refresh sessions. The plaintext token is never stored — only tokenHash.
+model RefreshToken {
+  id           String    @id @default(cuid())
+  userId       String
+  /// SHA-256 hex digest of the opaque refresh token.
+  tokenHash    String    @unique
+  /// Groups rotated tokens that belong to one login session.
+  familyId     String
+  createdAt    DateTime  @default(now())
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  /// Next token in a successful rotation chain (null until rotated).
+  replacedById String?
+  /// Truncated User-Agent (optional, diagnostic only).
+  userAgent    String?
+  /// SHA-256 of the client IP (optional). Raw IPs are not stored.
+  ipHash       String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([familyId])
+  @@index([expiresAt])
 }
 
 // -----------------------------------------------------------------------------

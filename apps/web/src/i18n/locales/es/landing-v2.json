@@ -1,0 +1,159 @@
+{
+  "metaTitle": "Soma — Recuperación fisiológica",
+  "nav": {
+    "preview": "Demo",
+    "signIn": "Entrar"
+  },
+  "hero": {
+    "eyebrow": "Trayectorias de recuperación modeladas",
+    "titleLead": "Tu cuerpo cambia.",
+    "titleAccent": "Descubre cómo evoluciona.",
+    "subtitle": "Soma visualiza trayectorias orientativas a partir de literatura científica y de una línea temporal personal. Son estimaciones educativas del catálogo — no mediciones clínicas, diagnósticos ni una garantía de recuperación individual.",
+    "ctaPrimary": "Crear una cuenta",
+    "ctaSecondary": "Explorar la demo",
+    "disclaimer": "Modelos educativos. Soma no es un dispositivo médico. Los paneles de la ilustración son motivos visuales, no mediciones ni datos de un perfil."
+  },
+  "journey": {
+    "eyebrow": "Explora el tiempo",
+    "title": "La recuperación no ocurre de un día para otro.",
+    "subtitle": "Cada proceso fisiológico tiene su propio ritmo. Soma te ayuda a explorar trayectorias orientativas basadas en literatura científica y comprender cómo pueden evolucionar diferentes sistemas del organismo.",
+    "chartTitle": "Curva ilustrativa. No es una trayectoria del catálogo Soma.",
+    "sliderLabel": "Explora la línea temporal",
+    "dayLabel": "Día {{day}}",
+    "axisStart": "Inicio",
+    "axisEnd": "Día 90 · ventana de la demo",
+    "hint": "Arrastra el control o usa las flechas del teclado.",
+    "caption": "Demostración conceptual. La forma de la línea no está calibrada, no procede del catálogo científico de Soma y no es una predicción clínica."
+  },
+  "atlas": {
+    "eyebrow": "Explora el cuerpo",
+    "title": "Explora el cuerpo humano",
+    "subtitle": "Elige un sistema fisiológico para ver cómo se sitúa en el organismo. Las láminas destacan estructuras; no miden ni predicen una recuperación.",
+    "systemsLabel": "Sistemas",
+    "showAll": "Ver los 12 sistemas",
+    "showFeatured": "Mostrar destacados",
+    "overviewAction": "Vista general",
+    "overviewTitle": "Vista general",
+    "overviewBody": "Cuerpo en vista anterior. Selecciona un sistema para resaltar sus estructuras sobre esta referencia.",
+    "emptySystem": "Esta lámina ilustra el sistema. El catálogo no lista aquí órganos canónicos.",
+    "disclaimer": "Ilustraciones anatómicas educativas. No son mediciones clínicas ni predicciones de recuperación.",
+    "plateAltBody": "Cuerpo humano en vista anterior.",
+    "plateAltSystem": "{{name}} resaltado sobre el cuerpo en vista anterior.",
+    "systems": {
+      "nervous-central": "Sistema nervioso central",
+      "cardiovascular": "Sistema cardiovascular",
+      "respiratory": "Sistema respiratorio",
+      "digestive": "Sistema digestivo",
+      "immune": "Sistema inmunitario",
+      "hepatic": "Sistema hepático",
+      "renal": "Sistema renal",
+      "reproductive": "Sistema reproductor",
+      "integumentary": "Sistema tegumentario",
+      "sensory": "Sistema sensorial",
+      "endocrine": "Sistema endocrino",
+      "nervous-peripheral": "Sistema nervioso periférico"
+    },
+    "blurbs": {
+      "nervous-central": "Encéfalo y médula espinal, el eje de integración del organismo.",
+      "cardiovascular": "Corazón y vasos que impulsan y distribuyen la sangre.",
+      "respiratory": "Vías aéreas y pulmones que permiten el intercambio de gases.",
+      "digestive": "Tracto digestivo que procesa el alimento. El hígado puede verse también; el sistema hepático tiene su propia lámina.",
+      "immune": "Estructuras inmunitarias que participan en la defensa del organismo.",
+      "hepatic": "Hígado y vía biliar, centrales en el metabolismo.",
+      "renal": "Riñones y vías urinarias que filtran la sangre y regulan el medio interno.",
+      "reproductive": "Aparato reproductor. La lámina de cuerpo muestra la anatomía masculina.",
+      "integumentary": "Piel y anexos cutáneos, frontera del organismo con el exterior.",
+      "sensory": "Órganos de los sentidos situados en la vista anterior.",
+      "endocrine": "Glándulas que liberan hormonas a la sangre y coordinan funciones a distancia.",
+      "nervous-peripheral": "Nervios y ganglios fuera del encéfalo y de la médula espinal."
+    }
+  },
+  "science": {
+    "eyebrow": "La ciencia detrás de Soma",
+    "title": "De la literatura a una trayectoria educativa.",
+    "subtitle": "La evidencia sugiere una forma y unos parámetros. El trazo continuo es interpolación matemática, no una medición tuya.",
+    "stages": {
+      "research": {
+        "title": "Investigación",
+        "body": "Literatura y, si las hay, guías: qué estructuras, qué ritmo y con qué confianza. No mide al usuario."
+      },
+      "modeling": {
+        "title": "Modelado educativo",
+        "body": "Forma, horizonte y techo. Entre anclajes, la curva se interpola: un punto del trazo no es un dato de un estudio."
+      },
+      "exploration": {
+        "title": "Exploración",
+        "body": "La demo o tu línea temporal sitúan el catálogo en días. Es avance estimado, no un biomarcador ni un diagnóstico."
+      }
+    },
+    "shapesLabel": "Formas esquemáticas",
+    "shapesDetailLabel": "Qué significa cada forma",
+    "shapes": {
+      "logarithmic": {
+        "title": "Logarítmica",
+        "body": "Cambio más marcado al inicio y luego se aplana. Se usa cuando la literatura describe una ganancia temprana que se ralentiza."
+      },
+      "sigmoidal": {
+        "title": "Sigmoidea",
+        "body": "Empieza despacio, acelera y vuelve a aplanarse. Encaja con procesos que tardan en despegar y luego se estabilizan."
+      },
+      "linear": {
+        "title": "Lineal",
+        "body": "Avance constante en el modelo. Se reserva para cuando los datos no justifican otra forma; los hitos discretos se aproximan igual de forma continua."
+      }
+    },
+    "shapesCaption": "Glifos ilustrativos. No son curvas clínicas ni una trayectoria del catálogo dibujada a escala.",
+    "confidenceLabel": "Confianza de la evidencia",
+    "confidenceIntro": "Cada par del catálogo lleva un nivel de confianza. Describe la solidez de las fuentes, no una probabilidad estadística ni la certeza de un resultado individual.",
+    "confidence": {
+      "high": {
+        "title": "Alta",
+        "body": "Consenso amplio, varios estudios longitudinales o guías establecidas. Aun así el modelo sigue siendo una simplificación."
+      },
+      "medium": {
+        "title": "Media",
+        "body": "Literatura sólida, con variabilidad entre personas o muestras limitadas. La incertidumbre se mantiene a la vista."
+      },
+      "low": {
+        "title": "Baja",
+        "body": "Evidencia emergente, estudios preliminares o extrapolación. No debe leerse como un hecho clínico asentado."
+      }
+    },
+    "notice": "Modelos educativos del catálogo. No son mediciones clínicas ni el final de una recuperación.",
+    "exploreMethod": "Explorar la metodología",
+    "limits": "El modelo representa promedios en condiciones estándar: no incorpora variabilidad individual, comorbilidades ni interacciones entre sustancias. Las escalas internas sirven para visualizar, no son porcentajes médicos. No todas las referencias del catálogo están verificadas frente a la fuente primaria. Soma no es un dispositivo médico."
+  },
+  "methodology": {
+    "eyebrow": "Metodología",
+    "title": "Cómo se lee el modelo.",
+    "subtitle": "Cada forma describe un patrón de interpolación. La confianza habla de las fuentes. Los límites recuerdan lo que el modelo no puede afirmar."
+  },
+  "achievements": {
+    "eyebrow": "Hitos de tu recorrido",
+    "title": "Cada paso merece ser reconocido.",
+    "intro": "Soma reconoce {{count}} logros ligados a umbrales de sus modelos educativos. Esta vitrina muestra piezas reales del catálogo, no un progreso personal.",
+    "galleryLabel": "Vitrina de logros",
+    "selectedLabel": "Hito seleccionado",
+    "substance": "Sustancia",
+    "tier": "Nivel",
+    "tiers": {
+      "bronze": "Bronce",
+      "silver": "Plata",
+      "gold": "Oro",
+      "platinum": "Platino"
+    },
+    "sealedTitle": "Hito oculto",
+    "sealedBody": "Algunos logros permanecen sellados hasta que se alcanzan. Esta vitrina no revela su nombre ni su descripción.",
+    "sealedSubstance": "Por descubrir",
+    "note": "Los logros se conceden cuando una trayectoria educativa modelada cruza un umbral del catálogo. No son mediciones clínicas ni la prueba de que un órgano se ha recuperado."
+  },
+  "closing": {
+    "eyebrow": "Tu siguiente capítulo",
+    "title": "Tu recorrido empieza hoy.",
+    "subtitle": "Cada día forma parte de una historia más grande. Descubre cómo explorar tu evolución, comprender los procesos de tu organismo y reconocer los hitos de tu camino.",
+    "ctaPrimary": "Crear una cuenta",
+    "ctaSecondary": "Explorar la demo",
+    "note": "Modelos educativos orientativos. No sustituyen una evaluación médica.",
+    "tagline": "Understanding recovery, one day at a time."
+  }
+}

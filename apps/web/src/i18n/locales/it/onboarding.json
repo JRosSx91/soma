@@ -1,6 +1,6 @@
 {
-  "title": "Parlaci di te",
-  "subtitle": "Per ogni sostanza che hai smesso di usare, segnalala come attiva e indica l'ultima volta che l'hai consumata. Potrai modificare queste informazioni in seguito.",
+  "title": "Set up your tracking",
+  "subtitle": "Optionally tell us which substances you want to follow. Tracking is voluntary — you can skip this and add or change it later from your account.",
   "mode": {
     "abstinent": "Sto smettendo",
     "active": "Continuo a consumare",
@@ -21,10 +21,28 @@
   },
   "submit": "Continua",
   "submitting": "Salvataggio…",
-  "skip": "Puoi saltare le sostanze che non hai consumato o di cui non vuoi tenere traccia.",
   "errors": {
     "invalidYear": "Anno non valido per {{substance}}",
     "lastUseDateRequired": "Data dell'ultimo consumo richiesta per {{substance}}",
-    "saveFailed": "Impossibile salvare il profilo"
-  }
+    "saveFailed": "Impossibile salvare il profilo",
+    "statusFailed": "Your substances were saved, but we could not update your onboarding status. Retry without losing your data.",
+    "skipFailed": "Could not continue without tracking. Try again."
+  },
+  "privacyNote": "You do not need to share your consumption history to use Soma. Educational pages stay available either way.",
+  "editTitle": "Edit your substance tracking",
+  "editSubtitle": "Update which substances you follow. Changes replace your current tracking list when you save.",
+  "editPrivacyNote": "Saving with no substances selected removes configured tracking after confirmation. Continuing without tracking leaves existing rows unchanged.",
+  "editSubmit": "Save tracking changes",
+  "skipAction": "Continue without tracking",
+  "skipHint": "Leaves any existing tracking unchanged. You can set this up later.",
+  "skipping": "Continuing…",
+  "retryStatus": "Retry saving your choice",
+  "loadError": "Could not load your profile. Check your connection and try again.",
+  "loadErrorHint": "We will not change your tracking until the profile loads successfully.",
+  "retryLoad": "Retry",
+  "enterAppWithoutSetup": "Enter Soma without changing setup",
+  "clearConfirmTitle": "Remove all substance tracking?",
+  "clearConfirmBody": "Saving with no substances selected will delete the tracking you already configured. This cannot be undone from this screen.",
+  "clearConfirmCancel": "Keep my tracking",
+  "clearConfirmProceed": "Yes, remove tracking"
 }

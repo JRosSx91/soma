@@ -2,6 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!--
+      Password-reset links arrive as a full document load with ?token= in the URL.
+      Apply no-referrer and strip the token before favicon / module requests so the
+      secret is not leaked via Referer and is handed to the SPA only in memory.
+      Scoped to /reset-password so the rest of the app keeps the browser default.
+    -->
+    <script>
+      (function () {
+        try {
+          var path = location.pathname || "";
+          if (path.indexOf("/reset-password") === -1) return;
+          var meta = document.createElement("meta");
+          meta.setAttribute("name", "referrer");
+          meta.setAttribute("content", "no-referrer");
+          document.head.appendChild(meta);
+          var url = new URL(location.href);
+          var token = url.searchParams.get("token");
+          if (!token) return;
+          window.__SOMA_PASSWORD_RESET_TOKEN__ = token;
+          url.searchParams.delete("token");
+          var query = url.searchParams.toString();
+          history.replaceState(
+            {},
+            "",
+            url.pathname + (query ? "?" + query : "") + url.hash,
+          );
+        } catch (_) {
+          /* ignore — React capture remains as fallback */
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>web</title>

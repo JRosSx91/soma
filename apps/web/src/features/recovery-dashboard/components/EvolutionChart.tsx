@@ -1,9 +1,15 @@
-import { demoAxisLabels, demoSeries, demoTodayLabel, demoTodayPosition } from "../demo-data.js";
+import { useTranslation } from "react-i18next";
+import type { DemoSeries } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
+import type { DashboardChartView } from "../hooks/usePreviewDashboard.js";
+import { formatTrajectoryPercent } from "../dashboard/recovery-semantics.js";
 
 interface EvolutionChartProps {
   seriesId: string;
   onSeries: (id: string) => void;
+  chart: DashboardChartView;
+  /** When true, screen-reader copy avoids the demo disclaimer. */
+  live?: boolean;
 }
 
 interface PlotGeometry {
@@ -37,8 +43,12 @@ function smoothPath(samples: readonly number[], plot: PlotGeometry): string {
   const { width, height, pad } = plot;
   const innerW = width - pad.l - pad.r;
   const innerH = height - pad.t - pad.b;
+  if (samples.length === 0) return "";
   const points = samples.map((value, index) => {
-    const x = pad.l + (index / (samples.length - 1)) * innerW;
+    const x =
+      samples.length === 1
+        ? pad.l + innerW / 2
+        : pad.l + (index / (samples.length - 1)) * innerW;
     const y = pad.t + (1 - value) * innerH;
     return { x, y };
   });
@@ -63,16 +73,19 @@ function gridY(fraction: number, plot: PlotGeometry): number {
 function ChartPlot({
   plot,
   seriesId,
+  chart,
   className,
 }: {
   plot: PlotGeometry;
   seriesId: string;
+  chart: DashboardChartView;
   className: string;
 }) {
   const { width, height, pad } = plot;
   const innerW = width - pad.l - pad.r;
-  const todayX = pad.l + demoTodayPosition * innerW;
+  const todayX = chart.showToday ? pad.l + chart.todayPosition * innerW : null;
   const ticks = [1, 0.75, 0.5, 0.25, 0];
+  const axisLabels = chart.axisLabels;
 
   return (
     <svg
@@ -101,8 +114,11 @@ function ChartPlot({
           </text>
         </g>
       ))}
-      {demoAxisLabels.map((label, index) => {
-        const x = pad.l + (index / (demoAxisLabels.length - 1)) * innerW;
+      {axisLabels.map((label, index) => {
+        const x =
+          axisLabels.length === 1
+            ? pad.l + innerW / 2
+            : pad.l + (index / (axisLabels.length - 1)) * innerW;
         return (
           <text
             key={label}
@@ -116,35 +132,39 @@ function ChartPlot({
           </text>
         );
       })}
-      <line
-        x1={todayX}
-        x2={todayX}
-        y1={pad.t}
-        y2={height - pad.b}
-        stroke="rgb(var(--soma-ink-muted))"
-        strokeDasharray="3 4"
-      />
-      <g transform={`translate(${todayX}, 4)`}>
-        <rect
-          x="-46"
-          y="0"
-          width="92"
-          height="18"
-          rx="9"
-          fill="rgb(var(--soma-canvas))"
-          stroke="rgb(var(--soma-line))"
-        />
-        <text
-          x="0"
-          y="13"
-          textAnchor="middle"
-          fill="rgb(var(--soma-ink))"
-          fontSize="10"
-        >
-          {demoTodayLabel}
-        </text>
-      </g>
-      {demoSeries.map((series) => {
+      {chart.showToday && todayX != null ? (
+        <>
+          <line
+            x1={todayX}
+            x2={todayX}
+            y1={pad.t}
+            y2={height - pad.b}
+            stroke="rgb(var(--soma-ink-muted))"
+            strokeDasharray="3 4"
+          />
+          <g transform={`translate(${todayX}, 4)`}>
+            <rect
+              x="-46"
+              y="0"
+              width="92"
+              height="18"
+              rx="9"
+              fill="rgb(var(--soma-canvas))"
+              stroke="rgb(var(--soma-line))"
+            />
+            <text
+              x="0"
+              y="13"
+              textAnchor="middle"
+              fill="rgb(var(--soma-ink))"
+              fontSize="10"
+            >
+              {chart.todayLabel}
+            </text>
+          </g>
+        </>
+      ) : null}
+      {chart.series.map((series) => {
         const dimmed = seriesId !== "general" && seriesId !== series.id;
         return (
           <path
@@ -165,31 +185,46 @@ function ChartPlot({
 }
 
 /**
- * Demonstration chart. Samples come from demo-data, not from computeRecovery.
+ * Evolution chart. Samples come from the dashboard view model
+ * (demo snapshot or live curves via estimateCurve / computeRecovery).
+ *
+ * Accessible table: Hoy is elapsed-day advance; axis columns already
+ * include the day-365 checkpoint as “1 year”, so that value is not
+ * duplicated as a second day-365 column.
  */
-export function EvolutionChart({ seriesId, onSeries }: EvolutionChartProps) {
+export function EvolutionChart({
+  seriesId,
+  onSeries,
+  chart,
+  live = false,
+}: EvolutionChartProps) {
+  const { t } = useTranslation("recovery");
+  const series = chart.series as readonly DemoSeries[];
+
   return (
     <section className="rounded-2xl border border-soma-line bg-soma-surface p-4 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5 lg:px-3 lg:py-2">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-base font-semibold text-soma-ink sm:text-lg lg:text-base">
-            Evolución estimada
+            {t("chartTitle")}
           </h2>
           <p className="mt-1 text-xs text-soma-ink-muted sm:text-sm lg:mt-0.5 lg:text-xs">
-            Progreso general de los principales sistemas afectados
+            {t("chartSubtitle")}
           </p>
         </div>
         <label className="relative shrink-0">
-          <span className="sr-only">Serie de la gráfica de demostración</span>
+          <span className="sr-only">
+            {live ? t("chartSeriesLive") : t("chartSeriesDemo")}
+          </span>
           <select
             value={seriesId}
             onChange={(event) => onSeries(event.target.value)}
             className={`${previewFocus} appearance-none rounded-lg border border-soma-line bg-soma-canvas py-1.5 pl-3 pr-8 text-xs text-soma-ink`}
           >
-            <option value="general">Vista general</option>
-            {demoSeries.map((series) => (
-              <option key={series.id} value={series.id}>
-                {series.label}
+            <option value="general">{t("chartOverview")}</option>
+            {series.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.label}
               </option>
             ))}
           </select>
@@ -202,80 +237,109 @@ export function EvolutionChart({ seriesId, onSeries }: EvolutionChartProps) {
         </label>
       </div>
 
-      <div className="mt-4 flex flex-col gap-4 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
-        <div className="min-w-0 flex-1">
-          <ChartPlot
-            plot={MOBILE_PLOT}
-            seriesId={seriesId}
-            className="h-52 w-full sm:h-60 lg:hidden"
-          />
-          <ChartPlot
-            plot={DESKTOP_PLOT}
-            seriesId={seriesId}
-            className="hidden h-[11.25rem] w-full lg:block xl:hidden"
-          />
-          <ChartPlot
-            plot={XL_PLOT}
-            seriesId={seriesId}
-            className="hidden h-[10.25rem] w-full xl:block"
-          />
-          <p className="mt-2 text-[11px] text-soma-ink-muted lg:mt-0.5">
-            Valores de demostración. El eje repite la composición del mockup y no es una escala clínica.
-          </p>
+      {series.length === 0 ? (
+        <p className="mt-4 rounded-xl border border-dashed border-soma-line px-3 py-6 text-sm text-soma-ink-muted">
+          {t("chartEmpty")}
+        </p>
+      ) : (
+        <div className="mt-4 flex flex-col gap-4 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
+          <div className="min-w-0 flex-1">
+            <ChartPlot
+              plot={MOBILE_PLOT}
+              seriesId={seriesId}
+              chart={chart}
+              className="h-52 w-full sm:h-60 lg:hidden"
+            />
+            <ChartPlot
+              plot={DESKTOP_PLOT}
+              seriesId={seriesId}
+              chart={chart}
+              className="hidden h-[11.25rem] w-full lg:block xl:hidden"
+            />
+            <ChartPlot
+              plot={XL_PLOT}
+              seriesId={seriesId}
+              chart={chart}
+              className="hidden h-[10.25rem] w-full xl:block"
+            />
+            <p className="mt-2 text-[11px] text-soma-ink-muted lg:mt-0.5">{chart.footnote}</p>
+          </div>
+
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex lg:w-52 lg:shrink-0 lg:flex-col lg:justify-center lg:gap-1">
+            {series.map((item) => {
+              const dimmed = seriesId !== "general" && seriesId !== item.id;
+              return (
+                <li
+                  key={item.id}
+                  className={`flex items-start gap-2 text-xs ${dimmed ? "opacity-40" : ""}`}
+                >
+                  <span
+                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full"
+                    style={{ backgroundColor: item.color }}
+                    aria-hidden="true"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-soma-ink-secondary">{item.label}</span>
+                    {item.referenceAtYearLabel ? (
+                      <span className="mt-0.5 block text-[10px] text-soma-ink-muted">
+                        {item.referenceAtYearLabel}
+                      </span>
+                    ) : null}
+                  </span>
+                  {chart.showToday ? (
+                    <span className="shrink-0 text-right font-medium tabular-nums text-soma-ink">
+                      <span className="sr-only">
+                        {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+                      </span>
+                      {item.endLabel}
+                    </span>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
         </div>
+      )}
 
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex lg:w-52 lg:shrink-0 lg:flex-col lg:justify-center lg:gap-1">
-          {demoSeries.map((series) => {
-            const dimmed = seriesId !== "general" && seriesId !== series.id;
-            return (
-              <li
-                key={series.id}
-                className={`flex items-center gap-2 text-xs ${dimmed ? "opacity-40" : ""}`}
-              >
-                <span
-                  className="h-2 w-2 shrink-0 rounded-full"
-                  style={{ backgroundColor: series.color }}
-                  aria-hidden="true"
-                />
-                <span className="min-w-0 flex-1 text-soma-ink-secondary">
-                  {series.label}
-                </span>
-                <span className="font-medium tabular-nums text-soma-ink">
-                  {series.endLabel}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-      <div className="sr-only" style={{ contain: "strict" }}>
-      <table>
-        <caption>
-          Estimaciones de demostración, no mediciones. Cada fila es una serie visual del mockup.
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">Serie</th>
-            {demoAxisLabels.map((label) => (
-              <th key={label} scope="col">
-                {label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {demoSeries.map((series) => (
-            <tr key={series.id}>
-              <th scope="row">{series.label}</th>
-              {series.samples.map((sample, index) => (
-                <td key={demoAxisLabels[index]}>{Math.round(sample * 100)}%</td>
+      {series.length > 0 ? (
+        <div className="sr-only" style={{ contain: "strict" }}>
+          <table>
+            <caption>
+              {live
+                ? chart.showToday
+                  ? t("chartCaptionLive")
+                  : t("chartCaptionLiveOverlay")
+                : t("chartCaptionDemo")}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">{t("chartTableSeries")}</th>
+                {chart.showToday ? (
+                  <th scope="col">{t("chartTableToday")}</th>
+                ) : null}
+                {chart.axisLabels.map((label) => (
+                  <th key={label} scope="col">
+                    {label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {series.map((item) => (
+                <tr key={item.id}>
+                  <th scope="row">{item.label}</th>
+                  {chart.showToday ? <td>{item.endLabel}</td> : null}
+                  {item.samples.map((sample, index) => (
+                    <td key={chart.axisLabels[index] ?? index}>
+                      {formatTrajectoryPercent(sample)}
+                    </td>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
+      ) : null}
     </section>
   );
 }

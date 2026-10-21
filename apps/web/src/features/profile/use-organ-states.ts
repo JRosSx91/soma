@@ -20,7 +20,7 @@ export interface OrganState {
   organName: string;
   /** Recovery progress in [0, 1]. Drives organ color. */
   progressFraction: number;
-  /** Recovery relative to baseline in [0, recoveryCeiling]. Drives achievements. */
+  /** Heuristic estimate in [0, recoveryCeiling]. Organ color uses progressFraction. */
   absoluteRecovery: number;
   /** Days since last use of the dominant substance. */
   daysAbstinent: number;

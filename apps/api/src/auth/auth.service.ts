@@ -1,6 +1,6 @@
 import {
-  ConflictException,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
@@ -9,6 +9,12 @@ import { UsersService } from "../users/users.service.js";
 import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
 import { CodedConflictException } from "../common/exceptions/coded-exception.js";
+import { normalizeEmail } from "./normalize-email.js";
+import {
+  RefreshSessionService,
+  type IssuedRefreshSession,
+  type SessionMeta,
+} from "./refresh-session.service.js";
 
 const SALT_ROUNDS = 10;
 
@@ -32,16 +38,39 @@ export interface AuthenticatedResponse {
   };
 }
 
+/** Internal: JSON body for the SPA plus plaintext refresh for the cookie layer. */
+export interface AuthenticatedSessionResult extends AuthenticatedResponse {
+  refresh: IssuedRefreshSession;
+}
+
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly refreshSessions: RefreshSessionService,
   ) {}
 
-  async register(dto: RegisterDto): Promise<AuthenticatedResponse> {
-    const existing = await this.usersService.findByEmail(dto.email);
-    if (existing) {
+  async register(
+    dto: RegisterDto,
+    meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
+    const email = normalizeEmail(dto.email);
+    const existing = await this.usersService.findByEmailInsensitive(email);
+
+    if (existing.status === "collision") {
+      this.logger.error(
+        `Email collision on register (${existing.count} rows). Refusing new account.`,
+      );
+      throw new CodedConflictException(
+        "AUTH_EMAIL_EXISTS",
+        "Email already registered",
+      );
+    }
+
+    if (existing.status === "found") {
       throw new CodedConflictException(
         "AUTH_EMAIL_EXISTS",
         "Email already registered",
@@ -51,7 +80,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(dto.password, SALT_ROUNDS);
 
     const user = await this.usersService.create({
-      email: dto.email,
+      email,
       hashedPassword,
       displayName: dto.displayName,
       biologicalSex: dto.biologicalSex,
@@ -59,17 +88,28 @@ export class AuthService {
       weightKg: dto.weightKg,
     });
 
-    return this.buildAuthResponse(user.id, user.email, user.displayName);
+    return this.buildSession(user.id, user.email, user.displayName, meta);
   }
 
-  async login(dto: LoginDto): Promise<AuthenticatedResponse> {
-    const user = await this.usersService.findByEmail(dto.email);
-    if (!user) {
-      // Same error for both cases to avoid leaking whether the email
-      // is registered.
+  async login(
+    dto: LoginDto,
+    meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
+    const email = normalizeEmail(dto.email);
+    const lookup = await this.usersService.findByEmailInsensitive(email);
+
+    if (lookup.status === "collision") {
+      this.logger.error(
+        `Email collision on login (${lookup.count} rows). Refusing authentication.`,
+      );
       throw new UnauthorizedException("Invalid credentials");
     }
 
+    if (lookup.status === "none") {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const user = lookup.user;
     const passwordMatches = await bcrypt.compare(
       dto.password,
       user.hashedPassword,
@@ -78,7 +118,47 @@ export class AuthService {
       throw new UnauthorizedException("Invalid credentials");
     }
 
-    return this.buildAuthResponse(user.id, user.email, user.displayName);
+    return this.buildSession(user.id, user.email, user.displayName, meta);
+  }
+
+  async refreshFromCookie(
+    plaintext: string | undefined,
+    meta: SessionMeta = {},
+  ): Promise<AuthenticatedSessionResult> {
+    if (!plaintext) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    const { userId, session } = await this.refreshSessions.rotateSession(
+      plaintext,
+      meta,
+    );
+    const user = await this.usersService.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    return {
+      ...this.buildAuthResponse(user.id, user.email, user.displayName),
+      refresh: session,
+    };
+  }
+
+  async logout(plaintext: string | undefined): Promise<void> {
+    await this.refreshSessions.revokeByPlaintext(plaintext);
+  }
+
+  private async buildSession(
+    userId: string,
+    email: string,
+    displayName: string,
+    meta: SessionMeta,
+  ): Promise<AuthenticatedSessionResult> {
+    const refresh = await this.refreshSessions.issueSession(userId, meta);
+    return {
+      ...this.buildAuthResponse(userId, email, displayName),
+      refresh,
+    };
   }
 
   private buildAuthResponse(

@@ -1,11 +1,16 @@
 {
-  "title": "Cuéntanos sobre ti",
-  "subtitle": "Para cada sustancia que hayas dejado, márcala como activa e indícanos cuándo la consumiste por última vez. Puedes actualizar esto más tarde.",
+  "title": "Configura tu seguimiento",
+  "subtitle": "Si quieres, indícanos qué sustancias deseas seguir. El seguimiento es voluntario: puedes omitirlo y añadirlo o cambiarlo más adelante desde tu cuenta.",
+  "privacyNote": "No necesitas compartir tu historial de consumo para usar Soma. Las páginas educativas siguen disponibles en cualquier caso.",
+  "editTitle": "Edita tu seguimiento de sustancias",
+  "editSubtitle": "Actualiza las sustancias que sigues. Al guardar, los cambios sustituirán tu configuración de seguimiento actual.",
+  "editPrivacyNote": "Si guardas sin sustancias seleccionadas, se eliminará el seguimiento configurado tras confirmarlo. Continuar sin seguimiento deja los datos existentes sin cambios.",
+  "editSubmit": "Guardar cambios",
   "mode": {
     "abstinent": "Lo estoy dejando",
-    "active": "Sigo consumiendo",
-    "abstinentDescription": "Sigue tu proceso de recuperación de esta sustancia.",
-    "activeDescription": "Mira el impacto en tiempo real en tu cuerpo, sin trackear recuperación."
+    "active": "Sigo usándola",
+    "abstinentDescription": "Usaremos la fecha de último consumo para estimar la recuperación con el tiempo.",
+    "activeDescription": "Mostraremos estimaciones de impacto sin dar por hecho que hayas dejado de usarla."
   },
   "fields": {
     "lastUseDate": "Fecha del último consumo",
@@ -19,12 +24,25 @@
     "monthly": "Mensual",
     "occasional": "Ocasional"
   },
-  "submit": "Continuar",
+  "submit": "Guardar y continuar",
   "submitting": "Guardando…",
-  "skip": "Puedes omitir las sustancias que no consumas o que no quieras seguir.",
+  "skipAction": "Continuar sin seguimiento",
+  "skipHint": "Tu seguimiento actual no se modificará. Puedes configurarlo más adelante.",
+  "skipping": "Continuando…",
+  "retryStatus": "Reintentar guardar tu elección",
+  "loadError": "No se ha podido cargar tu perfil. Comprueba la conexión e inténtalo de nuevo.",
+  "loadErrorHint": "No cambiaremos tu seguimiento hasta que el perfil se cargue correctamente.",
+  "retryLoad": "Reintentar",
+  "enterAppWithoutSetup": "Entrar en Soma sin cambiar la configuración",
+  "clearConfirmTitle": "¿Eliminar todo el seguimiento de sustancias?",
+  "clearConfirmBody": "Si guardas sin sustancias seleccionadas, se borrará el seguimiento que ya habías configurado. Esta acción no se puede deshacer desde esta pantalla.",
+  "clearConfirmCancel": "Conservar mi seguimiento",
+  "clearConfirmProceed": "Sí, eliminar el seguimiento",
   "errors": {
-    "invalidYear": "Año inválido para {{substance}}",
+    "invalidYear": "Año no válido para {{substance}}",
     "lastUseDateRequired": "Indica la última vez que consumiste {{substance}}",
-    "saveFailed": "Error al guardar el perfil"
+    "saveFailed": "No se ha podido guardar tu seguimiento. Inténtalo de nuevo.",
+    "statusFailed": "Tus sustancias se han guardado, pero no hemos podido actualizar el estado de la configuración. Reinténtalo sin perder tus datos.",
+    "skipFailed": "No se ha podido continuar sin seguimiento. Inténtalo de nuevo."
   }
 }

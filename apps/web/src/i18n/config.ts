@@ -1,6 +1,10 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import {
+  isInterfaceLanguage,
+  resolveInterfaceLanguage,
+} from "./interface-languages.js";
 
 // English
 import enSubstances from "./locales/en/substances.json";
@@ -14,8 +18,12 @@ import enOnboarding from "./locales/en/onboarding.json";
 import enOrgans from "./locales/en/organs.json";
 import enOrganNarrative from "./locales/en/organ-narrative.json";
 import enAchievements from "./locales/en/achievements.json";
-import enLanding from "./locales/en/landing.json";
+import enLandingV2 from "./locales/en/landing-v2.json";
 import enMechanisms from "./locales/en/mechanisms.json";
+import enAccount from "./locales/en/account.json";
+import enRecovery from "./locales/en/recovery.json";
+import enExplore from "./locales/en/explore.json";
+import enAnatomy from "./locales/en/anatomy.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -29,12 +37,14 @@ import esOnboarding from "./locales/es/onboarding.json";
 import esOrgans from "./locales/es/organs.json";
 import esOrganNarrative from "./locales/es/organ-narrative.json";
 import esAchievements from "./locales/es/achievements.json";
-import esLanding from "./locales/es/landing.json";
+import esLandingV2 from "./locales/es/landing-v2.json";
 import esMechanisms from "./locales/es/mechanisms.json";
+import esRecovery from "./locales/es/recovery.json";
+import esExplore from "./locales/es/explore.json";
+import esAnatomy from "./locales/es/anatomy.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
-import caNeurotransmitterPhases from "./locales/ca/neurotransmitter-phases.json";
 import caNeurotransmitters from "./locales/ca/neurotransmitters.json";
 import caPhases from "./locales/ca/phases.json";
 import caAuth from "./locales/ca/auth.json";
@@ -44,12 +54,9 @@ import caOnboarding from "./locales/ca/onboarding.json";
 import caOrgans from "./locales/ca/organs.json";
 import caOrganNarrative from "./locales/ca/organ-narrative.json";
 import caAchievements from "./locales/ca/achievements.json";
-import caLanding from "./locales/ca/landing.json";
-import caMechanisms from "./locales/ca/mechanisms.json";
 
 // Galician
 import glSubstances from "./locales/gl/substances.json";
-import glNeurotransmitterPhases from "./locales/gl/neurotransmitter-phases.json";
 import glNeurotransmitters from "./locales/gl/neurotransmitters.json";
 import glPhases from "./locales/gl/phases.json";
 import glAuth from "./locales/gl/auth.json";
@@ -59,12 +66,9 @@ import glOnboarding from "./locales/gl/onboarding.json";
 import glOrgans from "./locales/gl/organs.json";
 import glOrganNarrative from "./locales/gl/organ-narrative.json";
 import glAchievements from "./locales/gl/achievements.json";
-import glLanding from "./locales/gl/landing.json";
-import glMechanisms from "./locales/gl/mechanisms.json";
 
 // Basque
 import euSubstances from "./locales/eu/substances.json";
-import euNeurotransmitterPhases from "./locales/eu/neurotransmitter-phases.json";
 import euNeurotransmitters from "./locales/eu/neurotransmitters.json";
 import euPhases from "./locales/eu/phases.json";
 import euAuth from "./locales/eu/auth.json";
@@ -74,12 +78,9 @@ import euOnboarding from "./locales/eu/onboarding.json";
 import euOrgans from "./locales/eu/organs.json";
 import euOrganNarrative from "./locales/eu/organ-narrative.json";
 import euAchievements from "./locales/eu/achievements.json";
-import euLanding from "./locales/eu/landing.json";
-import euMechanisms from "./locales/eu/mechanisms.json";
 
 // French
 import frSubstances from "./locales/fr/substances.json";
-import frNeurotransmitterPhases from "./locales/fr/neurotransmitter-phases.json";
 import frNeurotransmitters from "./locales/fr/neurotransmitters.json";
 import frPhases from "./locales/fr/phases.json";
 import frAuth from "./locales/fr/auth.json";
@@ -89,12 +90,9 @@ import frOnboarding from "./locales/fr/onboarding.json";
 import frOrgans from "./locales/fr/organs.json";
 import frOrganNarrative from "./locales/fr/organ-narrative.json";
 import frAchievements from "./locales/fr/achievements.json";
-import frLanding from "./locales/fr/landing.json";
-import frMechanisms from "./locales/fr/mechanisms.json";
 
 // Italian
 import itSubstances from "./locales/it/substances.json";
-import itNeurotransmitterPhases from "./locales/it/neurotransmitter-phases.json";
 import itNeurotransmitters from "./locales/it/neurotransmitters.json";
 import itPhases from "./locales/it/phases.json";
 import itAuth from "./locales/it/auth.json";
@@ -104,12 +102,9 @@ import itOnboarding from "./locales/it/onboarding.json";
 import itOrgans from "./locales/it/organs.json";
 import itOrganNarrative from "./locales/it/organ-narrative.json";
 import itAchievements from "./locales/it/achievements.json";
-import itLanding from "./locales/it/landing.json";
-import itMechanisms from "./locales/it/mechanisms.json";
 
 // German
 import deSubstances from "./locales/de/substances.json";
-import deNeurotransmitterPhases from "./locales/de/neurotransmitter-phases.json";
 import deNeurotransmitters from "./locales/de/neurotransmitters.json";
 import dePhases from "./locales/de/phases.json";
 import deAuth from "./locales/de/auth.json";
@@ -119,8 +114,6 @@ import deOnboarding from "./locales/de/onboarding.json";
 import deOrgans from "./locales/de/organs.json";
 import deOrganNarrative from "./locales/de/organ-narrative.json";
 import deAchievements from "./locales/de/achievements.json";
-import deLanding from "./locales/de/landing.json";
-import deMechanisms from "./locales/de/mechanisms.json";
 
 /**
  * i18next configuration for Soma.
@@ -128,11 +121,21 @@ import deMechanisms from "./locales/de/mechanisms.json";
  * - Static imports of translation JSONs (bundled at build time).
  * - LanguageDetector chooses the language by reading, in order:
  *   localStorage > navigator.language > 'en' as fallback.
+ * - Detected codes outside the UI list are mapped to Spanish or English
+ *   (see `resolveInterfaceLanguage`). Locale JSON for other languages
+ *   remains on disk and registered.
  * - User's choice is persisted to localStorage so the app remembers
  *   it across sessions.
  * - When a key is missing in the active language, fall back to
  *   English. If still missing, the key string itself is shown
  *   (helpful during development).
+ * - Recovery, Explore and Anatomy namespaces: complete for English (base) and Spanish.
+ *   ca, gl, eu, fr, it and de reuse the English bundle as an explicit
+ *   interim fallback — not a complete Recovery, Explore or Anatomy translation.
+ * - Neurotransmitter phases and mechanisms: reviewed English and Spanish only (8N.6B).
+ *   ca, gl and eu reuse the Spanish bundle; fr, it and de reuse English.
+ *   Locale JSON files for those six languages remain on disk for editorial
+ *   review and are not registered for these two namespaces.
  */
 const SUPPORTED_LANGUAGES = [
   "en",
@@ -145,6 +148,31 @@ const SUPPORTED_LANGUAGES = [
   "de",
 ] as const;
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
+const LANDING_V2_EN_FALLBACK = ["ca", "gl", "eu", "fr", "it", "de"] as const;
+
+function landingV2FromModule(mod: unknown): typeof enLandingV2 {
+  if (!mod || typeof mod !== "object") return enLandingV2;
+  const record = mod as { default?: typeof enLandingV2; hero?: unknown; closing?: unknown };
+  if (record.hero != null || record.closing != null) {
+    return record as typeof enLandingV2;
+  }
+  if (record.default && typeof record.default === "object") {
+    return record.default;
+  }
+  return enLandingV2;
+}
+
+let enLandingV2Bundle = landingV2FromModule(enLandingV2);
+let esLandingV2Bundle = landingV2FromModule(esLandingV2);
+
+function syncLandingV2Resources() {
+  i18n.addResourceBundle("en", "landing-v2", enLandingV2Bundle, true, true);
+  i18n.addResourceBundle("es", "landing-v2", esLandingV2Bundle, true, true);
+  for (const lng of LANDING_V2_EN_FALLBACK) {
+    i18n.addResourceBundle(lng, "landing-v2", enLandingV2Bundle, true, true);
+  }
+}
 
 i18n
   .use(LanguageDetector)
@@ -165,17 +193,26 @@ i18n
       "phases",
       "organ-narrative",
       "achievements",
-      "landing",
+      "landing-v2",
       "mechanisms",
+      "account",
+      "recovery",
+      "explore",
+      "anatomy",
     ],
     defaultNS: "common",
     interpolation: {
       escapeValue: false,
     },
+    react: {
+      bindI18n: "languageChanged loaded",
+      bindI18nStore: "added removed",
+    },
     detection: {
       order: ["localStorage", "navigator"],
       lookupLocalStorage: "soma.i18n.lang",
       caches: ["localStorage"],
+      convertDetectedLanguage: (lng) => resolveInterfaceLanguage(lng),
     },
     resources: {
       en: {
@@ -190,8 +227,12 @@ i18n
         phases: enPhases,
         "organ-narrative": enOrganNarrative,
         achievements: enAchievements,
-        landing: enLanding,
+        "landing-v2": enLandingV2,
         mechanisms: enMechanisms,
+        account: enAccount,
+        recovery: enRecovery,
+        explore: enExplore,
+        anatomy: enAnatomy,
       },
       es: {
         common: esCommon,
@@ -205,8 +246,12 @@ i18n
         phases: esPhases,
         "organ-narrative": esOrganNarrative,
         achievements: esAchievements,
-        landing: esLanding,
+        "landing-v2": esLandingV2,
         mechanisms: esMechanisms,
+        account: enAccount,
+        recovery: esRecovery,
+        explore: esExplore,
+        anatomy: esAnatomy,
       },
       ca: {
         common: caCommon,
@@ -215,13 +260,17 @@ i18n
         onboarding: caOnboarding,
         organs: caOrgans,
         substances: caSubstances,
-        "neurotransmitter-phases": caNeurotransmitterPhases,
+        "neurotransmitter-phases": esNeurotransmitterPhases, // reviewed ES until CA is scientifically updated
         neurotransmitters: caNeurotransmitters,
         phases: caPhases,
         "organ-narrative": caOrganNarrative,
         achievements: caAchievements,
-        landing: caLanding,
-        mechanisms: caMechanisms,
+        "landing-v2": enLandingV2,
+        mechanisms: esMechanisms, // reviewed ES until CA is scientifically updated
+        account: enAccount,
+        recovery: enRecovery, // explicit EN fallback until a real translation exists
+        explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       gl: {
         common: glCommon,
@@ -230,13 +279,17 @@ i18n
         onboarding: glOnboarding,
         organs: glOrgans,
         substances: glSubstances,
-        "neurotransmitter-phases": glNeurotransmitterPhases,
+        "neurotransmitter-phases": esNeurotransmitterPhases, // reviewed ES until GL is scientifically updated
         neurotransmitters: glNeurotransmitters,
         phases: glPhases,
         "organ-narrative": glOrganNarrative,
         achievements: glAchievements,
-        landing: glLanding,
-        mechanisms: glMechanisms,
+        "landing-v2": enLandingV2,
+        mechanisms: esMechanisms, // reviewed ES until GL is scientifically updated
+        account: enAccount,
+        recovery: enRecovery, // explicit EN fallback until a real translation exists
+        explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       eu: {
         common: euCommon,
@@ -245,13 +298,17 @@ i18n
         onboarding: euOnboarding,
         organs: euOrgans,
         substances: euSubstances,
-        "neurotransmitter-phases": euNeurotransmitterPhases,
+        "neurotransmitter-phases": esNeurotransmitterPhases, // reviewed ES until EU is scientifically updated
         neurotransmitters: euNeurotransmitters,
         phases: euPhases,
         "organ-narrative": euOrganNarrative,
         achievements: euAchievements,
-        landing: euLanding,
-        mechanisms: euMechanisms,
+        "landing-v2": enLandingV2,
+        mechanisms: esMechanisms, // reviewed ES until EU is scientifically updated
+        account: enAccount,
+        recovery: enRecovery, // explicit EN fallback until a real translation exists
+        explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       fr: {
         common: frCommon,
@@ -260,13 +317,17 @@ i18n
         onboarding: frOnboarding,
         organs: frOrgans,
         substances: frSubstances,
-        "neurotransmitter-phases": frNeurotransmitterPhases,
+        "neurotransmitter-phases": enNeurotransmitterPhases, // reviewed EN until FR is scientifically updated
         neurotransmitters: frNeurotransmitters,
         phases: frPhases,
         "organ-narrative": frOrganNarrative,
         achievements: frAchievements,
-        landing: frLanding,
-        mechanisms: frMechanisms,
+        "landing-v2": enLandingV2,
+        mechanisms: enMechanisms, // reviewed EN until FR is scientifically updated
+        account: enAccount,
+        recovery: enRecovery, // explicit EN fallback until a real translation exists
+        explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       it: {
         common: itCommon,
@@ -275,13 +336,17 @@ i18n
         onboarding: itOnboarding,
         organs: itOrgans,
         substances: itSubstances,
-        "neurotransmitter-phases": itNeurotransmitterPhases,
+        "neurotransmitter-phases": enNeurotransmitterPhases, // reviewed EN until IT is scientifically updated
         neurotransmitters: itNeurotransmitters,
         phases: itPhases,
         "organ-narrative": itOrganNarrative,
         achievements: itAchievements,
-        landing: itLanding,
-        mechanisms: itMechanisms,
+        "landing-v2": enLandingV2,
+        mechanisms: enMechanisms, // reviewed EN until IT is scientifically updated
+        account: enAccount,
+        recovery: enRecovery, // explicit EN fallback until a real translation exists
+        explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       de: {
         common: deCommon,
@@ -290,15 +355,48 @@ i18n
         onboarding: deOnboarding,
         organs: deOrgans,
         substances: deSubstances,
-        "neurotransmitter-phases": deNeurotransmitterPhases,
+        "neurotransmitter-phases": enNeurotransmitterPhases, // reviewed EN until DE is scientifically updated
         neurotransmitters: deNeurotransmitters,
         phases: dePhases,
         "organ-narrative": deOrganNarrative,
         achievements: deAchievements,
-        landing: deLanding,
-        mechanisms: deMechanisms,
+        "landing-v2": enLandingV2,
+        mechanisms: enMechanisms, // reviewed EN until DE is scientifically updated
+        account: enAccount,
+        recovery: enRecovery, // explicit EN fallback until a real translation exists
+        explore: enExplore, // explicit EN fallback until a real translation exists
+        anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
     },
+  }, () => {
+    syncLandingV2Resources();
   });
+
+function applyInterfaceLanguage() {
+  const current = (i18n.language ?? "").split("-")[0] ?? "";
+  if (isInterfaceLanguage(current)) return;
+  void i18n.changeLanguage(resolveInterfaceLanguage(i18n.language ?? "en"));
+}
+
+if (i18n.isInitialized) {
+  syncLandingV2Resources();
+  applyInterfaceLanguage();
+}
+
+i18n.on("initialized", applyInterfaceLanguage);
+i18n.on("languageChanged", applyInterfaceLanguage);
+
+if (import.meta.hot) {
+  import.meta.hot.accept("./locales/en/landing-v2.json", (mod) => {
+    if (!mod) return;
+    enLandingV2Bundle = landingV2FromModule(mod.default ?? mod);
+    syncLandingV2Resources();
+  });
+  import.meta.hot.accept("./locales/es/landing-v2.json", (mod) => {
+    if (!mod) return;
+    esLandingV2Bundle = landingV2FromModule(mod.default ?? mod);
+    syncLandingV2Resources();
+  });
+}
 
 export default i18n;

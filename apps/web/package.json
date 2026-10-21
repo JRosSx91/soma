@@ -4,10 +4,11 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && vite",
+    "build": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "tsx --tsconfig ./tsconfig.app.json --test \"src/features/auth/**/*.test.ts\" \"src/features/profile/**/*.test.ts\""
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -38,6 +39,7 @@
     "globals": "^17.5.0",
     "postcss": "^8.5.10",
     "tailwindcss": "^3",
+    "tsx": "^4.21.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.10"

@@ -6,6 +6,13 @@ import { UsersModule } from "../users/users.module.js";
 import { AuthService } from "./auth.service.js";
 import { AuthController } from "./auth.controller.js";
 import { JwtStrategy } from "./jwt.strategy.js";
+import { RefreshSessionService } from "./refresh-session.service.js";
+import { AuthOriginGuard } from "./auth-origin.guard.js";
+import { PasswordResetService } from "./password-reset.service.js";
+import {
+  PASSWORD_RESET_MAILER,
+  createPasswordResetMailer,
+} from "./password-reset.mailer.js";
 
 @Module({
   imports: [
@@ -23,18 +30,26 @@ import { JwtStrategy } from "./jwt.strategy.js";
         return {
           secret,
           signOptions: {
-            // Cast required because @nestjs/jwt expects a strict
-            // ms-compatible string literal type, not a generic string
-            // from ConfigService.
+            // Short-lived access JWT; SPA renews via HttpOnly refresh cookie.
             expiresIn: (config.get<string>("JWT_EXPIRES_IN") ??
-              "7d") as `${number}${"s" | "m" | "h" | "d"}`,
+              "15m") as `${number}${"s" | "m" | "h" | "d"}`,
           },
         };
       },
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [AuthService],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    RefreshSessionService,
+    AuthOriginGuard,
+    PasswordResetService,
+    {
+      provide: PASSWORD_RESET_MAILER,
+      useFactory: () => createPasswordResetMailer(),
+    },
+  ],
+  exports: [AuthService, RefreshSessionService, PasswordResetService],
 })
 export class AuthModule {}
