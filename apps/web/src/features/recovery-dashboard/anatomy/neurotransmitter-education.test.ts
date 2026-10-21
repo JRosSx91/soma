@@ -131,12 +131,15 @@ test("adapter and effects panel do not read severity, curves, or personal endpoi
   assert.match(effectsBlock, /resolveEducationalSignaling/);
   assert.match(effectsBlock, /signalingTitle/);
   assert.match(effectsBlock, /signalingAttribution/);
+  assert.match(effectsBlock, /EducationalSignalingCard/);
   assert.match(effectsBlock, /resolveEducationalNarrative/);
-  const signalingChunk = effectsBlock.slice(
-    effectsBlock.indexOf("signaling.map"),
-    effectsBlock.indexOf("CatalogEvidenceNote"),
+  assert.match(effectsBlock, /CatalogEvidenceNote/);
+  const card = readFileSync(
+    new URL("../components/EducationalSignalingCard.tsx", import.meta.url),
+    "utf8",
   );
-  assert.equal(signalingChunk.includes("referenceSource"), false);
+  assert.equal(card.includes("referenceSource"), false);
+  assert.equal(card.includes("confidenceLevel"), false);
 });
 
 test("web organ map snapshot matches the API map organ keys", () => {

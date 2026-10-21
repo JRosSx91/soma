@@ -31,6 +31,7 @@ import {
   SystemSheetSummary,
 } from "../components/OrganSheetSummary.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
+import { EducationalSignalingCard } from "../components/EducationalSignalingCard.js";
 import { AdvicePanel } from "../components/AdvicePanel.js";
 
 const tabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;
@@ -605,35 +606,11 @@ function EffectsPanel({
           <p className="text-[11px] leading-relaxed text-soma-ink-muted">
             {t("signalingAttribution")}
           </p>
+          <p className="text-[11px] leading-relaxed text-soma-ink-muted">{t("signalingMarkLegend")}</p>
           <ul className="space-y-2">
-            {signaling.map((entry) => {
-              const mechanism = entry.mechanismKey
-                ? t(`mechanisms:${entry.mechanismKey}`, { defaultValue: "" })
-                : "";
-              const explanation = t(`neurotransmitter-phases:${entry.phaseKey}`, {
-                defaultValue: "",
-              });
-              return (
-                <li
-                  key={entry.neurotransmitter}
-                  className="rounded-xl border border-soma-line bg-soma-canvas/40 px-3 py-2"
-                >
-                  <p className="text-sm font-medium text-soma-ink">
-                    {t(`neurotransmitters:${entry.neurotransmitter}.name`, {
-                      defaultValue: entry.neurotransmitter,
-                    })}
-                  </p>
-                  {mechanism ? (
-                    <p className="mt-0.5 text-[11px] leading-snug text-soma-ink-muted">{mechanism}</p>
-                  ) : null}
-                  {explanation ? (
-                    <p className="mt-1.5 text-xs leading-relaxed text-soma-ink-secondary">
-                      {explanation}
-                    </p>
-                  ) : null}
-                </li>
-              );
-            })}
+            {signaling.map((entry) => (
+              <EducationalSignalingCard key={entry.neurotransmitter} entry={entry} />
+            ))}
           </ul>
         </section>
       ) : null}

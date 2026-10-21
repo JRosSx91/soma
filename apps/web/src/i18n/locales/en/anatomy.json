@@ -33,6 +33,10 @@
   "sourceRecord": "Source: {{source}}. Catalog record: {{confidence}}.",
   "catalogEstimateNotice": "Educational catalog estimate. It is not an individual measurement or prognosis.",
   "signalingAttribution": "This block uses educational neurotransmitter profiles from the catalog. An organ-narrative source, when present, does not automatically verify these statements.",
+  "signalingMarkLegend": "Color identifies the signaling system. It is not a level, a percentage, or a measured recovery state.",
+  "signalingMarkAria": "{{name}}: color mark to identify the system, not a concentration.",
+  "signalingRoleLabel": "Educational role of the system",
+  "signalingMechanismLabel": "Mechanism",
   "modelConfidence": "Model confidence: {{level}}.",
   "referenceStatus": {
     "pending": "This catalog record is pending bibliographic verification. It is not a confirmed source.",

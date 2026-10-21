@@ -33,6 +33,10 @@
   "sourceRecord": "Fuente: {{source}}. Registro del catálogo: {{confidence}}.",
   "catalogEstimateNotice": "Estimación educativa del catálogo. No representa una medición ni un pronóstico individual.",
   "signalingAttribution": "Este bloque usa perfiles educativos de neurotransmisores del catálogo. La referencia de la narrativa del órgano, si existe, no verifica automáticamente estas afirmaciones.",
+  "signalingMarkLegend": "El color identifica el sistema de señalización. No es un nivel, un porcentaje ni un estado de recuperación medido.",
+  "signalingMarkAria": "{{name}}: marca de color para identificar el sistema, no una concentración.",
+  "signalingRoleLabel": "Papel educativo del sistema",
+  "signalingMechanismLabel": "Mecanismo",
   "modelConfidence": "Confianza del modelo: {{level}}.",
   "referenceStatus": {
     "pending": "Registro del catálogo pendiente de verificación bibliográfica. No es una fuente confirmada.",

@@ -31,6 +31,7 @@ test("spanish and english anatomy bundles expose the same keys", () => {
   assert.notEqual(esAnatomy.eyebrow, enAnatomy.eyebrow);
   assert.notEqual(esAnatomy.viewEffects, enAnatomy.viewEffects);
   assert.notEqual(esAnatomy.signalingInEffectsHint, enAnatomy.signalingInEffectsHint);
+  assert.notEqual(esAnatomy.signalingMarkLegend, enAnatomy.signalingMarkLegend);
   assert.notEqual(esAnatomy.catalogEstimateNotice, enAnatomy.catalogEstimateNotice);
   assert.notEqual(esAnatomy.referenceStatus.pending, enAnatomy.referenceStatus.pending);
   assert.equal(typeof esAnatomy.phaseCategoryNote, "string");
