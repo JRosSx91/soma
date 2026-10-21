@@ -42,6 +42,7 @@ import esMechanisms from "./locales/es/mechanisms.json";
 import esRecovery from "./locales/es/recovery.json";
 import esExplore from "./locales/es/explore.json";
 import esAnatomy from "./locales/es/anatomy.json";
+import esAccount from "./locales/es/account.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -248,7 +249,7 @@ i18n
         achievements: esAchievements,
         "landing-v2": esLandingV2,
         mechanisms: esMechanisms,
-        account: enAccount,
+        account: esAccount,
         recovery: esRecovery,
         explore: esExplore,
         anatomy: esAnatomy,

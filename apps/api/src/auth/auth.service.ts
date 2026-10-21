@@ -241,6 +241,56 @@ export class AuthService {
     await this.refreshSessions.revokeByPlaintext(plaintext);
   }
 
+  /**
+   * Deletes the authenticated user's personal data.
+   * Identity comes from the JWT subject only — never from the request body.
+   */
+  async deleteOwnAccount(userId: string, password: string): Promise<void> {
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const locked = await tx.$queryRaw<{ id: string }[]>`
+          SELECT id FROM "User" WHERE id = ${userId} FOR UPDATE
+        `;
+        if (locked.length === 0) {
+          throw this.invalidCredentials();
+        }
+
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) {
+          throw this.invalidCredentials();
+        }
+
+        const passwordMatches = await bcrypt.compare(
+          password,
+          user.hashedPassword,
+        );
+        if (!passwordMatches) {
+          throw this.invalidCredentials();
+        }
+
+        await tx.registrationInvite.deleteMany({
+          where: { usedByUserId: userId },
+        });
+        await tx.user.delete({ where: { id: userId } });
+      });
+    } catch (err) {
+      if (err instanceof UnauthorizedException) {
+        throw err;
+      }
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2025"
+      ) {
+        throw this.invalidCredentials();
+      }
+      throw err;
+    }
+  }
+
+  private invalidCredentials(): UnauthorizedException {
+    return new UnauthorizedException("Invalid credentials");
+  }
+
   private async buildSession(
     userId: string,
     email: string,

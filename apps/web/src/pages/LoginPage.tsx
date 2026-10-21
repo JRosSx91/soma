@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
+import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
 import {
   AuthShell,
   authFieldClass,
@@ -138,6 +139,10 @@ export function LoginPage() {
         </p>
       </AuthShell>
     );
+  }
+
+  if (!user && unauthenticatedDestination(sessionNotice) === "/") {
+    return <Navigate to="/" replace />;
   }
 
   if (user && gate.mode === "pending") {

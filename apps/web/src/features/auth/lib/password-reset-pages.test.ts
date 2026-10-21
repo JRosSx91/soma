@@ -49,6 +49,7 @@ const guestAuth = {
   register: async () => undefined,
   logout: async () => ({ remoteRevoked: true }),
   applyProfileUser: () => undefined,
+  clearSessionAfterAccountDeletion: () => undefined,
 };
 
 test("ForgotPasswordPage renders email field and back link", async () => {
@@ -119,6 +120,24 @@ test("ForgotPasswordPage confirmation copy stays anti-enumeration", async () => 
   const confirmation = i18n.t("forgotPassword.confirmation", { ns: "auth" });
   assert.match(confirmation, /If an account exists/i);
   assert.equal(/has been sent|email delivery is available/i.test(confirmation), false);
+});
+
+test("LoginPage with account_deleted does not keep the visitor on login", async () => {
+  await ensureI18n();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        {
+          value: { ...guestAuth, sessionNotice: "account_deleted" },
+        },
+        createElement(LoginPage),
+      ),
+      ["/login"],
+    ),
+  );
+  assert.equal(html.includes("Welcome back"), false);
+  assert.equal(html.includes("Sign in"), false);
 });
 
 test("LoginPage links to forgot-password", async () => {

@@ -14,6 +14,7 @@ export {
   patchOnboardingStatus,
   patchProfileDetails,
   saveUserUsages,
+  deleteOwnAccount,
 } from "./client/profile-api.js";
 export {
   completeOnboardingWithUsages,

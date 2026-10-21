@@ -54,6 +54,11 @@ import { RegistrationModeBootstrap } from "./registration-mode.bootstrap.js";
       useFactory: () => createPasswordResetMailer(),
     },
   ],
-  exports: [AuthService, RefreshSessionService, PasswordResetService],
+  exports: [
+    AuthService,
+    RefreshSessionService,
+    PasswordResetService,
+    AuthOriginGuard,
+  ],
 })
 export class AuthModule {}

@@ -8,7 +8,10 @@ import {
   fetchCurrentUser,
 } from "../client/auth-api.js";
 import { SESSION_REVOKED_EVENT } from "../client/api.js";
-import { clearLegacyAuthStorage } from "../client/access-token.js";
+import {
+  bumpSessionEpoch,
+  clearLegacyAuthStorage,
+} from "../client/access-token.js";
 import type {
   AuthState,
   AuthStatus,
@@ -30,6 +33,11 @@ interface AuthContextValue extends AuthState {
    * No network, no token changes. No-op when anonymous or id mismatch.
    */
   applyProfileUser: (profileUser: ProfileUserSnapshot) => void;
+  /**
+   * Local cleanup after DELETE /me/account returned 204.
+   * Does not call POST /auth/logout — the account no longer exists.
+   */
+  clearSessionAfterAccountDeletion: () => void;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -151,6 +159,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
   }, []);
 
+  const clearSessionAfterAccountDeletion = useCallback(() => {
+    setError(null);
+    bumpSessionEpoch();
+    clearLegacyAuthStorage();
+    setUser(null);
+    setStatus("anonymous");
+    setSessionNotice("account_deleted");
+  }, []);
+
   const loading = status === "checking";
 
   const value: AuthContextValue = {
@@ -164,6 +181,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     register,
     logout,
     applyProfileUser,
+    clearSessionAfterAccountDeletion,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

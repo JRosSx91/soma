@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../features/auth/index.js";
+import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -15,7 +16,7 @@ interface ProtectedRouteProps {
  * - Otherwise renders the protected children.
  */
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, loading } = useAuth();
+  const { user, loading, sessionNotice } = useAuth();
   const { t } = useTranslation("common");
 
   if (loading) {
@@ -27,7 +28,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={unauthenticatedDestination(sessionNotice)} replace />;
   }
 
   return <>{children}</>;

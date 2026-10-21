@@ -42,5 +42,25 @@
     "noChanges": "No changes to save.",
     "saveFailed": "Could not save your details. Try again.",
     "validationFailed": "Some values were rejected. Check the form and try again."
+  },
+  "delete": {
+    "title": "Delete my account",
+    "lead": "This permanently removes your Soma account. It is not an immediate action — review the consequences first.",
+    "bulletPermanent": "Your account is deleted permanently.",
+    "bulletData": "Registered substances, use dates, personal achievements, and your profile are deleted.",
+    "bulletSessions": "Signed-in sessions are invalidated.",
+    "bulletIrreversible": "This cannot be undone.",
+    "bulletInvite": "If you want to register again while the beta is closed, you will need a new invitation.",
+    "openDialog": "Review account deletion",
+    "dialogTitle": "Permanently delete this account?",
+    "dialogBody": "Confirm that you understand the consequences, then enter your current password. Soma will only delete the account after that confirmation.",
+    "acknowledge": "I understand that this cannot be undone and that my personal data in Soma will be deleted.",
+    "password": "Current password",
+    "confirm": "Permanently delete my account",
+    "cancel": "Cancel",
+    "submitting": "Deleting account…",
+    "wrongPassword": "The password is incorrect. Your account was not deleted.",
+    "failed": "Could not delete the account. Check your connection and try again.",
+    "success": "Your account has been deleted."
   }
 }

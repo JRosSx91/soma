@@ -172,6 +172,11 @@ function emitSessionRevoked(): void {
   }
 }
 
+/** Usual client treatment for an irrecoverable 401 (expired / missing user). */
+export function notifySessionRevoked(): void {
+  emitSessionRevoked();
+}
+
 export async function apiRequest<T>(
   path: string,
   options: RequestOptions = {},
