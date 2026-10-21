@@ -33,6 +33,10 @@ test("spanish and english anatomy bundles expose the same keys", () => {
   assert.notEqual(esAnatomy.signalingInEffectsHint, enAnatomy.signalingInEffectsHint);
   assert.notEqual(esAnatomy.catalogEstimateNotice, enAnatomy.catalogEstimateNotice);
   assert.notEqual(esAnatomy.referenceStatus.pending, enAnatomy.referenceStatus.pending);
+  assert.equal(typeof esAnatomy.phaseCategoryNote, "string");
+  assert.notEqual(esAnatomy.phaseCategoryNote, enAnatomy.phaseCategoryNote);
+  assert.equal("phaseWindow" in esAnatomy, false);
+  assert.equal("phaseWindow" in enAnatomy, false);
 });
 
 test("an organ with signaling and no narrative offers Effects access", () => {

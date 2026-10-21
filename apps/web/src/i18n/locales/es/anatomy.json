@@ -47,6 +47,7 @@
   "anatomySourceUnverified": "Enlace registrado; la verificación de esta fuente no está confirmada en esta ficha.",
   "substanceLegend": "Sustancia",
   "phaseLegend": "Fase",
+  "phaseCategoryNote": "Las fases son categorías de contenido educativo. No forman un calendario individual ni una secuencia obligatoria de recuperación.",
   "missingScientificText": "Este texto no está disponible en el idioma actual.",
   "advicePlaceholder": "Todavía no hay consejos publicados para esta ficha.",
   "adviceDisclaimer": "Estos consejos son educativos. La fase del atlas no es un diagnóstico ni un calendario clínico personal.",
@@ -84,11 +85,6 @@
   "zoomOut": "Alejar",
   "zoomIn": "Acercar",
   "reset": "Restablecer",
-  "phaseWindow": {
-    "acute_withdrawal": "Días 1–7",
-    "post_acute": "Días 8–56",
-    "normalizing": "Desde el día 57"
-  },
   "confidence": {
     "high": "alta",
     "medium": "media",

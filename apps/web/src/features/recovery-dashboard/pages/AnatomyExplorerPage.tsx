@@ -551,12 +551,14 @@ function EffectsPanel({
         </div>
       </fieldset>
 
-      <fieldset className="min-w-0 border-0 p-0">
+      <fieldset
+        className="min-w-0 border-0 p-0"
+        aria-describedby={`anatomy-phase-category-note-${organ.id}`}
+      >
         <legend className="sr-only">{t("phaseLegend")}</legend>
         <div className="grid grid-cols-2 gap-1.5">
           {narrativePhases.map((item) => {
             const selected = item === phase;
-            const windowLabel = item === "during_use" ? null : t(`phaseWindow.${item}`);
             return (
               <label key={item} className={`${choiceClass(selected)} flex-col px-2 py-1.5 text-left`}>
                 <input
@@ -568,16 +570,17 @@ function EffectsPanel({
                   className="sr-only"
                 />
                 <span className="block text-[11px] leading-tight">{t(`phases:${item}`)}</span>
-                {windowLabel ? (
-                  <span className="mt-0.5 block text-[10px] leading-tight text-soma-ink-muted">
-                    {windowLabel}
-                  </span>
-                ) : null}
               </label>
             );
           })}
         </div>
       </fieldset>
+      <p
+        id={`anatomy-phase-category-note-${organ.id}`}
+        className="text-[11px] leading-relaxed text-soma-ink-muted"
+      >
+        {t("phaseCategoryNote")}
+      </p>
 
       <p className="text-xs leading-relaxed text-soma-ink-muted">{t("generalDisclaimer")}</p>
 

@@ -19,7 +19,12 @@ export type NarrativePhase = (typeof narrativePhases)[number];
 
 export type NarrativeConfidence = "high" | "medium" | "low";
 
-/** Day windows shared by every narrative profile. They are not a recovery curve. */
+/**
+ * Legacy snapshot of Soma 1.0 Prisma `PHASE_RANGES` (global 0 / 1–7 / 8–56 / 57+).
+ * Kept so existing tests and adapters do not drift from the seed. It is not a
+ * per-substance educational clock and must not be shown as a universal calendar
+ * in the atlas. Use `educational-phase-windows.ts` for optional authored ranges.
+ */
 export const narrativePhaseWindows: Record<
   NarrativePhase,
   { startDay: number; endDay: number | null }
@@ -275,7 +280,10 @@ export function selectNarrativeSubstance(
   return available[0] ?? null;
 }
 
-/** Compact day range. The phase name itself comes from `phases.json`. */
+/**
+ * Legacy Spanish labels for `narrativePhaseWindows`. Unused by atlas chrome.
+ * Do not wire this into Effects or Consejos.
+ */
 export function phaseWindowLabel(phase: NarrativePhase): string | null {
   if (phase === "acute_withdrawal") return "Días 1–7";
   if (phase === "post_acute") return "Días 8–56";

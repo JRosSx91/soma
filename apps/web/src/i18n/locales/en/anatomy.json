@@ -47,6 +47,7 @@
   "anatomySourceUnverified": "Recorded link; verification of this source is not confirmed on this sheet.",
   "substanceLegend": "Substance",
   "phaseLegend": "Phase",
+  "phaseCategoryNote": "Phases are educational content categories. They are not an individual calendar or a required recovery sequence.",
   "missingScientificText": "This text is not available in the current language.",
   "advicePlaceholder": "There is no published advice for this sheet yet.",
   "adviceDisclaimer": "This advice is educational. The atlas phase is not a diagnosis or a personal clinical timeline.",
@@ -84,11 +85,6 @@
   "zoomOut": "Zoom out",
   "zoomIn": "Zoom in",
   "reset": "Reset",
-  "phaseWindow": {
-    "acute_withdrawal": "Days 1–7",
-    "post_acute": "Days 8–56",
-    "normalizing": "From day 57"
-  },
   "confidence": {
     "high": "high",
     "medium": "medium",

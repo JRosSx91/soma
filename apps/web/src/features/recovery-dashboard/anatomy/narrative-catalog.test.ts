@@ -144,6 +144,12 @@ test("educational resolution does not carry a personal estimate", () => {
   assert.equal(resolved.confidenceLabel, "alta");
   assert.match(resolved.referenceSource, /Surgeon General 2020/);
 
+  assert.deepEqual(narrativePhases, [
+    "during_use",
+    "acute_withdrawal",
+    "post_acute",
+    "normalizing",
+  ]);
   assert.deepEqual(narrativePhaseWindows.acute_withdrawal, { startDay: 1, endDay: 7 });
   assert.deepEqual(narrativePhaseWindows.post_acute, { startDay: 8, endDay: 56 });
   assert.deepEqual(narrativePhaseWindows.normalizing, { startDay: 57, endDay: null });
@@ -151,6 +157,20 @@ test("educational resolution does not carry a personal estimate", () => {
   assert.equal(phaseWindowLabel("acute_withdrawal"), "Días 1–7");
   assert.equal(phaseWindowLabel("post_acute"), "Días 8–56");
   assert.equal(phaseWindowLabel("normalizing"), "Desde el día 57");
+});
+
+test("the explorer does not present narrativePhaseWindows as a universal calendar", () => {
+  const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
+  const adapter = readFileSync(new URL("./narrative-catalog.ts", import.meta.url), "utf8");
+  assert.match(adapter, /Legacy snapshot of Soma 1\.0/);
+  assert.equal(page.includes("narrativePhaseWindows"), false);
+  assert.equal(page.includes("phaseWindowLabel"), false);
+  assert.equal(page.includes("phaseWindow."), false);
+  assert.equal(page.includes("t(`phaseWindow"), false);
+  assert.match(page, /phaseCategoryNote/);
+  for (const token of ["Días 1–7", "Días 8–56", "Desde el día 57", "Days 1–7", "Days 8–56", "From day 57"]) {
+    assert.equal(page.includes(token), false, token);
+  }
 });
 
 test("the explorer view does not calculate personal recovery", () => {

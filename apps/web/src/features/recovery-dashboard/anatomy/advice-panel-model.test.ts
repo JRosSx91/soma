@@ -203,6 +203,8 @@ test("the advice panel module does not read the sidecar or unpublished matcher",
   assert.match(page, /AdvicePanel/);
   assert.match(page, /EffectsPanel/);
   assert.match(page, /RecoveryPanel/);
-  assert.match(page, /phaseWindow/);
+  assert.match(page, /phaseCategoryNote/);
+  assert.equal(page.includes("phaseWindow"), false);
   assert.equal(panelSource.includes("phaseWindow"), false);
+  assert.equal(panelSource.includes("phaseCategoryNote"), false);
 });
