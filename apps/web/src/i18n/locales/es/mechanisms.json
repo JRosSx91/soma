@@ -2,7 +2,7 @@
   "DAT_BLOCKADE": "Bloqueo del transportador de dopamina",
   "NET_BLOCKADE": "Bloqueo del transportador de norepinefrina",
   "SERT_BLOCKADE": "Bloqueo del transportador de serotonina",
-  "SERT_MODULATION": "Modulación del transportador de serotonina",
+  "SERT_MODULATION": "Modulación de la señalización serotoninérgica",
   "GABAA_POTENTIATION": "Potenciación del receptor GABA-A",
   "NMDA_INHIBITION": "Inhibición del receptor NMDA",
   "MESOLIMBIC_INDIRECT": "Modulación mesolímbica indirecta",

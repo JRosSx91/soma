@@ -1,96 +1,96 @@
 {
   "alcohol": {
     "gaba": {
-      "acute_withdrawal": "What you may feel: anxiety, restlessness, insomnia, tremor, possibly seizures in severe cases. Your GABA system was suppressed by alcohol's inhibitory action; without it, neuronal excitability rebounds sharply. Medical supervision is recommended during the first week.",
-      "post_acute": "What you may feel: fluctuating anxiety, sleep disturbances, emotional reactivity. GABA-A receptors are gradually restoring their sensitivity. Symptoms typically improve over weeks 2 to 8.",
-      "normalizing": "GABA function is approaching baseline. Some emotional sensitivity may persist for several months but the most disruptive symptoms have passed.",
-      "during_use": "What you may feel: sedation, reduced anxiety, muscle relaxation, slowed reflexes. Alcohol potentiates GABA-A receptors directly — this is the chemical basis of the 'relaxed' sensation. Chronic use forces the brain to compensate by reducing receptor sensitivity."
+      "acute_withdrawal": "What you may feel: anxiety, restlessness, insomnia, tremor, and in severe cases seizures. After heavy drinking stops, the nervous system can become overly excitable. That is a medical withdrawal risk, not a measured GABA level. Medical supervision is recommended in the first week, especially after heavy or dependent use.",
+      "post_acute": "What you may feel: fluctuating anxiety, sleep disturbance, emotional reactivity. Inhibitory signaling may still be adapting. How long symptoms last varies widely; this text does not date GABA recovery.",
+      "normalizing": "The most disruptive withdrawal symptoms often ease with time. GABA signaling is not measured here, and remaining emotional sensitivity varies from person to person.",
+      "during_use": "What you may feel: sedation, reduced anxiety, muscle relaxation, slowed reflexes. Alcohol potentiates GABA-A receptors — a chemical basis of feeling relaxed. With repeated use, the brain often adapts by reducing inhibitory sensitivity. How far that goes varies between people."
     },
     "glutamate": {
-      "acute_withdrawal": "What you may feel: agitation, hypersensitivity to stimuli, racing thoughts, possible seizures. Glutamate signaling is rebounding above normal levels — this is the dangerous side of acute alcohol withdrawal. Seek medical care if symptoms intensify.",
-      "post_acute": "Mild residual hyperexcitability may show as irritability or sensitivity to noise. Glutamate signaling is normalizing.",
-      "normalizing": "Glutamate is near baseline. The system has adapted.",
-      "during_use": "What you may feel: slowed thinking, impaired memory formation, reduced reaction time. Alcohol suppresses NMDA glutamate receptors — the system responsible for learning and memory consolidation."
+      "acute_withdrawal": "What you may feel: agitation, hypersensitivity to stimuli, racing thoughts, and possible seizures. Glutamate signaling can become relatively overactive after heavy use stops — this is part of why acute alcohol withdrawal can be dangerous. Seek medical care if symptoms intensify. This is not a reading of your glutamate concentration.",
+      "post_acute": "Mild leftover excitability may show as irritability or sensitivity to noise. That is a possible symptom pattern, not a measured glutamate level, and it is not dated here.",
+      "normalizing": "Symptoms linked to over-excitability often settle for many people. Glutamate is not shown as having returned to a personal baseline.",
+      "during_use": "What you may feel: slowed thinking, impaired memory formation, reduced reaction time. Alcohol suppresses NMDA glutamate receptors — a system involved in learning and memory consolidation."
     },
     "dopamine": {
-      "acute_withdrawal": "What you may feel: low mood, lack of motivation, anhedonia. The reward circuit is depleted after chronic stimulation. This is part of the recalibration.",
-      "post_acute": "Motivation and the ability to feel pleasure return slowly. Patience here is not optional — the system rebuilds itself, it cannot be forced.",
-      "normalizing": "The reward system is approaching baseline. Pleasure from ordinary activities should feel more accessible.",
-      "during_use": "What you may feel: mild euphoria, sociability, lowered inhibitions. Alcohol indirectly triggers dopamine release in the mesolimbic pathway — the same circuit activated by most addictive substances."
+      "acute_withdrawal": "What you may feel: low mood, lack of motivation, anhedonia. Reward signaling can feel blunted after chronic use. That is not a depleted dopamine store.",
+      "post_acute": "Motivation and the ability to feel pleasure often return gradually. The pace varies; there is no forced timeline.",
+      "normalizing": "Ordinary activities may feel more rewarding again for many people. That is not a promise of a measured baseline.",
+      "during_use": "What you may feel: mild euphoria, sociability, lowered inhibitions. Alcohol can indirectly increase dopamine signaling in the mesolimbic pathway — a circuit also involved in the reinforcing effects of many other substances."
     },
     "serotonin": {
-      "acute_withdrawal": "What you may feel: low mood, irritability, possible appetite changes. Serotonergic balance was disturbed by chronic alcohol use.",
-      "post_acute": "Mood is stabilizing. Some emotional volatility is expected but trending toward normal.",
-      "normalizing": "Serotonin function is near baseline.",
-      "during_use": "What you may feel: mood elevation, emotional loosening, sometimes increased impulsivity. Alcohol modulates serotonin signaling — effects are variable and depend heavily on dose and individual baseline."
+      "acute_withdrawal": "What you may feel: low mood, irritability, possible appetite changes. Mood-related serotonin signaling can be disturbed after chronic alcohol use. A specific transporter mechanism is not claimed here.",
+      "post_acute": "Mood may stabilize gradually. Emotional ups and downs are common and are not a timed serotonin recovery.",
+      "normalizing": "Serotonin is not measured here. Mood changes after stopping alcohol vary from person to person.",
+      "during_use": "What you may feel: mood elevation, emotional loosening, sometimes increased impulsivity. Alcohol can modulate serotonin signaling. Effects vary with dose and with the person; this is not described as a specific serotonin-transporter blockade."
     }
   },
   "cocaine": {
     "dopamine": {
-      "acute_withdrawal": "What you may feel: profound anhedonia, apathy, intense fatigue, hypersomnia, strong craving. This is the 'crash' — your dopamine system has been operating on borrowed transmitter for a long time and is now exhausted. The intensity is real but transient.",
-      "post_acute": "What you may feel: persistent low motivation, blunted pleasure, intermittent craving. The reward system is rebuilding receptor sensitivity. This phase is hard but predictable — symptoms gradually attenuate over weeks 2 to 8.",
-      "normalizing": "Dopamine function is approaching baseline. Pleasure response and motivation are returning. Some sensitivity to triggers may persist for months.",
-      "during_use": "What you may feel: intense euphoria, surge of energy, confidence, reduced appetite. Cocaine blocks the dopamine transporter, flooding the synapse with dopamine. The intensity of this effect is what drives compulsive redosing — and what makes the subsequent depletion so severe."
+      "acute_withdrawal": "What you may feel: profound anhedonia, apathy, intense fatigue, hypersomnia, strong craving. This crash is a common early withdrawal pattern after cocaine. It is not explained here as an emptied dopamine store. Intensity and duration vary.",
+      "post_acute": "What you may feel: persistent low motivation, blunted pleasure, intermittent craving. Reward signaling may still feel reduced. Receptor sensitivity is not measured here, and there is no calendar of recovery.",
+      "normalizing": "Pleasure and motivation often improve with time for many people. Sensitivity to triggers can last longer. That is individual, not a baseline reading.",
+      "during_use": "What you may feel: intense euphoria, surge of energy, confidence, reduced appetite. Cocaine blocks the dopamine transporter, so dopamine stays longer in the synapse. The intensity of that effect helps explain compulsive redosing."
     },
     "norepinephrine": {
-      "acute_withdrawal": "What you may feel: physical exhaustion paradoxically combined with mental restlessness, sleep disturbances despite fatigue. The noradrenergic system is depleted but not yet rebalanced. Sleep will come back.",
-      "post_acute": "What you may feel: oscillating energy, sometimes wired, sometimes flat. Sleep-wake regulation is recovering. The 'tired but not sleepy' sensation is part of this.",
-      "normalizing": "Noradrenergic regulation is near baseline. Energy and sleep cycles should feel more predictable.",
+      "acute_withdrawal": "What you may feel: physical exhaustion together with mental restlessness, and sleep that is disrupted despite fatigue. Those are withdrawal symptoms after the stimulant effect ends. They are not a measured norepinephrine deficit, and sleep is not guaranteed to return on a set date.",
+      "post_acute": "What you may feel: uneven energy — sometimes wired, sometimes flat. Sleep–wake regulation can still feel unsettled. That is a symptom description, not a measured oscillating transmitter.",
+      "normalizing": "Energy and sleep often become more regular with time. That is not shown as a personal norepinephrine baseline.",
       "during_use": "What you may feel: racing heart, elevated blood pressure, heightened alertness, reduced fatigue. Cocaine also blocks the norepinephrine transporter — this is the basis of its cardiovascular risks."
     },
     "serotonin": {
-      "acute_withdrawal": "What you may feel: dysphoria, irritability, emotional reactivity. Serotonin signaling was elevated by cocaine and is now in deficit.",
-      "post_acute": "Mood is gradually stabilizing. Some persistence of emotional sensitivity is normal.",
-      "normalizing": "Serotonin function is near baseline.",
-      "during_use": "What you may feel: elevated mood, reduced social inhibition. Cocaine blocks serotonin reuptake alongside dopamine and norepinephrine, though this contribution is secondary to the dopaminergic effect."
+      "acute_withdrawal": "What you may feel: dysphoria, irritability, emotional reactivity. After the drug effect ends, mood can feel lower. That is not a measured serotonin deficit.",
+      "post_acute": "Mood may settle gradually. Lingering emotional sensitivity is not a measured serotonin recovery.",
+      "normalizing": "Serotonin is not measured here. Mood after cocaine use varies between people.",
+      "during_use": "What you may feel: elevated mood, reduced social inhibition. Cocaine also blocks serotonin reuptake, together with dopamine and norepinephrine. That contribution is generally considered secondary to the dopaminergic effect."
     }
   },
   "nicotine": {
     "acetylcholine": {
-      "acute_withdrawal": "What you may feel: irritability, difficulty concentrating, restlessness, intense craving — peaks in days 1 to 3. Nicotinic receptors were upregulated to compensate for chronic stimulation; without nicotine they are excessively active. This phase is short but intense.",
-      "post_acute": "What you may feel: residual concentration difficulty, occasional craving. Receptor density is returning to normal — this happens faster than in other systems.",
-      "normalizing": "Cholinergic function is near baseline. The receptors have downregulated. Cravings, when they appear, are typically situational rather than physiological.",
-      "during_use": "What you may feel: alertness, improved concentration, mild relaxation paradoxically combined with stimulation. Nicotine binds directly to nicotinic acetylcholine receptors, mimicking acetylcholine. Chronic stimulation causes receptor upregulation — the basis of dependence."
+      "acute_withdrawal": "What you may feel: irritability, difficulty concentrating, restlessness, intense craving. These symptoms are often strongest in the first days after stopping. That is a common symptom pattern, not a count of nicotinic receptors.",
+      "post_acute": "What you may feel: leftover difficulty concentrating, occasional craving. Receptor density is not measured here and is not given a recovery date.",
+      "normalizing": "Cravings that remain are often tied to situations. Nicotinic receptors are not shown as having returned to a personal baseline.",
+      "during_use": "What you may feel: alertness, improved concentration, mild relaxation together with stimulation. Nicotine binds nicotinic acetylcholine receptors, mimicking acetylcholine. Repeated stimulation can upregulate those receptors — a basis of dependence. That adaptation is not quantified here."
     },
     "dopamine": {
-      "acute_withdrawal": "What you may feel: low mood, lack of motivation, mild anhedonia. The dopamine release nicotine triggered is now absent.",
-      "post_acute": "Motivation is gradually returning. The reward system adapts.",
-      "normalizing": "Dopamine function is near baseline.",
-      "during_use": "What you may feel: mild pleasure, stress relief, sense of reward. Nicotinic receptor activation in the mesolimbic pathway triggers dopamine release — this is the core reinforcement mechanism of tobacco dependence."
+      "acute_withdrawal": "What you may feel: low mood, lack of motivation, mild anhedonia. The extra dopamine signaling nicotine helped trigger is no longer present as a drug effect. That is not a depleted dopamine store.",
+      "post_acute": "Motivation may return gradually. Reward signaling is not measured here.",
+      "normalizing": "Dopamine is not measured here. How motivation feels after quitting tobacco varies.",
+      "during_use": "What you may feel: mild pleasure, stress relief, a sense of reward. Nicotinic receptor activation in the mesolimbic pathway can trigger dopamine release — a core reinforcement mechanism of tobacco dependence."
     }
   },
   "cannabis": {
     "endocannabinoid": {
-      "acute_withdrawal": "What you may feel: irritability, insomnia, vivid or unsettling dreams, anxiety, decreased appetite. Your CB1 receptors were downregulated to compensate for THC; without external cannabinoids the system is briefly under-activated. The vivid dreams are characteristic — REM sleep is rebounding from suppression.",
-      "post_acute": "What you may feel: improving but unstable sleep, residual irritability, mild anxiety. CB1 receptor density is recovering.",
-      "normalizing": "The endocannabinoid system is approaching baseline. Sleep and mood regulation should feel more stable.",
-      "during_use": "What you may feel: euphoria, relaxation, altered sensory perception, increased appetite, slowed time perception. THC binds CB1 receptors as a partial agonist, mimicking endocannabinoids but with greater potency and duration. Chronic use downregulates CB1 receptor density."
+      "acute_withdrawal": "What you may feel: irritability, insomnia, vivid or unsettling dreams, anxiety, decreased appetite. CB1 receptors can adapt to repeated THC. Without external cannabinoids, signaling may feel relatively low — a sketch of adaptation, not a receptor measurement. Vivid dreams are often reported as sleep changes after stopping.",
+      "post_acute": "What you may feel: sleep that is improving but still uneven, leftover irritability, mild anxiety. CB1 receptor density is not dated here.",
+      "normalizing": "Sleep and mood regulation often feel more stable with time. The endocannabinoid system is not shown as having returned to a personal baseline.",
+      "during_use": "What you may feel: euphoria, relaxation, altered sensory perception, increased appetite, slowed time perception. THC binds CB1 receptors as a partial agonist, mimicking endocannabinoids but with a different potency and duration. Repeated use can downregulate CB1 receptor density. How far that goes varies."
     },
     "dopamine": {
-      "acute_withdrawal": "Mild motivational dip. The contribution of cannabis to your reward circuit was modest, so this phase is correspondingly mild.",
-      "post_acute": "Motivation is stabilizing.",
-      "normalizing": "Dopamine function is near baseline.",
-      "during_use": "What you may feel: mild euphoria, heightened sensory experience. Cannabis indirectly increases dopamine release via CB1 receptor activation on GABAergic interneurons in the mesolimbic pathway."
+      "acute_withdrawal": "Motivation can dip. How strong cannabis withdrawal feels is not decided by this indirect dopamine path alone, and it is not necessarily mild.",
+      "post_acute": "Motivation may stabilize. That pace is not measured here.",
+      "normalizing": "Dopamine is not measured here. Motivation after stopping cannabis varies.",
+      "during_use": "What you may feel: mild euphoria, heightened sensory experience. Cannabis may increase dopamine signaling indirectly, via CB1 receptors on GABAergic interneurons in the mesolimbic pathway. That effect is typically described as less direct than with stimulants."
     },
     "gaba": {
-      "acute_withdrawal": "Mild contribution to anxiety symptoms. GABAergic balance was modulated by cannabis and is recalibrating.",
-      "post_acute": "GABA balance is improving.",
-      "normalizing": "GABA function is near baseline.",
-      "during_use": "What you may feel: muscle relaxation, reduced anxiety, sedation at higher doses. CB1 receptor activation modulates GABAergic transmission — effects vary significantly by dose and brain region."
+      "acute_withdrawal": "Changes in GABAergic signaling may add to anxiety for some people. That contribution is not a measured GABA level, and it does not fix how severe withdrawal will feel.",
+      "post_acute": "Anxiety and tension may ease. GABA balance is not measured here.",
+      "normalizing": "GABA is not measured here. Residual anxiety after cannabis varies.",
+      "during_use": "What you may feel: muscle relaxation, reduced anxiety, sedation at higher doses. CB1 receptor activation modulates GABAergic transmission — effects vary with dose and brain region."
     }
   },
   "caffeine": {
     "adenosine": {
-      "acute_withdrawal": "What you may feel: headache (often severe), fatigue, drowsiness, difficulty concentrating, irritability. Peaks at 24-48 hours. Your adenosine receptors were upregulated to compensate for chronic blockade by caffeine; without caffeine, the accumulated adenosine signal hits hypersensitive receptors. The headache is real and predictable.",
-      "post_acute": "What you may feel: residual fatigue, mild concentration difficulty in the afternoon, occasional headache. Adenosine receptor density is gradually returning to baseline.",
-      "normalizing": "Adenosinergic balance approaches normal. Sleep pressure regulation, morning alertness, and afternoon energy stabilize without external stimulation.",
-      "during_use": "What you may feel: alertness, reduced fatigue, improved concentration, elevated mood. Caffeine blocks adenosine receptors competitively — adenosine is the brain's primary sleep-pressure signal. Chronic blockade causes receptor upregulation, which is why tolerance develops and withdrawal produces rebound fatigue and headache."
+      "acute_withdrawal": "What you may feel: headache (often severe), fatigue, drowsiness, difficulty concentrating, irritability. These are common withdrawal symptoms after regular caffeine stops. Timing varies between people. This describes symptoms, not adenosine concentration and not a receptor count.",
+      "post_acute": "What you may feel: leftover fatigue, mild afternoon concentration difficulty, occasional headache. Adenosine receptor density is not measured here.",
+      "normalizing": "Alertness and sleep pressure often feel more even without caffeine. That is not a measured adenosinergic baseline.",
+      "during_use": "What you may feel: alertness, reduced fatigue, improved concentration, elevated mood. Caffeine blocks adenosine receptors competitively — adenosine is a main sleep-pressure signal. Repeated blockade can contribute to tolerance, and stopping can bring rebound fatigue and headache."
     },
     "dopamine": {
-      "acute_withdrawal": "Mild motivational dip. The dopaminergic contribution of caffeine is indirect (via adenosine A2A receptors), so this phase is correspondingly mild.",
-      "post_acute": "Motivation stabilizes.",
-      "normalizing": "Dopamine function near baseline.",
-      "during_use": "What you may feel: mild mood elevation, increased motivation. Caffeine indirectly enhances dopamine signaling via adenosine A2A receptor blockade, which disinhibits dopaminergic neurons."
+      "acute_withdrawal": "Some people notice a motivational dip. Caffeine’s link to dopamine is indirect; how intense withdrawal feels still varies and is not fixed by that link.",
+      "post_acute": "Motivation may settle. Dopamine is not measured here.",
+      "normalizing": "Dopamine is not measured here. Alertness and mood after stopping caffeine vary.",
+      "during_use": "What you may feel: mild mood elevation, increased motivation. Caffeine can influence dopamine signaling through adenosine A2A receptors. That is not the same as flooding the synapse with dopamine, and it is not shown here as increased striatal dopamine release."
     }
   }
 }
