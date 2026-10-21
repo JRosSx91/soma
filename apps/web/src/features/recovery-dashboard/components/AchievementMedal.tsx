@@ -64,7 +64,7 @@ export function AchievementMedal({
 
   if (!art) {
     return (
-      <span className={lockedTone}>
+      <span className={`w-full ${lockedTone}`}>
         <MedalMark tier={tier} substanceId={substanceId} size={size} />
       </span>
     );

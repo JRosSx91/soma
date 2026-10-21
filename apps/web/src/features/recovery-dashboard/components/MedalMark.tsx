@@ -25,23 +25,22 @@ interface MedalMarkProps {
  */
 export function MedalMark({ tier, substanceId, sealed = false, size = "card" }: MedalMarkProps) {
   const uid = useId().replace(/:/g, "");
-  const frame = size === "detail" ? "h-28 w-28" : "h-[4.5rem] w-[4.5rem]";
-  const well = size === "detail" ? "h-14 w-14" : "h-10 w-10";
-  const icon = size === "detail" ? "h-6 w-6" : "h-4 w-4";
-  const plate = size === "detail" ? "h-12 w-12" : "h-9 w-9";
+  const frame = size === "detail" ? "h-52 sm:h-60" : "h-36 sm:h-40";
   return (
-    <span className="flex flex-col items-center gap-1">
-      <span className={`relative block ${frame}`}>
-        <svg viewBox="0 0 80 80" className="h-full w-full" aria-hidden="true">
-          <MedalShape tier={tier} uid={uid} />
-        </svg>
-        <span className="absolute inset-0 flex items-center justify-center">
-          <span className={`flex items-center justify-center overflow-hidden rounded-full bg-[#081018] ring-1 ring-black/50 ${well}`}>
-            {sealed ? (
-              <Lock className={`${icon} text-soma-ink-secondary`} aria-hidden="true" />
-            ) : (
-              <SubstanceIllustration name={substanceId} className={plate} alt="" />
-            )}
+    <span className="flex w-full flex-col items-center gap-1">
+      <span className={`relative flex w-full items-center justify-center ${frame}`}>
+        <span className="relative aspect-square h-full">
+          <svg viewBox="0 0 80 80" className="h-full w-full" aria-hidden="true">
+            <MedalShape tier={tier} uid={uid} />
+          </svg>
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-[52%] w-[52%] items-center justify-center overflow-hidden rounded-full bg-[#081018] ring-1 ring-black/50">
+              {sealed ? (
+                <Lock className="h-[42%] w-[42%] text-soma-ink-secondary" aria-hidden="true" />
+              ) : (
+                <SubstanceIllustration name={substanceId} className="h-[86%] w-[86%]" alt="" />
+              )}
+            </span>
           </span>
         </span>
       </span>
