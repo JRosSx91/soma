@@ -466,17 +466,7 @@ function summaryIntro(
   if (organ) {
     return atlasOrganName(t, organ.id, organ.name);
   }
-  if (system.id === "respiratory") {
-    return t("introRespiratory");
-  }
-  const systemLabel = atlasSystemName(t, system.id, system.name);
-  if (system.organs.length === 0) {
-    return t("introEmptySystem", { name: systemLabel });
-  }
-  const names = system.organs
-    .map((item) => atlasOrganName(t, item.id, item.name))
-    .join(", ");
-  return t("introSystemIncludes", { name: systemLabel, organs: names });
+  return t(`systemIntro.${system.id}`);
 }
 
 function choiceClass(selected: boolean): string {

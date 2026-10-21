@@ -118,6 +118,26 @@ test("the atlas stage does not offer an anterior/posterior view selector", () =>
   }
 });
 
+test("each atlas system has a useful spanish and english educational intro", () => {
+  const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /t\(`systemIntro\.\$\{system\.id\}`\)/);
+  assert.match(page, /introLungs/);
+  assert.equal(page.includes("introSystemIncludes"), false);
+
+  for (const system of atlasSystems) {
+    const es = esAnatomy.systemIntro[system.id as keyof typeof esAnatomy.systemIntro];
+    const en = enAnatomy.systemIntro[system.id as keyof typeof enAnatomy.systemIntro];
+    assert.equal(typeof es, "string", system.id);
+    assert.equal(typeof en, "string", system.id);
+    assert.ok(es.trim().length > 80, system.id);
+    assert.ok(en.trim().length > 80, system.id);
+    assert.notEqual(es, en, system.id);
+    assert.equal(es.includes(system.name), false, system.id);
+    assert.match(es, /\. .+[.]/);
+    assert.match(en, /\. .+[.]/);
+  }
+});
+
 test("anatomy json values are not unresolved i18n key paths", () => {
   for (const [bundle, label] of [
     [enAnatomy, "en"],
