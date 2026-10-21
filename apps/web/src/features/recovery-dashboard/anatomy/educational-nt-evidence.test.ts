@@ -107,6 +107,33 @@ const fixtures = {
     phase: "acute_withdrawal",
     claimKind: "withdrawal_symptom",
     slug: "anxiety-tremor",
+    clinicalReview: "pending",
+    evidenceScope: "symptoms_not_receptors",
+  }),
+  acuteSymptomPending: record({
+    phase: "acute_withdrawal",
+    claimKind: "withdrawal_symptom",
+    slug: "tremor-pending",
+    reference: {
+      source: "Fixture Symptom Review (2004).",
+      identification: "identified",
+      status: "verified",
+    },
+    claimSupport: "partial",
+    clinicalReview: "pending",
+    evidenceScope: "symptoms_not_receptors",
+  }),
+  acuteSymptomSkippedReview: record({
+    phase: "acute_withdrawal",
+    claimKind: "withdrawal_symptom",
+    slug: "tremor-skip-review",
+    reference: {
+      source: "Fixture Symptom Review (2004).",
+      identification: "identified",
+      status: "verified",
+    },
+    claimSupport: "partial",
+    clinicalReview: "not_applicable",
     evidenceScope: "symptoms_not_receptors",
   }),
   acuteSymptomPublishable: record({
@@ -119,6 +146,20 @@ const fixtures = {
       status: "verified",
     },
     claimSupport: "partial",
+    clinicalReview: "reviewed",
+    evidenceScope: "symptoms_not_receptors",
+  }),
+  unsupportedReviewedSymptom: record({
+    phase: "acute_withdrawal",
+    claimKind: "withdrawal_symptom",
+    slug: "false-symptom-reviewed",
+    reference: {
+      source: "Fixture Imaging Paper (2015).",
+      identification: "identified",
+      status: "verified",
+    },
+    claimSupport: "unsupported",
+    clinicalReview: "reviewed",
     evidenceScope: "symptoms_not_receptors",
   }),
   postAcuteAdaptation: record({
@@ -188,7 +229,10 @@ const authoredFixtureCatalog: readonly EducationalNtEvidenceRecord[] = [
   fixtures.acuteSafetyPending,
   fixtures.acuteSafetyReviewedUnverifiedClaim,
   fixtures.acuteSymptomUnverified,
+  fixtures.acuteSymptomPending,
+  fixtures.acuteSymptomSkippedReview,
   fixtures.acuteSymptomPublishable,
+  fixtures.unsupportedReviewedSymptom,
   fixtures.postAcuteAdaptation,
   fixtures.cocaineDat,
   fixtures.unsupportedWithVerifiedSource,
@@ -354,10 +398,37 @@ test("clinical safety cannot skip clinical review", () => {
   assert.equal(isEducationalNtEvidencePublishable(skipped), false);
 });
 
+test("withdrawal symptoms cannot skip clinical review", () => {
+  assert.equal(isEducationalNtEvidenceConsistent(fixtures.acuteSymptomSkippedReview), false);
+  assert.equal(
+    educationalNtEvidenceIssues(fixtures.acuteSymptomSkippedReview).some(
+      (issue) => issue.code === "withdrawal_symptom_not_applicable",
+    ),
+    true,
+  );
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.acuteSymptomSkippedReview), false);
+});
+
 test("clinical safety without professional review does not publish", () => {
   assert.equal(isEducationalNtEvidenceConsistent(fixtures.acuteSafetyPending), true);
   assert.equal(fixtures.acuteSafetyPending.clinicalReview, "pending");
   assert.equal(isEducationalNtEvidencePublishable(fixtures.acuteSafetyPending), false);
+});
+
+test("a pending withdrawal symptom with a verified source does not publish", () => {
+  assert.equal(isEducationalNtEvidenceConsistent(fixtures.acuteSymptomPending), true);
+  assert.equal(fixtures.acuteSymptomPending.reference.status, "verified");
+  assert.equal(fixtures.acuteSymptomPending.claimSupport, "partial");
+  assert.equal(fixtures.acuteSymptomPending.clinicalReview, "pending");
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.acuteSymptomPending), false);
+});
+
+test("a reviewed withdrawal symptom with verified bibliographic support can publish", () => {
+  assert.equal(fixtures.acuteSymptomPublishable.clinicalReview, "reviewed");
+  assert.equal(fixtures.acuteSymptomPublishable.reference.status, "verified");
+  assert.equal(fixtures.acuteSymptomPublishable.claimSupport, "partial");
+  assert.equal(isEducationalNtEvidenceConsistent(fixtures.acuteSymptomPublishable), true);
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.acuteSymptomPublishable), true);
 });
 
 test("clinical review does not substitute bibliographic claim support", () => {
@@ -365,6 +436,38 @@ test("clinical review does not substitute bibliographic claim support", () => {
   assert.equal(fixtures.acuteSafetyReviewedUnverifiedClaim.claimSupport, "unverified");
   assert.equal(isEducationalNtEvidencePublishable(fixtures.acuteSafetyReviewedUnverifiedClaim), false);
   assert.equal(isEducationalNtEvidencePublishable(fixtures.acuteSafetyReviewed), true);
+  const reviewedUnverifiedSource = record({
+    phase: "acute_withdrawal",
+    claimKind: "withdrawal_symptom",
+    slug: "reviewed-unverified-source",
+    reference: {
+      source: "Fixture Textbook, 5th ed.",
+      identification: "identified",
+      status: "unverified",
+    },
+    claimSupport: "unverified",
+    clinicalReview: "reviewed",
+    evidenceScope: "symptoms_not_receptors",
+  });
+  assert.equal(reviewedUnverifiedSource.clinicalReview, "reviewed");
+  assert.equal(reviewedUnverifiedSource.reference.status, "unverified");
+  assert.equal(isEducationalNtEvidencePublishable(reviewedUnverifiedSource), false);
+});
+
+test("unsupported rows never publish even with clinical review", () => {
+  assert.equal(isEducationalNtEvidenceConsistent(fixtures.unsupportedReviewedSymptom), true);
+  assert.equal(fixtures.unsupportedReviewedSymptom.clinicalReview, "reviewed");
+  assert.equal(fixtures.unsupportedReviewedSymptom.claimSupport, "unsupported");
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.unsupportedReviewedSymptom), false);
+});
+
+test("pharmacological mechanism rows keep the previous clinical-review policy", () => {
+  assert.equal(fixtures.profileMechanism.clinicalReview, "not_applicable");
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.profileMechanism), true);
+  assert.equal(fixtures.cocaineDat.clinicalReview, "not_applicable");
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.cocaineDat), true);
+  assert.equal(fixtures.postAcuteAdaptation.clinicalReview, "not_applicable");
+  assert.equal(isEducationalNtEvidencePublishable(fixtures.postAcuteAdaptation), true);
 });
 
 test("the public resolver splits mechanism rows from phase rows", () => {
@@ -409,6 +512,10 @@ test("the public resolver splits mechanism rows from phase rows", () => {
   );
   assert.equal(
     acute.phaseItems.some((item) => item.slug === "seizure-risk-pending"),
+    false,
+  );
+  assert.equal(
+    acute.phaseItems.some((item) => item.slug === "tremor-pending"),
     false,
   );
 

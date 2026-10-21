@@ -21,13 +21,14 @@ import type { EducationalNeurotransmitter } from "./neurotransmitter-education.t
  * `/me` state. 8N.6A bibliographic notes are not imported and are not
  * verifications. Seed model-confidence enums are never a publication signal.
  *
- * Clinical-review decision: only `claimKind: clinical_safety` requires
- * `clinicalReview: reviewed` to publish. Mechanism, acute effect,
- * neuroadaptation, and withdrawal-symptom rows describe educational
- * pharmacology or reported symptoms, not actionable medical instructions.
- * Bibliographic verification is not clinical validation. If a later ingest
- * turns a symptom row into user-facing medical advice, that row would
- * need a dedicated clinical gate — not this sidecar as written.
+ * Clinical-review decision: `clinical_safety` and `withdrawal_symptom`
+ * require `clinicalReview: reviewed` to publish. Mechanism, acute effect,
+ * and neuroadaptation keep the previous policy (`not_applicable` is allowed
+ * and is not a publication gate). Bibliographic verification is not
+ * clinical validation, and `reviewed` is not sufficient scientific support.
+ * Any later ingest that turns a mechanism, acute-effect, or neuroadaptation
+ * row into medical advice or an actionable clinical implication needs a
+ * further editorial evaluation before it can be published.
  */
 
 export const educationalNtClaimKinds = [
@@ -87,6 +88,7 @@ export const educationalNtEvidenceIssueCodes = [
   "absent_work_not_insufficient",
   "missing_reference_marked_false",
   "clinical_safety_not_applicable",
+  "withdrawal_symptom_not_applicable",
   "id_mismatch",
 ] as const;
 export type EducationalNtEvidenceIssueCode = (typeof educationalNtEvidenceIssueCodes)[number];
@@ -145,6 +147,10 @@ export function educationalNtEvidenceId(input: {
 }): string {
   const phaseToken = input.phase ?? educationalNtProfilePhaseToken;
   return `${input.substanceId}.${input.neurotransmitter}.${phaseToken}.${input.claimKind}.${input.slug}`;
+}
+
+function requiresClinicalReview(claimKind: EducationalNtClaimKind): boolean {
+  return claimKind === "clinical_safety" || claimKind === "withdrawal_symptom";
 }
 
 function hasVerifiedIdentifiedSource(reference: EducationalNtEvidenceReference): boolean {
@@ -223,6 +229,12 @@ export function educationalNtEvidenceIssues(
       detail: "Clinical-safety claims cannot skip clinical review.",
     });
   }
+  if (item.claimKind === "withdrawal_symptom" && item.clinicalReview === "not_applicable") {
+    issues.push({
+      code: "withdrawal_symptom_not_applicable",
+      detail: "Withdrawal-symptom claims cannot skip clinical review.",
+    });
+  }
 
   return issues;
 }
@@ -240,7 +252,7 @@ export function isEducationalNtEvidencePublishable(item: EducationalNtEvidenceRe
   if (!isEducationalNtEvidenceConsistent(item)) return false;
   if (!hasVerifiedIdentifiedSource(item.reference)) return false;
   if (item.claimSupport !== "supported" && item.claimSupport !== "partial") return false;
-  if (item.claimKind === "clinical_safety" && item.clinicalReview !== "reviewed") return false;
+  if (requiresClinicalReview(item.claimKind) && item.clinicalReview !== "reviewed") return false;
   return true;
 }
 
