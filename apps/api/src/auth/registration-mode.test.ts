@@ -21,14 +21,29 @@ test("explicit open and invite are accepted", () => {
   );
 });
 
-test("production requires an explicit valid mode", () => {
+test("production requires invite and rejects open or unset", () => {
   assert.throws(
     () => resolveRegistrationMode({ NODE_ENV: "production" }),
     (err: unknown) => {
       assert.ok(err instanceof RegistrationModeError);
-      assert.match(err.message, /must be set/);
+      assert.match(err.message, /invite/);
       return true;
     },
+  );
+  assert.throws(
+    () =>
+      resolveRegistrationMode({
+        NODE_ENV: "production",
+        AUTH_REGISTRATION_MODE: "open",
+      }),
+    RegistrationModeError,
+  );
+  assert.equal(
+    resolveRegistrationMode({
+      NODE_ENV: "production",
+      AUTH_REGISTRATION_MODE: "invite",
+    }),
+    "invite",
   );
 });
 

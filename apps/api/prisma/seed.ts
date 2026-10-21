@@ -26,8 +26,12 @@ async function main(): Promise<void> {
   await seedNeurotransmitterProfiles(prisma);
   console.log("  - organ narratives");
   await seedOrganNarratives(prisma);
-  console.log("  - users");
-  await seedUsers(prisma);
+  if (process.env.NODE_ENV === "production") {
+    console.log("  - users skipped (NODE_ENV=production; demo account disabled)");
+  } else {
+    console.log("  - users");
+    await seedUsers(prisma);
+  }
   console.log("\nDone.");
 }
 

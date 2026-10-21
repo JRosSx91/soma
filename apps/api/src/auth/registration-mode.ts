@@ -9,9 +9,8 @@ export class RegistrationModeError extends Error {
 
 /**
  * AUTH_REGISTRATION_MODE=open|invite.
- * Production requires an explicit valid value (fail closed at bootstrap).
- * Non-production defaults to open when unset so local tests keep working.
- * Unknown values never fall through.
+ * Production requires invite (closed beta). Non-production defaults to open
+ * when unset so local tests keep working. Unknown values never fall through.
  */
 export function resolveRegistrationMode(
   env: NodeJS.ProcessEnv = process.env,
@@ -22,10 +21,19 @@ export function resolveRegistrationMode(
   if (!raw) {
     if (isProd) {
       throw new RegistrationModeError(
-        "AUTH_REGISTRATION_MODE must be set to \"open\" or \"invite\" in production",
+        "AUTH_REGISTRATION_MODE must be set to \"invite\" in production",
       );
     }
     return "open";
+  }
+
+  if (isProd) {
+    if (raw !== "invite") {
+      throw new RegistrationModeError(
+        "AUTH_REGISTRATION_MODE must be \"invite\" in production",
+      );
+    }
+    return "invite";
   }
 
   if (raw === "open" || raw === "invite") {
