@@ -8,13 +8,26 @@ import type { EducationalNeurotransmitter } from "./neurotransmitter-education.t
  * Separate from:
  * - Prisma neurotransmitter-profile citations and model-confidence enums
  * - organ-narrative and recovery-curve citations
- * - Consejos bibliographic records
+ * - Consejos bibliographic records (Consejos publication gates are not reused)
  *
- * The public catalog stays empty until a later editorial ingest. Resolvers
- * never invent citations. This module does not estimate personal recovery
- * or compose `/me` state.
+ * Two catalogs:
+ * - `authoredEducationalNtEvidenceCatalog`: editorial history, including
+ *   unsupported or unverified rows that must not reach the atlas.
+ * - `publishedEducationalNtEvidenceCatalog`: derived projection of
+ *   publishable rows only. Never authored by hand.
  *
- * 8N.6A bibliographic notes are not imported here and are not verifications.
+ * Both stay empty until a later editorial ingest. Resolvers never invent
+ * citations. This module does not estimate personal recovery or compose
+ * `/me` state. 8N.6A bibliographic notes are not imported and are not
+ * verifications. Seed model-confidence enums are never a publication signal.
+ *
+ * Clinical-review decision: only `claimKind: clinical_safety` requires
+ * `clinicalReview: reviewed` to publish. Mechanism, acute effect,
+ * neuroadaptation, and withdrawal-symptom rows describe educational
+ * pharmacology or reported symptoms, not actionable medical instructions.
+ * Bibliographic verification is not clinical validation. If a later ingest
+ * turns a symptom row into user-facing medical advice, that row would
+ * need a dedicated clinical gate — not this sidecar as written.
  */
 
 export const educationalNtClaimKinds = [
@@ -98,7 +111,7 @@ export interface EducationalNtEvidenceRecord {
   substanceId: SubstanceId;
   neurotransmitter: EducationalNeurotransmitter;
   mechanismKey: string;
-  /** Null applies as a general mechanism for every educational phase. */
+  /** Null is a profile-level mechanism row, not evidence for every phase. */
   phase: NarrativePhase | null;
   claimKind: EducationalNtClaimKind;
   /** Distinguishes several claims in the same substance × NT × phase × kind. */
@@ -115,8 +128,11 @@ export interface EducationalNtEvidenceResolution {
   substanceId: string;
   neurotransmitter: string;
   phase: string;
-  items: readonly EducationalNtEvidenceRecord[];
-  /** True when the sidecar has no matching authored row. Not a scientific finding. */
+  /** Profile-level mechanism rows only (`phase: null`, `mechanism_only`). */
+  mechanismItems: readonly EducationalNtEvidenceRecord[];
+  /** Rows whose `phase` equals the requested educational phase. */
+  phaseItems: readonly EducationalNtEvidenceRecord[];
+  /** True when both public lists are empty. Not a scientific finding. */
   empty: boolean;
 }
 
@@ -216,19 +232,63 @@ export function isEducationalNtEvidenceConsistent(item: EducationalNtEvidenceRec
 }
 
 /**
+ * Public-lane gate. Independent of the Consejos publication gate.
+ * A reviewed clinical flag never substitutes bibliographic claim support.
+ * `unsupported` and `unverified` stay editorial history only.
+ */
+export function isEducationalNtEvidencePublishable(item: EducationalNtEvidenceRecord): boolean {
+  if (!isEducationalNtEvidenceConsistent(item)) return false;
+  if (!hasVerifiedIdentifiedSource(item.reference)) return false;
+  if (item.claimSupport !== "supported" && item.claimSupport !== "partial") return false;
+  if (item.claimKind === "clinical_safety" && item.clinicalReview !== "reviewed") return false;
+  return true;
+}
+
+/**
  * Authored evidence rows. Empty until an explicit editorial ingest.
+ * May later hold unsupported history. Do not import this array from atlas UI.
  * Do not copy seed, narrative, or Consejos references into this list.
  */
-export const publishedEducationalNtEvidenceCatalog: readonly EducationalNtEvidenceRecord[] = [];
+export const authoredEducationalNtEvidenceCatalog: readonly EducationalNtEvidenceRecord[] = [];
+
+/** Pure projection: publishable authored rows, in authored order. */
+export function projectPublishedEducationalNtEvidence(
+  authored: readonly EducationalNtEvidenceRecord[] = authoredEducationalNtEvidenceCatalog,
+): readonly EducationalNtEvidenceRecord[] {
+  return authored.filter((item) => isEducationalNtEvidencePublishable(item));
+}
+
+/**
+ * Derived public catalog. Empty while the authored catalog is empty.
+ * Not a second hand-maintained list.
+ */
+export const publishedEducationalNtEvidenceCatalog: readonly EducationalNtEvidenceRecord[] =
+  projectPublishedEducationalNtEvidence();
 
 function isNarrativePhase(value: string): value is NarrativePhase {
   return (narrativePhases as readonly string[]).includes(value);
 }
 
+function emptyResolution(
+  substanceId: string,
+  neurotransmitter: string,
+  phase: string,
+): EducationalNtEvidenceResolution {
+  return {
+    substanceId,
+    neurotransmitter,
+    phase,
+    mechanismItems: [],
+    phaseItems: [],
+    empty: true,
+  };
+}
+
 /**
- * Returns authored rows for this substance × transmitter × phase.
- * Profile-level records (phase null) are included. Other phases are not.
- * Unknown identities resolve empty. The catalog is never mutated.
+ * Public resolution for one substance × transmitter × educational phase.
+ * Mechanism rows never become phase evidence. Other phases are not inherited.
+ * Unknown identities resolve empty. Non-publishable authored rows are omitted.
+ * The catalog argument is never mutated.
  */
 export function resolveEducationalNtEvidence(
   substanceId: string,
@@ -237,21 +297,27 @@ export function resolveEducationalNtEvidence(
   catalog: readonly EducationalNtEvidenceRecord[] = publishedEducationalNtEvidenceCatalog,
 ): EducationalNtEvidenceResolution {
   if (!substanceId || !neurotransmitter || !isNarrativePhase(phase)) {
-    return { substanceId, neurotransmitter, phase, items: [], empty: true };
+    return emptyResolution(substanceId, neurotransmitter, phase);
   }
 
-  const items = catalog.filter(
+  const publicItems = catalog.filter(
     (item) =>
+      isEducationalNtEvidencePublishable(item) &&
       item.substanceId === substanceId &&
-      item.neurotransmitter === neurotransmitter &&
-      (item.phase === null || item.phase === phase),
+      item.neurotransmitter === neurotransmitter,
   );
+
+  const mechanismItems = publicItems.filter(
+    (item) => item.phase === null && item.evidenceScope === "mechanism_only",
+  );
+  const phaseItems = publicItems.filter((item) => item.phase === phase);
 
   return {
     substanceId,
     neurotransmitter,
     phase,
-    items,
-    empty: items.length === 0,
+    mechanismItems,
+    phaseItems,
+    empty: mechanismItems.length === 0 && phaseItems.length === 0,
   };
 }
