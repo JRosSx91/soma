@@ -6,9 +6,11 @@ import {
   Trophy,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { shellSections } from "../shell-base.js";
 import { previewFocus } from "../focus.js";
+import { LanguageSelector } from "../../../components/LanguageSelector.js";
 import { AccountMenu } from "./AccountMenu.js";
 import { SomaMark } from "./SomaMark.js";
 
@@ -21,6 +23,7 @@ const icons = {
 } as const;
 
 export function PreviewSidebar() {
+  const { t } = useTranslation("common");
   const base = useShellBase();
   const sections = shellSections(base);
 
@@ -29,7 +32,7 @@ export function PreviewSidebar() {
       <div className="px-2 py-2">
         <SomaMark />
       </div>
-      <nav className="mt-6" aria-label="Secciones">
+      <nav className="mt-6" aria-label={t("shell.navAria")}>
         <ul className="flex flex-col gap-1">
           {sections.map((item) => {
             const Icon = icons[item.id];
@@ -47,7 +50,7 @@ export function PreviewSidebar() {
                   }
                 >
                   <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  {item.label}
+                  {t(`shell.${item.labelKey}`)}
                 </NavLink>
               </li>
             );
@@ -55,6 +58,9 @@ export function PreviewSidebar() {
         </ul>
       </nav>
       <div className="mt-auto flex flex-col gap-2 px-1 pb-2">
+        <div className="flex items-center px-3 py-1">
+          <LanguageSelector placement="up" />
+        </div>
         <AccountMenu />
       </div>
     </aside>

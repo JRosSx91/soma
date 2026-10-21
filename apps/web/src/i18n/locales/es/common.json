@@ -7,5 +7,15 @@
   "back": "Atrás",
   "signOut": "Cerrar sesión",
   "yes": "Sí",
-  "no": "No"
+  "no": "No",
+  "shell": {
+    "navAria": "Secciones",
+    "home": "Inicio",
+    "recovery": "Mi recuperación",
+    "recoveryShort": "Recuperación",
+    "explore": "Explorar",
+    "anatomy": "Explorador anatómico",
+    "anatomyShort": "Anatomía",
+    "achievements": "Logros"
+  }
 }

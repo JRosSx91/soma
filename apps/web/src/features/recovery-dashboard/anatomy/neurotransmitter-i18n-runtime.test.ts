@@ -74,13 +74,20 @@ function readLocaleJson(lang: string, file: "neurotransmitter-phases" | "mechani
   return JSON.parse(readFileSync(url, "utf8"));
 }
 
-test("the eight languages stay registered and selectable", () => {
+test("the eight languages stay registered", () => {
   for (const lang of REGISTERED) {
     assert.match(config, new RegExp(`"${lang}"`));
-    assert.match(selector, new RegExp(`code: "${lang}"`));
   }
   assert.match(config, /fallbackLng:\s*"en"/);
   assert.match(config, /supportedLngs:\s*\[\.\.\.SUPPORTED_LANGUAGES\]/);
+});
+
+test("the language selector only offers spanish and english", () => {
+  assert.match(selector, /code: "es"/);
+  assert.match(selector, /code: "en"/);
+  for (const lang of UNPUBLISHED_LOCALES) {
+    assert.equal(selector.includes(`code: "${lang}"`), false, lang);
+  }
 });
 
 test("english and spanish keep their reviewed neurotransmitter bundles", () => {

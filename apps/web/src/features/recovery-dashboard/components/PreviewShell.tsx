@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ShellBaseProvider } from "../context/ShellBaseContext.js";
 import { shellSections, type ShellBase } from "../shell-base.js";
 import { PreviewMobileHeader } from "./PreviewMobileHeader.js";
@@ -12,17 +13,19 @@ interface PreviewShellProps {
 }
 
 export function PreviewShell({ base }: PreviewShellProps) {
+  const { t } = useTranslation("common");
   const { pathname } = useLocation();
   const sections = shellSections(base);
   const current = sections.find((item) => item.to === pathname) ?? sections[0];
+  const titleLabel = current ? t(`shell.${current.labelKey}`) : "";
 
   useEffect(() => {
     const previous = document.title;
-    document.title = current ? `Soma — ${current.label}` : "Soma";
+    document.title = current ? `Soma — ${titleLabel}` : "Soma";
     return () => {
       document.title = previous;
     };
-  }, [current]);
+  }, [current, titleLabel]);
 
   return (
     <ShellBaseProvider base={base}>

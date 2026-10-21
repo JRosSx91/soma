@@ -1,6 +1,10 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import {
+  isInterfaceLanguage,
+  resolveInterfaceLanguage,
+} from "./interface-languages.js";
 
 // English
 import enSubstances from "./locales/en/substances.json";
@@ -117,6 +121,9 @@ import deAchievements from "./locales/de/achievements.json";
  * - Static imports of translation JSONs (bundled at build time).
  * - LanguageDetector chooses the language by reading, in order:
  *   localStorage > navigator.language > 'en' as fallback.
+ * - Detected codes outside the UI list are mapped to Spanish or English
+ *   (see `resolveInterfaceLanguage`). Locale JSON for other languages
+ *   remains on disk and registered.
  * - User's choice is persisted to localStorage so the app remembers
  *   it across sessions.
  * - When a key is missing in the active language, fall back to
@@ -205,6 +212,7 @@ i18n
       order: ["localStorage", "navigator"],
       lookupLocalStorage: "soma.i18n.lang",
       caches: ["localStorage"],
+      convertDetectedLanguage: (lng) => resolveInterfaceLanguage(lng),
     },
     resources: {
       en: {
@@ -364,9 +372,19 @@ i18n
     syncLandingV2Resources();
   });
 
+function applyInterfaceLanguage() {
+  const current = (i18n.language ?? "").split("-")[0] ?? "";
+  if (isInterfaceLanguage(current)) return;
+  void i18n.changeLanguage(resolveInterfaceLanguage(i18n.language ?? "en"));
+}
+
 if (i18n.isInitialized) {
   syncLandingV2Resources();
+  applyInterfaceLanguage();
 }
+
+i18n.on("initialized", applyInterfaceLanguage);
+i18n.on("languageChanged", applyInterfaceLanguage);
 
 if (import.meta.hot) {
   import.meta.hot.accept("./locales/en/landing-v2.json", (mod) => {
