@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 import { takeRegistrationInviteToken } from "../features/auth/lib/registration-invite.js";
+import { prepareRegisterCredentials } from "../features/auth/lib/registration-passwords.js";
 import {
   AuthShell,
   authFieldClass,
@@ -21,6 +22,7 @@ export function RegisterPage() {
   const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [biologicalSex, setBiologicalSex] = useState<BiologicalSex>("male");
   const [birthYear, setBirthYear] = useState<number>(1990);
@@ -54,17 +56,23 @@ export function RegisterPage() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
+    const prepared = prepareRegisterCredentials({
+      email,
+      password,
+      confirmPassword,
+      displayName,
+      biologicalSex,
+      birthYear,
+      ...(inviteRef.current ? { inviteToken: inviteRef.current } : {}),
+    });
+    if (!prepared.ok) {
+      setError(t(prepared.messageKey));
+      return;
+    }
     setSubmitting(true);
     completingRegistration.current = true;
     try {
-      await register({
-        email,
-        password,
-        displayName,
-        biologicalSex,
-        birthYear,
-        ...(inviteRef.current ? { inviteToken: inviteRef.current } : {}),
-      });
+      await register(prepared.credentials);
       navigate("/onboarding", { replace: true });
     } catch (err) {
       completingRegistration.current = false;
@@ -112,21 +120,52 @@ export function RegisterPage() {
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="register-password"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("register.password")}
             </label>
             <input
+              id="register-password"
               type="password"
               required
               minLength={8}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError(null);
+              }}
               className={authFieldClass}
               autoComplete="new-password"
             />
             <p className="mt-1 text-xs text-soma-ink-muted">
               {t("register.passwordHint")}
             </p>
+          </div>
+
+          <div>
+            <label
+              htmlFor="register-confirm-password"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
+              {t("register.confirmPassword")}
+            </label>
+            <input
+              id="register-confirm-password"
+              type="password"
+              required
+              minLength={8}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                setError(null);
+              }}
+              className={authFieldClass}
+              autoComplete="new-password"
+              aria-invalid={error ? true : undefined}
+              aria-describedby={error ? "register-password-error" : undefined}
+            />
           </div>
 
           <div>
@@ -163,7 +202,11 @@ export function RegisterPage() {
           </div>
 
           {error && (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="register-password-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           )}
