@@ -1,0 +1,79 @@
+/*
+ * Short viewports reuse the xl overlay: copy on the left, anatomy on the right.
+ * Width-only md/lg layouts stay for tall tablets; they are overridden here
+ * when height is too low for stacking or a 40/60 split.
+ */
+.landing-v2-hero__veil-short {
+  display: none;
+}
+
+@media (max-height: 31.25rem) {
+  .landing-v2-hero {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .landing-v2-hero .landing-v2-hero__art {
+    position: absolute;
+    inset: 0;
+    order: 0;
+    min-height: 0;
+    flex: none;
+    overflow: hidden;
+  }
+
+  .landing-v2-hero .landing-v2-hero__art-img {
+    object-position: 70% 42%;
+  }
+
+  .landing-v2-hero .landing-v2-hero__veil-portrait,
+  .landing-v2-hero .landing-v2-hero__veil-md,
+  .landing-v2-hero .landing-v2-hero__veil-lg,
+  .landing-v2-hero .landing-v2-hero__veil-overlay-left,
+  .landing-v2-hero .landing-v2-hero__veil-overlay-bottom,
+  .landing-v2-hero .landing-v2-hero__veil-base-bottom {
+    display: none;
+  }
+
+  .landing-v2-hero .landing-v2-hero__veil-short {
+    display: block;
+  }
+
+  .landing-v2-hero .landing-v2-hero__copy {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    width: 100%;
+    min-height: calc(100svh - var(--landing-v2-header));
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.25rem 1rem;
+  }
+
+  .landing-v2-hero .landing-v2-hero__copy-inner {
+    max-width: 27.5rem;
+  }
+
+  .landing-v2-hero .landing-v2-hero__title {
+    margin-top: 0.5rem;
+    font-size: 1.75rem;
+    line-height: 1.15;
+  }
+
+  .landing-v2-hero .landing-v2-hero__subtitle {
+    margin-top: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .landing-v2-hero .landing-v2-hero__cta {
+    margin-top: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .landing-v2-hero .landing-v2-hero__disclaimer {
+    margin-top: 0.75rem;
+  }
+}
