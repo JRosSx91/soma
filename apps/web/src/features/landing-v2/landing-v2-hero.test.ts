@@ -1,0 +1,40 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { test } from "node:test";
+
+const hero = readFileSync(
+  fileURLToPath(new URL("./LandingV2Hero.tsx", import.meta.url)),
+  "utf8",
+);
+const css = readFileSync(
+  fileURLToPath(new URL("./landing-v2-hero.css", import.meta.url)),
+  "utf8",
+);
+const page = readFileSync(
+  fileURLToPath(new URL("./LandingV2Page.tsx", import.meta.url)),
+  "utf8",
+);
+
+test("short viewports reuse the xl overlay crop instead of stacked md", () => {
+  assert.match(hero, /landing-v2-hero\.css/);
+  assert.match(hero, /className="landing-v2-hero /);
+  assert.match(css, /max-height:\s*31\.25rem/);
+  assert.match(css, /object-position:\s*70%\s*42%/);
+  assert.match(hero, /xl:object-\[70%_42%\]/);
+  assert.equal((hero.match(/object-\[/g) ?? []).length, 5);
+  assert.equal(css.includes("orientation:"), false);
+});
+
+test("short hero copy can grow instead of clipping CTAs", () => {
+  assert.match(hero, /overflow-x-hidden/);
+  assert.equal(hero.includes("overflow-hidden bg-[#081018]"), false);
+  assert.match(hero, /landing-v2-hero__art[^"]*overflow-hidden/);
+  assert.match(css, /overflow-y:\s*visible/);
+  assert.match(css, /justify-content:\s*flex-start/);
+});
+
+test("landing intro first-paint gate is unchanged", () => {
+  assert.match(page, /shouldPlayLandingV2Intro\(\)/);
+  assert.equal(page.includes("shouldPlayLandingV2Intro,"), false);
+});
