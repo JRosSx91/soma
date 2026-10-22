@@ -20,7 +20,7 @@ export function LandingV2Page() {
   const { sessionNotice } = useAuth();
   const accountDeleted = sessionNotice === "account_deleted";
   const [showIntro] = useState(
-    () => !accountDeleted && shouldPlayLandingV2Intro,
+    () => !accountDeleted && shouldPlayLandingV2Intro(),
   );
   const [introVisible, setIntroVisible] = useState(showIntro);
   const [introComplete, setIntroComplete] = useState(!showIntro);
