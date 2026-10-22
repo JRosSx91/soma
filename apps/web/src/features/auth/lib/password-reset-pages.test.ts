@@ -12,6 +12,7 @@ import { LoginPage } from "../../../pages/LoginPage.js";
 import { RegisterPage } from "../../../pages/RegisterPage.js";
 import { AuthContext } from "../context/AuthContext.js";
 import { resetHeldPasswordResetTokenForTests } from "./password-reset-validation.js";
+import { resetHeldRegistrationInviteTokenForTests } from "./registration-invite.js";
 
 function resetTokenState() {
   resetHeldPasswordResetTokenForTests();
@@ -48,6 +49,7 @@ const guestAuth = {
   register: async () => undefined,
   logout: async () => ({ remoteRevoked: true }),
   applyProfileUser: () => undefined,
+  clearSessionAfterAccountDeletion: () => undefined,
 };
 
 test("ForgotPasswordPage renders email field and back link", async () => {
@@ -120,6 +122,24 @@ test("ForgotPasswordPage confirmation copy stays anti-enumeration", async () => 
   assert.equal(/has been sent|email delivery is available/i.test(confirmation), false);
 });
 
+test("LoginPage with account_deleted does not keep the visitor on login", async () => {
+  await ensureI18n();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        {
+          value: { ...guestAuth, sessionNotice: "account_deleted" },
+        },
+        createElement(LoginPage),
+      ),
+      ["/login"],
+    ),
+  );
+  assert.equal(html.includes("Welcome back"), false);
+  assert.equal(html.includes("Sign in"), false);
+});
+
 test("LoginPage links to forgot-password", async () => {
   await ensureI18n();
   const html = renderToStaticMarkup(
@@ -141,6 +161,7 @@ test("LoginPage links to forgot-password", async () => {
 
 test("RegisterPage still renders core fields (no regression)", async () => {
   await ensureI18n();
+  resetHeldRegistrationInviteTokenForTests();
   const html = renderToStaticMarkup(
     wrap(
       createElement(
@@ -155,4 +176,45 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.match(html, /Create account/);
   assert.match(html, /type="email"/);
   assert.match(html, /href="\/login"/);
+  assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
+});
+
+test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async () => {
+  await ensureI18n();
+  resetHeldRegistrationInviteTokenForTests();
+  const replaced: string[] = [];
+  Object.defineProperty(globalThis, "window", {
+    configurable: true,
+    value: {
+      history: {
+        replaceState: (_s: unknown, _t: string, url: string) => {
+          replaced.push(String(url));
+        },
+      },
+      location: {
+        pathname: "/register",
+        hash: "",
+        search: "?invite=abc_invite_from_query&lang=es",
+      },
+    },
+  });
+
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: guestAuth },
+        createElement(RegisterPage),
+      ),
+      ["/register?invite=abc_invite_from_query&lang=es"],
+    ),
+  );
+
+  assert.match(html, /Create your Soma account/);
+  assert.match(html, /name="referrer"/);
+  assert.match(html, /content="no-referrer"/);
+  assert.equal(html.includes("abc_invite_from_query"), false);
+  assert.ok(replaced.some((u) => u.includes("lang=es")));
+  assert.ok(replaced.every((u) => !u.includes("invite=")));
+  assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
 });

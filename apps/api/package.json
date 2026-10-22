@@ -7,11 +7,13 @@
   "scripts": {
     "build": "prisma generate && tsc -b",
     "start": "node dist/main.js",
+    "start:prod": "node scripts/start-prod.cjs",
     "dev": "concurrently --kill-others --names tsc,api \"tsc -b --watch\" \"node --watch dist/main.js\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "prisma:seed": "prisma db seed",
+    "invite:mint": "tsx scripts/mint-invite.ts",
     "test": "tsx --test src/**/*.test.ts"
   },
   "prisma": {

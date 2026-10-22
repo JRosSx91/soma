@@ -32,9 +32,22 @@ export async function register(
   credentials: RegisterCredentials,
 ): Promise<AuthResponse> {
   clearLegacyAuthStorage();
+  const body: RegisterCredentials = {
+    email: credentials.email,
+    password: credentials.password,
+    displayName: credentials.displayName,
+    biologicalSex: credentials.biologicalSex,
+    birthYear: credentials.birthYear,
+  };
+  if (credentials.weightKg !== undefined) {
+    body.weightKg = credentials.weightKg;
+  }
+  if (credentials.inviteToken) {
+    body.inviteToken = credentials.inviteToken;
+  }
   const response = await apiRequest<AuthResponse>("/auth/register", {
     method: "POST",
-    body: credentials,
+    body,
     anonymous: true,
     credentials: "include",
     skipRefresh: true,

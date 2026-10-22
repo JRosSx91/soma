@@ -13,6 +13,8 @@ import {
   PASSWORD_RESET_MAILER,
   createPasswordResetMailer,
 } from "./password-reset.mailer.js";
+import { RegistrationInviteService } from "./registration-invite.service.js";
+import { RegistrationModeBootstrap } from "./registration-mode.bootstrap.js";
 
 @Module({
   imports: [
@@ -45,11 +47,18 @@ import {
     RefreshSessionService,
     AuthOriginGuard,
     PasswordResetService,
+    RegistrationInviteService,
+    RegistrationModeBootstrap,
     {
       provide: PASSWORD_RESET_MAILER,
       useFactory: () => createPasswordResetMailer(),
     },
   ],
-  exports: [AuthService, RefreshSessionService, PasswordResetService],
+  exports: [
+    AuthService,
+    RefreshSessionService,
+    PasswordResetService,
+    AuthOriginGuard,
+  ],
 })
 export class AuthModule {}

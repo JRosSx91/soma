@@ -40,6 +40,8 @@ export interface RegisterCredentials {
   biologicalSex: BiologicalSex;
   birthYear: number;
   weightKg?: number;
+  /** Closed-beta invite; omitted in open registration mode. */
+  inviteToken?: string;
 }
 
 /** Bootstrap / session lifecycle for the SPA. */

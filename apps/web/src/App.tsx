@@ -17,6 +17,7 @@ import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js"
 import { useTranslation } from "react-i18next";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
+import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
 
 // The anatomical viewer preloads its model at module scope. Keep that
 // module out of the initial graph so Soma 2.0 (/app, /preview) does not
@@ -28,7 +29,7 @@ const MainPage = lazy(() =>
 );
 
 function RootRoute() {
-  const { user, loading } = useAuth();
+  const { user, loading, sessionNotice } = useAuth();
   const { t } = useTranslation("common");
 
   if (loading) {
@@ -37,6 +38,12 @@ function RootRoute() {
         {t("loading")}
       </div>
     );
+  }
+
+  // After account deletion the notice is set with user=null. Never bounce
+  // that visitor to /login — the landing renders the generic confirmation.
+  if (unauthenticatedDestination(sessionNotice) === "/") {
+    return <LandingV2Page />;
   }
 
   // Authenticated users resolve onboarding via LoginPage (pending invite vs /app).

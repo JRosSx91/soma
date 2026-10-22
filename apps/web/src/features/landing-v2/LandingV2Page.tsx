@@ -10,13 +10,18 @@ import { LandingV2Achievements } from "./LandingV2Achievements.js";
 import { LandingV2Closing } from "./LandingV2Closing.js";
 import { LandingV2IntroProvider, SomaIntro } from "./SomaIntro.js";
 import { shouldPlayLandingV2Intro } from "./soma-intro-session.js";
+import { useAuth } from "../auth/index.js";
 
 /**
  * Public Soma 2.0 landing. Mounted at `/` for anonymous visitors.
  */
 export function LandingV2Page() {
-  const { t } = useTranslation("landing-v2");
-  const [showIntro] = useState(shouldPlayLandingV2Intro);
+  const { t } = useTranslation(["landing-v2", "account"]);
+  const { sessionNotice } = useAuth();
+  const accountDeleted = sessionNotice === "account_deleted";
+  const [showIntro] = useState(
+    () => !accountDeleted && shouldPlayLandingV2Intro,
+  );
   const [introVisible, setIntroVisible] = useState(showIntro);
   const [introComplete, setIntroComplete] = useState(!showIntro);
   const playedIntro = useRef(showIntro);
@@ -44,6 +49,14 @@ export function LandingV2Page() {
       >
         <LandingV2Header />
         <main id="landing-v2-main" tabIndex={-1}>
+          {accountDeleted ? (
+            <p
+              className="mx-auto max-w-6xl px-4 pt-6 text-sm text-soma-ink sm:px-6"
+              role="status"
+            >
+              {t("delete.success", { ns: "account" })}
+            </p>
+          ) : null}
           <LandingV2Hero />
           <LandingV2Journey />
           <LandingV2Atlas />

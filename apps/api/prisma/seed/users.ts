@@ -1,5 +1,6 @@
 import type { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { assertDemoUserSeedAllowed } from "../../src/config/demo-user-seed.js";
 
 /**
  * Seeds a single demo user with a known credential set, useful for
@@ -13,8 +14,8 @@ import bcrypt from "bcrypt";
  * The user has staggered last-use dates across the four modeled
  * substances so the body diagram displays a varied recovery state.
  *
- * NOTE: This is development-only data. Production seeding must not
- * run this module.
+ * NOTE: This is development-only data. assertDemoUserSeedAllowed()
+ * refuses to create or update this row when NODE_ENV=production.
  */
 const SALT_ROUNDS = 10;
 const DAY_MS = 1000 * 60 * 60 * 24;
@@ -24,6 +25,8 @@ function daysAgo(days: number): Date {
 }
 
 export async function seedUsers(prisma: PrismaClient): Promise<void> {
+  assertDemoUserSeedAllowed();
+
   const hashedPassword = await bcrypt.hash("soma123", SALT_ROUNDS);
 
   const user = await prisma.user.upsert({

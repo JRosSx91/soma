@@ -62,10 +62,16 @@ function createService(users: {
     users as unknown as UsersService,
     jwtService as never,
     refreshSessions as unknown as RefreshSessionService,
+    { $transaction: async () => {
+      throw new Error("open-mode register must not open a transaction");
+    } } as never,
+    { claimUnused: async () => null, attachUser: async () => undefined } as never,
   );
 }
 
 test("register stores a normalized email and issues a refresh session", async () => {
+  const prevMode = process.env.AUTH_REGISTRATION_MODE;
+  process.env.AUTH_REGISTRATION_MODE = "open";
   const created: string[] = [];
   const service = createService({
     findByEmailInsensitive: async () => ({ status: "none" }),
@@ -87,9 +93,13 @@ test("register stores a normalized email and issues a refresh session", async ()
   assert.equal(result.user.email, "new.user@example.com");
   assert.ok(result.accessToken.startsWith("token:"));
   assert.equal(result.refresh.plaintext, "refresh-plain");
+  if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
+  else process.env.AUTH_REGISTRATION_MODE = prevMode;
 });
 
 test("register with existing email (any casing) throws AUTH_EMAIL_EXISTS", async () => {
+  const prevMode = process.env.AUTH_REGISTRATION_MODE;
+  process.env.AUTH_REGISTRATION_MODE = "open";
   const service = createService({
     findByEmailInsensitive: async () => ({
       status: "found",
@@ -112,6 +122,8 @@ test("register with existing email (any casing) throws AUTH_EMAIL_EXISTS", async
       return true;
     },
   );
+  if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
+  else process.env.AUTH_REGISTRATION_MODE = prevMode;
 });
 
 test("login accepts mixed-case and padded email against a legacy stored address", async () => {
@@ -178,4 +190,173 @@ test("login refuses authentication when multiple legacy rows collide", async () 
       return true;
     },
   );
+});
+
+function createDeleteService(tx: {
+  $queryRaw: () => Promise<{ id: string }[]>;
+  user: {
+    findUnique: (args: { where: { id: string } }) => Promise<FakeUser | null>;
+    delete: (args: { where: { id: string } }) => Promise<unknown>;
+  };
+  registrationInvite: {
+    deleteMany: (args: { where: { usedByUserId: string } }) => Promise<{ count: number }>;
+  };
+}) {
+  const jwtService = { sign: () => "unused" };
+  const refreshSessions = {
+    issueSession: async () => ({
+      plaintext: "refresh-plain",
+      familyId: "family-1",
+      expiresAt: new Date(Date.now() + 86_400_000),
+    }),
+    rotateSession: async () => ({
+      userId: "user-1",
+      session: {
+        plaintext: "refresh-rotated",
+        familyId: "family-1",
+        expiresAt: new Date(Date.now() + 86_400_000),
+      },
+    }),
+    revokeByPlaintext: async () => undefined,
+  };
+  return new AuthService(
+    {} as unknown as UsersService,
+    jwtService as never,
+    refreshSessions as unknown as RefreshSessionService,
+    {
+      $transaction: async (fn: (client: typeof tx) => Promise<void>) => fn(tx),
+    } as never,
+    { claimUnused: async () => null, attachUser: async () => undefined } as never,
+  );
+}
+
+test("deleteOwnAccount removes the invite then the user", async () => {
+  const user = fakeUser();
+  const ops: string[] = [];
+  const service = createDeleteService({
+    $queryRaw: async () => [{ id: user.id }],
+    user: {
+      findUnique: async () => user,
+      delete: async ({ where }) => {
+        ops.push(`user:${where.id}`);
+        return user;
+      },
+    },
+    registrationInvite: {
+      deleteMany: async ({ where }) => {
+        ops.push(`invite:${where.usedByUserId}`);
+        return { count: 1 };
+      },
+    },
+  });
+
+  await service.deleteOwnAccount(user.id, "password123");
+  assert.deepEqual(ops, [`invite:${user.id}`, `user:${user.id}`]);
+});
+
+test("deleteOwnAccount rejects a wrong password without deleting", async () => {
+  const user = fakeUser();
+  let deleted = false;
+  const service = createDeleteService({
+    $queryRaw: async () => [{ id: user.id }],
+    user: {
+      findUnique: async () => user,
+      delete: async () => {
+        deleted = true;
+        return user;
+      },
+    },
+    registrationInvite: {
+      deleteMany: async () => {
+        deleted = true;
+        return { count: 1 };
+      },
+    },
+  });
+
+  await assert.rejects(
+    () => service.deleteOwnAccount(user.id, "wrong-pass"),
+    (err: unknown) => {
+      assert.ok(err instanceof UnauthorizedException);
+      assert.equal(err.message, "Invalid credentials");
+      return true;
+    },
+  );
+  assert.equal(deleted, false);
+});
+
+test("deleteOwnAccount is unauthorized when the row is already gone", async () => {
+  const service = createDeleteService({
+    $queryRaw: async () => [],
+    user: {
+      findUnique: async () => null,
+      delete: async () => {
+        throw new Error("must not delete");
+      },
+    },
+    registrationInvite: {
+      deleteMany: async () => {
+        throw new Error("must not delete invites");
+      },
+    },
+  });
+
+  await assert.rejects(
+    () => service.deleteOwnAccount("user-1", "password123"),
+    UnauthorizedException,
+  );
+});
+
+test("deleteOwnAccount rolls back when user.delete fails", async () => {
+  const user = fakeUser();
+  const ops: string[] = [];
+  const service = new AuthService(
+    {} as unknown as UsersService,
+    { sign: () => "unused" } as never,
+    {
+      issueSession: async () => ({
+        plaintext: "x",
+        familyId: "f",
+        expiresAt: new Date(),
+      }),
+      rotateSession: async () => ({
+        userId: "user-1",
+        session: { plaintext: "x", familyId: "f", expiresAt: new Date() },
+      }),
+      revokeByPlaintext: async () => undefined,
+    } as unknown as RefreshSessionService,
+    {
+      $transaction: async (fn: (tx: unknown) => Promise<void>) => {
+        const tx = {
+          $queryRaw: async () => [{ id: user.id }],
+          user: {
+            findUnique: async () => user,
+            delete: async () => {
+              throw new Error("forced failure");
+            },
+          },
+          registrationInvite: {
+            deleteMany: async () => {
+              ops.push("invite");
+              return { count: 1 };
+            },
+          },
+        };
+        try {
+          await fn(tx);
+          ops.push("committed");
+        } catch (err) {
+          ops.push("rolled_back");
+          throw err;
+        }
+      },
+    } as never,
+    { claimUnused: async () => null, attachUser: async () => undefined } as never,
+  );
+
+  await assert.rejects(
+    () => service.deleteOwnAccount(user.id, "password123"),
+    /forced failure/,
+  );
+  assert.deepEqual(ops, ["invite", "rolled_back"]);
 });

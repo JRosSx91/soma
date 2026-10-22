@@ -48,3 +48,12 @@ export const AUTH_RESET_PASSWORD_THROTTLE = {
     60 * 60 * 1000,
   ),
 } as const;
+
+/** delete-account: 5 password attempts / 15 minutes / IP (default). */
+export const AUTH_DELETE_ACCOUNT_THROTTLE = {
+  limit: positiveInt(process.env.AUTH_DELETE_ACCOUNT_THROTTLE_LIMIT, 5),
+  ttl: positiveInt(
+    process.env.AUTH_DELETE_ACCOUNT_THROTTLE_TTL_MS,
+    15 * 60 * 1000,
+  ),
+} as const;

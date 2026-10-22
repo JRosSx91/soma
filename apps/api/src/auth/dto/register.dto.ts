@@ -37,4 +37,12 @@ export class RegisterDto {
   @Min(20)
   @Max(400)
   weightKg?: number;
+
+  /**
+   * Closed-beta invite plaintext. Optional in the DTO so open mode stays
+   * unchanged; invite mode enforces format in AuthService with a generic 403.
+   */
+  @IsOptional()
+  @IsString()
+  inviteToken?: string;
 }

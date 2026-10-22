@@ -10,6 +10,7 @@ import {
   type ProfileDetailsDraft,
   type ProfileDetailsFields,
 } from "../../profile/index.js";
+import { DeleteAccountSection } from "../../profile/components/DeleteAccountSection.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
@@ -375,6 +376,8 @@ export function AccountPage() {
           {t("editSubstances")}
         </Link>
       </section>
+
+      <DeleteAccountSection />
     </div>
   );
 }

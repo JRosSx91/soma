@@ -3,8 +3,11 @@ import { NestFactory } from "@nestjs/core";
 import { Logger, ValidationPipe } from "@nestjs/common";
 import cookieParser from "cookie-parser";
 import { AppModule } from "./app.module.js";
+import { assertSecureProductionEnv } from "./config/production-env.js";
 
 async function bootstrap() {
+  assertSecureProductionEnv(process.env);
+
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
@@ -41,4 +44,8 @@ async function bootstrap() {
   Logger.log(`CORS origin allowed: ${corsOrigin}`, "Bootstrap");
 }
 
-bootstrap();
+bootstrap().catch((err: unknown) => {
+  const message = err instanceof Error ? err.message : "bootstrap failed";
+  Logger.error(message, "Bootstrap");
+  process.exit(1);
+});
