@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { createElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
@@ -176,7 +177,25 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.match(html, /Create account/);
   assert.match(html, /type="email"/);
   assert.match(html, /href="\/login"/);
+  assert.match(html, /Confirm password/);
+  assert.match(html, /id="register-confirm-password"/);
+  assert.equal(
+    (html.match(/autocomplete="new-password"/gi) ?? []).length,
+    2,
+  );
   assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
+  assert.doesNotMatch(html, /show password|mostrar contraseña/i);
+});
+
+test("RegisterPage source clears password errors when the confirmation is edited", () => {
+  const source = readFileSync(
+    new URL("../../../pages/RegisterPage.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(source, /setConfirmPassword\(e\.target\.value\);\s*setError\(null\);/s);
+  assert.match(source, /setPassword\(e\.target\.value\);\s*setError\(null\);/s);
+  assert.match(source, /prepareRegisterCredentials/);
+  assert.match(source, /role="alert"/);
 });
 
 test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async () => {

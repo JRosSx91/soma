@@ -720,6 +720,14 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.match(home, /HeroFilaments/);
   assert.match(home, /fadeBottom/);
   assert.match(home, /lg:grid-cols-\[minmax\(0,3fr\)_minmax\(14rem,2fr\)\]/);
+  assert.equal(home.includes("h-24 w-[4.75rem]"), false);
+  assert.equal(home.includes("sm:h-28 sm:w-20 lg:hidden"), false);
+  assert.match(
+    home,
+    /h-\[min\(26rem,calc\(100dvh-14rem\)\)\] min-h-\[min\(16rem,calc\(100dvh-14rem\)\)\].*lg:hidden/,
+  );
+  assert.match(home, /absolute inset-0 z-\[1\]/);
+  assert.match(home, /hidden min-h-\[20rem\] overflow-hidden lg:block/);
   assert.equal(home.includes("publishedAdvice"), false);
   assert.equal(home.includes("showTierLabel"), false);
   assert.match(home, /pickNextLockedAchievement/);

@@ -254,9 +254,12 @@ function HomeStage({
   return (
     <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(14rem,2fr)]">
       <div className="flex min-w-0 flex-col gap-4">
-        <div className="flex items-start gap-3">
-          <HomeHeader demo={demo} message={message} />
-          <HeroFigure className="relative h-24 w-[4.75rem] shrink-0 sm:h-28 sm:w-20 lg:hidden" />
+        <HomeHeader demo={demo} message={message} />
+        <div
+          aria-hidden="true"
+          className="relative isolate h-[min(26rem,calc(100dvh-14rem))] min-h-[min(16rem,calc(100dvh-14rem))] w-full min-w-0 overflow-hidden lg:hidden"
+        >
+          <HeroFigure className="absolute inset-0 z-[1]" fadeBottom />
         </div>
         {children}
       </div>
