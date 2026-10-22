@@ -77,7 +77,14 @@ export function pickNextLockedAchievement(
   return candidates[0] ?? null;
 }
 
-/** Most recently unlocked achievement, if any. */
+const TIER_RANK: Record<AchievementWithUnlockState["tier"], number> = {
+  bronze: 0,
+  silver: 1,
+  gold: 2,
+  platinum: 3,
+};
+
+/** Highest unlocked tier; ties break on the most recent `unlockedAt`. */
 export function pickFeaturedUnlockedAchievement(
   rows: readonly AchievementWithUnlockState[] | null | undefined,
 ): AchievementWithUnlockState | null {
@@ -85,6 +92,8 @@ export function pickFeaturedUnlockedAchievement(
   const unlocked = rows.filter((row) => row.unlocked);
   if (unlocked.length === 0) return null;
   unlocked.sort((a, b) => {
+    const tierDelta = TIER_RANK[b.tier] - TIER_RANK[a.tier];
+    if (tierDelta !== 0) return tierDelta;
     const aTime = a.unlockedAt ? Date.parse(a.unlockedAt) : 0;
     const bTime = b.unlockedAt ? Date.parse(b.unlockedAt) : 0;
     return bTime - aTime;
