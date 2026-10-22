@@ -65,6 +65,48 @@ test("featured unlocked achievement prefers the latest unlock date", () => {
   assert.equal(pickFeaturedUnlockedAchievement([row({ id: "locked" })]), null);
 });
 
+test("featured unlocked achievement prefers the highest tier over a newer lower tier", () => {
+  const featured = pickFeaturedUnlockedAchievement([
+    row({
+      id: "silver-new",
+      tier: "silver",
+      unlocked: true,
+      unlockedAt: "2026-06-01T00:00:00.000Z",
+    }),
+    row({
+      id: "platinum-old",
+      tier: "platinum",
+      unlocked: true,
+      unlockedAt: "2026-01-01T00:00:00.000Z",
+    }),
+    row({
+      id: "gold",
+      tier: "gold",
+      unlocked: true,
+      unlockedAt: "2026-05-01T00:00:00.000Z",
+    }),
+  ]);
+  assert.equal(featured?.id, "platinum-old");
+});
+
+test("featured unlocked achievement breaks same-tier ties on unlockedAt", () => {
+  const featured = pickFeaturedUnlockedAchievement([
+    row({
+      id: "gold-old",
+      tier: "gold",
+      unlocked: true,
+      unlockedAt: "2026-01-01T00:00:00.000Z",
+    }),
+    row({
+      id: "gold-new",
+      tier: "gold",
+      unlocked: true,
+      unlockedAt: "2026-04-01T00:00:00.000Z",
+    }),
+  ]);
+  assert.equal(featured?.id, "gold-new");
+});
+
 test("percent toward a threshold is floored and not invented", () => {
   assert.equal(percentTowardThreshold(0.429), 42);
   assert.equal(percentTowardThreshold(1), 100);
@@ -148,6 +190,9 @@ test("home next-milestone fixture shows a locked calculable bar without preview 
 
   const home = readFileSync(new URL("../components/PreviewHome.tsx", import.meta.url), "utf8");
   assert.match(home, /nextProgress\.towardPercent/);
+  assert.match(home, /percent: nextProgress\.towardPercent/);
+  assert.equal(home.includes("nextProgress.currentPercent"), false);
+  assert.match(home, /homeNextMilestoneHint/);
   assert.match(home, /homeNextMilestoneProgress/);
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.equal(home.includes("demoAchievements"), false);

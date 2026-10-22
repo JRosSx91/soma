@@ -10,7 +10,7 @@
     "unlockedOn": "Unlocked on {{date}}",
     "lockedHint": "Reach {{percent}}% recovery in {{organ}}",
     "hiddenHint": "Hidden trophy",
-    "toastEyebrow": "NEW TROPHY",
+    "toastEyebrow": "NEW ACHIEVEMENT",
     "toastDismiss": "Dismiss",
     "toastDismissAll": "Mark all {{count}} as seen",
     "activeSubstanceHint": "Available when you stop using {{substance}}"

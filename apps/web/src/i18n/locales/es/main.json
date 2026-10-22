@@ -10,7 +10,7 @@
     "unlockedOn": "Conseguido el {{date}}",
     "lockedHint": "Alcanza {{percent}}% de recuperación en {{organ}}",
     "hiddenHint": "Trofeo oculto",
-    "toastEyebrow": "NUEVO TROFEO",
+    "toastEyebrow": "NUEVO LOGRO",
     "toastDismiss": "Descartar",
     "toastDismissAll": "Marcar los {{count}} como vistos",
     "activeSubstanceHint": "Disponible cuando dejes de consumir {{substance}}"

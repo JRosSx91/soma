@@ -1,8 +1,25 @@
 import { apiRequest } from "../../auth/client/api.js";
 import type { AchievementWithUnlockState } from "../types.js";
 
-export function fetchAchievements(): Promise<AchievementWithUnlockState[]> {
-  return apiRequest<AchievementWithUnlockState[]>("/me/achievements");
+let fetchInflight: {
+  userId: string | null;
+  promise: Promise<AchievementWithUnlockState[]>;
+} | null = null;
+
+export function fetchAchievements(
+  userId: string | null = null,
+): Promise<AchievementWithUnlockState[]> {
+  if (fetchInflight && fetchInflight.userId === userId) {
+    return fetchInflight.promise;
+  }
+
+  const promise = apiRequest<AchievementWithUnlockState[]>(
+    "/me/achievements",
+  ).finally(() => {
+    if (fetchInflight?.promise === promise) fetchInflight = null;
+  });
+  fetchInflight = { userId, promise };
+  return promise;
 }
 
 export function markAchievementsAsNotified(
@@ -12,4 +29,8 @@ export function markAchievementsAsNotified(
     method: "POST",
     body: { achievementIds },
   });
+}
+
+export function resetAchievementsClientForTests(): void {
+  fetchInflight = null;
 }

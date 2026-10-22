@@ -30,7 +30,7 @@ const primaryCta = `${previewFocus} inline-flex min-h-11 items-center justify-ce
 const textLink = `${previewFocus} inline-flex min-h-11 items-center gap-1 text-sm text-soma-action hover:text-soma-action-hover`;
 
 export function PreviewHome() {
-  const { t, i18n } = useTranslation(["recovery", "achievements"]);
+  const { t, i18n } = useTranslation(["recovery", "achievements", "substances"]);
   const { user } = useAuth();
   const base = useShellBase();
   const dashboard = usePreviewDashboard(null);
@@ -149,16 +149,21 @@ export function PreviewHome() {
               ) : null}
               <p className="mt-2 text-sm tabular-nums text-soma-ink">
                 {t("recovery:homeNextMilestoneProgress", {
-                  current: nextProgress.currentPercent,
-                  target: nextProgress.thresholdPercent,
+                  percent: nextProgress.towardPercent,
                 })}
               </p>
-              <span className="mt-2 block h-1.5 overflow-hidden rounded-full bg-soma-line" aria-hidden="true">
+              <span
+                className="mt-2 block h-1.5 overflow-hidden rounded-full bg-soma-line"
+                aria-hidden="true"
+              >
                 <span
                   className="block h-full rounded-full bg-soma-action"
                   style={{ width: `${nextProgress.towardPercent}%` }}
                 />
               </span>
+              <p className="mt-2 text-xs leading-relaxed text-soma-ink-muted">
+                {t("recovery:homeNextMilestoneHint")}
+              </p>
             </div>
           ) : (
             <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -326,7 +331,7 @@ function FeaturedAchievementCard({
   featuredDate: string | null;
   achievementsTo: string;
 }) {
-  const { t } = useTranslation(["recovery", "achievements"]);
+  const { t } = useTranslation(["recovery", "achievements", "substances"]);
   return (
     <section className="flex min-w-0 flex-col rounded-2xl border border-soma-line bg-soma-surface p-4 sm:p-5">
       <h2 className="text-base font-semibold text-soma-ink">{t("recovery:homeFeaturedTitle")}</h2>
@@ -342,6 +347,11 @@ function FeaturedAchievementCard({
           <div className="min-w-0">
             <p className="text-base font-semibold leading-snug text-soma-ink">
               {t(`achievements:${featured.titleKey}`)}
+            </p>
+            <p className="mt-1 text-sm text-soma-ink-secondary">
+              {t(`substances:${featured.triggerSubstanceId}.name`, {
+                defaultValue: featured.triggerSubstanceId,
+              })}
             </p>
             <p className="mt-2 inline-flex rounded-xl border border-soma-line bg-soma-canvas/50 px-3 py-1.5 text-xs text-soma-ink-secondary">
               {featuredDate

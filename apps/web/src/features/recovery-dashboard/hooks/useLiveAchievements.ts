@@ -34,7 +34,7 @@ export function useLiveAchievements(userId: string | null): LiveAchievementsStat
     setError(null);
     setLoading(true);
 
-    fetchAchievements()
+    fetchAchievements(userId)
       .then((data) => {
         if (!cancelled) setRows(data);
       })
