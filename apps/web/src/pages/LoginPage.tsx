@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
+import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
   AuthShell,
   authFieldClass,
@@ -249,12 +250,10 @@ export function LoginPage() {
             <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
               {t("login.password")}
             </label>
-            <input
-              type="password"
+            <AuthPasswordField
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={authFieldClass}
               autoComplete="current-password"
             />
             <p className="mt-2 text-right text-xs">

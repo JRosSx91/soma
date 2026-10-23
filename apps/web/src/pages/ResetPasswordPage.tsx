@@ -7,9 +7,9 @@ import {
   clearHeldPasswordResetToken,
   takePasswordResetToken,
 } from "../features/auth/lib/password-reset-validation.js";
+import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
   AuthShell,
-  authFieldClass,
   authLinkClass,
   authPrimaryButtonClass,
   authSubtitleClass,
@@ -92,13 +92,11 @@ export function ResetPasswordPage() {
                 <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
                   {t("resetPassword.newPassword")}
                 </label>
-                <input
-                  type="password"
+                <AuthPasswordField
                   required
                   minLength={8}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={authFieldClass}
                   autoComplete="new-password"
                 />
                 <p className="mt-1 text-xs text-soma-ink-muted">
@@ -110,13 +108,11 @@ export function ResetPasswordPage() {
                 <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
                   {t("resetPassword.confirmPassword")}
                 </label>
-                <input
-                  type="password"
+                <AuthPasswordField
                   required
                   minLength={8}
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
-                  className={authFieldClass}
                   autoComplete="new-password"
                 />
               </div>

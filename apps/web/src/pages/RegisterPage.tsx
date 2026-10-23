@@ -6,6 +6,7 @@ import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 import { takeRegistrationInviteToken } from "../features/auth/lib/registration-invite.js";
 import { prepareRegisterCredentials } from "../features/auth/lib/registration-passwords.js";
+import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
   AuthShell,
   authFieldClass,
@@ -126,9 +127,8 @@ export function RegisterPage() {
             >
               {t("register.password")}
             </label>
-            <input
+            <AuthPasswordField
               id="register-password"
-              type="password"
               required
               minLength={8}
               value={password}
@@ -136,7 +136,6 @@ export function RegisterPage() {
                 setPassword(e.target.value);
                 setError(null);
               }}
-              className={authFieldClass}
               autoComplete="new-password"
             />
             <p className="mt-1 text-xs text-soma-ink-muted">
@@ -151,9 +150,8 @@ export function RegisterPage() {
             >
               {t("register.confirmPassword")}
             </label>
-            <input
+            <AuthPasswordField
               id="register-confirm-password"
-              type="password"
               required
               minLength={8}
               value={confirmPassword}
@@ -161,7 +159,6 @@ export function RegisterPage() {
                 setConfirmPassword(e.target.value);
                 setError(null);
               }}
-              className={authFieldClass}
               autoComplete="new-password"
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? "register-password-error" : undefined}
