@@ -7,6 +7,7 @@ import { ResetPasswordPage } from "./pages/ResetPasswordPage.js";
 import { OnboardingPage } from "./pages/OnboardingPage.js";
 import { AchievementsPage } from "./pages/AchievementsPage.js";
 import { LandingV2Page } from "./features/landing-v2/LandingV2Page.js";
+import { NotFoundPage } from "./pages/NotFoundPage.js";
 import { PreviewShell } from "./features/recovery-dashboard/components/PreviewShell.js";
 import { PreviewHome } from "./features/recovery-dashboard/components/PreviewHome.js";
 import { RecoveryPage } from "./features/recovery-dashboard/pages/RecoveryPage.js";
@@ -80,14 +81,20 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/preview" element={<PreviewShell base="/preview" />}>
-          {soma2Pages}
+        <Route path="/preview">
+          <Route element={<PreviewShell base="/preview" />}>
+            {soma2Pages}
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         {/* Authenticated routes */}
         <Route element={<ProtectedLayout />}>
-          <Route path="/app" element={<PreviewShell base="/app" />}>
-            {soma2Pages}
+          <Route path="/app">
+            <Route element={<PreviewShell base="/app" />}>
+              {soma2Pages}
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
           <Route
             path="/app-legacy"
@@ -101,6 +108,7 @@ function App() {
           {/* Legacy Soma 1.0 achievements + toast-driven unlock surface */}
           <Route path="/achievements" element={<AchievementsPage />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

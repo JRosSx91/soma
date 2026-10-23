@@ -155,5 +155,14 @@
     "ctaSecondary": "Explorar la demo",
     "note": "Modelos educativos orientativos. No sustituyen una evaluación médica.",
     "tagline": "Understanding recovery, one day at a time."
+  },
+  "notFound": {
+    "eyebrow": "Señal interrumpida",
+    "code": "404",
+    "title": "Aquí se perdió el pulso.",
+    "body": "La página que buscas no existe, pero tu camino continúa.",
+    "ctaPrimary": "Volver al inicio",
+    "ctaSecondary": "Explorar la demo",
+    "metaTitle": "Soma — Pulso no encontrado"
   }
 }

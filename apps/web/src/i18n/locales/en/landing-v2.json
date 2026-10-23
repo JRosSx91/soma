@@ -155,5 +155,14 @@
     "ctaSecondary": "Explore the demo",
     "note": "Orientative educational models. They do not replace a medical evaluation.",
     "tagline": "Understanding recovery, one day at a time."
+  },
+  "notFound": {
+    "eyebrow": "Signal interrupted",
+    "code": "404",
+    "title": "This is where the pulse was lost.",
+    "body": "The page you are looking for does not exist, but your path continues.",
+    "ctaPrimary": "Back to home",
+    "ctaSecondary": "Explore the demo",
+    "metaTitle": "Soma — Pulse not found"
   }
 }
