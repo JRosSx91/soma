@@ -88,6 +88,9 @@ test("ResetPasswordPage renders form when token present and strips query", async
 
   assert.match(html, /Create a new password/);
   assert.match(html, /Update password/);
+  assert.equal((html.match(/type="password"/g) ?? []).length, 2);
+  assert.equal((html.match(/aria-label="Show password"/g) ?? []).length, 2);
+  assert.equal((html.match(/autocomplete="new-password"/gi) ?? []).length, 2);
   assert.match(html, /name="referrer"/);
   assert.match(html, /content="no-referrer"/);
   assert.equal(html.includes("tok_abcdefghijklmnopqrstuvwxyz0123"), false);
@@ -158,6 +161,8 @@ test("LoginPage links to forgot-password", async () => {
   assert.match(html, /Sign in/);
   assert.match(html, /type="email"/);
   assert.match(html, /type="password"/);
+  assert.match(html, /type="button"/);
+  assert.match(html, /aria-label="Show password"/);
 });
 
 test("RegisterPage still renders core fields (no regression)", async () => {
@@ -183,8 +188,9 @@ test("RegisterPage still renders core fields (no regression)", async () => {
     (html.match(/autocomplete="new-password"/gi) ?? []).length,
     2,
   );
+  assert.equal((html.match(/type="password"/g) ?? []).length, 2);
+  assert.equal((html.match(/aria-label="Show password"/g) ?? []).length, 2);
   assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
-  assert.doesNotMatch(html, /show password|mostrar contraseña/i);
 });
 
 test("RegisterPage source clears password errors when the confirmation is edited", () => {
