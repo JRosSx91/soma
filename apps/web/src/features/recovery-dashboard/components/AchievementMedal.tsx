@@ -46,6 +46,8 @@ interface AchievementMedalProps {
    */
   locked?: boolean;
   size?: "card" | "detail";
+  /** Defaults to the Spanish tier caption used on the achievements pages. */
+  showTierLabel?: boolean;
 }
 
 export function AchievementMedal({
@@ -54,9 +56,18 @@ export function AchievementMedal({
   sealed = false,
   locked = true,
   size = "card",
+  showTierLabel = true,
 }: AchievementMedalProps) {
   if (sealed) {
-    return <MedalMark tier={tier} substanceId={substanceId} sealed size={size} />;
+    return (
+      <MedalMark
+        tier={tier}
+        substanceId={substanceId}
+        sealed
+        size={size}
+        showTierLabel={showTierLabel}
+      />
+    );
   }
 
   const art = medalArt[`${substanceId}:${tier}` as MedalKey];
@@ -65,7 +76,12 @@ export function AchievementMedal({
   if (!art) {
     return (
       <span className={`w-full ${lockedTone}`}>
-        <MedalMark tier={tier} substanceId={substanceId} size={size} />
+        <MedalMark
+          tier={tier}
+          substanceId={substanceId}
+          size={size}
+          showTierLabel={showTierLabel}
+        />
       </span>
     );
   }
@@ -83,9 +99,11 @@ export function AchievementMedal({
         draggable={false}
         className={`${frame} w-full object-contain ${lockedTone}`}
       />
-      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">
-        {tierLabel[tier]}
-      </span>
+      {showTierLabel ? (
+        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">
+          {tierLabel[tier]}
+        </span>
+      ) : null}
     </span>
   );
 }

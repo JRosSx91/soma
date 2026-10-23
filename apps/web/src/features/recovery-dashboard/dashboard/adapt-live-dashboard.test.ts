@@ -729,7 +729,8 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.match(home, /absolute inset-0 z-\[1\]/);
   assert.match(home, /hidden min-h-\[20rem\] overflow-hidden lg:block/);
   assert.equal(home.includes("publishedAdvice"), false);
-  assert.equal(home.includes("showTierLabel"), false);
+  assert.match(home, /showTierLabel=\{false\}/);
+  assert.equal((home.match(/showTierLabel/g) ?? []).length, 1);
   assert.match(home, /pickNextLockedAchievement/);
   assert.match(home, /quantifiableAchievementProgress/);
   assert.match(home, /pickFeaturedUnlockedAchievement/);

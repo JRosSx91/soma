@@ -345,6 +345,7 @@ function FeaturedAchievementCard({
               substanceId={featured.triggerSubstanceId}
               tier={featured.tier}
               locked={false}
+              showTierLabel={false}
             />
           </span>
           <div className="min-w-0">
