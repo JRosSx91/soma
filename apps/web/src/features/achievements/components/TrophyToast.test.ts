@@ -51,6 +51,7 @@ test("TrophyToast uses Soma 2.0 medal art instead of the legacy trophy SVG", asy
   );
   assert.match(html, /cannabis-gold\.png/);
   assert.match(html, /Cannabis/);
+  assert.match(html, />Oro</);
   assert.match(html, /NUEVO LOGRO/);
   assert.equal(html.includes("viewBox=\"0 0 64 64\""), false);
   assert.equal(html.includes("soma-bg-elevated"), false);

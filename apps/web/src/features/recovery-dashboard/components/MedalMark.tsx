@@ -17,13 +17,21 @@ interface MedalMarkProps {
   /** Hides the substance plate. The tier silhouette and its name stay visible. */
   sealed?: boolean;
   size?: "card" | "detail";
+  /** Defaults to the Spanish tier caption used on the achievements pages. */
+  showTierLabel?: boolean;
 }
 
 /**
  * Four medal materials. Silhouette, engraving and the tier name distinguish
  * them; color is only one of those cues.
  */
-export function MedalMark({ tier, substanceId, sealed = false, size = "card" }: MedalMarkProps) {
+export function MedalMark({
+  tier,
+  substanceId,
+  sealed = false,
+  size = "card",
+  showTierLabel = true,
+}: MedalMarkProps) {
   const uid = useId().replace(/:/g, "");
   const frame = size === "detail" ? "h-52 sm:h-60" : "h-36 sm:h-40";
   return (
@@ -44,9 +52,11 @@ export function MedalMark({ tier, substanceId, sealed = false, size = "card" }: 
           </span>
         </span>
       </span>
-      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">
-        {tierLabel[tier]}
-      </span>
+      {showTierLabel ? (
+        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">
+          {tierLabel[tier]}
+        </span>
+      ) : null}
     </span>
   );
 }
