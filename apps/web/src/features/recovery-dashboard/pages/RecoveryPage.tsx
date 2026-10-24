@@ -97,6 +97,15 @@ export function RecoveryPage() {
     return dashboard.changes;
   }, [dashboard.changes, live, substance, system, tab]);
 
+  const tabOptions = useMemo(
+    () =>
+      recoveryTabs.map((item) => ({
+        id: item.id,
+        label: t(item.labelKey),
+      })),
+    [t],
+  );
+
   if (dashboard.loading) {
     return (
       <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
@@ -196,23 +205,10 @@ export function RecoveryPage() {
                   ))}
                 </select>
               </label>
-            ) : (
-              <p className="rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink">
-                {t("substanceSelectAll")}
-              </p>
-            )
+            ) : undefined
           }
         />
 
-        <SegmentedControl
-          label={t("recoveryViewLabel")}
-          value={tab}
-          options={recoveryTabs}
-          onChange={selectTab}
-        />
-      </div>
-
-      {tab !== "timeline" ? (
         <ul className={substanceGridClass(dashboard.substances.length)}>
           {dashboard.substances.map((item) => (
             <li key={item.id} className="min-w-0">
@@ -224,7 +220,14 @@ export function RecoveryPage() {
             </li>
           ))}
         </ul>
-      ) : null}
+
+        <SegmentedControl
+          label={t("recoveryViewLabel")}
+          value={tab}
+          options={tabOptions}
+          onChange={selectTab}
+        />
+      </div>
 
       {tab === "system" ? (
         dashboard.systems.length === 0 ? (

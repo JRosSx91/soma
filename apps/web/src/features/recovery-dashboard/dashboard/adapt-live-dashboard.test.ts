@@ -652,9 +652,9 @@ test("active consumption reports zero progress without inventing dates", () => {
     substanceId: null,
     now,
   });
-  assert.equal(model.substances[0]?.abstinence, "Activo");
+  assert.equal(model.substances[0]?.abstinence, "Consumo activo");
   assert.equal(model.substances[0]?.bar, 0);
-  assert.match(model.substances[0]?.phase ?? "", /Consumo activo/);
+  assert.match(model.substances[0]?.phase ?? "", /recuento de abstinencia/);
 });
 
 test("incomplete abstinence date stays empty instead of inventing recovery", () => {
@@ -675,8 +675,8 @@ test("incomplete abstinence date stays empty instead of inventing recovery", () 
     substanceId: null,
     now,
   });
-  assert.equal(model.substances[0]?.abstinence, "—");
-  assert.match(model.substances[0]?.phase ?? "", /fecha/);
+  assert.equal(model.substances[0]?.abstinence, "Fecha pendiente");
+  assert.match(model.substances[0]?.phase ?? "", /Añade la fecha/);
 });
 
 test("today marker stays on the canonical axis", () => {
@@ -742,6 +742,26 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(recovery, /EvolutionChart/);
   assert.match(recovery, /SubstanceCard/);
+});
+
+test("recovery time cards stay visible on every tab and omit the model bar", () => {
+  const recovery = readFileSync(new URL("../pages/RecoveryPage.tsx", import.meta.url), "utf8");
+  const card = readFileSync(
+    new URL("../components/SubstanceCard.tsx", import.meta.url),
+    "utf8",
+  );
+  const substanceCardIndex = recovery.indexOf("<SubstanceCard");
+  const tabsIndex = recovery.indexOf("<SegmentedControl");
+  const chartIndex = recovery.indexOf("<EvolutionChart");
+  assert.ok(substanceCardIndex > 0);
+  assert.ok(tabsIndex > substanceCardIndex);
+  assert.ok(chartIndex > tabsIndex);
+  assert.equal(recovery.includes('tab !== "timeline"'), false);
+  assert.equal(recovery.includes("substanceSelectAll"), false);
+  assert.match(recovery, /tab === "substance" \? \(/);
+  assert.equal(card.includes("substance.bar"), false);
+  assert.match(card, /text-3xl font-semibold tabular-nums/);
+  assert.match(card, /\/\\d\/\.test\(substance\.abstinence\)/);
 });
 
 test("/preview never wires live profile, achievements, or private identity", () => {

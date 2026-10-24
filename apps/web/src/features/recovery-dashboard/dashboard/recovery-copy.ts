@@ -95,7 +95,7 @@ export function recoveryCopyFromSource(
 }
 
 const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
-  unavailable: "—",
+  unavailable: "Fecha pendiente",
   today: "Hoy",
   day365: "día 365",
   axisStart: "Inicio",
@@ -111,16 +111,16 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
     "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta. No es una medición clínica.",
   dayOne: "1 día",
   daysMany: "{{count}} días",
-  activeShort: "Activo",
+  activeShort: "Consumo activo",
   pillActive: "Consumo activo de {{name}}",
   pillMissingDate: "{{name}}: fecha de último consumo ausente",
   pillAbstinent: "{{days}} sin {{name}}",
   todayWithDays: "{{today}} · {{days}}",
   todayWithDaysAndName: "{{today}} · {{days}} · {{name}}",
   phaseActive:
-    "Consumo activo. El avance de la trayectoria estimada no progresa mientras el consumo continúa.",
+    "No mostramos un recuento de abstinencia mientras el consumo siga registrado como activo.",
   phaseMissingDate:
-    "Falta la fecha de la última vez, así que no se puede calcular el avance de la trayectoria estimada.",
+    "Añade la fecha del último consumo para ver el tiempo transcurrido.",
   phaseNoCurves:
     "Esta sustancia no tiene curvas de trayectoria en el catálogo, así que no se muestra un porcentaje.",
   substancePhaseDefault: "Avance de la trayectoria estimada del catálogo Soma",
