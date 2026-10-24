@@ -312,7 +312,7 @@ test("multi-substance overlay hides Today and keeps checkpoint axis", () => {
   assert.equal(filtered.showToday, true);
   assert.match(filtered.todayLabel, /^Hoy · .+ · Cannabis$/);
   assert.equal(filtered.footnote, SPANISH_RECOVERY_COPY.liveFootnote);
-  assert.match(filtered.series[0]?.endLabel ?? "", /^Hoy · \d+%$/);
+  assert.match(filtered.series[0]?.endLabel ?? "", /^Hoy · \d+ % de la curva$/);
   assert.deepEqual([...filtered.axisLabels], [...overlay.axisLabels]);
   assert.equal(filtered.series[0]?.samples.length, LIVE_AXIS_DAYS.length);
 });
@@ -708,6 +708,9 @@ test("demo and live stay separated in the preview pages", () => {
   );
   assert.match(chart, /chart\.showToday && todayX != null/);
   assert.match(chart, /chartCaptionLiveOverlay/);
+  assert.match(chart, /t\("chartYAxis"\)/);
+  assert.match(chart, /t\("chartCurveNote"\)/);
+  assert.match(chart, /t\("chartOverview"\)/);
 });
 
 test("home daily summary does not repeat recovery analysis widgets", () => {
@@ -898,9 +901,9 @@ test("chart endLabel is today trajectory, not day-365 sample", () => {
     daysTo95Recovery: 365,
     recoveryCeiling: 0.9,
   }).curveProgress;
-  assert.match(cardio.endLabel, /^Hoy · \d+%/);
+  assert.match(cardio.endLabel, /^Hoy · \d+ % de la curva$/);
   assert.match(cardio.referenceAtYearLabel ?? "", /^día 365 · \d+%/);
-  assert.equal(cardio.endLabel, `Hoy · ${Math.round(today * 100)}%`);
+  assert.equal(cardio.endLabel, `Hoy · ${Math.round(today * 100)} % de la curva`);
   assert.equal(
     cardio.referenceAtYearLabel,
     `día 365 · ${Math.round(atYear * 100)}%`,
@@ -927,7 +930,7 @@ test("day 0 and >365 keep distinct today vs year labels", () => {
   });
   const cardio0 = day0.series.find((item) => item.id === "cardiovascular");
   assert.ok(cardio0);
-  assert.equal(cardio0.endLabel, "Hoy · 0%");
+  assert.equal(cardio0.endLabel, "Hoy · 0 % de la curva");
   assert.equal(day0.todayPosition, 0);
 
   const far = buildLiveChart({
@@ -1152,8 +1155,10 @@ test("spanish and english copy change labels without changing trajectory math", 
   const en = buildLiveDashboard({ ...shared, copy: ENGLISH_RECOVERY_COPY });
   assert.equal(es.substances[0]?.bar, en.substances[0]?.bar);
   assert.equal(es.chart.todayPosition, en.chart.todayPosition);
-  assert.match(es.chart.series[0]?.endLabel ?? "", /^Hoy · /);
-  assert.match(en.chart.series[0]?.endLabel ?? "", /^Today · /);
+  assert.match(es.chart.series[0]?.endLabel ?? "", /^Hoy · \d+ % de la curva$/);
+  assert.match(en.chart.series[0]?.endLabel ?? "", /^Today · \d+% of the curve$/);
+  assert.equal(es.chart.axisLabels[4], "365 días");
+  assert.equal(en.chart.axisLabels[4], "365 days");
   assert.match(es.substances[0]?.phase ?? "", /trayectoria estimada/i);
   assert.match(en.substances[0]?.phase ?? "", /Estimated trajectory/i);
   assert.notEqual(es.chart.footnote, en.chart.footnote);

@@ -20,6 +20,28 @@ test("spanish and english recovery bundles expose the same keys", () => {
   assert.equal(en.emptyTitle, "Your recovery journey");
   assert.equal(es.chartTitle, "Cómo puede evolucionar tu organismo");
   assert.equal(en.chartTitle, "How your body may recover");
+  assert.equal(es.chartYAxis, "Avance de la curva (%)");
+  assert.equal(en.chartYAxis, "Curve progress (%)");
+  assert.equal(es.chartOverview, "Todas las líneas");
+  assert.equal(en.chartOverview, "All lines");
+  assert.equal(es.axis1Year, "365 días");
+  assert.equal(en.axis1Year, "365 days");
+  assert.equal(
+    es.chartCurveNote,
+    "El porcentaje indica el avance de una curva educativa, no cuánto se ha recuperado tu organismo.",
+  );
+  assert.equal(
+    en.chartCurveNote,
+    "The percentage is educational curve progress, not how much your body has recovered.",
+  );
+  assert.equal(
+    fillRecoveryTemplate(es.todayCurveLegend, { today: "Hoy", percent: 46 }),
+    "Hoy · 46 % de la curva",
+  );
+  assert.equal(
+    fillRecoveryTemplate(en.todayCurveLegend, { today: "Today", percent: 46 }),
+    "Today · 46% of the curve",
+  );
 });
 
 test("recovery tabs keep internal ids and localize ES/EN labels", () => {
@@ -78,6 +100,8 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.equal(SPANISH_RECOVERY_COPY.unavailable, es.unavailable);
   assert.equal(SPANISH_RECOVERY_COPY.phaseActive, es.phaseActive);
   assert.equal(SPANISH_RECOVERY_COPY.phaseMissingDate, es.phaseMissingDate);
+  assert.equal(SPANISH_RECOVERY_COPY.todayCurveLegend, es.todayCurveLegend);
+  assert.equal(SPANISH_RECOVERY_COPY.axisLabels[4], "365 días");
   assert.match(es.liveFootnoteOverlay, /puntos de referencia/);
   assert.match(en.liveFootnoteOverlay, /checkpoints/);
   assert.notEqual(es.liveFootnote, es.liveFootnoteOverlay);

@@ -6,6 +6,7 @@ import {
   formatTrajectoryPercent,
   isCalculableProgress,
   modelCeilingPercent,
+  roundedCurvePercent,
 } from "./recovery-semantics.js";
 
 test("formatTrajectoryPercent rounds progressFraction only", () => {
@@ -23,6 +24,12 @@ test("NaN and Infinity are unavailable, not a fake 0%", () => {
   assert.equal(formatTrajectoryPercent(undefined), "—");
   assert.equal(isCalculableProgress(0), true);
   assert.equal(isCalculableProgress(Number.NaN), false);
+});
+
+test("roundedCurvePercent is display rounding only", () => {
+  assert.equal(roundedCurvePercent(0.46), 46);
+  assert.equal(roundedCurvePercent(0), 0);
+  assert.equal(roundedCurvePercent(1.2), 100);
 });
 
 test("today and day-365 labels stay distinct", () => {

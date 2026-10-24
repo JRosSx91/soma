@@ -20,6 +20,7 @@ export interface RecoveryDashboardCopy {
   pillAbstinent: string;
   todayWithDays: string;
   todayWithDaysAndName: string;
+  todayCurveLegend: string;
   phaseActive: string;
   phaseMissingDate: string;
   phaseNoCurves: string;
@@ -75,6 +76,7 @@ export function recoveryCopyFromSource(
     pillAbstinent: t("pillAbstinent"),
     todayWithDays: t("todayWithDays"),
     todayWithDaysAndName: t("todayWithDaysAndName"),
+    todayCurveLegend: t("todayCurveLegend"),
     phaseActive: t("phaseActive"),
     phaseMissingDate: t("phaseMissingDate"),
     phaseNoCurves: t("phaseNoCurves"),
@@ -102,11 +104,11 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   axis1Month: "1 mes",
   axis3Months: "3 meses",
   axis6Months: "6 meses",
-  axis1Year: "1 año",
+  axis1Year: "365 días",
   liveFootnote:
-    "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 1 año) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
+    "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 365 días) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
   liveFootnoteOverlay:
-    "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo (inicio a 1 año). No hay un «Hoy» único porque los días de abstinencia difieren entre sustancias. No es una medición clínica.",
+    "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo (inicio a 365 días). No hay un «Hoy» único porque los días de abstinencia difieren entre sustancias. No es una medición clínica.",
   demoFootnote:
     "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta. No es una medición clínica.",
   dayOne: "1 día",
@@ -117,6 +119,7 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   pillAbstinent: "{{days}} sin {{name}}",
   todayWithDays: "{{today}} · {{days}}",
   todayWithDaysAndName: "{{today}} · {{days}} · {{name}}",
+  todayCurveLegend: "{{today}} · {{percent}} % de la curva",
   phaseActive:
     "No mostramos un recuento de abstinencia mientras el consumo siga registrado como activo.",
   phaseMissingDate:

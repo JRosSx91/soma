@@ -22,6 +22,7 @@ import {
   formatTrajectoryPercent,
   isCalculableProgress,
   modelCeilingPercent,
+  roundedCurvePercent,
 } from "./recovery-semantics.js";
 
 /**
@@ -392,7 +393,10 @@ export function buildLiveChart(input: {
       samples,
       endLabel:
         todayProgress != null
-          ? formatLabeledPercent(copy.today, todayProgress)
+          ? fillRecoveryTemplate(copy.todayCurveLegend, {
+              today: copy.today,
+              percent: roundedCurvePercent(todayProgress),
+            })
           : "",
       referenceAtYearLabel: formatLabeledPercent(copy.day365, yearProgress),
       color: meta.seriesColor,
