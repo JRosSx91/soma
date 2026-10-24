@@ -22,6 +22,7 @@ import {
   formatTrajectoryPercent,
   isCalculableProgress,
   modelCeilingPercent,
+  roundedCurvePercent,
 } from "./recovery-semantics.js";
 
 /**
@@ -343,35 +344,45 @@ export function buildLiveChart(input: {
   };
 
   const curvesBySystem = new Map<BodySystem, CurveRef[]>();
+  const plottedSubstanceIds = new Set<string>();
   let referenceDays = 0;
   let referenceName = "";
 
   for (const usage of usages) {
     const substance = substancesById.get(usage.substanceId);
     if (!substance) continue;
-    const progress = substanceProgress(usage, substance, input.now);
-    if (usage.status === "abstinent" && usage.lastUseDate && progress.daysAbstinent >= referenceDays) {
-      referenceDays = progress.daysAbstinent;
-      referenceName = substanceDisplayName(usage.substanceId);
-    }
     if (usage.status === "active" || !usage.lastUseDate) continue;
 
+    const progress = substanceProgress(usage, substance, input.now);
+    const plotted: CurveRef[] = [];
     for (const curve of substance.recoveryCurves) {
       const system = normalizeSystem(curve.organ.system);
       if (!system || !SYSTEM_META[system]) continue;
-      const list = curvesBySystem.get(system) ?? [];
-      list.push({
+      plotted.push({
         system,
         shape: curve.shape,
         daysTo95Recovery: curve.daysTo95Recovery,
         recoveryCeiling: curve.recoveryCeiling,
       });
-      curvesBySystem.set(system, list);
+    }
+    if (plotted.length === 0) continue;
+
+    plottedSubstanceIds.add(usage.substanceId);
+    if (progress.daysAbstinent >= referenceDays) {
+      referenceDays = progress.daysAbstinent;
+      referenceName = substanceDisplayName(usage.substanceId);
+    }
+    for (const item of plotted) {
+      const list = curvesBySystem.get(item.system) ?? [];
+      list.push(item);
+      curvesBySystem.set(item.system, list);
     }
   }
 
-  const overlaySubstanceCount = new Set(usages.map((usage) => usage.substanceId)).size;
-  const showToday = Boolean(input.substanceId) || overlaySubstanceCount <= 1;
+  // «Hoy» follows substances that actually contribute a visible series,
+  // not profile rows skipped for active use or a missing last-use date.
+  const overlaySubstanceCount = plottedSubstanceIds.size;
+  const showToday = overlaySubstanceCount === 1;
 
   const series: DemoSeries[] = [];
   for (const [system, curves] of curvesBySystem) {
@@ -392,7 +403,10 @@ export function buildLiveChart(input: {
       samples,
       endLabel:
         todayProgress != null
-          ? formatLabeledPercent(copy.today, todayProgress)
+          ? fillRecoveryTemplate(copy.todayCurveLegend, {
+              today: copy.today,
+              percent: roundedCurvePercent(todayProgress),
+            })
           : "",
       referenceAtYearLabel: formatLabeledPercent(copy.day365, yearProgress),
       color: meta.seriesColor,
@@ -570,7 +584,11 @@ export function buildLiveDashboard(input: {
     input.usages.map((usage) => [usage.substanceId, usage] as const),
   );
 
-  /** Progress attributable to one substance on an organ (not the multi-substance worst). */
+  /**
+   * Progress attributable to one substance on an organ (not the multi-substance worst).
+   * Known limitation (separate incident): when filtering, `.find()` keeps the first
+   * matching curve row for that substance, not necessarily its worst curve.
+   */
   function contributionFor(
     state: OrganState,
     substanceId: string | null,
@@ -606,67 +624,160 @@ export function buildLiveDashboard(input: {
     };
   }
 
-  const systemWorst = new Map<BodySystem, number>();
+  type OrganViewKind = "ready" | "partial" | "mixed" | "active";
+
+  function usageAffectsOrgan(usage: ProfileUsage, organId: OrganId): boolean {
+    const substance = substancesById.get(usage.substanceId);
+    return Boolean(
+      substance?.recoveryCurves.some((curve) => curve.organId === organId),
+    );
+  }
+
+  /**
+   * Reconstructs coverage the hook omits (abstinent without lastUseDate).
+   * Unfiltered mixed/partial kinds are decided here; a substance filter stays
+   * that substance’s own row.
+   */
+  function organViewKind(state: OrganState, substanceId: string | null): OrganViewKind {
+    if (substanceId) {
+      const contrib = state.contributingSubstances.find(
+        (item) => item.substanceId === substanceId,
+      );
+      return contrib?.status === "active" ? "active" : "ready";
+    }
+
+    let hasActive = false;
+    let hasCalculable = false;
+    let hasMissingDate = false;
+    for (const usage of input.usages) {
+      if (!usageAffectsOrgan(usage, state.organId)) continue;
+      if (usage.status === "active") hasActive = true;
+      else if (!usage.lastUseDate) hasMissingDate = true;
+      else hasCalculable = true;
+    }
+    for (const item of state.contributingSubstances) {
+      if (item.status === "active") hasActive = true;
+      else hasCalculable = true;
+    }
+    if (hasActive && hasCalculable) return "mixed";
+    if (hasActive) return "active";
+    if (hasMissingDate && hasCalculable) return "partial";
+    return "ready";
+  }
+
+  type SystemAgg = {
+    worstDisplay: number | null;
+    hideCombined: boolean;
+    partial: boolean;
+  };
+  const systemAgg = new Map<BodySystem, SystemAgg>();
   for (const state of input.organStates.values()) {
     const system = organSystemById.get(state.organId);
     if (!system || !SYSTEM_META[system]) continue;
     const contrib = contributionFor(state, input.substanceId);
     if (!contrib) continue;
-    const previous = systemWorst.get(system);
-    if (previous === undefined || contrib.progressFraction < previous) {
-      systemWorst.set(system, contrib.progressFraction);
+    const kind = organViewKind(state, input.substanceId);
+    const previous = systemAgg.get(system) ?? {
+      worstDisplay: null,
+      hideCombined: false,
+      partial: false,
+    };
+    if (kind === "mixed") previous.hideCombined = true;
+    if (kind === "partial") previous.partial = true;
+    if (kind === "ready" || kind === "partial") {
+      if (
+        previous.worstDisplay === null ||
+        contrib.progressFraction < previous.worstDisplay
+      ) {
+        previous.worstDisplay = contrib.progressFraction;
+      }
     }
+    systemAgg.set(system, previous);
   }
 
-  const systems: DemoSystem[] = [...systemWorst.entries()]
-    .map(([system, progress]) => {
-      const meta = SYSTEM_META[system];
-      if (!meta) return null;
-      return {
+  const systems: DemoSystem[] = [];
+  for (const [system, agg] of systemAgg) {
+    const meta = SYSTEM_META[system];
+    if (!meta) continue;
+    if (agg.hideCombined) {
+      systems.push({
         id: meta.id,
         name: meta.name,
-        endLabel: formatTrajectoryPercent(progress),
+        endLabel: "",
+        statusLabel: copy.statusMixed,
         icon: meta.icon,
-      };
-    })
-    .filter((item): item is DemoSystem => item !== null)
-    .sort((a, b) => a.name.localeCompare(b.name, "es"));
+      });
+      continue;
+    }
+    if (agg.worstDisplay != null) {
+      systems.push({
+        id: meta.id,
+        name: meta.name,
+        endLabel: formatTrajectoryPercent(agg.worstDisplay),
+        hint: agg.partial ? copy.organEstimatePartial : undefined,
+        icon: meta.icon,
+      });
+      continue;
+    }
+    systems.push({
+      id: meta.id,
+      name: meta.name,
+      endLabel: "",
+      statusLabel: copy.statusActive,
+      icon: meta.icon,
+    });
+  }
+  systems.sort((a, b) => a.name.localeCompare(b.name, "es"));
 
   const organEntries = [...input.organStates.values()]
     .map((state) => {
       const contrib = contributionFor(state, input.substanceId);
       if (!contrib) return null;
-      return { state, contrib };
+      return { state, contrib, kind: organViewKind(state, input.substanceId) };
     })
     .filter(
-      (entry): entry is { state: OrganState; contrib: NonNullable<ReturnType<typeof contributionFor>> } =>
-        entry !== null,
+      (
+        entry,
+      ): entry is {
+        state: OrganState;
+        contrib: NonNullable<ReturnType<typeof contributionFor>>;
+        kind: OrganViewKind;
+      } => entry !== null,
     )
     .sort((a, b) => a.contrib.progressFraction - b.contrib.progressFraction)
     .slice(0, 3);
 
-  const changes: DemoChange[] = organEntries.map(({ state, contrib }) => {
+  const changes: DemoChange[] = organEntries.map(({ state, contrib, kind }) => {
     const system = organSystemById.get(state.organId);
     const meta = system ? SYSTEM_META[system] : null;
-    const status =
-      contrib.status === "active" ? copy.statusActive : copy.statusRecovering;
-    const pct = formatTrajectoryPercent(contrib.progressFraction);
     const organName = localizedOrganName(
       state.organId,
       state.organName,
       input.organLabel?.(state.organId, state.organName),
     );
+    const showPercent = kind === "ready" || kind === "partial";
+    const pct = showPercent
+      ? formatTrajectoryPercent(contrib.progressFraction)
+      : "";
+    const status =
+      kind === "mixed"
+        ? copy.statusMixed
+        : kind === "active"
+          ? copy.statusActive
+          : copy.statusRecovering;
     const body =
-      contrib.status === "active"
-        ? fillRecoveryTemplate(copy.organBodyActive, {
-            organ: organName,
-          })
-        : fillRecoveryTemplate(copy.organBodyAbstinent, {
-            organ: organName,
-            percent: pct,
-            days: formatDaysAbstinent(contrib.daysAbstinent, copy),
-            substance: substanceDisplayName(contrib.substanceId).toLowerCase(),
-          });
+      kind === "mixed"
+        ? copy.organBodyMixed
+        : kind === "active"
+          ? fillRecoveryTemplate(copy.organBodyActive, {
+              organ: organName,
+            })
+          : fillRecoveryTemplate(copy.organBodyAbstinent, {
+              organ: organName,
+              percent: pct,
+              days: formatDaysAbstinent(contrib.daysAbstinent, copy),
+              substance: substanceDisplayName(contrib.substanceId).toLowerCase(),
+            });
 
     return {
       id: state.organId,
@@ -678,6 +789,7 @@ export function buildLiveDashboard(input: {
       status,
       body,
       endLabel: pct,
+      note: kind === "partial" ? copy.organEstimatePartial : undefined,
     };
   });
 

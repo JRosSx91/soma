@@ -115,16 +115,19 @@ function ChartPlot({
         </g>
       ))}
       {axisLabels.map((label, index) => {
+        const last = axisLabels.length - 1;
         const x =
           axisLabels.length === 1
             ? pad.l + innerW / 2
-            : pad.l + (index / (axisLabels.length - 1)) * innerW;
+            : pad.l + (index / last) * innerW;
+        const textAnchor =
+          index === 0 ? "start" : index === last ? "end" : "middle";
         return (
           <text
             key={label}
             x={x}
             y={height - 6}
-            textAnchor="middle"
+            textAnchor={textAnchor}
             fill="rgb(var(--soma-ink-muted))"
             fontSize="11"
           >
@@ -188,8 +191,8 @@ function ChartPlot({
  * Evolution chart. Samples come from the dashboard view model
  * (demo snapshot or live curves via estimateCurve / computeRecovery).
  *
- * Accessible table: Hoy is elapsed-day advance; axis columns already
- * include the day-365 checkpoint as “1 year”, so that value is not
+ * Accessible table: Hoy is elapsed-day curve progress; axis columns already
+ * include the day-365 checkpoint as “365 days”, so that value is not
  * duplicated as a second day-365 column.
  */
 export function EvolutionChart({
@@ -202,14 +205,23 @@ export function EvolutionChart({
   const series = chart.series as readonly DemoSeries[];
 
   return (
-    <section className="rounded-2xl border border-soma-line bg-soma-surface p-4 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5 lg:px-3 lg:py-2">
+    <section
+      className="rounded-2xl border border-soma-line bg-soma-surface p-4 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5 lg:px-3 lg:py-2"
+      aria-describedby="recovery-chart-note"
+    >
       <div className="flex items-start justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <h2 className="text-base font-semibold text-soma-ink sm:text-lg lg:text-base">
             {t("chartTitle")}
           </h2>
           <p className="mt-1 text-xs text-soma-ink-muted sm:text-sm lg:mt-0.5 lg:text-xs">
             {t("chartSubtitle")}
+          </p>
+          <p
+            id="recovery-chart-note"
+            className="mt-2 max-w-2xl text-xs leading-snug text-soma-ink-secondary sm:text-sm lg:text-xs"
+          >
+            {t("chartCurveNote")}
           </p>
         </div>
         <label className="relative shrink-0">
@@ -244,6 +256,12 @@ export function EvolutionChart({
       ) : (
         <div className="mt-4 flex flex-col gap-4 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
           <div className="min-w-0 flex-1">
+            <p
+              id="recovery-chart-yaxis"
+              className="mb-1 text-[11px] font-medium text-soma-ink-muted"
+            >
+              {t("chartYAxis")}
+            </p>
             <ChartPlot
               plot={MOBILE_PLOT}
               seriesId={seriesId}
@@ -280,20 +298,20 @@ export function EvolutionChart({
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block text-soma-ink-secondary">{item.label}</span>
+                    {chart.showToday ? (
+                      <span className="mt-0.5 block text-[10px] font-medium leading-snug tabular-nums text-soma-ink">
+                        <span className="sr-only">
+                          {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+                        </span>
+                        {item.endLabel}
+                      </span>
+                    ) : null}
                     {item.referenceAtYearLabel ? (
-                      <span className="mt-0.5 block text-[10px] text-soma-ink-muted">
+                      <span className="mt-0.5 block text-[10px] leading-snug text-soma-ink-muted">
                         {item.referenceAtYearLabel}
                       </span>
                     ) : null}
                   </span>
-                  {chart.showToday ? (
-                    <span className="shrink-0 text-right font-medium tabular-nums text-soma-ink">
-                      <span className="sr-only">
-                        {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
-                      </span>
-                      {item.endLabel}
-                    </span>
-                  ) : null}
                 </li>
               );
             })}

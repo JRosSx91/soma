@@ -97,6 +97,15 @@ export function RecoveryPage() {
     return dashboard.changes;
   }, [dashboard.changes, live, substance, system, tab]);
 
+  const tabOptions = useMemo(
+    () =>
+      recoveryTabs.map((item) => ({
+        id: item.id,
+        label: t(item.labelKey),
+      })),
+    [t],
+  );
+
   if (dashboard.loading) {
     return (
       <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
@@ -196,23 +205,10 @@ export function RecoveryPage() {
                   ))}
                 </select>
               </label>
-            ) : (
-              <p className="rounded-xl border border-soma-line bg-soma-surface px-3 py-2 text-sm text-soma-ink">
-                {t("substanceSelectAll")}
-              </p>
-            )
+            ) : undefined
           }
         />
 
-        <SegmentedControl
-          label={t("recoveryViewLabel")}
-          value={tab}
-          options={recoveryTabs}
-          onChange={selectTab}
-        />
-      </div>
-
-      {tab !== "timeline" ? (
         <ul className={substanceGridClass(dashboard.substances.length)}>
           {dashboard.substances.map((item) => (
             <li key={item.id} className="min-w-0">
@@ -224,7 +220,14 @@ export function RecoveryPage() {
             </li>
           ))}
         </ul>
-      ) : null}
+
+        <SegmentedControl
+          label={t("recoveryViewLabel")}
+          value={tab}
+          options={tabOptions}
+          onChange={selectTab}
+        />
+      </div>
 
       {tab === "system" ? (
         dashboard.systems.length === 0 ? (
@@ -334,10 +337,17 @@ export function RecoveryPage() {
         <DetailSheet title={openChange.title} onClose={() => setOpenId(null)}>
           <p>{openChange.system}</p>
           <p className="mt-2">{openChange.body}</p>
-          <p className="mt-2 text-soma-ink">
-            {live ? t("estimateOrientative") : t("estimateSrDemo")} {openChange.endLabel}
-            {!live && demoMoments[openChange.id] ? ` · ${demoMoments[openChange.id]}` : ""}
-          </p>
+          {openChange.note ? <p className="mt-2">{openChange.note}</p> : null}
+          {openChange.endLabel || (!live && demoMoments[openChange.id]) ? (
+            <p className="mt-2 text-soma-ink">
+              {openChange.endLabel
+                ? `${live ? t("estimateOrientative") : t("estimateSrDemo")} ${openChange.endLabel}`
+                : null}
+              {!live && demoMoments[openChange.id]
+                ? `${openChange.endLabel ? " · " : ""}${demoMoments[openChange.id]}`
+                : ""}
+            </p>
+          ) : null}
         </DetailSheet>
       ) : null}
     </div>

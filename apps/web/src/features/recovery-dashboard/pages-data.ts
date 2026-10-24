@@ -134,10 +134,10 @@ export function anatomyCopy(systemName: string, tab: AnatomyTab): string {
 }
 
 export const recoveryTabs = [
-  { id: "general", label: "Vista general" },
-  { id: "substance", label: "Por sustancia" },
-  { id: "system", label: "Por sistema" },
-  { id: "timeline", label: "Cronología" },
+  { id: "general", labelKey: "tabAllSubstances" },
+  { id: "substance", labelKey: "tabBySubstance" },
+  { id: "system", labelKey: "tabBySystem" },
+  { id: "timeline", labelKey: "tabTimeline" },
 ] as const;
 
 export type RecoveryTab = (typeof recoveryTabs)[number]["id"];

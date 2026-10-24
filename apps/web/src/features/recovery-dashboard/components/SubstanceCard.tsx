@@ -9,49 +9,51 @@ interface SubstanceCardProps {
   onSelect: (id: string) => void;
 }
 
+/** Supporting copy for states without a day count. Dated cards omit model ceilings. */
+function substanceCardSupport(substance: DemoSubstance): string | null {
+  if (/\d/.test(substance.abstinence)) return null;
+  const phase = substance.phase.trim();
+  return phase.length > 0 ? phase : null;
+}
+
 export function SubstanceCard({
   substance,
   selected,
   onSelect,
 }: SubstanceCardProps) {
+  const support = substanceCardSupport(substance);
+  const accessibleName = support
+    ? `${substance.name}. ${substance.abstinence}. ${support}`
+    : `${substance.name}. ${substance.abstinence}.`;
+
   return (
     <button
       type="button"
       onClick={() => onSelect(substance.id)}
       aria-pressed={selected}
-      className={`${previewFocus} flex h-full w-full min-w-0 flex-col rounded-2xl border bg-soma-surface/90 px-3 py-2.5 text-left transition-colors hover:border-soma-line-strong hover:bg-soma-raised/60 ${
+      aria-label={accessibleName}
+      className={`${previewFocus} flex h-full w-full min-w-0 flex-col rounded-2xl border bg-soma-surface/90 px-3 py-3 text-left transition-colors hover:border-soma-line-strong hover:bg-soma-raised/60 ${
         selected
           ? "border-soma-action/80"
           : "border-soma-line"
       }`}
     >
-      <span className="flex shrink-0 items-start justify-between gap-3">
-        <span className="flex min-w-0 items-start gap-2">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-soma-canvas p-0.5 text-soma-action">
-            <SubstanceIllustration name={substance.id} iconClassName="h-3.5 w-3.5" />
-          </span>
-          <span className="min-w-0 pt-1 text-xs leading-snug text-soma-ink-secondary">
-            {substance.name}
-          </span>
+      <span className="flex min-w-0 items-center gap-2">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-soma-canvas p-0.5 text-soma-action">
+          <SubstanceIllustration name={substance.id} iconClassName="h-3.5 w-3.5" />
         </span>
-        <span className="shrink-0 text-xl font-semibold tabular-nums tracking-tight text-soma-ink">
-          {substance.abstinence}
+        <span className="min-w-0 text-sm font-medium leading-snug text-soma-ink">
+          {substance.name}
         </span>
       </span>
-      <span
-        className="mt-2 h-1 shrink-0 overflow-hidden rounded-full bg-soma-line"
-        aria-hidden="true"
-      >
-        <span
-          className="block h-full rounded-full bg-soma-action"
-          style={{ width: `${Math.round(substance.bar * 100)}%` }}
-        />
+      <span className="mt-2 text-3xl font-semibold tabular-nums tracking-tight text-soma-ink sm:text-4xl">
+        {substance.abstinence}
       </span>
-      <span className="mt-auto flex items-end justify-between gap-2 pt-1.5">
-        <span className="min-w-0 text-xs leading-snug text-soma-ink-muted">
-          {substance.phase}
-        </span>
-        <ChevronRight className="mb-px h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
+      {support ? (
+        <span className="mt-2 text-xs leading-snug text-soma-ink-muted">{support}</span>
+      ) : null}
+      <span className="mt-auto flex justify-end pt-2">
+        <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
       </span>
     </button>
   );

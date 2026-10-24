@@ -146,7 +146,10 @@ export interface DemoChange {
   title: string;
   status: string;
   body: string;
+  /** Trajectory percent when a single calculable estimate applies; otherwise empty. */
   endLabel: string;
+  /** Visible, accessible note when the estimate excludes other registered substances. */
+  note?: string;
   /** System glyph for demo cards. Live organ cards resolve a plate by `id`. */
   icon?: DemoOrganIcon;
 }
@@ -184,7 +187,12 @@ export const demoChanges: readonly DemoChange[] = [
 export interface DemoSystem {
   id: string;
   name: string;
+  /** Combined trajectory percent when honest; otherwise empty. */
   endLabel: string;
+  /** Status shown instead of a percent (mixed or active-only). */
+  statusLabel?: string;
+  /** Clarifies a percent that omits substances without a calculable date. */
+  hint?: string;
   icon: DemoOrganIcon;
 }
 

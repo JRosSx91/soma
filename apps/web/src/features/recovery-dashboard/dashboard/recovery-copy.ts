@@ -20,6 +20,7 @@ export interface RecoveryDashboardCopy {
   pillAbstinent: string;
   todayWithDays: string;
   todayWithDaysAndName: string;
+  todayCurveLegend: string;
   phaseActive: string;
   phaseMissingDate: string;
   phaseNoCurves: string;
@@ -32,8 +33,11 @@ export interface RecoveryDashboardCopy {
   confidenceLow: string;
   statusRecovering: string;
   statusActive: string;
+  statusMixed: string;
   organBodyAbstinent: string;
   organBodyActive: string;
+  organBodyMixed: string;
+  organEstimatePartial: string;
   organFallback: string;
   loadErrorLive: string;
 }
@@ -75,6 +79,7 @@ export function recoveryCopyFromSource(
     pillAbstinent: t("pillAbstinent"),
     todayWithDays: t("todayWithDays"),
     todayWithDaysAndName: t("todayWithDaysAndName"),
+    todayCurveLegend: t("todayCurveLegend"),
     phaseActive: t("phaseActive"),
     phaseMissingDate: t("phaseMissingDate"),
     phaseNoCurves: t("phaseNoCurves"),
@@ -87,40 +92,44 @@ export function recoveryCopyFromSource(
     confidenceLow: t("confidenceLow"),
     statusRecovering: t("statusRecovering"),
     statusActive: t("statusActive"),
+    statusMixed: t("statusMixed"),
     organBodyAbstinent: t("organBodyAbstinent"),
     organBodyActive: t("organBodyActive"),
+    organBodyMixed: t("organBodyMixed"),
+    organEstimatePartial: t("organEstimatePartial"),
     organFallback: t("organFallback"),
     loadErrorLive: t("loadErrorLive"),
   };
 }
 
 const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
-  unavailable: "—",
+  unavailable: "Fecha pendiente",
   today: "Hoy",
   day365: "día 365",
   axisStart: "Inicio",
   axis1Month: "1 mes",
   axis3Months: "3 meses",
   axis6Months: "6 meses",
-  axis1Year: "1 año",
+  axis1Year: "365 días",
   liveFootnote:
-    "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 1 año) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
+    "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 365 días) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
   liveFootnoteOverlay:
-    "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo (inicio a 1 año). No hay un «Hoy» único porque los días de abstinencia difieren entre sustancias. No es una medición clínica.",
+    "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo (inicio a 365 días). No hay un «Hoy» único porque los días de abstinencia difieren entre sustancias. No es una medición clínica.",
   demoFootnote:
     "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta. No es una medición clínica.",
   dayOne: "1 día",
   daysMany: "{{count}} días",
-  activeShort: "Activo",
+  activeShort: "Consumo activo",
   pillActive: "Consumo activo de {{name}}",
   pillMissingDate: "{{name}}: fecha de último consumo ausente",
   pillAbstinent: "{{days}} sin {{name}}",
   todayWithDays: "{{today}} · {{days}}",
   todayWithDaysAndName: "{{today}} · {{days}} · {{name}}",
+  todayCurveLegend: "{{today}} · {{percent}} % de la curva",
   phaseActive:
-    "Consumo activo. El avance de la trayectoria estimada no progresa mientras el consumo continúa.",
+    "No mostramos un recuento de abstinencia mientras el consumo siga registrado como activo.",
   phaseMissingDate:
-    "Falta la fecha de la última vez, así que no se puede calcular el avance de la trayectoria estimada.",
+    "Añade la fecha del último consumo para ver el tiempo transcurrido.",
   phaseNoCurves:
     "Esta sustancia no tiene curvas de trayectoria en el catálogo, así que no se muestra un porcentaje.",
   substancePhaseDefault: "Avance de la trayectoria estimada del catálogo Soma",
@@ -135,10 +144,15 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   confidenceLow: "baja",
   statusRecovering: "En trayectoria estimada",
   statusActive: "Consumo activo",
+  statusMixed: "Situación mixta",
   organBodyAbstinent:
     "{{organ}}: avance de la trayectoria estimada {{percent}} tras {{days}} sin {{substance}}. No equivale a una medición clínica.",
   organBodyActive:
-    "{{organ}}: el consumo activo mantiene el avance de la trayectoria estimada en 0 % para esta estimación.",
+    "{{organ}}: el consumo sigue registrado como activo, así que no mostramos un avance de curva para esta estimación.",
+  organBodyMixed:
+    "Hay sustancias con consumo activo y otras con abstinencia registrada. No mostramos un avance conjunto.",
+  organEstimatePartial:
+    "Esta estimación solo incluye las sustancias con una fecha de último consumo registrada y una trayectoria calculable.",
   organFallback: "Órgano",
   loadErrorLive: "No se han podido cargar tus datos de recuperación.",
 };

@@ -29,12 +29,17 @@ export function formatTrajectoryPercent(
   return `${pct}%`;
 }
 
-/** Compact “Hoy · 42%” / “Today · 42%” legend value. */
+/** Compact “Hoy · 42%” / “Today · 42%” checkpoint label (not the Today legend). */
 export function formatLabeledPercent(
   label: string,
   progressFraction: number | null | undefined,
 ): string {
   return `${label} · ${formatTrajectoryPercent(progressFraction)}`;
+}
+
+/** Integer percent for curve-legend templates. */
+export function roundedCurvePercent(progressFraction: number): number {
+  return Math.round(clamp01(progressFraction) * 100);
 }
 
 /** Rounded ceiling percent, or null when unknown / full (~1) / non-positive. */

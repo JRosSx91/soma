@@ -52,10 +52,17 @@ export function RecentChangeCard({
             <span className="mt-2 text-xs leading-relaxed text-soma-ink-secondary">
               {change.body}
             </span>
-            <span className="mt-3 text-right text-sm font-medium tabular-nums text-soma-ink">
-              <span className="sr-only">{estimateSr}</span>
-              {change.endLabel}
-            </span>
+            {change.note ? (
+              <span className="mt-2 text-xs leading-relaxed text-soma-ink-muted">
+                {change.note}
+              </span>
+            ) : null}
+            {change.endLabel ? (
+              <span className="mt-3 text-right text-sm font-medium tabular-nums text-soma-ink">
+                <span className="sr-only">{estimateSr}</span>
+                {change.endLabel}
+              </span>
+            ) : null}
           </>
         ) : (
           <>
@@ -72,14 +79,21 @@ export function RecentChangeCard({
               <span className="min-w-0 text-sm font-semibold leading-snug text-soma-ink">
                 {change.title}
               </span>
-              <span className="shrink-0 text-sm font-medium tabular-nums text-soma-ink">
-                <span className="sr-only">{estimateSr}</span>
-                {change.endLabel}
-              </span>
+              {change.endLabel ? (
+                <span className="shrink-0 text-sm font-medium tabular-nums text-soma-ink">
+                  <span className="sr-only">{estimateSr}</span>
+                  {change.endLabel}
+                </span>
+              ) : null}
             </span>
             <span className="mt-1 min-w-0 flex-1 text-xs leading-snug text-soma-ink-secondary">
               {change.body}
             </span>
+            {change.note ? (
+              <span className="mt-1 text-xs leading-snug text-soma-ink-muted">
+                {change.note}
+              </span>
+            ) : null}
           </>
         )}
       </span>

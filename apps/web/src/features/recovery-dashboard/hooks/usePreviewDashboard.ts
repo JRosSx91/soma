@@ -26,7 +26,10 @@ import {
   recoveryCopyFromSource,
   type RecoveryDashboardCopy,
 } from "../dashboard/recovery-copy.js";
-import { formatLabeledPercent } from "../dashboard/recovery-semantics.js";
+import {
+  formatLabeledPercent,
+  roundedCurvePercent,
+} from "../dashboard/recovery-semantics.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { useLiveProfile } from "./useLiveProfile.js";
 
@@ -78,16 +81,25 @@ function demoChart(copy: RecoveryDashboardCopy): DashboardChartView {
       days: formatDaysAbstinent(42, copy),
     }),
     showToday: true,
-    series: demoSeries.map((item) => ({
-      ...item,
-      endLabel: formatLabeledPercent(copy.today, percentFromLabel(item.endLabel)),
-      referenceAtYearLabel: item.referenceAtYearLabel
-        ? formatLabeledPercent(
-            copy.day365,
-            percentFromLabel(item.referenceAtYearLabel),
-          )
-        : undefined,
-    })),
+    series: demoSeries.map((item) => {
+      const todayShare = percentFromLabel(item.endLabel);
+      return {
+        ...item,
+        endLabel:
+          todayShare == null
+            ? item.endLabel
+            : fillRecoveryTemplate(copy.todayCurveLegend, {
+                today: copy.today,
+                percent: roundedCurvePercent(todayShare),
+              }),
+        referenceAtYearLabel: item.referenceAtYearLabel
+          ? formatLabeledPercent(
+              copy.day365,
+              percentFromLabel(item.referenceAtYearLabel),
+            )
+          : undefined,
+      };
+    }),
     footnote: copy.demoFootnote,
   };
 }
