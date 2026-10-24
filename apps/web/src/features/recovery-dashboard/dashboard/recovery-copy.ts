@@ -114,9 +114,9 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   liveFootnote:
     "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 365 días) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
   liveFootnoteOverlay:
-    "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo (inicio a 365 días). No hay un «Hoy» único porque los días de abstinencia difieren entre sustancias. No es una medición clínica.",
+    "Cada sustancia tiene su propio recuento de días. Por eso mostramos las curvas por separado, sin un único «hoy».",
   demoFootnote:
-    "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta. No es una medición clínica.",
+    "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta.",
   dayOne: "1 día",
   daysMany: "{{count}} días",
   activeShort: "Consumo activo",
