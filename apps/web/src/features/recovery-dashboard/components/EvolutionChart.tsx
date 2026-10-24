@@ -18,11 +18,11 @@ interface PlotGeometry {
   pad: { l: number; r: number; t: number; b: number };
 }
 
-/** Mobile plot: tall enough for the stacked legend without a fixed card height. */
+/** Mobile plot. Padding is visual only; samples stay on the same 0–1 mapping. */
 const MOBILE_PLOT: PlotGeometry = {
   width: 640,
-  height: 250,
-  pad: { l: 40, r: 8, t: 28, b: 28 },
+  height: 220,
+  pad: { l: 36, r: 6, t: 22, b: 22 },
 };
 
 /** Wide laptop plot. Same samples, viewBox matched to a 180px frame. */
@@ -63,6 +63,20 @@ function smoothPath(samples: readonly number[], plot: PlotGeometry): string {
     path += ` C ${mid.toFixed(1)} ${start.y.toFixed(1)}, ${mid.toFixed(1)} ${end.y.toFixed(1)}, ${end.x.toFixed(1)} ${end.y.toFixed(1)}`;
   }
   return path;
+}
+
+/** Compact legend figure from the view model. Never uses day 365 when Hoy is shown. */
+function compactLegendPercent(item: DemoSeries, showToday: boolean): string {
+  if (showToday) {
+    const match = item.endLabel.match(/(\d+)\s*%/);
+    return match ? `${match[1]} %` : "";
+  }
+  const yearSample = item.samples[item.samples.length - 1];
+  if (typeof yearSample === "number") {
+    return formatTrajectoryPercent(yearSample);
+  }
+  const match = item.referenceAtYearLabel?.match(/(\d+)\s*%/);
+  return match ? `${match[1]} %` : "";
 }
 
 function gridY(fraction: number, plot: PlotGeometry): number {
@@ -206,32 +220,26 @@ export function EvolutionChart({
 
   return (
     <section
-      className="rounded-2xl border border-soma-line bg-soma-surface p-4 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5 lg:px-3 lg:py-2"
+      className="rounded-2xl border border-soma-line bg-soma-surface p-3 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5 lg:px-3 lg:py-2"
       aria-describedby="recovery-chart-note"
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col gap-2.5 lg:flex-row lg:items-start lg:justify-between lg:gap-3">
         <div className="min-w-0">
-          <h2 className="text-base font-semibold text-soma-ink sm:text-lg lg:text-base">
+          <h2 className="text-base font-semibold leading-snug text-soma-ink sm:text-lg lg:text-base">
             {t("chartTitle")}
           </h2>
-          <p className="mt-1 text-xs text-soma-ink-muted sm:text-sm lg:mt-0.5 lg:text-xs">
+          <p className="mt-1 text-xs leading-snug text-soma-ink-muted sm:text-sm lg:mt-0.5 lg:text-xs">
             {t("chartSubtitle")}
           </p>
-          <p
-            id="recovery-chart-note"
-            className="mt-2 max-w-2xl text-xs leading-snug text-soma-ink-secondary sm:text-sm lg:text-xs"
-          >
-            {t("chartCurveNote")}
-          </p>
         </div>
-        <label className="relative shrink-0">
+        <label className="relative w-full lg:w-auto lg:shrink-0">
           <span className="sr-only">
             {live ? t("chartSeriesLive") : t("chartSeriesDemo")}
           </span>
           <select
             value={seriesId}
             onChange={(event) => onSeries(event.target.value)}
-            className={`${previewFocus} appearance-none rounded-lg border border-soma-line bg-soma-canvas py-1.5 pl-3 pr-8 text-xs text-soma-ink`}
+            className={`${previewFocus} w-full appearance-none rounded-lg border border-soma-line bg-soma-canvas py-1.5 pl-3 pr-8 text-xs text-soma-ink lg:w-auto`}
           >
             <option value="general">{t("chartOverview")}</option>
             {series.map((item) => (
@@ -254,11 +262,11 @@ export function EvolutionChart({
           {t("chartEmpty")}
         </p>
       ) : (
-        <div className="mt-4 flex flex-col gap-4 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
+        <div className="mt-3 flex flex-col gap-3 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
           <div className="min-w-0 flex-1">
             <p
               id="recovery-chart-yaxis"
-              className="mb-1 text-[11px] font-medium text-soma-ink-muted"
+              className="mb-0.5 text-[11px] font-medium text-soma-ink-muted"
             >
               {t("chartYAxis")}
             </p>
@@ -266,7 +274,7 @@ export function EvolutionChart({
               plot={MOBILE_PLOT}
               seriesId={seriesId}
               chart={chart}
-              className="h-52 w-full sm:h-60 lg:hidden"
+              className="h-48 w-full sm:h-56 lg:hidden"
             />
             <ChartPlot
               plot={DESKTOP_PLOT}
@@ -280,44 +288,79 @@ export function EvolutionChart({
               chart={chart}
               className="hidden h-[10.25rem] w-full xl:block"
             />
-            <p className="mt-2 text-[11px] text-soma-ink-muted lg:mt-0.5">{chart.footnote}</p>
           </div>
 
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex lg:w-52 lg:shrink-0 lg:flex-col lg:justify-center lg:gap-1">
-            {series.map((item) => {
-              const dimmed = seriesId !== "general" && seriesId !== item.id;
-              return (
-                <li
-                  key={item.id}
-                  className={`flex items-start gap-2 text-xs ${dimmed ? "opacity-40" : ""}`}
-                >
-                  <span
-                    className="mt-1.5 h-2 w-2 shrink-0 rounded-full"
-                    style={{ backgroundColor: item.color }}
-                    aria-hidden="true"
-                  />
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-soma-ink-secondary">{item.label}</span>
-                    {chart.showToday ? (
-                      <span className="mt-0.5 block text-[10px] font-medium leading-snug tabular-nums text-soma-ink">
-                        <span className="sr-only">
-                          {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+          <div className="lg:w-52 lg:shrink-0">
+            <p className="mb-1.5 text-[10px] leading-snug text-soma-ink-muted lg:hidden">
+              {chart.showToday
+                ? live
+                  ? t("legendTodayHintLive")
+                  : t("legendTodayHintDemo")
+                : t("legendYearHint")}
+            </p>
+            <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:flex lg:flex-col lg:justify-center lg:gap-1">
+              {series.map((item) => {
+                const dimmed = seriesId !== "general" && seriesId !== item.id;
+                const compact = compactLegendPercent(item, chart.showToday);
+                return (
+                  <li
+                    key={item.id}
+                    className={`flex items-center gap-2 text-xs lg:items-start ${dimmed ? "opacity-40" : ""}`}
+                  >
+                    <span
+                      className="h-2 w-2 shrink-0 rounded-full lg:mt-1.5"
+                      style={{ backgroundColor: item.color }}
+                      aria-hidden="true"
+                    />
+                    <span className="flex min-w-0 flex-1 items-baseline justify-between gap-3 lg:block">
+                      <span className="min-w-0 truncate text-soma-ink-secondary lg:block">
+                        {item.label}
+                      </span>
+                      {compact ? (
+                        <span className="shrink-0 text-xs font-medium tabular-nums text-soma-ink lg:hidden">
+                          <span className="sr-only">
+                            {chart.showToday
+                              ? live
+                                ? t("legendTodaySrLive")
+                                : t("legendTodaySrDemo")
+                              : t("legendYearHint")}
+                          </span>
+                          {compact}
                         </span>
-                        {item.endLabel}
-                      </span>
-                    ) : null}
-                    {item.referenceAtYearLabel ? (
-                      <span className="mt-0.5 block text-[10px] leading-snug text-soma-ink-muted">
-                        {item.referenceAtYearLabel}
-                      </span>
-                    ) : null}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+                      ) : null}
+                      {chart.showToday ? (
+                        <span className="mt-0.5 hidden text-[10px] font-medium leading-snug tabular-nums text-soma-ink lg:block">
+                          <span className="sr-only">
+                            {live ? t("legendTodaySrLive") : t("legendTodaySrDemo")}
+                          </span>
+                          {item.endLabel}
+                        </span>
+                      ) : null}
+                      {item.referenceAtYearLabel ? (
+                        <span className="mt-0.5 hidden text-[10px] leading-snug text-soma-ink-muted lg:block">
+                          {item.referenceAtYearLabel}
+                        </span>
+                      ) : null}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       )}
+
+      <div className="mt-2.5 space-y-1.5">
+        <p
+          id="recovery-chart-note"
+          className="max-w-2xl text-xs leading-snug text-soma-ink-secondary sm:text-sm lg:text-xs"
+        >
+          {t("chartCurveNote")}
+        </p>
+        {series.length > 0 ? (
+          <p className="text-[11px] leading-snug text-soma-ink-muted">{chart.footnote}</p>
+        ) : null}
+      </div>
 
       {series.length > 0 ? (
         <div className="sr-only" style={{ contain: "strict" }}>

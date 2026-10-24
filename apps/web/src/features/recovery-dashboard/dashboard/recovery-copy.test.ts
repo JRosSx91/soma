@@ -18,21 +18,29 @@ test("spanish and english recovery bundles expose the same keys", () => {
   const en = enRecovery as Record<string, string>;
   assert.equal(es.emptyTitle, "Tu recorrido de recuperación");
   assert.equal(en.emptyTitle, "Your recovery journey");
-  assert.equal(es.chartTitle, "Cómo puede evolucionar tu organismo");
-  assert.equal(en.chartTitle, "How your body may recover");
-  assert.equal(es.chartYAxis, "Avance de la curva (%)");
-  assert.equal(en.chartYAxis, "Curve progress (%)");
-  assert.equal(es.chartOverview, "Todas las líneas");
-  assert.equal(en.chartOverview, "All lines");
+  assert.equal(es.chartTitle, "Cómo podría evolucionar tu recuperación");
+  assert.equal(en.chartTitle, "How your recovery may unfold");
+  assert.equal(es.chartYAxis, "Evolución estimada (%)");
+  assert.equal(en.chartYAxis, "Estimated curve progress (%)");
+  assert.equal(es.chartOverview, "Ver todos los sistemas");
+  assert.equal(en.chartOverview, "View all systems");
   assert.equal(es.axis1Year, "365 días");
   assert.equal(en.axis1Year, "365 days");
   assert.equal(
     es.chartCurveNote,
-    "El porcentaje indica el avance de una curva educativa, no cuánto se ha recuperado tu organismo.",
+    "Los porcentajes indican el avance de cada curva orientativa, no cuánto se ha recuperado tu organismo.",
   );
   assert.equal(
     en.chartCurveNote,
-    "The percentage is educational curve progress, not how much your body has recovered.",
+    "Percentages show progress along each illustrative curve, not how much your body has recovered.",
+  );
+  assert.equal(
+    es.chartSubtitle,
+    "Este gráfico muestra cómo podría avanzar tu recuperación con el tiempo. Es orientativo, no una medición de tu salud.",
+  );
+  assert.equal(
+    en.chartSubtitle,
+    "This chart shows how your recovery might progress over time. It is illustrative, not a measurement of your health.",
   );
   assert.equal(
     fillRecoveryTemplate(es.todayCurveLegend, { today: "Hoy", percent: 46 }),
@@ -124,7 +132,15 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.equal(SPANISH_RECOVERY_COPY.phaseMissingDate, es.phaseMissingDate);
   assert.equal(SPANISH_RECOVERY_COPY.todayCurveLegend, es.todayCurveLegend);
   assert.equal(SPANISH_RECOVERY_COPY.axisLabels[4], "365 días");
-  assert.match(es.liveFootnoteOverlay, /puntos de referencia/);
-  assert.match(en.liveFootnoteOverlay, /checkpoints/);
+  assert.match(es.liveFootnoteOverlay, /sin un único «hoy»/);
+  assert.match(en.liveFootnoteOverlay, /without a single “today”/);
   assert.notEqual(es.liveFootnote, es.liveFootnoteOverlay);
+  assert.match(es.demoFootnote, /demostración/);
+  assert.match(en.demoFootnote, /Demonstration/);
+  assert.match(es.liveFootnote, /días reales/);
+  assert.match(en.liveFootnote, /real days/);
+  assert.doesNotMatch(es.demoFootnote, /medición clínica/);
+  assert.doesNotMatch(en.demoFootnote, /clinical measurement/);
+  assert.doesNotMatch(es.liveFootnoteOverlay, /medición clínica/);
+  assert.doesNotMatch(en.liveFootnoteOverlay, /clinical measurement/);
 });
