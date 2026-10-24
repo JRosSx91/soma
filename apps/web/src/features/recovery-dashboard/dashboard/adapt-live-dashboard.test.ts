@@ -717,6 +717,11 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.equal(home.includes("SystemTile"), false);
   assert.equal(home.includes("RecentChangeCard"), false);
   assert.match(home, /HeroFigure/);
+  const hero = readFileSync(
+    new URL("../components/HeroFigure.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.equal(hero.includes("-scale-x-100"), false);
   assert.match(home, /HeroFilaments/);
   assert.match(home, /fadeBottom/);
   assert.match(home, /lg:grid-cols-\[minmax\(0,3fr\)_minmax\(14rem,2fr\)\]/);
@@ -724,7 +729,7 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.equal(home.includes("sm:h-28 sm:w-20 lg:hidden"), false);
   assert.match(
     home,
-    /h-\[min\(26rem,calc\(100dvh-14rem\)\)\] min-h-\[min\(16rem,calc\(100dvh-14rem\)\)\].*lg:hidden/,
+    /h-\[min\(17\.5rem,calc\(\(100vw-2rem\)\*0\.932\),calc\(100dvh-16rem\)\)\].*lg:hidden/,
   );
   assert.match(home, /absolute inset-0 z-\[1\]/);
   assert.match(home, /hidden min-h-\[20rem\] overflow-hidden lg:block/);

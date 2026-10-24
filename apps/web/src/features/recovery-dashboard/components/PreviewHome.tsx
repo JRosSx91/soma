@@ -257,7 +257,7 @@ function HomeStage({
         <HomeHeader demo={demo} message={message} />
         <div
           aria-hidden="true"
-          className="relative isolate h-[min(26rem,calc(100dvh-14rem))] min-h-[min(16rem,calc(100dvh-14rem))] w-full min-w-0 overflow-hidden lg:hidden"
+          className="relative isolate h-[min(17.5rem,calc((100vw-2rem)*0.932),calc(100dvh-16rem))] w-full min-w-0 overflow-hidden lg:hidden"
         >
           <HeroFigure className="absolute inset-0 z-[1]" fadeBottom />
         </div>
