@@ -30,7 +30,7 @@
   "estimateSrLive": "Orientative catalog estimate: estimated trajectory advance ",
   "estimateSrDemo": "Demonstration estimate ",
   "liveFootnote": "Estimated trajectory from the Soma catalog. “Today” uses real days since the recorded last-use date; the axis marks (1 month to 365 days) are model checkpoints, not a clinical prediction or the end of recovery.",
-  "liveFootnoteOverlay": "Each substance has its own day count. That is why we show the curves separately, without a single “today”.",
+  "liveFootnoteOverlay": "Each substance has a different number of days since last use, so we can't show a single ‘today’ on the chart.",
   "chartCaptionLiveOverlay": "Comparative Soma catalog trajectory at model checkpoints. Does not equal a clinical measurement. There is no Today column because abstinence days differ by substance; the 365 days column is the day-365 checkpoint.",
   "demoFootnote": "Demonstration values. “Today” is a fictional mockup position and does not use account data.",
   "dayOne": "1 day",

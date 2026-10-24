@@ -294,7 +294,7 @@ test("multi-substance overlay hides Today and keeps checkpoint axis", () => {
   assert.equal(overlay.todayLabel, "");
   assert.equal(overlay.footnote, SPANISH_RECOVERY_COPY.liveFootnoteOverlay);
   assert.doesNotMatch(overlay.footnote, /«Hoy» usa los días reales/);
-  assert.match(overlay.footnote, /sin un único «hoy»/);
+  assert.match(overlay.footnote, /un único «hoy»/);
   assert.ok(overlay.series.length > 0);
   for (const series of overlay.series) {
     assert.equal(series.endLabel, "");
@@ -720,6 +720,9 @@ test("demo and live stay separated in the preview pages", () => {
   assert.match(chart, /t\("chartYAxis"\)/);
   assert.match(chart, /t\("chartCurveNote"\)/);
   assert.match(chart, /t\("chartOverview"\)/);
+  assert.match(chart, /aspect-\[640\/360\]/);
+  assert.equal(chart.includes("h-48"), false);
+  assert.match(chart, /height: 360/);
 });
 
 test("home daily summary does not repeat recovery analysis widgets", () => {

@@ -18,10 +18,14 @@ interface PlotGeometry {
   pad: { l: number; r: number; t: number; b: number };
 }
 
-/** Mobile plot. Padding is visual only; samples stay on the same 0–1 mapping. */
+/**
+ * Mobile plot. Padding is visual only; samples stay on the same 0–1 mapping.
+ * Height follows the viewBox so the CSS box does not letterbox empty space
+ * below the X-axis.
+ */
 const MOBILE_PLOT: PlotGeometry = {
   width: 640,
-  height: 220,
+  height: 360,
   pad: { l: 36, r: 6, t: 22, b: 22 },
 };
 
@@ -262,7 +266,7 @@ export function EvolutionChart({
           {t("chartEmpty")}
         </p>
       ) : (
-        <div className="mt-3 flex flex-col gap-3 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
+        <div className="mt-3 flex flex-col gap-2 lg:mt-1 lg:flex-row lg:items-center lg:gap-3">
           <div className="min-w-0 flex-1">
             <p
               id="recovery-chart-yaxis"
@@ -274,7 +278,7 @@ export function EvolutionChart({
               plot={MOBILE_PLOT}
               seriesId={seriesId}
               chart={chart}
-              className="h-48 w-full sm:h-56 lg:hidden"
+              className="aspect-[640/360] h-auto w-full lg:hidden"
             />
             <ChartPlot
               plot={DESKTOP_PLOT}
