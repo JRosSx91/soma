@@ -5,13 +5,11 @@ interface HeroFigureProps {
 }
 
 /**
- * Decorative bust. The source faces right; scaleX turns it toward the copy.
+ * Decorative bust. The source faces left, toward the copy, without a CSS flip.
  * Lighten drops the file's black field into the canvas.
  *
- * After the flip the body occupies the left three quarters of the image and
- * the rest is empty black. The wrapper is sized to that body, and its
- * overflow only clips the empty tail on the right. The face stays inside
- * the left edge, so the anatomy is not sliced.
+ * The body sits on the left of the frame. Overflow only clips empty space on
+ * the right. The face stays inside the left edge, so the anatomy is not sliced.
  */
 export function HeroFigure({ className, fadeBottom = false }: HeroFigureProps) {
   return (
@@ -27,7 +25,7 @@ export function HeroFigure({ className, fadeBottom = false }: HeroFigureProps) {
         src="/images/anatomy/soma-hero.png"
         alt=""
         draggable={false}
-        className="absolute left-0 top-0 h-full w-auto max-w-none -scale-x-100 object-contain object-left mix-blend-lighten"
+        className="absolute left-0 top-0 h-full w-auto max-w-none object-contain object-left mix-blend-lighten"
       />
     </div>
   );
