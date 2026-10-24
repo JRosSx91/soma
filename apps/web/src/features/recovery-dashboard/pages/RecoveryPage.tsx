@@ -337,10 +337,17 @@ export function RecoveryPage() {
         <DetailSheet title={openChange.title} onClose={() => setOpenId(null)}>
           <p>{openChange.system}</p>
           <p className="mt-2">{openChange.body}</p>
-          <p className="mt-2 text-soma-ink">
-            {live ? t("estimateOrientative") : t("estimateSrDemo")} {openChange.endLabel}
-            {!live && demoMoments[openChange.id] ? ` · ${demoMoments[openChange.id]}` : ""}
-          </p>
+          {openChange.note ? <p className="mt-2">{openChange.note}</p> : null}
+          {openChange.endLabel || (!live && demoMoments[openChange.id]) ? (
+            <p className="mt-2 text-soma-ink">
+              {openChange.endLabel
+                ? `${live ? t("estimateOrientative") : t("estimateSrDemo")} ${openChange.endLabel}`
+                : null}
+              {!live && demoMoments[openChange.id]
+                ? `${openChange.endLabel ? " · " : ""}${demoMoments[openChange.id]}`
+                : ""}
+            </p>
+          ) : null}
         </DetailSheet>
       ) : null}
     </div>

@@ -94,6 +94,28 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.equal(es.liveFootnoteOverlay, SPANISH_RECOVERY_COPY.liveFootnoteOverlay);
   assert.equal(es.activeShort, "Consumo activo");
   assert.equal(en.activeShort, "Active use");
+  assert.equal(es.statusMixed, "Situación mixta");
+  assert.equal(en.statusMixed, "Mixed status");
+  assert.equal(
+    es.organBodyMixed,
+    "Hay sustancias con consumo activo y otras con abstinencia registrada. No mostramos un avance conjunto.",
+  );
+  assert.equal(
+    en.organBodyMixed,
+    "Some substances are recorded as active use and others with registered abstinence. We do not show a combined advance.",
+  );
+  assert.equal(
+    es.organEstimatePartial,
+    "Esta estimación solo incluye las sustancias con una fecha de último consumo registrada y una trayectoria calculable.",
+  );
+  assert.equal(
+    en.organEstimatePartial,
+    "This estimate only includes substances with a recorded last-use date and a calculable trajectory.",
+  );
+  assert.equal(SPANISH_RECOVERY_COPY.statusMixed, es.statusMixed);
+  assert.equal(SPANISH_RECOVERY_COPY.organBodyMixed, es.organBodyMixed);
+  assert.doesNotMatch(es.organBodyActive, /0\s*%/);
+  assert.doesNotMatch(en.organBodyActive, /0\s*%/);
   assert.equal(es.unavailable, "Fecha pendiente");
   assert.equal(en.unavailable, "Date not provided");
   assert.equal(SPANISH_RECOVERY_COPY.activeShort, es.activeShort);

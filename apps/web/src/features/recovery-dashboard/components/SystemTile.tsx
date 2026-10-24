@@ -48,14 +48,25 @@ export function SystemTile({
       <span className="mt-3 text-xs leading-tight text-soma-ink-secondary sm:text-sm lg:mt-2 xl:mt-1.5">
         {system.name}
       </span>
-      <span className="mt-1 text-sm font-semibold tabular-nums text-soma-ink">
-        <span className="sr-only">
-          {live
-            ? `${t("trajectoryProgressSr")}. ${t("trajectoryProgressShort")}: `
-            : t("estimateSrDemo")}
+      {system.endLabel ? (
+        <span className="mt-1 text-sm font-semibold tabular-nums text-soma-ink">
+          <span className="sr-only">
+            {live
+              ? `${t("trajectoryProgressSr")}. ${t("trajectoryProgressShort")}: `
+              : t("estimateSrDemo")}
+          </span>
+          {system.endLabel}
         </span>
-        {system.endLabel}
-      </span>
+      ) : system.statusLabel ? (
+        <span className="mt-1 text-xs font-medium leading-snug text-soma-ink sm:text-sm">
+          {system.statusLabel}
+        </span>
+      ) : null}
+      {system.hint ? (
+        <span className="mt-1 text-[10px] leading-snug text-soma-ink-muted sm:text-xs">
+          {system.hint}
+        </span>
+      ) : null}
     </button>
   );
 }

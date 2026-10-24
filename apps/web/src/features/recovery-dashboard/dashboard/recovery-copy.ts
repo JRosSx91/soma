@@ -33,8 +33,11 @@ export interface RecoveryDashboardCopy {
   confidenceLow: string;
   statusRecovering: string;
   statusActive: string;
+  statusMixed: string;
   organBodyAbstinent: string;
   organBodyActive: string;
+  organBodyMixed: string;
+  organEstimatePartial: string;
   organFallback: string;
   loadErrorLive: string;
 }
@@ -89,8 +92,11 @@ export function recoveryCopyFromSource(
     confidenceLow: t("confidenceLow"),
     statusRecovering: t("statusRecovering"),
     statusActive: t("statusActive"),
+    statusMixed: t("statusMixed"),
     organBodyAbstinent: t("organBodyAbstinent"),
     organBodyActive: t("organBodyActive"),
+    organBodyMixed: t("organBodyMixed"),
+    organEstimatePartial: t("organEstimatePartial"),
     organFallback: t("organFallback"),
     loadErrorLive: t("loadErrorLive"),
   };
@@ -138,10 +144,15 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   confidenceLow: "baja",
   statusRecovering: "En trayectoria estimada",
   statusActive: "Consumo activo",
+  statusMixed: "Situación mixta",
   organBodyAbstinent:
     "{{organ}}: avance de la trayectoria estimada {{percent}} tras {{days}} sin {{substance}}. No equivale a una medición clínica.",
   organBodyActive:
-    "{{organ}}: el consumo activo mantiene el avance de la trayectoria estimada en 0 % para esta estimación.",
+    "{{organ}}: el consumo sigue registrado como activo, así que no mostramos un avance de curva para esta estimación.",
+  organBodyMixed:
+    "Hay sustancias con consumo activo y otras con abstinencia registrada. No mostramos un avance conjunto.",
+  organEstimatePartial:
+    "Esta estimación solo incluye las sustancias con una fecha de último consumo registrada y una trayectoria calculable.",
   organFallback: "Órgano",
   loadErrorLive: "No se han podido cargar tus datos de recuperación.",
 };

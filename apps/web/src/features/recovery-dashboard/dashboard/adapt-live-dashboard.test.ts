@@ -655,6 +655,14 @@ test("active consumption reports zero progress without inventing dates", () => {
   assert.equal(model.substances[0]?.abstinence, "Consumo activo");
   assert.equal(model.substances[0]?.bar, 0);
   assert.match(model.substances[0]?.phase ?? "", /recuento de abstinencia/);
+  assert.equal(model.changes[0]?.status, "Consumo activo");
+  assert.equal(model.changes[0]?.endLabel, "");
+  assert.doesNotMatch(model.changes[0]?.body ?? "", /\d+\s*%/);
+  assert.equal(model.systems.find((item) => item.id === "cardiovascular")?.endLabel, "");
+  assert.equal(
+    model.systems.find((item) => item.id === "cardiovascular")?.statusLabel,
+    "Consumo activo",
+  );
 });
 
 test("incomplete abstinence date stays empty instead of inventing recovery", () => {
@@ -806,6 +814,10 @@ test("adapter does not redefine recovery formulas", () => {
   assert.match(source, /estimateCurve/);
   assert.equal(source.includes("function estimateCurve"), false);
   assert.equal(source.includes("daysTo95Recovery:"), true);
+  assert.match(
+    source,
+    /Known limitation \(separate incident\): when filtering, `\.find\(\)` keeps the first/,
+  );
 });
 
 test("live organ cards do not fall back to the brain system icon", () => {
@@ -1162,6 +1174,552 @@ test("spanish and english copy change labels without changing trajectory math", 
   assert.match(es.substances[0]?.phase ?? "", /trayectoria estimada/i);
   assert.match(en.substances[0]?.phase ?? "", /Estimated trajectory/i);
   assert.notEqual(es.chart.footnote, en.chart.footnote);
+});
+
+function assertNoTrajectoryPercent(text: string | undefined) {
+  assert.doesNotMatch(text ?? "", /\d+\s*%/);
+}
+
+test("active-only organ and system omit a fake 0% trajectory", () => {
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: null,
+    frequency: "daily",
+    status: "active",
+  };
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [nicotine],
+    organStates: new Map([
+      [
+        "heart",
+        {
+          organId: "heart",
+          organName: "Heart",
+          progressFraction: 0,
+          absoluteRecovery: 0,
+          daysAbstinent: 0,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "active",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "active", progressFraction: 0 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  const heart = model.changes.find((item) => item.id === "heart");
+  assert.equal(heart?.status, SPANISH_RECOVERY_COPY.statusActive);
+  assert.equal(heart?.endLabel, "");
+  assertNoTrajectoryPercent(heart?.body);
+  const cardio = model.systems.find((item) => item.id === "cardiovascular");
+  assert.equal(cardio?.endLabel, "");
+  assert.equal(cardio?.statusLabel, SPANISH_RECOVERY_COPY.statusActive);
+  assert.equal(model.chart.showToday, false);
+  assert.equal(model.chart.series.length, 0);
+});
+
+test("dated abstinent organ keeps educational curve percent", () => {
+  const usage: ProfileUsage = {
+    substanceId: "cannabis",
+    yearStarted: 2020,
+    lastUseDate: "2026-07-23T00:00:00.000Z",
+    frequency: "weekly",
+    status: "abstinent",
+  };
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [cannabis],
+    organStates: new Map([
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: 0.46,
+          absoluteRecovery: 0.41,
+          daysAbstinent: 87,
+          dominantSubstanceId: "cannabis",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "cannabis", status: "abstinent", progressFraction: 0.46 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  assert.equal(model.changes[0]?.endLabel, "46%");
+  assert.equal(model.changes[0]?.status, SPANISH_RECOVERY_COPY.statusRecovering);
+  assert.equal(model.changes[0]?.note, undefined);
+  assert.equal(model.systems.find((item) => item.id === "respiratory")?.endLabel, "46%");
+  assert.equal(model.chart.showToday, true);
+});
+
+test("mixed active and abstinent on one organ hide combined percent", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: null,
+      frequency: "daily",
+      status: "active",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: "2026-07-23T00:00:00.000Z",
+      frequency: "weekly",
+      status: "abstinent",
+    },
+  ];
+  const organStates = new Map<OrganId, OrganState>([
+    [
+      "lungs",
+      {
+        organId: "lungs",
+        organName: "Lungs",
+        progressFraction: 0.46,
+        absoluteRecovery: 0.41,
+        daysAbstinent: 87,
+        dominantSubstanceId: "cannabis",
+        confidenceLevel: "high",
+        dominantStatus: "active",
+        contributingSubstances: [
+          { substanceId: "nicotine", status: "active", progressFraction: 0 },
+          { substanceId: "cannabis", status: "abstinent", progressFraction: 0.46 },
+        ],
+      },
+    ],
+    [
+      "heart",
+      {
+        organId: "heart",
+        organName: "Heart",
+        progressFraction: 0,
+        absoluteRecovery: 0,
+        daysAbstinent: 0,
+        dominantSubstanceId: "nicotine",
+        confidenceLevel: "high",
+        dominantStatus: "active",
+        contributingSubstances: [
+          { substanceId: "nicotine", status: "active", progressFraction: 0 },
+        ],
+      },
+    ],
+  ]);
+  const model = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates,
+    substanceId: null,
+    now,
+  });
+  const lungs = model.changes.find((item) => item.id === "lungs");
+  assert.equal(lungs?.status, SPANISH_RECOVERY_COPY.statusMixed);
+  assert.equal(lungs?.endLabel, "");
+  assert.equal(lungs?.body, SPANISH_RECOVERY_COPY.organBodyMixed);
+  assertNoTrajectoryPercent(lungs?.body);
+  const respiratory = model.systems.find((item) => item.id === "respiratory");
+  assert.equal(respiratory?.endLabel, "");
+  assert.equal(respiratory?.statusLabel, SPANISH_RECOVERY_COPY.statusMixed);
+  const cardio = model.systems.find((item) => item.id === "cardiovascular");
+  assert.equal(cardio?.endLabel, "");
+  assert.equal(cardio?.statusLabel, SPANISH_RECOVERY_COPY.statusActive);
+
+  const filtered = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates,
+    substanceId: "cannabis",
+    now,
+  });
+  assert.equal(filtered.changes[0]?.endLabel, "46%");
+  assert.equal(filtered.changes[0]?.status, SPANISH_RECOVERY_COPY.statusRecovering);
+  assertNoTrajectoryPercent(
+    `${filtered.systems.find((item) => item.id === "respiratory")?.statusLabel ?? ""}`,
+  );
+
+  const english = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates,
+    substanceId: null,
+    now,
+    copy: ENGLISH_RECOVERY_COPY,
+  });
+  assert.equal(english.changes.find((item) => item.id === "lungs")?.status, "Mixed status");
+  assert.equal(
+    english.changes.find((item) => item.id === "lungs")?.body,
+    ENGLISH_RECOVERY_COPY.organBodyMixed,
+  );
+});
+
+test("missing date alone keeps the pending-date substance card and no organ percent", () => {
+  const usage: ProfileUsage = {
+    substanceId: "nicotine",
+    yearStarted: 2018,
+    lastUseDate: null,
+    frequency: "daily",
+    status: "abstinent",
+  };
+  const model = buildLiveDashboard({
+    usages: [usage],
+    substances: [nicotine],
+    organStates: new Map(),
+    substanceId: null,
+    now,
+  });
+  assert.equal(model.substances[0]?.abstinence, "Fecha pendiente");
+  assert.deepEqual(model.changes, []);
+  assert.deepEqual(model.systems, []);
+  assert.equal(model.chart.series.length, 0);
+});
+
+test("missing date plus dated abstinence shows calculable percent with a partial note", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: null,
+      frequency: "daily",
+      status: "abstinent",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: "2026-07-23T00:00:00.000Z",
+      frequency: "weekly",
+      status: "abstinent",
+    },
+  ];
+  const model = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates: new Map([
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: 0.46,
+          absoluteRecovery: 0.41,
+          daysAbstinent: 87,
+          dominantSubstanceId: "cannabis",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "cannabis", status: "abstinent", progressFraction: 0.46 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  const lungs = model.changes.find((item) => item.id === "lungs");
+  assert.equal(lungs?.endLabel, "46%");
+  assert.equal(lungs?.status, SPANISH_RECOVERY_COPY.statusRecovering);
+  assert.equal(lungs?.note, SPANISH_RECOVERY_COPY.organEstimatePartial);
+  const respiratory = model.systems.find((item) => item.id === "respiratory");
+  assert.equal(respiratory?.endLabel, "46%");
+  assert.equal(respiratory?.hint, SPANISH_RECOVERY_COPY.organEstimatePartial);
+  assert.equal(model.substances.find((item) => item.id === "nicotine")?.abstinence, "Fecha pendiente");
+});
+
+test("missing-date substance only adds a partial note on organs it actually affects", () => {
+  const alcoholLungsOnly: ApiSubstance = {
+    id: "alcohol",
+    name: "Alcohol",
+    category: "alcohol",
+    shortDescription: "test",
+    damageProfiles: [],
+    recoveryCurves: [curve("lungs", "respiratory", 180, 0.9)],
+    achievements: [],
+  };
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "alcohol",
+      yearStarted: 2015,
+      lastUseDate: null,
+      frequency: "daily",
+      status: "abstinent",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: "2026-07-23T00:00:00.000Z",
+      frequency: "weekly",
+      status: "abstinent",
+    },
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: "2026-09-18T00:00:00.000Z",
+      frequency: "daily",
+      status: "abstinent",
+    },
+  ];
+  const model = buildLiveDashboard({
+    usages,
+    substances: [alcoholLungsOnly, cannabis, nicotine],
+    organStates: new Map([
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: 0.46,
+          absoluteRecovery: 0.41,
+          daysAbstinent: 87,
+          dominantSubstanceId: "cannabis",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "cannabis", status: "abstinent", progressFraction: 0.46 },
+          ],
+        },
+      ],
+      [
+        "heart",
+        {
+          organId: "heart",
+          organName: "Heart",
+          progressFraction: 0.4,
+          absoluteRecovery: 0.36,
+          daysAbstinent: 30,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "abstinent", progressFraction: 0.4 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  const lungs = model.changes.find((item) => item.id === "lungs");
+  const heart = model.changes.find((item) => item.id === "heart");
+  assert.equal(lungs?.note, SPANISH_RECOVERY_COPY.organEstimatePartial);
+  assert.equal(lungs?.endLabel, "46%");
+  assert.equal(heart?.note, undefined);
+  assert.equal(heart?.endLabel, "40%");
+  assert.equal(
+    model.systems.find((item) => item.id === "respiratory")?.hint,
+    SPANISH_RECOVERY_COPY.organEstimatePartial,
+  );
+  assert.equal(model.systems.find((item) => item.id === "cardiovascular")?.hint, undefined);
+  assert.equal(model.systems.find((item) => item.id === "cardiovascular")?.endLabel, "40%");
+});
+
+test("system tile hides percent when one organ is mixed and another is calculable", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: null,
+      frequency: "weekly",
+      status: "active",
+    },
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: "2026-09-18T00:00:00.000Z",
+      frequency: "daily",
+      status: "abstinent",
+    },
+  ];
+  const model = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates: new Map([
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: 0.45,
+          absoluteRecovery: 0.34,
+          daysAbstinent: 30,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "active",
+          contributingSubstances: [
+            { substanceId: "cannabis", status: "active", progressFraction: 0 },
+            { substanceId: "nicotine", status: "abstinent", progressFraction: 0.45 },
+          ],
+        },
+      ],
+      [
+        "bronchi",
+        {
+          organId: "bronchi",
+          organName: "Bronchi",
+          progressFraction: 0.55,
+          absoluteRecovery: 0.5,
+          daysAbstinent: 30,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "abstinent", progressFraction: 0.55 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  const lungs = model.changes.find((item) => item.id === "lungs");
+  const bronchi = model.changes.find((item) => item.id === "bronchi");
+  assert.equal(lungs?.status, SPANISH_RECOVERY_COPY.statusMixed);
+  assert.equal(lungs?.endLabel, "");
+  assertNoTrajectoryPercent(lungs?.body);
+  assert.equal(bronchi?.endLabel, "55%");
+  const respiratory = model.systems.find((item) => item.id === "respiratory");
+  assert.equal(respiratory?.endLabel, "");
+  assert.equal(respiratory?.statusLabel, SPANISH_RECOVERY_COPY.statusMixed);
+  assert.notEqual(respiratory?.endLabel, "0%");
+  assert.notEqual(respiratory?.endLabel, "55%");
+  assert.notEqual(respiratory?.endLabel, "45%");
+});
+
+test("two active substances show active status without a combined percent", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: null,
+      frequency: "daily",
+      status: "active",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: null,
+      frequency: "weekly",
+      status: "active",
+    },
+  ];
+  const model = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates: new Map([
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: 0,
+          absoluteRecovery: 0,
+          daysAbstinent: 0,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "active",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "active", progressFraction: 0 },
+            { substanceId: "cannabis", status: "active", progressFraction: 0 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  assert.equal(model.changes[0]?.status, SPANISH_RECOVERY_COPY.statusActive);
+  assert.equal(model.changes[0]?.endLabel, "");
+  assertNoTrajectoryPercent(model.changes[0]?.body);
+  assert.equal(model.systems[0]?.endLabel, "");
+  assert.equal(model.systems[0]?.statusLabel, SPANISH_RECOVERY_COPY.statusActive);
+});
+
+test("two dated abstinent substances keep the worst combined percent", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: "2026-10-03T00:00:00.000Z",
+      frequency: "daily",
+      status: "abstinent",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: "2026-02-18T00:00:00.000Z",
+      frequency: "weekly",
+      status: "abstinent",
+    },
+  ];
+  const model = buildLiveDashboard({
+    usages,
+    substances: [nicotine, cannabis],
+    organStates: new Map([
+      [
+        "lungs",
+        {
+          organId: "lungs",
+          organName: "Lungs",
+          progressFraction: 0.2,
+          absoluteRecovery: 0.15,
+          daysAbstinent: 15,
+          dominantSubstanceId: "nicotine",
+          confidenceLevel: "high",
+          dominantStatus: "abstinent",
+          contributingSubstances: [
+            { substanceId: "nicotine", status: "abstinent", progressFraction: 0.2 },
+            { substanceId: "cannabis", status: "abstinent", progressFraction: 0.95 },
+          ],
+        },
+      ],
+    ]),
+    substanceId: null,
+    now,
+  });
+  assert.equal(model.changes[0]?.endLabel, "20%");
+  assert.equal(model.changes[0]?.note, undefined);
+  assert.equal(model.systems.find((item) => item.id === "respiratory")?.endLabel, "20%");
+  assert.equal(model.chart.showToday, false);
+});
+
+test("chart overlay Today follows plotted substances, not skipped rows", () => {
+  const usages: ProfileUsage[] = [
+    {
+      substanceId: "nicotine",
+      yearStarted: 2018,
+      lastUseDate: null,
+      frequency: "daily",
+      status: "active",
+    },
+    {
+      substanceId: "cannabis",
+      yearStarted: 2020,
+      lastUseDate: "2026-07-23T00:00:00.000Z",
+      frequency: "weekly",
+      status: "abstinent",
+    },
+  ];
+  const overlay = buildLiveChart({
+    usages,
+    substances: [nicotine, cannabis],
+    substanceId: null,
+    now,
+  });
+  assert.equal(overlay.showToday, true);
+  assert.match(overlay.todayLabel, /Cannabis/);
+  assert.match(overlay.series[0]?.endLabel ?? "", /^Hoy · /);
+  assert.ok(overlay.series.every((item) => item.id === "respiratory"));
+  assert.deepEqual(
+    overlay.series[0]?.samples.map((value) => typeof value),
+    ["number", "number", "number", "number", "number"],
+  );
 });
 
 test("live API error path never imports demo series (source)", () => {
