@@ -132,8 +132,14 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.equal(SPANISH_RECOVERY_COPY.phaseMissingDate, es.phaseMissingDate);
   assert.equal(SPANISH_RECOVERY_COPY.todayCurveLegend, es.todayCurveLegend);
   assert.equal(SPANISH_RECOVERY_COPY.axisLabels[4], "365 días");
-  assert.match(es.liveFootnoteOverlay, /sin un único «hoy»/);
-  assert.match(en.liveFootnoteOverlay, /without a single “today”/);
+  assert.equal(
+    es.liveFootnoteOverlay,
+    "Como las sustancias tienen distintos días de abstinencia, no podemos señalar un único «hoy» en el gráfico.",
+  );
+  assert.equal(
+    en.liveFootnoteOverlay,
+    "Each substance has a different number of days since last use, so we can't show a single ‘today’ on the chart.",
+  );
   assert.notEqual(es.liveFootnote, es.liveFootnoteOverlay);
   assert.match(es.demoFootnote, /demostración/);
   assert.match(en.demoFootnote, /Demonstration/);

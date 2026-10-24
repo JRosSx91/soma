@@ -30,7 +30,7 @@
   "estimateSrLive": "Estimación orientativa del catálogo: avance de la trayectoria estimada ",
   "estimateSrDemo": "Estimación de demostración: ",
   "liveFootnote": "Trayectoria estimada del catálogo Soma. «Hoy» usa los días reales desde la última fecha registrada; las marcas del eje (1 mes a 365 días) son puntos de referencia del modelo, no una predicción clínica ni el final de la recuperación.",
-  "liveFootnoteOverlay": "Cada sustancia tiene su propio recuento de días. Por eso mostramos las curvas por separado, sin un único «hoy».",
+  "liveFootnoteOverlay": "Como las sustancias tienen distintos días de abstinencia, no podemos señalar un único «hoy» en el gráfico.",
   "chartCaptionLiveOverlay": "Trayectoria comparativa del catálogo Soma en los puntos de referencia del modelo. No equivale a una medición clínica. No hay columna Hoy porque los días de abstinencia difieren entre sustancias; la columna 365 días es el punto de referencia del día 365.",
   "demoFootnote": "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta.",
   "dayOne": "1 día",
