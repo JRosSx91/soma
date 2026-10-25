@@ -160,3 +160,45 @@ export function selectEducationalEffectsSubstance(
   }
   return available[0] ?? null;
 }
+
+/**
+ * Substance-first educational list for Explorar.
+ * Uses the same 14 profiles and phase copy as the atlas. Does not filter by
+ * organ, compose `/me` state, or invent missing transmitters.
+ */
+export function resolveEducationalNeurotransmittersForSubstance(
+  substanceId: string,
+  phase: NarrativePhase,
+): EducationalSignalingEntry[] {
+  if (!narrativePhases.includes(phase)) return [];
+  const seen = new Set<EducationalNeurotransmitter>();
+  const entries: EducationalSignalingEntry[] = [];
+  for (const profile of educationalNtProfiles) {
+    if (profile.substanceId !== substanceId) continue;
+    if (seen.has(profile.neurotransmitter)) continue;
+    if (!phaseCopy(substanceId, profile.neurotransmitter, phase)) continue;
+    seen.add(profile.neurotransmitter);
+    entries.push({
+      neurotransmitter: profile.neurotransmitter,
+      mechanismKey: validMechanismKey(profile.mechanismKey),
+      phase,
+      phaseKey: `${substanceId}.${profile.neurotransmitter}.${phase}`,
+    });
+  }
+  return entries;
+}
+
+/** First atlas organ that already intersects this substance × transmitter. */
+export function firstEducationalOrganForSignaling(
+  substanceId: string,
+  neurotransmitter: EducationalNeurotransmitter,
+  phase: NarrativePhase,
+): string | null {
+  for (const organId of Object.keys(educationalOrganNeurotransmitters)) {
+    const match = resolveEducationalSignaling(organId, substanceId, phase).some(
+      (entry) => entry.neurotransmitter === neurotransmitter,
+    );
+    if (match) return organId;
+  }
+  return null;
+}

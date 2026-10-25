@@ -18,6 +18,21 @@
   "educationalOrgansHint": "Órganos con relatos o modelos educativos en el catálogo. No equivalen a un diagnóstico ni a daño comprobado.",
   "educationalOrgansEmpty": "Todavía no hay órganos con información educativa asociada a esta sustancia en el catálogo.",
   "openAnatomy": "Abrir el explorador anatómico",
+  "ntTitle": "Neurotransmisores",
+  "ntPhaseLegend": "Fase educativa",
+  "ntPhaseNotice": "Tú eliges la fase para comparar. El catálogo no mide tus neurotransmisores ni usa tus días de abstinencia.",
+  "ntEmpty": "Esta sustancia todavía no tiene neurotransmisores modelados en el catálogo.",
+  "ntDetailsSummary": "Mecanismo y texto de esta fase",
+  "ntMechanismDetailsSummary": "Mecanismo educativo",
+  "ntMechanismLabel": "Mecanismo",
+  "ntPhaseCopyLabel": "En esta fase",
+  "ntMarkAria": "Marca educativa de {{name}}. Identifica el neurotransmisor; no es una medición.",
+  "ntPhases": {
+    "during_use": "Durante el consumo",
+    "acute_withdrawal": "Abstinencia aguda",
+    "post_acute": "Fase postaguda",
+    "normalizing": "Normalización progresiva"
+  },
   "systemNoOrgans": "Este sistema todavía no tiene órganos asociados en el catálogo del atlas.",
   "viewInAnatomy": "Ver en el explorador anatómico",
   "categories": {

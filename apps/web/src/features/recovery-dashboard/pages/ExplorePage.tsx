@@ -16,6 +16,7 @@ import {
 } from "../explore/explore-search.js";
 import { previewFocus } from "../focus.js";
 import { DetailSheet } from "../components/DetailSheet.js";
+import { ExploreNeurotransmitters } from "../components/ExploreNeurotransmitters.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 import { useSubstances } from "../../substances/index.js";
@@ -183,6 +184,7 @@ export function ExplorePage() {
       {openSubstance ? (
         <DetailSheet
           title={substanceName(t, openSubstance.id, openSubstance.name)}
+          panelClassName="max-w-lg sm:max-w-xl"
           onClose={() => setOpenSubstance(null)}
         >
           <SubstanceDetail
@@ -219,7 +221,7 @@ function SubstanceDetail({
     <div className="space-y-3 text-sm text-soma-ink-secondary">
       <p>{substanceDescription(t, substance.id, substance.shortDescription)}</p>
       <p>{t("catalogCategory", { category: categoryLabel(t, substance.category) })}</p>
-      <p>{t("catalogNotClinical")}</p>
+      <ExploreNeurotransmitters substanceId={substance.id} />
       <div>
         <p className="font-medium text-soma-ink">{t("educationalOrgansTitle")}</p>
         <p className="mt-1 text-xs text-soma-ink-muted">{t("educationalOrgansHint")}</p>

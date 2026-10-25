@@ -1,28 +1,102 @@
-import { useEffect, useRef } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useId, useRef } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 
 interface DetailSheetProps {
   title: string;
   /** Accessible name when the visible title must stay generic. */
   accessibleTitle?: string;
+  panelClassName?: string;
   onClose: () => void;
   children: ReactNode;
 }
 
-export function DetailSheet({ title, accessibleTitle, onClose, children }: DetailSheetProps) {
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
+
+function focusableElements(root: HTMLElement): HTMLElement[] {
+  return [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((node) => {
+    if (node.closest("[hidden]")) return false;
+    const details = node.closest("details");
+    if (details && !details.open && node !== details.querySelector("summary")) {
+      return false;
+    }
+    if (node.matches("input, select, textarea, button, a[href], summary")) return true;
+    return node.getClientRects().length > 0;
+  });
+}
+
+/**
+ * Shared catalog dialog. Header stays put; only the body scrolls.
+ * Traps tab focus inside the panel and restores the opener on close.
+ */
+export function DetailSheet({
+  title,
+  accessibleTitle,
+  panelClassName,
+  onClose,
+  children,
+}: DetailSheetProps) {
+  const { t } = useTranslation("common");
+  const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  useEffect(() => {
+    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     panelRef.current?.focus();
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onCloseRef.current();
+
+    function onFocusIn(event: FocusEvent) {
+      const panel = panelRef.current;
+      if (!panel) return;
+      if (event.target instanceof Node && panel.contains(event.target)) return;
+      const nodes = focusableElements(panel);
+      (nodes[0] ?? panel).focus();
+    }
+
+    document.addEventListener("focusin", onFocusIn);
+    return () => {
+      document.removeEventListener("focusin", onFocusIn);
+      openerRef.current?.focus();
     };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
   }, []);
+
+  function onPanelKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      onCloseRef.current();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const nodes = focusableElements(panel);
+    if (nodes.length === 0) {
+      event.preventDefault();
+      panel.focus();
+      return;
+    }
+    const first = nodes[0];
+    const last = nodes[nodes.length - 1];
+    const active = document.activeElement;
+    if (event.shiftKey) {
+      if (active === first || active === panel) {
+        event.preventDefault();
+        last?.focus();
+      }
+      return;
+    }
+    if (active === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  }
 
   return (
     <div
@@ -33,13 +107,14 @@ export function DetailSheet({ title, accessibleTitle, onClose, children }: Detai
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="preview-detail-title"
+        aria-labelledby={titleId}
         tabIndex={-1}
-        className="w-full max-w-md rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none"
+        onKeyDown={onPanelKeyDown}
+        className={`flex max-h-[min(85vh,46rem)] w-full max-w-md flex-col rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${panelClassName ?? ""}`}
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-3">
-          <h2 id="preview-detail-title" className="text-lg font-semibold text-soma-ink">
+        <div className="flex shrink-0 items-start justify-between gap-3">
+          <h2 id={titleId} className="text-lg font-semibold text-soma-ink">
             {accessibleTitle ? (
               <>
                 <span className="sr-only">{accessibleTitle}</span>
@@ -54,10 +129,12 @@ export function DetailSheet({ title, accessibleTitle, onClose, children }: Detai
             onClick={onClose}
             className={`${previewFocus} shrink-0 rounded-lg px-2 py-1 text-sm text-soma-ink-secondary hover:bg-soma-raised hover:text-soma-ink`}
           >
-            Cerrar
+            {t("close")}
           </button>
         </div>
-        <div className="mt-3 text-sm leading-relaxed text-soma-ink-secondary">{children}</div>
+        <div className="mt-3 min-h-0 flex-1 overflow-y-auto text-sm leading-relaxed text-soma-ink-secondary">
+          {children}
+        </div>
       </div>
     </div>
   );
