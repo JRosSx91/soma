@@ -5,7 +5,7 @@ Documento de planificación permanente. Se consulta **antes** de abrir un hito n
 
 Última actualización editorial: 2026-10-25.  
 Rama de trabajo: `develop`.  
-HEAD local al actualizar: `0a49627` (`feat(web): add educational neurotransmitter explorer`).
+HEAD local al actualizar: `ccef9a3` (`feat(web): prepare withdrawal symptom catalog and roadmap`).
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -139,26 +139,26 @@ Numeración e intención originales conservadas. Estados según **código inspec
 
 #### UX-05 — Lenguaje y repetición de «catálogo»
 
-- **Estado:** Pendiente
+- **Estado:** Pendiente de validación
 - **Descripción:** Quitar repeticiones innecesarias de «catálogo» y mejorar el lenguaje.
 - **Criterio:** En ES, «catálogo» no satura títulos, pistas, errores y fichas; el tono sigue siendo educativo.
-- **Evidencia:** `explore.json` (ES) sigue usando «catálogo» en búsqueda, carga, error, pistas, categoría, órganos y NT. No hay hito que lo haya cerrado.
+- **Evidencia:** Copy ES/EN de Explorar reescrito (descripción, carga, errores, vacíos, pistas, categoría, órganos). Se conserva una mención en `ntPhaseNotice` (catálogo vs medición). Tests de paridad y de saturación. Falta validación visual con API en fichas de sustancia.
 - **Dependencias:** Ninguna.
 
 #### UX-06 — Enumeración de órganos y zonas (hipocampo)
 
-- **Estado:** Pendiente
+- **Estado:** Pendiente de validación
 - **Descripción:** Mejorar la lista de órganos y zonas, incluyendo el hipocampo cuando corresponda.
 - **Criterio:** Si el índice educativo asocia hipocampo (u otra zona) a la sustancia, aparece en la ficha con el nombre localizado; no se inventan órganos.
-- **Evidencia:** Las fichas listan `uniqueOrganIdsForSubstance` (narrativa + curvas). El hipocampo existe en atlas y curvas; no hay auditoría de producto que confirme el criterio en UI.
-- **Dependencias:** UX-07 si los nombres deben ser enlaces.
+- **Evidencia:** Título «Órganos y zonas» / «Organs and regions». Agrupación por `atlasSystems`. Alcohol y cannabis incluyen `brain-hippocampus` vía índices. Tests unitarios; falta validación visual de la ficha (API).
+- **Dependencias:** UX-07 (los nombres enlazables reutilizan el contrato del atlas).
 
 #### UX-07 — Navegar de órganos mencionados al atlas
 
-- **Estado:** Pendiente
+- **Estado:** Pendiente de validación
 - **Descripción:** Desde órganos y zonas de Explorar, ir a su ubicación en el explorador anatómico.
 - **Criterio:** Cada órgano listado abre el atlas en el sistema/órgano correcto, **sin** afirmar que un neurotransmisor «pertenece» a un solo órgano.
-- **Evidencia:** Código actual: lista de órganos como texto; un enlace general `…/anatomy`. Las fichas de sistema usan `anatomyExplorerHref(base, systemId)`. El MVP NT evitó enlaces al primer órgano del mapa. **No resuelto.**
+- **Evidencia:** `anatomyExplorerHrefForOrgan` y enlaces por zona en fichas de sustancia y de sistema. Hipocampo: `?system=nervous-central&organ=brain-hippocampus`. Sin `substance`/`phase`/`tab`. Las tarjetas NT no enlazan órganos. Falta pulsar los enlaces en `/preview` y `/app` con API.
 - **Dependencias:** Query del atlas (`anatomy-explorer-query.ts`).
 
 ### Explorador anatómico

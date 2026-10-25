@@ -72,6 +72,9 @@ test("explore page reuses educational resolvers and not soma 1.0 bars", () => {
   assert.match(page, /ExploreNeurotransmitters/);
   assert.match(page, /t\("openAnatomy"\)/);
   assert.equal(page.includes("educationalAnatomyHrefForSignaling"), false);
+  assert.equal(section.includes("anatomyExplorerHref"), false);
+  assert.equal(card.includes("anatomyExplorerHref"), false);
+  assert.equal(card.includes("<Link"), false);
   assert.match(section, /resolveEducationalNeurotransmittersForSubstance/);
   assert.match(track, /role="radiogroup"/);
   assert.match(track, /has-\[:focus-visible\]:outline-soma-focus/);

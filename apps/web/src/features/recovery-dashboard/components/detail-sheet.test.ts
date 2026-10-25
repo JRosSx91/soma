@@ -25,6 +25,8 @@ test("detail sheet close label is localized in spanish and english", () => {
   assert.match(sheet, /event\.key !== "Tab"/);
   assert.match(sheet, /summary/);
   assert.match(sheet, /focusin/);
+  assert.match(sheet, /a\[href\]/);
+  assert.match(sheet, /openerRef/);
 });
 
 test("inactive locale common bundles fall back to english close instead of the key", async () => {

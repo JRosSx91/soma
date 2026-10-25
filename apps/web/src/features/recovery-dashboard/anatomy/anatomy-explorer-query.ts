@@ -34,3 +34,29 @@ export function anatomyExplorerHref(
   ).toString();
   return query ? `${base}/anatomy?${query}` : `${base}/anatomy`;
 }
+
+/** Atlas system that owns this organ id. Null if missing or listed in more than one system. */
+export function atlasSystemIdForOrgan(organId: string): string | null {
+  let found: string | null = null;
+  for (const system of atlasSystems) {
+    if (!system.organs.some((item) => item.id === organId)) continue;
+    if (found !== null) return null;
+    found = system.id;
+  }
+  return found;
+}
+
+/**
+ * Deep link to a known atlas organ. Null when the organ is not uniquely
+ * placed in atlasSystems — callers must not invent a system.
+ */
+export function anatomyExplorerHrefForOrgan(
+  base: "/app" | "/preview",
+  organId: string,
+): string | null {
+  const systemId = atlasSystemIdForOrgan(organId);
+  if (!systemId) return null;
+  const selection = resolveAnatomyExplorerSelection(systemId, organId);
+  if (selection.systemId !== systemId || selection.organId !== organId) return null;
+  return anatomyExplorerHref(base, systemId, organId);
+}
