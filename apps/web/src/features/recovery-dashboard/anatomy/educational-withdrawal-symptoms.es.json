@@ -1,0 +1,172 @@
+{
+  "alcohol": {
+    "anxiety": {
+      "name": "Ansiedad",
+      "shortDescription": "La ansiedad puede aparecer al dejar el alcohol, a veces de forma fluctuante."
+    },
+    "restlessness": {
+      "name": "Inquietud o agitación",
+      "shortDescription": "Pueden aparecer inquietud o agitación."
+    },
+    "sleep_disturbance": {
+      "name": "Alteraciones del sueño",
+      "shortDescription": "Pueden aparecer insomnio u otras alteraciones del sueño."
+    },
+    "tremor": {
+      "name": "Temblor",
+      "shortDescription": "Puede aparecer temblor."
+    },
+    "seizures": {
+      "name": "Convulsiones",
+      "shortDescription": "En casos graves de abstinencia de alcohol pueden aparecer convulsiones. Son una complicación grave; no indican lo que ocurrirá en cada persona."
+    },
+    "medical_care": {
+      "name": "Atención sanitaria",
+      "shortDescription": "La abstinencia aguda de alcohol puede ser peligrosa. Tras un consumo intenso o dependiente se recomienda supervisión médica, y atención sanitaria si los síntomas se intensifican."
+    },
+    "stimulus_hypersensitivity": {
+      "name": "Hipersensibilidad a estímulos",
+      "shortDescription": "Puede aparecer hipersensibilidad a estímulos."
+    },
+    "racing_thoughts": {
+      "name": "Pensamiento acelerado",
+      "shortDescription": "Puede aparecer pensamiento acelerado."
+    },
+    "low_mood": {
+      "name": "Ánimo bajo",
+      "shortDescription": "Puede aparecer ánimo bajo."
+    },
+    "anhedonia": {
+      "name": "Anhedonia",
+      "shortDescription": "Pueden aparecer anhedonia o falta de motivación."
+    },
+    "irritability": {
+      "name": "Irritabilidad",
+      "shortDescription": "Puede aparecer irritabilidad."
+    },
+    "appetite_changes": {
+      "name": "Cambios de apetito",
+      "shortDescription": "Pueden aparecer cambios de apetito."
+    },
+    "noise_sensitivity": {
+      "name": "Sensibilidad al ruido",
+      "shortDescription": "Puede aparecer sensibilidad al ruido."
+    },
+    "emotional_reactivity": {
+      "name": "Reactividad emocional",
+      "shortDescription": "Puede aparecer reactividad emocional."
+    }
+  },
+  "cocaine": {
+    "anhedonia": {
+      "name": "Anhedonia",
+      "shortDescription": "Pueden aparecer anhedonia, apatía o una menor capacidad de sentir placer."
+    },
+    "fatigue": {
+      "name": "Fatiga",
+      "shortDescription": "Pueden aparecer fatiga intensa o agotamiento físico."
+    },
+    "hypersomnia": {
+      "name": "Hipersomnia",
+      "shortDescription": "Puede aparecer una necesidad de dormir mayor de lo habitual."
+    },
+    "disrupted_sleep": {
+      "name": "Sueño alterado",
+      "shortDescription": "El sueño puede alterarse incluso con cansancio, o sentirse irregular."
+    },
+    "craving": {
+      "name": "Deseo de consumo",
+      "shortDescription": "Puede aparecer un deseo intenso de volver a consumir, a veces de forma intermitente."
+    },
+    "restlessness": {
+      "name": "Inquietud mental",
+      "shortDescription": "Puede aparecer inquietud mental junto con cansancio."
+    },
+    "dysphoria": {
+      "name": "Disforia",
+      "shortDescription": "Puede aparecer disforia."
+    },
+    "irritability": {
+      "name": "Irritabilidad",
+      "shortDescription": "Puede aparecer irritabilidad."
+    },
+    "emotional_reactivity": {
+      "name": "Reactividad emocional",
+      "shortDescription": "Puede aparecer reactividad emocional."
+    },
+    "uneven_energy": {
+      "name": "Energía irregular",
+      "shortDescription": "La energía puede sentirse irregular: a veces acelerada, a veces plana."
+    }
+  },
+  "nicotine": {
+    "irritability": {
+      "name": "Irritabilidad",
+      "shortDescription": "Puede aparecer irritabilidad al dejar la nicotina."
+    },
+    "concentration_difficulty": {
+      "name": "Dificultad de concentración",
+      "shortDescription": "Puede aparecer dificultad para concentrarse, a veces de forma residual."
+    },
+    "restlessness": {
+      "name": "Inquietud",
+      "shortDescription": "Puede aparecer inquietud."
+    },
+    "craving": {
+      "name": "Deseo de consumo",
+      "shortDescription": "Puede aparecer un deseo intenso de nicotina, a veces de forma ocasional."
+    },
+    "low_mood": {
+      "name": "Ánimo bajo",
+      "shortDescription": "Puede aparecer ánimo bajo."
+    },
+    "anhedonia": {
+      "name": "Anhedonia",
+      "shortDescription": "Pueden aparecer anhedonia leve o falta de motivación."
+    }
+  },
+  "cannabis": {
+    "irritability": {
+      "name": "Irritabilidad",
+      "shortDescription": "Puede aparecer irritabilidad al dejar el cannabis."
+    },
+    "sleep_disturbance": {
+      "name": "Alteraciones del sueño",
+      "shortDescription": "Pueden aparecer insomnio o un sueño irregular."
+    },
+    "vivid_dreams": {
+      "name": "Sueños vívidos o inquietantes",
+      "shortDescription": "Pueden aparecer sueños vívidos o inquietantes."
+    },
+    "anxiety": {
+      "name": "Ansiedad",
+      "shortDescription": "Puede aparecer ansiedad, a veces leve."
+    },
+    "decreased_appetite": {
+      "name": "Menos apetito",
+      "shortDescription": "Puede disminuir el apetito."
+    }
+  },
+  "caffeine": {
+    "headache": {
+      "name": "Dolor de cabeza",
+      "shortDescription": "Puede aparecer dolor de cabeza al dejar un consumo regular de cafeína; a menudo es intenso."
+    },
+    "fatigue": {
+      "name": "Fatiga",
+      "shortDescription": "Puede aparecer fatiga, a veces de forma residual."
+    },
+    "drowsiness": {
+      "name": "Somnolencia",
+      "shortDescription": "Puede aparecer somnolencia."
+    },
+    "concentration_difficulty": {
+      "name": "Dificultad de concentración",
+      "shortDescription": "Puede aparecer dificultad para concentrarse."
+    },
+    "irritability": {
+      "name": "Irritabilidad",
+      "shortDescription": "Puede aparecer irritabilidad."
+    }
+  }
+}

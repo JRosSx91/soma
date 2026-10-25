@@ -5,6 +5,8 @@ import {
   educationalEffectsSubstances,
   educationalNtProfiles,
   educationalOrganNeurotransmitters,
+  firstEducationalOrganForSignaling,
+  resolveEducationalNeurotransmittersForSubstance,
   resolveEducationalSignaling,
   signalingSubstances,
 } from "./neurotransmitter-education.ts";
@@ -140,6 +142,38 @@ test("adapter and effects panel do not read severity, curves, or personal endpoi
   );
   assert.equal(card.includes("referenceSource"), false);
   assert.equal(card.includes("confidenceLevel"), false);
+});
+
+test("substance explorer lists catalog transmitters without inventing endorphin", () => {
+  const alcohol = resolveEducationalNeurotransmittersForSubstance("alcohol", "during_use");
+  assert.deepEqual(
+    alcohol.map((entry) => entry.neurotransmitter),
+    ["gaba", "glutamate", "dopamine", "serotonin"],
+  );
+  const caffeine = resolveEducationalNeurotransmittersForSubstance("caffeine", "acute_withdrawal");
+  assert.deepEqual(
+    caffeine.map((entry) => entry.neurotransmitter),
+    ["adenosine", "dopamine"],
+  );
+  assert.deepEqual(resolveEducationalNeurotransmittersForSubstance("unknown", "during_use"), []);
+  for (const phase of narrativePhases) {
+    const cannabis = resolveEducationalNeurotransmittersForSubstance("cannabis", phase);
+    assert.equal(cannabis.some((entry) => entry.neurotransmitter === "endorphin"), false);
+    assert.equal(cannabis.length, 3);
+    for (const entry of cannabis) {
+      assert.equal(entry.phase, phase);
+      assert.equal(entry.phaseKey, `cannabis.${entry.neurotransmitter}.${phase}`);
+    }
+  }
+});
+
+test("first educational organ for signaling stays inside the atlas intersection", () => {
+  assert.equal(
+    firstEducationalOrganForSignaling("alcohol", "gaba", "during_use"),
+    "brain-vta",
+  );
+  assert.equal(firstEducationalOrganForSignaling("nicotine", "endorphin", "during_use"), null);
+  assert.equal(firstEducationalOrganForSignaling("caffeine", "gaba", "during_use"), null);
 });
 
 test("web organ map snapshot matches the API map organ keys", () => {

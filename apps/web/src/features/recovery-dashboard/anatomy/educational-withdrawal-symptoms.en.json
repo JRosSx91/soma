@@ -1,0 +1,172 @@
+{
+  "alcohol": {
+    "anxiety": {
+      "name": "Anxiety",
+      "shortDescription": "Anxiety may occur when alcohol use stops, sometimes in a fluctuating way."
+    },
+    "restlessness": {
+      "name": "Restlessness or agitation",
+      "shortDescription": "Restlessness or agitation may occur."
+    },
+    "sleep_disturbance": {
+      "name": "Sleep disturbance",
+      "shortDescription": "Insomnia or other sleep changes may occur."
+    },
+    "tremor": {
+      "name": "Tremor",
+      "shortDescription": "Tremor may occur."
+    },
+    "seizures": {
+      "name": "Seizures",
+      "shortDescription": "In severe alcohol withdrawal, seizures can occur. They are a serious complication; they do not say what will happen to any one person."
+    },
+    "medical_care": {
+      "name": "Medical care",
+      "shortDescription": "Acute alcohol withdrawal can be dangerous. After heavy or dependent use, medical supervision is recommended, and medical care if symptoms intensify."
+    },
+    "stimulus_hypersensitivity": {
+      "name": "Hypersensitivity to stimuli",
+      "shortDescription": "Hypersensitivity to stimuli may occur."
+    },
+    "racing_thoughts": {
+      "name": "Racing thoughts",
+      "shortDescription": "Racing thoughts may occur."
+    },
+    "low_mood": {
+      "name": "Low mood",
+      "shortDescription": "Low mood may occur."
+    },
+    "anhedonia": {
+      "name": "Anhedonia",
+      "shortDescription": "Anhedonia or lack of motivation may occur."
+    },
+    "irritability": {
+      "name": "Irritability",
+      "shortDescription": "Irritability may occur."
+    },
+    "appetite_changes": {
+      "name": "Appetite changes",
+      "shortDescription": "Appetite changes may occur."
+    },
+    "noise_sensitivity": {
+      "name": "Sensitivity to noise",
+      "shortDescription": "Sensitivity to noise may occur."
+    },
+    "emotional_reactivity": {
+      "name": "Emotional reactivity",
+      "shortDescription": "Emotional reactivity may occur."
+    }
+  },
+  "cocaine": {
+    "anhedonia": {
+      "name": "Anhedonia",
+      "shortDescription": "Anhedonia, apathy, or a reduced ability to feel pleasure may occur."
+    },
+    "fatigue": {
+      "name": "Fatigue",
+      "shortDescription": "Intense fatigue or physical exhaustion may occur."
+    },
+    "hypersomnia": {
+      "name": "Hypersomnia",
+      "shortDescription": "A greater than usual need for sleep may occur."
+    },
+    "disrupted_sleep": {
+      "name": "Disrupted sleep",
+      "shortDescription": "Sleep may be disrupted even with tiredness, or feel irregular."
+    },
+    "craving": {
+      "name": "Craving",
+      "shortDescription": "A strong urge to use again may occur, sometimes intermittently."
+    },
+    "restlessness": {
+      "name": "Mental restlessness",
+      "shortDescription": "Mental restlessness may occur together with tiredness."
+    },
+    "dysphoria": {
+      "name": "Dysphoria",
+      "shortDescription": "Dysphoria may occur."
+    },
+    "irritability": {
+      "name": "Irritability",
+      "shortDescription": "Irritability may occur."
+    },
+    "emotional_reactivity": {
+      "name": "Emotional reactivity",
+      "shortDescription": "Emotional reactivity may occur."
+    },
+    "uneven_energy": {
+      "name": "Uneven energy",
+      "shortDescription": "Energy may feel uneven: sometimes wired, sometimes flat."
+    }
+  },
+  "nicotine": {
+    "irritability": {
+      "name": "Irritability",
+      "shortDescription": "Irritability may occur when nicotine use stops."
+    },
+    "concentration_difficulty": {
+      "name": "Difficulty concentrating",
+      "shortDescription": "Difficulty concentrating may occur, sometimes leftover."
+    },
+    "restlessness": {
+      "name": "Restlessness",
+      "shortDescription": "Restlessness may occur."
+    },
+    "craving": {
+      "name": "Craving",
+      "shortDescription": "A strong or occasional urge for nicotine may occur."
+    },
+    "low_mood": {
+      "name": "Low mood",
+      "shortDescription": "Low mood may occur."
+    },
+    "anhedonia": {
+      "name": "Anhedonia",
+      "shortDescription": "Mild anhedonia or lack of motivation may occur."
+    }
+  },
+  "cannabis": {
+    "irritability": {
+      "name": "Irritability",
+      "shortDescription": "Irritability may occur when cannabis use stops."
+    },
+    "sleep_disturbance": {
+      "name": "Sleep disturbance",
+      "shortDescription": "Insomnia or irregular sleep may occur."
+    },
+    "vivid_dreams": {
+      "name": "Vivid or unsettling dreams",
+      "shortDescription": "Vivid or unsettling dreams may occur."
+    },
+    "anxiety": {
+      "name": "Anxiety",
+      "shortDescription": "Anxiety may occur, sometimes mild."
+    },
+    "decreased_appetite": {
+      "name": "Decreased appetite",
+      "shortDescription": "Appetite may decrease."
+    }
+  },
+  "caffeine": {
+    "headache": {
+      "name": "Headache",
+      "shortDescription": "Headache may occur after regular caffeine use stops; it is often severe."
+    },
+    "fatigue": {
+      "name": "Fatigue",
+      "shortDescription": "Fatigue may occur, sometimes leftover."
+    },
+    "drowsiness": {
+      "name": "Drowsiness",
+      "shortDescription": "Drowsiness may occur."
+    },
+    "concentration_difficulty": {
+      "name": "Difficulty concentrating",
+      "shortDescription": "Difficulty concentrating may occur."
+    },
+    "irritability": {
+      "name": "Irritability",
+      "shortDescription": "Irritability may occur."
+    }
+  }
+}
