@@ -76,11 +76,10 @@ function compactLegendPercent(item: DemoSeries, showToday: boolean): string {
     return match ? `${match[1]} %` : "";
   }
   const yearSample = item.samples[item.samples.length - 1];
-  if (typeof yearSample === "number") {
+  if (typeof yearSample === "number" && Number.isFinite(yearSample)) {
     return formatTrajectoryPercent(yearSample);
   }
-  const match = item.referenceAtYearLabel?.match(/(\d+)\s*%/);
-  return match ? `${match[1]} %` : "";
+  return "";
 }
 
 function gridY(fraction: number, plot: PlotGeometry): number {

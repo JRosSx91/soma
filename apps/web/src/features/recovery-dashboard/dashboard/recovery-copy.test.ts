@@ -20,10 +20,10 @@ test("spanish and english recovery bundles expose the same keys", () => {
   assert.equal(en.emptyTitle, "Your recovery journey");
   assert.equal(es.chartTitle, "Cómo podría evolucionar tu recuperación");
   assert.equal(en.chartTitle, "How your recovery may unfold");
-  assert.equal(es.chartYAxis, "Evolución estimada (%)");
-  assert.equal(en.chartYAxis, "Estimated curve progress (%)");
-  assert.equal(es.chartOverview, "Ver todos los sistemas");
-  assert.equal(en.chartOverview, "View all systems");
+  assert.equal(es.chartYAxis, "Avance de cada curva (%)");
+  assert.equal(en.chartYAxis, "Progress along each curve (%)");
+  assert.equal(es.chartOverview, "Mostrar todas las curvas");
+  assert.equal(en.chartOverview, "Show all curves");
   assert.equal(es.axis1Year, "365 días");
   assert.equal(en.axis1Year, "365 days");
   assert.equal(
@@ -143,6 +143,13 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.notEqual(es.liveFootnote, es.liveFootnoteOverlay);
   assert.match(es.demoFootnote, /demostración/);
   assert.match(en.demoFootnote, /Demonstration/);
+  assert.match(es.demoFootnote, /hoy.*compartido/i);
+  assert.match(en.demoFootnote, /shared “today”/);
+  assert.doesNotMatch(es.demoFootnote, /posición ficticia/);
+  assert.doesNotMatch(en.demoFootnote, /fictional mockup position/);
+  assert.equal(es.demoFootnote, SPANISH_RECOVERY_COPY.demoFootnote);
+  assert.equal(esRecovery.demoChartNoSeries.includes("{{percent}}"), false);
+  assert.equal(enRecovery.demoChartNoSeries.includes("{{percent}}"), false);
   assert.match(es.liveFootnote, /días reales/);
   assert.match(en.liveFootnote, /real days/);
   assert.doesNotMatch(es.demoFootnote, /medición clínica/);

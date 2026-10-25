@@ -63,27 +63,19 @@ export const demoAxisLabels = [
   "1 año",
 ] as const;
 
-/**
- * Horizontal position of the "today" marker on the mockup axis.
- * The axis labels are evenly spaced, as drawn in the reference,
- * so this is a composition value and not a calendar scale.
- */
-export const demoTodayPosition = 0.17;
-export const demoTodayLabel = "Hoy · 42 días";
-
 export interface DemoSeries {
   id: string;
   label: string;
-  /** Visual samples along demoAxisLabels. Not recovery-engine output. */
+  /** Visual samples along the five axis marks. Not recovery-engine output. */
   samples: readonly number[];
   /**
    * Primary legend value.
-   * Live: today’s trajectory advance. Demo: mock “Hoy · …” composition.
+   * Live: today’s trajectory advance. Demo chart builder leaves this empty
+   * (no shared “today”); compact legend then uses the last sample.
    */
   endLabel: string;
   /**
-   * Optional day-365 model checkpoint (live). Never replace endLabel.
-   * Demo may omit or use a fictional year mark for copy parity.
+   * Day-365 checkpoint. Demo chart builder overwrites this from samples.
    */
   referenceAtYearLabel?: string;
   color: string;
@@ -94,40 +86,35 @@ export const demoSeries: readonly DemoSeries[] = [
     id: "nervous",
     label: "Sistema nervioso",
     samples: [0.08, 0.24, 0.42, 0.56, 0.68],
-    endLabel: "Hoy · 46%",
-    referenceAtYearLabel: "día 365 · 68%",
+    endLabel: "",
     color: "rgb(var(--soma-physiology))",
   },
   {
     id: "reward",
     label: "Sistema de recompensa",
     samples: [0.06, 0.16, 0.3, 0.42, 0.54],
-    endLabel: "Hoy · 28%",
-    referenceAtYearLabel: "día 365 · 54%",
+    endLabel: "",
     color: "rgb(var(--soma-action))",
   },
   {
     id: "cardiovascular",
     label: "Función cardiovascular",
     samples: [0.1, 0.28, 0.46, 0.6, 0.72],
-    endLabel: "Hoy · 72%",
-    referenceAtYearLabel: "día 365 · 72%",
+    endLabel: "",
     color: "rgb(var(--soma-warning))",
   },
   {
     id: "pulmonary",
     label: "Función pulmonar",
     samples: [0.07, 0.2, 0.36, 0.5, 0.61],
-    endLabel: "Hoy · 61%",
-    referenceAtYearLabel: "día 365 · 61%",
+    endLabel: "",
     color: "rgb(var(--soma-danger))",
   },
   {
     id: "cognitive",
     label: "Función cognitiva",
     samples: [0.05, 0.14, 0.26, 0.38, 0.49],
-    endLabel: "Hoy · 26%",
-    referenceAtYearLabel: "día 365 · 49%",
+    endLabel: "",
     color: "rgb(var(--soma-ink-secondary))",
   },
 ];
@@ -161,7 +148,7 @@ export const demoChanges: readonly DemoChange[] = [
     title: "Regulación de la dopamina",
     status: "En progreso",
     body: "Los receptores de dopamina comienzan a normalizar su sensibilidad tras la exposición prolongada al cannabis.",
-    endLabel: "54%",
+    endLabel: "",
     icon: "brain",
   },
   {
@@ -170,7 +157,7 @@ export const demoChanges: readonly DemoChange[] = [
     title: "Función pulmonar",
     status: "En progreso",
     body: "La función pulmonar continúa mejorando, con una reducción de la inflamación y una mayor eficiencia en el intercambio gaseoso.",
-    endLabel: "61%",
+    endLabel: "",
     icon: "lungs",
   },
   {
@@ -179,7 +166,7 @@ export const demoChanges: readonly DemoChange[] = [
     title: "Frecuencia cardíaca",
     status: "En progreso",
     body: "La frecuencia cardíaca en reposo tiende a estabilizarse tras la reducción de la nicotina, mejorando la variabilidad cardíaca.",
-    endLabel: "72%",
+    endLabel: "",
     icon: "heart",
   },
 ];
@@ -197,15 +184,15 @@ export interface DemoSystem {
 }
 
 /**
- * Tile figures follow the mockup. They do not match the chart legend
- * one to one: the reference itself shows 68% for the nervous system
- * on the chart and 54% on the tile.
+ * Raw demo tiles. Percents for systems that have a chart series are
+ * filled from that series’ last sample in `demoDashboardSystems`.
+ * Systems without a series stay without a percent.
  */
 export const demoSystems: readonly DemoSystem[] = [
-  { id: "nervous", name: "Sistema nervioso", endLabel: "54%", icon: "brain" },
-  { id: "cardio", name: "Cardiovascular", endLabel: "72%", icon: "heart" },
-  { id: "respiratory", name: "Respiratorio", endLabel: "61%", icon: "lungs" },
-  { id: "digestive", name: "Digestivo", endLabel: "48%", icon: "digestive" },
-  { id: "endocrine", name: "Endocrino", endLabel: "52%", icon: "endocrine" },
-  { id: "immune", name: "Inmunológico", endLabel: "66%", icon: "immune" },
+  { id: "nervous", name: "Sistema nervioso", endLabel: "", icon: "brain" },
+  { id: "cardio", name: "Cardiovascular", endLabel: "", icon: "heart" },
+  { id: "respiratory", name: "Respiratorio", endLabel: "", icon: "lungs" },
+  { id: "digestive", name: "Digestivo", endLabel: "", icon: "digestive" },
+  { id: "endocrine", name: "Endocrino", endLabel: "", icon: "endocrine" },
+  { id: "immune", name: "Inmunológico", endLabel: "", icon: "immune" },
 ];

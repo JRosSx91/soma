@@ -116,7 +116,7 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   liveFootnoteOverlay:
     "Como las sustancias tienen distintos días de abstinencia, no podemos señalar un único «hoy» en el gráfico.",
   demoFootnote:
-    "Valores de demostración. «Hoy» es una posición ficticia del mockup; no usa datos de cuenta.",
+    "Valores de demostración. Cada sustancia tiene su propio recuento de días, así que no hay un «hoy» compartido. La leyenda usa el punto de cada curva en el día 365 del eje.",
   dayOne: "1 día",
   daysMany: "{{count}} días",
   activeShort: "Consumo activo",

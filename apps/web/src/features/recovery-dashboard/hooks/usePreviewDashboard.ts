@@ -5,11 +5,7 @@ import { useOrganStates } from "../../profile/index.js";
 import type { UserProfile } from "../../profile/types.js";
 import { useSubstances } from "../../substances/index.js";
 import {
-  demoChanges,
-  demoSeries,
   demoSubstances,
-  demoSystems,
-  demoTodayPosition,
   type DemoChange,
   type DemoSeries,
   type DemoSubstance,
@@ -18,18 +14,17 @@ import {
 import {
   adaptServerProfile,
   buildLiveDashboard,
-  formatDaysAbstinent,
   type LiveChartModel,
 } from "../dashboard/adapt-live-dashboard.js";
 import {
-  fillRecoveryTemplate,
+  buildDemoChart,
+  demoDashboardChanges,
+  demoDashboardSystems,
+} from "../dashboard/demo-dashboard.js";
+import {
   recoveryCopyFromSource,
   type RecoveryDashboardCopy,
 } from "../dashboard/recovery-copy.js";
-import {
-  formatLabeledPercent,
-  roundedCurvePercent,
-} from "../dashboard/recovery-semantics.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { useLiveProfile } from "./useLiveProfile.js";
 
@@ -65,44 +60,6 @@ const EMPTY_PROFILE: UserProfile = {
   birthYear: 1990,
   usages: [],
 };
-
-function percentFromLabel(label: string): number | null {
-  const match = label.match(/(\d+)\s*%/);
-  if (!match?.[1]) return null;
-  return Number(match[1]) / 100;
-}
-
-function demoChart(copy: RecoveryDashboardCopy): DashboardChartView {
-  return {
-    axisLabels: copy.axisLabels,
-    todayPosition: demoTodayPosition,
-    todayLabel: fillRecoveryTemplate(copy.todayWithDays, {
-      today: copy.today,
-      days: formatDaysAbstinent(42, copy),
-    }),
-    showToday: true,
-    series: demoSeries.map((item) => {
-      const todayShare = percentFromLabel(item.endLabel);
-      return {
-        ...item,
-        endLabel:
-          todayShare == null
-            ? item.endLabel
-            : fillRecoveryTemplate(copy.todayCurveLegend, {
-                today: copy.today,
-                percent: roundedCurvePercent(todayShare),
-              }),
-        referenceAtYearLabel: item.referenceAtYearLabel
-          ? formatLabeledPercent(
-              copy.day365,
-              percentFromLabel(item.referenceAtYearLabel),
-            )
-          : undefined,
-      };
-    }),
-    footnote: copy.demoFootnote,
-  };
-}
 
 function liveChartToView(chart: LiveChartModel): DashboardChartView {
   return {
@@ -199,9 +156,9 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       error: null,
       reload: liveProfile.reload,
       substances: demoSubstances,
-      systems: demoSystems,
-      changes: demoChanges,
-      chart: demoChart(copy),
+      systems: demoDashboardSystems(),
+      changes: demoDashboardChanges(),
+      chart: buildDemoChart(copy),
       emptyUsages: false,
       showDemoBadge: true,
     };

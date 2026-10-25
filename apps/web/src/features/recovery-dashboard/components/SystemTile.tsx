@@ -49,14 +49,21 @@ export function SystemTile({
         {system.name}
       </span>
       {system.endLabel ? (
-        <span className="mt-1 text-sm font-semibold tabular-nums text-soma-ink">
-          <span className="sr-only">
-            {live
-              ? `${t("trajectoryProgressSr")}. ${t("trajectoryProgressShort")}: `
-              : t("estimateSrDemo")}
+        <>
+          <span className="mt-1 text-sm font-semibold tabular-nums text-soma-ink">
+            <span className="sr-only">
+              {live
+                ? `${t("trajectoryProgressSr")}. ${t("trajectoryProgressShort")}: `
+                : t("estimateSrDemo")}
+            </span>
+            {system.endLabel}
           </span>
-          {system.endLabel}
-        </span>
+          {!live ? (
+            <span className="mt-0.5 max-w-full text-[10px] leading-snug text-soma-ink-muted">
+              {t("day365")}
+            </span>
+          ) : null}
+        </>
       ) : system.statusLabel ? (
         <span className="mt-1 text-xs font-medium leading-snug text-soma-ink sm:text-sm">
           {system.statusLabel}

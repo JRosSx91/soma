@@ -5,7 +5,7 @@ Documento de planificación permanente. Se consulta **antes** de abrir un hito n
 
 Última actualización editorial: 2026-10-25.  
 Rama de trabajo: `develop`.  
-HEAD local al actualizar: `437c7fa` (`feat(web): improve explore anatomy navigation and copy`). Validación visual en `/preview` con API y Postgres locales (este documento).
+HEAD local al actualizar: implementación UX-04 `c7f9b37` en `develop`. `origin/main` está en el merge `2ca8004` (PR #49). UX-04 **Pendiente de validación**: en `develop`, pendiente de integración en `main` y de validación funcional en producción.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -30,10 +30,10 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 | Producto Soma 2.0 en `develop` | En desarrollo |
 | UX-01 orientación corporal | Completado (PR #45, confirmar en producto desplegado) |
 | UX-02 mensajes diarios × 60 | Completado (PR #45; test `home-daily-message.test.ts`) |
-| Recuperación (copy, gráfico, estados mixtos) | Pendiente de validación (PR #46–#48) |
-| Neurotransmisores educativos | Validado técnica y visualmente en `/preview` (commits locales; sin push ni despliegue; **no** es revisión clínica) |
+| Recuperación (copy, gráfico, estados mixtos) | Código PR #46–#48 en `main`; UX-04 DEMO en `develop` (`c7f9b37`), **Pendiente de validación** |
+| Neurotransmisores educativos | Funcionalidad del PR #49 observada en `https://somarecovery.app` (SHA de Render **no** verificado; **no** es revisión clínica) |
 | Síntomas de abstinencia | En desarrollo (40 candidatos `pending_clinical_review`; catálogo **publicado vacío**) |
-| Requisitos UX-03 a UX-12 | UX-05–07 Completado en `/preview`; UX-03–04 y UX-08–12 sin cambio (ver tabla) |
+| Requisitos UX-03 a UX-12 | UX-03 Completado (validación DEMO 320/375/430); UX-04 Pendiente de validación (en `develop`, `c7f9b37`); UX-05–07 Completado; UX-08–12 Pendiente |
 | API local para fichas de Explorar | Disponible en esta sesión (`soma-postgres` + `pnpm dev:api`); `/app` autenticado no comprobado |
 
 ---
@@ -45,17 +45,17 @@ Confirmadas por el usuario y/o por código en `develop`:
 - Orientación anatómica del cuerpo (mirada a la izquierda, órganos situados) — PR #45, commit `d54c133`.
 - 60 mensajes motivacionales diarios ES/EN — PR #45, commit `bde004d`, test de longitud 60.
 - Atlas 2D, Explorar de sustancias/sistemas, fichas compartidas `DetailSheet`.
-- Ajustes de recuperación en código: tiempo de abstinencia como eje, etiquetas de % de curva, estados de órgano mixtos, gráfico móvil (PR #46–#48; la **comprensión de usuario** sigue pendiente).
+- Ajustes de recuperación en código: tiempo de abstinencia como eje, etiquetas de % de curva, estados de órgano mixtos, gráfico móvil (PR #46–#48). Coherencia DEMO de leyenda/hitos: en `develop` (`c7f9b37`), **Pendiente de validación**.
 - Infraestructura de Consejos, evidencia NT y ventanas educativas: catálogos **públicos vacíos** a propósito.
-- Commit local de neurotransmisores `0a49627` (no integrado en remoto ni desplegado).
-- Explorar UX-05–07 y MVP de NT: validación **técnica y visual** en `/preview` (alcohol/cannabis, hipocampo, `DetailSheet`). No es revisión clínica ni publicación en producción. `/app` autenticado no se comprobó de forma específica.
+- Neurotransmisores `0a49627` y Explorar UX-05–07 (`437c7fa`): fusionados en `main` vía PR #49 (`2ca8004`). **Publicación funcional** observada en `https://somarecovery.app` (2026-10-25). El SHA servido por Render **no** se pudo verificar. **No** es revisión clínica. `/app` autenticado no se comprobó de forma específica.
+- UX-03: figura de Inicio validada en producción DEMO a 320/375/430 px. Seguimientos opcionales (tablet, recorte de escritorio) no bloquean el cierre.
 
 ---
 
 ## Funcionalidades en desarrollo
 
 - Catálogo editorial de **síntomas de abstinencia** (40 candidatos, **publicado vacío**, todas `pending_clinical_review`). Sin interfaz de usuario; sin revisión clínica.
-- MVP de **neurotransmisores** en Explorar: validado en `/preview` con sustancias reales; falta push, PR, merge y despliegue.
+- Coherencia DEMO de **UX-04** (leyenda = muestra del eje; sin «hoy» compartido): implementada en `develop` (`c7f9b37`); pendiente de integración en `main` y de validación funcional en producción.
 
 ---
 
@@ -65,7 +65,7 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 
 - Revisión clínica de síntomas y decisión de publicación (no se cierra con tests).
 - Interfaz de síntomas **sin** mostrar candidatos pendientes de revisión.
-- Validación visual de figura (UX-03) y comprensión del gráfico de recuperación (UX-04).
+- Validación de producto de UX-04 (copy y gráfico DEMO coherentes; LIVE ya tenía reglas de overlay/mixto).
 - Comprobación específica de Explorar en `/app` autenticado (misma UI que `/preview`; no es un requisito nuevo).
 - Estimaciones de fase por sustancia solo con respaldo (`educationalPhaseWindowCatalog` vacío).
 - Auditoría de huecos órgano × sustancia (p. ej. cocaína–corazón).
@@ -81,7 +81,7 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 | R-CLIN | La revisión clínica no es una casilla de tests. Publicar síntomas o Consejos sin ella sería un error de producto. | Pendiente |
 | R-% | Confundir avance de curva con salud recuperada. | Pendiente de validación con usuarios |
 | R-CAL | Reutilizar 1–7/8–56/57+ (`narrativePhaseWindows`) como calendario clínico. | Pendiente (guardrails de código existen; contenido de ventanas aún vacío) |
-| R-NT | Neurotransmisores solo en commit local: se puede perder el hito si no se integra cuando el usuario lo autorice. | Pendiente |
+| R-NT | Neurotransmisores integrados en `main` (PR #49). SHA de Render no verificado. | Mitigado en git; despliegue SHA pendiente |
 | R-DUP | Duplicar párrafos NT como lista de síntomas. | Mitigado en catálogo editorial; falta UI |
 
 ---
@@ -89,9 +89,8 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 ## Próximos pasos (por dependencia, sin fechas)
 
 1. **Síntomas:** interfaz futura solo sobre el catálogo **publicado** (vacío); 40 candidatos siguen `pending_clinical_review`. Revisión clínica humana **después**.
-2. **Neurotransmisores / Explorar UX-05–07:** validados en `/preview`. Push/PR/merge/despliegue **solo** cuando se autorice. `/app` autenticado queda por comprobar, sin ser un requisito nuevo.
-3. **UX-03 y UX-04:** evidencia visual / de comprensión; entonces Completado.
-4. **UX-08–UX-09** (atlas) y **UX-10–UX-12** (logros).
+2. **UX-04:** integrar `c7f9b37` en `main` y validar funcionalmente en producción (`/preview/recovery`: leyenda = día 365 de cada curva; sin marcador «Hoy» compartido; hitos sin % contradictorios).
+3. **UX-08–UX-09** (atlas) y **UX-10–UX-12** (logros). `/app` autenticado de Explorar sigue pendiente, sin ser un requisito nuevo.
 
 La revisión clínica de síntomas es un hito humano posterior, no el paso 1.
 
@@ -121,11 +120,12 @@ Numeración e intención originales conservadas. Estados según **código inspec
 
 #### UX-03 — Tamaño de la figura en móvil
 
-- **Estado:** Pendiente de validación
+- **Estado:** Completado
 - **Descripción:** Ajustar el tamaño de la figura anatómica en dispositivos móviles.
-- **Criterio:** En 320/375/430 px la figura es usable, no recorta órganos relevantes ni deja un vacío excesivo. **No Completado** sin evidencia visual.
-- **Evidencia:** Hay implementación (`d54c133`, `91724b3`, tests de clases en `adapt-live-dashboard.test.ts`). Falta validación visual explícita de este criterio.
-- **Dependencias:** Dispositivo o emulación; no bloqueado por API.
+- **Criterio:** En 320/375/430 px la figura es usable, no recorta órganos relevantes ni deja un vacío excesivo.
+- **Evidencia:** Validación visual en producción DEMO `https://somarecovery.app/preview` (2026-10-25): 320 (288×268, llena el ancho), 375 y 430 (altura tope 280 px). Cara, cerebro, tórax y abdomen visibles; overflow horizontal 0. Código: `d54c133`, `91724b3`, `HeroFigure` / `HomeStage` (sin cambios en este hito).
+- **Limitaciones no bloqueantes:** en tablet (~768 px) queda un vacío lateral amplio; en escritorio (~1280 px) se recortan ~58 px del borde derecho de la imagen. Mejoras visuales opcionales; **no** reabren UX-03.
+- **Dependencias:** Ninguna.
 
 ### Mi recuperación
 
@@ -134,8 +134,8 @@ Numeración e intención originales conservadas. Estados según **código inspec
 - **Estado:** Pendiente de validación
 - **Descripción:** Aclarar significado y cálculo del resumen. El usuario debe entender la agregación y que **no** es un porcentaje real de salud.
 - **Criterio:** Copy y gráfico hablan de avance de curva educativa; no de salud recuperada; estados mixtos no muestran un % conjunto engañoso.
-- **Evidencia:** Usuario: PR #46–#48 mejoraron explicaciones. Código: `3edece5`, `2cdeac6`, `591c74f`, `b53892c`, `feb8947`. Falta confirmar comprensión de usuario.
-- **Dependencias:** Ninguna de código abierta; validación de producto pendiente.
+- **Evidencia:** PR #46–#48 en `main`. Implementación DEMO en `develop` (`c7f9b37`): sin marcador «Hoy» compartido; leyenda = última muestra de cada serie (día 365 del eje); hitos sin %; azulejos con serie reutilizan esa muestra y muestran «día 365»; copy ES/EN «Avance de cada curva» / «Mostrar todas las curvas». LIVE (mínimo por sistema, overlay, mixto) no se ha tocado. Falta integración en `main` y validación funcional en producción.
+- **Dependencias:** Integración en `main` y validación funcional en producción. **Pendiente de validación**; no Completado.
 
 ### Explorar
 
@@ -144,7 +144,7 @@ Numeración e intención originales conservadas. Estados según **código inspec
 - **Estado:** Completado
 - **Descripción:** Quitar repeticiones innecesarias de «catálogo» y mejorar el lenguaje.
 - **Criterio:** En ES, «catálogo» no satura títulos, pistas, errores y fichas; el tono sigue siendo educativo.
-- **Evidencia:** Copy ES/EN reescrito (`437c7fa`). **Validación técnica y visual** en `/preview/explore` (2026-10-25, API local): descripción, categoría y fichas de alcohol/cannabis. Una mención queda en `ntPhaseNotice` (catálogo vs medición). **No** es revisión clínica ni publicación en producción. `/app` autenticado no se comprobó de forma específica (misma UI; no es un requisito nuevo).
+- **Evidencia:** Copy ES/EN reescrito (`437c7fa`). Validado en `/preview/explore` local y **observado en producción** `https://somarecovery.app` (PR #49). Una mención queda en `ntPhaseNotice`. **No** es revisión clínica. SHA de Render no verificado. `/app` autenticado no se comprobó de forma específica.
 - **Dependencias:** Ninguna.
 
 #### UX-06 — Enumeración de órganos y zonas (hipocampo)
@@ -152,7 +152,7 @@ Numeración e intención originales conservadas. Estados según **código inspec
 - **Estado:** Completado
 - **Descripción:** Mejorar la lista de órganos y zonas, incluyendo el hipocampo cuando corresponda.
 - **Criterio:** Si el índice educativo asocia hipocampo (u otra zona) a la sustancia, aparece en la ficha con el nombre localizado; no se inventan órganos.
-- **Evidencia:** Título «Órganos y zonas». Agrupación por `atlasSystems`. En `/preview`, fichas de **alcohol** y **cannabis**: hipocampo localizado bajo SNC; overflow 0 en 320/375/430 px. **No** es revisión clínica. `/app` autenticado no comprobado de forma específica.
+- **Evidencia:** Título «Órganos y zonas». Agrupación por `atlasSystems`. Fichas alcohol/cannabis en `/preview` local y en producción (PR #49): hipocampo bajo SNC. **No** es revisión clínica. SHA de Render no verificado.
 - **Dependencias:** UX-07 (nombres enlazables).
 
 #### UX-07 — Navegar de órganos mencionados al atlas
@@ -160,7 +160,7 @@ Numeración e intención originales conservadas. Estados según **código inspec
 - **Estado:** Completado
 - **Descripción:** Desde órganos y zonas de Explorar, ir a su ubicación en el explorador anatómico.
 - **Criterio:** Cada órgano listado abre el atlas en el sistema/órgano correcto, **sin** afirmar que un neurotransmisor «pertenece» a un solo órgano.
-- **Evidencia:** En `/preview`, Hipocampo abre `/preview/anatomy?system=nervous-central&organ=brain-hippocampus` (Hipocampo pulsado, pestaña Resumen). `DetailSheet` cierra y restaura foco. Las tarjetas NT no enlazan órganos. **No** es revisión clínica ni despliegue. `/app` autenticado no comprobado de forma específica.
+- **Evidencia:** Hipocampo abre `/preview/anatomy?system=nervous-central&organ=brain-hippocampus` en local y en producción (PR #49). `DetailSheet` cierra y restaura foco. **No** es revisión clínica. SHA de Render no verificado.
 - **Dependencias:** Query del atlas (`anatomy-explorer-query.ts`).
 
 ### Explorador anatómico
@@ -215,11 +215,11 @@ Numeración e intención originales conservadas. Estados según **código inspec
 
 | Campo | Valor |
 | --- | --- |
-| Estado | Completado en `/preview` (validación técnica y visual; **no** revisión clínica; **no** publicado) |
+| Estado | En `main` (PR #49). **Publicación funcional** en `https://somarecovery.app`. SHA de Render **no** verificado. **No** revisión clínica. |
 | Qué es | MVP educativo en Explorar: tarjetas compactas, selector de fase, perfiles existentes, sin mediciones ni calendarios personales. Advertencias de alcohol (GABA/glutamato, abstinencia aguda) visibles fuera de un `<details>` cerrado. |
-| Commit | `0a496273fa5e8f0dff55ae873ce1b3fd2fad8196` **local** |
-| Validación | `/preview` con sustancias reales (alcohol: selector de fases, avisos GABA/glutamato en abstinencia aguda; cannabis: tarjetas NT). 320/375/430 px. |
-| No hecho | Push, PR, merge, despliegue. Comprobación específica en `/app` autenticado. |
+| Commit | `0a49627` en `develop`; merge `2ca8004` en `main` (PR #49). |
+| Validación | `/preview` local y producción DEMO (alcohol/cannabis, 320/375/430 px). |
+| No hecho | Verificar SHA de Render. Comprobación específica en `/app` autenticado. |
 | No es | Medición neuroquímica, fase calculada por días de abstinencia, ni revisión clínica del copy. |
 
 ### Síntomas de abstinencia
@@ -238,9 +238,10 @@ Numeración e intención originales conservadas. Estados según **código inspec
 
 | PR (según usuario) | Tema | Estado en este roadmap |
 | --- | --- | --- |
-| #45 | Orientación + mensajes × 60 (+ sizing móvil en el mismo frente) | UX-01 y UX-02 Completado; UX-03 Pendiente de validación |
-| #46 | Abstinencia como eje; % de curva | Código integrado; UX-04 Pendiente de validación |
-| #47 / #48 | Estados mixtos; gráfico móvil | Código en `develop` (`591c74f`, `b53892c`, `feb8947`); validación de comprensión y layout móvil pendiente |
+| #45 | Orientación + mensajes × 60 (+ sizing móvil en el mismo frente) | UX-01, UX-02 y UX-03 Completado |
+| #46 | Abstinencia como eje; % de curva | Código en `main`; UX-04 Pendiente de validación (DEMO en `develop`, `c7f9b37`) |
+| #47 / #48 | Estados mixtos; gráfico móvil | Código en `main` (`591c74f`, `b53892c`, `feb8947`); LIVE mixto intacto |
+| #49 | NT + Explorar UX-05–07 | Fusionado en `main` (`2ca8004`). Publicación funcional en somarecovery.app; SHA Render no verificado |
 
 No confundir progreso de curvas educativas con medición de salud.
 
@@ -255,14 +256,12 @@ Síntomas (editorial local)
   → revisión clínica humana
   → ingestión al catálogo público (otro hito)
 
-Neurotransmisores (0a49627) + UX-05–07
-  → validados técnica y visualmente en `/preview`
-  → (autorización) push / PR / merge / despliegue
-  → `/app` autenticado: comprobación específica pendiente (no es un requisito nuevo)
+Neurotransmisores + UX-05–07
+  → en `main` (PR #49); publicación funcional observada
+  → SHA de Render no verificado; `/app` autenticado pendiente (no es requisito nuevo)
 
-UX-03, UX-04
-  → evidencia visual / de comprensión
-  → entonces Completado
+UX-03 Completado (DEMO 320/375/430)
+UX-04 en `develop` (`c7f9b37`) → integración en `main` → validación funcional en producción
 
 UX-08, UX-09
   → atlas (ventanas por sustancia; huecos de cobertura)
@@ -301,3 +300,5 @@ Estados permitidos: `Completado` · `Pendiente de validación` · `En desarrollo
 | Síntomas | Catálogo por sustancia (no por NT); 40 candidatos; publicado vacío; sin UI todavía. |
 | 2026-10-25 | Se crea este `ROADMAP.md` para no perder requisitos entre sesiones. |
 | 2026-10-25 | Validación técnica y visual en `/preview` (API + Postgres locales): UX-05–07 y MVP NT. No es revisión clínica ni producción. `/app` no comprobado de forma específica. |
+| 2026-10-25 | PR #49 fusionado en `main` (`2ca8004`). Publicación funcional en somarecovery.app; SHA de Render no verificado. |
+| 2026-10-25 | UX-03 cerrado con evidencia DEMO 320/375/430. UX-04 DEMO en `develop` (`c7f9b37`): leyenda = muestra día 365; sin «hoy» compartido. Pendiente de `main` y de validación en producción. |

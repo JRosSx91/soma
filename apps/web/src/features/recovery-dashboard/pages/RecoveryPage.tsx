@@ -269,7 +269,7 @@ export function RecoveryPage() {
 
       {tab === "system" && system && !live && !chartSeriesForSystem[system.id] ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-3 text-sm text-soma-ink-secondary">
-          {t("demoChartNoSeries", { system: system.name, percent: system.endLabel })}
+          {t("demoChartNoSeries", { system: system.name })}
         </p>
       ) : null}
 
