@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-25 (consolidación post auditoría).
+Última actualización editorial: 2026-10-25 (AUTH-01/LIVE-01 local; I18N-04 documentado; sin implementación de notificaciones ni selector).
 Rama de trabajo: `develop`.
 HEAD local al actualizar: `593b6c6595800292ad0e548872f2016b7d243767` (`docs: update UX-04 integration status`), alineado con `origin/develop`.
 `origin/main`: merge commit `32aac73ddac9abd012f876d8f4fbfdf9f78aefb7` (PR #50).
@@ -62,7 +62,10 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | UX-12 secretos y platinos | Parcialmente implementado |
 | Neurotransmisores educativos | Publicados como MVP educativo (PR #49). No son mediciones. SHA Render no verificado |
 | Síntomas / Consejos | Bloqueado por revisión clínica; catálogos **publicados vacíos** |
-| LIVE `/app` | Pendiente de recorrido manual completo |
+| LIVE `/app` | AUTH-01 y LIVE-01 validados funcionalmente **en local** (cuenta sintética). No producción, no staging, no recaídas, no múltiples pestañas |
+| ACH-NOTIF-01 campana | Pendiente (documentado; no implementar aún) |
+| ACH-CELEB-01 celebraciones | Pendiente (documentado; no implementar aún) |
+| I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
 ---
@@ -226,23 +229,25 @@ El catálogo de **106** ítems debe distinguirse así: **existencia** (seed/gene
 
 ## Cuenta, autenticación y onboarding
 
-Código existente (JWT en memoria, cookie de refresh, PUT `/me/profile`, onboarding skip/complete). **No** hay E2E de navegador. LIVE producción no recorrido.
+Código existente (JWT en memoria, cookie de refresh, PUT `/me/profile`, onboarding skip/complete). **No** hay E2E de navegador. LIVE **producción** no recorrido.
 
 #### AUTH-01 — Validar registro, onboarding, sesión y `/app`
 
 - **Descripción:** Recorrer de punta a punta: registro o login, restauración de sesión, onboarding (completar o omitir), acceso a `/app`, logout y estados de carga/error.
-- **Estado:** Implementado, pendiente de validación
+- **Estado:** Validado funcionalmente en local; pendiente de validación en producción o entorno de staging autorizado
 - **Prioridad:** P1
-- **Evidencia:** `AuthContext`, `ProtectedRoute`, `auth.controller.ts`, tests `auth-session.test.ts`, `auth.refresh.http.test.ts`, `onboarding-actions.test.ts`. Sin tests de montaje de `AuthProvider`/`ProtectedRoute`/`OnboardingPage`. Sin Playwright/Cypress.
+- **Evidencia:** `AuthContext`, `ProtectedRoute`, `auth.controller.ts`, tests `auth-session.test.ts`, `auth.refresh.http.test.ts`, `onboarding-actions.test.ts`. Sin tests de montaje de `AuthProvider`/`ProtectedRoute`/`OnboardingPage`. **Sin Playwright/Cypress** (esta validación no es cobertura E2E automatizada).
+- **Recorrido local 2026-10-25** (PostgreSQL local, API `localhost:3000`, web `localhost:5173`, cuenta sintética nueva `soma.auth01.live01@example.test`; **no** producción): registro OK; creación de sesión OK; onboarding OK; persistencia de sesión tras recargar `/app` OK; acceso a `/app` OK; logout OK (landing `/`); nuevo login OK. No se usó ninguna cuenta existente.
 - **Dependencias:** Q-E2E para automatizar después del humo manual. No usar cuenta de producción real salvo autorización explícita.
 - **Criterio:** Un operador puede completar el flujo en un entorno autorizado y documentar pases/fallos por paso (login, refresh, onboarding, `/app`, logout) sin ambigüedad DEMO/LIVE.
 
 #### LIVE-01 — Sustancias, fechas, persistencia y recálculo
 
 - **Descripción:** Validar edición de sustancias y fechas (hoy en `/onboarding` vía PUT `/me/profile`, no en la página Cuenta), persistencia Prisma, y que recuperación LIVE se actualiza al refetch. Los logros **añaden** desbloqueos en `GET /me/achievements`; no revocan (ACH-REV).
-- **Estado:** Implementado, pendiente de validación
+- **Estado:** Validado funcionalmente en local para los casos probados
 - **Prioridad:** P1
-- **Evidencia:** `profile.service.ts` (replace de usages); `useLiveProfile` + `adapt-live-dashboard.ts`; `detectAndPersistUnlocks` insert-only. Tests de adapter (fechas faltantes, activo, vacío); **no** hay PUT→GET dashboard.
+- **Evidencia:** `profile.service.ts` (replace de usages); `useLiveProfile` + `adapt-live-dashboard.ts`; `detectAndPersistUnlocks` insert-only. Tests de adapter (fechas faltantes, activo, vacío); **no** hay PUT→GET dashboard automatizado.
+- **Recorrido local 2026-10-25** (misma cuenta sintética; **no** producción, **no** recaídas, **no** múltiples pestañas): nicotina abstinente desde el 11/10/2026 → **14 días**; cannabis **activo** (sin recuento de abstinencia). Recuperación LIVE diferenciada por sustancia. Tras cambiar nicotina al 15/09/2026 → **40 días**; perfil e Inicio («Desde el 15 sept 2026») y curvas actualizados. Marcador de gráfico **`Hoy · N días · Nicotina`**: identificado con nicotina, sin porcentaje global ficticio que mezcle cannabis activo. Logros insert-only: **3** desbloqueos iniciales (bronces nicotina) y **5** adicionales retroactivos (total **8**); los `unlockedAt` de los 3 primeros no se reescribieron. Toasts: ver ACH-NOTIF-01 / ACH-CELEB-01.
 - **Dependencias:** AUTH-01. ACH-REV (política; no implementar revocación en este ítem).
 - **Criterio:** Tras cambiar fechas/sustancias en un entorno autorizado, Home/Recuperación LIVE muestran el modelo actualizado; se anota qué ocurre en Logros (nuevos unlocks sí/no; unlocks previos intactos). Vacío y error tienen UI utilizable.
 
@@ -279,6 +284,25 @@ UI selectable: solo ES/EN (`INTERFACE_LANGUAGES`). DEMO validada en ambos para *
 - **Dependencias:** Editorial; no es revisión clínica de nuevo contenido.
 - **Criterio:** Con UI EN, el cuerpo de las fichas educativas del atlas está en inglés o se declara explícitamente monolingüe ES (decisión de producto). No inventar fisiología.
 
+#### I18N-04 — Selector visual de idiomas
+
+- **Descripción:** Sustituir las etiquetas visibles ES/EN del selector actual por **banderas circulares**, manteniendo accesibilidad y facilidad de uso. Solo los idiomas de interfaz ya soportados (ES/EN). **No** añadir idiomas nuevos. Coherencia visual con la futura campana de ACH-NOTIF-01, sin implementar esa campana aquí.
+- **Estado:** Pendiente. **No implementar todavía.**
+- **Prioridad:** P2
+- **Evidencia:** El chrome actual expone `Language: Español` / equivalente EN como texto. Este ID no corrige I18N-01 ni I18N-02 (copy DEMO/logros).
+- **Dependencias:** Ninguna de catálogo. No bloquea AUTH-01/LIVE-01. Alinear estilo con ACH-NOTIF-01 cuando esa campana se autorice.
+- **Criterio:**
+  - Español: bandera de España circular.
+  - Inglés: bandera del Reino Unido circular.
+  - El botón muestra el idioma actualmente seleccionado.
+  - Al pulsarlo, aparece un desplegable con las opciones Español y English.
+  - Cada opción muestra bandera y nombre completo.
+  - El idioma activo se distingue visualmente.
+  - Funciona con teclado y lector de pantalla.
+  - Mantiene el idioma seleccionado al navegar y recargar.
+  - Se adapta a móvil y escritorio.
+  - Conserva coherencia visual con la futura campana de notificaciones.
+
 Locales ca/gl/eu/fr/it/de en disco **no** son UI Soma 2.0; no se tratan como deuda de lanzamiento.
 
 ---
@@ -296,6 +320,46 @@ No duplicar UX-10–12. El catálogo 106 existe; cafeína 8 ítems sin platino; 
 - **Dependencias:** Decisión de producto (sección siguiente). LIVE-01 documenta el hecho; no lo cambia.
 - **Criterio:** Documento de política aprobado (conservar / revocar en recaída / revocar solo en corrección de error / otro) **antes** de cualquier cambio de código. Corregir fechas erróneas y recaer **no** se tratan como el mismo evento.
 
+#### ACH-NOTIF-01 — Centro de notificaciones
+
+- **Descripción:** Disponer de una campana de notificaciones en el encabezado, extensible a futuras novedades de Soma. La **primera implementación se limita a logros**. No es UX-10–12 (catálogo, revisión, secretos/platinos). No es ACH-CELEB-01 (esa es la celebración puntual). No es ACH-REV (política de persistencia de `UserAchievement`).
+- **Estado:** Pendiente. **No implementar todavía.**
+- **Prioridad:** P1
+- **Evidencia / superficie actual:** `TrophyToastStack` en `ProtectedLayout` (LIVE, no DEMO) anuncia unlocks no notificados con toasts apilados (`MAX_VISIBLE_TOASTS = 3`) y marca `notifiedAt`. No hay campana, ni panel persistente leído/no leído, ni agrupación de “varios al regresar”. Reutilizar esa cola/`notifiedAt` si encaja; no inventar un segundo sistema en paralelo por defecto.
+- **Observado en local 2026-10-25** (cuenta sintética AUTH-01/LIVE-01; **no** se modificó código): los toasts pueden aparecer **al navegar** (p. ej. Recuperación/Logros) en lugar de inmediatamente después de guardar onboarding o fechas; Inicio a veces ya muestra el perfil actualizado con **0** toasts. Hasta **tres** toasts simultáneos pueden cubrir contenido. Los desbloqueos restantes del lote aparecen **después** (segundo grupo al cambiar de página). Los ya notificados **no se repitieron** al recargar ni al volver a iniciar sesión. Este ID sigue **pendiente**; las observaciones motivan el centro de notificaciones, no lo cierran.
+- **Dependencias:** AUTH-01 / LIVE-01 para el contexto LIVE. ACH-CELEB-01 (celebración ≠ notificación). ACH-REV (qué filas existen). Extensibilidad de tipos futuros **sin** implementar esos tipos en este hito.
+- **Criterio:**
+  - Indicador de notificaciones sin leer.
+  - Panel accesible desde el encabezado.
+  - Listado de logros notificados y acceso a sus fichas.
+  - Persistencia del estado leído/no leído; sincronización sin recargar la página.
+  - Agrupación de desbloqueos simultáneos; aviso **único** al regresar si hay varios logros nuevos.
+  - Sin repetir notificaciones ya comunicadas.
+  - Distinguir **fecha del logro** (`unlockedAt`) y **fecha de comunicación**.
+  - La campana debe admitir nuevos tipos de notificación más adelante **sin** implementarlos ahora.
+  - Las notificaciones **persisten**; no se confunden con celebraciones visuales puntuales. Una notificación futura no tiene por qué generar celebración.
+
+#### ACH-CELEB-01 — Celebraciones de logros
+
+- **Descripción:** Sustituir las interrupciones masivas (toasts apilados de `TrophyToastStack`, o una cascada de modales) por **una** celebración visual cuidada. No es UX-10–12. No es ACH-NOTIF-01. No implementa revocación (ACH-REV).
+- **Estado:** Pendiente. **No implementar todavía.**
+- **Prioridad:** P1
+- **Evidencia / superficie actual:** `TrophyToastStack` cubre el anuncio inmediato LIVE; no es una celebración modal, no agrupa un “momento” único y puede tapar Recuperación. No validar comprensión de usuario como cierre de este ID.
+- **Observado en local 2026-10-25** (misma cuenta sintética; **sin** corrección de código): hasta tres toasts apilados cubrieron el gráfico de Recuperación; los desbloqueos adicionales (5 tras adelantar `lastUseDate`) salieron en lotes posteriores, no como una celebración colectiva. No hubo 14 modales consecutivos, pero el patrón actual **no** cumple este ID. Los ya comunicados no se recrearon al recargar.
+- **Dependencias:** ACH-NOTIF-01 (el registro persistente vs el evento visual). Reutilizar medallas/`AchievementMedal` e i18n de logros si sirve; evitar sobreingeniería.
+- **Criterio:**
+  - Modal centrado con fondo oscurecido; medalla, nombre y descripción.
+  - Animación breve de partículas y medallas; **celebración colectiva** si hay varios desbloqueos.
+  - **Nunca** mostrar 14 modales consecutivos.
+  - Cierre accesible (botón y Escape); gestión correcta del foco.
+  - Respeto por `prefers-reduced-motion`; sin destellos estroboscópicos.
+  - Sonido breve opcional, **desactivado inicialmente**.
+  - No repetir celebraciones ya vistas.
+  - Diseño responsive.
+  - Las celebraciones son **eventos visuales puntuales**; no sustituyen el historial persistente de notificaciones.
+
+Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-REV): las notificaciones persisten; las celebraciones ocurren una vez y se acaban; `TrophyToastStack` es el anuncio LIVE actual, no el diseño objetivo; ACH-REV decide si una fila de logro sigue existiendo, no cómo se comunica. Las notificaciones futuras (no-logro) no tienen por qué celebrarse. Reutilizar infraestructura existente cuando sea adecuado.
+
 #### LEG-01 — Ruta legacy `/achievements`
 
 - **Descripción:** Evaluar la página Soma 1.0 (`pages/AchievementsPage.tsx`, `TrophyCard`) frente a Soma 2.0 (`recovery-dashboard/pages/AchievementsPage.tsx`). La legacy no muestra `ruleReview` y colorea tramos en secretos.
@@ -304,8 +368,6 @@ No duplicar UX-10–12. El catálogo 106 existe; cafeína 8 ítems sin platino; 
 - **Evidencia:** Rutas en `App.tsx`: `/achievements` autenticada legacy; `/preview/achievements` y `/app/achievements` Soma 2.0.
 - **Dependencias:** UX-10–12 (no romper el criterio en la superficie que se conserve).
 - **Criterio:** Decisión documentada: retirar, redirigir a Soma 2.0, o adaptar ruleReview/secretos. Nada a medias sin dueño.
-
-`TrophyToastStack` (LIVE, no DEMO): implementado en `ProtectedLayout`; comprensión de usuario no validada (cubre AUTH-01/LIVE-01, no un ID extra).
 
 ---
 
@@ -411,7 +473,7 @@ Este documento **no** decide esos puntos ni autoriza seeds.
 
 | ID | Riesgo / bloqueo | Estado |
 | --- | --- | --- |
-| R-API | Explorar/sustancias depende del API. Mitigado en local. `/app` autenticado no comprobado. No forzar `.env` ni seeds. | Mitigado en local |
+| R-API | Explorar/sustancias depende del API. Mitigado en local. `/app` autenticado comprobado **en local** (AUTH-01/LIVE-01); no producción. No forzar `.env` ni seeds. | Mitigado en local |
 | R-CLIN | Publicar síntomas o Consejos sin revisión clínica. | Bloqueado por revisión clínica |
 | R-% | Confundir avance de curva con salud recuperada. | Mitigado en DEMO (UX-04); pendiente con usuarios LIVE |
 | R-CAL | Reutilizar 1–7/8–56/57+ como calendario clínico. | Pendiente (guardrails; catálogo educativo vacío) |
@@ -425,14 +487,16 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 
 ## Próximos pasos (por dependencia)
 
-1. **AUTH-01 + LIVE-01:** humo autenticado (entorno autorizado; no producción real sin permiso).
+1. **AUTH-01 + LIVE-01:** humo **local** hecho (cuenta sintética). Pendiente producción o staging **autorizado**. No E2E automatizado.
 2. **I18N-01 e I18N-02:** defecto EN ya visto en DEMO pública.
 3. **UX-10** (validar) → **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo).
 4. **ACH-REV:** decidir política **antes** de código.
-5. **UX-08 / UX-09:** editorial; no inventar.
-6. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
-7. **VIS-01, I18N-03, LEG-01, ESLint.**
-8. Revisión clínica de síntomas/consejos: hito humano **posterior**, no el paso 1 de lanzamiento.
+5. **ACH-NOTIF-01 y ACH-CELEB-01:** documentados; observaciones de toasts en local; **no implementar** hasta autorización. Distintos de UX-10–12 y de ACH-REV.
+6. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
+7. **UX-08 / UX-09:** editorial; no inventar.
+8. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
+9. **VIS-01, I18N-03, LEG-01, ESLint.**
+10. Revisión clínica de síntomas/consejos: hito humano **posterior**, no el paso 1 de lanzamiento.
 
 ---
 
@@ -477,9 +541,12 @@ Síntomas / Consejos
   → ingestión al catálogo público (otro hito; no automática)
   → UI que solo lee lo publicado
 
-AUTH-01 + LIVE-01  →  I18N-01 / I18N-02
+AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
+  →  I18N-01 / I18N-02
   → UX-10 validar  →  UX-12  →  UX-11 (autorización de reglas)
   → ACH-REV (decisión) antes de cualquier revocación
+  → ACH-NOTIF-01 / ACH-CELEB-01 (documentados; no implementar aún)
+  → I18N-04 (selector banderas; no implementar aún; no nuevos idiomas)
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar
 
@@ -500,7 +567,7 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N, ACH-REV, Q-*, VIS, LEG, R-SHA) no los sustituyen.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, Q-*, VIS, LEG, R-SHA) no los sustituyen.
 
 ---
 
@@ -520,3 +587,5 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 | 2026-10-25 | UX-03 cerrado DEMO 320/375/430. VIS-01 opcional. |
 | 2026-10-25 | PR #50 fusionado (`32aac73`). UX-04 validado DEMO. LIVE `/app` no retestado. |
 | 2026-10-25 | Auditoría integral: se consolidan AUTH/LIVE/I18N/calidad/ACH-REV sin alterar UX-01–12. |
+| 2026-10-25 | ACH-NOTIF-01 y ACH-CELEB-01 añadidos como P1 documentados. No se implementan. Distintos de UX-10–12, `TrophyToastStack` y ACH-REV. |
+| 2026-10-25 | AUTH-01 y LIVE-01: validación funcional **local** (cuenta sintética). No E2E. No producción. I18N-04 documentado (P2; no implementar). |
