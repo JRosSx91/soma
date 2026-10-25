@@ -5,7 +5,7 @@ Documento de planificación permanente. Se consulta **antes** de abrir un hito n
 
 Última actualización editorial: 2026-10-25.  
 Rama de trabajo: `develop`.  
-HEAD local al actualizar: `ccef9a3` (`feat(web): prepare withdrawal symptom catalog and roadmap`).
+HEAD local al actualizar: `437c7fa` (`feat(web): improve explore anatomy navigation and copy`). Validación visual en `/preview` con API y Postgres locales (este documento).
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -31,10 +31,10 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 | UX-01 orientación corporal | Completado (PR #45, confirmar en producto desplegado) |
 | UX-02 mensajes diarios × 60 | Completado (PR #45; test `home-daily-message.test.ts`) |
 | Recuperación (copy, gráfico, estados mixtos) | Pendiente de validación (PR #46–#48) |
-| Neurotransmisores educativos | Pendiente de validación (commit local, sin push) |
-| Síntomas de abstinencia | En desarrollo (catálogo editorial local; **no publicado**) |
-| Requisitos UX-03 a UX-12 | Pendiente o pendiente de validación (ver tabla) |
-| API local para fichas de Explorar | Bloqueado (API no disponible en la última validación visual) |
+| Neurotransmisores educativos | Validado técnica y visualmente en `/preview` (commits locales; sin push ni despliegue; **no** es revisión clínica) |
+| Síntomas de abstinencia | En desarrollo (40 candidatos `pending_clinical_review`; catálogo **publicado vacío**) |
+| Requisitos UX-03 a UX-12 | UX-05–07 Completado en `/preview`; UX-03–04 y UX-08–12 sin cambio (ver tabla) |
+| API local para fichas de Explorar | Disponible en esta sesión (`soma-postgres` + `pnpm dev:api`); `/app` autenticado no comprobado |
 
 ---
 
@@ -48,13 +48,14 @@ Confirmadas por el usuario y/o por código en `develop`:
 - Ajustes de recuperación en código: tiempo de abstinencia como eje, etiquetas de % de curva, estados de órgano mixtos, gráfico móvil (PR #46–#48; la **comprensión de usuario** sigue pendiente).
 - Infraestructura de Consejos, evidencia NT y ventanas educativas: catálogos **públicos vacíos** a propósito.
 - Commit local de neurotransmisores `0a49627` (no integrado en remoto ni desplegado).
+- Explorar UX-05–07 y MVP de NT: validación **técnica y visual** en `/preview` (alcohol/cannabis, hipocampo, `DetailSheet`). No es revisión clínica ni publicación en producción. `/app` autenticado no se comprobó de forma específica.
 
 ---
 
 ## Funcionalidades en desarrollo
 
-- Catálogo editorial de **síntomas de abstinencia** (40 candidatos, publicado vacío). Archivos locales sin commit.
-- MVP de **neurotransmisores** en Explorar: en `HEAD` local; falta push, PR, merge, despliegue y validación visual con API.
+- Catálogo editorial de **síntomas de abstinencia** (40 candidatos, **publicado vacío**, todas `pending_clinical_review`). Sin interfaz de usuario; sin revisión clínica.
+- MVP de **neurotransmisores** en Explorar: validado en `/preview` con sustancias reales; falta push, PR, merge y despliegue.
 
 ---
 
@@ -64,7 +65,8 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 
 - Revisión clínica de síntomas y decisión de publicación (no se cierra con tests).
 - Interfaz de síntomas **sin** mostrar candidatos pendientes de revisión.
-- Validación visual de neurotransmisores y de figura/gráfico móviles.
+- Validación visual de figura (UX-03) y comprensión del gráfico de recuperación (UX-04).
+- Comprobación específica de Explorar en `/app` autenticado (misma UI que `/preview`; no es un requisito nuevo).
 - Estimaciones de fase por sustancia solo con respaldo (`educationalPhaseWindowCatalog` vacío).
 - Auditoría de huecos órgano × sustancia (p. ej. cocaína–corazón).
 - Logros: `ruleReview`, platino y secretos.
@@ -75,7 +77,7 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 
 | ID | Riesgo / bloqueo | Estado |
 | --- | --- | --- |
-| R-API | Validación de Explorar/sustancias requiere API local; última sesión: `ECONNREFUSED`. No forzar `.env`, Postgres ni seeds. | Bloqueado |
+| R-API | Explorar/sustancias depende del API. Mitigado en local (`soma-postgres` + Nest en :3000). `/app` autenticado no comprobado. No forzar `.env` ni seeds sin autorización. | Mitigado en local |
 | R-CLIN | La revisión clínica no es una casilla de tests. Publicar síntomas o Consejos sin ella sería un error de producto. | Pendiente |
 | R-% | Confundir avance de curva con salud recuperada. | Pendiente de validación con usuarios |
 | R-CAL | Reutilizar 1–7/8–56/57+ (`narrativePhaseWindows`) como calendario clínico. | Pendiente (guardrails de código existen; contenido de ventanas aún vacío) |
@@ -86,10 +88,10 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 
 ## Próximos pasos (por dependencia, sin fechas)
 
-1. **Cerrar técnicamente** el catálogo editorial de síntomas (estructura y copy ya locales; commit **solo** cuando el usuario lo autorice).
-2. **Preparar la interfaz futura** de síntomas reutilizando el selector de fase de Explorar, con catálogo público vacío y sin filtrar candidatos pendientes.
-3. **Integrar y validar neurotransmisores**: push/PR/merge/despliegue cuando se autorice; validación visual 320/375/430 y escritorio **con API**.
-4. **Retomar UX-01–UX-12** en orden de producto: validar UX-03 y UX-04; luego Explorar (UX-05–07); atlas (UX-08–09); logros (UX-10–12).
+1. **Síntomas:** interfaz futura solo sobre el catálogo **publicado** (vacío); 40 candidatos siguen `pending_clinical_review`. Revisión clínica humana **después**.
+2. **Neurotransmisores / Explorar UX-05–07:** validados en `/preview`. Push/PR/merge/despliegue **solo** cuando se autorice. `/app` autenticado queda por comprobar, sin ser un requisito nuevo.
+3. **UX-03 y UX-04:** evidencia visual / de comprensión; entonces Completado.
+4. **UX-08–UX-09** (atlas) y **UX-10–UX-12** (logros).
 
 La revisión clínica de síntomas es un hito humano posterior, no el paso 1.
 
@@ -139,26 +141,26 @@ Numeración e intención originales conservadas. Estados según **código inspec
 
 #### UX-05 — Lenguaje y repetición de «catálogo»
 
-- **Estado:** Pendiente de validación
+- **Estado:** Completado
 - **Descripción:** Quitar repeticiones innecesarias de «catálogo» y mejorar el lenguaje.
 - **Criterio:** En ES, «catálogo» no satura títulos, pistas, errores y fichas; el tono sigue siendo educativo.
-- **Evidencia:** Copy ES/EN de Explorar reescrito (descripción, carga, errores, vacíos, pistas, categoría, órganos). Se conserva una mención en `ntPhaseNotice` (catálogo vs medición). Tests de paridad y de saturación. Falta validación visual con API en fichas de sustancia.
+- **Evidencia:** Copy ES/EN reescrito (`437c7fa`). **Validación técnica y visual** en `/preview/explore` (2026-10-25, API local): descripción, categoría y fichas de alcohol/cannabis. Una mención queda en `ntPhaseNotice` (catálogo vs medición). **No** es revisión clínica ni publicación en producción. `/app` autenticado no se comprobó de forma específica (misma UI; no es un requisito nuevo).
 - **Dependencias:** Ninguna.
 
 #### UX-06 — Enumeración de órganos y zonas (hipocampo)
 
-- **Estado:** Pendiente de validación
+- **Estado:** Completado
 - **Descripción:** Mejorar la lista de órganos y zonas, incluyendo el hipocampo cuando corresponda.
 - **Criterio:** Si el índice educativo asocia hipocampo (u otra zona) a la sustancia, aparece en la ficha con el nombre localizado; no se inventan órganos.
-- **Evidencia:** Título «Órganos y zonas» / «Organs and regions». Agrupación por `atlasSystems`. Alcohol y cannabis incluyen `brain-hippocampus` vía índices. Tests unitarios; falta validación visual de la ficha (API).
-- **Dependencias:** UX-07 (los nombres enlazables reutilizan el contrato del atlas).
+- **Evidencia:** Título «Órganos y zonas». Agrupación por `atlasSystems`. En `/preview`, fichas de **alcohol** y **cannabis**: hipocampo localizado bajo SNC; overflow 0 en 320/375/430 px. **No** es revisión clínica. `/app` autenticado no comprobado de forma específica.
+- **Dependencias:** UX-07 (nombres enlazables).
 
 #### UX-07 — Navegar de órganos mencionados al atlas
 
-- **Estado:** Pendiente de validación
+- **Estado:** Completado
 - **Descripción:** Desde órganos y zonas de Explorar, ir a su ubicación en el explorador anatómico.
 - **Criterio:** Cada órgano listado abre el atlas en el sistema/órgano correcto, **sin** afirmar que un neurotransmisor «pertenece» a un solo órgano.
-- **Evidencia:** `anatomyExplorerHrefForOrgan` y enlaces por zona en fichas de sustancia y de sistema. Hipocampo: `?system=nervous-central&organ=brain-hippocampus`. Sin `substance`/`phase`/`tab`. Las tarjetas NT no enlazan órganos. Falta pulsar los enlaces en `/preview` y `/app` con API.
+- **Evidencia:** En `/preview`, Hipocampo abre `/preview/anatomy?system=nervous-central&organ=brain-hippocampus` (Hipocampo pulsado, pestaña Resumen). `DetailSheet` cierra y restaura foco. Las tarjetas NT no enlazan órganos. **No** es revisión clínica ni despliegue. `/app` autenticado no comprobado de forma específica.
 - **Dependencias:** Query del atlas (`anatomy-explorer-query.ts`).
 
 ### Explorador anatómico
@@ -213,11 +215,12 @@ Numeración e intención originales conservadas. Estados según **código inspec
 
 | Campo | Valor |
 | --- | --- |
-| Estado | Pendiente de validación |
+| Estado | Completado en `/preview` (validación técnica y visual; **no** revisión clínica; **no** publicado) |
 | Qué es | MVP educativo en Explorar: tarjetas compactas, selector de fase, perfiles existentes, sin mediciones ni calendarios personales. Advertencias de alcohol (GABA/glutamato, abstinencia aguda) visibles fuera de un `<details>` cerrado. |
 | Commit | `0a496273fa5e8f0dff55ae873ce1b3fd2fad8196` **local** |
-| No hecho | Push, PR, merge, despliegue. Validación visual completa de la ficha de sustancia (API caída). |
-| No es | Medición neuroquímica ni fase calculada por días de abstinencia. |
+| Validación | `/preview` con sustancias reales (alcohol: selector de fases, avisos GABA/glutamato en abstinencia aguda; cannabis: tarjetas NT). 320/375/430 px. |
+| No hecho | Push, PR, merge, despliegue. Comprobación específica en `/app` autenticado. |
+| No es | Medición neuroquímica, fase calculada por días de abstinencia, ni revisión clínica del copy. |
 
 ### Síntomas de abstinencia
 
@@ -227,9 +230,9 @@ Numeración e intención originales conservadas. Estados según **código inspec
 | Qué es | 40 fichas candidatas ES/EN (5 sustancias), 2 advertencias de alcohol (`alcohol.seizures`, `alcohol.medical_care`). |
 | Publicación | **Catálogo publicado vacío.** Resolver público no devuelve pendientes de revisión. **No está disponible para usuarios.** |
 | Revisión | Todas `pending_clinical_review` / `clinicalReview: "pending"`. |
-| Archivos locales (sin commit) | `educational-withdrawal-symptoms.ts`, `.es.json`, `.en.json`, `.test.ts` |
-| Copy | Refinamiento editorial hecho; sigue pendiente revisión clínica. |
-| No hecho | Commit, interfaz, publicación, i18n de runtime. |
+| Archivos | Commit local `ccef9a3`: `educational-withdrawal-symptoms.ts`, `.es.json`, `.en.json`, `.test.ts` |
+| Copy | Refinamiento editorial hecho; **sigue pendiente revisión clínica**. No se marca revisado clínicamente. |
+| No hecho | Interfaz, publicación, i18n de runtime, ingestión al catálogo público. |
 
 ### Recuperación y anatomía (PR #45–#48)
 
@@ -252,17 +255,14 @@ Síntomas (editorial local)
   → revisión clínica humana
   → ingestión al catálogo público (otro hito)
 
-Neurotransmisores (0a49627)
-  → (autorización) push / PR / merge
-  → validación visual con API
-  → despliegue solo si se autoriza
+Neurotransmisores (0a49627) + UX-05–07
+  → validados técnica y visualmente en `/preview`
+  → (autorización) push / PR / merge / despliegue
+  → `/app` autenticado: comprobación específica pendiente (no es un requisito nuevo)
 
 UX-03, UX-04
   → evidencia visual / de comprensión
   → entonces Completado
-
-UX-05, UX-06, UX-07
-  → Explorar (copy, listas, enlaces al atlas)
 
 UX-08, UX-09
   → atlas (ventanas por sustancia; huecos de cobertura)
@@ -300,3 +300,4 @@ Estados permitidos: `Completado` · `Pendiente de validación` · `En desarrollo
 | Neurotransmisores | Reutilizar 14 perfiles; fase manual; advertencias de alcohol no solo en `<details>`. Commit local `0a49627`. |
 | Síntomas | Catálogo por sustancia (no por NT); 40 candidatos; publicado vacío; sin UI todavía. |
 | 2026-10-25 | Se crea este `ROADMAP.md` para no perder requisitos entre sesiones. |
+| 2026-10-25 | Validación técnica y visual en `/preview` (API + Postgres locales): UX-05–07 y MVP NT. No es revisión clínica ni producción. `/app` no comprobado de forma específica. |
