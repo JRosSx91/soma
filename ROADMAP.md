@@ -5,7 +5,7 @@ Documento de planificación permanente. Se consulta **antes** de abrir un hito n
 
 Última actualización editorial: 2026-10-25.  
 Rama de trabajo: `develop`.  
-HEAD local al actualizar: `da7793e` (`docs: record explore preview validation`), alineado con `origin/develop`. `origin/main` está en el merge `2ca8004` (PR #49). Cambios locales de UX-04 **sin stage ni commit**.
+HEAD local al actualizar: implementación UX-04 `c7f9b37` en `develop`. `origin/main` está en el merge `2ca8004` (PR #49). UX-04 **Pendiente de validación**: en `develop`, pendiente de integración en `main` y de validación funcional en producción.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -30,10 +30,10 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 | Producto Soma 2.0 en `develop` | En desarrollo |
 | UX-01 orientación corporal | Completado (PR #45, confirmar en producto desplegado) |
 | UX-02 mensajes diarios × 60 | Completado (PR #45; test `home-daily-message.test.ts`) |
-| Recuperación (copy, gráfico, estados mixtos) | Código PR #46–#48 en `main`; UX-04 DEMO corregida en local, **Pendiente de validación** |
+| Recuperación (copy, gráfico, estados mixtos) | Código PR #46–#48 en `main`; UX-04 DEMO en `develop` (`c7f9b37`), **Pendiente de validación** |
 | Neurotransmisores educativos | Funcionalidad del PR #49 observada en `https://somarecovery.app` (SHA de Render **no** verificado; **no** es revisión clínica) |
 | Síntomas de abstinencia | En desarrollo (40 candidatos `pending_clinical_review`; catálogo **publicado vacío**) |
-| Requisitos UX-03 a UX-12 | UX-03 Completado (validación DEMO 320/375/430); UX-04 Pendiente de validación (cambios locales); UX-05–07 Completado; UX-08–12 Pendiente |
+| Requisitos UX-03 a UX-12 | UX-03 Completado (validación DEMO 320/375/430); UX-04 Pendiente de validación (en `develop`, `c7f9b37`); UX-05–07 Completado; UX-08–12 Pendiente |
 | API local para fichas de Explorar | Disponible en esta sesión (`soma-postgres` + `pnpm dev:api`); `/app` autenticado no comprobado |
 
 ---
@@ -45,7 +45,7 @@ Confirmadas por el usuario y/o por código en `develop`:
 - Orientación anatómica del cuerpo (mirada a la izquierda, órganos situados) — PR #45, commit `d54c133`.
 - 60 mensajes motivacionales diarios ES/EN — PR #45, commit `bde004d`, test de longitud 60.
 - Atlas 2D, Explorar de sustancias/sistemas, fichas compartidas `DetailSheet`.
-- Ajustes de recuperación en código: tiempo de abstinencia como eje, etiquetas de % de curva, estados de órgano mixtos, gráfico móvil (PR #46–#48). Coherencia DEMO de leyenda/hitos: cambios locales de UX-04, **Pendiente de validación**.
+- Ajustes de recuperación en código: tiempo de abstinencia como eje, etiquetas de % de curva, estados de órgano mixtos, gráfico móvil (PR #46–#48). Coherencia DEMO de leyenda/hitos: en `develop` (`c7f9b37`), **Pendiente de validación**.
 - Infraestructura de Consejos, evidencia NT y ventanas educativas: catálogos **públicos vacíos** a propósito.
 - Neurotransmisores `0a49627` y Explorar UX-05–07 (`437c7fa`): fusionados en `main` vía PR #49 (`2ca8004`). **Publicación funcional** observada en `https://somarecovery.app` (2026-10-25). El SHA servido por Render **no** se pudo verificar. **No** es revisión clínica. `/app` autenticado no se comprobó de forma específica.
 - UX-03: figura de Inicio validada en producción DEMO a 320/375/430 px. Seguimientos opcionales (tablet, recorte de escritorio) no bloquean el cierre.
@@ -55,7 +55,7 @@ Confirmadas por el usuario y/o por código en `develop`:
 ## Funcionalidades en desarrollo
 
 - Catálogo editorial de **síntomas de abstinencia** (40 candidatos, **publicado vacío**, todas `pending_clinical_review`). Sin interfaz de usuario; sin revisión clínica.
-- Coherencia DEMO de **UX-04** (leyenda = muestra del eje; sin «hoy» compartido): implementada en local, pendiente de validación visual/producto.
+- Coherencia DEMO de **UX-04** (leyenda = muestra del eje; sin «hoy» compartido): implementada en `develop` (`c7f9b37`); pendiente de integración en `main` y de validación funcional en producción.
 
 ---
 
@@ -89,7 +89,7 @@ Los 12 puntos originales (`UX-01`–`UX-12`) más:
 ## Próximos pasos (por dependencia, sin fechas)
 
 1. **Síntomas:** interfaz futura solo sobre el catálogo **publicado** (vacío); 40 candidatos siguen `pending_clinical_review`. Revisión clínica humana **después**.
-2. **UX-04:** validar en `/preview/recovery` los cambios locales (leyenda = día 365 de cada curva; sin marcador «Hoy» compartido; hitos sin % contradictorios). Luego commit/PR **solo** cuando se autorice.
+2. **UX-04:** integrar `c7f9b37` en `main` y validar funcionalmente en producción (`/preview/recovery`: leyenda = día 365 de cada curva; sin marcador «Hoy» compartido; hitos sin % contradictorios).
 3. **UX-08–UX-09** (atlas) y **UX-10–UX-12** (logros). `/app` autenticado de Explorar sigue pendiente, sin ser un requisito nuevo.
 
 La revisión clínica de síntomas es un hito humano posterior, no el paso 1.
@@ -134,8 +134,8 @@ Numeración e intención originales conservadas. Estados según **código inspec
 - **Estado:** Pendiente de validación
 - **Descripción:** Aclarar significado y cálculo del resumen. El usuario debe entender la agregación y que **no** es un porcentaje real de salud.
 - **Criterio:** Copy y gráfico hablan de avance de curva educativa; no de salud recuperada; estados mixtos no muestran un % conjunto engañoso.
-- **Evidencia:** PR #46–#48 en `main`. Cambios **locales** (sin commit): DEMO sin marcador «Hoy» compartido; leyenda = última muestra de cada serie (día 365 del eje); hitos sin %; azulejos con serie reutilizan esa muestra; copy ES/EN «Avance de cada curva» / «Mostrar todas las curvas». LIVE (mínimo por sistema, overlay, mixto) no se ha tocado. Falta validación de producto/usuario.
-- **Dependencias:** Validación visual/producto de los cambios locales; no hay commit autorizado.
+- **Evidencia:** PR #46–#48 en `main`. Implementación DEMO en `develop` (`c7f9b37`): sin marcador «Hoy» compartido; leyenda = última muestra de cada serie (día 365 del eje); hitos sin %; azulejos con serie reutilizan esa muestra y muestran «día 365»; copy ES/EN «Avance de cada curva» / «Mostrar todas las curvas». LIVE (mínimo por sistema, overlay, mixto) no se ha tocado. Falta integración en `main` y validación funcional en producción.
+- **Dependencias:** Integración en `main` y validación funcional en producción. **Pendiente de validación**; no Completado.
 
 ### Explorar
 
@@ -239,7 +239,7 @@ Numeración e intención originales conservadas. Estados según **código inspec
 | PR (según usuario) | Tema | Estado en este roadmap |
 | --- | --- | --- |
 | #45 | Orientación + mensajes × 60 (+ sizing móvil en el mismo frente) | UX-01, UX-02 y UX-03 Completado |
-| #46 | Abstinencia como eje; % de curva | Código en `main`; UX-04 Pendiente de validación (DEMO local) |
+| #46 | Abstinencia como eje; % de curva | Código en `main`; UX-04 Pendiente de validación (DEMO en `develop`, `c7f9b37`) |
 | #47 / #48 | Estados mixtos; gráfico móvil | Código en `main` (`591c74f`, `b53892c`, `feb8947`); LIVE mixto intacto |
 | #49 | NT + Explorar UX-05–07 | Fusionado en `main` (`2ca8004`). Publicación funcional en somarecovery.app; SHA Render no verificado |
 
@@ -261,7 +261,7 @@ Neurotransmisores + UX-05–07
   → SHA de Render no verificado; `/app` autenticado pendiente (no es requisito nuevo)
 
 UX-03 Completado (DEMO 320/375/430)
-UX-04 cambios locales DEMO → validación → (autorización) commit/PR
+UX-04 en `develop` (`c7f9b37`) → integración en `main` → validación funcional en producción
 
 UX-08, UX-09
   → atlas (ventanas por sustancia; huecos de cobertura)
@@ -301,4 +301,4 @@ Estados permitidos: `Completado` · `Pendiente de validación` · `En desarrollo
 | 2026-10-25 | Se crea este `ROADMAP.md` para no perder requisitos entre sesiones. |
 | 2026-10-25 | Validación técnica y visual en `/preview` (API + Postgres locales): UX-05–07 y MVP NT. No es revisión clínica ni producción. `/app` no comprobado de forma específica. |
 | 2026-10-25 | PR #49 fusionado en `main` (`2ca8004`). Publicación funcional en somarecovery.app; SHA de Render no verificado. |
-| 2026-10-25 | UX-03 cerrado con evidencia DEMO 320/375/430. UX-04 DEMO coherente en local (sin commit): leyenda = muestra día 365; sin «hoy» compartido. |
+| 2026-10-25 | UX-03 cerrado con evidencia DEMO 320/375/430. UX-04 DEMO en `develop` (`c7f9b37`): leyenda = muestra día 365; sin «hoy» compartido. Pendiente de `main` y de validación en producción. |
