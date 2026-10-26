@@ -66,7 +66,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
-| Soma Expeditions (GAME-*) | GAME-01 listo para commit/PR (local). Copy ES/EN cerrado. Sin deploy. GAME-02–08 pendientes |
+| Soma Expeditions (GAME-*) | GAME-01 fusionado en `develop` (`d0cafd8`, PR #53). Sin deploy a producción. GAME-02 implementado, pendiente de integración en `develop`. GAME-03–08 pendientes. Nav 2.0: siguiente trabajo **después de GAME-02**, antes de GAME-03 |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -457,7 +457,7 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-01 — Logros temporales por sustancia
 
 - **Descripción:** Familia `temporal`: 50 medallas (10 umbrales × 5 sustancias), IDs `{sustancia}-temporal-{días}`. Distinta del catálogo fisiológico (`family: curve`, 106). Umbrales 1, 3, 7, 14, 21, 30, 60, 90, 180, 365. Rareza bronce/plata/oro. Sin órgano ni umbral de curva.
-- **Estado:** Implementación local lista. Validación técnica local superada. Copy ES cerrado (títulos canónicos + 2 descripciones sustituidas). Títulos/descripciones EN localizados. **No** commit, **no** PR, **no** migrado ni desplegado. GAME-02+ no incluidos.
+- **Estado:** Fusionado en `develop` (`d0cafd8`, PR #53). Copy ES/EN cerrado. **No** desplegado en producción. GAME-02 lee esta familia.
 - **Prioridad:** P1 (siguiente: autorización de commit/PR → migrate+upsert de producción; no seed wipe)
 - **Nombres:** aprobados en `apps/api/prisma/seed/temporal-achievements.ts` (títulos canónicos).
 - **Motor:** rama `temporal` en `planAchievementUnlocks` con `daysBetween` (24 h). Insert-only. Recaída/`active`: sin unlocks nuevos. ACH-REV intacto.
@@ -468,10 +468,11 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-02 — Próximo hito
 
 - **Descripción:** Mostrar el siguiente logro temporal, el progreso acumulado y el tiempo restante. Varias sustancias y `lastUseDate` distintas a la vez.
-- **Estado:** Pendiente
+- **Estado:** Implementado. Pendiente de integración en `develop`. **No** fusionado. **No** desplegado.
 - **Prioridad:** P1
-- **Dependencias:** GAME-01 (familia definida). LIVE-01 (fechas por sustancia). Superficies: Inicio, Recuperación, Expedición (`inicio-2.0.png`, `mi-recuperacion-2.0.png`, `expedicion-2.0.png`). No rankings entre usuarios.
+- **Dependencias:** GAME-01 (familia definida, en `develop`). LIVE-01 (fechas por sustancia). Superficies mínimas: Inicio + Mi recuperación. Expedición 2.0 y paisaje de Inicio **no** incluidos.
 - **Criterio:** Cada sustancia abstinente muestra como máximo **un** próximo hito comprensible. El % hacia la medalla temporal **no** es el % de curva (UX-04). Sustancia activa: sin cuenta atrás punitiva. Inactividad de app **no** retrasa el hito (el reloj es la abstinencia, no los logins).
+- **Producto posterior:** **Después de GAME-02 adelantaremos la navegación 2.0, antes del rediseño completo GAME-03.** Trabajo separado. No forma parte de esta rama.
 
 #### GAME-03 — Árbol de progresión
 
@@ -661,7 +662,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 3. **UX-10** (validar) → **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo).
 4. **ACH-REV:** decidir política **antes** de código (bloquea GAME-08 y cualquier revocación).
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**. Distintos de UX-10–12 y de ACH-REV.
-6. **Expeditions (no implementar aún):** GAME-DESIGN-01 dirección visual aprobada. **Siguiente código:** GAME-01 (familia temporal + motor) → GAME-02. Nav «Más» y mapa (GAME-07) **después** de tener hitos reales. Bitácora (GAME-04) **después** de privacidad. XP (GAME-06) **después** de misiones.
+6. **Expeditions:** GAME-01 en `develop`. GAME-02 implementado, pendiente de integración. **Siguiente trabajo separado:** navegación 2.0 (GAME-DESIGN-01) **antes** de GAME-03. Nav «Más» y mapa (GAME-07) después. Bitácora (GAME-04) después de privacidad. XP (GAME-06) después de misiones.
 7. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 8. **UX-08 / UX-09:** editorial; no inventar.
 9. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
@@ -720,8 +721,9 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
   → ACH-NOTIF-01 / ACH-CELEB-01 / SHELL-01 (main + validado LIVE producción)
   → I18N-04 (selector banderas; no implementar aún; no nuevos idiomas)
 
-Soma Expeditions (dirección visual OK; código no)
-  Fase A  GAME-01 (familia temporal + motor insert-only) → GAME-02 (próximo hito)
+Soma Expeditions (dirección visual OK)
+  Fase A  GAME-01 (en develop) → GAME-02 (implementado, pendiente de integración)
+  Fase A2 navegación 2.0 (GAME-DESIGN-01) — **después de GAME-02, antes de GAME-03**
   Fase B  GAME-03 timeline en Recuperación + Logros 2.0 (familias) + Inicio sin XP
   Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
   Fase D  Explorador / atlas 2.0 (NT, procesos, panel) → GAME-05 misiones
@@ -774,3 +776,6 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 | 2026-10-26 | Soma Expeditions: dirección visual de `docs/design/*-2.0.png` aprobada. Mockups ≠ datos ni nav. Falta `misiones-2.0.png`. GAME-* no implementados. |
 | 2026-10-26 | GAME-01: implementación local + validación (pg local, unitarios). Copy provisional. Sin commit/PR/deploy. Celebración masiva agrupada queda como residual de ACH-CELEB-01. |
 | 2026-10-26 | GAME-01 copy: títulos ES canónicos (`guardián`); 2 descripciones ES sustituidas; 50 títulos/descripciones EN; Logros DEMO 156 + brújula comprobados en navegador. Sin commit/PR/deploy. |
+| 2026-10-26 | GAME-01 fusionado en `develop` (`d0cafd8`, PR #53). Sin producción. |
+| 2026-10-26 | GAME-02 implementación local: próximo hito temporal, progreso absoluto, cuenta atrás 30 s, Inicio + Mi recuperación. Sin commit/PR/deploy. **Decisión:** navegación 2.0 después de GAME-02 y antes de GAME-03. |
+| 2026-10-26 | GAME-02: validación final + PR hacia `develop`. Pendiente de integración. No fusionado. No desplegado. |

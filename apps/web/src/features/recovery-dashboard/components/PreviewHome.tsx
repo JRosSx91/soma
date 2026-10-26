@@ -20,7 +20,9 @@ import {
   quantifiableAchievementProgress,
 } from "../dashboard/home-progress.js";
 import { recoveryHref } from "../dashboard/recovery-query.js";
+import { useTemporalMilestones } from "../hooks/useTemporalMilestones.js";
 import { AchievementMedal } from "./AchievementMedal.js";
+import { NextTemporalMedalCard } from "./NextTemporalMedalCard.js";
 import { DemoNotice } from "./DemoNotice.js";
 import { HeroFigure } from "./HeroFigure.js";
 import { HeroFilaments } from "./HeroFilaments.js";
@@ -68,6 +70,17 @@ export function PreviewHome() {
   const dailyMessage = pickDailyMessage(
     readDailyMessages(t("recovery:homeDailyMessages", { returnObjects: true })),
   );
+  const temporal = useTemporalMilestones(dashboard.substances, {
+    enabled: !dashboard.loading && !dashboard.error && dashboard.substances.length > 0,
+    syncUnlocks: liveEnabled,
+  });
+  const featuredTemporalName =
+    dashboard.substances.find((item) => item.id === temporal.featured?.substanceId)?.name ??
+    (temporal.featured
+      ? t(`substances:${temporal.featured.substanceId}.name`, {
+          defaultValue: temporal.featured.substanceId,
+        })
+      : "");
 
   if (dashboard.loading) {
     return (
@@ -177,6 +190,13 @@ export function PreviewHome() {
           )}
         </div>
       </section>
+      {temporal.featured ? (
+        <NextTemporalMedalCard
+          featured={temporal.featured}
+          substanceName={featuredTemporalName}
+          achievementsTo={achievementsTo}
+        />
+      ) : null}
       </HomeStage>
 
       <section>

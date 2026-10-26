@@ -494,6 +494,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseActive,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -506,6 +507,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseMissingDate,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -522,6 +524,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseNoCurves,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -537,6 +540,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseMissingDate,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -577,6 +581,7 @@ export function buildLiveDashboard(input: {
       phase,
       bar: progress.progressFraction,
       lastUseDate: usage.lastUseDate ?? null,
+      usageStatus: usage.status,
     };
   });
 

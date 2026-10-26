@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/index.js";
 import { useOrganStates } from "../../profile/index.js";
@@ -26,6 +26,7 @@ import {
   type RecoveryDashboardCopy,
 } from "../dashboard/recovery-copy.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
+import { withSessionLastUseDates } from "../dashboard/temporal-usage.js";
 import { useLiveProfile } from "./useLiveProfile.js";
 
 export type DashboardMode = "demo" | "live";
@@ -95,6 +96,11 @@ function emptyLiveChart(copy: RecoveryDashboardCopy): DashboardChartView {
  */
 export function usePreviewDashboard(substanceId: string | null = null): PreviewDashboardView {
   const { t, i18n } = useTranslation("recovery");
+  const [demoClock] = useState(() => Date.now());
+  const demoSubstancesWithClock = useMemo(
+    () => withSessionLastUseDates(demoSubstances, demoClock),
+    [demoClock],
+  );
   const copy = useMemo(
     () => recoveryCopyFromSource((key) => t(key)),
     [t, i18n.language],
@@ -155,7 +161,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       loading: sessionPending,
       error: null,
       reload: liveProfile.reload,
-      substances: demoSubstances,
+      substances: demoSubstancesWithClock,
       systems: demoDashboardSystems(),
       changes: demoDashboardChanges(),
       chart: buildDemoChart(copy),
