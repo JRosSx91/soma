@@ -101,6 +101,11 @@ enum AchievementTier {
   platinum
 }
 
+enum AchievementFamily {
+  curve
+  temporal
+}
+
 enum UsageStatus {
   abstinent
   active
@@ -288,7 +293,8 @@ model OrganRecoveryCurve {
 // -----------------------------------------------------------------------------
 
 model Achievement {
-  id                        String          @id
+  id                        String             @id
+  family                    AchievementFamily  @default(curve)
   tier                      AchievementTier
 
   // i18n keys under the `achievements` namespace.
@@ -297,18 +303,20 @@ model Achievement {
   titleKey                  String
   descriptionKey            String
 
-  triggerOrganId            String
+  triggerOrganId            String?
   triggerSubstanceId        String
-  triggerRecoveryThreshold  Float
+  triggerRecoveryThreshold  Float?
+  triggerAbstinenceDays     Int?
 
-  triggerOrgan              Organ           @relation(fields: [triggerOrganId], references: [id])
-  triggerSubstance          Substance       @relation(fields: [triggerSubstanceId], references: [id])
+  triggerOrgan              Organ?             @relation(fields: [triggerOrganId], references: [id])
+  triggerSubstance          Substance          @relation(fields: [triggerSubstanceId], references: [id])
   unlockedBy                UserAchievement[]
 
   hidden Boolean @default(false)
 
   @@index([triggerSubstanceId])
   @@index([triggerOrganId])
+  @@index([family])
 }
 
 // -----------------------------------------------------------------------------

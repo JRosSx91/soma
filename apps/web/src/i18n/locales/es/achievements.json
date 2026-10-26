@@ -39,7 +39,6 @@
     "title": "Vuelve el sueño REM",
     "description": "El consumo crónico de alcohol suprime el REM y fragmenta el sueño profundo. A medida que el sistema se limpia, el REM rebota — a veces con sueños vívidos — y la arquitectura del sueño profundo empieza a reensamblarse. Las mañanas empiezan a sentirse como descanso."
   },
-
   "alcohol-vta-silver": {
     "title": "El circuito de recompensa reinicia",
     "description": "La señalización dopaminérgica empieza a recuperarse de la supresión crónica. Las recompensas naturales empiezan a abrirse paso entre el ruido."
@@ -72,7 +71,6 @@
     "title": "Estómago de hierro restaurado",
     "description": "La mucosa gástrica está completamente regenerada. El recambio epitelial de 3-7 días ha hecho su trabajo. El equilibrio ácido y la función digestiva han vuelto a la línea base."
   },
-
   "alcohol-hippocampus-gold": {
     "title": "La memoria, plenamente en acta",
     "description": "Volumen y función hipocampales se aproximan a la línea base. Consolidación de memoria a largo plazo, navegación espacial y aprendizaje contextual operan a plena capacidad. Años de noches que no podías recordar — el cerebro ha aprendido a guardar otra vez."
@@ -85,12 +83,10 @@
     "title": "El placer ya no está alquilado",
     "description": "La densidad de receptores de dopamina se aproxima a la línea base. Las recompensas naturales se sienten reales otra vez, la anhedonia se resuelve sustancialmente. El cerebro ha recordado cómo celebrar sin ayuda."
   },
-
   "alcohol-sovereignty-platinum": {
     "title": "Cada sistema, devuelto",
     "description": "Hígado, corazón, páncreas, estómago, hipocampo, corteza prefrontal, eje mesolímbico, arquitectura del sueño — cada sistema que el alcohol tocó funciona ahora con sus propias señales. La sustancia más punitiva fisiológicamente de dejar está plenamente detrás. El cuerpo es tuyo otra vez, entero."
   },
-
   "nicotine-bronchi-bronze-1": {
     "title": "Los cilios estirándose tras un largo sueño",
     "description": "En las primeras 24-72 horas tras el cese, los cilios bronquiales paralizados empiezan a recuperar su movimiento rítmico. El ascensor mucociliar se despierta."
@@ -143,7 +139,6 @@
     "title": "La chimenea ha desaparecido",
     "description": "Pulmones, bronquios, corazón, vasculatura, eje mesolímbico — cada sistema que la nicotina y el humo del tabaco tocaron funciona ahora con sus propias señales. Densidad de nAChR en la línea base. Los perfiles de riesgo cardiovascular y pulmonar son indistinguibles de los de un no-fumador. La adicción legal más letal está plenamente detrás."
   },
-
   "cocaine-vta-bronze-1": {
     "title": "El primer píxel de color",
     "description": "El sistema de recompensa empieza a despejar el ruido. Los receptores D2, ahogados por el exceso crónico, detectan los primeros parpadeos de dopamina natural."
@@ -172,7 +167,6 @@
     "title": "Vuelve el color a la periferia",
     "description": "La microcirculación cutánea y periférica se recupera. La palidez se levanta a medida que la vasoconstricción sistémica afloja — el sistema cardiovascular en su conjunto está soltando el agarre."
   },
-
   "cocaine-prefrontal-silver-1": {
     "title": "La Guardia de la Noche se retira",
     "description": "La corteza prefrontal recupera el control top-down sobre el impulso noradrenérgico límbico. La hipervigilancia constante y la paranoia ceden ante una calma más profunda."
@@ -205,7 +199,6 @@
     "title": "Limpieza endotelial profunda",
     "description": "La elasticidad arterial se ha restaurado sustancialmente. El sistema cardiovascular trabaja con una fluidez que parecía perdida."
   },
-
   "cocaine-hippocampus-gold-1": {
     "title": "Protocolo Lázaro neuronal",
     "description": "El hipocampo registra recuperación celular profunda. La neurogénesis en el giro dentado se reanuda; la plasticidad cerebral está en su pico, reconstruyendo lo que se dañó."
@@ -222,7 +215,6 @@
     "title": "La fortaleza reconstruida",
     "description": "La maquinaria hepática de detoxificación vuelve a plena potencia. Reservas de glutatión repuestas, los metabolitos reactivos de la cocaína (norcocaína, N-hidroxinorcocaína) ya no desbordan al sistema. El estrés oxidativo, derrotado por la regeneración celular."
   },
-
   "cocaine-sovereignty-platinum": {
     "title": "El dictador ha caído",
     "description": "Libertad neuroquímica absoluta. El circuito de recompensa está plenamente restaurado. Eres el único dueño de tu biología."
@@ -247,7 +239,6 @@
     "title": "La motivación tiene pulso",
     "description": "La niebla amotivacional empieza a romperse. El tono dopaminérgico del eje mesolímbico se recupera lo suficiente para que los objetivos dejen de sentirse abstractos. El querer vuelve antes que el gustar."
   },
-
   "cannabis-prefrontal-silver-1": {
     "title": "El piloto está sobrio",
     "description": "Función ejecutiva, toma de decisiones y control de impulsos sustancialmente restaurados. El árbitro cortical vuelve al ring; el sistema límbico ya no gana por incomparecencia."
@@ -272,7 +263,6 @@
     "title": "Anhedonia, desestimada",
     "description": "Las recompensas naturales vuelven a llegar con peso pleno. Música, comida, sexo, conversación — la respuesta dopaminérgica al placer ordinario ya no está atenuada. El síndrome amotivacional, funcionalmente resuelto."
   },
-
   "cannabis-hippocampus-gold": {
     "title": "La biblioteca está plenamente indexada",
     "description": "Volumen y función hipocampales se aproximan a la línea base. Codificación de memoria, navegación espacial y aprendizaje contextual operan a plena capacidad. El cerebro recuerda cómo recordar."
@@ -285,12 +275,10 @@
     "title": "Soberanía endocannabinoide",
     "description": "Densidad de receptores CB1 y tono cannabinoide endógeno (anandamida, 2-AG) normalizados. El sistema cannabinoide propio del cuerpo lleva las riendas — no se requiere anulación externa."
   },
-
   "cannabis-sovereignty-platinum": {
     "title": "La bruma se ha disipado, para siempre",
     "description": "Recalibración completa del sistema endocannabinoide. Recompensa, memoria, emoción, motivación, respiración — cada sistema que el cannabis tocó funciona ahora con sus propias señales. El cuerpo es tuyo, sin partir."
   },
-
   "caffeine-vta-bronze-1": {
     "title": "El dolor de cabeza cede",
     "description": "El rebote de vasodilatación cerebral — síntoma cardinal de la abstinencia — se resuelve a medida que la señalización A2A de adenosina sobre la vasculatura cerebral se recalibra. Los primeros 2-9 días son los más empinados, y los has pasado."
@@ -307,7 +295,6 @@
     "title": "Equilibrio del ácido gástrico restaurado",
     "description": "La secreción ácida gástrica basal vuelve a rango normal. Los síntomas de reflujo y dispepsia atribuibles a cafeína se resuelven."
   },
-
   "caffeine-vta-silver-1": {
     "title": "Sueño profundo, por fin",
     "description": "La arquitectura del sueño profundo se recupera. La supresión del sueño de onda lenta que causa la cafeína — incluso 12 horas después de la última dosis — se levanta. Las mañanas empiezan a sentirse como mañanas."
@@ -324,7 +311,7 @@
     "title": "Sensibilidad recuperada",
     "description": "Densidad de receptores de adenosina en la línea base. Una sola taza ahora pega como pegaba antes de que se construyera la tolerancia — la cafeína vuelve a ser una herramienta, no una dosis de mantenimiento."
   },
-    "alcohol-intestines-bronze": {
+  "alcohol-intestines-bronze": {
     "title": "La muralla intestinal se reconstituye",
     "description": "El alcohol afloja las uniones estrechas del epitelio intestinal — las tight junctions — permitiendo que endotoxinas bacterianas atraviesen la pared y lleguen a la circulación portal, alimentando inflamación sistémica. A este umbral, la reparación epitelial está en marcha. El intestino está cerrando sus puertas de nuevo. El \"leaky gut\" no es metáfora: era medible, y ahora está revirtiendo."
   },
@@ -439,5 +426,205 @@
   "cocaine-eyes-silver": {
     "title": "La retina fuera de peligro",
     "description": "La perfusión coroidea y retiniana se ha estabilizado en rangos normales de forma sostenida. El riesgo de eventos vasculares oculares agudos es ya comparable al de la población general. Los ojos que miraron demasiadas noches sin dormir, con los vasos en espasmo, tienen ahora suministro estable. Ven más. Duelen menos."
+  },
+  "cannabis-temporal-1": {
+    "title": "Despertar en la Comarca",
+    "description": "Has dado el primer paso. La Comarca espera al otro lado de la puerta."
+  },
+  "cannabis-temporal-3": {
+    "title": "Desconectando Matrix",
+    "description": "Tres días desenchufado. La Matrix puede esperar."
+  },
+  "cannabis-temporal-7": {
+    "title": "La hierba ya no es tan verde",
+    "description": "Una semana de mapa propio. El paisaje se ve con otros ojos."
+  },
+  "cannabis-temporal-14": {
+    "title": "El retorno del Jedi",
+    "description": "Dos semanas de entrenamiento. El sable todavía pesa, y eso está bien."
+  },
+  "cannabis-temporal-21": {
+    "title": "Resistencia +10",
+    "description": "Veintiún días de ficha nueva. Resistencia +10, aventura +∞."
+  },
+  "cannabis-temporal-30": {
+    "title": "Un mes sin visitar Mordor",
+    "description": "Un mes de camino. Mordor sigue en el mapa; tú no has vuelto."
+  },
+  "cannabis-temporal-60": {
+    "title": "El guardián de los sesenta",
+    "description": "Sesenta días de guardia. El anillo no se tira en un fin de semana."
+  },
+  "cannabis-temporal-90": {
+    "title": "La Comunidad del Anillo Sobrio",
+    "description": "Un trimestre de compañía contigo. La Comunidad se construye a pie."
+  },
+  "cannabis-temporal-180": {
+    "title": "Medio año fuera de la simulación",
+    "description": "Seis meses de mundo real. La píldora roja sigue haciendo efecto."
+  },
+  "cannabis-temporal-365": {
+    "title": "El señor de los días",
+    "description": "Un año de días contados por ti. El señorío es tuyo."
+  },
+  "nicotine-temporal-1": {
+    "title": "Houston, tenemos un pulmón",
+    "description": "Primer día en el aire. Houston copia, Tierra al mando."
+  },
+  "nicotine-temporal-3": {
+    "title": "La resistencia ha despertado",
+    "description": "Tres días de célula rebelde. La resistencia ha salido de la cantina."
+  },
+  "nicotine-temporal-7": {
+    "title": "Una semana sin echar humo",
+    "description": "Siete días sin esa nube. El horizonte se lee mejor."
+  },
+  "nicotine-temporal-14": {
+    "title": "El último cigarrillo de Rohan",
+    "description": "Dos semanas de jinete. Rohan no se recorre en un pitillo."
+  },
+  "nicotine-temporal-21": {
+    "title": "Operación: aire limpio",
+    "description": "Veintiún días de operación. El aire limpio está en el briefing."
+  },
+  "nicotine-temporal-30": {
+    "title": "Treinta días después",
+    "description": "Un mes después del último cigarro. La secuela la escribes tú."
+  },
+  "nicotine-temporal-60": {
+    "title": "Los pulmones contraatacan",
+    "description": "Sesenta días de contraataque. La saga continúa."
+  },
+  "nicotine-temporal-90": {
+    "title": "El retorno del exfumador",
+    "description": "Un trimestre de vuelta. El exfumador tiene segundo acto."
+  },
+  "nicotine-temporal-180": {
+    "title": "Medio año sin lado oscuro",
+    "description": "Seis meses lejos de ese lado. La galaxia cabe en un pulmón."
+  },
+  "nicotine-temporal-365": {
+    "title": "El señor de los anillos de humo",
+    "description": "Un año sin esa ronda. Los anillos de humo se quedan en la metáfora."
+  },
+  "cocaine-temporal-1": {
+    "title": "Desactivando el reactor Arc",
+    "description": "Primer día con el reactor en silencio. Stark también apagaba a veces."
+  },
+  "cocaine-temporal-3": {
+    "title": "Houston, hemos cortado la corriente",
+    "description": "Tres días sin ese voltaje. Houston copia: corriente cortada."
+  },
+  "cocaine-temporal-7": {
+    "title": "Una semana sin hiperespacio",
+    "description": "Siete días a velocidad humana. El hiperespacio puede esperar."
+  },
+  "cocaine-temporal-14": {
+    "title": "El Imperio contra el subidón",
+    "description": "Dos semanas de escaramuza. El Imperio no se come este round."
+  },
+  "cocaine-temporal-21": {
+    "title": "Neurotransmisión: modo supervivencia",
+    "description": "Veintiún días en modo supervivencia. Las neuronas siguen al pie del cañón."
+  },
+  "cocaine-temporal-30": {
+    "title": "El condensador de fluzo se estabiliza",
+    "description": "Un mes sin atajos. El condensador de fluzo respira tranquilo."
+  },
+  "cocaine-temporal-60": {
+    "title": "La rebelión de las neuronas",
+    "description": "Sesenta días de rebelión. Las neuronas han tomado el puente."
+  },
+  "cocaine-temporal-90": {
+    "title": "Regreso al futuro, sin atajos",
+    "description": "Un trimestre sin DeLorean. El futuro se recorre en días normales."
+  },
+  "cocaine-temporal-180": {
+    "title": "Medio año fuera de Matrix",
+    "description": "Seis meses fuera de esa simulación. Elegiste el mundo real."
+  },
+  "cocaine-temporal-365": {
+    "title": "El arquitecto de su propio destino",
+    "description": "Un año de plano propio. El arquitecto eres tú."
+  },
+  "caffeine-temporal-1": {
+    "title": "Error 404: cafeína no encontrada",
+    "description": "GET /espresso → 404. El servidor arranca igual."
+  },
+  "caffeine-temporal-3": {
+    "title": "Reiniciando el sistema nervioso",
+    "description": "Tres días de reboot. El sistema arranca con otra energía."
+  },
+  "caffeine-temporal-7": {
+    "title": "Una semana en modo ahorro de energía",
+    "description": "Siete días en modo ahorro. La batería aguanta la semana."
+  },
+  "caffeine-temporal-14": {
+    "title": "El compilador ya no necesita café",
+    "description": "Dos semanas de build en seco. El compilador ya no pide café."
+  },
+  "caffeine-temporal-21": {
+    "title": "Desbloqueado: energía sin DLC",
+    "description": "Veintiún días sin ese DLC. La energía viene de serie."
+  },
+  "caffeine-temporal-30": {
+    "title": "Treinta días sin overclocking",
+    "description": "Un mes a frecuencia de fábrica. Sin overclocking, con estilo."
+  },
+  "caffeine-temporal-60": {
+    "title": "La venganza del descafeinado",
+    "description": "Sesenta días. El descafeinado ha escrito su propia trilogía."
+  },
+  "caffeine-temporal-90": {
+    "title": "CPU estable, café desinstalado",
+    "description": "Un trimestre. CPU estable y el café, desinstalado."
+  },
+  "caffeine-temporal-180": {
+    "title": "Medio año funcionando en modo nativo",
+    "description": "Seis meses en modo nativo. El runtime eres tú."
+  },
+  "caffeine-temporal-365": {
+    "title": "Maestro Jedi del sistema operativo",
+    "description": "Un año. Maestro Jedi del sistema operativo, sin parches de cafeína."
+  },
+  "alcohol-temporal-1": {
+    "title": "La última taberna de Skyrim",
+    "description": "Primer día. La taberna de Skyrim cierra el turno; la aventura no."
+  },
+  "alcohol-temporal-3": {
+    "title": "Piratas del Caribe: el ron ha desaparecido",
+    "description": "Tres días. El ron de los piratas se ha vuelto leyenda."
+  },
+  "alcohol-temporal-7": {
+    "title": "Una semana sin pociones sospechosas",
+    "description": "Siete días sin esa poción. El inventario pesa menos."
+  },
+  "alcohol-temporal-14": {
+    "title": "El alquimista ha cambiado de receta",
+    "description": "Dos semanas. El alquimista ha cambiado de receta y le queda bien."
+  },
+  "alcohol-temporal-21": {
+    "title": "Resistencia al hidromiel +10",
+    "description": "Veintiún días. Resistencia al hidromiel +10, humor +10."
+  },
+  "alcohol-temporal-30": {
+    "title": "Treinta días sin visitar la taberna",
+    "description": "Un mes fuera del taburete. La taberna puede esperar."
+  },
+  "alcohol-temporal-60": {
+    "title": "El brujo y la poción prohibida",
+    "description": "Sesenta días. El brujo ha dejado la poción prohibida en el estante."
+  },
+  "alcohol-temporal-90": {
+    "title": "La hermandad del cáliz vacío",
+    "description": "Un trimestre. La hermandad del cáliz vacío brinda con agua y ganas."
+  },
+  "alcohol-temporal-180": {
+    "title": "Medio año navegando sin ron",
+    "description": "Seis meses navegando sin ron. El mar sigue saliendo en la bitácora."
+  },
+  "alcohol-temporal-365": {
+    "title": "El señor de los siete reinos sobrios",
+    "description": "Un año. Los siete reinos caben en un día; el trono, en seguir mañana."
   }
 }

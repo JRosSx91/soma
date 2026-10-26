@@ -39,9 +39,11 @@ export function TrophyCard({
     ? t("achievements:hidden.description")
     : t(`achievements:${achievement.descriptionKey}`);
 
-  const organName = t(`organs:${achievement.triggerOrganId}`, {
-    defaultValue: achievement.triggerOrganId,
-  });
+  const organName = achievement.triggerOrganId
+    ? t(`organs:${achievement.triggerOrganId}`, {
+        defaultValue: achievement.triggerOrganId,
+      })
+    : "";
 
   const substanceName = t(`substances:${achievement.triggerSubstanceId}.name`, {
     defaultValue: achievement.triggerSubstanceId,
@@ -56,7 +58,7 @@ export function TrophyCard({
     : null;
 
   const thresholdPercent = Math.round(
-    achievement.triggerRecoveryThreshold * 100,
+    (achievement.triggerRecoveryThreshold ?? 0) * 100,
   );
 
   // Hint text logic:

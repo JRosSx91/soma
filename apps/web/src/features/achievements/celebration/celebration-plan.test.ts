@@ -61,6 +61,30 @@ test("live with one eligible unlock plans a solo celebration", () => {
   assert.deepEqual(plan.candidateIds, ["a"]);
 });
 
+test("seven live inserts still share one group celebration", () => {
+  const insertedIds = Array.from({ length: 7 }, (_, i) => `t-${i}`);
+  const plan = planCelebration({
+    liveShell: true,
+    kind: "live",
+    insertedIds,
+    rows: insertedIds.map((id) => row(id, { insertedThisCall: true })),
+  });
+  assert.equal(plan.mode, "group");
+  assert.equal(plan.candidateIds.length, 7);
+});
+
+test("live bulk inserts are recognized without a celebration party", () => {
+  const insertedIds = Array.from({ length: 10 }, (_, i) => `t-${i}`);
+  const plan = planCelebration({
+    liveShell: true,
+    kind: "live",
+    insertedIds,
+    rows: insertedIds.map((id) => row(id, { insertedThisCall: true })),
+  });
+  assert.equal(plan.mode, "none");
+  assert.deepEqual(plan.candidateIds, []);
+});
+
 test("live with several eligible unlocks plans one group celebration", () => {
   const plan = planCelebration({
     liveShell: true,

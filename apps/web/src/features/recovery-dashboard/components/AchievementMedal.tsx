@@ -1,3 +1,4 @@
+import { Compass } from "lucide-react";
 import { MedalMark, type MedalTier } from "./MedalMark.js";
 
 const tierLabel: Record<MedalTier, string> = {
@@ -46,6 +47,7 @@ interface AchievementMedalProps {
    */
   locked?: boolean;
   size?: "card" | "detail" | "compact";
+  family?: "curve" | "temporal";
   /** Defaults to the Spanish tier caption used on the achievements pages. */
   showTierLabel?: boolean;
 }
@@ -56,6 +58,7 @@ export function AchievementMedal({
   sealed = false,
   locked = true,
   size = "card",
+  family = "curve",
   showTierLabel = true,
 }: AchievementMedalProps) {
   if (sealed) {
@@ -73,25 +76,39 @@ export function AchievementMedal({
   const art = medalArt[`${substanceId}:${tier}` as MedalKey];
   const lockedTone = locked ? "brightness-[0.72] saturate-[0.45]" : "";
   const compact = size === "compact";
+  const temporal = family === "temporal";
   const frame =
     size === "detail" ? "h-52 sm:h-60" : compact ? "h-12 w-12" : "h-36 sm:h-40";
   const shell = compact ? "inline-flex flex-col items-center" : "flex w-full flex-col items-center gap-1";
+  const stamp = temporal ? (
+    <span
+      className={`pointer-events-none absolute ${
+        compact ? "bottom-0 right-0" : "bottom-1 right-1"
+      } flex items-center justify-center rounded-full bg-[#081018]/80 text-soma-action ${
+        compact ? "h-4 w-4" : "h-6 w-6"
+      }`}
+      aria-hidden="true"
+    >
+      <Compass className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} />
+    </span>
+  ) : null;
 
   if (!art) {
     return (
-      <span className={`${compact ? "" : "w-full"} ${lockedTone}`}>
+      <span className={`relative ${compact ? "" : "w-full"} ${lockedTone}`}>
         <MedalMark
           tier={tier}
           substanceId={substanceId}
           size={size}
           showTierLabel={showTierLabel}
         />
+        {stamp}
       </span>
     );
   }
 
   return (
-    <span className={shell}>
+    <span className={`relative ${shell}`}>
       <img
         src={art.src}
         width={art.width}
@@ -101,6 +118,7 @@ export function AchievementMedal({
         draggable={false}
         className={`${frame} ${compact ? "" : "w-full"} object-contain ${lockedTone}`}
       />
+      {stamp}
       {showTierLabel ? (
         <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">
           {tierLabel[tier]}

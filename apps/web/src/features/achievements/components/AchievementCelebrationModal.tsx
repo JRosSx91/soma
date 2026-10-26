@@ -126,6 +126,7 @@ export function AchievementCelebrationModal({
                     tier={solo.tier}
                     locked={false}
                     size="detail"
+                    family={solo.family === "temporal" ? "temporal" : "curve"}
                     showTierLabel
                   />
                 </div>
@@ -140,6 +141,7 @@ export function AchievementCelebrationModal({
                           tier={row.tier}
                           locked={false}
                           size="card"
+                          family={row.family === "temporal" ? "temporal" : "curve"}
                           showTierLabel
                         />
                         <p className="mt-1 line-clamp-2 text-center text-xs font-medium text-soma-ink">
@@ -161,6 +163,7 @@ export function AchievementCelebrationModal({
                             tier={row.tier}
                             locked={false}
                             size="compact"
+                            family={row.family === "temporal" ? "temporal" : "curve"}
                             showTierLabel={false}
                           />
                           <span className="sr-only">{title}</span>

@@ -99,9 +99,31 @@ export function readAchievementProgress(input: {
   curve: CurveModel | null;
   usage: { status: "abstinent" | "active"; lastUseDate: Date | null } | null;
   now: Date;
+  family?: "curve" | "temporal";
+  abstinenceDays?: number | null;
 }): AchievementProgressReading {
   if (input.hidden && !input.persisted) {
     return { achievementProgress: null, progressAvailability: "concealed" };
+  }
+  if (input.family === "temporal") {
+    if (!input.usage) {
+      return { achievementProgress: null, progressAvailability: "not_tracked" };
+    }
+    if (input.usage.status === "active") {
+      return { achievementProgress: null, progressAvailability: "active_use" };
+    }
+    if (!input.usage.lastUseDate) {
+      return { achievementProgress: null, progressAvailability: "missing_date" };
+    }
+    const needed = input.abstinenceDays;
+    if (needed == null || needed <= 0) {
+      return { achievementProgress: null, progressAvailability: "pending_review" };
+    }
+    const daysAbstinent = daysBetween(input.usage.lastUseDate, input.now);
+    return {
+      achievementProgress: Math.min(1, daysAbstinent / needed),
+      progressAvailability: "ready",
+    };
   }
   if (!input.curve) {
     return { achievementProgress: null, progressAvailability: "pending_review" };

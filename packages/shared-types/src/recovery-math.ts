@@ -63,11 +63,15 @@ export interface AchievementEvaluation {
   pendingReview: boolean;
 }
 
+export type AchievementFamily = "curve" | "temporal";
+
 export interface UnlockCandidate {
   id: string;
-  organId: string;
+  organId: string | null;
   substanceId: string;
-  threshold: number;
+  threshold: number | null;
+  family?: AchievementFamily;
+  abstinenceDays?: number | null;
 }
 
 export interface CurveRecord extends CurveModel {
@@ -194,6 +198,21 @@ export function planAchievementUnlocks(input: {
 
     const usage = usageBySubstance.get(achievement.substanceId);
     if (!usage || usage.status === "active" || !usage.lastUseDate) continue;
+
+    const family = achievement.family ?? "curve";
+    if (family === "temporal") {
+      const needed = achievement.abstinenceDays;
+      if (needed == null || needed <= 0) continue;
+      const daysAbstinent = daysBetween(usage.lastUseDate, input.now);
+      if (daysAbstinent < needed) continue;
+      planned.push({
+        id: achievement.id,
+        unlockedAt: dateAfterDays(usage.lastUseDate, needed),
+      });
+      continue;
+    }
+
+    if (achievement.organId == null || achievement.threshold == null) continue;
 
     const curve = curveByPair.get(`${achievement.organId}:${achievement.substanceId}`);
     if (!curve) continue;

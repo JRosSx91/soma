@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import type {
   Achievement,
+  AchievementFamily,
   AchievementTier,
   UserAchievement,
 } from "@prisma/client";
@@ -14,12 +15,14 @@ import {
 
 export interface AchievementWithUnlockState {
   id: string;
+  family: AchievementFamily;
   tier: AchievementTier;
   titleKey: string;
   descriptionKey: string;
-  triggerOrganId: string;
+  triggerOrganId: string | null;
   triggerSubstanceId: string;
-  triggerRecoveryThreshold: number;
+  triggerRecoveryThreshold: number | null;
+  triggerAbstinenceDays: number | null;
   hidden: boolean;
   unlocked: boolean;
   unlockedAt: Date | null;
@@ -95,6 +98,8 @@ export class AchievementsService {
         organId: item.triggerOrganId,
         substanceId: item.triggerSubstanceId,
         threshold: item.triggerRecoveryThreshold,
+        family: item.family,
+        abstinenceDays: item.triggerAbstinenceDays,
       })),
       curves,
       usages,
@@ -163,7 +168,7 @@ export class AchievementsService {
       const reading = readAchievementProgress({
         hidden: a.hidden,
         persisted: Boolean(unlock),
-        achievementThreshold: a.triggerRecoveryThreshold,
+        achievementThreshold: a.triggerRecoveryThreshold ?? 0,
         curve: curve
           ? {
               shape: curve.shape,
@@ -175,15 +180,19 @@ export class AchievementsService {
           ? { status: usage.status, lastUseDate: usage.lastUseDate }
           : null,
         now,
+        family: a.family ?? "curve",
+        abstinenceDays: a.triggerAbstinenceDays ?? null,
       });
       return {
         id: a.id,
+        family: a.family ?? "curve",
         tier: a.tier,
         titleKey: a.titleKey,
         descriptionKey: a.descriptionKey,
-        triggerOrganId: a.triggerOrganId,
+        triggerOrganId: a.triggerOrganId ?? null,
         triggerSubstanceId: a.triggerSubstanceId,
-        triggerRecoveryThreshold: a.triggerRecoveryThreshold,
+        triggerRecoveryThreshold: a.triggerRecoveryThreshold ?? null,
+        triggerAbstinenceDays: a.triggerAbstinenceDays ?? null,
         hidden: a.hidden,
         unlocked: Boolean(unlock),
         unlockedAt: unlock?.unlockedAt ?? null,
