@@ -18,5 +18,26 @@
     "anatomy": "Explorador anatómico",
     "anatomyShort": "Anatomía",
     "achievements": "Logros"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "bellLabel": "Notificaciones de logros",
+    "badgeLabel_one": "{{count}} logro no leído",
+    "badgeLabel_other": "{{count}} logros no leídos",
+    "empty": "Todavía no hay logros que mostrar.",
+    "viewAll": "Ver logros",
+    "markRead": "Marcar como leídas",
+    "unread": "No leída",
+    "read": "Leída",
+    "initialSummary": "Has conseguido {{count}} logros nuevos",
+    "readError": "No se han podido marcar como leídas."
+  },
+  "celebration": {
+    "soloTitle": "Nuevo logro",
+    "groupTitle": "Has conseguido {{count}} logros",
+    "continue": "Continuar",
+    "viewAll": "Ver logros",
+    "soundEnable": "Activar sonido de celebración",
+    "soundDisable": "Silenciar celebración"
   }
 }

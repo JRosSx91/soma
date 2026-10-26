@@ -11,6 +11,7 @@ import { useShellBase } from "../context/ShellBaseContext.js";
 import { shellSections } from "../shell-base.js";
 import { previewFocus } from "../focus.js";
 import { LanguageSelector } from "../../../components/LanguageSelector.js";
+import { AchievementInboxBell } from "../../achievements/components/AchievementInboxBell.js";
 import { AccountMenu } from "./AccountMenu.js";
 import { SomaMark } from "./SomaMark.js";
 
@@ -58,8 +59,9 @@ export function PreviewSidebar() {
         </ul>
       </nav>
       <div className="mt-auto flex flex-col gap-2 px-1 pb-2">
-        <div className="flex items-center px-3 py-1">
+        <div className="flex items-center gap-2 px-3 py-1">
           <LanguageSelector placement="up" />
+          <AchievementInboxBell compact placement="up" />
         </div>
         <AccountMenu />
       </div>

@@ -10,6 +10,7 @@ import {
   shouldConfirmClearUsages,
   skipOnboardingWithoutClearingUsages,
 } from "../features/profile/index.js";
+import { achievementSync } from "../features/achievements/sync/achievement-sync.js";
 import {
   OnboardingShell,
   onboardingCardActiveClass,
@@ -189,6 +190,7 @@ export function OnboardingPage() {
       const result = await persistOnboardingCompletion(usages, {
         lastSuccessfulPut: lastSuccessfulPut.current,
         awaitingStatusRetry,
+        onUsagesPersisted: () => achievementSync.invalidate(),
       });
 
       lastSuccessfulPut.current = result.lastSuccessfulPut;

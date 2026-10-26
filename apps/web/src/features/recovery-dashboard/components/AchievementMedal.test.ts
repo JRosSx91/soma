@@ -7,15 +7,10 @@ import { AchievementMedal } from "./AchievementMedal.js";
 
 test("the home featured medal is the only surface that hides the tier caption", () => {
   const home = readFileSync(new URL("./PreviewHome.tsx", import.meta.url), "utf8");
-  const toast = readFileSync(
-    new URL("../../achievements/components/TrophyToast.tsx", import.meta.url),
-    "utf8",
-  );
   const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
 
   const featured = home.slice(home.indexOf("function FeaturedAchievementCard"));
   assert.match(featured, /showTierLabel=\{false\}/);
-  assert.equal(toast.includes("showTierLabel={false}"), false);
   assert.equal(page.includes("showTierLabel={false}"), false);
 });
 

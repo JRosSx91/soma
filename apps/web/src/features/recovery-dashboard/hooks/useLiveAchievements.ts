@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { fetchAchievements } from "../../achievements/client/achievements-api.js";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
+import { achievementSync } from "../../achievements/sync/achievement-sync.js";
 import type { AchievementWithUnlockState } from "../../achievements/types.js";
 
 interface LiveAchievementsState {
@@ -10,52 +10,35 @@ interface LiveAchievementsState {
 }
 
 /**
- * Loads GET /me/achievements for the signed-in user.
- * A null user id fetches nothing and drops any previous payload,
- * so a public visit or a logout cannot keep another person's rows.
- * The response stays in memory for this view. It is not written to storage.
+ * Shared live catalog for Inicio and Logros.
+ * A null user id reads nothing and does not reset another signed-in session.
+ * Reload invalidates AchievementSync after a confirmed profile write.
  */
 export function useLiveAchievements(userId: string | null): LiveAchievementsState {
-  const [rows, setRows] = useState<AchievementWithUnlockState[] | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [request, setRequest] = useState(0);
+  const snapshot = useSyncExternalStore(
+    achievementSync.subscribe,
+    achievementSync.getSnapshot,
+    achievementSync.getSnapshot,
+  );
 
   useEffect(() => {
-    if (!userId) {
-      setRows(null);
-      setError(null);
-      setLoading(false);
-      return;
-    }
+    if (!userId) return;
+    void achievementSync.sync(userId);
+  }, [userId]);
 
-    let cancelled = false;
-    setRows(null);
-    setError(null);
-    setLoading(true);
+  const reload = useCallback(() => {
+    achievementSync.invalidate();
+  }, []);
 
-    fetchAchievements(userId)
-      .then((data) => {
-        if (!cancelled) setRows(data);
-      })
-      .catch((err: unknown) => {
-        if (cancelled) return;
-        setRows(null);
-        setError(err instanceof Error ? err.message : "No se han podido cargar los logros.");
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+  if (!userId) {
+    return { rows: null, loading: false, error: null, reload };
+  }
 
-    return () => {
-      cancelled = true;
-    };
-  }, [userId, request]);
-
+  const mine = snapshot.userId === userId;
   return {
-    rows,
-    loading,
-    error,
-    reload: () => setRequest((value) => value + 1),
+    rows: mine ? snapshot.rows : null,
+    loading: mine ? snapshot.loading : true,
+    error: mine ? snapshot.error : null,
+    reload,
   };
 }

@@ -1,4 +1,5 @@
 import { LanguageSelector } from "../../../components/LanguageSelector.js";
+import { AchievementInboxBell } from "../../achievements/components/AchievementInboxBell.js";
 import { AccountMenu } from "./AccountMenu.js";
 import { SomaMark } from "./SomaMark.js";
 
@@ -8,6 +9,7 @@ export function PreviewMobileHeader() {
       <SomaMark />
       <div className="flex items-center gap-2">
         <LanguageSelector />
+        <AchievementInboxBell compact />
         <AccountMenu compact />
       </div>
     </header>

@@ -18,5 +18,26 @@
     "anatomy": "Anatomical explorer",
     "anatomyShort": "Anatomy",
     "achievements": "Achievements"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "bellLabel": "Achievement notifications",
+    "badgeLabel_one": "{{count}} unread achievement",
+    "badgeLabel_other": "{{count}} unread achievements",
+    "empty": "No achievements to show yet.",
+    "viewAll": "View achievements",
+    "markRead": "Mark as read",
+    "unread": "Unread",
+    "read": "Read",
+    "initialSummary": "You unlocked {{count}} new achievements",
+    "readError": "Could not mark notifications as read."
+  },
+  "celebration": {
+    "soloTitle": "New achievement",
+    "groupTitle": "You unlocked {{count}} achievements",
+    "continue": "Continue",
+    "viewAll": "View achievements",
+    "soundEnable": "Enable celebration sound",
+    "soundDisable": "Mute celebration"
   }
 }

@@ -7,6 +7,10 @@ import type {
 import type { ProgressAvailability } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { planAchievementUnlocks, readAchievementProgress } from "./recovery-math.js";
+import {
+  claimUserAchievementTimestamp,
+  insertUserAchievementsIgnoringConflicts,
+} from "./user-achievement-persist.js";
 
 export interface AchievementWithUnlockState {
   id: string;
@@ -20,6 +24,16 @@ export interface AchievementWithUnlockState {
   unlocked: boolean;
   unlockedAt: Date | null;
   notifiedAt: Date | null;
+  /** Soma inserted the unlock (`UserAchievement.createdAt`). Null if locked. */
+  detectedAt: Date | null;
+  inboxReadAt: Date | null;
+  /**
+   * When a celebration presentation was claimed (lock before show).
+   * Not proof the modal finished rendering.
+   */
+  celebratedAt: Date | null;
+  /** True only if this GET's INSERT actually created the row. */
+  insertedThisCall: boolean;
   /** Derived. Null unless progressAvailability is "ready". Not a clinical measure. */
   achievementProgress: number | null;
   progressAvailability: ProgressAvailability;
@@ -37,7 +51,9 @@ export class AchievementsService {
   /**
    * Detects achievements newly crossed by the user's recovery progress
    * since the last detection, persists them in UserAchievement, and
-   * returns the rows that were newly inserted.
+   * returns achievement ids **this statement inserted** (`ON CONFLICT
+   * DO NOTHING RETURNING`). Concurrent GETs cannot both list the same
+   * row as insertedThisCall.
    *
    * Idempotent: re-calling with no new thresholds crossed inserts
    * nothing and returns an empty array.
@@ -49,7 +65,7 @@ export class AchievementsService {
    */
   async detectAndPersistUnlocks(
     userId: string,
-  ): Promise<NewlyUnlockedAchievement[]> {
+  ): Promise<string[]> {
     const usages = await this.prisma.substanceUsage.findMany({
       where: { userId },
     });
@@ -93,19 +109,16 @@ export class AchievementsService {
       newUnlocks.push({ achievement, unlockedAt: unlock.unlockedAt });
     }
 
-    // Insert all in one batch.
-    if (newUnlocks.length > 0) {
-      await this.prisma.userAchievement.createMany({
-        data: newUnlocks.map((u) => ({
-          userId,
-          achievementId: u.achievement.id,
-          unlockedAt: u.unlockedAt,
-        })),
-        skipDuplicates: true,
-      });
-    }
+    if (newUnlocks.length === 0) return [];
 
-    return newUnlocks;
+    return insertUserAchievementsIgnoringConflicts(
+      this.prisma,
+      userId,
+      newUnlocks.map((u) => ({
+        achievementId: u.achievement.id,
+        unlockedAt: u.unlockedAt,
+      })),
+    );
   }
 
   /**
@@ -118,7 +131,9 @@ export class AchievementsService {
    */
   async getUserAchievements(
     userId: string,
+    insertedThisCallIds: ReadonlySet<string> | readonly string[] = [],
   ): Promise<AchievementWithUnlockState[]> {
+    const inserted = new Set(insertedThisCallIds);
     const [achievements, unlocks, curves, usages] = await Promise.all([
       this.prisma.achievement.findMany({
         orderBy: [
@@ -173,6 +188,10 @@ export class AchievementsService {
         unlocked: Boolean(unlock),
         unlockedAt: unlock?.unlockedAt ?? null,
         notifiedAt: unlock?.notifiedAt ?? null,
+        detectedAt: unlock?.createdAt ?? null,
+        inboxReadAt: unlock?.inboxReadAt ?? null,
+        celebratedAt: unlock?.celebratedAt ?? null,
+        insertedThisCall: inserted.has(a.id),
         achievementProgress: reading.achievementProgress,
         progressAvailability: reading.progressAvailability,
       };
@@ -202,5 +221,38 @@ export class AchievementsService {
     });
 
     return { updated: result.count };
+  }
+
+  /**
+   * Marks inbox items read for this user only. Does not touch notifiedAt
+   * or celebratedAt. Concurrent repeats are no-ops for already-read rows.
+   */
+  async markInboxRead(
+    userId: string,
+    achievementIds: string[],
+  ): Promise<{ updated: number; readIds: string[] }> {
+    const readIds = await claimUserAchievementTimestamp(this.prisma, {
+      userId,
+      achievementIds,
+      column: "inboxReadAt",
+    });
+    return { updated: readIds.length, readIds };
+  }
+
+  /**
+   * Claims celebration presentation for this user only. celebratedAt is
+   * the claim instant, not confirmation that a modal was seen through.
+   * Does not touch notifiedAt or inboxReadAt. Insert-only unlocks unchanged.
+   */
+  async claimCelebrations(
+    userId: string,
+    achievementIds: string[],
+  ): Promise<{ celebratedIds: string[] }> {
+    const celebratedIds = await claimUserAchievementTimestamp(this.prisma, {
+      userId,
+      achievementIds,
+      column: "celebratedAt",
+    });
+    return { celebratedIds };
   }
 }

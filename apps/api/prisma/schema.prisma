@@ -414,7 +414,13 @@ model OrganNarrativePhase {
 // lastUseDate), not the time of detection.
 //
 // `notifiedAt` is null until the frontend (web) or push system (mobile)
-// surfaces the achievement to the user. PR 17 will set it.
+// surfaces the achievement to the user via trophy toasts (POST mark-notified).
+// Historical toast-ack only. Not inbox-read and not celebration-claim.
+//
+// `createdAt` is when Soma inserted the unlock (API: detectedAt).
+// `inboxReadAt` is when the in-app notification center marked it read.
+// `celebratedAt` is when a celebration presentation was *claimed*
+// (atomic lock before show). It is not proof the modal finished.
 
 model UserAchievement {
   id              String      @id @default(cuid())
@@ -429,6 +435,9 @@ model UserAchievement {
   notifiedAt      DateTime?
 
   createdAt       DateTime    @default(now())
+
+  inboxReadAt     DateTime?
+  celebratedAt    DateTime?
 
   user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   achievement     Achievement @relation(fields: [achievementId], references: [id])

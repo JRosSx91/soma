@@ -17,6 +17,11 @@ export interface AchievementWithUnlockState {
   unlocked: boolean;
   unlockedAt: string | null;
   notifiedAt: string | null;
+  detectedAt?: string | null;
+  inboxReadAt?: string | null;
+  celebratedAt?: string | null;
+  /** True only for rows this GET inserted (RETURNING). Absent on older APIs. */
+  insertedThisCall?: boolean;
   /**
    * Share of the catalog threshold already covered, in [0, 1].
    * Null when the model cannot calculate it. Heuristic, not clinical.

@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShellBaseProvider } from "../context/ShellBaseContext.js";
 import { shellSections, type ShellBase } from "../shell-base.js";
+import { AchievementCelebrationHost } from "../../achievements/components/AchievementCelebrationHost.js";
 import { PreviewMobileHeader } from "./PreviewMobileHeader.js";
 import { PreviewMobileNav } from "./PreviewMobileNav.js";
 import { PreviewSidebar } from "./PreviewSidebar.js";
@@ -42,6 +43,7 @@ export function PreviewShell({ base }: PreviewShellProps) {
           </div>
         </main>
         <PreviewMobileNav />
+        {base === "/app" ? <AchievementCelebrationHost /> : null}
       </div>
     </ShellBaseProvider>
   );
