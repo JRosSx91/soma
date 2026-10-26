@@ -44,15 +44,16 @@ export function PreviewHome() {
     () => pickNextLockedAchievement(achievements.rows, trackedIds),
     [achievements.rows, trackedIds],
   );
-  const nextProgress = nextMilestone
-    ? quantifiableAchievementProgress({
-        unlocked: nextMilestone.unlocked,
-        hidden: nextMilestone.hidden,
-        progressAvailability: nextMilestone.progressAvailability,
-        achievementProgress: nextMilestone.achievementProgress,
-        threshold: nextMilestone.triggerRecoveryThreshold,
-      })
-    : null;
+  const nextProgress =
+    nextMilestone && nextMilestone.triggerRecoveryThreshold != null
+      ? quantifiableAchievementProgress({
+          unlocked: nextMilestone.unlocked,
+          hidden: nextMilestone.hidden,
+          progressAvailability: nextMilestone.progressAvailability,
+          achievementProgress: nextMilestone.achievementProgress,
+          threshold: nextMilestone.triggerRecoveryThreshold,
+        })
+      : null;
   const featured = useMemo(
     () => pickFeaturedUnlockedAchievement(achievements.rows),
     [achievements.rows],

@@ -68,6 +68,8 @@ export function pickNextLockedAchievement(
     if (row.hidden) return false;
     if (row.progressAvailability !== "ready") return false;
     if (!tracked.has(row.triggerSubstanceId)) return false;
+    if (row.family === "temporal") return false;
+    if (row.triggerRecoveryThreshold == null) return false;
     const percent = percentTowardThreshold(row.achievementProgress ?? null);
     return percent !== null && percent < 100;
   });

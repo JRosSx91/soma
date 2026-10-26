@@ -5,14 +5,18 @@ export type AchievementTier = "bronze" | "silver" | "gold" | "platinum";
  * The user-facing strings are i18n keys; the frontend resolves them
  * via the `achievements` namespace.
  */
+export type AchievementFamily = "curve" | "temporal";
+
 export interface AchievementWithUnlockState {
   id: string;
+  family?: AchievementFamily;
   tier: AchievementTier;
   titleKey: string;
   descriptionKey: string;
-  triggerOrganId: string;
+  triggerOrganId: string | null;
   triggerSubstanceId: string;
-  triggerRecoveryThreshold: number;
+  triggerRecoveryThreshold: number | null;
+  triggerAbstinenceDays?: number | null;
   hidden: boolean;
   unlocked: boolean;
   unlockedAt: string | null;

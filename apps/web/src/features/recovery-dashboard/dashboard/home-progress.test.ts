@@ -43,6 +43,29 @@ test("next locked achievement is the closest calculable one among tracked substa
   assert.equal(next?.id, "b");
 });
 
+test("next locked achievement ignores temporal medals", () => {
+  const next = pickNextLockedAchievement(
+    [
+      row({
+        id: "cannabis-temporal-1",
+        family: "temporal",
+        triggerOrganId: null,
+        triggerRecoveryThreshold: null,
+        triggerAbstinenceDays: 1,
+        triggerSubstanceId: "cannabis",
+        achievementProgress: 0.99,
+      }),
+      row({
+        id: "curve-liver",
+        triggerSubstanceId: "cannabis",
+        achievementProgress: 0.4,
+      }),
+    ],
+    ["cannabis"],
+  );
+  assert.equal(next?.id, "curve-liver");
+});
+
 test("next locked achievement stays empty without rows, tracking, or ready progress", () => {
   assert.equal(pickNextLockedAchievement(null, ["alcohol"]), null);
   assert.equal(pickNextLockedAchievement([row({ id: "a" })], []), null);
@@ -155,6 +178,13 @@ test("achievements page reuses the shared quantifiable progress helper", () => {
   const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
   assert.match(page, /quantifiableAchievementProgress/);
   assert.equal(page.includes("daysToReachCurveProgress"), false);
+});
+
+test("achievements page localizes catalog titles through i18n keys", () => {
+  const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /useTranslation\("achievements"\)/);
+  assert.match(page, /\$\{item\.id\}\.title/);
+  assert.match(page, /\$\{item\.id\}\.description/);
 });
 
 test("home next-milestone fixture shows a locked calculable bar without preview invention", () => {

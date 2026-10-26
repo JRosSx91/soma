@@ -6,8 +6,8 @@ import {
   MinLength,
 } from "class-validator";
 
-/** Catalog is 106 items; cap batches above that to reject oversized payloads. */
-export const ACHIEVEMENT_IDS_MAX_BATCH = 120;
+/** Catalog is 156 items; cap batches above that to reject oversized payloads. */
+export const ACHIEVEMENT_IDS_MAX_BATCH = 200;
 
 /**
  * Shared body for inbox-read and celebrate. Unknown keys are rejected by

@@ -230,6 +230,7 @@ function InboxRow({
             tier={achievement.tier}
             locked={false}
             size="compact"
+            family={achievement.family === "temporal" ? "temporal" : "curve"}
             showTierLabel={false}
           />
         </span>

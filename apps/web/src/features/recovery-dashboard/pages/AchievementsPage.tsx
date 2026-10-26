@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/index.js";
 import type { AchievementWithUnlockState } from "../../achievements/types.js";
 import {
@@ -49,6 +50,7 @@ const unavailableCopy = {
 };
 
 export function AchievementsPage() {
+  const { t } = useTranslation("achievements");
   const base = useShellBase();
   const { user, loading: authLoading } = useAuth();
   const sessionPending = authLoading;
@@ -104,6 +106,14 @@ export function AchievementsPage() {
   const open = achievementCatalog.find((item) => item.id === openId) ?? null;
   const openLive = open ? liveById.get(open.id) : undefined;
 
+  function localizedCopy(item: CatalogItem): CatalogItem {
+    return {
+      ...item,
+      title: t(`${item.id}.title`, { defaultValue: item.title }),
+      description: t(`${item.id}.description`, { defaultValue: item.description }),
+    } as CatalogItem;
+  }
+
   return (
     <div className="flex min-w-0 flex-col gap-5 pb-6">
       <PageHeading
@@ -117,7 +127,7 @@ export function AchievementsPage() {
               ? "Comprobando la sesión para mostrar el avance guardado en tu cuenta."
               : base === "/preview"
                 ? "Catálogo original de Soma. Vista pública: no hay logros desbloqueados ni fechas de cuenta."
-                : "Catálogo de 106 logros. Inicia sesión para ver desbloqueos y progreso real."
+                : `Catálogo de ${achievementCatalog.length} logros. Inicia sesión para ver desbloqueos y progreso real.`
         }
       />
 
@@ -187,7 +197,7 @@ export function AchievementsPage() {
                 {items.map((item) => (
                   <li key={item.id} className="min-w-0">
                     <AchievementCard
-                      item={item}
+                      item={localizedCopy(item)}
                       live={showingLive ? (liveById.get(item.id) ?? null) : undefined}
                       onOpen={setOpenId}
                     />
@@ -201,7 +211,7 @@ export function AchievementsPage() {
 
       {open && !awaitingAccount && !(user && live.error) ? (
         <AchievementDetail
-          item={open}
+          item={localizedCopy(open)}
           live={showingLive ? (openLive ?? null) : undefined}
           onClose={() => setOpenId(null)}
         />
@@ -280,6 +290,7 @@ function AchievementCard({
         tier={item.tier}
         sealed={view.sealed}
         locked={!view.unlocked}
+        family={item.family === "temporal" ? "temporal" : "curve"}
       />
       <span className="line-clamp-3 text-sm font-semibold leading-snug text-soma-ink" aria-hidden="true">
         {view.title}
@@ -316,13 +327,14 @@ function AchievementDetail({
   onClose: () => void;
 }) {
   const view = describeCard(item, live);
-  const thresholdPercent = Math.round(item.threshold * 100);
+  const thresholdPercent = Math.round((item.threshold ?? 0) * 100);
+  const temporal = item.family === "temporal";
 
   if (view.sealed) {
     return (
       <DetailSheet title={achievementHiddenCopy.title} accessibleTitle="Logro oculto" onClose={onClose}>
         <div className="mb-3 flex justify-center">
-          <AchievementMedal substanceId={item.substanceId} tier={item.tier} sealed locked size="detail" />
+          <AchievementMedal substanceId={item.substanceId} tier={item.tier} sealed locked size="detail" family={item.family === "temporal" ? "temporal" : "curve"} />
         </div>
         <p>Bloqueado. {tierLabel[item.tier]}.</p>
         <p className="mt-2">{achievementHiddenCopy.description}</p>
@@ -338,13 +350,19 @@ function AchievementDetail({
           tier={item.tier}
           locked={!view.unlocked}
           size="detail"
+          family={item.family === "temporal" ? "temporal" : "curve"}
         />
       </div>
       <p>
         {view.status}. {item.substanceName}. {tierLabel[item.tier]}.
       </p>
       {view.unlocked && view.unlockedOn ? <p className="mt-2">Conseguido el {view.unlockedOn}.</p> : null}
-      {view.review ? (
+      {temporal ? (
+        <p className="mt-2">
+          Hito temporal: {item.abstinenceDays}{" "}
+          {item.abstinenceDays === 1 ? "día" : "días"} de abstinencia de {item.substanceName}.
+        </p>
+      ) : view.review ? (
         <p className="mt-2">
           El catálogo guarda un umbral del {thresholdPercent}% en {item.organName}. No hay una curva de
           recuperación para este par, así que esta ficha no lo presenta como un objetivo alcanzable.
@@ -394,14 +412,17 @@ function describeCard(item: CatalogItem, live: LiveRow | null | undefined): Card
   const sealed = item.hidden && !unlocked;
   const review = !unlocked && (item.ruleReview || live?.progressAvailability === "pending_review");
   const unlockedOn = unlocked ? formatUnlockedAt(live?.unlockedAt ?? null) : null;
-  const progress = quantifiableAchievementProgress({
-    unlocked,
-    hidden: sealed,
-    review,
-    progressAvailability: live?.progressAvailability,
-    achievementProgress: live?.achievementProgress,
-    threshold: item.threshold,
-  });
+  const progress =
+    item.family === "temporal"
+      ? null
+      : quantifiableAchievementProgress({
+          unlocked,
+          hidden: sealed,
+          review,
+          progressAvailability: live?.progressAvailability,
+          achievementProgress: live?.achievementProgress,
+          threshold: item.threshold,
+        });
   const gap = !sealed && !review && !unlocked ? gapCopy(live) : null;
   const note = gap?.note ?? null;
 

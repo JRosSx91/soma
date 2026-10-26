@@ -51,3 +51,17 @@ test("compact medals are a 48px frame instead of the card height", () => {
   assert.equal(markup.includes("h-36"), false);
   assert.equal(markup.includes("Bronce"), false);
 });
+
+test("temporal medals keep substance art and add a compass stamp", () => {
+  const markup = renderToStaticMarkup(
+    createElement(AchievementMedal, {
+      substanceId: "cannabis",
+      tier: "gold",
+      locked: false,
+      family: "temporal",
+      showTierLabel: false,
+    }),
+  );
+  assert.match(markup, /cannabis-gold\.png/);
+  assert.match(markup, /lucide-compass|aria-hidden="true"/);
+});

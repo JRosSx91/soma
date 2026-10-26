@@ -1,4 +1,8 @@
 import type { PrismaClient } from "@prisma/client";
+import {
+  TEMPORAL_ACHIEVEMENTS,
+  temporalAchievementCreateData,
+} from "./temporal-achievements.js";
 
 /**
  * Catálogo de logros fisiológicos. Cada logro está vinculado a un par
@@ -1040,16 +1044,47 @@ export const ACHIEVEMENTS = [
   hidden?: boolean;
 }>;
 
+export { TEMPORAL_ACHIEVEMENTS };
+
 export async function seedAchievements(prisma: PrismaClient): Promise<void> {
-  // Achievements are reference data — wipe and recreate on every seed
-  // run so the DB exactly mirrors the catalog defined here.
-  // UserAchievement rows referencing deleted achievements would be
-  // orphaned, so we delete them too. Users get their unlocks
-  // recomputed on next login (the detection service is idempotent).
+  // Local/dev seed only. Do not run this wipe against production.
+  // UserAchievement rows are dropped so FKs do not block catalog rebuild.
   await prisma.userAchievement.deleteMany();
   await prisma.achievement.deleteMany();
 
   for (const achievement of ACHIEVEMENTS) {
-    await prisma.achievement.create({ data: achievement });
+    await prisma.achievement.create({
+      data: { ...achievement, family: "curve" },
+    });
   }
+  for (const achievement of TEMPORAL_ACHIEVEMENTS) {
+    await prisma.achievement.create({
+      data: temporalAchievementCreateData(achievement),
+    });
+  }
+}
+
+/** Additive, idempotent GAME-01 catalog insert. Safe to re-run. Does not wipe unlocks. */
+export async function upsertTemporalAchievements(
+  prisma: PrismaClient,
+): Promise<number> {
+  for (const achievement of TEMPORAL_ACHIEVEMENTS) {
+    const data = temporalAchievementCreateData(achievement);
+    await prisma.achievement.upsert({
+      where: { id: data.id },
+      create: data,
+      update: {
+        family: data.family,
+        tier: data.tier,
+        titleKey: data.titleKey,
+        descriptionKey: data.descriptionKey,
+        triggerSubstanceId: data.triggerSubstanceId,
+        triggerAbstinenceDays: data.triggerAbstinenceDays,
+        triggerOrganId: null,
+        triggerRecoveryThreshold: null,
+        hidden: false,
+      },
+    });
+  }
+  return TEMPORAL_ACHIEVEMENTS.length;
 }
