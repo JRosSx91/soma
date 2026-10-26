@@ -18,6 +18,9 @@
     "anatomy": "Anatomical explorer",
     "anatomyShort": "Anatomy",
     "achievements": "Achievements",
+    "account": "Account",
+    "more": "More",
+    "moreMenuAria": "More sections",
     "collapseNav": "Collapse menu",
     "expandNav": "Expand menu"
   },
