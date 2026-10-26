@@ -186,6 +186,10 @@ test("bell and panel expose basic keyboard and aria wiring", () => {
   assert.match(source, /role="dialog"/);
   assert.match(source, /createPortal/);
   assert.match(source, /placeAnchoredPanel/);
+  assert.match(source, /size="compact"/);
+  assert.match(source, /flex w-full items-center gap-3/);
+  assert.match(source, /flex h-12 w-12 shrink-0 items-center justify-center/);
+  assert.equal(source.includes('size="card"'), false);
 });
 
 test("the achievement inbox is absent from DEMO /preview", () => {

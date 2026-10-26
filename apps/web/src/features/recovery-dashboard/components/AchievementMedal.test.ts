@@ -36,3 +36,18 @@ test("AchievementMedal omits the Spanish tier caption when showTierLabel is fals
   assert.match(shown, /alcohol-bronze\.png/);
   assert.match(shown, />Bronce</);
 });
+
+test("compact medals are a 48px frame instead of the card height", () => {
+  const markup = renderToStaticMarkup(
+    createElement(AchievementMedal, {
+      substanceId: "alcohol",
+      tier: "bronze",
+      locked: false,
+      size: "compact",
+      showTierLabel: false,
+    }),
+  );
+  assert.match(markup, /h-12 w-12/);
+  assert.equal(markup.includes("h-36"), false);
+  assert.equal(markup.includes("Bronce"), false);
+});

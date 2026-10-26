@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -6,6 +7,7 @@ import { Volume2, VolumeX } from "lucide-react";
 import { previewFocus } from "../../recovery-dashboard/focus.js";
 import { AchievementMedal } from "../../recovery-dashboard/components/AchievementMedal.js";
 import type { AchievementWithUnlockState } from "../types.js";
+import { celebrationMedalLayout } from "../celebration/celebration-layout.js";
 import type { CelebrationMode } from "../celebration/celebration-plan.js";
 import {
   isCelebrateSoundEnabled,
@@ -33,7 +35,8 @@ export function AchievementCelebrationModal({
   const previousFocus = useRef<HTMLElement | null>(null);
   const [soundOn, setSoundOn] = useState(() => isCelebrateSoundEnabled());
   const platinum = achievements.some((row) => row.tier === "platinum");
-  const solo = mode === "solo" ? achievements[0] : null;
+  const layout = celebrationMedalLayout(achievements.length);
+  const solo = layout === "solo" ? achievements[0] : null;
 
   useEffect(() => {
     if (!open) return;
@@ -69,21 +72,27 @@ export function AchievementCelebrationModal({
   const motionProps = reduceMotion
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
     : {
-        initial: { opacity: 0, scale: 0.92, y: 16 },
-        animate: { opacity: 1, scale: 1, y: 0 },
-        exit: { opacity: 0, scale: 0.96, y: 8 },
+        initial: { opacity: 0, scale: 0.96 },
+        animate: { opacity: 1, scale: 1 },
+        exit: { opacity: 0, scale: 0.98 },
       };
 
-  return (
+  const overlay = open && mode !== "none" && achievements.length > 0;
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <AnimatePresence>
-      {open && mode !== "none" && achievements.length > 0 ? (
-        <>
-          <motion.div
-            className="fixed inset-0 z-[60] bg-[#081018]/75"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            aria-hidden="true"
+      {overlay ? (
+        <motion.div
+          className="fixed inset-0 z-[60] flex items-center justify-center overflow-x-hidden p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <button
+            type="button"
+            className="absolute inset-0 bg-[#081018]/75"
+            aria-label={t("close")}
             onClick={onClose}
           />
           <motion.div
@@ -92,7 +101,7 @@ export function AchievementCelebrationModal({
             aria-modal="true"
             aria-labelledby={titleId}
             tabIndex={-1}
-            className={`fixed inset-x-4 top-1/2 z-[61] mx-auto max-h-[min(88vh,40rem)] w-full max-w-md -translate-y-1/2 overflow-y-auto rounded-2xl border border-soma-line bg-soma-raised p-5 shadow-2xl outline-none ${
+            className={`relative z-[61] flex max-h-[90dvh] w-full max-w-md flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-raised shadow-2xl outline-none ${
               platinum ? "ring-2 ring-soma-action/80" : ""
             }`}
             {...motionProps}
@@ -100,14 +109,14 @@ export function AchievementCelebrationModal({
           >
             {!reduceMotion ? <CelebrationSparkles platinum={platinum} /> : null}
 
-            <div className="relative">
+            <div className="relative min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-5 pb-6 pt-5">
               <p
                 id={titleId}
                 className="text-center text-[11px] font-medium uppercase tracking-[0.16em] text-soma-action"
               >
-                {mode === "group"
-                  ? t("celebration.groupTitle", { count: achievements.length })
-                  : t("celebration.soloTitle")}
+                {layout === "solo"
+                  ? t("celebration.soloTitle")
+                  : t("celebration.groupTitle", { count: achievements.length })}
               </p>
 
               {solo ? (
@@ -120,19 +129,45 @@ export function AchievementCelebrationModal({
                     showTierLabel
                   />
                 </div>
+              ) : layout === "featured" ? (
+                <ul className="mt-4 flex flex-wrap justify-center gap-4">
+                  {achievements.map((row) => {
+                    const title = t(`achievements:${row.titleKey}`);
+                    return (
+                      <li key={row.id} className="w-28">
+                        <AchievementMedal
+                          substanceId={row.triggerSubstanceId}
+                          tier={row.tier}
+                          locked={false}
+                          size="card"
+                          showTierLabel
+                        />
+                        <p className="mt-1 line-clamp-2 text-center text-xs font-medium text-soma-ink">
+                          {title}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ul>
               ) : (
-                <ul className="mt-4 flex flex-wrap justify-center gap-3">
-                  {achievements.map((row) => (
-                    <li key={row.id} className="w-16 sm:w-20">
-                      <AchievementMedal
-                        substanceId={row.triggerSubstanceId}
-                        tier={row.tier}
-                        locked={false}
-                        size="card"
-                        showTierLabel={false}
-                      />
-                    </li>
-                  ))}
+                <ul className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-5">
+                  {achievements.map((row) => {
+                    const title = t(`achievements:${row.titleKey}`);
+                    return (
+                      <li key={row.id} className="flex justify-center">
+                        <span title={title} className="flex flex-col items-center">
+                          <AchievementMedal
+                            substanceId={row.triggerSubstanceId}
+                            tier={row.tier}
+                            locked={false}
+                            size="compact"
+                            showTierLabel={false}
+                          />
+                          <span className="sr-only">{title}</span>
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
 
@@ -145,54 +180,55 @@ export function AchievementCelebrationModal({
                     {t(`achievements:${solo.descriptionKey}`)}
                   </p>
                 </>
-              ) : (
-                <ul className="mt-4 max-h-32 space-y-1 overflow-y-auto text-center text-sm text-soma-ink">
+              ) : layout === "grid" ? (
+                <ul className="mt-4 space-y-1 text-sm text-soma-ink">
                   {achievements.map((row) => (
                     <li key={row.id}>{t(`achievements:${row.titleKey}`)}</li>
                   ))}
                 </ul>
-              )}
+              ) : null}
+            </div>
 
-              <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-                <button
-                  type="button"
-                  className={`${previewFocus} min-h-11 flex-1 rounded-xl bg-soma-action px-4 py-2.5 text-sm font-semibold text-[#081018] hover:bg-soma-action-hover`}
+            <div className="relative flex shrink-0 flex-col gap-2 border-t border-soma-line/60 px-5 py-3 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                className={`${previewFocus} min-h-11 flex-1 rounded-xl bg-soma-action px-4 py-2.5 text-sm font-semibold text-[#081018] hover:bg-soma-action-hover`}
+                onClick={onClose}
+              >
+                {t("celebration.continue")}
+              </button>
+              {mode === "group" ? (
+                <Link
+                  to="/app/achievements"
+                  className={`${previewFocus} min-h-11 rounded-xl px-4 py-2.5 text-center text-sm text-soma-action hover:text-soma-action-hover`}
                   onClick={onClose}
                 >
-                  {t("celebration.continue")}
-                </button>
-                {mode === "group" ? (
-                  <Link
-                    to="/app/achievements"
-                    className={`${previewFocus} min-h-11 rounded-xl px-4 py-2.5 text-center text-sm text-soma-action hover:text-soma-action-hover`}
-                    onClick={onClose}
-                  >
-                    {t("celebration.viewAll")}
-                  </Link>
-                ) : null}
-                <button
-                  type="button"
-                  className={`${previewFocus} ml-auto flex h-11 w-11 items-center justify-center rounded-full text-soma-ink-secondary hover:bg-soma-surface hover:text-soma-ink`}
-                  aria-pressed={soundOn}
-                  aria-label={
-                    soundOn
-                      ? t("celebration.soundDisable")
-                      : t("celebration.soundEnable")
-                  }
-                  onClick={toggleSound}
-                >
-                  {soundOn ? (
-                    <Volume2 className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    <VolumeX className="h-4 w-4" aria-hidden="true" />
-                  )}
-                </button>
-              </div>
+                  {t("celebration.viewAll")}
+                </Link>
+              ) : null}
+              <button
+                type="button"
+                className={`${previewFocus} ml-auto flex h-11 w-11 items-center justify-center rounded-full text-soma-ink-secondary hover:bg-soma-surface hover:text-soma-ink`}
+                aria-pressed={soundOn}
+                aria-label={
+                  soundOn
+                    ? t("celebration.soundDisable")
+                    : t("celebration.soundEnable")
+                }
+                onClick={toggleSound}
+              >
+                {soundOn ? (
+                  <Volume2 className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <VolumeX className="h-4 w-4" aria-hidden="true" />
+                )}
+              </button>
             </div>
           </motion.div>
-        </>
+        </motion.div>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
 

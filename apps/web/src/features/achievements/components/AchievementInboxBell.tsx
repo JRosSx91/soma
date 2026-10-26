@@ -128,7 +128,7 @@ export function AchievementInboxBell({
               role="dialog"
               aria-label={t("notifications.title")}
               tabIndex={-1}
-              className="flex flex-col overflow-hidden rounded-xl border border-soma-line bg-soma-raised shadow-lg outline-none"
+              className="flex max-h-[min(70dvh,24rem)] flex-col overflow-hidden rounded-xl border border-soma-line bg-soma-raised shadow-lg outline-none"
             >
               <div className="flex items-center justify-between gap-2 border-b border-soma-line px-3 py-2">
                 <p className="text-sm font-semibold text-soma-ink">
@@ -214,7 +214,7 @@ function InboxRow({
     <li>
       <button
         type="button"
-        className={`${previewFocus} flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-soma-surface ${
+        className={`${previewFocus} flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-soma-surface ${
           item.unread ? "bg-soma-surface/60" : ""
         }`}
         onClick={onMark}
@@ -224,12 +224,12 @@ function InboxRow({
             : `${title}. ${t("notifications.read")}`
         }
       >
-        <span className="w-10 shrink-0">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center">
           <AchievementMedal
             substanceId={achievement.triggerSubstanceId}
             tier={achievement.tier}
             locked={false}
-            size="card"
+            size="compact"
             showTierLabel={false}
           />
         </span>
