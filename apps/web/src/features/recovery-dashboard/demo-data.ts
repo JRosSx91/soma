@@ -26,6 +26,10 @@ export interface DemoSubstance {
   bar: number;
   /** ISO last-use date when known. Display only; days come from `abstinence`. */
   lastUseDate?: string | null;
+  /** Live usage row. Demo defaults to abstinent when omitted. */
+  usageStatus?: "abstinent" | "active";
+  /** Demo-only elapsed 24h days used to seed a session last-use clock. */
+  elapsedDays?: number;
 }
 
 export const demoSubstances: readonly DemoSubstance[] = [
@@ -36,6 +40,8 @@ export const demoSubstances: readonly DemoSubstance[] = [
     pillDetail: "42 días sin cannabis",
     phase: "Fase de normalización de neurotransmisores",
     bar: 0.46,
+    usageStatus: "abstinent",
+    elapsedDays: 42,
   },
   {
     id: "nicotine",
@@ -44,6 +50,8 @@ export const demoSubstances: readonly DemoSubstance[] = [
     pillDetail: "15 días sin nicotina",
     phase: "Mejora de la función cardiovascular",
     bar: 0.28,
+    usageStatus: "abstinent",
+    elapsedDays: 15,
   },
   {
     id: "cocaine",
@@ -52,6 +60,8 @@ export const demoSubstances: readonly DemoSubstance[] = [
     pillDetail: "4 meses sin cocaína",
     phase: "Estabilización de circuitos de recompensa",
     bar: 0.62,
+    usageStatus: "abstinent",
+    elapsedDays: 120,
   },
 ];
 

@@ -17,6 +17,9 @@ import { PageHeading } from "../components/PageHeading.js";
 import { RecentChangeCard } from "../components/RecentChangeCard.js";
 import { SegmentedControl } from "../components/SegmentedControl.js";
 import { SubstanceCard } from "../components/SubstanceCard.js";
+import { useTemporalMilestones } from "../hooks/useTemporalMilestones.js";
+import { useAuth } from "../../auth/index.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
 import { SystemTile } from "../components/SystemTile.js";
 
 export function RecoveryPage() {
@@ -31,6 +34,16 @@ export function RecoveryPage() {
 
   const dashboard = usePreviewDashboard(tab === "substance" ? substanceId : null);
   const live = dashboard.mode === "live";
+  const { user } = useAuth();
+  const base = useShellBase();
+  const temporal = useTemporalMilestones(dashboard.substances, {
+    enabled: !dashboard.loading && !dashboard.error && dashboard.substances.length > 0,
+    syncUnlocks: Boolean(user) && base === "/app",
+  });
+  const temporalById = useMemo(
+    () => new Map(temporal.states.map((state) => [state.substanceId, state])),
+    [temporal.states],
+  );
 
   useEffect(() => {
     if (dashboard.loading || dashboard.error) return;
@@ -216,6 +229,7 @@ export function RecoveryPage() {
                 substance={item}
                 selected={tab === "substance" && item.id === substance.id}
                 onSelect={selectSubstance}
+                temporal={temporalById.get(item.id)}
               />
             </li>
           ))}

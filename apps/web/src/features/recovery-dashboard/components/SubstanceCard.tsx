@@ -1,12 +1,15 @@
 import { ChevronRight } from "lucide-react";
+import type { TemporalMilestoneState } from "@soma/shared-types";
 import type { DemoSubstance } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
 import { SubstanceIllustration } from "./SubstanceIllustration.js";
+import { SubstanceTemporalMilestone } from "./NextTemporalMedalCard.js";
 
 interface SubstanceCardProps {
   substance: DemoSubstance;
   selected: boolean;
   onSelect: (id: string) => void;
+  temporal?: TemporalMilestoneState;
 }
 
 /** Supporting copy for states without a day count. Dated cards omit model ceilings. */
@@ -20,6 +23,7 @@ export function SubstanceCard({
   substance,
   selected,
   onSelect,
+  temporal,
 }: SubstanceCardProps) {
   const support = substanceCardSupport(substance);
   const accessibleName = support
@@ -52,6 +56,7 @@ export function SubstanceCard({
       {support ? (
         <span className="mt-2 text-xs leading-snug text-soma-ink-muted">{support}</span>
       ) : null}
+      <SubstanceTemporalMilestone state={temporal} />
       <span className="mt-auto flex justify-end pt-2">
         <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
       </span>

@@ -152,6 +152,7 @@ test("single abstinent substance drives cards, systems and chart from computeRec
 
   assert.equal(model.substances.length, 1);
   assert.equal(model.substances[0]?.id, "nicotine");
+  assert.equal(model.substances[0]?.usageStatus, "abstinent");
   assert.match(model.substances[0]?.abstinence ?? "", /días/);
   assert.equal(model.substances[0]?.bar, progressFraction);
   assert.ok(model.systems.some((item) => item.id === "respiratory"));
@@ -753,6 +754,8 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.match(home, /showTierLabel=\{false\}/);
   assert.equal((home.match(/showTierLabel/g) ?? []).length, 1);
   assert.match(home, /pickNextLockedAchievement/);
+  assert.match(home, /NextTemporalMedalCard/);
+  assert.match(home, /homeNextMilestone/);
   assert.match(home, /quantifiableAchievementProgress/);
   assert.match(home, /pickFeaturedUnlockedAchievement/);
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);

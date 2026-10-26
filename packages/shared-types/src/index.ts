@@ -6,4 +6,5 @@ export * from "./user.js";
 export * from "./achievements.js";
 export * from "./achievement-progress.js";
 export * from "./recovery-math.js";
+export * from "./temporal-milestone.js";
 export * from "./neurotransmitters.js";
