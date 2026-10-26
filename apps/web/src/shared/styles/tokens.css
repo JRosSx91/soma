@@ -76,4 +76,13 @@
   --soma-reward: 216 182 120; /* #D8B678 */
   --soma-danger: 240 164 156; /* #F0A49C */
   --soma-warning: 232 184 106; /* #E8B86A */
+
+  /*
+   * Soma Expeditions shell chrome (NAV-02).
+   * Scoped to layout surfaces — does not replace --soma-action on buttons,
+   * medals, or scientific charts.
+   */
+  --soma-shell-canvas: 6 16 24; /* #061018 */
+  --soma-shell-rail: 3 12 20; /* #030C14 */
+  --soma-shell-accent: 62 224 208; /* #3EE0D0 */
 }

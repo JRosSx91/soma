@@ -170,6 +170,9 @@ test("sidebar and mobile nav read shell labels from i18n", () => {
   assert.match(mobile, /PreviewMoreMenu/);
   assert.match(sidebar, /desktopShellSections/);
   assert.match(mobile, /mobileShellSections/);
+  assert.match(sidebar, /expeditions/);
+  const mark = readFileSync(new URL("./components/SomaMark.tsx", import.meta.url), "utf8");
+  assert.match(mark, /Expeditions/);
 });
 
 test("app shell path detection does not swallow app-legacy", () => {

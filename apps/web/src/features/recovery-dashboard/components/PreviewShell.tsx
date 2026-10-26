@@ -50,13 +50,13 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
 
   return (
     <div
-      className={`relative min-h-screen overflow-x-hidden bg-[#081018] text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
+      className={`relative min-h-screen overflow-x-hidden bg-soma-shell text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
         collapsed ? SHELL_SIDEBAR_COLLAPSED_CLASS : SHELL_SIDEBAR_EXPANDED_CLASS
       }`}
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(78,132,172,0.18),transparent_46%),radial-gradient(ellipse_at_8%_100%,rgba(26,74,98,0.16),transparent_42%),linear-gradient(180deg,#12283a_0%,#0c1824_52%,#071018_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_82%_-8%,rgb(var(--soma-shell-accent)_/_0.12),transparent_42%),radial-gradient(ellipse_at_6%_100%,rgb(var(--soma-physiology)_/_0.1),transparent_44%),linear-gradient(180deg,rgb(var(--soma-shell-canvas))_0%,rgb(var(--soma-shell-rail))_100%)]"
       />
       <PreviewSidebar />
       <PreviewMobileHeader />

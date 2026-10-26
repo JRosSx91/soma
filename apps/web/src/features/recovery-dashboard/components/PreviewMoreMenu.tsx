@@ -10,6 +10,7 @@ import {
   isSectionPathActive,
   moreShellSections,
 } from "../shell-base.js";
+import { shellNavActiveClass, shellNavIdleClass } from "../shell-chrome.js";
 import { shellIcons } from "../shell-icons.js";
 
 export function PreviewMoreMenu() {
@@ -93,7 +94,7 @@ export function PreviewMoreMenu() {
         ref={triggerRef}
         type="button"
         className={`${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2.5 text-[10px] ${
-          open || childActive ? "text-soma-action" : "text-soma-ink-muted"
+          open || childActive ? shellNavActiveClass : shellNavIdleClass
         }`}
         aria-label={t("shell.more")}
         aria-haspopup="menu"
@@ -111,7 +112,7 @@ export function PreviewMoreMenu() {
               id={menuId}
               role="menu"
               aria-label={t("shell.moreMenuAria")}
-              className="min-w-[12rem] overflow-y-auto rounded-xl border border-soma-line bg-soma-raised py-1"
+              className="min-w-[12rem] overflow-y-auto rounded-xl border border-soma-line/50 bg-soma-shell-rail py-1"
             >
               {items.map((item) => {
                 const Icon = shellIcons[item.icon];
@@ -122,10 +123,8 @@ export function PreviewMoreMenu() {
                     to={item.to}
                     end={item.path === ""}
                     className={({ isActive }) =>
-                      `${previewFocus} flex min-h-11 items-center gap-3 px-3 py-2 text-sm ${
-                        isActive
-                          ? "bg-soma-raised text-soma-ink"
-                          : "text-soma-ink-secondary hover:bg-soma-surface hover:text-soma-ink"
+                      `${previewFocus} mx-1 flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm ${
+                        isActive ? shellNavActiveClass : shellNavIdleClass
                       }`
                     }
                     onClick={() => setOpen(false)}

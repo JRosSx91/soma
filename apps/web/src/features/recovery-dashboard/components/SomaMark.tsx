@@ -2,16 +2,27 @@ interface SomaMarkProps {
   className?: string;
   /** Hide the wordmark when the desktop sidebar is icon-only. */
   compact?: boolean;
+  /** App-shell lockup: Soma + EXPEDITIONS. Landing/auth keep the short mark. */
+  expeditions?: boolean;
 }
 
 /** Wordmark used in the preview chrome. The waveform is original artwork. */
-export function SomaMark({ className, compact = false }: SomaMarkProps) {
+export function SomaMark({
+  className,
+  compact = false,
+  expeditions = false,
+}: SomaMarkProps) {
+  const label = expeditions ? "Soma Expeditions" : "soma";
+
   return (
-    <span className={`inline-flex items-center gap-2 ${className ?? ""}`}>
+    <span
+      className={`inline-flex items-center gap-2 ${className ?? ""}`}
+      aria-label={label}
+    >
       <svg
         viewBox="0 0 28 16"
         aria-hidden="true"
-        className="h-4 w-7 text-soma-action"
+        className={`h-4 w-7 ${expeditions ? "text-soma-shell-accent" : "text-soma-action"}`}
         fill="none"
       >
         <path
@@ -23,11 +34,22 @@ export function SomaMark({ className, compact = false }: SomaMarkProps) {
         />
       </svg>
       <span
-        className={`text-lg font-semibold tracking-tight text-soma-ink ${
-          compact ? "lg:hidden" : ""
-        }`}
+        className={`min-w-0 leading-none ${compact ? "lg:hidden" : ""}`}
       >
-        soma
+        {expeditions ? (
+          <>
+            <span className="block text-lg font-semibold tracking-tight text-soma-ink">
+              Soma
+            </span>
+            <span className="mt-0.5 block text-[9px] font-medium uppercase tracking-[0.28em] text-soma-shell-accent">
+              Expeditions
+            </span>
+          </>
+        ) : (
+          <span className="text-lg font-semibold tracking-tight text-soma-ink">
+            soma
+          </span>
+        )}
       </span>
     </span>
   );
