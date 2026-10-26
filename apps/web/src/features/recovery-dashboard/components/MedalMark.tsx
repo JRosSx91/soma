@@ -16,7 +16,7 @@ interface MedalMarkProps {
   substanceId: string;
   /** Hides the substance plate. The tier silhouette and its name stay visible. */
   sealed?: boolean;
-  size?: "card" | "detail";
+  size?: "card" | "detail" | "compact";
   /** Defaults to the Spanish tier caption used on the achievements pages. */
   showTierLabel?: boolean;
 }
@@ -33,10 +33,12 @@ export function MedalMark({
   showTierLabel = true,
 }: MedalMarkProps) {
   const uid = useId().replace(/:/g, "");
-  const frame = size === "detail" ? "h-52 sm:h-60" : "h-36 sm:h-40";
+  const compact = size === "compact";
+  const frame =
+    size === "detail" ? "h-52 sm:h-60" : compact ? "h-12 w-12" : "h-36 sm:h-40";
   return (
-    <span className="flex w-full flex-col items-center gap-1">
-      <span className={`relative flex w-full items-center justify-center ${frame}`}>
+    <span className={compact ? "inline-flex flex-col items-center" : "flex w-full flex-col items-center gap-1"}>
+      <span className={`relative flex items-center justify-center ${compact ? frame : `w-full ${frame}`}`}>
         <span className="relative aspect-square h-full">
           <svg viewBox="0 0 80 80" className="h-full w-full" aria-hidden="true">
             <MedalShape tier={tier} uid={uid} />

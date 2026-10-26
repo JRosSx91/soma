@@ -197,6 +197,6 @@ test("home next-milestone fixture shows a locked calculable bar without preview 
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.equal(home.includes("demoAchievements"), false);
   assert.match(home, /lg:grid-cols-3/);
-  assert.match(home, /fadeBottom/);
+  assert.match(home, /HeroFigure/);
   assert.match(home, /HeroFilaments/);
 });

@@ -1,9 +1,11 @@
 interface SomaMarkProps {
   className?: string;
+  /** Hide the wordmark when the desktop sidebar is icon-only. */
+  compact?: boolean;
 }
 
 /** Wordmark used in the preview chrome. The waveform is original artwork. */
-export function SomaMark({ className }: SomaMarkProps) {
+export function SomaMark({ className, compact = false }: SomaMarkProps) {
   return (
     <span className={`inline-flex items-center gap-2 ${className ?? ""}`}>
       <svg
@@ -20,7 +22,11 @@ export function SomaMark({ className }: SomaMarkProps) {
           strokeLinejoin="round"
         />
       </svg>
-      <span className="text-lg font-semibold tracking-tight text-soma-ink">
+      <span
+        className={`text-lg font-semibold tracking-tight text-soma-ink ${
+          compact ? "lg:hidden" : ""
+        }`}
+      >
         soma
       </span>
     </span>

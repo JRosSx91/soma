@@ -45,7 +45,7 @@ interface AchievementMedalProps {
    * Locked medals stay recognizable but quieter than an unlocked one.
    */
   locked?: boolean;
-  size?: "card" | "detail";
+  size?: "card" | "detail" | "compact";
   /** Defaults to the Spanish tier caption used on the achievements pages. */
   showTierLabel?: boolean;
 }
@@ -72,10 +72,14 @@ export function AchievementMedal({
 
   const art = medalArt[`${substanceId}:${tier}` as MedalKey];
   const lockedTone = locked ? "brightness-[0.72] saturate-[0.45]" : "";
+  const compact = size === "compact";
+  const frame =
+    size === "detail" ? "h-52 sm:h-60" : compact ? "h-12 w-12" : "h-36 sm:h-40";
+  const shell = compact ? "inline-flex flex-col items-center" : "flex w-full flex-col items-center gap-1";
 
   if (!art) {
     return (
-      <span className={`w-full ${lockedTone}`}>
+      <span className={`${compact ? "" : "w-full"} ${lockedTone}`}>
         <MedalMark
           tier={tier}
           substanceId={substanceId}
@@ -86,10 +90,8 @@ export function AchievementMedal({
     );
   }
 
-  const frame = size === "detail" ? "h-52 sm:h-60" : "h-36 sm:h-40";
-
   return (
-    <span className="flex w-full flex-col items-center gap-1">
+    <span className={shell}>
       <img
         src={art.src}
         width={art.width}
@@ -97,7 +99,7 @@ export function AchievementMedal({
         alt=""
         decoding="async"
         draggable={false}
-        className={`${frame} w-full object-contain ${lockedTone}`}
+        className={`${frame} ${compact ? "" : "w-full"} object-contain ${lockedTone}`}
       />
       {showTierLabel ? (
         <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-ink">

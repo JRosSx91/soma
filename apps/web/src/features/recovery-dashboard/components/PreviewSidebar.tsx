@@ -4,14 +4,17 @@ import {
   PersonStanding,
   Activity,
   Trophy,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useShellBase } from "../context/ShellBaseContext.js";
-import { shellSections } from "../shell-base.js";
-import { previewFocus } from "../focus.js";
 import { LanguageSelector } from "../../../components/LanguageSelector.js";
 import { AchievementInboxBell } from "../../achievements/components/AchievementInboxBell.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
+import { useShellLayout } from "../hooks/useShellLayout.js";
+import { shellSections } from "../shell-base.js";
+import { previewFocus } from "../focus.js";
 import { AccountMenu } from "./AccountMenu.js";
 import { SomaMark } from "./SomaMark.js";
 
@@ -26,24 +29,67 @@ const icons = {
 export function PreviewSidebar() {
   const { t } = useTranslation("common");
   const base = useShellBase();
+  const { collapsed, toggleCollapsed } = useShellLayout();
   const sections = shellSections(base);
+  const collapseLabel = collapsed ? t("shell.expandNav") : t("shell.collapseNav");
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-soma-line bg-[#081018]/80 px-3 py-4 backdrop-blur-sm lg:flex">
-      <div className="px-2 py-2">
-        <SomaMark />
+    <aside
+      id="soma-shell-sidebar"
+      className={`fixed inset-y-0 left-0 z-50 hidden flex-col overflow-visible border-r border-soma-line/40 bg-[#081018]/95 py-4 backdrop-blur-sm transition-[width] duration-200 ease-out motion-reduce:transition-none lg:flex ${
+        collapsed ? "lg:w-[4.5rem]" : "lg:w-60"
+      }`}
+    >
+      <div className="relative h-10 shrink-0">
+        <div
+          className={`flex h-full items-center ${
+            collapsed ? "w-full justify-center" : "justify-between px-4"
+          }`}
+        >
+          <SomaMark compact={collapsed} />
+          {collapsed ? null : (
+            <button
+              type="button"
+              className={`${previewFocus} flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-soma-ink-muted hover:bg-soma-surface hover:text-soma-ink`}
+              aria-pressed={collapsed}
+              aria-label={collapseLabel}
+              title={collapseLabel}
+              onClick={toggleCollapsed}
+            >
+              <ChevronLeft className="h-3.5 w-3.5" aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        {collapsed ? (
+          <button
+            type="button"
+            className={`${previewFocus} absolute top-1/2 right-0 z-10 flex h-6 w-6 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border border-soma-line/50 bg-[#081018] text-soma-ink-muted shadow-sm hover:bg-soma-surface hover:text-soma-ink`}
+            aria-pressed={collapsed}
+            aria-label={collapseLabel}
+            title={collapseLabel}
+            onClick={toggleCollapsed}
+          >
+            <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+        ) : null}
       </div>
-      <nav className="mt-6" aria-label={t("shell.navAria")}>
+
+      <nav className="mt-6 px-3" aria-label={t("shell.navAria")}>
         <ul className="flex flex-col gap-1">
           {sections.map((item) => {
             const Icon = icons[item.id];
+            const label = t(`shell.${item.labelKey}`);
             return (
               <li key={item.id}>
                 <NavLink
                   to={item.to}
                   end={item.id === "inicio"}
+                  title={collapsed ? label : undefined}
+                  aria-label={collapsed ? label : undefined}
                   className={({ isActive }) =>
                     `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
+                      collapsed ? "justify-center px-0" : ""
+                    } ${
                       isActive
                         ? "bg-soma-raised text-soma-ink"
                         : "text-soma-ink-secondary hover:bg-soma-surface hover:text-soma-ink"
@@ -51,19 +97,22 @@ export function PreviewSidebar() {
                   }
                 >
                   <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  {t(`shell.${item.labelKey}`)}
+                  <span className={collapsed ? "sr-only" : undefined}>{label}</span>
                 </NavLink>
               </li>
             );
           })}
         </ul>
       </nav>
-      <div className="mt-auto flex flex-col gap-2 px-1 pb-2">
-        <div className="flex items-center gap-2 px-3 py-1">
-          <LanguageSelector placement="up" />
-          <AchievementInboxBell compact placement="up" />
-        </div>
-        <AccountMenu />
+
+      <div
+        className={`mt-auto flex flex-col gap-1 border-t border-soma-line/40 px-3 pt-3 ${
+          collapsed ? "items-center" : ""
+        }`}
+      >
+        <LanguageSelector compact={collapsed} floating />
+        <AchievementInboxBell compact={collapsed} anchor="right" />
+        <AccountMenu compact={collapsed} anchor="right" />
       </div>
     </aside>
   );

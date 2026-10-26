@@ -17,7 +17,9 @@
     "explore": "Explorar",
     "anatomy": "Explorador anatómico",
     "anatomyShort": "Anatomía",
-    "achievements": "Logros"
+    "achievements": "Logros",
+    "collapseNav": "Contraer menú",
+    "expandNav": "Expandir menú"
   },
   "notifications": {
     "title": "Notificaciones",
