@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import {
   INTERFACE_LANGUAGES,
@@ -6,6 +7,7 @@ import {
   type InterfaceLanguage,
 } from "../i18n/interface-languages.js";
 import { previewFocus } from "../features/recovery-dashboard/focus.js";
+import { placeAnchoredPanel } from "../features/recovery-dashboard/lib/place-anchored-panel.js";
 
 const LANGUAGES: Array<{
   code: InterfaceLanguage;
@@ -30,13 +32,22 @@ const LANGUAGES: Array<{
 interface LanguageSelectorProps {
   /** Sidebar chrome sits at the bottom of the viewport; open upward there. */
   placement?: "up" | "down";
+  compact?: boolean;
+  floating?: boolean;
 }
 
-export function LanguageSelector({ placement = "down" }: LanguageSelectorProps) {
+export function LanguageSelector({
+  placement = "down",
+  compact = false,
+  floating = false,
+}: LanguageSelectorProps) {
   const { i18n } = useTranslation();
   const activeLang = resolveInterfaceLanguage(i18n.language);
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
 
   const active = LANGUAGES.find((l) => l.code === activeLang) ?? LANGUAGES[0];
 
@@ -47,15 +58,35 @@ export function LanguageSelector({ placement = "down" }: LanguageSelectorProps) 
     setOpen(false);
   };
 
+  useLayoutEffect(() => {
+    if (!floating || !open || !triggerRef.current || !panelRef.current) return;
+    const trigger = triggerRef.current;
+    const panel = panelRef.current;
+    function place() {
+      placeAnchoredPanel(trigger, panel, {
+        align: "start",
+        anchor: "right",
+        minHeight: 80,
+        width: 160,
+      });
+    }
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [floating, open, activeLang]);
+
   useEffect(() => {
     if (!open) return;
     const handler = (e: MouseEvent) => {
+      const target = e.target as Node;
       if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
+        triggerRef.current?.contains(target) ||
+        panelRef.current?.contains(target) ||
+        containerRef.current?.contains(target)
       ) {
-        setOpen(false);
+        return;
       }
+      setOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -64,58 +95,39 @@ export function LanguageSelector({ placement = "down" }: LanguageSelectorProps) 
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [open]);
 
-  return (
-    <div ref={containerRef} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-label={`Language: ${active.native}`}
-        className={`
-          ${previewFocus} rounded-sm
-          flex items-center gap-1
-          text-xs text-soma-ink-secondary
-          hover:text-soma-ink
-          transition-colors
-        `}
-      >
-        {active.iso}
-        <span className="text-[10px] text-soma-ink-muted" aria-hidden="true">
-          {open ? "▴" : "▾"}
-        </span>
-      </button>
+  const triggerClass = compact
+    ? `${previewFocus} flex h-9 w-9 items-center justify-center rounded-full text-xs text-soma-ink-secondary hover:bg-soma-surface hover:text-soma-ink`
+    : floating
+      ? `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-soma-ink-secondary transition-colors hover:bg-soma-surface hover:text-soma-ink`
+      : `${previewFocus} flex items-center gap-1 rounded-sm text-xs text-soma-ink-secondary transition-colors hover:text-soma-ink`;
 
-      {open && (
-        <div
-          role="listbox"
-          aria-label="Select language"
-          className={`
-            absolute right-0 z-50
+  const listClass = `
             bg-soma-raised border border-soma-line
             rounded-xl shadow-lg
             min-w-[120px]
             py-1
-            ${placement === "up" ? "left-0 bottom-full mb-2" : "right-0 top-full mt-2"}
-          `}
-        >
-          {INTERFACE_LANGUAGES.map((code) => {
-            const lang = LANGUAGES.find((item) => item.code === code);
-            if (!lang) return null;
-            return (
-              <button
-                key={lang.code}
-                type="button"
-                role="option"
-                aria-selected={lang.code === activeLang}
-                onClick={() => handleSelect(lang.code)}
-                className={`
+          `;
+
+  const options = INTERFACE_LANGUAGES.map((code) => {
+    const lang = LANGUAGES.find((item) => item.code === code);
+    if (!lang) return null;
+    return (
+      <button
+        key={lang.code}
+        type="button"
+        role="option"
+        aria-selected={lang.code === activeLang}
+        onClick={() => handleSelect(lang.code)}
+        className={`
                   ${previewFocus}
                   w-full text-left px-3 py-1.5
                   text-xs transition-colors
@@ -126,14 +138,62 @@ export function LanguageSelector({ placement = "down" }: LanguageSelectorProps) 
                       : "text-soma-ink-secondary hover:text-soma-ink hover:bg-soma-surface"
                   }
                 `}
-              >
-                <span>{lang.native}</span>
-                <span className="text-soma-ink-muted">{lang.iso}</span>
-              </button>
-            );
-          })}
-        </div>
-      )}
+      >
+        <span>{lang.native}</span>
+        <span className="text-soma-ink-muted">{lang.iso}</span>
+      </button>
+    );
+  });
+
+  const listbox = (
+    <div
+      ref={panelRef}
+      id={listId}
+      role="listbox"
+      aria-label="Select language"
+      className={
+        floating
+          ? listClass
+          : `${listClass} absolute z-50 ${placement === "up" ? "left-0 bottom-full mb-2" : "right-0 top-full mt-2"}`
+      }
+    >
+      {options}
+    </div>
+  );
+
+  return (
+    <div ref={containerRef} className={floating && !compact ? "w-full" : "relative"}>
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        aria-label={`Language: ${active.native}`}
+        title={`Language: ${active.native}`}
+        className={triggerClass}
+      >
+        {compact ? (
+          active.iso
+        ) : floating ? (
+          <>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soma-surface text-[11px] font-medium text-soma-ink">
+              {active.iso}
+            </span>
+            {active.native}
+          </>
+        ) : (
+          <>
+            {active.iso}
+            <span className="text-[10px] text-soma-ink-muted" aria-hidden="true">
+              {open ? "▴" : "▾"}
+            </span>
+          </>
+        )}
+      </button>
+
+      {open ? (floating ? createPortal(listbox, document.body) : listbox) : null}
     </div>
   );
 }

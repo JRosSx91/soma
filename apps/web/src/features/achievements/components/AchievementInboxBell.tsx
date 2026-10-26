@@ -12,9 +12,13 @@ import type { AchievementInboxItem } from "../inbox/inbox-notifications.js";
 
 interface AchievementInboxBellProps {
   compact?: boolean;
+  anchor?: "bottom" | "right";
 }
 
-export function AchievementInboxBell({ compact = false }: AchievementInboxBellProps) {
+export function AchievementInboxBell({
+  compact = false,
+  anchor = "bottom",
+}: AchievementInboxBellProps) {
   const { t, i18n } = useTranslation(["common", "achievements"]);
   const inbox = useAchievementInbox();
   const [open, setOpen] = useState(false);
@@ -41,12 +45,12 @@ export function AchievementInboxBell({ compact = false }: AchievementInboxBellPr
     const trigger = triggerRef.current;
     const panel = panelRef.current;
     function place() {
-      placeAnchoredPanel(trigger, panel, { align: "end", width: 360 });
+      placeAnchoredPanel(trigger, panel, { align: "end", anchor, width: 360 });
     }
     place();
     window.addEventListener("resize", place);
     return () => window.removeEventListener("resize", place);
-  }, [open, inbox.items.length, inbox.unreadCount]);
+  }, [anchor, open, inbox.items.length, inbox.unreadCount]);
 
   useEffect(() => {
     if (!open) return;
@@ -94,6 +98,7 @@ export function AchievementInboxBell({ compact = false }: AchievementInboxBellPr
         type="button"
         className={triggerClass}
         aria-label={t("notifications.bellLabel")}
+        title={compact ? t("notifications.bellLabel") : undefined}
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={panelId}

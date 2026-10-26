@@ -38,6 +38,29 @@ test("anchored panels stay inside the viewport", () => {
   assert.ok(left + width <= window.innerWidth - 8);
   assert.ok(top >= 8);
   assert.ok(Number.parseFloat(panel.style.maxHeight) > 0);
+
+  const sideTrigger = {
+    getBoundingClientRect: () => ({
+      left: 8,
+      right: 72,
+      top: 700,
+      bottom: 736,
+      width: 64,
+      height: 36,
+    }),
+  } as HTMLElement;
+  const sidePanel = {
+    offsetWidth: 280,
+    style: {} as CSSStyleDeclaration,
+  } as HTMLElement;
+  placeAnchoredPanel(sideTrigger, sidePanel, { anchor: "right", width: 280 });
+  const sideLeft = Number.parseFloat(sidePanel.style.left);
+  const sideTop = Number.parseFloat(sidePanel.style.top);
+  assert.ok(sideLeft >= 72);
+  assert.ok(sideLeft + 280 <= window.innerWidth - 8);
+  assert.ok(sideTop >= 8);
+  assert.ok(sideTop + 160 <= window.innerHeight - 8);
+
   Object.defineProperty(globalThis, "innerWidth", {
     configurable: true,
     value: previous.innerWidth,

@@ -204,7 +204,7 @@ test("the achievement inbox is absent from DEMO /preview", () => {
     "utf8",
   );
   assert.match(header, /AchievementInboxBell/);
-  assert.equal(sidebar.includes("AchievementInboxBell"), false);
+  assert.match(sidebar, /AchievementInboxBell/);
   assert.match(bell, /if \(!inbox\.visible\) return null/);
   const hook = readFileSync(
     new URL("../hooks/useAchievementInbox.ts", import.meta.url),

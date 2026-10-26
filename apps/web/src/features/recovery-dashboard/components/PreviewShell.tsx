@@ -6,6 +6,9 @@ import { ShellLayoutProvider } from "../context/ShellLayoutProvider.js";
 import { useShellLayout } from "../hooks/useShellLayout.js";
 import { shellSections, type ShellBase } from "../shell-base.js";
 import {
+  SHELL_CONTENT_COLLAPSED_ALIGN_CLASS,
+  SHELL_CONTENT_COLLAPSED_PAD_CLASS,
+  SHELL_CONTENT_EXPANDED_PAD_CLASS,
   SHELL_SIDEBAR_COLLAPSED_CLASS,
   SHELL_SIDEBAR_EXPANDED_CLASS,
 } from "../shell-sidebar.js";
@@ -58,8 +61,18 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
       />
       <PreviewSidebar />
       <PreviewMobileHeader />
-      <main className="relative px-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-2 lg:px-6 lg:pb-2 lg:pt-3">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 lg:max-w-[1120px] lg:gap-2">
+      <main
+        className={`relative px-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-2 lg:pb-2 lg:pt-3 motion-reduce:transition-none lg:transition-[padding] lg:duration-200 lg:ease-out ${
+          collapsed
+            ? SHELL_CONTENT_COLLAPSED_PAD_CLASS
+            : SHELL_CONTENT_EXPANDED_PAD_CLASS
+        }`}
+      >
+        <div
+          className={`mx-auto flex max-w-6xl flex-col gap-6 lg:max-w-[1120px] lg:gap-2 ${
+            collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
+          }`}
+        >
           <Outlet />
         </div>
       </main>

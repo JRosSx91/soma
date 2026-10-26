@@ -5,6 +5,9 @@ import enCommon from "../../i18n/locales/en/common.json" with { type: "json" };
 import esCommon from "../../i18n/locales/es/common.json" with { type: "json" };
 import {
   readSidebarCollapsed,
+  SHELL_CONTENT_COLLAPSED_ALIGN_CLASS,
+  SHELL_CONTENT_COLLAPSED_PAD_CLASS,
+  SHELL_CONTENT_EXPANDED_PAD_CLASS,
   SHELL_SIDEBAR_COLLAPSED_CLASS,
   SHELL_SIDEBAR_EXPANDED_CLASS,
   SHELL_SIDEBAR_STORAGE_KEY,
@@ -70,11 +73,12 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(header, /LanguageSelector/);
   assert.match(header, /AchievementInboxBell compact/);
   assert.match(header, /AccountMenu compact/);
+  assert.match(header, /lg:hidden/);
   assert.equal(header.includes("shell.openNav"), false);
   assert.equal(header.includes("titleLabel"), false);
-  assert.equal(sidebar.includes("LanguageSelector"), false);
-  assert.equal(sidebar.includes("AchievementInboxBell"), false);
-  assert.equal(sidebar.includes("AccountMenu"), false);
+  assert.match(sidebar, /LanguageSelector compact=\{collapsed\} floating/);
+  assert.match(sidebar, /AchievementInboxBell compact=\{collapsed\} anchor="right"/);
+  assert.match(sidebar, /AccountMenu compact=\{collapsed\} anchor="right"/);
   assert.equal(sidebar.includes("mobileOpen"), false);
   assert.match(sidebar, /hidden flex-col/);
   assert.match(sidebar, /lg:flex/);
@@ -84,10 +88,16 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /SomaMark compact=\{collapsed\}/);
   assert.match(sidebar, /shell\.collapseNav/);
   assert.equal(sidebar.includes("flex-col lg:justify-center"), false);
-  assert.equal(sidebar.includes("mt-auto"), false);
+  assert.match(sidebar, /mt-auto/);
+  assert.match(sidebar, /translate-x-1\/2/);
   assert.match(shell, /PreviewMobileNav/);
   assert.match(shell, /safe-area-inset-bottom/);
   assert.match(shell, /SHELL_SIDEBAR_COLLAPSED_CLASS/);
+  assert.match(shell, /SHELL_CONTENT_COLLAPSED_PAD_CLASS/);
+  assert.match(shell, /SHELL_CONTENT_COLLAPSED_ALIGN_CLASS/);
   assert.equal(SHELL_SIDEBAR_EXPANDED_CLASS, "lg:pl-60");
   assert.equal(SHELL_SIDEBAR_COLLAPSED_CLASS, "lg:pl-[4.5rem]");
+  assert.equal(SHELL_CONTENT_EXPANDED_PAD_CLASS, "lg:px-6");
+  assert.equal(SHELL_CONTENT_COLLAPSED_PAD_CLASS, "lg:pl-14 lg:pr-6");
+  assert.equal(SHELL_CONTENT_COLLAPSED_ALIGN_CLASS, "lg:ml-0");
 });

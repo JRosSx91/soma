@@ -11,6 +11,7 @@ import { useShellBase } from "../context/ShellBaseContext.js";
 interface AccountMenuProps {
   /** Compact circular trigger for the shared shell header. */
   compact?: boolean;
+  anchor?: "bottom" | "right";
 }
 
 /**
@@ -18,7 +19,7 @@ interface AccountMenuProps {
  * Onboarding + logout when signed in; sign-in link when anonymous (preview).
  * Does not expose tokens or private profile fields in public preview.
  */
-export function AccountMenu({ compact = false }: AccountMenuProps) {
+export function AccountMenu({ compact = false, anchor = "bottom" }: AccountMenuProps) {
   const { t } = useTranslation("account");
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -33,12 +34,17 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
     const trigger = triggerRef.current;
     const panel = panelRef.current;
     function place() {
-      placeAnchoredPanel(trigger, panel, { align: "end", minHeight: 120, width: 280 });
+      placeAnchoredPanel(trigger, panel, {
+        align: "end",
+        anchor,
+        minHeight: 120,
+        width: 280,
+      });
     }
     place();
     window.addEventListener("resize", place);
     return () => window.removeEventListener("resize", place);
-  }, [open, user, base]);
+  }, [anchor, open, user, base]);
 
   useEffect(() => {
     if (!open) return;
@@ -83,6 +89,7 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
         type="button"
         className={triggerClass}
         aria-label={t("menuLabel")}
+        title={compact ? t("menuLabel") : undefined}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
