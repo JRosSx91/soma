@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { mobileShellSections } from "../shell-base.js";
+import { shellNavActiveClass, shellNavIdleClass } from "../shell-chrome.js";
 import { shellIcons } from "../shell-icons.js";
 import { previewFocus } from "../focus.js";
 import { PreviewMoreMenu } from "./PreviewMoreMenu.js";
@@ -13,7 +14,7 @@ export function PreviewMobileNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-soma-line/40 bg-[#081018]/95 backdrop-blur lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-soma-line/30 bg-soma-shell-rail/95 backdrop-blur lg:hidden"
       aria-label={t("shell.navAria")}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
@@ -29,8 +30,8 @@ export function PreviewMobileNav() {
                 to={item.to}
                 end={item.path === ""}
                 className={({ isActive }) =>
-                  `${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2.5 text-[10px] ${
-                    isActive ? "text-soma-action" : "text-soma-ink-muted"
+                  `${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 rounded-none px-1 py-2.5 text-[10px] ${
+                    isActive ? shellNavActiveClass : shellNavIdleClass
                   }`
                 }
               >

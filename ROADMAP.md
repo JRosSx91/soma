@@ -66,7 +66,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
-| Soma Expeditions (GAME-*) | GAME-01 y GAME-02 fusionados en `develop` (`8eb4a3e`, PR #53 y #54). Sin deploy a producción. NAV-01 implementado, pendiente de integración en `develop`. NAV-02 siguiente. GAME-03 después de NAV-02 |
+| Soma Expeditions (GAME-*) | GAME-01, GAME-02 y NAV-01 fusionados en `develop` (`f107bc8`, PR #53–#55). Sin deploy a producción. NAV-02 implementado, pendiente de integración en `develop`. GAME-03 siguiente |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -419,7 +419,7 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-DESIGN-01 — Navegación y diseño de Expeditions
 
 - **Descripción:** Cómo entra Expeditions en SHELL-01 **sin** segundo sistema de navegación. Dirección visual de ocho pantallas (siete PNG 2.0 + Misiones sin mockup propio).
-- **Estado:** Dirección visual **aprobada**. NAV-01 (estructura de menús) implementado, pendiente de integración en `develop`. **No** fusionado. **No** desplegado. NAV-02 (identidad visual del shell) pendiente. GAME-03 **después de NAV-02**.
+- **Estado:** Dirección visual **aprobada**. NAV-01 fusionado en `develop` (`f107bc8`, PR #55). NAV-02 (identidad visual del shell) implementado, pendiente de integración en `develop`. **No** fusionado. **No** desplegado. GAME-03 siguiente.
 - **Prioridad:** P1
 - **Horizonte:** cabecera de naturaleza + (en Inicio) mochilero ante el paisaje. Reutilizar identidad Soma; no sustituir la figura anatómica de Inicio. Fotos de mockup **no** son assets de producción hasta licencia/arte propio.
 - **Mapeo pantalla → hitos:**
@@ -662,7 +662,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 3. **UX-10** (validar) → **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo).
 4. **ACH-REV:** decidir política **antes** de código (bloquea GAME-08 y cualquier revocación).
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**. Distintos de UX-10–12 y de ACH-REV.
-6. **Expeditions:** GAME-01 y GAME-02 en `develop`. NAV-01 implementado, pendiente de integración. **Siguiente:** NAV-02 (identidad visual). GAME-03 **después de NAV-02**. Mapa GAME-07 y bitácora GAME-04 después.
+6. **Expeditions:** GAME-01, GAME-02 y NAV-01 en `develop`. NAV-02 implementado, pendiente de integración. **Siguiente:** GAME-03. Mapa GAME-07 y bitácora GAME-04 después.
 7. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 8. **UX-08 / UX-09:** editorial; no inventar.
 9. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
@@ -723,7 +723,7 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
 
 Soma Expeditions (dirección visual OK)
   Fase A  GAME-01 y GAME-02 (en develop)
-  Fase A2 NAV-01 (estructura, pendiente de integración) → NAV-02 (identidad visual) → GAME-03
+  Fase A2 NAV-01 (en develop) → NAV-02 (identidad visual, pendiente de integración) → GAME-03
   Fase B  GAME-03 timeline en Recuperación + Logros 2.0 (familias) + Inicio sin XP
   Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
   Fase D  Explorador / atlas 2.0 (NT, procesos, panel) → GAME-05 misiones
@@ -781,3 +781,5 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 | 2026-10-26 | GAME-02: validación final + PR hacia `develop`. Pendiente de integración. No fusionado. No desplegado. |
 | 2026-10-26 | GAME-02 fusionado en `develop` (`8eb4a3e`, PR #54). Sin producción. |
 | 2026-10-26 | NAV-01: estructura de menús (Más móvil, rail de 5 secciones reales). Implementado, pendiente de integración en `develop`. No fusionado. No desplegado. NAV-02 siguiente. GAME-03 después de NAV-02. |
+| 2026-10-26 | NAV-01 fusionado en `develop` (`f107bc8`, PR #55). Sin producción. |
+| 2026-10-27 | NAV-02: identidad visual del shell (marca Expeditions, pastilla cian, cabeceras con atmósfera CSS). Implementado, pendiente de integración en `develop`. No fusionado. No desplegado. GAME-03 siguiente. |

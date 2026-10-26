@@ -24,6 +24,7 @@ import { useTemporalMilestones } from "../hooks/useTemporalMilestones.js";
 import { AchievementMedal } from "./AchievementMedal.js";
 import { NextTemporalMedalCard } from "./NextTemporalMedalCard.js";
 import { DemoNotice } from "./DemoNotice.js";
+import { ShellHeadingFrame } from "./PageHeading.js";
 import { HeroFigure } from "./HeroFigure.js";
 import { HeroFilaments } from "./HeroFilaments.js";
 import { SubstanceIllustration } from "./SubstanceIllustration.js";
@@ -293,25 +294,34 @@ function HomeStage({
 }
 
 function HomeHeader({ demo, message }: { demo: boolean; message: string | null }) {
-  const { t } = useTranslation("recovery");
+  const { t } = useTranslation(["recovery", "common"]);
   return (
-    <header className="min-w-0 flex-1">
-      <div className="flex items-start justify-between gap-3">
-        <h1 className="text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
-          {t("homeTitleLead")}
-        </h1>
-        {demo ? <DemoNotice /> : null}
-      </div>
-      <p className="mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary">{t("homeSubtitle")}</p>
+    <div className="min-w-0 flex-1">
+      <ShellHeadingFrame>
+        <header>
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-shell-accent">
+              {t("common:shell.home")}
+            </p>
+            {demo ? <DemoNotice /> : null}
+          </div>
+          <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
+            {t("recovery:homeTitleLead")}
+          </h1>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary">
+            {t("recovery:homeSubtitle")}
+          </p>
+        </header>
+      </ShellHeadingFrame>
       {message ? (
-        <figure className="mt-4 max-w-md rounded-2xl border border-soma-line bg-soma-surface/90 px-4 py-3">
-          <figcaption className="text-[11px] font-medium uppercase tracking-[0.18em] text-soma-action">
-            {t("homeDailyTitle")}
+        <figure className="mt-4 max-w-md rounded-2xl border border-soma-line/40 bg-soma-surface/90 px-4 py-3">
+          <figcaption className="text-[11px] font-medium uppercase tracking-[0.18em] text-soma-shell-accent">
+            {t("recovery:homeDailyTitle")}
           </figcaption>
           <blockquote className="mt-2 text-sm leading-relaxed text-soma-ink">{message}</blockquote>
         </figure>
       ) : null}
-    </header>
+    </div>
   );
 }
 
