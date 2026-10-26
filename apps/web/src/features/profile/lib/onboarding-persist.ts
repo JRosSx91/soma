@@ -86,6 +86,8 @@ export async function persistOnboardingCompletion(
     awaitingStatusRetry: boolean;
     saveUsages?: typeof saveUserUsages;
     patchStatus?: typeof patchOnboardingStatus;
+    /** Called only after PUT /me/profile succeeded. Never on PATCH-only. */
+    onUsagesPersisted?: () => void;
   },
 ): Promise<PersistOnboardingResult> {
   const plan = planOnboardingPersist(
@@ -117,6 +119,8 @@ export async function persistOnboardingCompletion(
       lastSuccessfulPut: options.lastSuccessfulPut,
     };
   }
+
+  options.onUsagesPersisted?.();
 
   // PUT succeeded (PATCH may have failed) — snapshot the confirmed payload.
   const snapshot = normalizeUsagesPayload(currentUsages).map((row) => ({

@@ -43,7 +43,9 @@ test("authenticated shell chrome includes the shared language selector", () => {
     "utf8",
   );
   assert.match(header, /LanguageSelector/);
+  assert.match(header, /AchievementInboxBell compact/);
   assert.match(sidebar, /LanguageSelector placement="up"/);
+  assert.match(sidebar, /AchievementInboxBell compact placement="up"/);
   const selector = readFileSync(
     new URL("../../components/LanguageSelector.tsx", import.meta.url),
     "utf8",
@@ -52,6 +54,42 @@ test("authenticated shell chrome includes the shared language selector", () => {
     selector,
     /placement === "up" \? "left-0 bottom-full mb-2" : "right-0 top-full mt-2"/,
   );
+});
+
+test("LIVE celebration copy exists in spanish and english", () => {
+  const keys = [
+    "soloTitle",
+    "groupTitle",
+    "continue",
+    "viewAll",
+    "soundEnable",
+    "soundDisable",
+  ] as const;
+  for (const key of keys) {
+    assert.equal(typeof esCommon.celebration[key], "string");
+    assert.equal(typeof enCommon.celebration[key], "string");
+    assert.notEqual(esCommon.celebration[key].trim(), "");
+    assert.notEqual(enCommon.celebration[key].trim(), "");
+  }
+});
+
+test("notification copy exists in spanish and english", () => {
+  const keys = [
+    "title",
+    "bellLabel",
+    "empty",
+    "viewAll",
+    "markRead",
+    "initialSummary",
+  ] as const;
+  for (const key of keys) {
+    assert.equal(typeof esCommon.notifications[key], "string");
+    assert.equal(typeof enCommon.notifications[key], "string");
+    assert.notEqual(esCommon.notifications[key].trim(), "");
+    assert.notEqual(enCommon.notifications[key].trim(), "");
+  }
+  assert.equal(esCommon.notifications.title, "Notificaciones");
+  assert.equal(enCommon.notifications.title, "Notifications");
 });
 
 test("shell navigation labels live in spanish and english common copy", () => {

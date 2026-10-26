@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import type { UsageStatus } from "@soma/shared-types";
 import type { OnboardingStatus } from "../onboarding-status.js";
+import { achievementSync } from "../../achievements/sync/achievement-sync.js";
 import {
   fetchUserProfile,
   patchOnboardingStatus,
@@ -98,6 +99,7 @@ export function useUserProfile(
   const saveProfile = useCallback(async (usages: UsageInput[]) => {
     const data = await saveUserUsages(usages);
     setProfile(data);
+    achievementSync.invalidate();
     return data;
   }, []);
 

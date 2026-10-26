@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { useAuth } from "../../auth/index.js";
-import { fetchAchievements } from "../client/achievements-api.js";
+import { achievementSync } from "../sync/achievement-sync.js";
 import type { AchievementWithUnlockState } from "../types.js";
 
 interface UseAchievementsResult {
@@ -11,43 +11,43 @@ interface UseAchievementsResult {
 }
 
 /**
- * Loads the user's achievements. The backend triggers unlock detection
- * on every request, so calling refresh() is the way to surface newly
- * crossed thresholds.
+ * Loads the user's achievements from AchievementSync.
+ * `refresh` invalidates so the next GET is live detection.
  */
 export function useAchievements(): UseAchievementsResult {
   const { user } = useAuth();
   const userId = user?.id ?? null;
-  const [achievements, setAchievements] = useState<
-    AchievementWithUnlockState[]
-  >([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const refresh = useCallback(async () => {
-    if (!userId) {
-      setAchievements([]);
-      setLoading(false);
-      setError(null);
-      return;
-    }
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await fetchAchievements(userId);
-      setAchievements(data);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to load achievements",
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, [userId]);
+  const snapshot = useSyncExternalStore(
+    achievementSync.subscribe,
+    achievementSync.getSnapshot,
+    achievementSync.getSnapshot,
+  );
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (!userId) {
+      return;
+    }
+    void achievementSync.sync(userId);
+  }, [userId]);
 
-  return { achievements, loading, error, refresh };
+  const refresh = useCallback(async () => {
+    if (!userId) return;
+    achievementSync.invalidate();
+  }, [userId]);
+
+  if (!userId || snapshot.userId !== userId) {
+    return {
+      achievements: [],
+      loading: Boolean(userId),
+      error: null,
+      refresh,
+    };
+  }
+
+  return {
+    achievements: snapshot.rows ?? [],
+    loading: snapshot.loading,
+    error: snapshot.error,
+    refresh,
+  };
 }

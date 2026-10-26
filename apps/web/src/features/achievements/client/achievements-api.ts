@@ -8,8 +8,9 @@ let fetchInflight: {
 
 export function fetchAchievements(
   userId: string | null = null,
+  options: { force?: boolean } = {},
 ): Promise<AchievementWithUnlockState[]> {
-  if (fetchInflight && fetchInflight.userId === userId) {
+  if (!options.force && fetchInflight && fetchInflight.userId === userId) {
     return fetchInflight.promise;
   }
 
@@ -26,6 +27,27 @@ export function markAchievementsAsNotified(
   achievementIds: string[],
 ): Promise<{ updated: number }> {
   return apiRequest<{ updated: number }>("/me/achievements/mark-notified", {
+    method: "POST",
+    body: { achievementIds },
+  });
+}
+
+export function markAchievementsInboxRead(
+  achievementIds: string[],
+): Promise<{ updated: number; readIds: string[] }> {
+  return apiRequest<{ updated: number; readIds: string[] }>(
+    "/me/achievements/inbox-read",
+    {
+      method: "POST",
+      body: { achievementIds },
+    },
+  );
+}
+
+export function markAchievementsCelebrated(
+  achievementIds: string[],
+): Promise<{ celebratedIds: string[] }> {
+  return apiRequest<{ celebratedIds: string[] }>("/me/achievements/celebrate", {
     method: "POST",
     body: { achievementIds },
   });

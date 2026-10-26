@@ -71,6 +71,37 @@ test("usagesPayloadEqual ignores object identity and order", () => {
   assert.equal(usagesPayloadEqual([nicotine], [caffeine]), false);
 });
 
+test("PUT success invalidates AchievementSync; PUT failure does not", async () => {
+  const events: string[] = [];
+  const failed = await persistOnboardingCompletion([nicotine], {
+    lastSuccessfulPut: null,
+    awaitingStatusRetry: false,
+    saveUsages: async () => {
+      throw new ApiError(500, "put fail");
+    },
+    patchStatus: async () => {
+      events.push("patch");
+      return profile({ onboardingStatus: "completed" });
+    },
+    onUsagesPersisted: () => events.push("invalidate"),
+  });
+  assert.equal(failed.ok, false);
+  assert.deepEqual(events, []);
+
+  const saved = await persistOnboardingCompletion([nicotine], {
+    lastSuccessfulPut: null,
+    awaitingStatusRetry: false,
+    saveUsages: async () => profile({ onboardingStatus: "pending" }),
+    patchStatus: async () => {
+      throw new ApiError(500, "status fail");
+    },
+    onUsagesPersisted: () => events.push("invalidate"),
+  });
+  assert.equal(saved.ok, false);
+  if (!saved.ok) assert.equal(saved.usagesSaved, true);
+  assert.deepEqual(events, ["invalidate"]);
+});
+
 test("A: PUT OK → PATCH fails → form unchanged → retry only PATCH", async () => {
   const calls: string[] = [];
   const first = await persistOnboardingCompletion([nicotine], {
