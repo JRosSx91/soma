@@ -17,7 +17,11 @@
     "explore": "Explore",
     "anatomy": "Anatomical explorer",
     "anatomyShort": "Anatomy",
-    "achievements": "Achievements"
+    "achievements": "Achievements",
+    "openNav": "Open section menu",
+    "closeNav": "Close section menu",
+    "collapseNav": "Collapse menu",
+    "expandNav": "Expand menu"
   },
   "notifications": {
     "title": "Notifications",

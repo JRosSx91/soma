@@ -739,7 +739,7 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   );
   assert.equal(hero.includes("-scale-x-100"), false);
   assert.match(home, /HeroFilaments/);
-  assert.match(home, /fadeBottom/);
+  assert.match(hero, /fadeEdges/);
   assert.match(home, /lg:grid-cols-\[minmax\(0,3fr\)_minmax\(14rem,2fr\)\]/);
   assert.equal(home.includes("h-24 w-[4.75rem]"), false);
   assert.equal(home.includes("sm:h-28 sm:w-20 lg:hidden"), false);
@@ -748,7 +748,7 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
     /h-\[min\(17\.5rem,calc\(\(100vw-2rem\)\*0\.932\),calc\(100dvh-16rem\)\)\].*lg:hidden/,
   );
   assert.match(home, /absolute inset-0 z-\[1\]/);
-  assert.match(home, /hidden min-h-\[20rem\] overflow-hidden lg:block/);
+  assert.match(home, /hidden min-h-\[22rem\] overflow-hidden lg:block/);
   assert.equal(home.includes("publishedAdvice"), false);
   assert.match(home, /showTierLabel=\{false\}/);
   assert.equal((home.match(/showTierLabel/g) ?? []).length, 1);

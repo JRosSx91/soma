@@ -184,6 +184,8 @@ test("bell and panel expose basic keyboard and aria wiring", () => {
   assert.match(source, /pointerdown/);
   assert.match(source, /triggerRef\.current\?\.focus/);
   assert.match(source, /role="dialog"/);
+  assert.match(source, /createPortal/);
+  assert.match(source, /placeAnchoredPanel/);
 });
 
 test("the achievement inbox is absent from DEMO /preview", () => {
@@ -202,7 +204,7 @@ test("the achievement inbox is absent from DEMO /preview", () => {
     "utf8",
   );
   assert.match(header, /AchievementInboxBell/);
-  assert.match(sidebar, /AchievementInboxBell/);
+  assert.equal(sidebar.includes("AchievementInboxBell"), false);
   assert.match(bell, /if \(!inbox\.visible\) return null/);
   const hook = readFileSync(
     new URL("../hooks/useAchievementInbox.ts", import.meta.url),

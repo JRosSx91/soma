@@ -1,13 +1,15 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LogOut, User } from "lucide-react";
 import { useAuth } from "../../auth/index.js";
 import { previewFocus } from "../focus.js";
+import { placeAnchoredPanel } from "../lib/place-anchored-panel.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 
 interface AccountMenuProps {
-  /** Compact circular trigger for the mobile header. */
+  /** Compact circular trigger for the shared shell header. */
   compact?: boolean;
 }
 
@@ -22,18 +24,39 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
   const navigate = useNavigate();
   const base = useShellBase();
   const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
+
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current || !panelRef.current) return;
+    const trigger = triggerRef.current;
+    const panel = panelRef.current;
+    function place() {
+      placeAnchoredPanel(trigger, panel, { align: "end", minHeight: 120, width: 280 });
+    }
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [open, user, base]);
 
   useEffect(() => {
     if (!open) return;
     function onPointerDown(event: PointerEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        setOpen(false);
+      const target = event.target as Node;
+      if (
+        triggerRef.current?.contains(target) ||
+        panelRef.current?.contains(target)
+      ) {
+        return;
       }
+      setOpen(false);
     }
     function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
     }
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKey);
@@ -54,8 +77,9 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
     : `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-soma-ink-secondary transition-colors hover:bg-soma-surface hover:text-soma-ink`;
 
   return (
-    <div ref={rootRef} className="relative">
+    <>
       <button
+        ref={triggerRef}
         type="button"
         className={triggerClass}
         aria-label={t("menuLabel")}
@@ -76,104 +100,105 @@ export function AccountMenu({ compact = false }: AccountMenuProps) {
         )}
       </button>
 
-      {open ? (
-        <div
-          id={menuId}
-          role="menu"
-          className={`absolute z-50 min-w-[14rem] rounded-xl border border-soma-line bg-soma-raised py-1 shadow-lg ${
-            compact ? "right-0 top-full mt-2" : "left-0 bottom-full mb-2 w-full"
-          }`}
-        >
-          {user && base === "/app" ? (
-            <>
-              <div className="border-b border-soma-line px-3 py-2">
-                <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-soma-ink-muted">
-                  {t("menuSession")}
-                </p>
-                <p className="mt-0.5 truncate text-sm text-soma-ink">
-                  {user.displayName}
-                </p>
-                <p className="mt-0.5 truncate text-xs text-soma-ink-muted">
-                  {user.email}
-                </p>
-              </div>
-              <Link
-                role="menuitem"
-                to={`${base}/account`}
-                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={() => setOpen(false)}
-              >
-                {t("menuAccount")}
-              </Link>
-              <Link
-                role="menuitem"
-                to="/onboarding"
-                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={() => setOpen(false)}
-              >
-                {t("menuSubstances")}
-              </Link>
-              <Link
-                role="menuitem"
-                to="/app-legacy"
-                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={() => setOpen(false)}
-              >
-                {t("menuOpenLegacy")}
-              </Link>
-              <button
-                type="button"
-                role="menuitem"
-                className={`${previewFocus} flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={handleLogout}
-              >
-                <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
-                {t("menuLogout")}
-              </button>
-            </>
-          ) : user && base === "/preview" ? (
-            <>
-              {/* Signed-in on public demo: no private identity or live links. */}
-              <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
-                {t("menuPreviewGuest")}
-              </p>
-              <Link
-                role="menuitem"
-                to="/app"
-                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={() => setOpen(false)}
-              >
-                {t("menuOpenApp")}
-              </Link>
-              <button
-                type="button"
-                role="menuitem"
-                className={`${previewFocus} flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={handleLogout}
-              >
-                <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
-                {t("menuLogout")}
-              </button>
-            </>
-          ) : (
-            <>
-              <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
-                {base === "/preview"
-                  ? t("menuPreviewGuest")
-                  : t("menuAnonymous")}
-              </p>
-              <Link
-                role="menuitem"
-                to="/login"
-                className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                onClick={() => setOpen(false)}
-              >
-                {t("menuSignIn")}
-              </Link>
-            </>
-          )}
-        </div>
-      ) : null}
-    </div>
+      {open
+        ? createPortal(
+            <div
+              ref={panelRef}
+              id={menuId}
+              role="menu"
+              className="min-w-[14rem] overflow-y-auto rounded-xl border border-soma-line bg-soma-raised py-1 shadow-lg"
+            >
+              {user && base === "/app" ? (
+                <>
+                  <div className="border-b border-soma-line px-3 py-2">
+                    <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-soma-ink-muted">
+                      {t("menuSession")}
+                    </p>
+                    <p className="mt-0.5 truncate text-sm text-soma-ink">
+                      {user.displayName}
+                    </p>
+                    <p className="mt-0.5 truncate text-xs text-soma-ink-muted">
+                      {user.email}
+                    </p>
+                  </div>
+                  <Link
+                    role="menuitem"
+                    to={`${base}/account`}
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuAccount")}
+                  </Link>
+                  <Link
+                    role="menuitem"
+                    to="/onboarding"
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuSubstances")}
+                  </Link>
+                  <Link
+                    role="menuitem"
+                    to="/app-legacy"
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuOpenLegacy")}
+                  </Link>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={`${previewFocus} flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
+                    {t("menuLogout")}
+                  </button>
+                </>
+              ) : user && base === "/preview" ? (
+                <>
+                  <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
+                    {t("menuPreviewGuest")}
+                  </p>
+                  <Link
+                    role="menuitem"
+                    to="/app"
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuOpenApp")}
+                  </Link>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={`${previewFocus} flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
+                    {t("menuLogout")}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p className="border-b border-soma-line px-3 py-2 text-[11px] text-soma-ink-muted">
+                    {base === "/preview"
+                      ? t("menuPreviewGuest")
+                      : t("menuAnonymous")}
+                  </p>
+                  <Link
+                    role="menuitem"
+                    to="/login"
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuSignIn")}
+                  </Link>
+                </>
+              )}
+            </div>,
+            document.body,
+          )
+        : null}
+    </>
   );
 }

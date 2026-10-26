@@ -44,8 +44,9 @@ test("authenticated shell chrome includes the shared language selector", () => {
   );
   assert.match(header, /LanguageSelector/);
   assert.match(header, /AchievementInboxBell compact/);
-  assert.match(sidebar, /LanguageSelector placement="up"/);
-  assert.match(sidebar, /AchievementInboxBell compact placement="up"/);
+  assert.match(header, /AccountMenu compact/);
+  assert.equal(sidebar.includes("LanguageSelector"), false);
+  assert.equal(sidebar.includes("AchievementInboxBell"), false);
   const selector = readFileSync(
     new URL("../../components/LanguageSelector.tsx", import.meta.url),
     "utf8",

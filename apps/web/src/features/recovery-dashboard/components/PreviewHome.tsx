@@ -259,13 +259,13 @@ function HomeStage({
           aria-hidden="true"
           className="relative isolate h-[min(17.5rem,calc((100vw-2rem)*0.932),calc(100dvh-16rem))] w-full min-w-0 overflow-hidden lg:hidden"
         >
-          <HeroFigure className="absolute inset-0 z-[1]" fadeBottom />
+          <HeroFigure className="absolute inset-0 z-[1]" />
         </div>
         {children}
       </div>
-      <div className="relative hidden min-h-[20rem] overflow-hidden lg:block">
-        <HeroFilaments className="absolute inset-0 z-0 [mask-image:linear-gradient(90deg,black_0%,black_48%,transparent_90%),linear-gradient(to_bottom,black_70%,transparent)] [mask-composite:intersect] [-webkit-mask-image:linear-gradient(90deg,black_0%,black_48%,transparent_90%),linear-gradient(to_bottom,black_70%,transparent)] [-webkit-mask-composite:source-in]" />
-        <HeroFigure className="absolute inset-0 z-[1]" fadeBottom />
+      <div className="relative hidden min-h-[22rem] overflow-hidden lg:block">
+        <HeroFilaments className="absolute inset-0 z-0 [mask-image:linear-gradient(90deg,transparent_0%,black_18%,black_70%,transparent_100%),linear-gradient(to_bottom,black_72%,transparent)] [mask-composite:intersect] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,black_18%,black_70%,transparent_100%),linear-gradient(to_bottom,black_72%,transparent)] [-webkit-mask-composite:source-in]" />
+        <HeroFigure className="pointer-events-none absolute right-0 top-0 z-[1] h-full w-full" />
       </div>
     </div>
   );
