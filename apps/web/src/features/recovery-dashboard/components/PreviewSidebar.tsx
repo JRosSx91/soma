@@ -1,36 +1,21 @@
-import {
-  Compass,
-  Home,
-  PersonStanding,
-  Activity,
-  Trophy,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../../../components/LanguageSelector.js";
 import { AchievementInboxBell } from "../../achievements/components/AchievementInboxBell.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { useShellLayout } from "../hooks/useShellLayout.js";
-import { shellSections } from "../shell-base.js";
+import { desktopShellSections } from "../shell-base.js";
+import { shellIcons } from "../shell-icons.js";
 import { previewFocus } from "../focus.js";
 import { AccountMenu } from "./AccountMenu.js";
 import { SomaMark } from "./SomaMark.js";
-
-const icons = {
-  inicio: Home,
-  recuperacion: Activity,
-  explorar: Compass,
-  anatomia: PersonStanding,
-  logros: Trophy,
-} as const;
 
 export function PreviewSidebar() {
   const { t } = useTranslation("common");
   const base = useShellBase();
   const { collapsed, toggleCollapsed } = useShellLayout();
-  const sections = shellSections(base);
+  const sections = desktopShellSections(base);
   const collapseLabel = collapsed ? t("shell.expandNav") : t("shell.collapseNav");
 
   return (
@@ -77,13 +62,13 @@ export function PreviewSidebar() {
       <nav className="mt-6 px-3" aria-label={t("shell.navAria")}>
         <ul className="flex flex-col gap-1">
           {sections.map((item) => {
-            const Icon = icons[item.id];
+            const Icon = shellIcons[item.icon];
             const label = t(`shell.${item.labelKey}`);
             return (
               <li key={item.id}>
                 <NavLink
                   to={item.to}
-                  end={item.id === "inicio"}
+                  end={item.path === ""}
                   title={collapsed ? label : undefined}
                   aria-label={collapsed ? label : undefined}
                   className={({ isActive }) =>

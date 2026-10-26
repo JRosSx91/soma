@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ShellBaseProvider } from "../context/ShellBaseContext.js";
 import { ShellLayoutProvider } from "../context/ShellLayoutProvider.js";
 import { useShellLayout } from "../hooks/useShellLayout.js";
-import { shellSections, type ShellBase } from "../shell-base.js";
+import { shellSectionForPathname, type ShellBase } from "../shell-base.js";
 import {
   SHELL_CONTENT_COLLAPSED_ALIGN_CLASS,
   SHELL_CONTENT_COLLAPSED_PAD_CLASS,
@@ -25,8 +25,7 @@ interface PreviewShellProps {
 export function PreviewShell({ base }: PreviewShellProps) {
   const { t } = useTranslation("common");
   const { pathname } = useLocation();
-  const sections = shellSections(base);
-  const current = sections.find((item) => item.to === pathname) ?? sections[0];
+  const current = shellSectionForPathname(base, pathname);
   const titleLabel = current ? t(`shell.${current.labelKey}`) : "";
 
   useEffect(() => {

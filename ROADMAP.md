@@ -66,7 +66,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
-| Soma Expeditions (GAME-*) | GAME-01 fusionado en `develop` (`d0cafd8`, PR #53). Sin deploy a producción. GAME-02 implementado, pendiente de integración en `develop`. GAME-03–08 pendientes. Nav 2.0: siguiente trabajo **después de GAME-02**, antes de GAME-03 |
+| Soma Expeditions (GAME-*) | GAME-01 y GAME-02 fusionados en `develop` (`8eb4a3e`, PR #53 y #54). Sin deploy a producción. NAV-01 implementado, pendiente de integración en `develop`. NAV-02 siguiente. GAME-03 después de NAV-02 |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -419,7 +419,7 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-DESIGN-01 — Navegación y diseño de Expeditions
 
 - **Descripción:** Cómo entra Expeditions en SHELL-01 **sin** segundo sistema de navegación. Dirección visual de ocho pantallas (siete PNG 2.0 + Misiones sin mockup propio).
-- **Estado:** Dirección visual **aprobada**. Especificación funcional de nav **propuesta, no implementada**. Código **pendiente**.
+- **Estado:** Dirección visual **aprobada**. NAV-01 (estructura de menús) implementado, pendiente de integración en `develop`. **No** fusionado. **No** desplegado. NAV-02 (identidad visual del shell) pendiente. GAME-03 **después de NAV-02**.
 - **Prioridad:** P1
 - **Horizonte:** cabecera de naturaleza + (en Inicio) mochilero ante el paisaje. Reutilizar identidad Soma; no sustituir la figura anatómica de Inicio. Fotos de mockup **no** son assets de producción hasta licencia/arte propio.
 - **Mapeo pantalla → hitos:**
@@ -468,7 +468,7 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-02 — Próximo hito
 
 - **Descripción:** Mostrar el siguiente logro temporal, el progreso acumulado y el tiempo restante. Varias sustancias y `lastUseDate` distintas a la vez.
-- **Estado:** Implementado. Pendiente de integración en `develop`. **No** fusionado. **No** desplegado.
+- **Estado:** Fusionado en `develop` (`8eb4a3e`, PR #54). **No** desplegado en producción.
 - **Prioridad:** P1
 - **Dependencias:** GAME-01 (familia definida, en `develop`). LIVE-01 (fechas por sustancia). Superficies mínimas: Inicio + Mi recuperación. Expedición 2.0 y paisaje de Inicio **no** incluidos.
 - **Criterio:** Cada sustancia abstinente muestra como máximo **un** próximo hito comprensible. El % hacia la medalla temporal **no** es el % de curva (UX-04). Sustancia activa: sin cuenta atrás punitiva. Inactividad de app **no** retrasa el hito (el reloj es la abstinencia, no los logins).
@@ -647,7 +647,7 @@ Este documento **no** decide esos puntos ni autoriza seeds.
 | R-I18N | DEMO/Logros en ES con UI EN. | Pendiente (I18N-01, I18N-02) |
 | R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en principios de Expeditions; vigente hasta implementar |
 | R-LOG | Bitácora (GAME-04) sin política de privacidad/exportación. | Pendiente de estudio; **no** implementar UI antes |
-| R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en GAME-DESIGN-01 (Más); vigente hasta código |
+| R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
 | R-MIX | Mezclar % temporal con % de curva, o conocimiento con perseverancia. | Mitigado en copy UX-04 + GAME-02/07; vigilar implementación |
 | R-ART | Sustituir visor anatómico o medallas reales por arte generado de mockup. | Prohibido; visor y catálogo 106 se conservan |
 
@@ -662,7 +662,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 3. **UX-10** (validar) → **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo).
 4. **ACH-REV:** decidir política **antes** de código (bloquea GAME-08 y cualquier revocación).
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**. Distintos de UX-10–12 y de ACH-REV.
-6. **Expeditions:** GAME-01 en `develop`. GAME-02 implementado, pendiente de integración. **Siguiente trabajo separado:** navegación 2.0 (GAME-DESIGN-01) **antes** de GAME-03. Nav «Más» y mapa (GAME-07) después. Bitácora (GAME-04) después de privacidad. XP (GAME-06) después de misiones.
+6. **Expeditions:** GAME-01 y GAME-02 en `develop`. NAV-01 implementado, pendiente de integración. **Siguiente:** NAV-02 (identidad visual). GAME-03 **después de NAV-02**. Mapa GAME-07 y bitácora GAME-04 después.
 7. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 8. **UX-08 / UX-09:** editorial; no inventar.
 9. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
@@ -722,8 +722,8 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
   → I18N-04 (selector banderas; no implementar aún; no nuevos idiomas)
 
 Soma Expeditions (dirección visual OK)
-  Fase A  GAME-01 (en develop) → GAME-02 (implementado, pendiente de integración)
-  Fase A2 navegación 2.0 (GAME-DESIGN-01) — **después de GAME-02, antes de GAME-03**
+  Fase A  GAME-01 y GAME-02 (en develop)
+  Fase A2 NAV-01 (estructura, pendiente de integración) → NAV-02 (identidad visual) → GAME-03
   Fase B  GAME-03 timeline en Recuperación + Logros 2.0 (familias) + Inicio sin XP
   Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
   Fase D  Explorador / atlas 2.0 (NT, procesos, panel) → GAME-05 misiones
@@ -779,3 +779,5 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 | 2026-10-26 | GAME-01 fusionado en `develop` (`d0cafd8`, PR #53). Sin producción. |
 | 2026-10-26 | GAME-02 implementación local: próximo hito temporal, progreso absoluto, cuenta atrás 30 s, Inicio + Mi recuperación. Sin commit/PR/deploy. **Decisión:** navegación 2.0 después de GAME-02 y antes de GAME-03. |
 | 2026-10-26 | GAME-02: validación final + PR hacia `develop`. Pendiente de integración. No fusionado. No desplegado. |
+| 2026-10-26 | GAME-02 fusionado en `develop` (`8eb4a3e`, PR #54). Sin producción. |
+| 2026-10-26 | NAV-01: estructura de menús (Más móvil, rail de 5 secciones reales). Implementado, pendiente de integración en `develop`. No fusionado. No desplegado. NAV-02 siguiente. GAME-03 después de NAV-02. |
