@@ -36,7 +36,7 @@ export function PreviewShell({ base }: PreviewShellProps) {
 
   return (
     <ShellBaseProvider base={base}>
-      <ShellLayoutProvider titleLabel={titleLabel}>
+      <ShellLayoutProvider>
         <PreviewShellFrame base={base} />
       </ShellLayoutProvider>
     </ShellBaseProvider>
@@ -58,7 +58,7 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
       />
       <PreviewSidebar />
       <PreviewMobileHeader />
-      <main className="relative px-4 pb-28 pt-2 lg:px-6 lg:pb-2 lg:pt-3">
+      <main className="relative px-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-2 lg:px-6 lg:pb-2 lg:pt-3">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 lg:max-w-[1120px] lg:gap-2">
           <Outlet />
         </div>

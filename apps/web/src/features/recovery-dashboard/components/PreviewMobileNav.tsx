@@ -26,7 +26,7 @@ export function PreviewMobileNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-soma-line bg-soma-canvas/95 backdrop-blur lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-soma-line/40 bg-[#081018]/95 backdrop-blur lg:hidden"
       aria-label={t("shell.navAria")}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
@@ -39,7 +39,7 @@ export function PreviewMobileNav() {
                 to={item.to}
                 end={item.id === "inicio"}
                 className={({ isActive }) =>
-                  `${previewFocus} flex w-full flex-col items-center gap-1 px-1 py-2.5 text-[10px] ${
+                  `${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2.5 text-[10px] ${
                     isActive ? "text-soma-action" : "text-soma-ink-muted"
                   }`
                 }

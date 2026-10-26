@@ -5,15 +5,8 @@ import {
 } from "../shell-sidebar.js";
 import { ShellLayoutContext } from "./shell-layout-context.js";
 
-export function ShellLayoutProvider({
-  titleLabel,
-  children,
-}: {
-  titleLabel: string;
-  children: ReactNode;
-}) {
+export function ShellLayoutProvider({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(readSidebarCollapsed);
-  const [mobileOpen, setMobileOpenState] = useState(false);
 
   const toggleCollapsed = useCallback(() => {
     setCollapsed((current) => {
@@ -23,19 +16,9 @@ export function ShellLayoutProvider({
     });
   }, []);
 
-  const setMobileOpen = useCallback((open: boolean) => {
-    setMobileOpenState(open);
-  }, []);
-
   const value = useMemo(
-    () => ({
-      collapsed,
-      mobileOpen,
-      titleLabel,
-      toggleCollapsed,
-      setMobileOpen,
-    }),
-    [collapsed, mobileOpen, titleLabel, toggleCollapsed, setMobileOpen],
+    () => ({ collapsed, toggleCollapsed }),
+    [collapsed, toggleCollapsed],
   );
 
   return (

@@ -46,7 +46,7 @@ test("sidebar collapsed preference round-trips through localStorage", () => {
 });
 
 test("shell chrome collapse copy exists in spanish and english", () => {
-  for (const key of ["openNav", "closeNav", "collapseNav", "expandNav"] as const) {
+  for (const key of ["collapseNav", "expandNav"] as const) {
     assert.equal(typeof esCommon.shell[key], "string");
     assert.equal(typeof enCommon.shell[key], "string");
     assert.notEqual(esCommon.shell[key].trim(), "");
@@ -70,14 +70,23 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(header, /LanguageSelector/);
   assert.match(header, /AchievementInboxBell compact/);
   assert.match(header, /AccountMenu compact/);
-  assert.match(header, /shell\.openNav/);
+  assert.equal(header.includes("shell.openNav"), false);
+  assert.equal(header.includes("titleLabel"), false);
   assert.equal(sidebar.includes("LanguageSelector"), false);
   assert.equal(sidebar.includes("AchievementInboxBell"), false);
   assert.equal(sidebar.includes("AccountMenu"), false);
+  assert.equal(sidebar.includes("mobileOpen"), false);
+  assert.match(sidebar, /hidden flex-col/);
+  assert.match(sidebar, /lg:flex/);
   assert.match(sidebar, /lg:w-\[4\.5rem\]/);
+  assert.match(sidebar, /ChevronLeft/);
+  assert.match(sidebar, /h-3\.5 w-3\.5/);
   assert.match(sidebar, /SomaMark compact=\{collapsed\}/);
   assert.match(sidebar, /shell\.collapseNav/);
+  assert.equal(sidebar.includes("flex-col lg:justify-center"), false);
   assert.equal(sidebar.includes("mt-auto"), false);
+  assert.match(shell, /PreviewMobileNav/);
+  assert.match(shell, /safe-area-inset-bottom/);
   assert.match(shell, /SHELL_SIDEBAR_COLLAPSED_CLASS/);
   assert.equal(SHELL_SIDEBAR_EXPANDED_CLASS, "lg:pl-60");
   assert.equal(SHELL_SIDEBAR_COLLAPSED_CLASS, "lg:pl-[4.5rem]");
