@@ -7,7 +7,11 @@
     "toSerotonin": "Comprender cómo actúa la serotonina",
     "toGaba": "Comprender cómo actúa el GABA",
     "toGlutamate": "Comprender cómo actúa el glutamato",
-    "toNorepinephrine": "Comprender cómo actúa la noradrenalina"
+    "toNorepinephrine": "Comprender cómo actúa la noradrenalina",
+    "toAcetylcholine": "Comprender cómo actúa la acetilcolina",
+    "toEndocannabinoid": "Comprender el sistema endocannabinoide",
+    "toEndorphin": "Comprender cómo actúan las endorfinas",
+    "toAdenosine": "Comprender cómo actúa la adenosina"
   },
   "sheets": {
     "dopamine": {
@@ -468,6 +472,298 @@
         "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14.ª ed. 2022. Agonismo, antagonismo y capítulos de sustancias.",
         "Nestler EJ, et al. Molecular Neuropharmacology. Receptores ionotrópicos y acoplados a proteína G.",
         "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133."
+      ]
+    },
+    "acetylcholine": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la acetilcolina?",
+          "paragraphs": [
+            "La acetilcolina es un mensajero químico de las neuronas. Químicamente es un éster: se fabrica uniendo colina y acetil-CoA mediante la enzima colina acetiltransferasa. No es una catecolamina ni un aminoácido transmisor. El nombre recuerda el grupo acetilo y la colina; no es nicotina, ni un fármaco de receta.",
+            "Se usa tanto en el sistema nervioso central como en el periférico. En el encéfalo participa en atención, aprendizaje y ciertos aspectos de la memoria. En la periferia es el mensajero de la unión neuromuscular —el punto en el que un nervio motor habla con el músculo esquelético— y de buena parte del sistema nervioso autónomo parasimpático. El mismo tipo de molécula, contextos distintos: no hay una sola «acetilcolina del foco».",
+            "La nicotina, que llega de fuera, no es acetilcolina. Es un alcaloide vegetal que imita de forma tosca a la acetilcolina en algunos de sus receptores nicotínicos, no en los muscarínicos y no en todas las sinapsis. Confundir el mensajero endógeno con la sustancia exógena es el error más frecuente de esta ficha."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "En la sinapsis, las vesículas vierten acetilcolina al espacio entre células. Allí se une a dos grandes familias de receptores. Los nicotínicos son canales iónicos: al unirse la acetilcolina se abre un poro y el efecto es rápido, del orden de milisegundos. Los muscarínicos no son el canal ellos mismos: se acoplan a proteínas G y cambian, más despacio, la excitabilidad o la función del órgano. Nicotínico y muscarínico no son dos nombres para lo mismo.",
+            "En la unión neuromuscular, los nicotínicos de la placa motora permiten que el impulso nervioso se traduzca en contracción. En el autónomo, la acetilcolina habla con ganglios (nicotínicos) y con muchos órganos diana parasimpáticos (muscarínicos). En el encéfalo ambas familias coexisten, con densidades distintas según la región.",
+            "Después hay que apagar la señal. La acetilcolinesterasa hidroliza la acetilcolina en colina y acetato, con gran rapidez. Reciclar la colina no es lo mismo que dejar el mensajero en la hendidura. No hay un transportador de recaptación comparable al DAT o al SERT como gesto principal: la enzima es el freno clásico."
+          ],
+          "analogies": [
+            [
+              "Imagina un sistema de recados con dos tipos de puerta. Unas se abren al instante, como un pestillo eléctrico (nicotínicos). Otras cambian, más despacio, el reglamento interno de la oficina (muscarínicos). Un servicio de limpieza enzimática (acetilcolinesterasa) retira el recado en cuanto se ha leído.",
+              "La analogía ayuda a ver rapidez frente a modulación, y a no mezclar las puertas. Falla si se traduce como «la acetilcolina es concentración» o como «la nicotina es el recado oficial». La nicotina, en esta imagen, fuerza algunas puertas nicotínicas; no sustituye al mensajero ni abre las muscarínicas."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "En el cerebro, las vías colinérgicas del prosencéfalo basal hacia la corteza y el hipocampo participan en el tono de atención y en formas de aprendizaje y memoria que dependen de esas redes. No es «memoria en una molécula». Es un modulador que se cruza con glutamato, GABA y monoaminas.",
+            "En la periferia, sin acetilcolina en la placa motora no hay contracción voluntaria útil. En el parasimpático contribuye a ritmos como el cardíaco, la secreción y la motilidad digestiva, siempre en diálogo con el simpático. Mezclar el foco cortical con la saliva o el latido es un error de mapa, no de nomenclatura."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "En el encéfalo destacan el prosencéfalo basal (incluido el núcleo basal de Meynert) hacia corteza e hipocampo, y grupos del tronco —pedunculopontino y laterodorsal tegmental— hacia tálamo y otras estaciones. No hay un único «centro de la acetilcolina».",
+            "En la periferia el mapa es otro: motoneuronas hacia músculo esquelético; preganglionares autónomas; postganglionares parasimpáticas. Una misma palabra cubre territorios que no se miden juntos. Soma no lee tu placa motora ni tu corteza colinérgica."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a la acetilcolina?",
+          "paragraphs": [
+            "Nicotina. Agonista de receptores nicotínicos. No es acetilcolina y no actúa igual en todos los subtipos nicotínicos ni en los muscarínicos. Algunos nicotínicos están en neuronas que sueltan dopamina u otros mensajeros, de modo que el efecto sobre circuitos de refuerzo es, en buena parte, indirecto. Estimular un nicotínico no es «subir la acetilcolina cerebral» ni copiar el DAT.",
+            "Alcohol, cannabis, cocaína y cafeína. No tienen como gesto principal imitar a la acetilcolina en nicotínicos. El alcohol actúa sobre GABA-A y NMDA, entre otros; el THC, sobre CB1; la cocaína, sobre transportadores de monoaminas; la cafeína, sobre adenosina. Cualquier influjo colinérgico es, en este marco, más indirecto y dependiente del circuito. No hay porcentajes universales de «cuánto cambia la acetilcolina»."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con nicotina crónica, según el subtipo y el contexto, algunos nicotínicos se desensibilizan —responden menos al mismo estímulo— mientras que en tejidos estudiados puede aumentar la disponibilidad o la expresión de esos receptores. Más receptores no significa más sensibilidad: el número y la respuesta funcional no son lo mismo. El sistema se adapta a un agonista que no era el mensajero oficial. Eso no es un depósito de acetilcolina que se vacía.",
+            "La tolerancia a la nicotina no se copia a la cafeína ni al alcohol. Cada sustancia escribe un guion de receptores distinto. El aprendizaje asociativo —cigarrillo, lugar, rutina— convive con la farmacología; no es un recuento de acetilcolina."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar la nicotina, deja de estar el agonista que ocupaba nicotínicos. Irritabilidad, dificultad de concentración o aumento del apetito pueden aparecer en algunos patrones; no son un medidor de acetilcolina cerebral. La recuperación no es una recta de vuelta a un tono colinérgico de catálogo.",
+            "No hay un reloj universal. Soma no lee tus nicotínicos ni convierte días sin fumar en una concentración. La acetilcolina endógena sigue sintetizándose; lo que cambia es la exposición al alcaloide, no un interruptor único de «foco»."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "La acetilcolina no es nicotina, y la nicotina no es un recambio del mensajero endógeno. Nicotínicos y muscarínicos no son la misma puerta; la placa motora no es la corteza. De las cinco sustancias, la nicotina es la que habla de forma directa con nicotínicos; el resto entra de forma más indirecta. Esta ficha describe mecanismos generales; no describe tu atención ni tu abstinencia."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Transmisión colinérgica, nicotínicos y muscarínicos.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Acetilcolina, acetilcolinesterasa y nAChR.",
+        "Dani JA, Bertrand D. Nicotinic acetylcholine receptors and nicotinic cholinergic mechanisms of the central nervous system. Annu Rev Pharmacol Toxicol. 2007;47:699–729.",
+        "Changeux JP. Nicotine addiction and nicotinic receptors: lessons from genetically modified mice. Nat Rev Neurosci. 2010;11(6):389–401."
+      ]
+    },
+    "endocannabinoid": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es el sistema endocannabinoide?",
+          "paragraphs": [
+            "El sistema endocannabinoide no es un único mensajero, sino un conjunto de señales, enzimas y receptores que las células usan para regularse. Los ligandos mejor conocidos son la anandamida (AEA) y el 2-araquidonilglicerol (2-AG): lípidos que se fabrican a demanda, no se almacenan en vesículas clásicas como la dopamina. Llamarlo «el cannabis interno» comprime demasiado: el sistema existía antes de cualquier planta.",
+            "Los receptores principales son CB1 —abundantes en el sistema nervioso central, a menudo en terminales presinápticos— y CB2, más ligados a células inmunitarias y a territorios periféricos, con presencia más limitada y debatida en el encéfalo. CB1 y CB2 no son dos nombres para lo mismo.",
+            "El THC del cannabis no es anandamida ni 2-AG. Es un fitocannabinoide que se une a CB1 (y, con menos protagonismo educativo aquí, a CB2), con un perfil de agonismo que no copia el de los ligandos endógenos. Equiparar THC y endocannabinoides es el error que esta ficha trata de evitar."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "En muchas sinapsis el diálogo es retrógrado: la célula que recibe el mensajero clásico (glutamato, GABA u otro) fabrica un endocannabinoide que viaja «hacia atrás» y se une a CB1 en la terminal que acaba de soltar. Esa unión suele reducir la liberación ulterior. No es un recado de ida; es un ajuste local pedido por la célula postsináptica cuando ha sido activada, no solo cuando hubo un exceso.",
+            "La anandamida y el 2-AG no se reciclan como la dopamina. Enzimas como la FAAH (anandamida) y la MAGL (2-AG) los degradan. Sintetizar a demanda y degradar con rapidez es otro oficio que almacenar en vesículas. Los dos ligandos no son intercambiables: el 2-AG suele ser más abundante; la anandamida tiene un perfil distinto de afinidades y de enzimas.",
+            "Al modular la liberación de otros transmisores, el sistema no «es» la dopamina ni el GABA: cambia cuánto se suelta de ellos en un punto concreto. Por eso influye en memoria, apetito, dolor y estrés sin ser una explicación única de ninguno."
+          ],
+          "analogies": [
+            [
+              "Piensa en un sistema de retroaviso entre dos oficinas. Tras un recado, la oficina que lo recibe puede enviar un billete hacia atrás (endocannabinoide) para que la emisora ajuste el ritmo (CB1 presináptico). No hace falta un alud de papel: basta con que haya habido transmisión. No instala un jefe nuevo; regula el caudal.",
+              "La analogía muestra la señalización retrógrada. Falla si se traduce como «el cerebro fabrica cannabis» o como «el THC es el billete oficial». El THC, en esta imagen, ocupa algunas de esas puertas CB1 desde fuera, con un patrón de tiempo y de circuitos que no copia a la anandamida ni al 2-AG."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "Al ajustar la liberación sináptica, el sistema participa en la plasticidad, en la extinción de algunos recuerdos, en el apetito, en la percepción del dolor y en la respuesta al estrés. Ninguna de esas funciones es un interruptor CB1 único. El hipocampo no es el hipotálamo; el dolor no es el hambre.",
+            "CB2 y el territorio inmunitario recuerdan que no todo el mapa es «psicoactivo». Esta ficha habla sobre todo de señalización; no es un recuento de inflamación ni un menú de apetito."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "Los CB1 son de los receptores acoplados a proteína G más abundantes del encéfalo: corteza, hipocampo, ganglios basales, cerebelo, entre otras regiones. La densidad no es uniforme. Una sustancia puede sentirse más como cambio de memoria que como cambio de coordinación, o al revés, según dosis, vía y persona.",
+            "No hay un único «centro endocannabinoide». El mapa es el de las terminales que llevan CB1 y de las células que fabrican AEA o 2-AG cuando corresponde."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas al sistema endocannabinoide?",
+          "paragraphs": [
+            "Cannabis (THC). Agonista —a menudo parcial— de CB1. El primer paso no es inundar el cerebro de anandamida: es ocupar receptores que ya tenían ligandos propios, con otra cinética y otra selectividad. Desde ahí puede reducirse la liberación de GABA o de glutamato en terminales concretas; cualquier influjo dopaminérgico es indirecto. CBD y otros componentes no se reducen a «lo mismo que el THC»; esta ficha no los trata como un segundo interruptor.",
+            "Alcohol, nicotina, cocaína y cafeína. No tienen como gesto principal unirse a CB1 como el THC. Pueden cruzarse con circuitos que el sistema endocannabinoide también modula; eso no los convierte en cannabinoides. No hay porcentajes universales de ocupación de CB1."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con THC repetido, en estudios de imagen y de tejido se han descrito cambios en la disponibilidad de unión de CB1: a menudo menos señal del radioligando mientras dura la exposición regular. Eso no mide la concentración de anandamida o de 2-AG, ni el funcionamiento completo del sistema, ni una recuperación clínica individual. El sistema se adapta a un agonista que no era el lípido local. Eso no es «agotarse el cannabis interno».",
+            "La tolerancia a algunos efectos del cannabis —menos euforia, menos impacto en memoria en quienes usan a diario— no es un único guion de densidades. El aprendizaje asociativo convive con la farmacología. Otras sustancias no copian ese mapa CB1."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar el cannabis, deja de estar el THC que ocupaba CB1. Irritabilidad, sueño extraño, sueños más intensos o cambios de apetito pueden aparecer en algunos patrones; no son un medidor de anandamida. En estudios PET de grupo, la disponibilidad de unión del radioligando a CB1 puede recuperarse en plazos de días a semanas; eso no es concentración de endocannabinoides, ni el sistema entero, ni tu recuperación clínica. Esos plazos no son tu calendario personal ni una medición que Soma pueda leer.",
+            "No hay un reloj universal. La recuperación no es una recta de vuelta a un tono endocannabinoide de catálogo. Equiparar días sin consumir con una concentración de 2-AG sería un error."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "El sistema endocannabinoide no es THC, y el THC no es anandamida. Señalización retrógrada, dos ligandos principales y dos familias de receptores no caben en «el cannabis del cuerpo». De las cinco sustancias, el cannabis es la que habla de forma directa con CB1; el resto entra de forma más indirecta. Esta ficha describe mecanismos generales; no describe tu memoria ni tus días."
+          ]
+        }
+      },
+      "bibliography": [
+        "Piomelli D. The molecular logic of endocannabinoid signalling. Nat Rev Neurosci. 2003;4(11):873–884.",
+        "Mechoulam R, Parker LA. The endocannabinoid system and the brain. Annu Rev Psychol. 2013;64:21–47.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. CB1, CB2 y ligandos endógenos.",
+        "Hirvonen J, et al. Reversible and regionally selective downregulation of brain cannabinoid CB1 receptors in chronic daily cannabis smokers. Mol Psychiatry. 2012;17(6):642–649."
+      ]
+    },
+    "endorphin": {
+      "sections": {
+        "what": {
+          "title": "¿Qué son las endorfinas?",
+          "paragraphs": [
+            "Las endorfinas son péptidos opioides que el propio organismo fabrica. El nombre mezcla «endógeno» y «morfina», pero no son morfina ni heroína. Se producen a partir de precursores proteicos: la β-endorfina proviene de la POMC, la misma familia que da ACTH. No es un aminoácido suelto ni una catecolamina.",
+            "Conviene no meter en el mismo saco todos los opioides endógenos. Las encefalinas son pentapéptidos distintos; las dinorfinas, otra familia, con preferencia distinta de receptores. Endorfina, encefalina y dinorfina no son tres nombres para el placer.",
+            "Los receptores opioides —mu, delta y kappa, entre los más citados— son proteínas de membrana acopladas a cascadas que suelen reducir la excitabilidad o la liberación de otros mensajeros. La β-endorfina se asocia sobre todo a receptores mu; las dinorfinas, a kappa. El mismo verbo «opioide» no describe una sola puerta ni un solo efecto."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "En el dolor, las vías opioides endógenas —por ejemplo en la sustancia gris periacueductal y en el asta dorsal— pueden disminuir la transmisión de señales nociceptivas. No apagan el mundo: cambian la ganancia de un canal de información. En paralelo, los mismos receptores participan en estrés, en algunos aspectos de la recompensa y en funciones autonómicas e hipofisarias.",
+            "A diferencia de la dopamina vesicular clásica, estos péptidos se liberan con patrones más lentos y se degradan por peptidasas. No hay un «SERT de las endorfinas» como gesto único. Recaptar monoaminas y cortar un péptido son oficios distintos.",
+            "El llamado «subidón del corredor» se ha asociado a opioides endógenos y, en investigación más reciente, también a endocannabinoides. Convertir el ejercicio en un dispensador de endorfinas medibles es una simplificación: el fenómeno es real como experiencia en algunas personas; la molécula única no está demostrada como explicación universal."
+          ],
+          "analogies": [
+            [
+              "Imagina un sistema que baja el volumen de una alarma de daño, no un grifo de euforia. Hay varios mandos (mu, delta, kappa) y varios avisos peptídicos (endorfinas, encefalinas, dinorfinas). Bajar el volumen del dolor no es poner música de fiesta.",
+              "La analogía muestra modulación, no placer puro. Falla si se traduce como «más endorfinas = más felicidad» o como «un análisis de sangre lee tu recompensa». Soma no mide péptidos opioides, y el ejercicio no es una jeringa de β-endorfina."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "La función más citada es la analgesia endógena: limitar la señal de dolor cuando el contexto —estrés, lesión, esfuerzo— lo hace adaptativo. También se cruzan con circuitos de motivación: los receptores mu influyen en el valor de algunos estímulos, en diálogo con dopamina, no en su lugar.",
+            "Las dinorfinas y los kappa, en muchos modelos, empujan más hacia aversión o disforia que hacia «premio». Por eso las endorfinas no son una explicación universal del placer. El mapa opioide tiene más de una dirección."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "Hay neuronas y terminales opioides en el tronco, en la médula, en el hipotálamo, en el sistema límbico y en la hipófisis. La β-endorfina hipofisaria que viaja por la sangre no es el mismo gesto que un péptido liberado en una sinapsis del encéfalo.",
+            "La densidad de mu, delta y kappa varía según la región. Una misma sustancia puede sentirse más como alivio del dolor que como cambio de ánimo, o al revés. Ninguna ficha honesta lo comprime en un interruptor de placer."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a las endorfinas?",
+          "paragraphs": [
+            "Las cinco sustancias de Soma no son opioides de receta ni heroína. El alcohol, en algunos circuitos estudiados, se cruza con señalización opioide endógena —y la naltrexona, un antagonista μ, se utiliza en clínica en determinados pacientes con trastorno por consumo de alcohol—. Eso no es una pauta de tratamiento ni un consejo individual; el alcohol no es morfina y no «dispara endorfinas» como un único mecanismo. El cannabis, la nicotina, la cocaína y la cafeína pueden influir de forma indirecta en redes donde también hay péptidos opioides; eso no los convierte en endorfinas.",
+            "No hay porcentajes universales de «cuánto suben las endorfinas» con una copa, un cigarrillo o una carrera. Las cifras sueltas mezclan especies, tejidos (plasma frente a cerebro) y técnicas distintas."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con alcohol repetido, la investigación describe adaptaciones en las que el tono opioide endógeno y los receptores mu pueden desplazarse; no es un guion único ni una medida personal. Otras sustancias no copian ese capítulo.",
+            "La tolerancia a un opioide exógeno —fuera del catálogo de cinco de Soma— no debe leerse como «el cuerpo se queda sin endorfinas». Es un desplazamiento de sensibilidad y de circuitos, no un tanque vacío."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar el alcohol u otras sustancias del catálogo, los malestares de los primeros días no son un medidor de β-endorfina cerebral. Afirmar que «faltan endorfinas» durante la abstinencia mezcla plasma, encéfalo y metáfora. Soma no lee tus péptidos opioides ni convierte días sin consumir en una concentración.",
+            "No hay un reloj universal. La recuperación no es una recta de vuelta a un tono endorfínico de catálogo. El dolor, el ánimo y el sueño tienen más de un sistema detrás."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "Las endorfinas no son el placer, y no todas las familias opioides empujan en la misma dirección. β-endorfina, encefalinas y dinorfinas no son intercambiables; mu no es kappa. De las cinco sustancias, el alcohol es el que más se discute junto a opioides endógenos, y aun así de forma indirecta. Un análisis de sangre no es tu circuito de recompensa. Esta ficha describe mecanismos generales; no describe tu abstinencia."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. Péptidos opioides y receptores mu, delta y kappa.",
+        "Akil H, et al. Endogenous opioids: overview and current issues. Drug Alcohol Depend. 1998;51(1-2):127–140.",
+        "Kieffer BL, Evans CJ. Opioid receptors: from binding sites to visible molecules in vivo. Neuropharmacology. 2009;56 Suppl 1:205–212.",
+        "Boecker H, et al. The runner’s high: opioidergic mechanisms in the human brain. Cereb Cortex. 2008;18(11):2523–2531."
+      ]
+    },
+    "adenosine": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la adenosina?",
+          "paragraphs": [
+            "La adenosina es un nucleósido: una pieza del metabolismo energético, emparentada con el ATP pero no idéntica a él. Cuando las células trabajan, el ATP se gasta y, por varias rutas, aumenta la adenosina en el medio. No es un neurotransmisor clásico almacenado en vesículas como la dopamina; se suele describir como neuromodulador, un tono que cambia la excitabilidad de muchas sinapsis a la vez.",
+            "Confundir adenosina con ATP es el primer tropiezo. El ATP puede actuar también como mensajero en algunas sinapsis; la adenosina es el producto de su degradación y un freno metabólico distinto. Tampoco es cafeína. La cafeína llega de fuera y bloquea receptores que la adenosina usaría.",
+            "En el encéfalo participa en la presión homeostática del sueño: a más tiempo despierto, en muchos modelos, más tono adenosinérgico en regiones como el prosencéfalo basal. Eso no es un tanque que se llena de forma lineal ni un reloj que Soma pueda leer."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "Los receptores A1 suelen reducir la excitabilidad: disminuyen la liberación de transmisores o hiperpolarizan la célula. Los A2A, abundantes en el estriado, se acoplan de otra manera y dialogan, entre otros, con receptores de dopamina D2. A1 y A2A no son dos nombres para el mismo freno. Hay también A2B y A3, menos centrales en esta ficha educativa.",
+            "La adenosina puede salir de la célula por transportadores equilibrativos o formarse fuera a partir de ATP mediante ectoenzimas. No hay un único grifo. El tono depende del metabolismo local, no de un depósito cerebral único.",
+            "La cafeína es un antagonista competitivo de receptores de adenosina —sobre todo A1 y A2A a las dosis habituales de una taza—: ocupa el sitio y quita parte del freno. No fabrica alerta desde un receptor de dopamina ni bloquea el DAT."
+          ],
+          "analogies": [
+            [
+              "Piensa en un sistema que marca el cansancio de una red eléctrica, no en un depósito de sueño. Cuanto más tiempo ha estado la red en marcha, más se nota un freno metabólico (adenosina en A1). En algunos barrios (estriado, A2A) ese freno habla con los semáforos de la dopamina.",
+              "La analogía muestra presión de descanso y diálogo con otros sistemas. Falla si se traduce como «la adenosina es sueño líquido» o como «el café vacía un tanque». La cafeína, en esta imagen, pone una cuña en algunas puertas del freno; no borra el trabajo que la red ya ha hecho, y el ATP no es el freno."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "Como neuromodulador, la adenosina inclina muchas redes hacia menos disparo cuando el gasto energético ha sido alto. Eso encaja con la presión de sueño y con la idea de un freno de seguridad metabólica, no con un interruptor único de «apagado».",
+            "En el estriado, el diálogo A2A–D2 recuerda que alerta y movimiento no se reducen a cafeína ni a dopamina por separado. Quitar el freno adenosinérgico no es «subir la dopamina» como la cocaína."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "Hay tono adenosinérgico amplio: corteza, tálamo, prosencéfalo basal, estriado. Los A2A se concentran de forma llamativa en ganglios basales. No hay un único «centro de la adenosina».",
+            "La densidad de A1 y A2A varía. Por eso una misma taza puede sentirse más como menos sueño que como cambio motor, o al revés, según persona, hora y hábito."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a la adenosina?",
+          "paragraphs": [
+            "Cafeína. Antagonista de A1 y A2A. El gesto principal es ocupar el receptor, no aumentar adenosina ni copiar a la cocaína. El cruce con dopamina en el estriado es un diálogo entre receptores vecinos, no un bloqueo del DAT.",
+            "Alcohol, nicotina, cannabis y cocaína. No tienen como mecanismo principal antagonizar A1 o A2A. Pueden cambiar el sueño o la alerta por otras puertas (GABA-A, nicotínicos, CB1, transportadores de monoaminas). Cualquier influjo adenosinérgico es, aquí, más indirecto. No hay porcentajes universales de ocupación de adenosina."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con cafeína repetida, el cerebro se adapta al antagonista. Cambios compensatorios en la señalización y en los receptores de adenosina se han propuesto para explicar parte de la tolerancia —el café de siempre despierta menos—, con evidencia que depende del modelo experimental. No es una regulación uniforme de receptores en todas las personas, ni un tanque de adenosina que se agranda de forma medible.",
+            "Esa tolerancia no es la del alcohol ni la de la nicotina. Mezclarlas en una sola curva sería un error. El hábito de la taza también es aprendizaje de lugar y de hora, no solo farmacología de A2A."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar la cafeína, deja de estar el antagonista. El freno adenosinérgico, si se había compensado, puede sentirse de más: dolor de cabeza, fatiga, niebla, mal humor en algunos patrones. Eso es retirada de cafeína, no un análisis de adenosina cerebral. Dura días en muchos casos descritos; no es tu calendario personal.",
+            "No hay un reloj universal. Soma no lee tus A2A ni convierte días sin café en una concentración. Dormir más un fin de semana no demuestra que «bajó la adenosina» de forma medible en esta app."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "La adenosina no es ATP, y no es un líquido de sueño que se acumule como en un depósito casero. A1 no es A2A. De las cinco sustancias, la cafeína es la que antagoniza de forma directa esos receptores; el resto entra de forma más indirecta. Esta ficha describe mecanismos generales; no describe tu insomnio ni tu abstinencia de café."
+          ]
+        }
+      },
+      "bibliography": [
+        "Dunwiddie TV, Masino SA. The role and regulation of adenosine in the central nervous system. Annu Rev Neurosci. 2001;24:31–55.",
+        "Porkka-Heiskanen T, Kalinchuk AV. Adenosine, energy metabolism and sleep homeostasis. Sleep Med Rev. 2011;15(2):123–135.",
+        "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Receptores de adenosina y neuromodulación."
       ]
     }
   }

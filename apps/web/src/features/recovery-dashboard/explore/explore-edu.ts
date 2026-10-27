@@ -7,6 +7,10 @@ export const exploreEduSheetIds = [
   "gaba",
   "glutamate",
   "norepinephrine",
+  "acetylcholine",
+  "endocannabinoid",
+  "endorphin",
+  "adenosine",
   "receptors",
 ] as const;
 export type ExploreEduSheetId = (typeof exploreEduSheetIds)[number];
@@ -17,6 +21,10 @@ export const exploreEduNtSheets = [
   "gaba",
   "glutamate",
   "norepinephrine",
+  "acetylcholine",
+  "endocannabinoid",
+  "endorphin",
+  "adenosine",
 ] as const satisfies readonly EducationalNeurotransmitter[];
 
 export const publishedExploreEduNtSheets = [
@@ -25,6 +33,10 @@ export const publishedExploreEduNtSheets = [
   "gaba",
   "glutamate",
   "norepinephrine",
+  "acetylcholine",
+  "endocannabinoid",
+  "endorphin",
+  "adenosine",
 ] as const satisfies readonly (typeof exploreEduNtSheets)[number][];
 export const publishedExploreProcessSheets = ["receptors"] as const satisfies readonly ExploreProcessTopic[];
 export const publishedExploreEduSheets = [
@@ -49,6 +61,10 @@ export const exploreEduSectionIds = {
   gaba: ntSectionIds,
   glutamate: ntSectionIds,
   norepinephrine: ntSectionIds,
+  acetylcholine: ntSectionIds,
+  endocannabinoid: ntSectionIds,
+  endorphin: ntSectionIds,
+  adenosine: ntSectionIds,
   receptors: [
     "what",
     "how",
@@ -71,6 +87,10 @@ export const exploreEduRelatedSheet = {
   gaba: "receptors",
   glutamate: "receptors",
   norepinephrine: "dopamine",
+  acetylcholine: "receptors",
+  endocannabinoid: "receptors",
+  endorphin: "receptors",
+  adenosine: "receptors",
 } as const satisfies Record<ExploreEduSheetId, ExploreEduSheetId>;
 
 export const exploreEduRelatedI18nKey = {
@@ -80,6 +100,10 @@ export const exploreEduRelatedI18nKey = {
   gaba: "toGaba",
   glutamate: "toGlutamate",
   norepinephrine: "toNorepinephrine",
+  acetylcholine: "toAcetylcholine",
+  endocannabinoid: "toEndocannabinoid",
+  endorphin: "toEndorphin",
+  adenosine: "toAdenosine",
 } as const satisfies Record<ExploreEduSheetId, string>;
 
 /** Catalog mechanism keys that must never appear in reader-facing copy. */

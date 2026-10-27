@@ -7,7 +7,11 @@
     "toSerotonin": "Understand how serotonin acts",
     "toGaba": "Understand how GABA acts",
     "toGlutamate": "Understand how glutamate acts",
-    "toNorepinephrine": "Understand how noradrenaline acts"
+    "toNorepinephrine": "Understand how noradrenaline acts",
+    "toAcetylcholine": "Understand how acetylcholine acts",
+    "toEndocannabinoid": "Understand the endocannabinoid system",
+    "toEndorphin": "Understand how endorphins act",
+    "toAdenosine": "Understand how adenosine acts"
   },
   "sheets": {
     "dopamine": {
@@ -468,6 +472,298 @@
         "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Agonism, antagonism and substance chapters.",
         "Nestler EJ, et al. Molecular Neuropharmacology. Ionotropic and G-protein-coupled receptors.",
         "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133."
+      ]
+    },
+    "acetylcholine": {
+      "sections": {
+        "what": {
+          "title": "What is acetylcholine?",
+          "paragraphs": [
+            "Acetylcholine is a chemical messenger used by neurons. Chemically it is an ester: it is made by joining choline and acetyl-CoA through the enzyme choline acetyltransferase. It is not a catecholamine and not an amino-acid transmitter. The name recalls the acetyl group and choline; it is not nicotine, and it is not a prescription drug.",
+            "It is used in both the central and the peripheral nervous system. In the brain it takes part in attention, learning and some aspects of memory. In the periphery it is the messenger at the neuromuscular junction — the point where a motor nerve talks to skeletal muscle — and of much of the parasympathetic autonomic nervous system. The same kind of molecule, different contexts: there is no single “acetylcholine of focus.”",
+            "Nicotine, which arrives from outside, is not acetylcholine. It is a plant alkaloid that roughly mimics acetylcholine at some nicotinic receptors, not at muscarinic ones and not at every synapse. Confusing the endogenous messenger with the exogenous substance is this sheet’s most common error."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At the synapse, vesicles pour acetylcholine into the space between cells. There it binds two large receptor families. Nicotinic receptors are ion channels: when acetylcholine binds, a pore opens and the effect is fast, on the order of milliseconds. Muscarinic receptors are not the channel themselves: they couple to G proteins and change excitability or organ function more slowly. Nicotinic and muscarinic are not two names for the same thing.",
+            "At the neuromuscular junction, nicotinic receptors on the motor end-plate turn a nerve impulse into contraction. In the autonomic system, acetylcholine talks to ganglia (nicotinic) and to many parasympathetic target organs (muscarinic). In the brain both families coexist, with different densities by region.",
+            "Then the signal must be switched off. Acetylcholinesterase hydrolyses acetylcholine into choline and acetate, very rapidly. Recycling choline is not the same as leaving the messenger in the cleft. There is no reuptake transporter comparable to DAT or SERT as the main gesture: the enzyme is the classic brake."
+          ],
+          "analogies": [
+            [
+              "Picture a messenger service with two kinds of door. Some open at once, like an electric latch (nicotinic). Others change, more slowly, the office’s internal rules (muscarinic). An enzymatic clean-up service (acetylcholinesterase) removes the note as soon as it has been read.",
+              "The analogy helps you see speed versus modulation, and not to mix the doors. It fails if it becomes “acetylcholine is focus” or “nicotine is the official note.” Nicotine, in this picture, forces some nicotinic doors; it does not replace the messenger or open the muscarinic ones."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "In the brain, cholinergic pathways from the basal forebrain to cortex and hippocampus take part in attentional tone and in forms of learning and memory that depend on those networks. It is not “memory in a molecule.” It is a modulator that crosses glutamate, GABA and the monoamines.",
+            "In the periphery, without acetylcholine at the end-plate there is no useful voluntary contraction. In the parasympathetic system it contributes to rhythms such as heart rate, secretion and gut motility, always in dialogue with the sympathetic side. Mixing cortical focus with saliva or heartbeat is a map error, not a naming error."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "In the brain the basal forebrain (including the nucleus basalis of Meynert) projects to cortex and hippocampus, and brainstem groups — pedunculopontine and laterodorsal tegmental — project to thalamus and other stations. There is no single “acetylcholine centre.”",
+            "In the periphery the map is different: motor neurons to skeletal muscle; autonomic preganglionic fibres; parasympathetic postganglionic fibres. One word covers territories that are not measured together. Soma does not read your end-plate or your cholinergic cortex."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect acetylcholine?",
+          "paragraphs": [
+            "Nicotine is an agonist at nicotinic receptors. It is not acetylcholine and it does not act equally at every nicotinic subtype or at muscarinic receptors. Some nicotinic receptors sit on neurons that release dopamine or other messengers, so effects on reinforcement circuits are largely indirect. Stimulating a nicotinic receptor is not “raising brain acetylcholine” and it is not copying DAT.",
+            "Alcohol, cannabis, cocaine and caffeine do not mainly mimic acetylcholine at nicotinic receptors. Alcohol acts at GABA-A and NMDA, among others; THC at CB1; cocaine at monoamine transporters; caffeine at adenosine receptors. Any cholinergic influence is, in this frame, more indirect and circuit-dependent. There are no universal percentages of “how much acetylcholine changes.”"
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With chronic nicotine, depending on subtype and context, some nicotinic receptors desensitise — they respond less to the same stimulus — while in studied tissues the availability or expression of those receptors can increase. More receptors does not mean more sensitivity: number and functional response are not the same thing. The system adapts to an agonist that was not the endogenous messenger. That is not an acetylcholine store running dry.",
+            "Nicotine tolerance is not copied onto caffeine or alcohol. Each substance writes a different receptor script. Associative learning — cigarette, place, routine — sits beside pharmacology; it is not an acetylcholine count."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When nicotine stops, the agonist that occupied nicotinic receptors is gone. Irritability, trouble concentrating or increased appetite can appear in some patterns; they are not a meter of brain acetylcholine. Recovery is not a straight line back to a catalogue cholinergic tone.",
+            "There is no universal clock. Soma does not read your nicotinic receptors or turn smoke-free days into a concentration. Endogenous acetylcholine keeps being made; what changes is exposure to the alkaloid, not a single “focus” switch."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Acetylcholine is not nicotine, and nicotine is not a stand-in for the endogenous messenger. Nicotinic and muscarinic receptors are not the same door; the end-plate is not the cortex. Of the five substances, nicotine is the one that speaks directly to nicotinic receptors; the others enter more indirectly. This sheet describes general mechanisms; it does not describe your attention or your withdrawal."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Cholinergic transmission, nicotinic and muscarinic receptors.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Acetylcholine, acetylcholinesterase and nAChRs.",
+        "Dani JA, Bertrand D. Nicotinic acetylcholine receptors and nicotinic cholinergic mechanisms of the central nervous system. Annu Rev Pharmacol Toxicol. 2007;47:699–729.",
+        "Changeux JP. Nicotine addiction and nicotinic receptors: lessons from genetically modified mice. Nat Rev Neurosci. 2010;11(6):389–401."
+      ]
+    },
+    "endocannabinoid": {
+      "sections": {
+        "what": {
+          "title": "What is the endocannabinoid system?",
+          "paragraphs": [
+            "The endocannabinoid system is not a single messenger but a set of signals, enzymes and receptors that cells use to regulate themselves. The best-known ligands are anandamide (AEA) and 2-arachidonoylglycerol (2-AG): lipids made on demand, not stored in classic vesicles like dopamine. Calling it “the body’s cannabis” compresses too much: the system existed before any plant.",
+            "The main receptors are CB1 — abundant in the central nervous system, often on presynaptic terminals — and CB2, more tied to immune cells and peripheral territories, with more limited and still-debated presence in the brain. CB1 and CB2 are not two names for the same thing.",
+            "Cannabis THC is not anandamide or 2-AG. It is a phytocannabinoid that binds CB1 (and, with less educational weight here, CB2), with an agonist profile that does not copy the endogenous ligands. Equating THC with endocannabinoids is the error this sheet tries to avoid."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At many synapses the dialogue is retrograde: the cell that received the classic messenger (glutamate, GABA or another) makes an endocannabinoid that travels “backwards” and binds CB1 on the terminal that just released. That binding usually reduces further release. It is not an outbound note; it is a local adjustment requested by the postsynaptic cell once it has been activated, not only when the volley was excessive.",
+            "Anandamide and 2-AG are not recycled like dopamine. Enzymes such as FAAH (anandamide) and MAGL (2-AG) break them down. Making on demand and degrading quickly is a different trade from storing in vesicles. The two ligands are not interchangeable: 2-AG is usually more abundant; anandamide has a different affinity and enzyme profile.",
+            "By modulating release of other transmitters, the system is not “dopamine” or “GABA”: it changes how much of them is dropped at a given point. That is why it influences memory, appetite, pain and stress without being the sole explanation of any of them."
+          ],
+          "analogies": [
+            [
+              "Think of a reply note between two offices. After a message arrives, the office that received it can send a slip backwards (endocannabinoid) so the sender adjusts the flow (presynaptic CB1). A flood of paper is not required: transmission is enough. It does not install a new boss; it regulates the volume.",
+              "The analogy shows retrograde signalling. It fails if it becomes “the brain makes cannabis” or “THC is the body’s own messenger.” THC, in this picture, occupies some of those CB1 doors from outside, with a time course and circuit pattern that copies neither anandamide nor 2-AG."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "By adjusting synaptic release, the system takes part in plasticity, in the extinction of some memories, in appetite, in pain perception and in the stress response. None of those jobs is a single CB1 switch. Hippocampus is not hypothalamus; pain is not hunger.",
+            "CB2 and immune territory are a reminder that not all of the map is “psychoactive.” This sheet is mostly about signalling; it is not an inflammation count or an appetite menu."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "CB1 receptors are among the most abundant G-protein-coupled receptors in the brain: cortex, hippocampus, basal ganglia, cerebellum, among other regions. Density is not uniform. A substance may feel more like a memory change than a coordination change, or the reverse, depending on dose, route and person.",
+            "There is no single “endocannabinoid centre.” The map is the terminals that bear CB1 and the cells that make AEA or 2-AG when they should."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect the endocannabinoid system?",
+          "paragraphs": [
+            "Cannabis (THC) is an agonist — often partial — at CB1. The first move is not to flood the brain with anandamide: it is to occupy receptors that already had their own ligands, with different kinetics and selectivity. From there, release of GABA or glutamate can fall at particular terminals; any dopaminergic influence is indirect. CBD and other components are not “the same as THC”; this sheet does not treat them as a second switch.",
+            "Alcohol, nicotine, cocaine and caffeine do not bind CB1 the way THC does as their main action. They may cross circuits that the endocannabinoid system also modulates; that does not make them cannabinoids. There are no universal percentages of CB1 occupancy."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated THC, imaging and tissue studies have described changes in CB1 binding availability: often less radioligand signal while regular exposure lasts. That does not measure anandamide or 2-AG concentration, the whole system’s function, or anyone’s clinical recovery. The system adapts to an agonist that was not the local lipid. That is not “running out of inner cannabis.”",
+            "Tolerance to some cannabis effects — less euphoria, less memory impact in daily users — is not one density script. Associative learning sits beside pharmacology. Other substances do not copy that CB1 map."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When cannabis stops, the THC that occupied CB1 is gone. Irritability, odd sleep, more intense dreams or appetite changes can appear in some patterns; they are not a reading of anandamide. In group PET studies, radioligand binding availability at CB1 can recover over days to weeks; that is not endocannabinoid concentration, not the whole system, and not your clinical recovery. Those intervals are not your personal calendar and not a reading Soma can take.",
+            "There is no universal clock. Recovery is not a straight line back to a catalogue endocannabinoid tone. Equating substance-free days with a 2-AG concentration would be a mistake."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "The endocannabinoid system is not THC, and THC is not anandamide. Retrograde signalling, two main ligands and two receptor families do not fit in “the body’s cannabis.” Of the five substances, cannabis is the one that speaks directly to CB1; the others enter more indirectly. This sheet describes general mechanisms; it does not describe your memory or your days."
+          ]
+        }
+      },
+      "bibliography": [
+        "Piomelli D. The molecular logic of endocannabinoid signalling. Nat Rev Neurosci. 2003;4(11):873–884.",
+        "Mechoulam R, Parker LA. The endocannabinoid system and the brain. Annu Rev Psychol. 2013;64:21–47.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. CB1, CB2 and endogenous ligands.",
+        "Hirvonen J, et al. Reversible and regionally selective downregulation of brain cannabinoid CB1 receptors in chronic daily cannabis smokers. Mol Psychiatry. 2012;17(6):642–649."
+      ]
+    },
+    "endorphin": {
+      "sections": {
+        "what": {
+          "title": "What are endorphins?",
+          "paragraphs": [
+            "Endorphins are opioid peptides the body makes itself. The name blends “endogenous” and “morphine,” but they are not morphine or heroin. They are produced from protein precursors: β-endorphin comes from POMC, the same family that yields ACTH. It is not a free amino acid and not a catecholamine.",
+            "It helps not to lump every endogenous opioid together. Enkephalins are different pentapeptides; dynorphins are another family, with a different receptor preference. Endorphin, enkephalin and dynorphin are not three names for pleasure.",
+            "Opioid receptors — mu, delta and kappa among the most cited — are membrane proteins coupled to cascades that often reduce excitability or the release of other messengers. β-endorphin is associated mainly with mu receptors; dynorphins with kappa. The same word “opioid” does not describe one door or one effect."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "In pain, endogenous opioid pathways — for example in the periaqueductal grey and the dorsal horn — can turn down nociceptive transmission. They do not switch the world off: they change the gain on a channel of information. In parallel the same receptors take part in stress, in some aspects of reward and in autonomic and pituitary functions.",
+            "Unlike classic vesicular dopamine, these peptides are released on slower patterns and broken down by peptidases. There is no single “endorphin SERT.” Recapturing monoamines and clipping a peptide are different trades.",
+            "The so-called runner’s high has been linked to endogenous opioids and, in more recent research, to endocannabinoids as well. Turning exercise into a dispenser of measurable endorphins is a simplification: the experience is real for some people; a single molecule is not established as a universal explanation."
+          ],
+          "analogies": [
+            [
+              "Picture a system that turns down the volume of a damage alarm, not a tap of euphoria. There are several knobs (mu, delta, kappa) and several peptide notices (endorphins, enkephalins, dynorphins). Turning down pain volume is not putting on party music.",
+              "The analogy shows modulation, not pure pleasure. It fails if it becomes “more endorphins = more happiness” or “a blood test reads your reward.” Soma does not measure opioid peptides, and exercise is not a syringe of β-endorphin."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "The most cited job is endogenous analgesia: limiting the pain signal when the context — stress, injury, effort — makes that adaptive. They also cross motivation circuits: mu receptors influence the value of some stimuli, in dialogue with dopamine, not in its place.",
+            "Dynorphins and kappa receptors, in many models, push more toward aversion or dysphoria than toward “reward.” That is why endorphins are not a universal account of pleasure. The opioid map has more than one direction."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "There are opioid neurons and terminals in the brainstem, spinal cord, hypothalamus, limbic system and pituitary. Pituitary β-endorphin travelling in blood is not the same gesture as a peptide released at a brain synapse.",
+            "The density of mu, delta and kappa varies by region. The same substance may feel more like pain relief than a mood shift, or the reverse. No honest sheet compresses that into a pleasure switch."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect endorphins?",
+          "paragraphs": [
+            "Soma’s five substances are not prescription opioids or heroin. Alcohol, in some studied circuits, crosses endogenous opioid signalling — and naltrexone, a μ-opioid antagonist, is used clinically in some people with alcohol use disorder. That is not a treatment schedule or personal advice; alcohol is not morphine and it does not “release endorphins” as a single mechanism. Cannabis, nicotine, cocaine and caffeine may influence networks that also hold opioid peptides, indirectly; that does not make them endorphins.",
+            "There are no universal percentages of “how much endorphins rise” with a drink, a cigarette or a run. Loose figures mix species, tissues (plasma versus brain) and methods."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated alcohol, research describes adaptations in which endogenous opioid tone and mu receptors can shift; it is not one script and not a personal measurement. Other substances do not copy that chapter.",
+            "Tolerance to an exogenous opioid — outside Soma’s five-substance catalogue — should not be read as “the body runs out of endorphins.” It is a shift in sensitivity and circuits, not an empty tank."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When alcohol or other catalogue substances stop, early discomfort is not a meter of brain β-endorphin. Claiming that “endorphins are missing” in withdrawal mixes plasma, brain and metaphor. Soma does not read your opioid peptides or turn substance-free days into a concentration.",
+            "There is no universal clock. Recovery is not a straight line back to a catalogue endorphin tone. Pain, mood and sleep have more than one system behind them."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Endorphins are not pleasure, and not every opioid family pushes in the same direction. β-endorphin, enkephalins and dynorphins are not interchangeable; mu is not kappa. Of the five substances, alcohol is the one most often discussed alongside endogenous opioids, and still indirectly. A blood test is not your reward circuit. This sheet describes general mechanisms; it does not describe your withdrawal."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. Opioid peptides and mu, delta and kappa receptors.",
+        "Akil H, et al. Endogenous opioids: overview and current issues. Drug Alcohol Depend. 1998;51(1-2):127–140.",
+        "Kieffer BL, Evans CJ. Opioid receptors: from binding sites to visible molecules in vivo. Neuropharmacology. 2009;56 Suppl 1:205–212.",
+        "Boecker H, et al. The runner’s high: opioidergic mechanisms in the human brain. Cereb Cortex. 2008;18(11):2523–2531."
+      ]
+    },
+    "adenosine": {
+      "sections": {
+        "what": {
+          "title": "What is adenosine?",
+          "paragraphs": [
+            "Adenosine is a nucleoside: a piece of energy metabolism, related to ATP but not identical to it. When cells work, ATP is spent and, by several routes, adenosine in the medium rises. It is not a classic neurotransmitter stored in vesicles like dopamine; it is usually described as a neuromodulator, a tone that changes the excitability of many synapses at once.",
+            "Confusing adenosine with ATP is the first stumble. ATP can also act as a messenger at some synapses; adenosine is the product of its breakdown and a different metabolic brake. It is not caffeine either. Caffeine arrives from outside and blocks receptors that adenosine would use.",
+            "In the brain it takes part in homeostatic sleep pressure: the longer one has been awake, in many models, the higher the adenosinergic tone in regions such as the basal forebrain. That is not a tank that fills in a straight line and not a clock Soma can read."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "A1 receptors usually reduce excitability: they cut transmitter release or hyperpolarise the cell. A2A receptors, abundant in the striatum, couple differently and talk, among others, with dopamine D2 receptors. A1 and A2A are not two names for the same brake. There are also A2B and A3, less central to this educational sheet.",
+            "Adenosine can leave the cell through equilibrative transporters or form outside from ATP via ectoenzymes. There is no single tap. Tone depends on local metabolism, not on one brain-wide store.",
+            "Caffeine is a competitive antagonist at adenosine receptors — mainly A1 and A2A at usual cup doses: it occupies the site and lifts part of the brake. It does not manufacture alertness from a dopamine receptor and it does not block DAT."
+          ],
+          "analogies": [
+            [
+              "Think of a system that marks how tired an electrical grid is, not a vat of sleep. The longer the grid has been running, the more a metabolic brake is felt (adenosine at A1). In some neighbourhoods (striatum, A2A) that brake talks to dopamine’s traffic lights.",
+              "The analogy shows rest pressure and dialogue with other systems. It fails if it becomes “adenosine is liquid sleep” or “coffee empties a tank.” Caffeine, in this picture, occupies some of the brake’s sites; it does not erase the work the grid has already done, and ATP is not the brake."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "As a neuromodulator, adenosine tilts many networks toward less firing when energy spend has been high. That fits sleep pressure and the idea of a metabolic safety brake, not a single “off” switch.",
+            "In the striatum, A2A–D2 dialogue is a reminder that alertness and movement do not reduce to caffeine or dopamine alone. Lifting the adenosinergic brake is not “raising dopamine” the way cocaine does."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "Adenosinergic tone is broad: cortex, thalamus, basal forebrain, striatum. A2A receptors concentrate strikingly in the basal ganglia. There is no single “adenosine centre.”",
+            "A1 and A2A density varies. That is why the same cup may feel more like less sleepiness than a motor change, or the reverse, depending on person, hour and habit."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect adenosine?",
+          "paragraphs": [
+            "Caffeine is an antagonist at A1 and A2A. The main move is occupying the receptor, not raising adenosine or copying cocaine. The cross-talk with dopamine in the striatum is neighbouring receptors talking, not DAT blockade.",
+            "Alcohol, nicotine, cannabis and cocaine do not mainly antagonise A1 or A2A. They can change sleep or alertness through other doors (GABA-A, nicotinic receptors, CB1, monoamine transporters). Any adenosinergic influence is, here, more indirect. There are no universal percentages of adenosine occupancy."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated caffeine, the brain adapts to the antagonist. Compensatory changes in adenosine signalling and receptors have been proposed to explain part of tolerance — the usual coffee waking you less — with evidence that depends on the experimental setting. That is not a uniform receptor adjustment in everyone, nor an adenosine tank that measurably enlarges.",
+            "That tolerance is not alcohol’s or nicotine’s. Mixing them on one curve would be a mistake. The habit of the cup is also place-and-hour learning, not only A2A pharmacology."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When caffeine stops, the antagonist is gone. The adenosinergic brake, if it had compensated, can feel like too much: headache, fatigue, fog, low mood in some patterns. That is caffeine withdrawal, not a reading of brain adenosine. It lasts days in many described cases; it is not your personal calendar.",
+            "There is no universal clock. Soma does not read your A2A receptors or turn coffee-free days into a concentration. Sleeping more at the weekend does not prove that “adenosine fell” in a way this app can measure."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Adenosine is not ATP, and it is not a sleep liquid that pools like a household tank. A1 is not A2A. Of the five substances, caffeine is the one that directly antagonises those receptors; the others enter more indirectly. This sheet describes general mechanisms; it does not describe your insomnia or your coffee withdrawal."
+          ]
+        }
+      },
+      "bibliography": [
+        "Dunwiddie TV, Masino SA. The role and regulation of adenosine in the central nervous system. Annu Rev Neurosci. 2001;24:31–55.",
+        "Porkka-Heiskanen T, Kalinchuk AV. Adenosine, energy metabolism and sleep homeostasis. Sleep Med Rev. 2011;15(2):123–135.",
+        "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Adenosine receptors and neuromodulation."
       ]
     }
   }
