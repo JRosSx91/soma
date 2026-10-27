@@ -10,9 +10,11 @@ export function localDayIndex(now: Date): number {
 export function pickDailyMessage(
   messages: readonly string[],
   now: Date = new Date(),
+  offset = 0,
 ): string | null {
   if (messages.length === 0) return null;
-  const index = ((localDayIndex(now) % messages.length) + messages.length) % messages.length;
+  const index =
+    (((localDayIndex(now) + offset) % messages.length) + messages.length) % messages.length;
   return messages[index] ?? null;
 }
 

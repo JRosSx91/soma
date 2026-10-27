@@ -73,7 +73,7 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(header, /LanguageSelector/);
   assert.match(header, /AchievementInboxBell compact/);
   assert.match(header, /AccountMenu compact/);
-  assert.match(header, /SomaMark expeditions/);
+  assert.match(header, /<SomaMark \/>/);
   assert.match(header, /bg-soma-shell-rail/);
   assert.match(header, /lg:hidden/);
   assert.equal(header.includes("shell.openNav"), false);
@@ -87,7 +87,8 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /lg:w-\[4\.5rem\]/);
   assert.match(sidebar, /ChevronLeft/);
   assert.match(sidebar, /h-3\.5 w-3\.5/);
-  assert.match(sidebar, /SomaMark compact=\{collapsed\} expeditions/);
+  assert.match(sidebar, /SomaMark compact=\{collapsed\}/);
+  assert.equal(sidebar.includes("expeditions"), false);
   assert.match(sidebar, /shellNavActiveClass/);
   assert.match(sidebar, /bg-soma-shell-rail/);
   assert.equal(sidebar.includes("bg-[#081018]"), false);
@@ -96,7 +97,8 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /mt-auto/);
   assert.match(sidebar, /translate-x-1\/2/);
   assert.match(shell, /PreviewMobileNav/);
-  assert.match(shell, /bg-soma-shell/);
+  assert.match(shell, /--soma-shell-canvas/);
+  assert.match(shell, /--soma-shell-rail/);
   assert.equal(shell.includes("bg-[#081018]"), false);
   assert.match(shell, /safe-area-inset-bottom/);
   assert.match(shell, /SHELL_SIDEBAR_COLLAPSED_CLASS/);

@@ -43,3 +43,47 @@
     min-height: 100vh;
   }
 }
+
+/* Atlas call-to-action. Plain CSS so hover wins on the long-running dev server. */
+.soma-atlas-cta {
+  transform: translateX(-50%);
+  background-color: rgb(8 40 52 / 0.72);
+  color: rgb(var(--soma-shell-accent));
+  border: 1px solid rgb(var(--soma-shell-accent) / 0.55);
+  box-shadow: 0 8px 22px rgb(3 12 20 / 0.28);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.soma-atlas-cta:hover {
+  background-color: rgb(18 78 96 / 0.9);
+  border-color: rgb(var(--soma-shell-accent) / 0.95);
+  box-shadow:
+    0 0 0 1px rgb(var(--soma-shell-accent) / 0.4),
+    0 12px 28px rgb(62 224 208 / 0.32);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.soma-atlas-cta:focus-visible {
+  outline: 2px solid rgb(var(--soma-shell-accent));
+  outline-offset: 3px;
+  box-shadow:
+    0 0 0 1px rgb(var(--soma-shell-accent) / 0.45),
+    0 10px 26px rgb(62 224 208 / 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soma-atlas-cta {
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .soma-atlas-cta:hover {
+    transform: translateX(-50%);
+  }
+}

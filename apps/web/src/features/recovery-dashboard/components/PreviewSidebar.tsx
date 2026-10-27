@@ -22,9 +22,10 @@ export function PreviewSidebar() {
   return (
     <aside
       id="soma-shell-sidebar"
-      className={`fixed inset-y-0 left-0 z-50 hidden flex-col overflow-visible border-r border-soma-line/30 bg-soma-shell-rail/95 py-4 backdrop-blur-sm transition-[width] duration-200 ease-out motion-reduce:transition-none lg:flex ${
+      className={`fixed inset-y-0 left-0 z-50 hidden flex-col overflow-visible border-r border-soma-line/30 py-4 backdrop-blur-sm transition-[width] duration-200 ease-out motion-reduce:transition-none lg:flex ${
         collapsed ? "lg:w-[4.5rem]" : "lg:w-60"
       }`}
+      style={{ backgroundColor: "rgb(var(--soma-shell-rail) / 0.95)" }}
     >
       <div className="relative h-12 shrink-0">
         <div
@@ -32,7 +33,7 @@ export function PreviewSidebar() {
             collapsed ? "w-full justify-center" : "justify-between px-4"
           }`}
         >
-          <SomaMark compact={collapsed} expeditions />
+          <SomaMark compact={collapsed} />
           {collapsed ? null : (
             <button
               type="button"

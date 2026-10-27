@@ -102,3 +102,25 @@ export function pickFeaturedUnlockedAchievement(
   });
   return unlocked[0] ?? null;
 }
+
+function unlockTime(iso: string | null | undefined): number {
+  if (!iso) return Number.NEGATIVE_INFINITY;
+  const time = Date.parse(iso);
+  return Number.isFinite(time) ? time : Number.NEGATIVE_INFINITY;
+}
+
+/**
+ * Confirmed unlocks for the Home collection, newest first.
+ * Does not infer medals from abstinence. Rows without `unlockedAt` sort last.
+ */
+export function pickRecentUnlockedAchievements(
+  rows: readonly AchievementWithUnlockState[] | null | undefined,
+  limit = 4,
+): AchievementWithUnlockState[] {
+  if (!rows || rows.length === 0 || limit <= 0) return [];
+  return rows
+    .filter((row) => row.unlocked)
+    .slice()
+    .sort((a, b) => unlockTime(b.unlockedAt) - unlockTime(a.unlockedAt))
+    .slice(0, limit);
+}

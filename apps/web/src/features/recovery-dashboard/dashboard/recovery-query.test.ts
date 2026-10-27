@@ -17,7 +17,7 @@ test("recovery query uses stable substance ids, not labels", () => {
 test("home substance cards link with the substance query", () => {
   const home = readFileSync(new URL("../components/PreviewHome.tsx", import.meta.url), "utf8");
   const recovery = readFileSync(new URL("../pages/RecoveryPage.tsx", import.meta.url), "utf8");
-  assert.match(home, /recoveryHref\(base, substance\.id\)/);
+  assert.match(home, /recoveryHref\(basePath, substance\.id\)/);
   assert.match(recovery, /useSearchParams/);
   assert.match(recovery, /resolveRecoverySubstance/);
 });

@@ -50,14 +50,15 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
 
   return (
     <div
-      className={`relative min-h-screen overflow-x-hidden bg-soma-shell text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
+      className={`relative min-h-screen overflow-x-hidden text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
         collapsed ? SHELL_SIDEBAR_COLLAPSED_CLASS : SHELL_SIDEBAR_EXPANDED_CLASS
       }`}
+      style={{
+        backgroundColor: "rgb(var(--soma-shell-rail))",
+        backgroundImage:
+          "radial-gradient(ellipse at 72% 0%, rgb(var(--soma-physiology) / 0.42), transparent 58%), radial-gradient(ellipse at 8% 100%, rgb(var(--soma-physiology) / 0.16), transparent 46%), linear-gradient(180deg, rgb(var(--soma-shell-canvas)) 0%, rgb(var(--soma-shell-rail)) 100%)",
+      }}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_82%_-8%,rgb(var(--soma-shell-accent)_/_0.12),transparent_42%),radial-gradient(ellipse_at_6%_100%,rgb(var(--soma-physiology)_/_0.1),transparent_44%),linear-gradient(180deg,rgb(var(--soma-shell-canvas))_0%,rgb(var(--soma-shell-rail))_100%)]"
-      />
       <PreviewSidebar />
       <PreviewMobileHeader />
       <main
@@ -68,7 +69,7 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
         }`}
       >
         <div
-          className={`mx-auto flex max-w-6xl flex-col gap-6 lg:max-w-[1120px] lg:gap-2 ${
+          className={`mx-auto flex w-full min-w-0 flex-col gap-6 lg:gap-2 ${
             collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
           }`}
         >
