@@ -8,6 +8,7 @@ import esSubstances from "../../../i18n/locales/es/substances.json" with { type:
 import {
   foldSearchText,
   localizedCatalogLabel,
+  neurotransmitterSearchHaystack,
   searchHaystackIncludes,
   substanceSearchHaystack,
   systemSearchHaystack,
@@ -119,6 +120,30 @@ test("system search uses localized organ labels", () => {
   });
   assert.equal(searchHaystackIncludes(haystack, "higado"), true);
   assert.equal(searchHaystackIncludes(haystack, "pancreas"), false);
+});
+
+test("neurotransmitter search matches spanish and english labels", () => {
+  const esHaystack = neurotransmitterSearchHaystack({
+    id: "dopamine",
+    localizedName: "Dopamina",
+    localizedDescription: "Recompensa, motivación, placer",
+    catalogName: "dopamine",
+    catalogDescription: "",
+    relatedLabels: ["Alcohol", "Cocaína"],
+  });
+  const enHaystack = neurotransmitterSearchHaystack({
+    id: "dopamine",
+    localizedName: "Dopamine",
+    localizedDescription: "Reward, motivation, pleasure",
+    catalogName: "dopamine",
+    catalogDescription: "",
+    relatedLabels: ["Alcohol", "Cocaine"],
+  });
+  assert.equal(searchHaystackIncludes(esHaystack, "dopamina"), true);
+  assert.equal(searchHaystackIncludes(esHaystack, "recompensa"), true);
+  assert.equal(searchHaystackIncludes(enHaystack, "dopamine"), true);
+  assert.equal(searchHaystackIncludes(enHaystack, "reward"), true);
+  assert.equal(searchHaystackIncludes(esHaystack, "higado"), false);
 });
 
 test("explore page wires the explore namespace (source)", () => {

@@ -57,3 +57,21 @@ export function systemSearchHaystack(input: {
 }): string {
   return [input.localizedName, input.catalogName, ...input.organLabels].join(" ");
 }
+
+export function neurotransmitterSearchHaystack(input: {
+  id: string;
+  localizedName: string;
+  localizedDescription: string;
+  catalogName: string;
+  catalogDescription: string;
+  relatedLabels: readonly string[];
+}): string {
+  return [
+    input.id,
+    input.localizedName,
+    input.localizedDescription,
+    input.catalogName,
+    input.catalogDescription,
+    ...input.relatedLabels,
+  ].join(" ");
+}
