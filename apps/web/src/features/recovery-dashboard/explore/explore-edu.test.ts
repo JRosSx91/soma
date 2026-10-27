@@ -34,7 +34,7 @@ const sheet = readFileSync(new URL("../components/DetailSheet.tsx", import.meta.
 const config = readFileSync(new URL("../../../i18n/config.ts", import.meta.url), "utf8");
 
 type LocaleBundle = typeof esExploreEdu;
-const draftNtSheets = ["serotonin", "gaba", "glutamate", "norepinephrine"] as const;
+const newlyPublishedNtSheets = ["acetylcholine", "endocannabinoid", "endorphin", "adenosine"] as const;
 
 function sheetSectionIds(bundle: LocaleBundle, id: keyof LocaleBundle["sheets"]): string[] {
   return Object.keys(bundle.sheets[id].sections);
@@ -56,13 +56,17 @@ async function eduI18n(lng: "es" | "en") {
   return instance;
 }
 
-test("authored educational sheets cover dopamine, four drafts and receptors in ES and EN", () => {
+test("authored educational sheets cover nine neurotransmitters and receptors in ES and EN", () => {
   assert.deepEqual([...exploreEduSheetIds], [
     "dopamine",
     "serotonin",
     "gaba",
     "glutamate",
     "norepinephrine",
+    "acetylcholine",
+    "endocannabinoid",
+    "endorphin",
+    "adenosine",
     "receptors",
   ]);
   for (const locale of [esExploreEdu, enExploreEdu] as const) {
@@ -79,7 +83,7 @@ test("authored educational sheets cover dopamine, four drafts and receptors in E
 });
 
 test("new neurotransmitter drafts keep structural parity between Spanish and English", () => {
-  for (const sheetId of draftNtSheets) {
+  for (const sheetId of newlyPublishedNtSheets) {
     assert.deepEqual(sheetSectionIds(esExploreEdu, sheetId), sheetSectionIds(enExploreEdu, sheetId));
     assert.equal(
       esExploreEdu.sheets[sheetId].bibliography.length,
@@ -104,6 +108,10 @@ test("real i18n resources resolve educational titles and body copy instead of ke
       glutamate: "¿Qué es el glutamato?",
       norepinephrine: "¿Qué es la noradrenalina?",
       dopamine: "¿Qué es la dopamina?",
+      acetylcholine: "¿Qué es la acetilcolina?",
+      endocannabinoid: "¿Qué es el sistema endocannabinoide?",
+      endorphin: "¿Qué son las endorfinas?",
+      adenosine: "¿Qué es la adenosina?",
       receptors: "¿Qué es un receptor?",
     },
     en: {
@@ -112,6 +120,10 @@ test("real i18n resources resolve educational titles and body copy instead of ke
       glutamate: "What is glutamate?",
       norepinephrine: "What is noradrenaline?",
       dopamine: "What is dopamine?",
+      acetylcholine: "What is acetylcholine?",
+      endocannabinoid: "What is the endocannabinoid system?",
+      endorphin: "What are endorphins?",
+      adenosine: "What is adenosine?",
       receptors: "What is a receptor?",
     },
   } as const;
@@ -139,6 +151,30 @@ test("real i18n resources resolve educational titles and body copy instead of ke
   assert.match(en.t("sheets.serotonin.sections.what.paragraphs.1"), /enterochromaffin/);
   assert.match(es.t("sheets.gaba.sections.drugs.paragraphs.0"), /algunos subtipos/);
   assert.match(en.t("sheets.gaba.sections.drugs.paragraphs.0"), /some subtypes/);
+  assert.match(es.t("sheets.acetylcholine.sections.what.paragraphs.2"), /no es acetilcolina/);
+  assert.match(en.t("sheets.acetylcholine.sections.what.paragraphs.2"), /is not acetylcholine/);
+  assert.match(es.t("sheets.endocannabinoid.sections.what.paragraphs.2"), /no es anandamida/);
+  assert.match(en.t("sheets.endocannabinoid.sections.what.paragraphs.2"), /not anandamide/);
+  assert.match(es.t("sheets.endorphin.sections.caveats.paragraphs.0"), /no son el placer/);
+  assert.match(en.t("sheets.endorphin.sections.caveats.paragraphs.0"), /are not pleasure/);
+  assert.match(es.t("sheets.adenosine.sections.what.paragraphs.1"), /Confundir adenosina con ATP/);
+  assert.match(en.t("sheets.adenosine.sections.what.paragraphs.1"), /Confusing adenosine with ATP/);
+  assert.match(es.t("sheets.acetylcholine.sections.repeated.paragraphs.0"), /disponibilidad o la expresión/);
+  assert.match(en.t("sheets.acetylcholine.sections.repeated.paragraphs.0"), /availability or expression/);
+  assert.match(
+    JSON.stringify(es.t("sheets.endocannabinoid.sections.how.analogies", { returnObjects: true })),
+    /No hace falta un alud/,
+  );
+  assert.match(
+    JSON.stringify(en.t("sheets.endocannabinoid.sections.how.analogies", { returnObjects: true })),
+    /flood of paper is not required/,
+  );
+  assert.match(es.t("sheets.endocannabinoid.sections.stopping.paragraphs.0"), /radioligando/);
+  assert.match(en.t("sheets.endocannabinoid.sections.stopping.paragraphs.0"), /radioligand/);
+  assert.match(es.t("sheets.endorphin.sections.drugs.paragraphs.0"), /naltrexona/);
+  assert.match(en.t("sheets.endorphin.sections.drugs.paragraphs.0"), /naltrexone/);
+  assert.match(es.t("sheets.adenosine.sections.repeated.paragraphs.0"), /se han propuesto/);
+  assert.match(en.t("sheets.adenosine.sections.repeated.paragraphs.0"), /have been proposed/);
 });
 
 test("educational analogies are present in copy and rendered visible by default", () => {
@@ -149,6 +185,10 @@ test("educational analogies are present in copy and rendered visible by default"
   assert.ok(esExploreEdu.sheets.gaba.sections.how.analogies?.[0]?.length);
   assert.ok(esExploreEdu.sheets.glutamate.sections.how.analogies?.[0]?.length);
   assert.ok(esExploreEdu.sheets.norepinephrine.sections.how.analogies?.[0]?.length);
+  assert.ok(esExploreEdu.sheets.acetylcholine.sections.how.analogies?.[0]?.length);
+  assert.ok(esExploreEdu.sheets.endocannabinoid.sections.how.analogies?.[0]?.length);
+  assert.ok(esExploreEdu.sheets.endorphin.sections.how.analogies?.[0]?.length);
+  assert.ok(esExploreEdu.sheets.adenosine.sections.how.analogies?.[0]?.length);
   assert.ok(enExploreEdu.sheets.serotonin.sections.how.analogies?.[0]?.length);
   assert.ok(esExploreEdu.sheets.receptors.sections.what.analogies?.[0]?.length);
   assert.match(article, /data-edu-analogy/);
@@ -167,13 +207,17 @@ test("reader-facing educational copy does not leak catalog mechanism ids", () =>
   }
 });
 
-test("six educational sheets are published; remaining cards stay unpublished", () => {
+test("ten educational sheets are published; remaining process cards stay unpublished", () => {
   assert.deepEqual([...publishedExploreEduNtSheets], [
     "dopamine",
     "serotonin",
     "gaba",
     "glutamate",
     "norepinephrine",
+    "acetylcholine",
+    "endocannabinoid",
+    "endorphin",
+    "adenosine",
   ]);
   assert.deepEqual([...publishedExploreProcessSheets], ["receptors"]);
   assert.deepEqual([...publishedExploreEduSheets], [
@@ -182,20 +226,19 @@ test("six educational sheets are published; remaining cards stay unpublished", (
     "gaba",
     "glutamate",
     "norepinephrine",
+    "acetylcholine",
+    "endocannabinoid",
+    "endorphin",
+    "adenosine",
     "receptors",
   ]);
   for (const id of publishedExploreEduSheets) {
     assert.equal(isPublishedExploreEduSheet(id), true, id);
   }
-  for (const id of draftNtSheets) {
+  for (const id of newlyPublishedNtSheets) {
     assert.equal(hasExploreEduNtSheet(id), true, id);
     assert.equal(isPublishedExploreEduNtSheet(id), true, id);
   }
-  assert.equal(hasExploreEduNtSheet("acetylcholine"), false);
-  assert.equal(isPublishedExploreEduNtSheet("acetylcholine"), false);
-  assert.equal(isPublishedExploreEduSheet("endocannabinoid"), false);
-  assert.equal(isPublishedExploreEduSheet("endorphin"), false);
-  assert.equal(isPublishedExploreEduSheet("adenosine"), false);
   for (const id of exploreProcessTopics) {
     if (id === "receptors") continue;
     assert.equal(isPublishedExploreProcess(id), false);
@@ -220,6 +263,10 @@ test("article selection and related navigation use sheet identifiers instead of 
     "gaba",
     "glutamate",
     "norepinephrine",
+    "acetylcholine",
+    "endocannabinoid",
+    "endorphin",
+    "adenosine",
   ]);
   assert.match(page, /sheetId=\{eduTarget\.id\}/);
   assert.equal(page.includes('sheetId="dopamine"'), false);
@@ -234,10 +281,11 @@ test("article selection and related navigation use sheet identifiers instead of 
 
 test("cards without a published long sheet keep the previous short behaviour", () => {
   assert.equal(featuredExploreNeurotransmitters.includes("acetylcholine"), true);
-  assert.equal(isPublishedExploreEduNtSheet("acetylcholine"), false);
+  assert.equal(isPublishedExploreEduNtSheet("acetylcholine"), true);
   assert.match(page, /NeurotransmitterDetail/);
   assert.match(page, /isPublishedExploreEduNtSheet/);
   assert.match(page, /processesPreparing/);
+  assert.equal(isPublishedExploreProcess("tolerance"), false);
   assert.equal(page.includes("openPublishedProcess(\"tolerance\")"), false);
 });
 
