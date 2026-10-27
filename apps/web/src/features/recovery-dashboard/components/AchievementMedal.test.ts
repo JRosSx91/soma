@@ -7,12 +7,12 @@ import { AchievementMedal } from "./AchievementMedal.js";
 
 test("home recent medals hide the tier caption", () => {
   const home = readFileSync(new URL("./PreviewHome.tsx", import.meta.url), "utf8");
-  const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
+  const card = readFileSync(new URL("./AchievementGalleryCard.tsx", import.meta.url), "utf8");
 
   const recent = home.slice(home.indexOf("function RecentAchievements"));
   assert.match(recent, /showTierLabel=\{false\}/);
   assert.match(recent, /size="compact"/);
-  assert.equal(page.includes("showTierLabel={false}"), false);
+  assert.match(card, /showTierLabel=\{false\}/);
 });
 
 test("AchievementMedal omits the Spanish tier caption when showTierLabel is false", () => {
