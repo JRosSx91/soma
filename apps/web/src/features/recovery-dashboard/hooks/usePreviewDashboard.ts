@@ -17,9 +17,10 @@ import {
   type LiveChartModel,
 } from "../dashboard/adapt-live-dashboard.js";
 import {
-  buildDemoChart,
-  demoDashboardChanges,
-  demoDashboardSystems,
+  presentDemoChanges,
+  presentDemoChart,
+  presentDemoSubstances,
+  presentDemoSystems,
 } from "../dashboard/demo-dashboard.js";
 import {
   recoveryCopyFromSource,
@@ -141,6 +142,10 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       copy,
       organLabel: (organId, fallback) =>
         i18n.t(organId, { ns: "organs", defaultValue: fallback }),
+      substanceLabel: (id, fallback) =>
+        i18n.t(`${id}.name`, { ns: "substances", defaultValue: fallback }),
+      systemLabel: (id, fallback) =>
+        t(`liveSystems.${id}`, { defaultValue: fallback }),
     });
   }, [
     adaptedProfile.usages,
@@ -153,6 +158,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
     organStates,
     substanceId,
     substances,
+    t,
   ]);
 
   if (!isLive) {
@@ -161,10 +167,19 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       loading: sessionPending,
       error: null,
       reload: liveProfile.reload,
-      substances: demoSubstancesWithClock,
-      systems: demoDashboardSystems(),
-      changes: demoDashboardChanges(),
-      chart: buildDemoChart(copy),
+      substances: presentDemoSubstances(demoSubstancesWithClock, copy, {
+        name: (id) =>
+          i18n.t(`${id}.name`, { ns: "substances", defaultValue: id }),
+        phase: (id) => t(`demoPhases.${id}`),
+      }),
+      systems: presentDemoSystems((id) => t(`demoSystems.${id}`)),
+      changes: presentDemoChanges({
+        system: (id) => t(`demoChanges.${id}.system`),
+        title: (id) => t(`demoChanges.${id}.title`),
+        body: (id) => t(`demoChanges.${id}.body`),
+        status: t("demoChangeStatus"),
+      }),
+      chart: presentDemoChart(copy, (id) => t(`demoSeries.${id}`)),
       emptyUsages: false,
       showDemoBadge: true,
     };

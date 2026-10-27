@@ -58,7 +58,7 @@ const statusIds: StatusFilter[] = [
 ];
 
 export function AchievementsPage() {
-  const { t, i18n } = useTranslation(["achievements", "recovery"]);
+  const { t, i18n } = useTranslation(["achievements", "recovery", "organs"]);
   const base = useShellBase();
   const { user, loading: authLoading } = useAuth();
   const sessionPending = authLoading;
@@ -118,6 +118,12 @@ export function AchievementsPage() {
 
   const titleFor = (item: CatalogItem) =>
     t(`achievements:${item.id}.title`, { defaultValue: item.title });
+  const descriptionFor = (item: CatalogItem) =>
+    t(`achievements:${item.id}.description`, { defaultValue: item.description });
+  const substanceFor = (item: CatalogItem) =>
+    t(`achievements:ui.substances.${item.substanceId}`, {
+      defaultValue: item.substanceName,
+    });
 
   const items = useMemo(() => {
     const filtered = filterCatalog({
@@ -131,6 +137,8 @@ export function AchievementsPage() {
       status,
       query,
       titleFor,
+      descriptionFor,
+      substanceFor,
     });
     return sortCatalog(filtered, sort, liveById);
   }, [
@@ -172,10 +180,12 @@ export function AchievementsPage() {
   function localizedCopy(item: CatalogItem): CatalogItem {
     return {
       ...item,
-      title: t(`achievements:${item.id}.title`, { defaultValue: item.title }),
-      description: t(`achievements:${item.id}.description`, {
-        defaultValue: item.description,
-      }),
+      title: titleFor(item),
+      description: descriptionFor(item),
+      substanceName: substanceFor(item),
+      organName: item.organId
+        ? t(`organs:${item.organId}`, { defaultValue: item.organName ?? "" })
+        : item.organName,
     } as CatalogItem;
   }
 

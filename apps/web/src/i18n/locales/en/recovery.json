@@ -262,5 +262,61 @@
   "recoverySystemsTitle": "Estimated organs and systems",
   "recoverySystemsHintDemo": "Demonstration estimate by system. It is not a clinical measurement.",
   "recoverySeeAtlas": "Open full atlas",
-  "recoveryTrajectoryHint": "On an estimated trajectory"
+  "recoveryTrajectoryHint": "On an estimated trajectory",
+  "demoDisclaimer": "Fictional figures and copy. They are not clinical measurements.",
+  "demoChangeStatus": "In progress",
+  "demoPhases": {
+    "cannabis": "Neurotransmitter normalization phase",
+    "nicotine": "Cardiovascular function improving",
+    "cocaine": "Reward-circuit stabilization"
+  },
+  "demoSeries": {
+    "nervous": "Nervous system",
+    "reward": "Reward system",
+    "cardiovascular": "Cardiovascular function",
+    "pulmonary": "Lung function",
+    "cognitive": "Cognitive function"
+  },
+  "demoSystems": {
+    "nervous": "Nervous system",
+    "cardio": "Cardiovascular",
+    "respiratory": "Respiratory",
+    "digestive": "Digestive",
+    "endocrine": "Endocrine",
+    "immune": "Immune"
+  },
+  "demoChanges": {
+    "dopamine": {
+      "system": "Nervous system",
+      "title": "Dopamine regulation",
+      "body": "Dopamine receptors begin to normalize their sensitivity after prolonged cannabis exposure."
+    },
+    "lungs": {
+      "system": "Respiratory system",
+      "title": "Lung function",
+      "body": "Lung function continues to improve, with less inflammation and more efficient gas exchange."
+    },
+    "heart-rate": {
+      "system": "Cardiovascular system",
+      "title": "Heart rate",
+      "body": "Resting heart rate tends to stabilize after nicotine reduction, improving heart-rate variability."
+    }
+  },
+  "demoMoments": {
+    "dopamine": "Week 2 of the story",
+    "lungs": "Week 3 of the story",
+    "heart-rate": "Month 1 of the story"
+  },
+  "liveSystems": {
+    "nervous-central": "Nervous system",
+    "nervous-peripheral": "Peripheral nervous",
+    "cardiovascular": "Cardiovascular",
+    "respiratory": "Respiratory",
+    "digestive": "Digestive",
+    "hepatic": "Hepatic",
+    "endocrine": "Endocrine",
+    "immune": "Immune",
+    "integumentary": "Integumentary system",
+    "reproductive": "Reproductive system"
+  }
 }

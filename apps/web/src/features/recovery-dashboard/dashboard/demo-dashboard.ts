@@ -4,10 +4,15 @@ import {
   demoSystems,
   type DemoChange,
   type DemoSeries,
+  type DemoSubstance,
   type DemoSystem,
 } from "../demo-data.js";
 import { chartSeriesForSystem } from "../pages-data.js";
-import type { RecoveryDashboardCopy } from "./recovery-copy.js";
+import { formatDaysAbstinent } from "./adapt-live-dashboard.js";
+import {
+  fillRecoveryTemplate,
+  type RecoveryDashboardCopy,
+} from "./recovery-copy.js";
 import {
   formatLabeledPercent,
   formatTrajectoryPercent,
@@ -72,4 +77,68 @@ export function demoDashboardSystems(): readonly DemoSystem[] {
 /** Narrative demo milestones. They are not curve checkpoints, so no %. */
 export function demoDashboardChanges(): readonly DemoChange[] {
   return demoChanges.map((item) => ({ ...item, endLabel: "" }));
+}
+
+/** Visible DEMO substance copy. Elapsed days stay numeric; labels follow UI language. */
+export function presentDemoSubstances(
+  substances: readonly DemoSubstance[],
+  copy: RecoveryDashboardCopy,
+  labels: {
+    name: (id: string) => string;
+    phase: (id: string) => string;
+  },
+): DemoSubstance[] {
+  return substances.map((item) => {
+    const name = labels.name(item.id);
+    const abstinence =
+      item.elapsedDays == null
+        ? item.abstinence
+        : formatDaysAbstinent(item.elapsedDays, copy);
+    return {
+      ...item,
+      name,
+      abstinence,
+      pillDetail: fillRecoveryTemplate(copy.pillAbstinent, {
+        days: abstinence,
+        name,
+      }),
+      phase: labels.phase(item.id),
+    };
+  });
+}
+
+export function presentDemoSystems(nameFor: (id: string) => string): DemoSystem[] {
+  return demoDashboardSystems().map((system) => ({
+    ...system,
+    name: nameFor(system.id),
+  }));
+}
+
+export function presentDemoChanges(labels: {
+  system: (id: string) => string;
+  title: (id: string) => string;
+  body: (id: string) => string;
+  status: string;
+}): DemoChange[] {
+  return demoDashboardChanges().map((item) => ({
+    ...item,
+    system: labels.system(item.id),
+    title: labels.title(item.id),
+    body: labels.body(item.id),
+    status: labels.status,
+  }));
+}
+
+export function presentDemoChart(
+  copy: RecoveryDashboardCopy,
+  labelFor: (id: string) => string,
+) {
+  const chart = buildDemoChart(copy);
+  return {
+    ...chart,
+    series: chart.series.map((item) => ({
+      ...item,
+      label: labelFor(item.id),
+    })),
+  };
 }

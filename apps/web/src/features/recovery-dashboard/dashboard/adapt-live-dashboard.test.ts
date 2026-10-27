@@ -711,7 +711,7 @@ test("demo and live stay separated in the preview pages", () => {
   assert.equal(recovery.includes("demoSubstances"), false);
   assert.match(home, /showDemoBadge/);
   assert.match(recovery, /demo=\{dashboard\.showDemoBadge\}/);
-  assert.match(hook, /buildDemoChart/);
+  assert.match(hook, /presentDemoChart/);
   assert.equal(hook.includes("showToday: true"), false);
   const chart = readFileSync(
     new URL("../components/EvolutionChart.tsx", import.meta.url),
@@ -1741,8 +1741,8 @@ test("live API error path never imports demo series (source)", () => {
   assert.match(hook, /error: error \?\?/);
   assert.match(hook, /showDemoBadge: false/);
   assert.equal(hook.includes("demoSubstances"), true);
-  assert.equal(hook.includes("buildDemoChart"), true);
+  assert.equal(hook.includes("presentDemoChart"), true);
   const errorBlock = hook.slice(hook.indexOf("if (error || !liveModel)"));
   assert.equal(errorBlock.includes("demoSubstances"), false);
-  assert.equal(errorBlock.includes("buildDemoChart"), false);
+  assert.equal(errorBlock.includes("presentDemoChart"), false);
 });
