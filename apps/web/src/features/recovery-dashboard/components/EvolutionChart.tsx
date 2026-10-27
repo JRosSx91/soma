@@ -10,6 +10,8 @@ interface EvolutionChartProps {
   chart: DashboardChartView;
   /** When true, screen-reader copy avoids the demo disclaimer. */
   live?: boolean;
+  /** LIVE model confidence / trajectory copy. Kept off the abstinence counter. */
+  modelNote?: string | null;
 }
 
 interface PlotGeometry {
@@ -29,18 +31,18 @@ const MOBILE_PLOT: PlotGeometry = {
   pad: { l: 36, r: 6, t: 22, b: 22 },
 };
 
-/** Wide laptop plot. Same samples, viewBox matched to a 180px frame. */
+/** Wide laptop plot. Samples unchanged; the frame is taller for Recuperación 2.0. */
 const DESKTOP_PLOT: PlotGeometry = {
   width: 640,
-  height: 132,
-  pad: { l: 36, r: 10, t: 26, b: 20 },
+  height: 220,
+  pad: { l: 42, r: 12, t: 28, b: 28 },
 };
 
-/** Short desktop plot. Fills the 1120px card without stretching the curves. */
+/** Desktop plot at xl. Same samples as the live/demo view model. */
 const XL_PLOT: PlotGeometry = {
   width: 640,
-  height: 120,
-  pad: { l: 36, r: 12, t: 26, b: 18 },
+  height: 240,
+  pad: { l: 42, r: 14, t: 28, b: 28 },
 };
 
 function smoothPath(samples: readonly number[], plot: PlotGeometry): string {
@@ -217,13 +219,14 @@ export function EvolutionChart({
   onSeries,
   chart,
   live = false,
+  modelNote = null,
 }: EvolutionChartProps) {
   const { t } = useTranslation("recovery");
   const series = chart.series as readonly DemoSeries[];
 
   return (
     <section
-      className="rounded-2xl border border-soma-line bg-soma-surface p-3 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5 lg:px-3 lg:py-2"
+      className="rounded-2xl border border-soma-line-strong bg-soma-surface/80 p-4 shadow-[0_12px_32px_rgb(4_10_16/0.28)] sm:p-5"
       aria-describedby="recovery-chart-note"
     >
       <div className="flex flex-col gap-2.5 lg:flex-row lg:items-start lg:justify-between lg:gap-3">
@@ -283,17 +286,17 @@ export function EvolutionChart({
               plot={DESKTOP_PLOT}
               seriesId={seriesId}
               chart={chart}
-              className="hidden h-[11.25rem] w-full lg:block xl:hidden"
+              className="hidden h-[17.5rem] w-full lg:block xl:hidden"
             />
             <ChartPlot
               plot={XL_PLOT}
               seriesId={seriesId}
               chart={chart}
-              className="hidden h-[10.25rem] w-full xl:block"
+              className="hidden h-[19rem] w-full xl:block"
             />
           </div>
 
-          <div className="lg:w-52 lg:shrink-0">
+          <div className="lg:w-60 lg:shrink-0">
             <p className="mb-1.5 text-[10px] leading-snug text-soma-ink-muted lg:hidden">
               {chart.showToday
                 ? live
@@ -362,6 +365,9 @@ export function EvolutionChart({
         </p>
         {series.length > 0 ? (
           <p className="text-[11px] leading-snug text-soma-ink-muted">{chart.footnote}</p>
+        ) : null}
+        {live && modelNote ? (
+          <p className="text-[11px] leading-snug text-soma-ink-muted">{modelNote}</p>
         ) : null}
       </div>
 

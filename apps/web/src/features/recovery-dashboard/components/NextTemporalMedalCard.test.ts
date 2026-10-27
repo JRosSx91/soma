@@ -30,7 +30,9 @@ test("temporal cards reuse GAME-01 title keys and avoid hardcoded Spanish", () =
 test("recovery cards stay compact and do not draw a ten-node timeline", () => {
   const card = readFileSync(new URL("./SubstanceCard.tsx", import.meta.url), "utf8");
   const recovery = readFileSync(new URL("../pages/RecoveryPage.tsx", import.meta.url), "utf8");
-  assert.match(card, /SubstanceTemporalMilestone/);
+  assert.match(card, /temporalBarFill/);
+  assert.match(card, /AchievementMedal/);
+  assert.equal(card.includes("TEMPORAL_THRESHOLDS"), false);
   assert.equal(recovery.includes("timeline-node"), false);
   assert.equal(card.includes("substance.bar"), false);
 });
