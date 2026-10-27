@@ -223,8 +223,11 @@ test("home summary helpers do not estimate curves or abstinence", () => {
 
 test("achievements page reuses the shared quantifiable progress helper", () => {
   const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
-  assert.match(page, /quantifiableAchievementProgress/);
+  const view = readFileSync(new URL("./achievements-view.ts", import.meta.url), "utf8");
+  assert.match(view, /quantifiableAchievementProgress/);
+  assert.match(page, /describeAchievement/);
   assert.equal(page.includes("daysToReachCurveProgress"), false);
+  assert.equal(view.includes("daysToReachCurveProgress"), false);
 });
 
 test("achievements page localizes catalog titles through i18n keys", () => {

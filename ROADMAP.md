@@ -66,7 +66,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
-| Soma Expeditions (GAME-*) | GAME-01, GAME-02, NAV-01, NAV-02 y GAME-03A fusionados en `develop` (PR #53–#57). Sin deploy a producción. GAME-03B implementado, pendiente de integración. GAME-03C siguiente |
+| Soma Expeditions (GAME-*) | GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A y GAME-03B fusionados en `develop` (PR #53–#58). Sin deploy a producción. GAME-03C implementado, pendiente de integración |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -419,7 +419,7 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-DESIGN-01 — Navegación y diseño de Expeditions
 
 - **Descripción:** Cómo entra Expeditions en SHELL-01 **sin** segundo sistema de navegación. Dirección visual de ocho pantallas (siete PNG 2.0 + Misiones sin mockup propio).
-- **Estado:** Dirección visual **aprobada**. NAV-01 fusionado en `develop` (`f107bc8`, PR #55). NAV-02 fusionado en `develop` (`d0c4c78`, PR #56). GAME-03A fusionado en `develop` (`6658e6b`, PR #57). **No** desplegado. GAME-03B implementado, pendiente de integración; GAME-03C siguiente.
+- **Estado:** Dirección visual **aprobada**. NAV-01 fusionado en `develop` (`f107bc8`, PR #55). NAV-02 fusionado en `develop` (`d0c4c78`, PR #56). GAME-03A fusionado en `develop` (`6658e6b`, PR #57). GAME-03B fusionado en `develop` (`2d897bd`, PR #58). **No** desplegado. GAME-03C implementado, pendiente de integración.
 - **Prioridad:** P1
 - **Horizonte:** cabecera de naturaleza + (en Inicio) mochilero ante el paisaje. Reutilizar identidad Soma; no sustituir la figura anatómica de Inicio. Fotos de mockup **no** son assets de producción hasta licencia/arte propio.
 - **Mapeo pantalla → hitos:**
@@ -477,13 +477,13 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-03 — Inicio 2.0, Mi recuperación 2.0 y Logros 2.0
 
 - **Descripción:** Rediseño visual de las tres pantallas principales. El criterio original de **cronología temporal** (línea 1–365, no un segundo gráfico de curvas) permanece en GAME-03B / Recuperación 2.0 (`mi-recuperacion-2.0.png`).
-- **Estado:** GAME-03A fusionado en `develop` (`6658e6b`, PR #57). GAME-03B implementado (rama `feature/game-03b-recovery-2`), pendiente de integración en `develop`. GAME-03C siguiente. **No** fusionado GAME-03B. **No** desplegado.
+- **Estado:** GAME-03A fusionado en `develop` (`6658e6b`, PR #57). GAME-03B fusionado en `develop` (`2d897bd`, PR #58). GAME-03C implementado (rama `feature/game-03c-achievements-2`), pendiente de integración en `develop`. **No** fusionado GAME-03C. **No** desplegado.
 - **Prioridad:** P1
 - **Dependencias:** GAME-01, GAME-02, NAV-01, NAV-02. ACH-NOTIF-01 no sustituye al árbol/timeline.
 - **Entregas:**
   - **GAME-03A — Inicio 2.0:** tablero de expedición (situación, próxima medalla temporal, descubrimiento fisiológico compacto, hasta 4 logros LIVE reales, tarjeta de paisaje con `nature-1.png`). Sin XP ni niveles.
   - **GAME-03B — Mi recuperación 2.0:** cabecera `nature-2.png`, tarjetas de sustancia, panel de foco, rail de 10 umbrales GAME-01 con interpolación, curvas y sistemas. Fórmulas y catálogos intactos.
-  - **GAME-03C — Logros 2.0:** colección por familias 106+50. Sync y reglas de desbloqueo intactos.
+  - **GAME-03C — Logros 2.0:** cabecera `nature-3.png`, resumen 156 (106+50), filtros y búsqueda, destacados reales, galería temporal y fisiológica, platinos visibles. Sync y reglas de desbloqueo intactos.
 - **Criterio (03B):** usable con teclado y en 320 px; sin scroll horizontal accidental; copy de que los hitos son tiempo de abstinencia. Futuras temporales no spoilean secretos **fisiológicos** (UX-12).
 
 #### GAME-04 — Bitácora de recuperación
@@ -666,7 +666,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 3. **UX-10** (validar) → **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo).
 4. **ACH-REV:** decidir política **antes** de código (bloquea GAME-08 y cualquier revocación).
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**. Distintos de UX-10–12 y de ACH-REV.
-6. **Expeditions:** GAME-01, GAME-02, NAV-01, NAV-02 y GAME-03A en `develop`. GAME-03B pendiente de integración. **Siguiente:** GAME-03C — Logros 2.0. Mapa GAME-07 y bitácora GAME-04 después.
+6. **Expeditions:** GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A y GAME-03B en `develop`. GAME-03C pendiente de integración. Mapa GAME-07 y bitácora GAME-04 después.
 7. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 8. **UX-08 / UX-09:** editorial; no inventar.
 9. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
@@ -727,7 +727,7 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
 
 Soma Expeditions (dirección visual OK)
   Fase A  GAME-01 y GAME-02 (en develop)
-  Fase A2 NAV-01 y NAV-02 (en develop) → GAME-03A (Inicio 2.0, en develop) → GAME-03B (Recuperación 2.0, pendiente de integración) → GAME-03C
+  Fase A2 NAV-01 y NAV-02 (en develop) → GAME-03A (Inicio 2.0, en develop) → GAME-03B (Recuperación 2.0, en develop) → GAME-03C (pendiente de integración)
   Fase B  GAME-03C Logros 2.0 (familias)
   Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
   Fase D  Explorador / atlas 2.0 (NT, procesos, panel) → GAME-05 misiones
@@ -792,3 +792,6 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 | 2026-10-27 | GAME-03A fusionado en `develop` (`6658e6b`, PR #57). Sin producción. |
 | 2026-10-27 | GAME-03B Mi recuperación 2.0: implementación local (cabecera `nature-2.png`, tarjetas, panel, rail de 10 umbrales, curvas y sistemas). Sin commit/PR/deploy. GAME-03C siguiente. |
 | 2026-10-27 | GAME-03B: validación final + PR hacia `develop`. Pendiente de integración. No fusionado. No desplegado. |
+| 2026-10-27 | GAME-03B fusionado en `develop` (`2d897bd`, PR #58). Sin producción. |
+| 2026-10-27 | GAME-03C Logros 2.0: implementación local (cabecera `nature-3.png`, resumen 156, filtros, destacados, galería temporal/fisiológica). Sin commit/PR/deploy. |
+| 2026-10-27 | GAME-03C: validación final + PR hacia `develop`. Pendiente de integración. No fusionado. No desplegado. |

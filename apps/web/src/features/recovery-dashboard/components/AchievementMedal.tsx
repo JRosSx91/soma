@@ -1,4 +1,5 @@
 import { Compass } from "lucide-react";
+import { medalFrameClass, type MedalDisplaySize } from "./medal-frame.js";
 import { MedalMark, type MedalTier } from "./MedalMark.js";
 
 const tierLabel: Record<MedalTier, string> = {
@@ -46,7 +47,7 @@ interface AchievementMedalProps {
    * Locked medals stay recognizable but quieter than an unlocked one.
    */
   locked?: boolean;
-  size?: "card" | "detail" | "compact";
+  size?: MedalDisplaySize;
   family?: "curve" | "temporal";
   /** Defaults to the Spanish tier caption used on the achievements pages. */
   showTierLabel?: boolean;
@@ -75,10 +76,8 @@ export function AchievementMedal({
 
   const art = medalArt[`${substanceId}:${tier}` as MedalKey];
   const lockedTone = locked ? "brightness-[0.72] saturate-[0.45]" : "";
-  const compact = size === "compact";
+  const { frame, compactLike: compact } = medalFrameClass(size);
   const temporal = family === "temporal";
-  const frame =
-    size === "detail" ? "h-52 sm:h-60" : compact ? "h-12 w-12" : "h-36 sm:h-40";
   const shell = compact ? "inline-flex flex-col items-center" : "flex w-full flex-col items-center gap-1";
   const stamp = temporal ? (
     <span

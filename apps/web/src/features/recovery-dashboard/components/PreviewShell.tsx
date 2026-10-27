@@ -56,7 +56,7 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
       style={{
         backgroundColor: "rgb(var(--soma-shell-rail))",
         backgroundImage:
-          "radial-gradient(ellipse at 72% 0%, rgb(var(--soma-physiology) / 0.42), transparent 58%), radial-gradient(ellipse at 8% 100%, rgb(var(--soma-physiology) / 0.16), transparent 46%), linear-gradient(180deg, rgb(var(--soma-shell-canvas)) 0%, rgb(var(--soma-shell-rail)) 100%)",
+          "radial-gradient(ellipse at 72% 0%, rgb(var(--soma-physiology) / 0.14), transparent 48%), radial-gradient(ellipse at 8% 100%, rgb(var(--soma-physiology) / 0.1), transparent 42%), linear-gradient(180deg, rgb(var(--soma-shell-rail)) 0%, rgb(var(--soma-shell-canvas)) 22%, rgb(var(--soma-shell-rail)) 100%)",
       }}
     >
       <PreviewSidebar />

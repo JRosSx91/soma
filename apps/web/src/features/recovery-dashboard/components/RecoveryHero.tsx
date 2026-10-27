@@ -8,12 +8,20 @@ const photoMask = {
   WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
 };
 
+const DEFAULT_IMAGE = "/images/decoration/nature-2.png";
+const DEFAULT_OBJECT_POSITION = "center 42%";
+const DEFAULT_OVERLAY =
+  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.4) 36%, rgb(var(--soma-shell-rail) / 0.06) 68%, transparent 100%)";
+
 interface RecoveryHeroProps {
   eyebrow: string;
   title: string;
   description: string;
   quote: string | null;
   demo?: boolean;
+  imageSrc?: string;
+  objectPosition?: string;
+  overlay?: string;
   children?: ReactNode;
 }
 
@@ -23,6 +31,9 @@ export function RecoveryHero({
   description,
   quote,
   demo = false,
+  imageSrc = DEFAULT_IMAGE,
+  objectPosition = DEFAULT_OBJECT_POSITION,
+  overlay = DEFAULT_OVERLAY,
   children,
 }: RecoveryHeroProps) {
   const { t } = useTranslation("recovery");
@@ -30,21 +41,20 @@ export function RecoveryHero({
     <section className="relative isolate -mx-4 lg:-mx-6">
       <div className="relative overflow-hidden">
         <img
-          src="/images/decoration/nature-2.png"
+          src={imageSrc}
           alt=""
           width={1920}
           height={800}
           decoding="async"
           draggable={false}
-          className="absolute inset-0 h-full w-full object-cover object-[center_42%]"
-          style={photoMask}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ ...photoMask, objectPosition }}
         />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage:
-              "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.4) 36%, rgb(var(--soma-shell-rail) / 0.06) 68%, transparent 100%)",
+            backgroundImage: overlay,
             ...photoMask,
           }}
         />
