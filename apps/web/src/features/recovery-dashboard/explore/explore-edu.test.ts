@@ -369,7 +369,8 @@ test("article selection and related navigation use sheet identifiers instead of 
   assert.match(page, /sheetId=\{eduTarget\.id\}/);
   assert.equal(page.includes('sheetId="dopamine"'), false);
   assert.equal(page.includes('sheetId="receptors"'), false);
-  assert.match(page, /isExploreEduNtSheetId\(id\)/);
+  assert.match(page, /isExploreEduNtSheetId/);
+  assert.match(page, /isPublishedExploreEduSheet\(id\)/);
   assert.match(page, /openRelatedEduSheet/);
   assert.equal(page.includes('id === "dopamine"'), false);
   assert.match(article, /onOpenRelated\(relatedId\)/);
@@ -403,8 +404,9 @@ test("educational articles open from keyboard-focusable buttons, not only neurot
 test("closing the educational panel still uses the shared accessible DetailSheet", () => {
   assert.match(sheet, /aria-modal="true"/);
   assert.match(sheet, /t\("close"\)/);
-  assert.match(page, /onClose=\{\(\) => setEduTarget\(null\)\}/);
-  assert.match(page, /setEduTarget\(null\)/);
+  assert.match(page, /onClose=\{\(\) => setExploreEdu\(null\)\}/);
+  assert.match(page, /setExploreEdu\(null\)/);
+  assert.match(page, /restoreOpener|DetailSheet/);
 });
 
 test("educational sheets do not rewrite existing profiles or phases", () => {

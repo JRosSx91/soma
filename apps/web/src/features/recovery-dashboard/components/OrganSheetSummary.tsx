@@ -1,9 +1,17 @@
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import type { AnatomySource } from "../anatomy/anatomy-education.js";
 import { presentAnatomySource } from "../anatomy/present-catalog-reference.js";
 import type { OrganAnatomicalSheet } from "../anatomy/organ-sheet.js";
 import type { SystemAnatomicalSheet } from "../anatomy/system-sheet.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
+import {
+  exploreEduSheetForOrgan,
+  exploreEduSheetForSystem,
+} from "../explore/explore-edu-anatomy.js";
+import { exploreEduHref } from "../explore/explore-edu-query.js";
+import type { ExploreEduSheetId } from "../explore/explore-edu.js";
 
 /**
  * Resumen tab content for an atlas organ sheet.
@@ -49,6 +57,8 @@ export function OrganSheetSummary({
           {t("noAnatomyEducation")}
         </p>
       )}
+
+      <EducationalArticleLink sheetId={exploreEduSheetForOrgan(sheet.organId)} />
 
       <AvailabilityNotes sheet={sheet} />
 
@@ -121,7 +131,29 @@ export function SystemSheetSummary({
           {!availability.hasRecoveryCurves ? <li>{t("systemNoCurves")}</li> : null}
         </ul>
       ) : null}
+
+      <EducationalArticleLink sheetId={exploreEduSheetForSystem(sheet.systemId)} />
     </div>
+  );
+}
+
+function EducationalArticleLink({ sheetId }: { sheetId: ExploreEduSheetId | null }) {
+  const { t } = useTranslation("explore-edu");
+  const base = useShellBase();
+  if (!sheetId) return null;
+  const href = exploreEduHref(base, sheetId);
+  const label = t(`anatomyToArticle.${sheetId}`, { defaultValue: "" });
+  if (!href || !label || label === `anatomyToArticle.${sheetId}`) return null;
+  return (
+    <p className="min-w-0 max-w-full">
+      <Link
+        to={href}
+        data-edu-from-anatomy={sheetId}
+        className={`${previewFocus} inline-block max-w-full break-words text-xs text-soma-action hover:text-soma-action-hover`}
+      >
+        {label}
+      </Link>
+    </p>
   );
 }
 

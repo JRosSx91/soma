@@ -1,6 +1,13 @@
 {
   "analogyHeading": "💡 Para entenderlo mejor",
   "bibliographyTitle": "Bibliografía",
+  "anatomyLinksTitle": "Ver en el explorador anatómico",
+  "anatomyToArticle": {
+    "dopamine": "Comprender la dopamina",
+    "glutamate": "Comprender el glutamato",
+    "metabolism": "Comprender el metabolismo",
+    "neuroadaptation": "Comprender la neuroadaptación"
+  },
   "related": {
     "toReceptors": "Comprender cómo funcionan los receptores",
     "toDopamine": "Descubrir cómo actúa la dopamina",

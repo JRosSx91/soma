@@ -1,11 +1,22 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import type { TFunction } from "i18next";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { atlasSystems } from "../anatomy/atlas-config.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
 import {
   exploreEduRelatedKey,
   exploreEduRelatedSheet,
   exploreEduSectionIds,
   type ExploreEduSheetId,
 } from "../explore/explore-edu.js";
+import {
+  exploreEduAnatomyHref,
+  exploreEduAnatomyLinks,
+  exploreEduAnatomyLinksVisible,
+  type ExploreEduAnatomyDestination,
+} from "../explore/explore-edu-anatomy.js";
+import { localizedCatalogLabel } from "../explore/explore-search.js";
 import { previewFocus } from "../focus.js";
 
 interface ExploreEducationalArticleProps {
@@ -104,6 +115,8 @@ export function ExploreEducationalArticle({
         </button>
       </p>
 
+      <AnatomyRelatedLinks sheetId={sheetId} />
+
       {children}
 
       {bibliography.length > 0 ? (
@@ -120,4 +133,73 @@ export function ExploreEducationalArticle({
       ) : null}
     </article>
   );
+}
+
+function AnatomyRelatedLinks({ sheetId }: { sheetId: ExploreEduSheetId }) {
+  const { t, i18n } = useTranslation(["explore-edu", "explore", "organs"]);
+  const base = useShellBase();
+  const destinations = exploreEduAnatomyLinks(sheetId);
+  if (!exploreEduAnatomyLinksVisible(i18n.resolvedLanguage ?? i18n.language)) return null;
+  if (destinations.length === 0) return null;
+
+  const links = destinations.flatMap((destination) => {
+    const href = exploreEduAnatomyHref(base, destination);
+    const label = anatomyDestinationLabel(destination, t);
+    if (!href || !label) return [];
+    return [{ href, label, key: anatomyDestinationKey(destination) }];
+  });
+  if (links.length === 0) return null;
+
+  return (
+    <nav
+      data-edu-anatomy-links={sheetId}
+      aria-label={t("anatomyLinksTitle")}
+      className="min-w-0"
+    >
+      <p className="text-xs font-medium text-soma-ink">{t("anatomyLinksTitle")}</p>
+      <ul className="mt-2 space-y-1">
+        {links.map((item) => (
+          <li key={item.key} className="min-w-0 max-w-full break-words">
+            <Link
+              to={item.href}
+              className={`${previewFocus} inline-block max-w-full break-words text-soma-action hover:text-soma-action-hover`}
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function anatomyDestinationKey(destination: ExploreEduAnatomyDestination): string {
+  return destination.kind === "organ"
+    ? `organ:${destination.organId}`
+    : `system:${destination.systemId}`;
+}
+
+function anatomyDestinationLabel(
+  destination: ExploreEduAnatomyDestination,
+  t: TFunction,
+): string | null {
+  if (destination.kind === "organ") {
+    const fallback =
+      atlasSystems
+        .flatMap((system) => system.organs)
+        .find((organ) => organ.id === destination.organId)?.name ?? "";
+    const label = localizedCatalogLabel(
+      t(destination.organId, { ns: "organs", defaultValue: fallback }),
+      fallback,
+      destination.organId,
+    );
+    return label || null;
+  }
+  const fallback = atlasSystems.find((system) => system.id === destination.systemId)?.name ?? "";
+  const label = localizedCatalogLabel(
+    t(`systems.${destination.systemId}`, { ns: "explore", defaultValue: fallback }),
+    fallback,
+    destination.systemId,
+  );
+  return label || null;
 }
