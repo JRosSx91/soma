@@ -46,7 +46,13 @@ import {
   exploreMissionsArt,
   exploreProcessArt,
   exploreProcessTopics,
+  type ExploreProcessTopic,
 } from "../explore/explore-art.js";
+import {
+  hasExploreEduNtSheet,
+  isPublishedExploreProcess,
+  type ExploreEduSheetId,
+} from "../explore/explore-edu.js";
 import {
   canExpandExploreList,
   collapseExploreIds,
@@ -56,6 +62,7 @@ import {
 } from "../explore/explore-systems.js";
 import { previewFocus } from "../focus.js";
 import { DetailSheet } from "../components/DetailSheet.js";
+import { ExploreEducationalArticle } from "../components/ExploreEducationalArticle.js";
 import { ExploreNeurotransmitterIndex } from "../components/ExploreNeurotransmitterIndex.js";
 import { ExploreNeurotransmitters } from "../components/ExploreNeurotransmitters.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
@@ -66,6 +73,10 @@ import type { ApiSubstance } from "../../../shared/api/types.js";
 const EXPLORE_HERO_IMAGE = "/images/decoration/nature-4.png";
 const EXPLORE_HERO_OVERLAY =
   "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.72) 0%, rgb(var(--soma-shell-rail) / 0.28) 40%, transparent 72%)";
+
+type ExploreEduTarget =
+  | { kind: "nt"; id: EducationalNeurotransmitter }
+  | { kind: "process"; id: "receptors" };
 
 /**
  * Educational explore surface for Soma 2.0.
@@ -80,7 +91,7 @@ export function ExplorePage() {
   const [scope, setScope] = useState<ExploreScope>("all");
   const [openSubstance, setOpenSubstance] = useState<ApiSubstance | null>(null);
   const [openSystemId, setOpenSystemId] = useState<string | null>(null);
-  const [openNt, setOpenNt] = useState<EducationalNeurotransmitter | null>(null);
+  const [eduTarget, setEduTarget] = useState<ExploreEduTarget | null>(null);
   const [showAllSystems, setShowAllSystems] = useState(false);
   const [showAllNeurotransmitters, setShowAllNeurotransmitters] = useState(false);
   const quote = pickDailyMessage(readDailyMessages(t("quotes", { returnObjects: true })));
@@ -197,8 +208,25 @@ export function ExplorePage() {
 
   function openSubstanceById(substanceId: string) {
     const match = substances?.find((item) => item.id === substanceId) ?? null;
-    setOpenNt(null);
+    setEduTarget(null);
     if (match) setOpenSubstance(match);
+  }
+
+  function openNtSheet(id: EducationalNeurotransmitter) {
+    setEduTarget({ kind: "nt", id });
+  }
+
+  function openPublishedProcess(id: ExploreProcessTopic) {
+    if (!isPublishedExploreProcess(id)) return;
+    setEduTarget({ kind: "process", id });
+  }
+
+  function openRelatedEduSheet(id: ExploreEduSheetId) {
+    if (id === "dopamine") {
+      setEduTarget({ kind: "nt", id: "dopamine" });
+      return;
+    }
+    setEduTarget({ kind: "process", id: "receptors" });
   }
 
   return (
@@ -367,7 +395,7 @@ export function ExplorePage() {
             {listedNeurotransmitters.length > 0 ? (
               <ExploreNeurotransmitterIndex
                 ids={listedNeurotransmitters}
-                onOpen={setOpenNt}
+                onOpen={openNtSheet}
               />
             ) : (
               <p className="mt-3 text-xs text-soma-ink-muted">{t("ntIndexNoMatches")}</p>
@@ -375,9 +403,11 @@ export function ExplorePage() {
           </ExploreIndexPanel>
           <ExploreIndexPanel title={t("processesTitle")}>
             <ul className="mt-2 grid grid-cols-2 gap-1.5 min-[360px]:grid-cols-3">
-              {exploreProcessTopics.map((id) => (
-                <li key={id} className="min-w-0">
-                  <div className="flex h-full min-w-0 flex-col items-center gap-1 rounded-xl border border-soma-line bg-[#101820] px-1 py-2">
+              {exploreProcessTopics.map((id) => {
+                const published = isPublishedExploreProcess(id);
+                const label = t(`processTopics.${id}`);
+                const art = (
+                  <>
                     <span className="flex h-20 w-full items-center justify-center">
                       <img
                         src={exploreProcessArt[id]}
@@ -391,13 +421,32 @@ export function ExplorePage() {
                       />
                     </span>
                     <span className="w-full px-0.5 text-center text-[10px] font-medium leading-snug hyphens-auto text-soma-ink sm:text-[11px]">
-                      {t(`processTopics.${id}`)}
+                      {label}
                     </span>
-                  </div>
-                </li>
-              ))}
+                  </>
+                );
+                return (
+                  <li key={id} className="min-w-0">
+                    {published ? (
+                      <button
+                        type="button"
+                        onClick={() => openPublishedProcess(id)}
+                        className={`${previewFocus} flex h-full min-w-0 w-full flex-col items-center gap-1 rounded-xl border border-soma-line bg-[#101820] px-1 py-2 hover:border-soma-line-strong hover:bg-[#15202c]`}
+                      >
+                        {art}
+                      </button>
+                    ) : (
+                      <div className="flex h-full min-w-0 flex-col items-center gap-1 rounded-xl border border-soma-line bg-[#101820] px-1 py-2">
+                        {art}
+                        <span className="px-0.5 text-center text-[10px] leading-snug text-soma-ink-muted">
+                          {t("processesPreparing")}
+                        </span>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
-            <p className="mt-2 text-center text-[11px] text-soma-ink-muted">{t("processesPreparing")}</p>
           </ExploreIndexPanel>
           <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface p-3">
             <div className="flex min-h-0 flex-1 flex-col justify-center gap-2.5">
@@ -436,7 +485,7 @@ export function ExplorePage() {
               </button>
             ) : null}
           </div>
-          <ExploreNeurotransmitterIndex ids={listedNeurotransmitters} onOpen={setOpenNt} />
+          <ExploreNeurotransmitterIndex ids={listedNeurotransmitters} onOpen={openNtSheet} />
         </section>
       ) : null}
 
@@ -463,16 +512,46 @@ export function ExplorePage() {
         </DetailSheet>
       ) : null}
 
-      {openNt ? (
+      {eduTarget ? (
         <DetailSheet
-          title={t(`${openNt}.name`, { ns: "neurotransmitters", defaultValue: openNt })}
-          onClose={() => setOpenNt(null)}
+          title={
+            eduTarget.kind === "nt"
+              ? t(`${eduTarget.id}.name`, { ns: "neurotransmitters", defaultValue: eduTarget.id })
+              : t(`processTopics.${eduTarget.id}`)
+          }
+          size={
+            eduTarget.kind === "process" || hasExploreEduNtSheet(eduTarget.id) ? "article" : "default"
+          }
+          onClose={() => setEduTarget(null)}
         >
-          <NeurotransmitterDetail
-            neurotransmitter={openNt}
-            substances={substances ?? []}
-            onOpenSubstance={openSubstanceById}
-          />
+          {eduTarget.kind === "process" ? (
+            <ExploreEducationalArticle sheetId="receptors" onOpenRelated={openRelatedEduSheet} />
+          ) : hasExploreEduNtSheet(eduTarget.id) ? (
+            <ExploreEducationalArticle
+              sheetId="dopamine"
+              onOpenRelated={openRelatedEduSheet}
+              lead={
+                <p>
+                  {t(`${eduTarget.id}.shortDescription`, {
+                    ns: "neurotransmitters",
+                    defaultValue: "",
+                  })}
+                </p>
+              }
+            >
+              <NeurotransmitterRelations
+                neurotransmitter={eduTarget.id}
+                substances={substances ?? []}
+                onOpenSubstance={openSubstanceById}
+              />
+            </ExploreEducationalArticle>
+          ) : (
+            <NeurotransmitterDetail
+              neurotransmitter={eduTarget.id}
+              substances={substances ?? []}
+              onOpenSubstance={openSubstanceById}
+            />
+          )}
         </DetailSheet>
       ) : null}
     </div>
@@ -678,7 +757,6 @@ function NeurotransmitterDetail({
 }) {
   const { t } = useTranslation(["explore", "neurotransmitters"]);
   const role = t(`neurotransmitters:${neurotransmitter}.shortDescription`, { defaultValue: "" });
-  const related = substancesForEducationalNeurotransmitter(neurotransmitter);
 
   return (
     <div className="space-y-3 text-sm text-soma-ink-secondary">
@@ -693,38 +771,59 @@ function NeurotransmitterDetail({
         <p className="min-w-0">{role || t("explore:ntIndexRoleFallback")}</p>
       </div>
       <p className="text-xs leading-relaxed text-soma-ink-muted">{t("explore:ntIndexSheetNotice")}</p>
-      <div>
-        <h3 className="font-medium text-soma-ink">{t("explore:ntIndexSubstancesTitle")}</h3>
-        {related.length === 0 ? (
-          <p className="mt-2 rounded-xl border border-dashed border-soma-line px-3 py-2 text-soma-ink-muted">
-            {t("explore:ntIndexEmpty")}
-          </p>
-        ) : (
-          <ul className="mt-2 space-y-2">
-            {related.map((substanceId) => {
-              const api = substances.find((item) => item.id === substanceId);
-              const label = substanceName(t, substanceId, api?.name ?? substanceId);
-              return (
-                <li key={substanceId}>
-                  {api ? (
-                    <button
-                      type="button"
-                      onClick={() => onOpenSubstance(substanceId)}
-                      className={`${previewFocus} w-full rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2 text-left font-medium text-soma-action hover:border-soma-line-strong`}
-                    >
-                      {label}
-                    </button>
-                  ) : (
-                    <span className="block rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2 font-medium text-soma-ink">
-                      {label}
-                    </span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
+      <NeurotransmitterRelations
+        neurotransmitter={neurotransmitter}
+        substances={substances}
+        onOpenSubstance={onOpenSubstance}
+      />
+    </div>
+  );
+}
+
+function NeurotransmitterRelations({
+  neurotransmitter,
+  substances,
+  onOpenSubstance,
+}: {
+  neurotransmitter: EducationalNeurotransmitter;
+  substances: readonly ApiSubstance[];
+  onOpenSubstance: (id: string) => void;
+}) {
+  const { t } = useTranslation(["explore", "neurotransmitters"]);
+  const related = substancesForEducationalNeurotransmitter(neurotransmitter);
+
+  return (
+    <div>
+      <h3 className="font-medium text-soma-ink">{t("explore:ntIndexSubstancesTitle")}</h3>
+      {related.length === 0 ? (
+        <p className="mt-2 rounded-xl border border-dashed border-soma-line px-3 py-2 text-soma-ink-muted">
+          {t("explore:ntIndexEmpty")}
+        </p>
+      ) : (
+        <ul className="mt-2 space-y-2">
+          {related.map((substanceId) => {
+            const api = substances.find((item) => item.id === substanceId);
+            const label = substanceName(t, substanceId, api?.name ?? substanceId);
+            return (
+              <li key={substanceId}>
+                {api ? (
+                  <button
+                    type="button"
+                    onClick={() => onOpenSubstance(substanceId)}
+                    className={`${previewFocus} w-full rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2 text-left font-medium text-soma-action hover:border-soma-line-strong`}
+                  >
+                    {label}
+                  </button>
+                ) : (
+                  <span className="block rounded-xl border border-soma-line bg-soma-surface/60 px-3 py-2 font-medium text-soma-ink">
+                    {label}
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }

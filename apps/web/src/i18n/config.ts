@@ -23,6 +23,7 @@ import enMechanisms from "./locales/en/mechanisms.json";
 import enAccount from "./locales/en/account.json";
 import enRecovery from "./locales/en/recovery.json";
 import enExplore from "./locales/en/explore.json";
+import enExploreEdu from "./locales/en/explore-edu.json";
 import enAnatomy from "./locales/en/anatomy.json";
 
 // Spanish
@@ -41,6 +42,7 @@ import esLandingV2 from "./locales/es/landing-v2.json";
 import esMechanisms from "./locales/es/mechanisms.json";
 import esRecovery from "./locales/es/recovery.json";
 import esExplore from "./locales/es/explore.json";
+import esExploreEdu from "./locales/es/explore-edu.json";
 import esAnatomy from "./locales/es/anatomy.json";
 import esAccount from "./locales/es/account.json";
 
@@ -199,6 +201,7 @@ i18n
       "account",
       "recovery",
       "explore",
+      "explore-edu",
       "anatomy",
     ],
     defaultNS: "common",
@@ -233,6 +236,7 @@ i18n
         account: enAccount,
         recovery: enRecovery,
         explore: enExplore,
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy,
       },
       es: {
@@ -252,6 +256,7 @@ i18n
         account: esAccount,
         recovery: esRecovery,
         explore: esExplore,
+        "explore-edu": esExploreEdu,
         anatomy: esAnatomy,
       },
       ca: {
@@ -271,6 +276,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       gl: {
@@ -290,6 +296,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       eu: {
@@ -309,6 +316,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       fr: {
@@ -328,6 +336,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       it: {
@@ -347,6 +356,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
       de: {
@@ -366,6 +376,7 @@ i18n
         account: enAccount,
         recovery: enRecovery, // explicit EN fallback until a real translation exists
         explore: enExplore, // explicit EN fallback until a real translation exists
+        "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
       },
     },

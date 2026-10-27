@@ -1,0 +1,174 @@
+{
+  "analogyHeading": "💡 Para entenderlo mejor",
+  "bibliographyTitle": "Bibliografía",
+  "related": {
+    "toReceptors": "Comprender cómo funcionan los receptores",
+    "toDopamine": "Descubrir cómo actúa la dopamina"
+  },
+  "sheets": {
+    "dopamine": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la dopamina?",
+          "paragraphs": [
+            "Un neurotransmisor es una molécula que las neuronas usan para enviarse mensajes. No recorre el cerebro como una hormona en la sangre: se libera en puntos de contacto muy concretos y, en milisegundos, cambia lo que hace la neurona de al lado.",
+            "La dopamina es uno de esos mensajeros. Químicamente pertenece a las catecolaminas, un grupo que también incluye la noradrenalina y la adrenalina. Las tres se fabrican a partir del aminoácido tirosina; de hecho, la dopamina es un paso intermedio en la síntesis de noradrenalina. Ese parentesco explica por qué algunas enzimas y algunos fármacos las afectan a la vez, pero no las convierte en la misma señal.",
+            "En el organismo interviene en cosas distintas: el impulso de iniciar una acción, el aprendizaje cuando el resultado no coincide con lo esperado, el control del movimiento, ciertos aspectos de la atención y, en una ruta concreta, la regulación de la hormona prolactina. Por eso resulta engañoso llamarla «la molécula del placer». El placer de una experiencia —el gustar— depende de varios sistemas. La dopamina está más ligada a querer, a aprender y a decidir qué merece la pena intentar. Un aumento brusco no equivale a ser más feliz."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "Las neuronas son células especializadas en transmitir información. En muchos casos no se tocan del todo: entre el extremo de una y el inicio de otra queda un espacio minúsculo, la sinapsis. En una sinapsis química, la neurona que envía el mensaje guarda dopamina en pequeñas bolsas (vesículas). Cuando llega un impulso eléctrico, esas bolsas se fusionan con la membrana y vierten su contenido al espacio entre las dos células.",
+            "Allí la dopamina no entra en la otra neurona como si fuera un nutriente. Se une a receptores: proteínas en la membrana de la célula que recibe el mensaje. Esa unión cambia el interior de esa célula —a veces la hace más fácil de activar, a veces más difícil—, según el tipo de receptor, el tipo de neurona y el momento. Después hay que apagar la señal. El mecanismo más característico de la dopamina es la recaptación: un transportador llamado DAT (transportador de dopamina) la recoge de vuelta a la neurona que la soltó. En paralelo, enzimas como la MAO y la COMT la degradan. Recaptar no es lo mismo que destruir: lo primero recicla el mensajero; lo segundo lo elimina."
+          ],
+          "analogies": [
+            [
+              "Imagina un servicio de recados entre dos oficinas contiguas. Cuando hay algo que comunicar, se despachan mensajeros (liberación de dopamina). Cada mensajero llama a una puerta concreta (unión al receptor). Según qué puerta abra y cómo esté ese departamento, el recado acelera o frena el trabajo (transmisión de la señal). En cuanto el aviso se ha entregado, un servicio de recogida —el DAT— recupera a los mensajeros para el siguiente envío.",
+              "La cocaína, en esta imagen, no fabrica más mensajeros ni abre las puertas ella misma: atasca la recogida. Los recados ya enviados permanecen más tiempo en el pasillo, y la señal se prolonga. La analogía ayuda a ver la secuencia; no describe un único texto ni una única puerta. El mismo mensajero puede producir efectos distintos según el receptor y el circuito."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "No hay una sola función de la dopamina. El mismo mensajero significa cosas distintas según dónde actúa.",
+            "En los circuitos de motivación y recompensa no se limita a celebrar lo agradable. Muchas neuronas dopaminérgicas responden con más fuerza cuando el resultado no coincide con lo previsto. Si esperas que la máquina expendedora suelte el aperitivo y, contra lo habitual, caen dos, el cerebro registra esa sorpresa agradable y tiende a repetir lo que acabas de hacer. Si no cae nada, la señal va en sentido contrario: aquella acción merecía menos confianza. Ese error de predicción —la diferencia entre lo esperado y lo ocurrido— sirve para actualizar hábitos. No es un marcador de placer: es información para aprender.",
+            "La motivación (acercarse, insistir, explorar) se parece a ese mecanismo, pero no es lo mismo que el placer. Se puede desear algo con fuerza y disfrutarlo poco, o disfrutar una comida sin haberla perseguido. En el movimiento, otra población de neuronas dopaminérgicas ayuda a iniciar y dosificar gestos; su fallo grave se asocia a trastornos del movimiento, un recordatorio de que la dopamina no es «solo psicología». En la corteza prefrontal participa en atención, flexibilidad y control de impulsos, con matices que la investigación sigue precisando. Y en la hipófisis frena la liberación de prolactina: aquí funciona casi como una señal hormonal local, no como un premio.",
+            "Estas funciones no cuelgan de un único circuito. Para entender por qué, conviene mirar las rutas por las que viajan las neuronas que fabrican dopamina."
+          ]
+        },
+        "pathways": {
+          "title": "Principales vías dopaminérgicas",
+          "paragraphs": [
+            "Una vía es un camino habitual: un grupo de neuronas cuyo cuerpo está en un núcleo y cuyos axones —las prolongaciones que llevan el mensaje— llegan a otro. No es un cable único; es una ruta preferente. Las cuatro que más se mencionan conviven en la misma persona y no se reducen a un interruptor de placer.",
+            "La vía mesolímbica sale del área tegmental ventral (VTA) hacia el núcleo accumbens y regiones vecinas. Es la más citada cuando se habla de refuerzo y de sustancias, y también la más fácil de mitificar. La mesocortical parte del mismo vecindario, el VTA, hacia la corteza prefrontal: más ligada a planificar y controlar que a un «subidón». La nigroestriada conecta la sustancia negra con el estriado dorsal y está en el centro del control motor. La tuberoinfundibular va del hipotálamo a la hipófisis y regula la prolactina.",
+            "Una sustancia puede influir más en una ruta que en otra. Ninguna ficha honesta las comprime en una sola función."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a la dopamina?",
+          "paragraphs": [
+            "Las cinco sustancias que contempla Soma no empujan la dopamina del mismo modo ni con la misma intensidad. Activar un receptor, bloquear un transportador o modular otro sistema son operaciones distintas, aunque a veces converjan en los mismos circuitos.",
+            "Cocaína. Su mecanismo dopaminérgico principal es el bloqueo del DAT. La dopamina ya liberada permanece más tiempo en la sinapsis porque no se recicla con normalidad. Eso prolonga la señal: no es fabricar más dopamina ni encajar como llave en un receptor D1 o D2. La cocaína también bloquea los transportadores de noradrenalina y de serotonina; el protagonismo de la dopamina en esta ficha no borra ese hecho.",
+            "Nicotina. No bloquea el DAT. Se une a receptores nicotínicos de acetilcolina, proteínas que normalmente reconoce la acetilcolina. Algunos están en neuronas dopaminérgicas del VTA o en terminales que las modulan, de modo que la nicotina puede aumentar la liberación de dopamina de forma indirecta. Estimular un receptor de acetilcolina y atascar la recogida de dopamina no son el mismo gesto.",
+            "Alcohol. Actúa a la vez sobre varios sistemas. Entre los más estudiados están la potenciación de los receptores GABA-A y la inhibición de los NMDA. Esos efectos no son idénticos en todas las regiones ni a todas las concentraciones: dependen del lugar, de la dosis y del contexto celular. La dopamina entra sobre todo como modulación mesolímbica indirecta. No hay un único interruptor dopaminérgico del alcohol, y atribuirle el mecanismo de la cocaína sería un error.",
+            "Cannabis. El THC se une sobre todo a receptores CB1, frecuentes en terminales presinápticos —el extremo que suelta el mensajero—, donde modulan la liberación de otros transmisores. En algunos circuitos eso puede influir de forma indirecta en neuronas dopaminérgicas. Una de las rutas descritas es reducir la inhibición GABAérgica que las frena; no es la única ni ocurre igual en todo el cerebro. El efecto depende del circuito, de la dosis y de la persona. No es un «baño de dopamina» comparable al bloqueo del DAT.",
+            "Cafeína. Bloquea receptores de adenosina, un mensajero que suele empujar hacia el descanso y la presión de sueño. Adenosina y dopamina se influyen en el estriado —a menudo se describe un diálogo entre receptores A2A y D2—, pero eso no es inundar la sinapsis de dopamina ni copiar a la cocaína. El texto educativo de Soma evita presentar la cafeína como un aumento de liberación estriatal de dopamina.",
+            "No hay porcentajes universales de «cuánto sube la dopamina». Las cifras sueltas suelen mezclar especies, dosis, regiones y técnicas distintas."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "El sistema nervioso aprende. Si un estímulo químico se repite, las sinapsis y los circuitos pueden cambiar su sensibilidad: es plasticidad, no un depósito que se vacía. Según la sustancia y el patrón de uso, pueden entrar en juego cambios en receptores, en transportadores, en la excitabilidad de las neuronas y en el aprendizaje asociativo —lugares, rutinas, expectativas—.",
+            "La tolerancia —necesitar más para notar el mismo efecto— se apoya en parte en esas adaptaciones, pero no es lo mismo que el aprendizaje ligado a la sustancia, ni ocurre igual con cocaína, nicotina, alcohol, cannabis o cafeína. No es cierto que el cerebro se quede sin dopamina. Lo que en algunos contextos estudiados puede ocurrir es que la respuesta a las recompensas cotidianas o a la propia sustancia se sienta distinta: el café de siempre «pega» menos, o lo que antes motivaba cuesta más. Eso describe una adaptación, no un análisis de la dopamina cerebral de una persona."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar la exposición, deja de actuar el fármaco. Algunas adaptaciones se revierten antes; otras tardan más; ciertas huellas de aprendizaje pueden permanecer cuando la acción aguda ya ha desaparecido. Los ritmos no son los mismos para el sueño, la motivación o el movimiento, ni para cada sustancia.",
+            "No hay un reloj universal ni una «línea base» personal que Soma pueda leer. Los días de abstinencia y los perfiles educativos de fase sirven para comparar modelos, no para medir dopamina. La recuperación, cuando se habla de ella en términos generales, no es una recta de vuelta al punto de partida."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "La dopamina no es el placer en estado puro, y más dopamina no es más felicidad. Las cinco sustancias de Soma tocan este sistema por caminos distintos: unas sobre el DAT, otras sobre receptores de acetilcolina, cannabinoides o adenosina, y el alcohol de forma especialmente indirecta y dependiente del contexto. Nadie puede inferir su concentración cerebral a partir de los días sin consumir. Esta ficha describe mecanismos generales; no describe tu cerebro."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Neurotransmisión y sistemas moduladores.",
+        "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology: A Foundation for Clinical Neuroscience. McGraw-Hill.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5.ª ed. Cambridge University Press; 2021."
+      ]
+    },
+    "receptors": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es un receptor?",
+          "paragraphs": [
+            "Un receptor, en este contexto, es una proteína —casi siempre alojada en la membrana de la célula— capaz de reconocer ciertas moléculas y, al unirse a ellas, cambiar lo que la célula hace. La molécula que se une se llama ligando: puede ser un neurotransmisor propio, una hormona o un fármaco.",
+            "El reconocimiento no es mágico. Depende de la forma, la carga y las interacciones químicas entre el ligando y un hueco de la proteína. Cuando encajan lo bastante bien, el receptor cambia de forma. Ese cambio es el verdadero mensaje: abre un poro, activa una proteína asociada o pone en marcha maquinaria interna. Sin ese paso, el ligando sería solo una visita."
+          ],
+          "analogies": [
+            [
+              "Suele compararse con una cerradura y una llave. La analogía captura la selectividad: no cualquier molécula abre cualquier receptor. Falla en cuanto se toma al pie de la letra. Las cerraduras reales son rígidas; los receptores son flexibles, pueden tener más de un sitio de unión, y una misma «llave» puede funcionar a medias o de forma distinta según el tejido."
+            ]
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funcionan?",
+          "paragraphs": [
+            "Primero ocurre la unión. Si esa unión favorece la forma activa del receptor, empieza la transducción de señales: convertir un encuentro entre dos moléculas en un cambio eléctrico o químico dentro de la célula. Es el paso que va de «algo se ha acoplado» a «la neurona responde».",
+            "En el sistema nervioso importan sobre todo los receptores de la membrana. Hay dos estilos útiles, aunque no agotan el mapa.",
+            "Los ionotrópicos son a la vez receptor y canal. Al unirse el ligando se abre —o se modula— un poro y pueden pasar iones, partículas con carga. El efecto es rápido: milisegundos. El receptor GABA-A y los nicotínicos de acetilcolina son ejemplos clásicos.",
+            "Los metabotrópicos no son el canal ellos mismos. Suelen acoplarse a otras proteínas (proteínas G) y poner en marcha una cascada dentro de la célula: más lenta, a menudo más duradera. Los receptores dopaminérgicos, los CB1 y muchos de adenosina entran en este grupo.",
+            "Que un neurotransmisor se sienta «rápido» o «lento» depende, en buena parte, del tipo de receptor que encuentra."
+          ]
+        },
+        "agonists": {
+          "title": "Agonistas y antagonistas",
+          "paragraphs": [
+            "Un agonista es un ligando que activa el receptor, o una parte sustancial de su actividad. Un antagonista se une y ocupa el sitio sin imitar esa activación: impide que el agonista haga su trabajo. Un agonista parcial sí activa, pero menos que un agonista completo: ocupa el asiento y produce una señal más modesta. El THC, en los receptores CB1, se describe a menudo así, también en el catálogo educativo de Soma.",
+            "Además existe la modulación: moléculas que no se sientan en el mismo hueco que el neurotransmisor y aun así cambian cuánto, o cómo, responde el receptor. El alcohol, en los GABA-A, se entiende mejor como modulador —y como actor sobre otros sistemas— que como «la llave de la dopamina».",
+            "Nada de esto es solo encendido o apagado. Importan la fuerza con la que el ligando activa, cuántos receptores ocupa y el estado previo de la célula. Dos agonistas del mismo receptor no tienen por qué sentirse igual."
+          ],
+          "analogies": [
+            [
+              "Piensa en una puerta automática que se abre con una tarjeta de acceso. La tarjeta completa (agonista) acerca el panel al máximo y la puerta se abre del todo. Una tarjeta de invitado (agonista parcial) también se lee, pero el panel solo se mueve a medias: hay respuesta, menor. Una tarjeta caducada o de otro edificio (antagonista) encaja en el lector y bloquea la ranura: no abre la puerta y, mientras está insertada, impide que entre una tarjeta válida.",
+              "La analogía muestra ocupación frente a activación. No implica que el receptor tenga una sola ranura ni una sola intensidad posible."
+            ]
+          ]
+        },
+        "transmitters": {
+          "title": "¿Qué relación tienen con los neurotransmisores?",
+          "paragraphs": [
+            "El neurotransmisor es el mensaje; el receptor decide cómo se lee. Por eso la dopamina no hace una sola cosa. Pertenece a familias de receptores —las más conocidas, D1-like y D2-like— con mecanismos de señalización distintos. El efecto final no es un interruptor universal de «activar» o «frenar»: depende del tipo de célula y del circuito en el que esté ese receptor.",
+            "El GABA, en los GABA-A, abre o modula un canal por el que pueden circular iones cloruro. El sentido de ese flujo —hacia el interior o hacia el exterior de la célula— y el efecto sobre la neurona dependen del gradiente electroquímico del cloruro y del contexto celular. En muchas neuronas adultas el resultado suele ser inhibitorio, pero no es un efecto automático ni universal. No es «calma» en abstracto; es un cambio eléctrico en esas sinapsis. La acetilcolina, en un nicotínico, puede excitar de forma rápida. La adenosina, al activar sus receptores, tiende a reducir la alerta; bloquearlos hace lo contrario. Los CB1, abundantes en terminales presinápticos, suelen bajar la liberación del transmisor que esa terminal iba a soltar.",
+            "Una molécula, varios receptores, varios tejidos: varios efectos. No hace falta memorizar todas las familias para entender la regla."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a los receptores?",
+          "paragraphs": [
+            "Nicotina. Es un agonista de los receptores nicotínicos de acetilcolina. Imita de forma tosca a la acetilcolina en esos receptores, no en todos los de acetilcolina. La repetición puede cambiar cuántos nicotínicos hay disponibles y cómo responden; el texto educativo de Soma ya advierte que eso no se cuantifica aquí.",
+            "THC (cannabis). Agonista —a menudo parcial— de CB1. El primer paso no es «encender la dopamina»: es modular la terminal que tiene CB1. Si esa terminal era inhibidora, el resultado aguas abajo puede parecer activación; si no, puede no parecerlo. Como en la ficha de dopamina, la influencia sobre ciertos circuitos dopaminérgicos es indirecta y no se reduce a un único mecanismo.",
+            "Cafeína. Antagonista de receptores de adenosina: ocupa el sitio y quita un freno adenosinérgico. No enciende un receptor de dopamina ni bloquea el DAT. Las interacciones entre adenosina y dopamina son un diálogo entre vecinos, no un disfraz de cocaína.",
+            "Alcohol. No se deja resumir en un receptor. Potencia GABA-A e inhibe NMDA, entre otros blancos, y esos efectos varían con la concentración, la región y el contexto. La dopamina, cuando aparece, llega después de esa orquesta, no como llave principal.",
+            "Cocaína. El contraste útil es este: su mecanismo dopaminérgico principal no consiste en activar un receptor de dopamina. Bloquea el DAT, el transportador. Los receptores D1 o D2 «ven» más dopamina porque el mensajero se retira más despacio, no porque la cocaína sea una llave de esos receptores. Distinguir activar el receptor de impedir la recaptación explica por qué no todas las drogas «suben la dopamina» igual. Si el DAT es la recogida de mensajeros, la cocaína atasca esa recogida; no imprime tarjetas nuevas para las puertas D1 o D2."
+          ]
+        },
+        "change": {
+          "title": "¿Pueden cambiar los receptores?",
+          "paragraphs": [
+            "Sí, y de más de una manera. Tras una activación intensa, muchos se desensibilizan: siguen en la membrana, pero responden peor, como un timbre al que se ha pulsado tantas veces que ya casi no se oye. Algunos se internalizan: la célula los retira de la superficie. A más largo plazo puede cambiar la expresión —los mecanismos con los que la célula regula cuántos receptores fabrica— o el tráfico que los lleva hasta la membrana. El resultado neto, en estudios de imagen o de tejido, a veces se llama «densidad», una palabra que mezcla procesos distintos.",
+            "No todas las sustancias empujan el mismo botón. Nicotina y nicotínicos, THC y CB1, cafeína y adenosina, alcohol y GABA-A o NMDA, no copian un guion único de «bajan los receptores». Un aumento o una bajada universales serían, otra vez, el interruptor de pared."
+          ]
+        },
+        "tolerance": {
+          "title": "¿Qué relación tienen con la tolerancia?",
+          "paragraphs": [
+            "Parte de la tolerancia farmacológica —el café de siempre despierta menos, o hace falta más nicotina para el mismo efecto— se explica porque el receptor, o la cascada que hay detrás, responde menos al mismo estímulo. Otra parte no: intervienen enzimas que metabolizan el fármaco, circuitos que compensan, aprendizaje.",
+            "Por eso la tolerancia no es lo mismo que la dependencia. Se puede notar menos un efecto sin el conjunto de adaptaciones que hacen penosa la abstinencia, y al revés, según la sustancia y el efecto que se mire. Esta ficha no convierte la tolerancia en un recuento de receptores ni en un calendario."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "Un receptor no es una cerradura rígida. Una molécula puede actuar sobre varios receptores; un mismo receptor, en distintos efectos. El consumo repetido no se reduce a «hay más» o «hay menos» receptores. Y el mecanismo dopaminérgico más conocido de la cocaína ni siquiera consiste en abrir un receptor de dopamina. Los modelos de Soma no miden tus receptores."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Receptores y transducción.",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14.ª ed. 2022. Agonismo, antagonismo y capítulos de sustancias.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Receptores ionotrópicos y acoplados a proteína G.",
+        "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133."
+      ]
+    }
+  }
+}

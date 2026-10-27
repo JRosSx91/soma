@@ -8,6 +8,8 @@ interface DetailSheetProps {
   /** Accessible name when the visible title must stay generic. */
   accessibleTitle?: string;
   panelClassName?: string;
+  /** Wider, taller panel for long educational articles. */
+  size?: "default" | "article";
   onClose: () => void;
   children: ReactNode;
 }
@@ -35,6 +37,7 @@ export function DetailSheet({
   title,
   accessibleTitle,
   panelClassName,
+  size = "default",
   onClose,
   children,
 }: DetailSheetProps) {
@@ -110,7 +113,11 @@ export function DetailSheet({
         aria-labelledby={titleId}
         tabIndex={-1}
         onKeyDown={onPanelKeyDown}
-        className={`flex max-h-[min(85vh,46rem)] w-full max-w-md flex-col rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${panelClassName ?? ""}`}
+        className={`flex w-full flex-col rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${
+          size === "article"
+            ? "max-h-[min(90vh,52rem)] max-w-lg sm:max-w-2xl"
+            : "max-h-[min(85vh,46rem)] max-w-md"
+        } ${panelClassName ?? ""}`}
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex shrink-0 items-start justify-between gap-3">

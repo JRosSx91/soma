@@ -1,0 +1,174 @@
+{
+  "analogyHeading": "💡 To picture this more clearly",
+  "bibliographyTitle": "Bibliography",
+  "related": {
+    "toReceptors": "Understand how receptors work",
+    "toDopamine": "Discover how dopamine acts"
+  },
+  "sheets": {
+    "dopamine": {
+      "sections": {
+        "what": {
+          "title": "What is dopamine?",
+          "paragraphs": [
+            "A neurotransmitter is a molecule neurons use to send messages. It does not wash through the brain the way a hormone travels in blood. It is released at tiny contact points and, within milliseconds, changes what the neighbouring neuron does.",
+            "Dopamine is one of those messengers. Chemically it is a catecholamine, the same family as noradrenaline (norepinephrine) and adrenaline. All three are built from the amino acid tyrosine; dopamine is an intermediate on the way to noradrenaline. That relatedness explains why some enzymes and some drugs affect them together. It does not make them the same signal.",
+            "Dopamine is involved in several jobs: the drive to start an action, learning when an outcome does not match what was expected, movement control, aspects of attention, and — on one specific route — regulation of the hormone prolactin. Calling it “the pleasure molecule” is therefore misleading. The pleasure of an experience — liking — depends on several systems. Dopamine is more closely tied to wanting, learning, and deciding what is worth trying. A sudden rise is not the same thing as being happier."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "Neurons are cells specialised for signalling. Many do not quite touch: a narrow gap, the synapse, sits between them. At a chemical synapse, the sending cell stores dopamine in small packets (vesicles). When an electrical impulse arrives, those packets fuse with the membrane and spill their contents into the space between the two cells.",
+            "Dopamine does not enter the next neuron like a nutrient. It binds receptors: proteins in the membrane of the cell that receives the message. That binding changes the cell’s interior — sometimes making it easier to fire, sometimes harder — depending on the receptor type, the cell type and the moment. Then the signal has to be switched off. Dopamine’s most characteristic off-switch is reuptake: a transporter called DAT (the dopamine transporter) pulls the molecule back into the neuron that released it. Enzymes such as MAO and COMT also break it down. Recycling and destruction are different jobs: one reuses the messenger; the other eliminates it."
+          ],
+          "analogies": [
+            [
+              "Think of a messenger service between two neighbouring offices. When there is something to say, messengers are sent out (dopamine release). Each one knocks on a particular door (binding to a receptor). Depending on which door opens and how that department is running, the note speeds the work up or slows it down (signal transmission). Once the note is delivered, a collection service — DAT — retrieves the messengers for the next round.",
+              "In this picture, cocaine does not hire extra messengers and does not open the doors itself: it jams collection. Messages already sent linger in the corridor, and the signal lasts longer. The analogy helps you see the sequence. It does not mean there is only one note or only one door. The same messenger can have different effects depending on the receptor and the circuit."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "There is no single job called “dopamine.” The same messenger means different things according to where it acts.",
+            "In motivation and reward circuits it does more than celebrate pleasant events. Many dopamine neurons respond most strongly when the outcome does not match the prediction. If you expect the vending machine to drop one snack and, against habit, two fall out, the brain registers that pleasant surprise and tends to repeat what you just did. If nothing falls, the signal runs the other way: that action deserved less trust. That prediction error — the gap between what was expected and what happened — is how habits get updated. It is not a pleasure score; it is information for learning.",
+            "Motivation (approaching, persisting, exploring) overlaps with that mechanism, but it is not the same as pleasure. You can want something intensely and like it little, or enjoy a meal you did not chase. In movement, a different dopamine population helps initiate and scale actions; its severe failure is linked to movement disorders, a reminder that dopamine is not “only psychology.” In prefrontal cortex it contributes to attention, flexibility and impulse control, in ways research is still refining. At the pituitary it holds back prolactin release: here it behaves more like a local hormonal signal than a prize.",
+            "These roles do not hang off a single circuit. To see why, it helps to look at the routes taken by the neurons that make dopamine."
+          ]
+        },
+        "pathways": {
+          "title": "Main dopaminergic pathways",
+          "paragraphs": [
+            "A pathway is a habitual route: cell bodies in one nucleus, axons — the fibres that carry the message — arriving in another. It is not a single wire. The four most often mentioned coexist in the same person and do not collapse into a pleasure switch.",
+            "The mesolimbic pathway runs from the ventral tegmental area (VTA) to the nucleus accumbens and nearby regions. It is the one most often mentioned with reinforcement and with drugs, and the easiest to mythologise. The mesocortical pathway also starts near the VTA and reaches prefrontal cortex: more about planning and control than a “rush.” The nigrostriatal pathway links substantia nigra to dorsal striatum and sits at the centre of motor control. The tuberoinfundibular pathway runs from hypothalamus to pituitary and regulates prolactin.",
+            "A drug may lean on one route more than another. None of them is a single function."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect dopamine?",
+          "paragraphs": [
+            "The five substances Soma covers do not push dopamine in the same way or to the same degree. Activating a receptor, blocking a transporter and modulating another system are different operations, even when they sometimes meet in the same circuits.",
+            "Cocaine. Its main dopaminergic mechanism is DAT blockade. Dopamine that has already been released stays in the synapse longer because it is not cleared as usual. That prolongs the signal: it is not making more dopamine, and it is not fitting a key into a D1 or D2 receptor. Cocaine also blocks the noradrenaline and serotonin transporters; dopamine’s starring role in this sheet does not erase that.",
+            "Nicotine. It does not block DAT. It binds nicotinic acetylcholine receptors, proteins that acetylcholine normally recognises. Some sit on VTA dopamine neurons or on terminals that modulate them, so nicotine can raise dopamine release indirectly. Stimulating an acetylcholine receptor and jamming dopamine collection are not the same gesture.",
+            "Alcohol. It acts on several systems at once. Among the best studied are potentiation of GABA-A receptors and inhibition of NMDA receptors. Those effects are not identical in every region or at every concentration: they depend on place, dose and cellular context. Dopamine appears mainly as indirect mesolimbic modulation. Alcohol has no single dopaminergic switch, and giving it cocaine’s mechanism would be a mistake.",
+            "Cannabis. THC acts mainly at CB1 receptors, often on presynaptic terminals — the end that releases the messenger — where they modulate the release of other transmitters. In some circuits that can indirectly influence dopamine neurons. One described route is reducing the GABAergic inhibition that normally holds them back; it is not the only route, and it does not happen the same way throughout the brain. The effect depends on circuit, dose and person. It is not a DAT-style flood.",
+            "Caffeine. It blocks adenosine receptors. Adenosine is a messenger that often pushes toward rest and sleep pressure. Adenosine and dopamine influence each other in striatum — often described as a conversation between A2A and D2 receptors — but that is not flooding the synapse with dopamine, and it is not a copy of cocaine. Soma’s educational copy already avoids presenting caffeine as increased striatal dopamine release.",
+            "There are no universal percentages for “how much dopamine goes up.” Stray figures usually mix species, doses, brain regions and methods."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "The nervous system learns. If a chemical stimulus repeats, synapses and circuits can change their sensitivity: that is plasticity, not a tank running dry. Depending on the substance and the pattern of use, receptors, transporters, neuronal excitability and associative learning — places, routines, expectations — may all shift.",
+            "Tolerance — needing more to notice the same effect — rests in part on those adaptations. It is not the same as substance-related learning, and it does not unfold the same way for cocaine, nicotine, alcohol, cannabis or caffeine. The brain does not simply run out of dopamine. In some studied contexts, the response to everyday rewards or to the drug itself can feel different: the usual coffee “hits” less, or what used to motivate takes more effort. That is an account of adaptation, not a reading of someone’s brain dopamine."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When exposure stops, the drug’s acute action stops. Some adaptations unwind sooner; others take longer; some learned traces can remain after the acute pharmacology has gone. Sleep, motivation and movement do not share one timetable, and neither do the substances.",
+            "There is no universal clock, and no personal “baseline” Soma can read. Abstinence days and educational phase profiles are models for comparison, not a dopamine meter. Recovery, in general terms, is not a straight line back to a starting point."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Dopamine is not pleasure in pure form, and more dopamine is not more happiness. Soma’s five substances touch this system by different routes: some at DAT, others at acetylcholine, cannabinoid or adenosine receptors, and alcohol especially indirectly and in a context-dependent way. No one can infer brain dopamine concentration from days without use. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Synaptic transmission and modulatory systems.",
+        "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology: A Foundation for Clinical Neuroscience. McGraw-Hill.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021."
+      ]
+    },
+    "receptors": {
+      "sections": {
+        "what": {
+          "title": "What is a receptor?",
+          "paragraphs": [
+            "In this setting a receptor is a protein — usually sitting in the cell membrane — that recognises certain molecules and, on binding them, changes what the cell does. The binding partner is a ligand: a native neurotransmitter, a hormone or a drug.",
+            "Recognition is not magic. It depends on shape, charge and chemical contacts between the ligand and a pocket on the protein. When the fit is good enough, the receptor changes shape. That change is the message: a pore opens, a partner protein is switched on, or internal machinery is recruited. Without it, the ligand would only be a visitor."
+          ],
+          "analogies": [
+            [
+              "The usual picture is a lock and a key. It captures selectivity: not every molecule opens every receptor. It fails as soon as it is taken literally. Real locks are rigid; receptors are flexible, may have more than one binding site, and the same “key” can work only partly, or differently, in another tissue."
+            ]
+          ]
+        },
+        "how": {
+          "title": "How do they work?",
+          "paragraphs": [
+            "First comes binding. If that binding favours the receptor’s active shape, signal transduction begins: turning a meeting between two molecules into an electrical or chemical change inside the cell. It is the step from “something has docked” to “the neuron responds.”",
+            "In the nervous system the important players are mostly membrane receptors. Two styles cover a lot of ground without exhausting the map.",
+            "Ionotropic receptors are receptor and channel in one. Ligand binding opens — or modulates — a pore, and charged particles (ions) can flow. The effect is fast, on the order of milliseconds. GABA-A and nicotinic acetylcholine receptors are classic examples.",
+            "Metabotropic receptors are not the channel themselves. They often couple to other proteins (G proteins) and start a cascade inside the cell: slower, often longer lasting. Dopamine receptors, CB1 and many adenosine receptors belong here.",
+            "Whether a transmitter feels “fast” or “slow” is, in large part, which kind of receptor it finds."
+          ]
+        },
+        "agonists": {
+          "title": "Agonists and antagonists",
+          "paragraphs": [
+            "An agonist is a ligand that activates the receptor, or a substantial fraction of its activity. An antagonist binds and occupies the site without mimicking that activation: it stops the agonist from doing its job. A partial agonist does activate, but less than a full agonist: it takes the seat and produces a more modest signal. THC at CB1 receptors is often described that way, including in Soma’s educational catalogue.",
+            "There is also modulation: molecules that do not sit in the transmitter’s pocket and still change how strongly, or how, the receptor responds. Alcohol at GABA-A is better understood as a modulator — and as an actor on other systems — than as “the dopamine key.”",
+            "None of this is merely on or off. How strongly the ligand activates, how many receptors it occupies, and the cell’s prior state all matter. Two agonists at the same receptor need not feel the same."
+          ],
+          "analogies": [
+            [
+              "Think of an automatic door that opens with an access card. A full staff card (agonist) brings the panel all the way up and the door opens fully. A guest card (partial agonist) is also read, but the panel only moves halfway: there is a response, a smaller one. An expired card, or one from another building (antagonist), fits the reader and blocks the slot: it does not open the door, and while it sits there a valid card cannot get in.",
+              "The analogy shows occupancy versus activation. It does not mean the receptor has only one slot or only one possible intensity."
+            ]
+          ]
+        },
+        "transmitters": {
+          "title": "How do they relate to neurotransmitters?",
+          "paragraphs": [
+            "The transmitter is the message; the receptor decides how it is read. That is why dopamine does more than one thing. It acts at receptor families — the best known are D1-like and D2-like — with different signalling mechanisms. The end result is not a universal switch between “activate” and “dampen”: it depends on the cell type and the circuit that receptor sits in.",
+            "At GABA-A receptors, GABA opens or modulates a channel through which chloride ions can flow. The direction of that flow — into or out of the cell — and the effect on the neuron depend on the electrochemical chloride gradient and the cellular context. In many adult neurons the result is often inhibitory, but it is not automatic or universal. It is not abstract “calm”; it is an electrical change at those synapses. Acetylcholine at a nicotinic receptor can excite quickly. Adenosine, via its receptors, tends to reduce alertness; blocking them does the reverse. CB1 receptors, abundant on presynaptic terminals, often turn down whatever transmitter that terminal was about to release.",
+            "One molecule, several receptors, several tissues: several effects. You do not need every family by heart to see the rule."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect receptors?",
+          "paragraphs": [
+            "Nicotine is an agonist at nicotinic acetylcholine receptors. It roughly mimics acetylcholine at those receptors, not at every acetylcholine receptor. Repeated use can change how many nicotinic receptors are available and how they respond; Soma’s educational copy already says that is not quantified here.",
+            "THC (cannabis) is an agonist — often partial — at CB1. The first move is not “switch on dopamine”: it is to modulate the terminal that bears CB1. If that terminal was inhibitory, the downstream picture may look like activation; if it was not, it may not. As in the dopamine sheet, any influence on certain dopaminergic circuits is indirect and is not one universal mechanism.",
+            "Caffeine is an antagonist at adenosine receptors: it occupies the site and lifts an adenosinergic brake. It does not switch on a dopamine receptor and it does not block DAT. Adenosine–dopamine interactions are neighbours talking, not cocaine in disguise.",
+            "Alcohol will not sit in one receptor. It potentiates GABA-A and inhibits NMDA, among other targets, and those effects vary with concentration, region and context. Dopamine, when it appears, arrives after that ensemble, not as the main key.",
+            "Cocaine is the useful contrast: its main dopaminergic mechanism is not activating a dopamine receptor. It blocks DAT, the transporter. D1 or D2 receptors “see” more dopamine because the messenger is cleared more slowly, not because cocaine is a key to those receptors. Distinguishing activating the receptor from blocking reuptake is why drugs do not all “raise dopamine” in the same way. If DAT is the messenger collection service, cocaine jams collection; it does not print new cards for the D1 or D2 doors."
+          ]
+        },
+        "change": {
+          "title": "Can receptors change?",
+          "paragraphs": [
+            "Yes, and in more than one way. After strong activation many desensitise: they stay in the membrane but respond less well, like a doorbell pressed so often it barely rings. Some are internalised: the cell pulls them off the surface. Over a longer period expression can change — the mechanisms by which the cell regulates how many receptors it produces — or the trafficking that delivers them to the membrane. Net results in imaging or tissue studies are sometimes called “density,” a word that mixes several processes.",
+            "Not every substance pushes the same button. Nicotine and nicotinic receptors, THC and CB1, caffeine and adenosine receptors, alcohol and GABA-A or NMDA, do not share one script of “receptors go down.” A universal rise or fall would be the wall switch again."
+          ]
+        },
+        "tolerance": {
+          "title": "How do they relate to tolerance?",
+          "paragraphs": [
+            "Part of pharmacological tolerance — the usual coffee waking you less, or more nicotine for the same effect — is a receptor, or the cascade behind it, answering less to the same stimulus. Part is not: drug-metabolising enzymes, compensating circuits, learning.",
+            "That is why tolerance is not the same as dependence. One can feel less of an effect without the cluster of adaptations that make withdrawal hard, and the reverse, depending on the substance and the effect in view. This sheet does not turn tolerance into a receptor count or a calendar."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "A receptor is not a rigid lock. One molecule can act at several receptors; one receptor can serve several physiological effects. Repeated use is not only “more receptors” or “fewer receptors.” And cocaine’s best-known dopaminergic move is not opening a dopamine receptor at all. Soma’s models do not measure your receptors."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Receptors and transduction.",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Agonism, antagonism and substance chapters.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Ionotropic and G-protein-coupled receptors.",
+        "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133."
+      ]
+    }
+  }
+}
