@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
@@ -29,6 +29,25 @@ function focusableElements(root: HTMLElement): HTMLElement[] {
   });
 }
 
+function readOpener(panel: HTMLElement | null): HTMLElement | null {
+  const active = document.activeElement;
+  if (!(active instanceof HTMLElement)) return null;
+  if (active === document.body) return null;
+  if (panel && (active === panel || panel.contains(active))) return null;
+  return active;
+}
+
+function restoreOpener(opener: HTMLElement | null): void {
+  if (opener?.isConnected) {
+    opener.focus();
+    return;
+  }
+  const main = document.querySelector("main");
+  if (!(main instanceof HTMLElement)) return;
+  if (!main.hasAttribute("tabindex")) main.tabIndex = -1;
+  main.focus();
+}
+
 /**
  * Shared catalog dialog. Header stays put; only the body scrolls.
  * Traps tab focus inside the panel and restores the opener on close.
@@ -51,8 +70,8 @@ export function DetailSheet({
     onCloseRef.current = onClose;
   }, [onClose]);
 
-  useEffect(() => {
-    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  useLayoutEffect(() => {
+    openerRef.current = readOpener(panelRef.current);
     panelRef.current?.focus();
 
     function onFocusIn(event: FocusEvent) {
@@ -66,7 +85,7 @@ export function DetailSheet({
     document.addEventListener("focusin", onFocusIn);
     return () => {
       document.removeEventListener("focusin", onFocusIn);
-      openerRef.current?.focus();
+      restoreOpener(openerRef.current);
     };
   }, []);
 

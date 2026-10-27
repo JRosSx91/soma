@@ -3,7 +3,11 @@
   "bibliographyTitle": "Bibliography",
   "related": {
     "toReceptors": "Understand how receptors work",
-    "toDopamine": "Discover how dopamine acts"
+    "toDopamine": "Discover how dopamine acts",
+    "toSerotonin": "Understand how serotonin acts",
+    "toGaba": "Understand how GABA acts",
+    "toGlutamate": "Understand how glutamate acts",
+    "toNorepinephrine": "Understand how noradrenaline acts"
   },
   "sheets": {
     "dopamine": {
@@ -84,6 +88,302 @@
         "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology: A Foundation for Clinical Neuroscience. McGraw-Hill.",
         "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
         "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021."
+      ]
+    },
+    "serotonin": {
+      "sections": {
+        "what": {
+          "title": "What is serotonin?",
+          "paragraphs": [
+            "Serotonin — also called 5-hydroxytryptamine or 5-HT — is a small molecule neurons use to send messages. Chemically it is an indolamine: it is built from the amino acid tryptophan, which arrives mainly with the diet. A pair of enzymes first make 5-hydroxytryptophan and then serotonin. The name 5-HT marks that hydroxyl on position 5 of the ring; it is not a different substance.",
+            "Most of the body’s serotonin is not in the brain. Much of the peripheral serotonin is made in intestinal enterochromaffin cells; platelets do not synthesise it: they take it up via SERT and store it. Peripheral serotonin takes part in gut motility and platelet aggregation; brain serotonin takes part in circuits of mood, sleep, appetite and perception. The molecule itself does not freely cross the blood–brain barrier: platelet SERT and synaptic SERT recycle the same kind of messenger in different compartments. A change in blood serotonin is therefore not a measurable change in brain serotonin, and Soma cannot infer one from the other.",
+            "Calling it “the happiness molecule” compresses too much. 5-HT modulates many systems at once. It may favour rest or alertness according to receptor, region and moment. A sudden rise is not more happiness; a reading in a test tube is not a reading of your mood."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "The neurons that make brain serotonin sit mainly in the raphe nuclei, cell groups in the brainstem. From there they send axons — the fibres that carry the message — toward cortex, limbic system, hypothalamus and spinal cord. There is no single “serotonin centre”: there is a relatively compact source and a wide fan of destinations.",
+            "At the synapse, 5-HT is released and binds serotonergic receptors. Several families are usually numbered 5-HT1, 5-HT2, 5-HT3 and others. Some quiet the receiving cell; others push it to respond; 5-HT3 is also a fast ion channel, not only a protein coupled to slow cascades. The same messenger does not mean the same thing at every door.",
+            "Then the signal has to be switched off. The most characteristic off-switch is reuptake: the SERT transporter pulls serotonin back into the neuron that released it. Enzymes such as MAO also break it down. Recycling and destruction are different jobs: one reuses the messenger; the other eliminates it."
+          ],
+          "analogies": [
+            [
+              "Think of a building-wide regulation system, not a tank of happiness. From a relatively small control room (the raphe) notices go out to many floors. Each floor has different panels (receptors): on one the notice turns the heating down, on another it brightens the lights, on another it changes when the doors unlock. A collection service (SERT) retrieves used notices for the next round.",
+              "The analogy helps you see spread and diversity of effects. It fails if you take it as a tank that fills or empties of “mood.” 5-HT is not a single switch, and the building is not your personal emotional state."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "In the brain, serotonin takes part in emotional tone, impulsivity, pain perception and how sensory information is filtered. It also takes part in the sleep–wake cycle and in appetite: not as a single clock or a single thermostat, but as a modulator that crosses other systems.",
+            "In the gut it helps coordinate local movement and signalling. That peripheral job is why some drugs that touch 5-HT have digestive effects: not everything that “is serotonin” happens between two mood neurons.",
+            "These roles do not hang off one receptor. To see why, it helps to look at where raphe neurons travel and which doors they find."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "Ascending serotonergic pathways cover much of the forebrain. Descending ones reach the spinal cord and take part, among other things, in pain control. The raphe is not a single wire: it is a neighbourhood of nuclei with different shades.",
+            "At each destination 5-HT meets a different menu of receptors. That is why the same drug, or the same substance, can feel like a change in sleep, appetite or perception according to dose, route and person. No honest sheet compresses that map into one function."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect serotonin?",
+          "paragraphs": [
+            "Soma’s five substances do not push 5-HT in the same way. Blocking SERT, modulating other systems indirectly, or barely touching this circuit are different operations.",
+            "Cocaine. As well as blocking the dopamine transporter, it blocks SERT. Serotonin already released stays longer at some synapses because it is not cleared as usual. That is not “making more serotonin,” and it is not cocaine’s only mechanism; dopamine’s starring role in other sheets does not erase this.",
+            "Alcohol. Modulation of serotonergic signalling has been described, less sharp and less central than its action at GABA-A and NMDA. Alcohol has no single 5-HT switch, and cocaine’s mechanism should not be copied onto it.",
+            "Nicotine, cannabis and caffeine. They do not block SERT as their main move. Nicotine acts at nicotinic acetylcholine receptors; THC at CB1; caffeine at adenosine receptors. Any influence on serotonergic circuits is, in this educational frame, indirect or secondary. There are no universal percentages for “how much serotonin goes up.”"
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "If a chemical stimulus repeats, serotonergic synapses can change their sensitivity: receptors, transporters and learning tied to context. That is plasticity, not a tank running dry.",
+            "Tolerance does not unfold the same way for cocaine, alcohol or nicotine, and it is not “the brain runs out of serotonin.” In some studied contexts the response to the drug or to everyday rewards can feel different. That is an account of adaptation, not a reading of someone’s brain 5-HT."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When exposure stops, the drug’s acute action stops. Some adaptations unwind sooner; others take longer; some learned traces can remain. Sleep, appetite and emotional tone do not share one timetable, and neither do the five substances.",
+            "There is no universal clock, and no serotonin “baseline” Soma can read. Abstinence days and educational phase profiles are models for comparison, not a 5-HT meter."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Serotonin is not happiness in pure form, and platelet 5-HT is not a mirror of the brain. Of Soma’s five substances, cocaine touches SERT directly; alcohol more non-specifically; nicotine, cannabis and caffeine, if at all, from a distance. No one can infer brain serotonin from days without use. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology. McGraw-Hill. Monoamine systems and SERT.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021. 5-HT receptors.",
+        "Berger M, Gray JA, Roth BL. The expanded biology of serotonin. Annu Rev Med. 2009;60:355–366.",
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Raphe nuclei and neuromodulation."
+      ]
+    },
+    "gaba": {
+      "sections": {
+        "what": {
+          "title": "What is GABA?",
+          "paragraphs": [
+            "GABA — gamma-aminobutyric acid — is the main inhibitory messenger in the adult brain. Chemically it is a small amino acid, made from glutamate by glutamic acid decarboxylase (GAD). That closeness to glutamate matters: excitation and inhibition are not separate worlds; they are built in conversation.",
+            "To inhibit is not to “switch the brain off.” It is to make some neurons less likely to fire, or to fire with a different rhythm. Without that restraint, networks become noisy. GABA is, in large part, the language with which the nervous system says “not now” or “more slowly,” in milliseconds or in seconds, according to the receptor."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At an inhibitory synapse the sending cell spills GABA into the gap. The GABA-A receptor is receptor and channel in one: GABA binding opens a pore through which chloride ions can flow. The effect is fast, on the order of milliseconds. GABA-B is not the channel itself: it couples to G proteins and, more slowly, changes potassium or calcium channels. Fast inhibition and slow inhibition are not the same gesture.",
+            "Chloride does not “always flow in.” The direction of flow — into or out of the cell — depends on the electrochemical gradient: how much chloride sits on each side of the membrane, and what the voltage is. In a typical adult neuron, opening GABA-A usually moves the potential toward a value that makes firing harder. At other developmental stages, or if the gradient has shifted, the same channel may not inhibit in the same way. The receptor is the gate; the gradient decides the traffic.",
+            "Then GABA has to be cleared. Transporters on neurons and glial cells take it up. Recycling and breakdown remain different jobs, as in other systems."
+          ],
+          "analogies": [
+            [
+              "Think of the braking system on a traffic network. Some brakes act in fractions of a second at a particular junction (GABA-A). Others, more slowly, change the rhythm of a whole neighbourhood (GABA-B). Without brakes the traffic is not “livelier”: it jams and becomes unpredictable.",
+              "The analogy clarifies the inhibitory job. It fails if it is translated as universal sedation. Not every brake is the same, not every junction uses the same pedal, and braking is not sleep. Alcohol, in this picture, does not install a new brake: it makes some GABA-A receptors answer more strongly to GABA that was already there."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "GABA regulates excitability: how readily a network fires in a chain. That matters for movement coordination, for filtering sensory noise, for the tone of anxiety and for sleep. There is no single “GABA of calm.” There are different circuits using the same messenger.",
+            "The balance with glutamate — the main excitatory messenger — is not a numerical draw. It is an ongoing conversation. If it shifts too far one way, the network becomes hyperexcitable or overly quiet. That is a description of networks, not a diagnosis."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "GABAergic interneurons are spread through cortex, hippocampus, basal ganglia and many other regions. There are also nuclei with longer projections. The map does not collapse into “a relaxation centre.”",
+            "GABA-A receptors are not all alike: subunits differ, and with them the sensitivity to modulators. That is why the same drug does not feel the same everywhere or at every dose."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect GABA?",
+          "paragraphs": [
+            "Alcohol. Among the best-studied effects is potentiation of GABA-A receptors: alcohol is not GABA, but it favours the response of some subtypes of those channels to GABA already present; it does not act equally at all of them. It also inhibits NMDA, on the glutamate side. Those effects depend on concentration, region and cellular context. Alcohol has no single GABAergic switch.",
+            "Cannabis. CB1 receptors are common on presynaptic terminals, including many that release GABA. THC can reduce GABA release in some circuits: a local disinhibition, not “switching off the brain’s brake.” The effect depends on circuit and dose.",
+            "Nicotine, cocaine and caffeine. Their main move is not to open GABA-A. Nicotine acts at nicotinic receptors; cocaine at monoamine transporters; caffeine at adenosine receptors. Any GABAergic influence is, here, indirect. There are no universal percentages for inhibition."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated alcohol, networks can adapt: less sensitivity of some GABA-A receptors, changes in glutamate, plasticity. The system “counts on” the drug to hold a balance that, without it, sits elsewhere. That is not a GABA tank running dry; it is a change of set point.",
+            "Other substances do not write the same script. Cannabis modulates terminals; nicotine and caffeine enter by other doors. Alcohol’s GABAergic tolerance is not copied onto a cup of coffee."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When alcohol stops, the modulator that was boosting GABA-A and damping NMDA is gone. If physical dependence has developed, the network can be temporarily hyperexcitable: anxiety, tremor, insomnia; in severe pictures, seizures or delirium tremens. That is not a “character rebound.” It is withdrawal physiology.",
+            "Alcohol withdrawal in people with physical dependence can be dangerous. It is not a home experiment, and Soma cannot calibrate a timetable. Anyone who drinks heavily and regularly and plans to stop suddenly needs medical assessment; in some cases withdrawal is supervised and treated. This sheet does not replace that assessment and does not give a personal schedule.",
+            "Nicotine, cannabis, cocaine and caffeine do not share that same GABA-A-linked seizure risk in withdrawal. Each substance has its own profile. Soma does not read your seizure threshold or treat your days as a GABA measurement."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "GABA is not a universal sedative, and chloride does not always flow in. Of the five substances, alcohol is the one that most clearly potentiates GABA-A; cannabis can modulate GABA release at CB1 terminals; the others enter more indirectly. Abrupt alcohol withdrawal in physical dependence is a medical risk, not an educational anecdote. This sheet describes general mechanisms. It does not describe your brain or tell you how to detox."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. GABA-A, GABA-B and the chloride gradient.",
+        "Rang HP, et al. Rang & Dale’s Pharmacology. Elsevier. Inhibitory amino acids and alcohol.",
+        "Olsen RW, Sieghart W. GABA-A receptors: subtypes provide diversity of function and pharmacology. Pharmacol Rev. 2008;60(3):243–260.",
+        "Hall W, Zador D. The alcohol withdrawal syndrome. Lancet. 1997;349(9069):1897–1900."
+      ]
+    },
+    "glutamate": {
+      "sections": {
+        "what": {
+          "title": "What is glutamate?",
+          "paragraphs": [
+            "Glutamate is the main excitatory messenger in the central nervous system. Chemically it is an amino acid: the same one that goes into proteins and energy metabolism. At the synapse, though, it does not act as a nutrient. It is released at contact points and, within milliseconds, pushes the neighbouring neuron toward firing threshold.",
+            "Excitatory does not mean “dangerous” or “toxic by nature.” It means it favours transmission. Most of the brain’s fast synapses use glutamate. Without it there is, strictly speaking, no electrical conversation on which perceiving, deciding and remembering depend. The problem is not that it exists; it is that dose, timing and reuptake become unregulated — a different scene from everyday neurotransmission."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At an excitatory synapse, vesicles spill glutamate into the cleft. AMPA receptors are fast channels: they let ions through and generate the classic excitatory potential, in milliseconds. NMDA receptors are channels too, but with extra conditions: they often need prior depolarisation so that magnesium unblocks the pore, and they let calcium in, among other ions. That coincidence — “the messenger is here and the cell was already active” — makes them coincidence detectors, useful for learning.",
+            "Metabotropic glutamate receptors are not the channel themselves. They modulate excitability and release more slowly. AMPA, NMDA and metabotropic receptors are not three names for the same thing.",
+            "Glia — mainly astrocytes — take up much of the cleft glutamate through transporters. Fast reuptake stops the messenger from overflowing. If reuptake fails badly and for long enough, sustained excitation can damage neurons: that is the idea of excitotoxicity. It is a pathological path studied in ischaemia and other injury; it is not the description of a cup of coffee or a single drink."
+          ],
+          "analogies": [
+            [
+              "Think of a communications network that not only passes messages but strengthens the lines that are used together (plasticity, long-term potentiation). AMPA is the call that goes through; NMDA is the one that logs that two posts coincided. Astrocytes collect the notices so the switchboard does not saturate.",
+              "The analogy shows transmission and learning. It fails if it is translated as “glutamate is an excitatory poison.” The network needs regulation; it does not need to be switched off. Alcohol, in this picture, does not cut every cable: it makes it harder, among other things, for some NMDA receptors to open as usual."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "Glutamate underpins the excitatory transmission on which perception, movement and thought depend. In hippocampus and cortex, synaptic plasticity — lasting changes in the strength of a synapse — rests in large part on NMDA and on the calcium that enters when activity and glutamate coincide. Long-term potentiation (LTP) is the most cited example of that strengthening; it is not the only memory mechanism, and it does not happen the same way at every synapse.",
+            "The conversation with GABA stops excitation from running away. Learning is not firing more: it is firing with more precision. Glutamate is not an accelerator to be feared; it is the language of “now,” which without a brake would lose meaning."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "Glutamatergic projections run through almost the whole brain: thalamus to cortex, cortex to cortex, paths into basal ganglia and hippocampus. There is no single “glutamate centre.”",
+            "The density of AMPA and NMDA varies by region and synapse type. A drug may lean on one NMDA population more than another. No honest sheet compresses that into one switch."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect glutamate?",
+          "paragraphs": [
+            "Alcohol. It inhibits NMDA receptors, among other effects. At relevant concentrations those channels are less ready to open as usual. That does not cancel glutamate; it shifts the balance toward less NMDA excitation while alcohol is present. At the same time it potentiates GABA-A. The two gestures are not the same, and they are not identical in every region or at every dose.",
+            "Nicotine, cocaine, cannabis and caffeine. Their main mechanism is not NMDA blockade. Nicotine acts at nicotinic receptors, some on terminals that release glutamate; THC at presynaptic CB1 that can reduce release of several transmitters, glutamate included in some circuits; cocaine at monoamine transporters; caffeine at adenosine receptors. Those influences are indirect or local. There is no universal “glutamate rush,” and no comparable percentages across substances."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated alcohol, networks can adapt NMDA and GABA-A in the opposite direction to acute intoxication: more excitatory sensitivity when the drug is gone. That is one substrate of withdrawal hyperexcitability, not a headcount of glutamate molecules in blood.",
+            "Other substances can leave plasticity traces at glutamatergic synapses in reinforcement circuits; research describes that with caveats of region, dose and species. It is not a single script of “glutamate goes up.”"
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When alcohol stops, NMDA inhibition and GABA-A potentiation lift. If adaptation has occurred, the network can be temporarily more excitable. That shift is discussed with withdrawal; it is not a personal glutamate meter.",
+            "There is no universal clock. Soma does not read your NMDA or turn days without drinking into a concentration. Recovery, in general terms, is not a straight line back to catalogue glutamate."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Glutamate is not harmful because it is excitatory, and excitotoxicity is not the everyday name of a drink. Of the five substances, alcohol is the one that most clearly inhibits NMDA; the others influence more indirectly. Plasticity and LTP explain learning, not a marker Soma can read in your hippocampus. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Glutamatergic transmission and plasticity.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. AMPA, NMDA and metabotropic receptors.",
+        "Bliss TVP, Collingridge GL. A synaptic model of memory: long-term potentiation in the hippocampus. Nature. 1993;361:31–39.",
+        "Tsai G, Coyle JT. The role of glutamatergic neurotransmission in the pathophysiology of alcoholism. Annu Rev Med. 1998;49:173–184."
+      ]
+    },
+    "norepinephrine": {
+      "sections": {
+        "what": {
+          "title": "What is noradrenaline?",
+          "paragraphs": [
+            "Noradrenaline — norepinephrine in US naming — is a catecholamine, the same family as dopamine and adrenaline. It is built from dopamine: an enzyme, dopamine β-hydroxylase, adds a hydroxyl. That relatedness explains why some enzymes and some drugs affect them together. It does not make them the same signal.",
+            "In the central nervous system it acts as a neurotransmitter. In the periphery two gestures should be kept apart: sympathetic terminals release noradrenaline next to the organs they innervate; the adrenal medulla pours mainly adrenaline — and some noradrenaline — into the blood. Noradrenaline at a locus coeruleus synapse is not the same thing as those circulating catecholamines, even if the name matches. A urine or plasma assay is not a map of your attention circuits."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "Most brain noradrenaline neurons sit in the locus coeruleus, a small brainstem nucleus, and in neighbouring groups. From there they project widely to cortex, hippocampus, amygdala, thalamus and cerebellum. Like the raphe for serotonin or the VTA for dopamine, the source is compact and the fan is wide.",
+            "At the synapse, noradrenaline binds alpha and beta adrenergic receptors, membrane proteins coupled to different cascades. Some hold back further release or turn excitability down; others favour the response. The same messenger does not mean the same thing at an α2 receptor as at a β1 receptor.",
+            "Reuptake is mainly the job of the NET transporter, which returns the molecule to the neuron. MAO and COMT also break it down. Recycling and destruction remain different jobs."
+          ],
+          "analogies": [
+            [
+              "Think of a system that sets the alertness of different departments, not an alarm that is always on. From a small room (the locus coeruleus) notices go out: on one floor the lighting is raised a little so detail can be read; on another a faster response to noise is prepared. Alpha and beta receptors are the different panels on each floor; NET collects used notices.",
+              "The analogy shows modulated vigilance. It fails if it is translated as continuous panic or as “more noradrenaline = more stress measurable in blood.” The adjustment can be fine; it is not a single siren, and Soma does not read the volume of your alarm."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "In the brain, noradrenaline takes part in attention, wakefulness and the response to relevant or stressful stimuli. It helps some signals stand out from noise. It is not only “getting nervous”: it is also holding focus when the task asks for it.",
+            "In the periphery, the sympathetic system uses noradrenaline locally and the adrenal medulla supplies a mix of catecholamines to the blood. Speeding the heart or redistributing flow is not the effect of one molecule, nor the same gesture as signalling in the locus coeruleus. Mixing that autonomic and hormonal role with cortical neurotransmission is a common error. This sheet is about signalling; it is not a Holter monitor or an anxiety meter."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "The locus coeruleus is the path most often cited toward the forebrain. Other brainstem noradrenergic groups innervate, among other regions, hypothalamus and spinal cord. The map does not collapse into a single alertness nucleus.",
+            "The density of alpha and beta receptors varies by tissue. The same substance may feel more like a peripheral thud than a change of focus, or the reverse, according to dose and route."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect noradrenaline?",
+          "paragraphs": [
+            "Cocaine. As well as DAT and SERT, it blocks NET. Noradrenaline already released stays longer at some synapses. That is not making more catecholamine, and it is not only “the dopamine effect”; NET blockade is part of cocaine’s profile, including in the periphery.",
+            "Nicotine. It acts at nicotinic receptors. Some sit on neurons that release noradrenaline or that modulate them, so it can raise release indirectly. It does not block NET as its main move.",
+            "Caffeine. It blocks adenosine receptors and pushes toward more alertness. It crosses arousal circuits; it is not a NET blockade comparable to cocaine.",
+            "Alcohol and cannabis. Their main mechanism is not NET. Alcohol acts at GABA-A and NMDA, among others; THC at CB1. Any noradrenergic influence is, in this frame, more indirect and context-dependent. There are no universal percentages for “how much noradrenaline goes up.”"
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated cocaine, catecholamine transporters and receptors can adapt, and learning ties places and routines. With nicotine, alertness and peripheral signals also shift with use. It is not a single script of “noradrenaline runs out.”",
+            "Tolerance to caffeine’s alertness is not the same phenomenon as NET blockade. Folding them into one curve would be a mistake."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When cocaine stops, NET blockade (and DAT and SERT blockade) lifts. Fatigue, a dip in mood or odd sleep can appear in some patterns; they are not a meter of brain noradrenaline. Nicotine and caffeine have their own alertness withdrawals, different from each other.",
+            "There is no universal clock. Soma does not read your locus coeruleus or turn days without use into a concentration. Recovery is not a straight line back to catalogue sympathetic tone."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Noradrenaline is not a permanent alarm, and blood noradrenaline is not a mirror of the locus coeruleus. Of the five substances, cocaine touches NET directly; nicotine can raise release indirectly; caffeine, alcohol and cannabis enter by other doors. No one can infer brain noradrenaline from days without use. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. Catecholamines, NET and adrenergic receptors.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021. Noradrenaline and arousal.",
+        "Berridge CW, Waterhouse BD. The locus coeruleus–noradrenergic system: modulation of behavioral state and state-dependent cognitive processes. Brain Res Rev. 2003;42(1):33–84.",
+        "Sara SJ. The locus coeruleus and noradrenergic modulation of cognition. Nat Rev Neurosci. 2009;10(3):211–223."
       ]
     },
     "receptors": {
