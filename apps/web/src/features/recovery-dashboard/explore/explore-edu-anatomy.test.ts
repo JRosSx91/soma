@@ -10,6 +10,8 @@ import {
   exploreEduAnatomyHref,
   exploreEduAnatomyLinks,
   exploreEduAnatomyLinksVisible,
+  exploreEduSheetForOrgan,
+  exploreEduSheetForSystem,
   isExploreEduAnatomyDestinationValid,
 } from "./explore-edu-anatomy.ts";
 import enExploreEdu from "../../../i18n/locales/en/explore-edu.json" with { type: "json" };
@@ -127,7 +129,34 @@ test("anatomy related section is Spanish-only and uses real links", () => {
   assert.match(article, /anatomyExplorerHrefForOrgan|exploreEduAnatomyHref/);
   assert.match(article, /data-edu-anatomy-links/);
   assert.equal(article.includes("DetailSheet"), false);
-  assert.equal(page.includes("?edu="), false);
+});
+
+test("inverse anatomy destinations map uniquely to authorized educational sheets", () => {
+  assert.equal(exploreEduSheetForOrgan("brain-vta"), "dopamine");
+  assert.equal(exploreEduSheetForOrgan("brain-nucleus-accumbens"), "dopamine");
+  assert.equal(exploreEduSheetForOrgan("brain-prefrontal-cortex"), "dopamine");
+  assert.equal(exploreEduSheetForOrgan("brain-hippocampus"), "glutamate");
+  assert.equal(exploreEduSheetForOrgan("liver"), "metabolism");
+  assert.equal(exploreEduSheetForSystem("nervous-central"), "neuroadaptation");
+  assert.equal(exploreEduSheetForOrgan("brain-amygdala"), null);
+  assert.equal(exploreEduSheetForOrgan("heart"), null);
+  assert.equal(exploreEduSheetForSystem("hepatic"), null);
+  assert.equal(exploreEduSheetForSystem("respiratory"), null);
+  const seen = new Map<string, string>();
+  for (const [sheetId, destinations] of Object.entries(exploreEduAnatomyDestinations)) {
+    for (const destination of destinations) {
+      const key =
+        destination.kind === "organ"
+          ? `organ:${destination.organId}`
+          : `system:${destination.systemId}`;
+      assert.equal(seen.has(key), false, key);
+      seen.set(key, sheetId);
+    }
+  }
+  assert.equal(seen.size, 6);
+  assert.equal(esExploreEdu.anatomyToArticle.dopamine.includes("dopamina"), true);
+  assert.equal(enExploreEdu.anatomyToArticle.dopamine.includes("dopamine"), true);
+  assert.notEqual(esExploreEdu.anatomyToArticle.dopamine, enExploreEdu.anatomyToArticle.dopamine);
 });
 
 test("the one-to-one educational graph and recovery models stay unchanged", () => {

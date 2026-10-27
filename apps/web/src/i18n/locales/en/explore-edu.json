@@ -2,6 +2,12 @@
   "analogyHeading": "💡 To picture this more clearly",
   "bibliographyTitle": "Bibliography",
   "anatomyLinksTitle": "View in the anatomical explorer",
+  "anatomyToArticle": {
+    "dopamine": "Understand dopamine",
+    "glutamate": "Understand glutamate",
+    "metabolism": "Understand metabolism",
+    "neuroadaptation": "Understand neuroadaptation"
+  },
   "related": {
     "toReceptors": "Understand how receptors work",
     "toDopamine": "Discover how dopamine acts",

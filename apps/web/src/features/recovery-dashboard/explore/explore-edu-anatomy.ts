@@ -69,3 +69,48 @@ export function exploreEduAnatomyHref(
   }
   return anatomyExplorerHref(base, destination.systemId);
 }
+
+function anatomyDestinationKey(destination: ExploreEduAnatomyDestination): string {
+  return destination.kind === "organ"
+    ? `organ:${destination.organId}`
+    : `system:${destination.systemId}`;
+}
+
+const exploreEduAnatomyInverse = (() => {
+  const inverse = new Map<string, ExploreEduSheetId>();
+  for (const sheetId of Object.keys(exploreEduAnatomyDestinations) as ExploreEduAnatomySheetId[]) {
+    for (const destination of exploreEduAnatomyDestinations[sheetId]) {
+      const key = anatomyDestinationKey(destination);
+      const existing = inverse.get(key);
+      if (existing && existing !== sheetId) {
+        inverse.delete(key);
+        continue;
+      }
+      inverse.set(key, sheetId);
+    }
+  }
+  return inverse;
+})();
+
+export function exploreEduSheetForAnatomy(
+  destination: ExploreEduAnatomyDestination,
+): ExploreEduSheetId | null {
+  if (!isExploreEduAnatomyDestinationValid(destination)) return null;
+  return exploreEduAnatomyInverse.get(anatomyDestinationKey(destination)) ?? null;
+}
+
+/** Organ-level inverse only. Does not inherit the parent system's article. */
+export function exploreEduSheetForOrgan(organId: string): ExploreEduSheetId | null {
+  const systemId = atlasSystemIdForOrgan(organId);
+  if (!systemId) return null;
+  return exploreEduSheetForAnatomy({
+    kind: "organ",
+    organId: organId as OrganId,
+    systemId,
+  });
+}
+
+/** System-level inverse only. Does not collect organ articles in that system. */
+export function exploreEduSheetForSystem(systemId: string): ExploreEduSheetId | null {
+  return exploreEduSheetForAnatomy({ kind: "system", systemId });
+}

@@ -1,7 +1,7 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { TFunction } from "i18next";
 import { ChevronRight, Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { EducationalNeurotransmitter } from "../anatomy/neurotransmitter-education.js";
 import {
@@ -56,6 +56,12 @@ import {
   type ExploreEduSheetId,
 } from "../explore/explore-edu.js";
 import {
+  EXPLORE_EDU_QUERY_KEY,
+  exploreEduTargetFromSheetId,
+  resolveExploreEduQueryParam,
+  writeExploreEduSearchParams,
+} from "../explore/explore-edu-query.js";
+import {
   canExpandExploreList,
   collapseExploreIds,
   exploreSystemCardSources,
@@ -80,6 +86,18 @@ type ExploreEduTarget =
   | { kind: "nt"; id: EducationalNeurotransmitter }
   | { kind: "process"; id: ExploreProcessTopic };
 
+function toExploreEduTarget(id: ExploreEduSheetId): ExploreEduTarget | null {
+  const target = exploreEduTargetFromSheetId(id);
+  if (!target) return null;
+  if (target.kind === "nt" && isExploreEduNtSheetId(target.id)) {
+    return { kind: "nt", id: target.id };
+  }
+  if (target.kind === "process" && isPublishedExploreProcess(target.id)) {
+    return { kind: "process", id: target.id };
+  }
+  return null;
+}
+
 /**
  * Educational explore surface for Soma 2.0.
  * Uses the API substance catalog and the anatomy educational indexes.
@@ -88,15 +106,24 @@ type ExploreEduTarget =
 export function ExplorePage() {
   const { t, i18n } = useTranslation("explore");
   const base = useShellBase();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data: substances, loading, error } = useSubstances();
   const [query, setQuery] = useState("");
   const [scope, setScope] = useState<ExploreScope>("all");
   const [openSubstance, setOpenSubstance] = useState<ApiSubstance | null>(null);
   const [openSystemId, setOpenSystemId] = useState<string | null>(null);
-  const [eduTarget, setEduTarget] = useState<ExploreEduTarget | null>(null);
   const [showAllSystems, setShowAllSystems] = useState(false);
   const [showAllNeurotransmitters, setShowAllNeurotransmitters] = useState(false);
   const quote = pickDailyMessage(readDailyMessages(t("quotes", { returnObjects: true })));
+  const eduQuery = searchParams.get(EXPLORE_EDU_QUERY_KEY);
+  const eduId = resolveExploreEduQueryParam(eduQuery);
+  const eduTarget = eduId ? toExploreEduTarget(eduId) : null;
+
+  useEffect(() => {
+    if (eduQuery == null) return;
+    if (resolveExploreEduQueryParam(eduQuery)) return;
+    setSearchParams((current) => writeExploreEduSearchParams(current, null), { replace: true });
+  }, [eduQuery, setSearchParams]);
 
   const educationalPairs = useMemo(
     () => [...narrativeCatalogPairs(), ...recoveryCatalogPairs()],
@@ -208,29 +235,43 @@ export function ExplorePage() {
     showComingSoon;
   const waitingOnSubstances = loading && showSubstances && !query.trim();
 
+  /** In-page edu changes use replace. Atlas links to exploreEduHref push. */
+  function setExploreEdu(id: ExploreEduSheetId | null) {
+    setOpenSubstance(null);
+    setOpenSystemId(null);
+    setSearchParams((current) => writeExploreEduSearchParams(current, id), { replace: true });
+  }
+
+  function openSubstanceSheet(item: ApiSubstance) {
+    setOpenSystemId(null);
+    setSearchParams((current) => writeExploreEduSearchParams(current, null), { replace: true });
+    setOpenSubstance(item);
+  }
+
+  function openSystemSheet(systemId: string) {
+    setOpenSubstance(null);
+    setSearchParams((current) => writeExploreEduSearchParams(current, null), { replace: true });
+    setOpenSystemId(systemId);
+  }
+
   function openSubstanceById(substanceId: string) {
     const match = substances?.find((item) => item.id === substanceId) ?? null;
-    setEduTarget(null);
-    if (match) setOpenSubstance(match);
+    if (match) openSubstanceSheet(match);
   }
 
   function openNtSheet(id: EducationalNeurotransmitter) {
-    setEduTarget({ kind: "nt", id });
+    if (!isPublishedExploreEduNtSheet(id)) return;
+    setExploreEdu(id);
   }
 
   function openPublishedProcess(id: ExploreProcessTopic) {
     if (!isPublishedExploreProcess(id)) return;
-    setEduTarget({ kind: "process", id });
+    setExploreEdu(id);
   }
 
   function openRelatedEduSheet(id: ExploreEduSheetId) {
-    if (isExploreEduNtSheetId(id)) {
-      setEduTarget({ kind: "nt", id });
-      return;
-    }
-    if (isPublishedExploreProcess(id)) {
-      setEduTarget({ kind: "process", id });
-    }
+    if (!isPublishedExploreEduSheet(id)) return;
+    setExploreEdu(id);
   }
 
   return (
@@ -291,7 +332,7 @@ export function ExplorePage() {
               <li key={item.id} className="min-w-0">
                 <button
                   type="button"
-                  onClick={() => setOpenSubstance(item)}
+                  onClick={() => openSubstanceSheet(item)}
                   className={`${previewFocus} flex h-full w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface text-left hover:border-soma-line-strong`}
                 >
                   <span className="flex h-40 shrink-0 items-center justify-center bg-[#101820] px-3">
@@ -341,7 +382,7 @@ export function ExplorePage() {
                 <li key={system.id} className="min-w-0">
                   <button
                     type="button"
-                    onClick={() => setOpenSystemId(system.id)}
+                    onClick={() => openSystemSheet(system.id)}
                     className={`${previewFocus} flex h-full w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface text-left hover:border-soma-line-strong`}
                   >
                     <span className="flex h-28 shrink-0 items-center justify-center bg-[#101820] px-2 sm:h-[7.25rem]">
@@ -493,7 +534,7 @@ export function ExplorePage() {
         </section>
       ) : null}
 
-      {openSubstance ? (
+      {openSubstance && !eduTarget ? (
         <DetailSheet
           title={substanceName(t, openSubstance.id, openSubstance.name)}
           panelClassName="max-w-lg sm:max-w-xl"
@@ -507,7 +548,7 @@ export function ExplorePage() {
         </DetailSheet>
       ) : null}
 
-      {openSystem ? (
+      {openSystem && !eduTarget ? (
         <DetailSheet
           title={systemName(t, openSystem.id, openSystem.name)}
           onClose={() => setOpenSystemId(null)}
@@ -524,7 +565,7 @@ export function ExplorePage() {
               : t(`processTopics.${eduTarget.id}`)
           }
           size={isPublishedExploreEduSheet(eduTarget.id) ? "article" : "default"}
-          onClose={() => setEduTarget(null)}
+          onClose={() => setExploreEdu(null)}
         >
           {eduTarget.kind === "process" && isPublishedExploreEduSheet(eduTarget.id) ? (
             <ExploreEducationalArticle sheetId={eduTarget.id} onOpenRelated={openRelatedEduSheet} />
