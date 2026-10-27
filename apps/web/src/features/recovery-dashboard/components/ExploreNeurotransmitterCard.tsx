@@ -1,18 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { keepsFullPhaseCopyVisible } from "../anatomy/educational-nt-safety.js";
-import {
-  signalingMarkTone,
-  type SignalingMarkTone,
-} from "../anatomy/signaling-presentation.js";
+import { signalingMarkClassName } from "../anatomy/signaling-presentation.js";
 import type { EducationalSignalingEntry } from "../anatomy/neurotransmitter-education.js";
 import { CatalogDetails } from "./CatalogDetails.js";
-
-const MARK_CLASS: Record<SignalingMarkTone, string> = {
-  action: "bg-soma-action",
-  physiology: "bg-soma-physiology",
-  reward: "bg-soma-reward",
-  warning: "bg-soma-warning",
-};
 
 interface ExploreNeurotransmitterCardProps {
   entry: EducationalSignalingEntry;
@@ -38,7 +28,6 @@ export function ExploreNeurotransmitterCard({
     ? t(`mechanisms:${entry.mechanismKey}`, { defaultValue: "" })
     : "";
   const explanation = t(`neurotransmitter-phases:${entry.phaseKey}`, { defaultValue: "" });
-  const tone = signalingMarkTone(entry.neurotransmitter);
   const keepPhaseVisible = keepsFullPhaseCopyVisible(
     substanceId,
     entry.neurotransmitter,
@@ -54,7 +43,7 @@ export function ExploreNeurotransmitterCard({
         <span
           role="img"
           aria-label={t("ntMarkAria", { name })}
-          className={`mt-1 h-3 w-3 shrink-0 rounded-full ${MARK_CLASS[tone]}`}
+          className={`mt-1 h-3 w-3 shrink-0 rounded-full ${signalingMarkClassName(entry.neurotransmitter)}`}
         />
         <div className="min-w-0 flex-1 space-y-1.5">
           <div>

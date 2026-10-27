@@ -23,3 +23,14 @@ const TONES: Record<EducationalNeurotransmitter, SignalingMarkTone> = {
 export function signalingMarkTone(neurotransmitter: EducationalNeurotransmitter): SignalingMarkTone {
   return TONES[neurotransmitter];
 }
+
+const MARK_CLASS: Record<SignalingMarkTone, string> = {
+  action: "bg-soma-action",
+  physiology: "bg-soma-physiology",
+  reward: "bg-soma-reward",
+  warning: "bg-soma-warning",
+};
+
+export function signalingMarkClassName(neurotransmitter: EducationalNeurotransmitter): string {
+  return MARK_CLASS[signalingMarkTone(neurotransmitter)];
+}

@@ -3,9 +3,9 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-27 (GAME-03C fusionado en `develop`, PR #59; I18N-2.0 implementado, pendiente de integración).
-Rama de trabajo: `feature/i18n-2-0` (base `develop`).
-HEAD de `origin/develop` al actualizar: `ac595c25b090760f8c9c05dbe9406bc482cf3232` (merge PR #59).
+Última actualización editorial: 2026-10-27 (I18N-2.0 fusionado en `develop`, PR #60; Explorador 2.0 implementado y validado, pendiente de integración).
+Rama de trabajo: `feature/explorer-2-0` (base `develop`).
+HEAD de `origin/develop` al actualizar: `5a451bd513d0d215b2e2fb334737d51ab8f143a3` (merge PR #60).
 `origin/main`: termina en PR #51 (`5e38b98`). SHELL-01 y GAME-* no están en `origin/main`.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
@@ -55,7 +55,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | UX-02 mensajes diarios × 60 | Completado y validado (tests) |
 | UX-03 figura móvil | Completado y validado DEMO 320/375/430 |
 | UX-04 recuperación DEMO | Completado y validado DEMO (PR #50). LIVE `/app` no retestado |
-| UX-05–07 Explorar | Completados y validados DEMO (PR #49). LIVE no comprobado |
+| UX-05–07 Explorar | Completados y validados DEMO (PR #49). LIVE no comprobado. Rediseño Explorador 2.0 pendiente de integración |
 | UX-08–09 atlas editorial | Pendiente (contenido / evidencia) |
 | UX-10 logros en revisión | Implementado, pendiente de validación |
 | UX-11 platino | Pendiente (umbral 0,99 insuficiente) |
@@ -67,7 +67,9 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
 | Soma Expeditions (GAME-*) | GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A, GAME-03B y GAME-03C fusionados en `develop` (PR #53–#59). Sin deploy a producción |
-| I18N-2.0 dashboards ES/EN | Implementado, pendiente de integración (`feature/i18n-2-0`). Cubre Inicio, Recuperación y Logros. **No** Atlas, Explorar ni `/achievements` legacy. LIVE autenticado: falta comprobación de navegador antes del despliegue |
+| I18N-2.0 dashboards ES/EN | Fusionado en `develop` (`5a451bd`, PR #60). Cubre Inicio, Recuperación y Logros. **No** Atlas ni `/achievements` legacy. LIVE autenticado: falta comprobación de navegador antes del despliegue |
+| Explorador 2.0 | Implementado y validado; pendiente de integración en `develop` (`feature/explorer-2-0`). Cabecera, búsqueda ES/EN, filtros, 5 sustancias, 12 sistemas con ilustraciones, 9 NT educativos, selector de fase, procesos y misiones **en preparación**. EXP-EDU-01, GAME-05 y GAME-06 **no** implementados |
+| EXP-EDU-01 fichas educativas | Pendiente. Después de Explorador 2.0 y antes de GAME-05 |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -212,7 +214,7 @@ El catálogo de **106** ítems debe distinguirse así: **existencia** (seed/gene
 - **Descripción:** Identificar con claridad los logros pendientes de revisión y explicar el motivo.
 - **Criterio:** La UI distingue `ruleReview` (u homólogo) y explica por qué no es un objetivo alcanzable (p. ej. falta de curva).
 - **Evidencia:** Generador: 7 ítems `ruleReview: true` (p. ej. `cocaine-hippocampus-gold-1`, seis VTA de cafeína). `AchievementsPage` muestra `reviewCount` y copy si no hay curva. Falta validar comprensión y que el listado sea obvio. La página legacy `/achievements` no aplica este tratamiento (LEG-01).
-- **Dependencias:** I18N-02 cubierto en Logros 2.0 (I18N-2.0, pendiente de fusionar). Validación LIVE. La ruta legacy `/achievements` sigue en LEG-01.
+- **Dependencias:** I18N-02 cubierto en Logros 2.0 (I18N-2.0, fusionado en `develop`, PR #60). Validación LIVE. La ruta legacy `/achievements` sigue en LEG-01.
 
 #### UX-11 — Lógica de platino
 
@@ -262,12 +264,12 @@ Código existente (JWT en memoria, cookie de refresh, PUT `/me/profile`, onboard
 
 ## Internacionalización
 
-UI selectable: solo ES/EN (`INTERFACE_LANGUAGES`). I18N-2.0 cubre Inicio, Mi recuperación y Logros 2.0. Atlas, Explorar y `/achievements` legacy **no** se declaran traducidos.
+UI selectable: solo ES/EN (`INTERFACE_LANGUAGES`). I18N-2.0 cubre Inicio, Mi recuperación y Logros 2.0. Explorador 2.0 cubre chrome ES/EN de Explorar (pendiente de integrar). Atlas y `/achievements` legacy **no** se declaran traducidos.
 
 #### I18N-01 — DEMO que permanece en español con UI inglesa
 
 - **Descripción:** Corregir recuentos (`42 días`), badge DEMO / `demoDisclaimer`, y cuerpos de hitos DEMO cuando el idioma es EN.
-- **Estado:** Implementado en las tres pantallas 2.0 (rama `feature/i18n-2-0`, I18N-2.0), pendiente de integración en `develop`. El defecto original se observó en DEMO producción 2026-10-25; esa superficie desplegada **no** se revalidó aquí.
+- **Estado:** Fusionado en `develop` (`5a451bd`, PR #60). El defecto original se observó en DEMO producción 2026-10-25; esa superficie desplegada **no** se revalidó aquí.
 - **Prioridad:** P1 residual (integrar; comprobar LIVE autenticado en navegador **antes del despliegue**)
 - **Evidencia:** `DemoNotice` usa `recovery:demoDisclaimer`. Las etiquetas DEMO se presentan con i18n (`presentDemoSubstances` / series / sistemas / cambios); `elapsedDays` intactos. Comprobado en `/preview` ES y EN (Inicio, Recuperación, Logros), overflow 0 a 320 px.
 - **Dependencias:** Ninguna de producto. No mezclar con traducción de ciencia.
@@ -276,7 +278,7 @@ UI selectable: solo ES/EN (`INTERFACE_LANGUAGES`). I18N-2.0 cubre Inicio, Mi rec
 #### I18N-02 — Logros: chrome y catálogo
 
 - **Descripción:** Internacionalizar `AchievementsPage` (hoy «Logros», «Bronce», «Revisión pendiente») y el catálogo mostrado (seed/generador en español).
-- **Estado:** Implementado en Logros 2.0 (`/preview/achievements` y `/app/achievements`) en I18N-2.0, pendiente de integración. **No** cubre Atlas, Explorar ni la ruta legacy `/achievements`.
+- **Estado:** Fusionado en `develop` (`5a451bd`, PR #60). Cubre Logros 2.0 (`/preview/achievements` y `/app/achievements`). **No** cubre Atlas ni la ruta legacy `/achievements`. El chrome de Explorar se actualiza en Explorador 2.0 (pendiente de integrar).
 - **Prioridad:** P1 residual (integrar; LIVE autenticado en navegador pendiente)
 - **Evidencia:** Chrome `achievements:ui` ES/EN. Títulos y descripciones vía `achievements:{id}`. Búsqueda con nombre de sustancia del idioma activo (y `substanceId`); secretos sellados no coinciden por título. Órganos de ficha vía `organs`. El generador sigue en ES como fallback.
 - **Dependencias:** UX-10 (misma pantalla). No cambia reglas de desbloqueo.
@@ -420,7 +422,7 @@ Inventario real de `docs/design/` (2026-10-26):
 #### GAME-DESIGN-01 — Navegación y diseño de Expeditions
 
 - **Descripción:** Cómo entra Expeditions en SHELL-01 **sin** segundo sistema de navegación. Dirección visual de ocho pantallas (siete PNG 2.0 + Misiones sin mockup propio).
-- **Estado:** Dirección visual **aprobada**. NAV-01 fusionado en `develop` (`f107bc8`, PR #55). NAV-02 fusionado en `develop` (`d0c4c78`, PR #56). GAME-03A fusionado en `develop` (`6658e6b`, PR #57). GAME-03B fusionado en `develop` (`2d897bd`, PR #58). GAME-03C fusionado en `develop` (`ac595c2`, PR #59). **No** desplegado. I18N-2.0 pendiente de integración.
+- **Estado:** Dirección visual **aprobada**. NAV-01 fusionado en `develop` (`f107bc8`, PR #55). NAV-02 fusionado en `develop` (`d0c4c78`, PR #56). GAME-03A fusionado en `develop` (`6658e6b`, PR #57). GAME-03B fusionado en `develop` (`2d897bd`, PR #58). GAME-03C fusionado en `develop` (`ac595c2`, PR #59). I18N-2.0 fusionado en `develop` (`5a451bd`, PR #60). Explorador 2.0 implementado y validado, pendiente de integración. **No** desplegado.
 - **Prioridad:** P1
 - **Horizonte:** cabecera de naturaleza + (en Inicio) mochilero ante el paisaje. Reutilizar identidad Soma; no sustituir la figura anatómica de Inicio. Fotos de mockup **no** son assets de producción hasta licencia/arte propio.
 - **Mapeo pantalla → hitos:**
@@ -429,7 +431,7 @@ Inventario real de `docs/design/` (2026-10-26):
   | --- | --- | --- | --- | --- |
   | Inicio 2.0 | `inicio-2.0.png` | GAME-02, GAME-05, GAME-06, GAME-07 (resumen), UX-02 | `HeroFigure`, mensajes diarios, chips de sustancia, `AchievementMedal` | Horizonte, próximo hito, misión recomendada, nivel (tras GAME-06) |
   | Recuperación 2.0 | `mi-recuperacion-2.0.png` | GAME-02, GAME-03, UX-04 | Curvas, filtros, órganos/sistemas, días de abstinencia | Línea temporal de medallas **temporales**; no duplicar tarjetas de sustancia vs órganos |
-  | Explorador 2.0 | `explorador-2.0.png` | GAME-05, UX-05–07 | 5 sustancias, 12 sistemas, buscador, NT publicados | Procesos clave; más protagonismo NT; **sin** síntomas no publicados |
+  | Explorador 2.0 | `explorador-2.0.png` | GAME-05, EXP-EDU-01, UX-05–07 | 5 sustancias, 12 sistemas, buscador, NT publicados, cabecera, filtros | Fichas EXP-EDU-01; misiones GAME-05; **sin** síntomas no publicados |
   | Atlas 2.0 | `explorador-anatomico-2.0.png` | GAME-05 | Visor, zoom, ilustraciones **originales**, 12 sistemas | Panel contextual; **quitar** la cuadrícula duplicada de sistemas a la derecha del mockup; órganos del sistema; enlaces a misiones |
   | Logros 2.0 | `logros-2.0.png` | GAME-01–03, UX-10–12 | 106 fisiológicos, nombres originales, secretos, `ruleReview`, filtros | Familia temporal aparte; colecciones; platino como culminación; **sin** cambiar reglas aún |
   | Misiones 2.0 | **sin PNG** | GAME-05 | Atlas, sustancias, NT, procesos existentes | Sección + catálogo de misiones; sin XP hasta GAME-06 |
@@ -494,6 +496,45 @@ Inventario real de `docs/design/` (2026-10-26):
 - **Prioridad:** P1
 - **Dependencias:** GAME-DESIGN-01. Decisión de retención/exportación (cuenta, dispositivo, GDPR). AUTH-01. No mezclar con síntomas clínicos publicados. Prisma/API nuevos **después** de la nota de privacidad.
 - **Criterio:** Nota de privacidad aprobada (qué se guarda, quién lo ve, cómo se exporta/borra). UI opt-in. Campos: ánimo, sueño, energía, ansiedad/estrés, notas, calendario, tendencias, reflexiones y aprendizajes **marcados por el usuario**. Del mockup **no** se implementan: racha de uso como meta, «bienestar medio» 0–10 como evaluación, causalidad con abstinencia.
+
+#### Explorador 2.0 — Descubrimiento educativo
+
+- **Descripción:** Rediseño de Explorar (`/preview/explore` y `/app/explore`) como tablero de descubrimiento educativo. Reutiliza contratos existentes (5 sustancias, 12 sistemas, perfiles NT, selector de fase). No es Atlas 2.0 ni GAME-05.
+- **Estado:** Implementado y validado; pendiente de integración en `develop` (`feature/explorer-2-0`).
+- **Prioridad:** P1 residual (integrar).
+- **Capacidades entregadas:**
+  - Cabecera con `nature-4.png`.
+  - Búsqueda ES/EN.
+  - Filtros por categoría.
+  - Cinco sustancias.
+  - Doce sistemas anatómicos.
+  - Ilustraciones individuales para los doce sistemas.
+  - Nueve neurotransmisores educativos (cinco destacados + expansión).
+  - Selector manual de fases conservado.
+  - Cinco procesos clave **en preparación** (tarjetas visuales; sin fichas EXP-EDU-01).
+  - Panel de misiones educativas **en preparación** (sin GAME-05).
+  - Diseño responsive (sin overflow horizontal a 1440, 390 y 320 px).
+  - Reutilización de los contratos existentes.
+- **No entregado:** EXP-EDU-01 (fichas), GAME-05 (misiones), GAME-06 (XP), Atlas 2.0, síntomas no publicados.
+- **Dependencias:** UX-05–07. I18N-2.0 (chrome de dashboards 2.0). No GAME-01/02.
+- **Criterio:** Explorar usable en DEMO y LIVE local; NT educativos no se presentan como medición; procesos y misiones no fingen catálogo publicado.
+
+#### EXP-EDU-01 — Fichas educativas de neurotransmisores y procesos clave
+
+- **Descripción:** Ampliar las fichas de los nueve neurotransmisores educativos y desarrollar fichas para cinco procesos clave, con contenido ES/EN, explicación científica accesible y referencias verificables.
+- **Estado:** Pendiente. **No implementar todavía.** No publicar contenido pendiente de revisión editorial y científica.
+- **Prioridad:** P1 (después de Explorador 2.0; **antes** de GAME-05).
+- **Alcance previsto:**
+  1. Ampliar las fichas de los nueve neurotransmisores.
+  2. Desarrollar fichas educativas para cinco procesos: receptores, tolerancia, dependencia, neuroadaptación, metabolismo.
+  3. Contenido ES/EN.
+  4. Explicaciones científicas accesibles.
+  5. Referencias bibliográficas verificables.
+  6. Revisión editorial y científica **antes** de publicar.
+  7. Navegación desde las tarjetas de Explorador.
+  8. Diferenciación explícita entre información educativa y mediciones individuales.
+- **Dependencias:** Explorador 2.0 (superficie). No inventar ventanas UX-08. No medición de NT. No contenido `pending_clinical_review`.
+- **Criterio:** Fichas publicadas solo tras revisión; las tarjetas de Explorador enlazan a contenido revisado; copy deja claro que no son mediciones individuales.
 
 #### GAME-05 — Misiones educativas
 
@@ -649,7 +690,7 @@ Este documento **no** decide esos puntos ni autoriza seeds.
 | R-CAL | Reutilizar 1–7/8–56/57+ como calendario clínico. | Pendiente (guardrails; catálogo educativo vacío) |
 | R-NT | SHA Render no verificado; NT no son medición. | Requiere investigación (R-SHA); producto educativo OK |
 | R-DUP | Duplicar párrafos NT como lista de síntomas. | Mitigado en catálogo; falta UI de síntomas |
-| R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación y Logros 2.0 (I18N-2.0, pendiente de fusionar). Atlas, Explorar y `/achievements` legacy siguen abiertos (I18N-03, LEG-01) |
+| R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación y Logros 2.0 (I18N-2.0, PR #60). Chrome de Explorar en Explorador 2.0 (pendiente de integrar). Atlas y `/achievements` legacy siguen abiertos (I18N-03, LEG-01) |
 | R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en principios de Expeditions; vigente hasta implementar |
 | R-LOG | Bitácora (GAME-04) sin política de privacidad/exportación. | Pendiente de estudio; **no** implementar UI antes |
 | R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
@@ -663,11 +704,11 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 ## Próximos pasos (por dependencia)
 
 1. **AUTH-01 + LIVE-01:** humo **local** hecho (cuenta sintética). Pendiente producción o staging **autorizado**. No E2E automatizado.
-2. **I18N-2.0:** implementado, pendiente de integración. Cierra I18N-01/I18N-02 en Inicio, Recuperación y Logros 2.0. LIVE autenticado: comprobar en navegador **antes del despliegue**. I18N-03 (Atlas) y Explorar no incluidos.
+2. **I18N-2.0:** fusionado en `develop` (PR #60). Cierra I18N-01/I18N-02 en Inicio, Recuperación y Logros 2.0. LIVE autenticado: comprobar en navegador **antes del despliegue**. I18N-03 (Atlas) no incluido.
 3. **UX-10** (validar) → **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo).
 4. **ACH-REV:** decidir política **antes** de código (bloquea GAME-08 y cualquier revocación).
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**. Distintos de UX-10–12 y de ACH-REV.
-6. **Expeditions:** GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A, GAME-03B y GAME-03C en `develop`. Mapa GAME-07 y bitácora GAME-04 después. Explorador 2.0 **no** iniciado.
+6. **Expeditions:** GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A, GAME-03B, GAME-03C e I18N-2.0 en `develop`. Explorador 2.0 implementado y validado, pendiente de integración. Siguiente: EXP-EDU-01 (fichas). GAME-05, GAME-06, Atlas 2.0, GAME-07 y GAME-04 siguen pendientes.
 7. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 8. **UX-08 / UX-09:** editorial; no inventar.
 9. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.**
@@ -720,7 +761,7 @@ Síntomas / Consejos
   → UI que solo lee lo publicado
 
 AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
-  →  I18N-2.0 (Inicio / Recuperación / Logros; pendiente de integración)
+  →  I18N-2.0 (Inicio / Recuperación / Logros; en develop, PR #60)
   → UX-10 validar  →  UX-12  →  UX-11 (autorización de reglas)
   → ACH-REV (decisión) antes de cualquier revocación
   → ACH-NOTIF-01 / ACH-CELEB-01 / SHELL-01 (main + validado LIVE producción)
@@ -728,9 +769,9 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
 
 Soma Expeditions (dirección visual OK)
   Fase A  GAME-01 y GAME-02 (en develop)
-  Fase A2 NAV-01 y NAV-02 (en develop) → GAME-03A / 03B / 03C (en develop) → I18N-2.0 (pendiente de integración)
+  Fase A2 NAV-01 y NAV-02 (en develop) → GAME-03A / 03B / 03C (en develop) → I18N-2.0 (en develop)
   Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
-  Fase D  Explorador / atlas 2.0 (NT, procesos, panel) → GAME-05 misiones
+  Fase D  Explorador 2.0 (pendiente de integrar) → EXP-EDU-01 fichas → Atlas 2.0 (pendiente) → GAME-05 misiones
   Fase E  GAME-04 bitácora (privacidad primero) → GAME-06 XP → GAME-08 (tras ACH-REV)
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar
@@ -752,7 +793,7 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, Q-*, VIS, LEG, R-SHA) no los sustituyen.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, EXP-EDU-01, Q-*, VIS, LEG, R-SHA) no los sustituyen.
 
 ---
 
@@ -796,4 +837,5 @@ VIS-01 (no reabre UX-03), I18N-03, LEG-01
 | 2026-10-27 | GAME-03C Logros 2.0: implementación local (cabecera `nature-3.png`, resumen 156, filtros, destacados, galería temporal/fisiológica). Sin commit/PR/deploy. |
 | 2026-10-27 | GAME-03C: validación final + PR hacia `develop`. Pendiente de integración. No fusionado. No desplegado. |
 | 2026-10-27 | GAME-03C fusionado en `develop` (`ac595c2`, PR #59). Sin producción. |
-| 2026-10-27 | I18N-2.0: ES/EN en Inicio, Recuperación y Logros 2.0. Implementado, pendiente de integración. Atlas, Explorar y legacy fuera de alcance. LIVE autenticado: falta comprobación de navegador antes del despliegue. |
+| 2026-10-27 | I18N-2.0 fusionado en `develop` (`5a451bd`, PR #60). Atlas y `/achievements` legacy fuera de alcance. LIVE autenticado: falta comprobación de navegador antes del despliegue. |
+| 2026-10-27 | Explorador 2.0: implementado y validado; pendiente de integración en `develop`. Cabecera `nature-4.png`, búsqueda ES/EN, filtros, 5 sustancias, 12 sistemas con ilustraciones, 9 NT educativos, selector de fase, procesos y misiones en preparación. EXP-EDU-01, GAME-05 y GAME-06 no implementados. Atlas 2.0, UX-08 y UX-09 siguen pendientes. |
