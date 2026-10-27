@@ -262,5 +262,61 @@
   "recoverySystemsTitle": "Órganos y sistemas estimados",
   "recoverySystemsHintDemo": "Estimación de demostración por sistema. No es una medición clínica.",
   "recoverySeeAtlas": "Ver atlas completo",
-  "recoveryTrajectoryHint": "En trayectoria estimada"
+  "recoveryTrajectoryHint": "En trayectoria estimada",
+  "demoDisclaimer": "Cifras y textos ficticios. No son mediciones clínicas.",
+  "demoChangeStatus": "En progreso",
+  "demoPhases": {
+    "cannabis": "Fase de normalización de neurotransmisores",
+    "nicotine": "Mejora de la función cardiovascular",
+    "cocaine": "Estabilización de circuitos de recompensa"
+  },
+  "demoSeries": {
+    "nervous": "Sistema nervioso",
+    "reward": "Sistema de recompensa",
+    "cardiovascular": "Función cardiovascular",
+    "pulmonary": "Función pulmonar",
+    "cognitive": "Función cognitiva"
+  },
+  "demoSystems": {
+    "nervous": "Sistema nervioso",
+    "cardio": "Cardiovascular",
+    "respiratory": "Respiratorio",
+    "digestive": "Digestivo",
+    "endocrine": "Endocrino",
+    "immune": "Inmunológico"
+  },
+  "demoChanges": {
+    "dopamine": {
+      "system": "Sistema nervioso",
+      "title": "Regulación de la dopamina",
+      "body": "Los receptores de dopamina comienzan a normalizar su sensibilidad tras la exposición prolongada al cannabis."
+    },
+    "lungs": {
+      "system": "Sistema respiratorio",
+      "title": "Función pulmonar",
+      "body": "La función pulmonar continúa mejorando, con una reducción de la inflamación y una mayor eficiencia en el intercambio gaseoso."
+    },
+    "heart-rate": {
+      "system": "Sistema cardiovascular",
+      "title": "Frecuencia cardíaca",
+      "body": "La frecuencia cardíaca en reposo tiende a estabilizarse tras la reducción de la nicotina, mejorando la variabilidad cardíaca."
+    }
+  },
+  "demoMoments": {
+    "dopamine": "Semana 2 del relato",
+    "lungs": "Semana 3 del relato",
+    "heart-rate": "Mes 1 del relato"
+  },
+  "liveSystems": {
+    "nervous-central": "Sistema nervioso",
+    "nervous-peripheral": "Nervioso periférico",
+    "cardiovascular": "Cardiovascular",
+    "respiratory": "Respiratorio",
+    "digestive": "Digestivo",
+    "hepatic": "Hepático",
+    "endocrine": "Endocrino",
+    "immune": "Inmunológico",
+    "integumentary": "Sistema tegumentario",
+    "reproductive": "Sistema reproductor"
+  }
 }

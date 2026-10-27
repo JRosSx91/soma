@@ -5,7 +5,6 @@ import { ChevronRight } from "lucide-react";
 import {
   changeSubstance,
   chartSeriesForSystem,
-  demoMoments,
   recoveryTabs,
   type RecoveryTab,
 } from "../pages-data.js";
@@ -413,13 +412,13 @@ export function RecoveryPage() {
           <p>{openChange.system}</p>
           <p className="mt-2">{openChange.body}</p>
           {openChange.note ? <p className="mt-2">{openChange.note}</p> : null}
-          {openChange.endLabel || (!live && demoMoments[openChange.id]) ? (
+          {openChange.endLabel || (!live && t(`demoMoments.${openChange.id}`)) ? (
             <p className="mt-2 text-soma-ink">
               {openChange.endLabel
                 ? `${live ? t("estimateOrientative") : t("estimateSrDemo")} ${openChange.endLabel}`
                 : null}
-              {!live && demoMoments[openChange.id]
-                ? `${openChange.endLabel ? " · " : ""}${demoMoments[openChange.id]}`
+              {!live
+                ? `${openChange.endLabel ? " · " : ""}${t(`demoMoments.${openChange.id}`)}`
                 : ""}
             </p>
           ) : null}

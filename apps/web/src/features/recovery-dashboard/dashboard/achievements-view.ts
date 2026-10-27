@@ -177,19 +177,21 @@ export function describeAchievement(
   };
 }
 
-export function matchesSearch(
-  item: CatalogItem,
-  query: string,
-  title: string,
-  sealed: boolean,
-): boolean {
-  const needle = query.trim().toLowerCase();
+export function matchesSearch(input: {
+  query: string;
+  title: string;
+  description: string;
+  sealed: boolean;
+  substanceLabel: string;
+  substanceId: string;
+}): boolean {
+  const needle = input.query.trim().toLowerCase();
   if (!needle) return true;
-  const substance = item.substanceName.toLowerCase();
-  if (substance.includes(needle)) return true;
-  if (sealed) return false;
-  if (title.toLowerCase().includes(needle)) return true;
-  return item.description.toLowerCase().includes(needle);
+  if (input.substanceLabel.toLowerCase().includes(needle)) return true;
+  if (input.substanceId.toLowerCase().includes(needle)) return true;
+  if (input.sealed) return false;
+  if (input.title.toLowerCase().includes(needle)) return true;
+  return input.description.toLowerCase().includes(needle);
 }
 
 export function filterCatalog(input: {
@@ -203,6 +205,8 @@ export function filterCatalog(input: {
   status: StatusFilter;
   query: string;
   titleFor: (item: CatalogItem) => string;
+  descriptionFor?: (item: CatalogItem) => string;
+  substanceFor?: (item: CatalogItem) => string;
 }): CatalogItem[] {
   return input.catalog.filter((item) => {
     if (input.family !== "all" && item.family !== input.family) return false;
@@ -216,7 +220,17 @@ export function filterCatalog(input: {
     );
     if (input.status !== "all" && view.bucket !== input.status) return false;
     const title = view.sealed ? "" : input.titleFor(item);
-    return matchesSearch(item, input.query, title, view.sealed);
+    const description = view.sealed
+      ? ""
+      : (input.descriptionFor?.(item) ?? item.description);
+    return matchesSearch({
+      query: input.query,
+      title,
+      description,
+      sealed: view.sealed,
+      substanceLabel: input.substanceFor?.(item) ?? item.substanceName,
+      substanceId: item.substanceId,
+    });
   });
 }
 

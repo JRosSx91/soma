@@ -37,3 +37,20 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.doesNotMatch(page, /XP/);
   assert.equal((page.match(/pages\/AchievementsPage/) ?? []).length, 0);
 });
+
+test("achievements search and copy resolve localized catalog keys", () => {
+  const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /substanceFor/);
+  assert.match(page, /descriptionFor/);
+  assert.match(page, /organs:\$\{item\.organId\}/);
+  assert.match(page, /ui\.substances\.\$\{item\.substanceId\}/);
+  const en = enAchievements as {
+    ui: { substances: Record<string, string> };
+    "nicotine-temporal-14": { title: string };
+  };
+  const es = esAchievements as { ui: { substances: Record<string, string> } };
+  assert.equal(en.ui.substances.nicotine, "Nicotine");
+  assert.equal(es.ui.substances.nicotine, "Nicotina");
+  assert.ok(en["nicotine-temporal-14"]?.title);
+  assert.notEqual(en["nicotine-temporal-14"].title, "");
+});

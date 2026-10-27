@@ -83,9 +83,78 @@ test("secret bronzes stay sealed and platinums stay visible", () => {
 
 test("search does not match sealed secret titles", () => {
   const secret = item("alcohol-acute-survival-bronze");
-  assert.equal(matchesSearch(secret, "tormenta", secret.title, true), false);
-  assert.equal(matchesSearch(secret, "alcohol", secret.title, true), true);
-  assert.equal(matchesSearch(item("alcohol-liver-bronze-1"), "Mordor", item("alcohol-liver-bronze-1").title, false), true);
+  assert.equal(
+    matchesSearch({
+      query: "tormenta",
+      title: secret.title,
+      description: secret.description,
+      sealed: true,
+      substanceLabel: "Alcohol",
+      substanceId: secret.substanceId,
+    }),
+    false,
+  );
+  assert.equal(
+    matchesSearch({
+      query: "alcohol",
+      title: secret.title,
+      description: secret.description,
+      sealed: true,
+      substanceLabel: "Alcohol",
+      substanceId: secret.substanceId,
+    }),
+    true,
+  );
+  const open = item("alcohol-liver-bronze-1");
+  assert.equal(
+    matchesSearch({
+      query: "Mordor",
+      title: open.title,
+      description: open.description,
+      sealed: false,
+      substanceLabel: "Alcohol",
+      substanceId: open.substanceId,
+    }),
+    true,
+  );
+});
+
+test("search uses the active-language substance label and not a sealed title", () => {
+  const nicotine = item("nicotine-temporal-14");
+  assert.equal(
+    matchesSearch({
+      query: "Nicotine",
+      title: "",
+      description: "",
+      sealed: false,
+      substanceLabel: "Nicotine",
+      substanceId: nicotine.substanceId,
+    }),
+    true,
+  );
+  assert.equal(
+    matchesSearch({
+      query: "Nicotina",
+      title: "",
+      description: "",
+      sealed: false,
+      substanceLabel: "Nicotine",
+      substanceId: nicotine.substanceId,
+    }),
+    false,
+  );
+  const secret = item("alcohol-acute-survival-bronze");
+  assert.equal(
+    matchesSearch({
+      query: "storm",
+      title: "Through the storm",
+      description: secret.description,
+      sealed: true,
+      substanceLabel: "Alcohol",
+      substanceId: secret.substanceId,
+    }),
+    false,
+  );
 });
 
 test("combined filters keep temporal in-progress separate from curve percentages", () => {
