@@ -11,7 +11,11 @@
     "toAcetylcholine": "Comprender cómo actúa la acetilcolina",
     "toEndocannabinoid": "Comprender el sistema endocannabinoide",
     "toEndorphin": "Comprender cómo actúan las endorfinas",
-    "toAdenosine": "Comprender cómo actúa la adenosina"
+    "toAdenosine": "Comprender cómo actúa la adenosina",
+    "toTolerance": "Comprender la tolerancia farmacológica",
+    "toDependence": "Comprender la dependencia física",
+    "toNeuroadaptation": "Comprender la neuroadaptación",
+    "toMetabolism": "Comprender cómo se procesan las sustancias"
   },
   "sheets": {
     "dopamine": {
@@ -764,6 +768,293 @@
         "Porkka-Heiskanen T, Kalinchuk AV. Adenosine, energy metabolism and sleep homeostasis. Sleep Med Rev. 2011;15(2):123–135.",
         "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133.",
         "Nestler EJ, et al. Molecular Neuropharmacology. Receptores de adenosina y neuromodulación."
+      ]
+    },
+    "tolerance": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la tolerancia farmacológica?",
+          "paragraphs": [
+            "La tolerancia farmacológica es una disminución de la respuesta a una misma dosis cuando la exposición se repite. No es un juicio moral ni un recuento de días. Es un cambio de sensibilidad: hace falta más sustancia, o el mismo golpe se siente menos, para un efecto concreto.",
+            "No todos los efectos de una misma sustancia se toleran igual ni al mismo ritmo. Un efecto puede atenuarse mientras otro se mantiene. Por eso no hay una curva universal de tolerancia ni un porcentaje que Soma pueda asignarte.",
+            "Tolerancia no significa necesariamente adicción ni trastorno por consumo. Se puede notar menos un efecto —el café de siempre, un patrón de alcohol— sin cumplir criterios clínicos de trastorno. La adicción implica un conjunto más amplio de conductas y consecuencias; no se deduce de un solo cambio de sensibilidad."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo se produce?",
+          "paragraphs": [
+            "El organismo no es estático. Ante un estímulo químico repetido, puede adaptarse: receptores que responden menos, circuitos que compensan, enzimas que transforman más rápido la molécula. El resultado neto es que la misma dosis ya no produce el mismo efecto.",
+            "Esa adaptación no es un tanque que se vacía. Es plasticidad y, a veces, un cambio en cómo se procesa el fármaco. La analogía de la climatización adaptable ayuda a ver un punto de equilibrio que se mueve; no sustituye a la farmacología."
+          ],
+          "analogies": [
+            [
+              "Piensa en un sistema de climatización adaptable que, si dejas la ventana abierta con el aire a tope, acaba trabajando contra un nuevo punto de equilibrio. La habitación ya no se enfría igual con el mismo mando.",
+              "La analogía muestra un ajuste del sistema, no un termostato convencional que «aprende» por sí solo ni un fallo moral. Falla si se traduce como un único aparato para todos los efectos, o como una curva igual para alcohol, nicotina y cafeína. Cada efecto y cada sustancia tienen su propio margen de adaptación."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Farmacodinámica y farmacocinética",
+          "paragraphs": [
+            "Conviene separar dos mecanismos que a menudo se mezclan. La tolerancia farmacodinámica ocurre en el blanco: receptores, células y circuitos responden menos al mismo estímulo, o hay compensación en la red. La tolerancia farmacocinética ocurre en el camino: el organismo absorbe, transforma o elimina la sustancia de otra manera —por ejemplo, más enzimas hepáticas—, de modo que llega menos fármaco, o llega durante menos tiempo, al sitio de acción.",
+            "Las dos pueden coexistir. No son sinónimos. Un cambio de enzimas no explica por sí solo que un receptor se desensibilice, y al revés."
+          ]
+        },
+        "where": {
+          "title": "Receptores, circuitos y tiempo",
+          "paragraphs": [
+            "En el cerebro, parte de la tolerancia se escribe en receptores y en la excitabilidad de circuitos: desensibilización, cambios de disponibilidad, plasticidad sináptica. Eso se cruza con las fichas de receptores y de neuroadaptación, sin ser lo mismo.",
+            "También importa el tiempo. La tolerancia aguda puede aparecer en minutos u horas, como la desensibilización rápida de algunos nicotínicos. La taquifilaxia es una pérdida de efecto muy rápida, a menudo en la misma sesión; se usa a veces junto a «tolerancia aguda», pero no son sinónimos universales ni cubren todos los mecanismos. La tolerancia crónica se instala con exposición repetida a lo largo de días o semanas. No son el mismo reloj, y Soma no te asigna uno."
+          ]
+        },
+        "substances": {
+          "title": "Sustancias y efectos distintos",
+          "paragraphs": [
+            "Entre las cinco sustancias de Soma, los guiones no se copian. La nicotina puede desensibilizar nicotínicos con rapidez. La cafeína, como antagonista de adenosina, se asocia a tolerancia al efecto de alerta en muchos patrones, con mecanismos aún debatidos. El alcohol combina cambios en GABA-A y NMDA y, con el uso crónico, también vías metabólicas como el CYP2E1 (CYP identifica una familia de enzimas del citocromo P450). El THC en CB1 puede perder efecto con el uso repetido. La cocaína no escribe una sola curva: algunos efectos se atenúan y otros, en ciertos modelos, se sensibilizan.",
+            "La tolerancia cruzada existe cuando dos sustancias comparten lo bastante un mecanismo como para que la adaptación a una reduzca la respuesta a la otra. Se ha descrito, por ejemplo, entre alcohol y otros depresores que potencian GABA-A; no es una ley entre las cinco sustancias de Soma. Cafeína y nicotina no se cubren mutuamente como si fueran la misma llave.",
+            "Incluso dentro de una sustancia, sedación, coordinación, alerta o refuerzo no tienen por qué tolerarse a la par. No hay una tabla única de equivalencias."
+          ]
+        },
+        "connections": {
+          "title": "Relación con dependencia y neuroadaptación",
+          "paragraphs": [
+            "La neuroadaptación —cambios funcionales del sistema nervioso— puede contribuir a la tolerancia farmacodinámica. No toda neuroadaptación se siente como tolerancia, y no toda tolerancia nace solo en la sinapsis: también cuenta la farmacocinética.",
+            "La dependencia física es otra cara posible de la adaptación: el sistema «cuenta» con la sustancia para mantener un equilibrio. Tolerancia y dependencia a menudo conviven, pero no son equivalentes. Se puede desarrollar tolerancia a un efecto sin el síndrome de abstinencia de otra sustancia, y al revés, según qué se mire."
+          ]
+        },
+        "stopping": {
+          "title": "Al reducir o interrumpir el consumo",
+          "paragraphs": [
+            "Si se reduce o se interrumpe el consumo, parte de la tolerancia puede perderse. El ritmo no es universal. Lo delicado es esto: una dosis que «ya no hacía efecto» puede volver a ser excesiva si la tolerancia ha bajado. Retomar una cantidad previamente habitual aumenta el riesgo de intoxicación. El alcohol es un ejemplo relevante, no el único.",
+            "Eso no es un calendario de Soma ni un consejo de dosis. Es un aviso de seguridad general. Quien bebe de forma intensa y regular y planea parar en seco necesita valoración médica; las fichas de GABA y de dependencia lo recuerdan."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "La tolerancia no es adicción. No todos los efectos se toleran igual. No hay curvas universales ni porcentajes que esta app pueda leer en tu cerebro. Perder tolerancia no es «estar limpio»; puede aumentar el riesgo si se vuelve a una dosis antigua. Esta ficha describe mecanismos generales; no describe tu consumo."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Tolerancia y variación de la respuesta.",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14.ª ed. 2022. Tolerancia y taquifilaxia.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Plasticidad y adaptación a fármacos.",
+        "Pietrzykowski AZ, Treistman SN. The molecular basis of tolerance. Alcohol Res Health. 2008;31(4):298–309."
+      ]
+    },
+    "dependence": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la dependencia física?",
+          "paragraphs": [
+            "La dependencia física es una adaptación del organismo a la presencia repetida de una sustancia. Al reducirla o retirarla pueden aparecer síntomas de abstinencia —a menudo en sentido inverso a algunos efectos de la droga—, con intensidad variable. No es un síndrome inevitable ni idéntico en todas las personas, ni un sinónimo de «falta de voluntad».",
+            "Es un concepto farmacológico. Describe que el cuerpo se ha acostumbrado a un equilibrio que incluye la sustancia. No describe, por sí solo, si hay un trastorno por consumo."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo puede aparecer?",
+          "paragraphs": [
+            "Tras exposición repetida, receptores, circuitos y, a veces, órganos periféricos ajustan su funcionamiento. Mientras la sustancia está, ese nuevo equilibrio puede parecer «normal» para la persona. Al faltar el fármaco, el ajuste se queda a destiempo: hiperexcitabilidad, malestar, ansiedad o cambios vegetativos, según la sustancia.",
+            "El aprendizaje y las señales del entorno —lugares, horas, rutinas— pueden disparar malestar o ganas de consumir incluso cuando la farmacología aguda ya ha cambiado. Eso no anula la fisiología; la acompaña."
+          ],
+          "analogies": [
+            [
+              "Imagina que un equipo ha contratado un refuerzo a jornada completa. Mientras está, el resto reparte menos carga. El día que el refuerzo no llega, el equipo no está «flojo de carácter»: está descompensado respecto al ritmo que había aprendido.",
+              "La analogía muestra un equilibrio prestado. Falla si se traduce como adicción, como diagnóstico, o como si todas las sustancias dejasen el mismo hueco. Un café no es un patrón de alcohol, y un recado de oficina no es un síndrome de abstinencia."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Dependencia física y trastorno por consumo",
+          "paragraphs": [
+            "La dependencia física no equivale automáticamente a adicción ni a trastorno por consumo de sustancias. El trastorno por consumo, en los sistemas diagnósticos actuales, exige un conjunto más amplio de criterios: pérdida de control, uso continuado a pesar del daño, abandono de actividades, deseo intenso de consumir (craving), entre otros, evaluados clínicamente. La sola presencia de abstinencia no determina un diagnóstico.",
+            "Se puede tener dependencia física —por ejemplo, en un tratamiento prescrito en otro contexto clínico— sin el patrón conductual del trastorno. Y se puede tener un trastorno por consumo con poca abstinencia clásica, según la sustancia. No son la misma pregunta."
+          ]
+        },
+        "where": {
+          "title": "Abstinencia, cuerpo y aprendizaje",
+          "paragraphs": [
+            "La abstinencia mezcla señales físicas (temblor, sudor, náuseas, insomnio), emocionales (ansiedad, irritabilidad, ánimo bajo) y conductuales (buscar la sustancia, evitar malestar). Separarlas ayuda a no reducir todo a «nervios» ni todo a un único órgano.",
+            "Las señales ambientales y el aprendizaje asociativo participan: un olor, una hora o un lugar pueden encender una respuesta condicionada. Eso es memoria y contexto, no un medidor de «cuánta dependencia hay» en Soma."
+          ]
+        },
+        "substances": {
+          "title": "Variabilidad entre sustancias",
+          "paragraphs": [
+            "El alcohol, en personas con dependencia física importante, puede producir abstinencia grave: ansiedad y temblor y, en cuadros severos, crisis epilépticas, confusión intensa o delirium tremens. Convulsiones, confusión intensa o delirium tremens requieren atención médica urgente. Parar en seco no es un experimento casero; requiere valoración médica. Esta ficha no indica cómo desintoxicar ni qué fármacos usar.",
+            "La nicotina produce un síndrome de abstinencia frecuente (irritabilidad, dificultad de concentración, aumento del apetito) que no se parece al del alcohol. El cannabis puede asociar irritabilidad, sueño alterado y cambios de apetito. La cafeína, dolor de cabeza y fatiga en algunos patrones. La cocaína se asocia más a un bajón de ánimo y fatiga que a un síndrome vegetativo tipo alcohol; no por ello «no pasa nada» al cesar. No hay un único retrato de dependencia para las cinco sustancias."
+          ]
+        },
+        "connections": {
+          "title": "Relación con neuroadaptación y tolerancia",
+          "paragraphs": [
+            "La neuroadaptación puede contribuir a la dependencia física: el sistema nervioso cambia su punto de equilibrio. La tolerancia puede convivir con esa adaptación, pero notar menos un efecto no es lo mismo que sufrir abstinencia.",
+            "El metabolismo influye en cuánto tiempo permanece la sustancia y, por tanto, en cuándo empieza a notarse su falta. No explica por sí solo la dependencia ni la recuperación de los circuitos."
+          ]
+        },
+        "stopping": {
+          "title": "Recuperación y límites temporales",
+          "paragraphs": [
+            "Al interrumpir, la abstinencia —si aparece— suele ser más intensa al principio y luego amaina en muchos patrones, con un calendario que depende de la sustancia, la dosis, la duración y la persona. No hay un reloj universal que Soma pueda aplicar.",
+            "Parte del malestar posterior no es solo farmacología aguda: hábitos, sueño, estrés y señales aprendidas siguen. Las estimaciones temporales de grupos de investigación son promedios de estudios, no una predicción individual. Esta app no diagnostica ni data tu abstinencia."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "Dependencia física no es adicción. La abstinencia no basta para un diagnóstico de trastorno por consumo. La retirada brusca de alcohol en dependencia física importante puede ser peligrosa y exige valoración médica. No hay recomendaciones farmacológicas individuales aquí. Esta ficha no describe tu historia clínica."
+          ]
+        }
+      },
+      "bibliography": [
+        "American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders. 5th ed., text rev. (DSM-5-TR). 2022. Trastornos por consumo de sustancias.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Schuckit MA. Alcohol-use disorders. Lancet. 2009;373(9662):492–501.",
+        "Benowitz NL. Nicotine addiction. N Engl J Med. 2010;362(24):2295–2303."
+      ]
+    },
+    "neuroadaptation": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la neuroadaptación?",
+          "paragraphs": [
+            "La neuroadaptación es el conjunto de cambios del sistema nervioso ante una estimulación repetida —incluida una sustancia—. Puede incluir cambios funcionales y modificaciones estructurales de las conexiones sinápticas. No es, por definición, la muerte de neuronas ni neurodegeneración.",
+            "Es plasticidad: el mismo hardware puede cambiar de programa. Esa idea conecta con tolerancia y con dependencia física, sin convertirlas en sinónimos ni en daño cerebral medido por Soma."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo cambia el sistema nervioso?",
+          "paragraphs": [
+            "A escala de la sinapsis puede cambiar la cantidad de receptor en la membrana, su desensibilización, la liberación del neurotransmisor o la fuerza de la conexión (plasticidad sináptica). A escala de red cambian el tono de circuitos de recompensa, de estrés y de control.",
+            "Nada de eso es un interruptor único de «más dopamina» o «menos dopamina». Reducir la recuperación a una sola concentración de un mensajero es el error que esta ficha trata de evitar."
+          ],
+          "analogies": [
+            [
+              "Piensa en una ciudad que, ante un nuevo caudal de tráfico, cambia semáforos, desvíos y hábitos de los conductores. Eso es adaptación de la red. No es lo mismo que derribar edificios (neurodegeneración).",
+              "La analogía muestra cambio funcional frente a pérdida de estructura. Falla si se traduce como «el cerebro se reconfigura por completo en X días» o como si todos los desvíos se deshicieran a la vez al cortar el tráfico extra."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Plasticidad frente a neurodegeneración",
+          "paragraphs": [
+            "Neuroadaptación no significa necesariamente daño neuronal. La neurodegeneración es pérdida o lesión de células nerviosas. La neuroadaptación es, sobre todo, un cambio de función y, a veces, de la arquitectura de las sinapsis —cuántas hay, cómo están organizadas—, no la pérdida de neuronas. El alcohol crónico intenso puede asociarse, en algunos contextos, a toxicidad; eso no autoriza a llamar «daño» a toda adaptación a cafeína o nicotina.",
+            "Los dos conceptos pueden coexistir en una misma persona y aun así no ser lo mismo. Soma no hace neuroimagen ni cuenta neuronas."
+          ]
+        },
+        "where": {
+          "title": "Recompensa, estrés y control",
+          "paragraphs": [
+            "Los circuitos de recompensa (incluida la vía mesolímbica) pueden volverse menos sensibles a recompensas cotidianas o más sensibles a señales de la sustancia. Los de estrés —amígdala, sistemas de factor liberador de corticotropina, eje hormonal— pueden ganar peso cuando falta la droga. Los de control —corteza prefrontal y sus conexiones— participan en la regulación de impulsos y hábitos.",
+            "Es un mapa de trabajo de la neurobiología de la adicción, no un diagnóstico por regiones. No todos los cambios ocurren en todas las personas ni con todas las sustancias de Soma."
+          ]
+        },
+        "substances": {
+          "title": "Cómo se cruza con las sustancias de Soma",
+          "paragraphs": [
+            "Cada sustancia empuja puertas distintas —DAT, nicotínicos, CB1, GABA-A y NMDA, adenosina— y por tanto escribe adaptaciones distintas. La ficha de cada mensajero ya cubre esos mecanismos; aquí importa la regla: no hay un único «cerebro de la sustancia».",
+            "La cafeína no copia al alcohol. La nicotina no copia a la cocaína. Mezclarlas en un solo relato de neuroadaptación sería un error de mapa."
+          ]
+        },
+        "connections": {
+          "title": "Relación con tolerancia, dependencia y abstinencia",
+          "paragraphs": [
+            "La neuroadaptación puede contribuir a la tolerancia (el blanco responde menos o la red compensa) y a la dependencia física (el equilibrio cuenta con la sustancia). La abstinencia es, en parte, esa adaptación sin el fármaco.",
+            "El metabolismo determina cuánta sustancia hay y durante cuánto tiempo; no es la neuroadaptación. Vaciar el plasma no restablece por sí solo los semáforos de la red."
+          ]
+        },
+        "stopping": {
+          "title": "Cambios reversibles y persistentes",
+          "paragraphs": [
+            "Al cesar el consumo, algunos cambios empiezan a revertir; otros pueden persistir más. El ritmo no es uniforme entre regiones, entre efectos ni entre personas. No existen calendarios universales de recuperación cerebral que esta app pueda aplicar.",
+            "«Ya no está la sustancia» no equivale a «el cerebro ha vuelto a una foto de catálogo». Soma no mide tu plasticidad."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "Neuroadaptación no es neurodegeneración por defecto. No todos los cambios se revierten al mismo ritmo. No hay un calendario universal ni una única concentración de neurotransmisor que resuma la recuperación. Esta ficha describe mecanismos generales; no describe tu encéfalo."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ. Molecular basis of long-term plasticity underlying addiction. Nat Rev Neurosci. 2001;2(2):119–128.",
+        "Kauer JA, Malenka RC. Synaptic plasticity and addiction. Nat Rev Neurosci. 2007;8(11):844–858.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Lüscher C, Malenka RC. Drug-evoked synaptic plasticity in addiction: from molecular changes to circuit remodeling. Neuron. 2011;69(4):650–663."
+      ]
+    },
+    "metabolism": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es el metabolismo de una sustancia?",
+          "paragraphs": [
+            "En farmacología, metabolismo —o biotransformación— es el conjunto de reacciones con las que el organismo modifica una sustancia, a menudo en el hígado, para facilitar su eliminación. No significa exclusivamente «limpiar» o «eliminar»: a veces el metabolito sigue siendo activo, o incluso más activo que la molécula original.",
+            "Confundir metabolismo con recuperación neuronal es el error de mapa de esta ficha. Procesar una molécula no deshace por sí solo las adaptaciones del sistema nervioso."
+          ]
+        },
+        "how": {
+          "title": "Absorción, distribución, transformación y eliminación",
+          "paragraphs": [
+            "El recorrido clásico se resume en cuatro pasos (ADME). Absorción: la sustancia entra al torrente sanguíneo desde el intestino, el pulmón, la mucosa u otra vía. Distribución: se reparte por tejidos, incluido el cerebro si cruza barreras. Metabolismo: enzimas la transforman. Eliminación: se excreta, sobre todo por orina o, en algunos casos, por aire o heces.",
+            "La vida media —el tiempo en el que la concentración plasmática cae a la mitad, cuando el modelo lo permite— no equivale a la duración del efecto. El efecto depende también de qué receptores siguen ocupados, de metabolitos activos y del desfase entre concentración y respuesta."
+          ],
+          "analogies": [
+            [
+              "Piensa en un almacén que recibe un paquete (absorción), lo coloca en estantes distintos (distribución), lo desarma o lo reetiqueta (metabolismo) y lo expide (eliminación). Un reetiquetado puede dejar un objeto todavía útil (metabolito activo).",
+              "La analogía muestra un trámite, no una cura. Falla si se traduce como «cuando el almacén está vacío, la ciudad ya ha deshecho todos los desvíos» o como una calculadora de pruebas toxicológicas."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Farmacocinética y farmacodinámica",
+          "paragraphs": [
+            "La farmacocinética describe qué hace el cuerpo con la sustancia (ADME). La farmacodinámica describe qué hace la sustancia en sus blancos (receptores, enzimas, canales). Tolerancia y dependencia viven sobre todo en la farmacodinámica y en la neuroadaptación, aunque un cambio de enzimas (farmacocinética) pueda contribuir a la tolerancia.",
+            "Mezclar las dos es decir que «ya se eliminó» equivale a «ya no hay efecto residual ni adaptación». No equivale."
+          ]
+        },
+        "where": {
+          "title": "Hígado, riñones y otros tejidos",
+          "paragraphs": [
+            "El hígado concentra muchas enzimas del citocromo P450 —CYP identifica esa familia de enzimas— y otras vías (alcohol deshidrogenasa, esterasas). Los riñones filtran y excretan metabolitos. También hay metabolismo en intestino, pulmón y plasma, según la molécula.",
+            "La genética, la edad, otras drogas, el tabaco o una enfermedad hepática cambian esas vías. Por eso no hay un reloj individual que Soma pueda calcular."
+          ]
+        },
+        "substances": {
+          "title": "Las cinco sustancias de Soma",
+          "paragraphs": [
+            "Alcohol. Se oxida sobre todo por alcohol deshidrogenasa y aldehído deshidrogenasa; con el uso crónico puede ganar peso la vía del CYP2E1. No se elimina como una catecolamina. En determinados rangos de concentración, algunas vías metabólicas se saturan y la cinética puede aproximarse a un ritmo más constante; no es un patrón universal ni un reloj personal. Eso no autoriza a calcular «cuántas horas te quedan» en esta app.",
+            "Nicotina. Se transforma en gran parte en cotinina, con participación destacada de CYP2A6. Cafeína. CYP1A2 es la vía clásica; fumar puede inducirla y acelerar el aclaramiento en muchas personas. Cocaína. Tiene varias rutas metabólicas: vías hidrolíticas —esterasas del plasma y del hígado que generan metabolitos como la benzoilecgonina— y otras transformaciones enzimáticas. Eso no es un veredicto de Soma sobre un test. Cannabis (THC). Se hidroxila a un metabolito 11-OH que también es activo, y luego a ácidos carboxílicos que pueden detectarse más tiempo que el efecto sentido.",
+            "Cinco puertas de entrada, cinco trámites. No hay una «vida media de las drogas» única."
+          ]
+        },
+        "connections": {
+          "title": "Metabolismo, exposición y recuperación",
+          "paragraphs": [
+            "El metabolismo determina parte de la exposición: cuánta sustancia llega, cuánto dura en plasma, si hay metabolito activo. No explica por sí solo la tolerancia, la dependencia ni la recuperación de circuitos.",
+            "Eliminar una sustancia no implica que todas las adaptaciones fisiológicas hayan desaparecido. La neuroadaptación sigue su propio tiempo."
+          ]
+        },
+        "stopping": {
+          "title": "Cuando la sustancia ya no está",
+          "paragraphs": [
+            "Cuando la concentración cae, los efectos agudos remiten antes que muchas adaptaciones. Pueden quedar metabolitos detectables, sueño alterado o abstinencia, según la sustancia, sin que eso demuestre un número de días «limpios» de catálogo.",
+            "Esta ficha no ofrece cálculos individuales de eliminación ni garantías de ausencia en pruebas toxicológicas. Un test depende de umbrales, matrices (orina, sangre, cabello) y del patrón de uso; Soma no interpreta tus analíticas."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "Metabolismo no es solo eliminación. La vida media no es la duración del efecto. Vaciar el plasma no restablece el sistema nervioso. No hay calculadora de detox ni de tests aquí. Esta ficha describe trámites generales; no describe tu hígado ni tu encéfalo."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Farmacocinética (ADME).",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14.ª ed. 2022. Absorción, distribución, metabolismo y excreción.",
+        "Cederbaum AI. Alcohol metabolism. Clin Liver Dis. 2012;16(4):667–685.",
+        "Huestis MA. Human cannabinoid pharmacokinetics. Chem Biodivers. 2007;4(8):1770–1804."
       ]
     }
   }

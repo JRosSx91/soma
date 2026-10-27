@@ -11,7 +11,11 @@
     "toAcetylcholine": "Understand how acetylcholine acts",
     "toEndocannabinoid": "Understand the endocannabinoid system",
     "toEndorphin": "Understand how endorphins act",
-    "toAdenosine": "Understand how adenosine acts"
+    "toAdenosine": "Understand how adenosine acts",
+    "toTolerance": "Understand pharmacological tolerance",
+    "toDependence": "Understand physical dependence",
+    "toNeuroadaptation": "Understand neuroadaptation",
+    "toMetabolism": "Understand how substances are processed"
   },
   "sheets": {
     "dopamine": {
@@ -764,6 +768,293 @@
         "Porkka-Heiskanen T, Kalinchuk AV. Adenosine, energy metabolism and sleep homeostasis. Sleep Med Rev. 2011;15(2):123–135.",
         "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133.",
         "Nestler EJ, et al. Molecular Neuropharmacology. Adenosine receptors and neuromodulation."
+      ]
+    },
+    "tolerance": {
+      "sections": {
+        "what": {
+          "title": "What is pharmacological tolerance?",
+          "paragraphs": [
+            "Pharmacological tolerance is a drop in the response to the same dose when exposure is repeated. It is not a moral judgement and not a count of days. It is a change of sensitivity: more of the substance is needed, or the same hit feels weaker, for a given effect.",
+            "Not every effect of the same substance develops tolerance at the same pace. One effect may fade while another holds. That is why there is no universal tolerance curve and no percentage Soma can assign to you.",
+            "Tolerance does not necessarily mean addiction or a substance use disorder. You can feel less of an effect — the usual coffee, a pattern of drinking — without meeting clinical criteria for a disorder. Addiction involves a broader set of behaviours and consequences; it is not inferred from a single change of sensitivity."
+          ]
+        },
+        "how": {
+          "title": "How does it develop?",
+          "paragraphs": [
+            "The body is not static. Faced with a repeated chemical stimulus, it can adapt: receptors that answer less, circuits that compensate, enzymes that transform the molecule faster. The net result is that the same dose no longer produces the same effect.",
+            "That adaptation is not a tank running dry. It is plasticity and, sometimes, a change in how the drug is processed. The adaptive climate-control analogy helps you see a moving equilibrium; it does not replace pharmacology."
+          ],
+          "analogies": [
+            [
+              "Think of an adaptive climate-control system that, if you leave the window open with the cooling on full, ends up working against a new equilibrium. The room no longer cools the same way with the same control.",
+              "The analogy shows a system adjustment, not a conventional thermostat that “learns” on its own, and not a moral failure. It fails if it is translated as a single device for every effect, or as one curve for alcohol, nicotine and caffeine. Each effect and each substance has its own room to adapt."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Pharmacodynamic and pharmacokinetic",
+          "paragraphs": [
+            "Two mechanisms are often mixed up. Pharmacodynamic tolerance happens at the target: receptors, cells and circuits respond less to the same stimulus, or the network compensates. Pharmacokinetic tolerance happens on the way: the body absorbs, transforms or eliminates the substance differently — for example with more liver enzymes — so less drug reaches the site of action, or it stays for less time.",
+            "The two can coexist. They are not synonyms. An enzyme change does not by itself explain receptor desensitisation, and the reverse is also true."
+          ]
+        },
+        "where": {
+          "title": "Receptors, circuits and time",
+          "paragraphs": [
+            "In the brain, part of tolerance is written in receptors and in circuit excitability: desensitisation, changes in availability, synaptic plasticity. That crosses the receptor and neuroadaptation sheets without being the same thing.",
+            "Time also matters. Acute tolerance can appear in minutes or hours, such as the rapid desensitisation of some nicotinic receptors. Tachyphylaxis is a very rapid loss of effect, often within the same session; it is sometimes used alongside “acute tolerance”, but they are not universal synonyms and they do not cover every mechanism. Chronic tolerance builds with repeated exposure over days or weeks. They are not the same clock, and Soma does not assign you one."
+          ]
+        },
+        "substances": {
+          "title": "Different substances, different effects",
+          "paragraphs": [
+            "Among Soma’s five substances, the scripts are not copied. Nicotine can desensitise nicotinic receptors quickly. Caffeine, as an adenosine antagonist, is linked to tolerance of the alerting effect in many patterns, with mechanisms still debated. Alcohol combines changes at GABA-A and NMDA and, with chronic use, metabolic routes such as CYP2E1 as well (CYP names a family of cytochrome P450 enzymes). THC at CB1 can lose effect with repeated use. Cocaine does not write a single curve: some effects diminish and others, in some models, sensitise.",
+            "Cross-tolerance exists when two substances share enough of a mechanism that adaptation to one reduces the response to the other. It has been described, for example, between alcohol and other depressants that potentiate GABA-A; it is not a law among Soma’s five substances. Caffeine and nicotine do not cover for each other as if they were the same key.",
+            "Even within one substance, sedation, coordination, alertness or reinforcement need not tolerate in step. There is no single conversion table."
+          ]
+        },
+        "connections": {
+          "title": "Links with dependence and neuroadaptation",
+          "paragraphs": [
+            "Neuroadaptation — functional change in the nervous system — can contribute to pharmacodynamic tolerance. Not all neuroadaptation is felt as tolerance, and not all tolerance is born only at the synapse: pharmacokinetics counts too.",
+            "Physical dependence is another possible face of adaptation: the system “counts on” the substance to hold a balance. Tolerance and dependence often coexist, but they are not equivalent. You can develop tolerance to one effect without another substance’s withdrawal syndrome, and the reverse, depending on what you look at."
+          ]
+        },
+        "stopping": {
+          "title": "When use is reduced or stopped",
+          "paragraphs": [
+            "If use is cut down or stopped, some of the tolerance can be lost. The pace is not universal. The delicate point is this: a dose that “no longer did much” can become excessive again if tolerance has fallen. Returning to a previously usual amount raises the risk of intoxication. Alcohol is a relevant example, not the only one.",
+            "That is not a Soma timetable and not a dosing tip. It is a general safety warning. Anyone who drinks heavily and regularly and plans to stop suddenly needs medical assessment; the GABA and dependence sheets make the same point."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Tolerance is not addiction. Not every effect tolerates equally. There are no universal curves or percentages this app can read in your brain. Losing tolerance is not “being clean”; it can raise risk if an old dose is resumed. This sheet describes general mechanisms; it does not describe your use."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Tolerance and variation of response.",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Tolerance and tachyphylaxis.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Plasticity and adaptation to drugs.",
+        "Pietrzykowski AZ, Treistman SN. The molecular basis of tolerance. Alcohol Res Health. 2008;31(4):298–309."
+      ]
+    },
+    "dependence": {
+      "sections": {
+        "what": {
+          "title": "What is physical dependence?",
+          "paragraphs": [
+            "Physical dependence is an adaptation of the body to the repeated presence of a substance. When it is cut down or withdrawn, withdrawal symptoms may appear — often in the opposite direction of some of the drug’s effects — with variable intensity. It is not an inevitable syndrome, not identical in every person, and not a synonym for “lack of willpower”.",
+            "It is a pharmacological concept. It describes a body that has grown used to a balance that includes the substance. It does not, by itself, say whether a substance use disorder is present."
+          ]
+        },
+        "how": {
+          "title": "How can it appear?",
+          "paragraphs": [
+            "After repeated exposure, receptors, circuits and sometimes peripheral organs adjust how they work. While the substance is there, that new balance can feel “normal” to the person. When the drug is missing, the adjustment is out of time: hyperexcitability, malaise, anxiety or autonomic changes, depending on the substance.",
+            "Learning and environmental cues — places, times, routines — can trigger discomfort or urges to use even after the acute pharmacology has shifted. That does not cancel physiology; it travels with it."
+          ],
+          "analogies": [
+            [
+              "Imagine a team that has hired a full-time extra pair of hands. While they are there, everyone else carries less. The day the extra help does not show up, the team is not “weak-willed”: it is out of balance with the pace it had learned.",
+              "The analogy shows a borrowed equilibrium. It fails if it is translated as addiction, as a diagnosis, or as if every substance left the same gap. A coffee is not a pattern of drinking, and an office rota is not a withdrawal syndrome."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Physical dependence and substance use disorder",
+          "paragraphs": [
+            "Physical dependence is not automatically addiction or a substance use disorder. In current diagnostic systems, a substance use disorder requires a broader set of criteria: loss of control, continued use despite harm, neglected activities, craving, among others, assessed clinically. The presence of withdrawal alone does not determine a diagnosis.",
+            "You can have physical dependence — for example during a prescribed treatment in another clinical setting — without the behavioural pattern of the disorder. And you can have a substance use disorder with little classic withdrawal, depending on the substance. They are not the same question."
+          ]
+        },
+        "where": {
+          "title": "Withdrawal, body and learning",
+          "paragraphs": [
+            "Withdrawal mixes physical signs (tremor, sweating, nausea, insomnia), emotional ones (anxiety, irritability, low mood) and behavioural ones (seeking the substance, avoiding discomfort). Separating them helps you not reduce everything to “nerves” or to a single organ.",
+            "Environmental cues and associative learning take part: a smell, a time of day or a place can fire a conditioned response. That is memory and context, not a meter of “how much dependence” in Soma."
+          ]
+        },
+        "substances": {
+          "title": "How substances differ",
+          "paragraphs": [
+            "Alcohol, in people with substantial physical dependence, can produce severe withdrawal: anxiety and tremor and, in serious pictures, seizures, marked confusion or delirium tremens. Seizures, marked confusion or delirium tremens need urgent medical care. Stopping suddenly is not a home experiment; it needs medical assessment. This sheet does not say how to detox or which medicines to use.",
+            "Nicotine produces a common withdrawal syndrome (irritability, trouble concentrating, increased appetite) that does not look like alcohol’s. Cannabis can bring irritability, disrupted sleep and appetite change. Caffeine, headache and fatigue in some patterns. Cocaine is associated more with a mood crash and fatigue than with an alcohol-like autonomic syndrome; that does not mean “nothing happens” when it stops. There is no single portrait of dependence for the five substances."
+          ]
+        },
+        "connections": {
+          "title": "Links with neuroadaptation and tolerance",
+          "paragraphs": [
+            "Neuroadaptation can contribute to physical dependence: the nervous system shifts its set point. Tolerance can live alongside that adaptation, but feeling less of an effect is not the same as going through withdrawal.",
+            "Metabolism influences how long the substance remains and therefore when its absence starts to be felt. It does not by itself explain dependence or the recovery of circuits."
+          ]
+        },
+        "stopping": {
+          "title": "Recovery and the limits of time estimates",
+          "paragraphs": [
+            "When use stops, withdrawal — if it appears — is often stronger at first and then eases in many patterns, on a timetable that depends on the substance, the dose, the duration and the person. There is no universal clock Soma can apply.",
+            "Some of the later discomfort is not only acute pharmacology: habits, sleep, stress and learned cues remain. Time estimates from research groups are study averages, not an individual prediction. This app does not diagnose you or date your withdrawal."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Physical dependence is not addiction. Withdrawal is not enough for a substance use disorder diagnosis. Abrupt alcohol withdrawal in people with substantial physical dependence can be dangerous and needs medical assessment. There are no individual pharmacological recommendations here. This sheet does not describe your clinical history."
+          ]
+        }
+      },
+      "bibliography": [
+        "American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders. 5th ed., text rev. (DSM-5-TR). 2022. Substance use disorders.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Schuckit MA. Alcohol-use disorders. Lancet. 2009;373(9662):492–501.",
+        "Benowitz NL. Nicotine addiction. N Engl J Med. 2010;362(24):2295–2303."
+      ]
+    },
+    "neuroadaptation": {
+      "sections": {
+        "what": {
+          "title": "What is neuroadaptation?",
+          "paragraphs": [
+            "Neuroadaptation is the set of changes in the nervous system after repeated stimulation — including a substance. It can include functional changes and structural modifications of synaptic connections. It is not, by definition, the death of neurons or neurodegeneration.",
+            "It is plasticity: the same hardware can run a different programme. That idea connects with tolerance and physical dependence without making them synonyms or turning them into brain damage Soma can measure."
+          ]
+        },
+        "how": {
+          "title": "How does the nervous system change?",
+          "paragraphs": [
+            "At the synapse, the amount of receptor in the membrane, its desensitisation, transmitter release or the strength of the connection (synaptic plasticity) can change. At the network scale, the tone of reward, stress and control circuits shifts.",
+            "None of that is a single switch of “more dopamine” or “less dopamine”. Reducing recovery to one messenger concentration is the error this sheet tries to avoid."
+          ],
+          "analogies": [
+            [
+              "Think of a city that, faced with a new volume of traffic, changes traffic lights, diversions and drivers’ habits. That is network adaptation. It is not the same as demolishing buildings (neurodegeneration).",
+              "The analogy shows functional change versus loss of structure. It fails if it is translated as “the brain fully rewires in X days”, or as if every diversion undid itself at once when the extra traffic stopped."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Plasticity versus neurodegeneration",
+          "paragraphs": [
+            "Neuroadaptation does not necessarily mean neuronal damage. Neurodegeneration is loss or injury of nerve cells. Neuroadaptation is mainly a change of function and, sometimes, of synapse architecture — how many there are, how they are organised — not the loss of neurons. Heavy chronic alcohol can, in some contexts, be associated with toxicity; that does not licence calling every adaptation to caffeine or nicotine “damage”.",
+            "The two ideas can coexist in the same person and still not be the same thing. Soma does not do neuroimaging or count neurons."
+          ]
+        },
+        "where": {
+          "title": "Reward, stress and control",
+          "paragraphs": [
+            "Reward circuits (including the mesolimbic pathway) can become less sensitive to everyday rewards or more sensitive to cues for the substance. Stress circuits — amygdala, corticotropin-releasing factor systems, hormonal axis — can gain weight when the drug is missing. Control circuits — prefrontal cortex and its connections — take part in regulating impulses and habits.",
+            "This is a working map from the neurobiology of addiction, not a diagnosis by brain region. Not every change happens in every person or with every Soma substance."
+          ]
+        },
+        "substances": {
+          "title": "How it crosses Soma’s substances",
+          "paragraphs": [
+            "Each substance pushes different doors — DAT, nicotinic receptors, CB1, GABA-A and NMDA, adenosine — and therefore writes different adaptations. Each messenger sheet already covers those mechanisms; the rule here is: there is no single “substance brain”.",
+            "Caffeine does not copy alcohol. Nicotine does not copy cocaine. Mixing them into one neuroadaptation story would be a map error."
+          ]
+        },
+        "connections": {
+          "title": "Links with tolerance, dependence and withdrawal",
+          "paragraphs": [
+            "Neuroadaptation can contribute to tolerance (the target answers less, or the network compensates) and to physical dependence (the balance counts on the substance). Withdrawal is, in part, that adaptation without the drug.",
+            "Metabolism determines how much substance is there and for how long; it is not neuroadaptation. Emptying the plasma does not by itself reset the network’s traffic lights."
+          ]
+        },
+        "stopping": {
+          "title": "Reversible and persistent change",
+          "paragraphs": [
+            "When use stops, some changes start to reverse; others may last longer. The pace is not uniform across regions, effects or people. There are no universal calendars of brain recovery this app can apply.",
+            "“The substance is gone” does not equal “the brain has returned to a catalogue snapshot”. Soma does not measure your plasticity."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Neuroadaptation is not neurodegeneration by default. Not all changes reverse at the same pace. There is no universal calendar and no single neurotransmitter concentration that summarises recovery. This sheet describes general mechanisms; it does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ. Molecular basis of long-term plasticity underlying addiction. Nat Rev Neurosci. 2001;2(2):119–128.",
+        "Kauer JA, Malenka RC. Synaptic plasticity and addiction. Nat Rev Neurosci. 2007;8(11):844–858.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Lüscher C, Malenka RC. Drug-evoked synaptic plasticity in addiction: from molecular changes to circuit remodeling. Neuron. 2011;69(4):650–663."
+      ]
+    },
+    "metabolism": {
+      "sections": {
+        "what": {
+          "title": "What is the metabolism of a substance?",
+          "paragraphs": [
+            "In pharmacology, metabolism — or biotransformation — is the set of reactions with which the body modifies a substance, often in the liver, to make elimination easier. It does not mean only “clearing” or “eliminating”: sometimes the metabolite is still active, or even more active than the original molecule.",
+            "Confusing metabolism with neuronal recovery is this sheet’s map error. Processing a molecule does not by itself undo nervous-system adaptations."
+          ]
+        },
+        "how": {
+          "title": "Absorption, distribution, transformation and elimination",
+          "paragraphs": [
+            "The classic route is four steps (ADME). Absorption: the substance enters the bloodstream from the gut, the lung, a mucosa or another route. Distribution: it spreads through tissues, including the brain if it crosses barriers. Metabolism: enzymes transform it. Elimination: it is excreted, mainly in urine or, in some cases, in air or faeces.",
+            "Half-life — the time in which plasma concentration falls by half, when the model allows it — is not the same as duration of effect. Effect also depends on which receptors remain occupied, on active metabolites, and on the lag between concentration and response."
+          ],
+          "analogies": [
+            [
+              "Think of a warehouse that receives a parcel (absorption), places it on different shelves (distribution), takes it apart or relabels it (metabolism) and ships it out (elimination). A relabel can leave an object that is still useful (active metabolite).",
+              "The analogy shows a procedure, not a cure. It fails if it is translated as “when the warehouse is empty, the city has already undone every diversion”, or as a calculator for toxicology tests."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Pharmacokinetics and pharmacodynamics",
+          "paragraphs": [
+            "Pharmacokinetics describes what the body does with the substance (ADME). Pharmacodynamics describes what the substance does at its targets (receptors, enzymes, channels). Tolerance and dependence live mainly in pharmacodynamics and neuroadaptation, although an enzyme change (pharmacokinetics) can contribute to tolerance.",
+            "Mixing the two is saying that “it has already been cleared” equals “there is no residual effect and no adaptation”. It does not."
+          ]
+        },
+        "where": {
+          "title": "Liver, kidneys and other tissues",
+          "paragraphs": [
+            "The liver holds many cytochrome P450 enzymes — CYP names that enzyme family — and other routes (alcohol dehydrogenase, esterases). The kidneys filter and excrete metabolites. There is also metabolism in gut, lung and plasma, depending on the molecule.",
+            "Genetics, age, other drugs, smoking or liver disease change those routes. That is why there is no individual clock Soma can calculate."
+          ]
+        },
+        "substances": {
+          "title": "Soma’s five substances",
+          "paragraphs": [
+            "Alcohol. It is oxidised mainly by alcohol dehydrogenase and aldehyde dehydrogenase; with chronic use the CYP2E1 route can gain weight. It is not cleared like a catecholamine. In certain concentration ranges some metabolic routes saturate and kinetics can look closer to a steadier rate; that is not a universal pattern and not a personal clock. That does not licence calculating “how many hours you have left” in this app.",
+            "Nicotine. It is largely transformed into cotinine, with a prominent role for CYP2A6. Caffeine. CYP1A2 is the classic route; smoking can induce it and speed clearance in many people. Cocaine. It has several metabolic routes: hydrolytic pathways — plasma and liver esterases that generate metabolites such as benzoylecgonine — and other enzymatic transformations. That is not Soma’s verdict on a test. Cannabis (THC). It is hydroxylated to an 11-OH metabolite that is also active, then to carboxylic acids that can be detectable longer than the felt effect.",
+            "Five doors in, five procedures. There is no single “drug half-life”."
+          ]
+        },
+        "connections": {
+          "title": "Metabolism, exposure and recovery",
+          "paragraphs": [
+            "Metabolism determines part of exposure: how much substance arrives, how long it lasts in plasma, whether there is an active metabolite. It does not by itself explain tolerance, dependence or circuit recovery.",
+            "Clearing a substance does not mean every physiological adaptation has gone. Neuroadaptation keeps its own time."
+          ]
+        },
+        "stopping": {
+          "title": "When the substance is no longer there",
+          "paragraphs": [
+            "When concentration falls, acute effects fade before many adaptations. Detectable metabolites, disrupted sleep or withdrawal can remain, depending on the substance, without proving a catalogue number of “clean” days.",
+            "This sheet does not offer individual clearance calculations or guarantees of absence on toxicology tests. A test depends on thresholds, matrices (urine, blood, hair) and the pattern of use; Soma does not interpret your labs."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Metabolism is not only elimination. Half-life is not duration of effect. Emptying the plasma does not reset the nervous system. There is no detox calculator and no test guarantee here. This sheet describes general procedures; it does not describe your liver or your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Pharmacokinetics (ADME).",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Absorption, distribution, metabolism and excretion.",
+        "Cederbaum AI. Alcohol metabolism. Clin Liver Dis. 2012;16(4):667–685.",
+        "Huestis MA. Human cannabinoid pharmacokinetics. Chem Biodivers. 2007;4(8):1770–1804."
       ]
     }
   }
