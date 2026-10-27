@@ -45,6 +45,13 @@ export function PreviewShell({ base }: PreviewShellProps) {
   );
 }
 
+/** Exact canvas from `origin/main` PreviewShell. Shared layout, not a page override. */
+const SHELL_SURFACE = {
+  backgroundColor: "#081018",
+  backgroundImage:
+    "radial-gradient(ellipse at 80% 0%, rgba(78,132,172,0.18), transparent 46%), radial-gradient(ellipse at 8% 100%, rgba(26,74,98,0.16), transparent 42%), linear-gradient(180deg, #12283a 0%, #0c1824 52%, #071018 100%)",
+} as const;
+
 function PreviewShellFrame({ base }: { base: ShellBase }) {
   const { collapsed } = useShellLayout();
 
@@ -53,11 +60,7 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
       className={`relative min-h-screen overflow-x-hidden text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
         collapsed ? SHELL_SIDEBAR_COLLAPSED_CLASS : SHELL_SIDEBAR_EXPANDED_CLASS
       }`}
-      style={{
-        backgroundColor: "rgb(var(--soma-shell-rail))",
-        backgroundImage:
-          "radial-gradient(ellipse at 72% 0%, rgb(var(--soma-physiology) / 0.14), transparent 48%), radial-gradient(ellipse at 8% 100%, rgb(var(--soma-physiology) / 0.1), transparent 42%), linear-gradient(180deg, rgb(var(--soma-shell-rail)) 0%, rgb(var(--soma-shell-canvas)) 22%, rgb(var(--soma-shell-rail)) 100%)",
-      }}
+      style={SHELL_SURFACE}
     >
       <PreviewSidebar />
       <PreviewMobileHeader />

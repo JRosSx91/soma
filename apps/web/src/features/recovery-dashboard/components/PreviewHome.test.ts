@@ -62,6 +62,12 @@ test("home 2.0 uses a three-band expedition board", () => {
   assert.match(home, /homeAnatomyBody/);
   assert.equal(home.includes("lg:hidden"), false);
   assert.equal(home.includes("homeHorizonCaption"), false);
+  assert.equal(home.includes("common:shell.home"), false);
+  assert.match(home, /homeTitleLead/);
+  assert.match(home, /--soma-shell-accent/);
+  assert.equal(home.includes("text-soma-physiology"), false);
+  assert.match(home, /grid-cols-1/);
+  assert.match(home, /lg:grid-cols-\[auto_minmax\(0,1fr\)_11\.25rem\]/);
 });
 
 test("home 2.0 copy exists in spanish and english", () => {

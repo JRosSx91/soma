@@ -72,6 +72,9 @@ test("recovery 2.0 page keeps GAME-02 helpers and omits XP", () => {
   const card = readFileSync(new URL("../components/SubstanceCard.tsx", import.meta.url), "utf8");
   const hero = readFileSync(new URL("../components/RecoveryHero.tsx", import.meta.url), "utf8");
   assert.match(page, /RecoveryHero/);
+  assert.match(page, /compactHeader/);
+  assert.match(hero, /compactHeader/);
+  assert.match(hero, /SHELL_HERO_BLEED_EXPANDED_CLASS/);
   assert.match(hero, /nature-2\.png/);
   assert.match(page, /TemporalThresholdRail/);
   assert.match(page, /RecoveryFocusPanel/);
