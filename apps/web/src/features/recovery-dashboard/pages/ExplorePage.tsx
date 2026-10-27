@@ -49,7 +49,9 @@ import {
   type ExploreProcessTopic,
 } from "../explore/explore-art.js";
 import {
-  hasExploreEduNtSheet,
+  isExploreEduNtSheetId,
+  isPublishedExploreEduNtSheet,
+  isPublishedExploreEduSheet,
   isPublishedExploreProcess,
   type ExploreEduSheetId,
 } from "../explore/explore-edu.js";
@@ -76,7 +78,7 @@ const EXPLORE_HERO_OVERLAY =
 
 type ExploreEduTarget =
   | { kind: "nt"; id: EducationalNeurotransmitter }
-  | { kind: "process"; id: "receptors" };
+  | { kind: "process"; id: ExploreProcessTopic };
 
 /**
  * Educational explore surface for Soma 2.0.
@@ -222,11 +224,13 @@ export function ExplorePage() {
   }
 
   function openRelatedEduSheet(id: ExploreEduSheetId) {
-    if (id === "dopamine") {
-      setEduTarget({ kind: "nt", id: "dopamine" });
+    if (isExploreEduNtSheetId(id)) {
+      setEduTarget({ kind: "nt", id });
       return;
     }
-    setEduTarget({ kind: "process", id: "receptors" });
+    if (isPublishedExploreProcess(id)) {
+      setEduTarget({ kind: "process", id });
+    }
   }
 
   return (
@@ -519,16 +523,14 @@ export function ExplorePage() {
               ? t(`${eduTarget.id}.name`, { ns: "neurotransmitters", defaultValue: eduTarget.id })
               : t(`processTopics.${eduTarget.id}`)
           }
-          size={
-            eduTarget.kind === "process" || hasExploreEduNtSheet(eduTarget.id) ? "article" : "default"
-          }
+          size={isPublishedExploreEduSheet(eduTarget.id) ? "article" : "default"}
           onClose={() => setEduTarget(null)}
         >
-          {eduTarget.kind === "process" ? (
-            <ExploreEducationalArticle sheetId="receptors" onOpenRelated={openRelatedEduSheet} />
-          ) : hasExploreEduNtSheet(eduTarget.id) ? (
+          {eduTarget.kind === "process" && isPublishedExploreEduSheet(eduTarget.id) ? (
+            <ExploreEducationalArticle sheetId={eduTarget.id} onOpenRelated={openRelatedEduSheet} />
+          ) : eduTarget.kind === "nt" && isPublishedExploreEduNtSheet(eduTarget.id) ? (
             <ExploreEducationalArticle
-              sheetId="dopamine"
+              sheetId={eduTarget.id}
               onOpenRelated={openRelatedEduSheet}
               lead={
                 <p>
@@ -545,13 +547,13 @@ export function ExplorePage() {
                 onOpenSubstance={openSubstanceById}
               />
             </ExploreEducationalArticle>
-          ) : (
+          ) : eduTarget.kind === "nt" ? (
             <NeurotransmitterDetail
               neurotransmitter={eduTarget.id}
               substances={substances ?? []}
               onOpenSubstance={openSubstanceById}
             />
-          )}
+          ) : null}
         </DetailSheet>
       ) : null}
     </div>

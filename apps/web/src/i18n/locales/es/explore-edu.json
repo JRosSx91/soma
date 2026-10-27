@@ -3,7 +3,11 @@
   "bibliographyTitle": "Bibliografía",
   "related": {
     "toReceptors": "Comprender cómo funcionan los receptores",
-    "toDopamine": "Descubrir cómo actúa la dopamina"
+    "toDopamine": "Descubrir cómo actúa la dopamina",
+    "toSerotonin": "Comprender cómo actúa la serotonina",
+    "toGaba": "Comprender cómo actúa el GABA",
+    "toGlutamate": "Comprender cómo actúa el glutamato",
+    "toNorepinephrine": "Comprender cómo actúa la noradrenalina"
   },
   "sheets": {
     "dopamine": {
@@ -84,6 +88,302 @@
         "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology: A Foundation for Clinical Neuroscience. McGraw-Hill.",
         "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
         "Stahl SM. Stahl’s Essential Psychopharmacology. 5.ª ed. Cambridge University Press; 2021."
+      ]
+    },
+    "serotonin": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la serotonina?",
+          "paragraphs": [
+            "La serotonina —también llamada 5-hidroxitriptamina o 5-HT— es una molécula pequeña que las neuronas usan para enviarse mensajes. Químicamente es una indolamina: se fabrica a partir del aminoácido triptófano, que llega sobre todo con la dieta. Un par de enzimas la convierten primero en 5-hidroxitriptófano y luego en serotonina. El nombre 5-HT recuerda ese hidroxilo en la posición 5 del anillo; no es otra sustancia.",
+            "La mayor parte de la serotonina del cuerpo no está en el cerebro. Buena parte de la serotonina periférica se sintetiza en células enterocromafines del intestino; las plaquetas no la fabrican: la captan mediante el SERT y la almacenan. La serotonina periférica participa en la motilidad digestiva y en la agregación plaquetaria; la cerebral, en circuitos de ánimo, sueño, apetito y percepción. La molécula misma no cruza con libertad la barrera hematoencefálica: el SERT de las plaquetas y el de las sinapsis cerebrales reciclan el mismo tipo de mensajero en compartimentos distintos. Por eso un cambio de serotonina en sangre no equivale a un cambio medible de serotonina cerebral, ni Soma puede inferir una a partir de la otra.",
+            "Llamarla «la molécula de la felicidad» comprime demasiado. La 5-HT modula muchos sistemas a la vez. Puede favorecer el descanso o el estado de alerta según el receptor, la región y el momento. Un aumento brusco no es más felicidad; una cifra en un tubo de ensayo no es una lectura de tu ánimo."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "Las neuronas que fabrican serotonina cerebral están, sobre todo, en los núcleos del rafe, un conjunto de grupos celulares en el tronco del encéfalo. Desde ahí envían axones —las prolongaciones que llevan el mensaje— hacia la corteza, el sistema límbico, el hipotálamo y la médula. No hay un único «centro de la serotonina»: hay una fuente relativamente compacta y un abanico amplio de destinos.",
+            "En la sinapsis, la 5-HT se libera y se une a receptores serotoninérgicos. Hay varias familias (se suelen numerar 5-HT1, 5-HT2, 5-HT3 y otras). Unas frenan la célula que recibe el mensaje; otras la empujan a responder; la 5-HT3 es, además, un canal iónico rápido, no solo una proteína acoplada a cascadas lentas. El mismo mensajero no significa lo mismo en cada puerta.",
+            "Después hay que apagar la señal. El mecanismo más característico es la recaptación: el transportador SERT recoge la serotonina y la devuelve a la neurona que la soltó. Enzimas como la MAO también la degradan. Recaptar no es destruir: lo primero recicla el mensajero; lo segundo lo elimina."
+          ],
+          "analogies": [
+            [
+              "Imagina un sistema de regulación de un edificio, no un depósito de felicidad. Desde una sala de control relativamente pequeña (el rafe) salen avisos hacia muchas plantas. Cada planta tiene cuadros distintos (receptores): en una el aviso baja la calefacción, en otra sube la luz, en otra cambia el horario de las puertas. Un técnico de recogida (el SERT) retira los avisos usados para el siguiente ciclo.",
+              "La analogía ayuda a ver la difusión y la diversidad de efectos. Falla si se toma como un tanque que se llena o se vacía de «ánimo». La 5-HT no es un único interruptor, y el edificio no es tu estado de ánimo personal."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "En el encéfalo la serotonina participa en el tono emocional, en la impulsividad, en la percepción del dolor y en la forma en que se filtra la información sensorial. También interviene en el ciclo de sueño y vigilia y en el apetito: no como un único reloj ni como un único termostato, sino como un modulador que se cruza con otros sistemas.",
+            "En el intestino contribuye a coordinar movimientos y señales locales. Esa función periférica explica por qué algunos fármacos que tocan la 5-HT tienen efectos digestivos: no todo lo que «es serotonina» ocurre entre dos neuronas del ánimo.",
+            "Estas funciones no cuelgan de un receptor único. Para entender por qué conviene mirar dónde viajan las neuronas del rafe y qué puertas encuentran."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "Las vías serotoninérgicas ascendentes recorren gran parte del cerebro anterior. Las descendentes llegan a la médula y participan, entre otras cosas, en el control del dolor. El rafe no es un cable: es un vecindario de núcleos con matices distintos.",
+            "En cada destino la 5-HT encuentra un menú de receptores distinto. Por eso un mismo fármaco, o una misma sustancia, puede sentirse como cambio de sueño, de apetito o de percepción según la dosis, la vía y la persona. Ninguna ficha honesta comprime ese mapa en una sola función."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a la serotonina?",
+          "paragraphs": [
+            "Las cinco sustancias de Soma no empujan la 5-HT del mismo modo. Bloquear el SERT, modular de forma indirecta otros sistemas o apenas rozar este circuito son operaciones distintas.",
+            "Cocaína. Además de bloquear el transportador de dopamina, bloquea el SERT. La serotonina ya liberada permanece más tiempo en algunas sinapsis porque no se recicla con normalidad. Eso no es «fabricar más serotonina» ni es el único mecanismo de la cocaína; el protagonismo dopaminérgico de otras fichas no borra este hecho.",
+            "Alcohol. Se ha descrito una modulación de la señalización serotoninérgica, menos nítida y menos central que su acción sobre GABA-A y NMDA. No hay un interruptor único de 5-HT del alcohol, y no debe copiarse el mecanismo de la cocaína.",
+            "Nicotina, cannabis y cafeína. No bloquean el SERT como gesto principal. La nicotina actúa sobre receptores nicotínicos de acetilcolina; el THC, sobre CB1; la cafeína, sobre receptores de adenosina. Cualquier influjo sobre circuitos serotoninérgicos es, en este marco educativo, indirecto o secundario. No hay porcentajes universales de «cuánto sube la serotonina»."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Si un estímulo químico se repite, las sinapsis serotoninérgicas pueden cambiar su sensibilidad: receptores, transportadores y el aprendizaje asociado a contextos. Es plasticidad, no un depósito que se vacía.",
+            "La tolerancia no ocurre igual con cocaína, alcohol o nicotina, y no equivale a «el cerebro se queda sin serotonina». Lo que en algunos contextos estudiados puede ocurrir es que la respuesta a la sustancia o a recompensas cotidianas se sienta distinta. Eso describe una adaptación, no un análisis de la 5-HT cerebral de una persona."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar la exposición, deja de actuar el fármaco. Algunas adaptaciones se revierten antes; otras tardan más; ciertas huellas de aprendizaje pueden permanecer. El sueño, el apetito y el tono emocional no comparten un único calendario, ni lo hacen las cinco sustancias.",
+            "No hay un reloj universal ni una «línea base» de serotonina que Soma pueda leer. Los días de abstinencia y los perfiles educativos de fase sirven para comparar modelos, no para medir 5-HT."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "La serotonina no es la felicidad en estado puro, y la 5-HT de las plaquetas no es un espejo del cerebro. De las cinco sustancias de Soma, la cocaína toca el SERT de forma directa; el alcohol de forma más inespecífica; nicotina, cannabis y cafeína, si acaso, de lejos. Nadie puede inferir su serotonina cerebral a partir de los días sin consumir. Esta ficha describe mecanismos generales; no describe tu cerebro."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology. McGraw-Hill. Sistemas monoaminérgicos y SERT.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5.ª ed. Cambridge University Press; 2021. Receptores 5-HT.",
+        "Berger M, Gray JA, Roth BL. The expanded biology of serotonin. Annu Rev Med. 2009;60:355–366.",
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Núcleos del rafe y neuromodulación."
+      ]
+    },
+    "gaba": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es el GABA?",
+          "paragraphs": [
+            "El GABA —ácido gamma-aminobutírico— es el principal mensajero inhibidor del cerebro adulto. Químicamente es un aminoácido pequeño, fabricado a partir del glutamato por la enzima descarboxilasa del ácido glutámico (GAD). Esa cercanía con el glutamato importa: excitación e inhibición no son mundos separados; se fabrican en diálogo.",
+            "Inhibir no significa «apagar el cerebro». Significa hacer que ciertas neuronas tengan menos probabilidad de disparar, o que lo hagan con otro ritmo. Sin esa contención, las redes se vuelven ruidosas. El GABA es, en buena parte, el lenguaje con el que el sistema nervioso dice «ahora no» o «más despacio» en milisegundos o en segundos, según el receptor."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "En una sinapsis inhibitoria, la neurona que envía el mensaje vierte GABA al espacio entre células. El receptor GABA-A es a la vez receptor y canal: al unirse el GABA se abre un poro por el que pueden pasar iones cloruro. El efecto es rápido, del orden de milisegundos. El GABA-B no es el canal él mismo: se acopla a proteínas G y cambia, más despacio, canales de potasio o de calcio. Inhibición rápida e inhibición lenta no son el mismo gesto.",
+            "El cloruro no «entra siempre». La dirección del flujo —hacia dentro o hacia fuera— depende del gradiente electroquímico: cuánto cloruro hay a cada lado de la membrana y cuál es el voltaje. En la neurona adulta típica, abrir GABA-A suele acercar el potencial a un valor que dificulta el disparo. En otras etapas del desarrollo, o si el gradiente se ha desplazado, el mismo canal puede no inhibir igual. El receptor es la puerta; el gradiente decide el tráfico.",
+            "Después hay que retirar el GABA. Transportadores en neuronas y en células gliales lo recogen. Recaptar y degradar son oficios distintos, como en otros sistemas."
+          ],
+          "analogies": [
+            [
+              "Piensa en el sistema de frenos de una red de tráfico. Algunos frenos actúan en décimas de segundo en un cruce concreto (GABA-A). Otros cambian, más despacio, el ritmo de todo un barrio (GABA-B). Sin frenos, el tráfico no «va más alegre»: se congestiona y se vuelve imprevisible.",
+              "La analogía aclara la función inhibitoria. Falla si se traduce como sedación universal. No todos los frenos son iguales, no todos los cruces usan el mismo pedal, y frenar no es dormir. El alcohol, en esta imagen, no instala un freno nuevo: hace que algunos GABA-A respondan con más fuerza al GABA que ya había."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "El GABA regula la excitabilidad: cuánto le cuesta a una red disparar en cadena. Eso importa para la coordinación del movimiento, para filtrar ruido sensorial, para el tono de ansiedad y para el sueño. No hay un único «GABA de la calma». Hay circuitos distintos que usan el mismo mensajero.",
+            "El equilibrio con el glutamato —el principal excitador— no es un empate numérico. Es un diálogo continuo. Si se desplaza demasiado hacia un lado, la red se vuelve hiperexcitable o excesivamente callada. Esa es una descripción de redes, no un diagnóstico."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "Las interneuronas GABAérgicas están repartidas por corteza, hipocampo, ganglios basales y muchas otras regiones. También hay núcleos con proyección más larga. El mapa no se reduce a «un centro de la relajación».",
+            "Los receptores GABA-A no son todos iguales: varían las subunidades, y con ellas la sensibilidad a moduladores. Por eso un mismo fármaco no se siente igual en todas partes ni a todas las dosis."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas al GABA?",
+          "paragraphs": [
+            "Alcohol. Entre los efectos más estudiados está la potenciación de receptores GABA-A: el alcohol no es el GABA, pero favorece la respuesta de algunos subtipos de esos canales al GABA ya presente; no actúa por igual en todos. También inhibe NMDA, del lado del glutamato. Esos efectos dependen de la concentración, de la región y del contexto celular. No hay un único interruptor GABAérgico del alcohol.",
+            "Cannabis. Los receptores CB1 son frecuentes en terminales presinápticos, incluidos muchos que sueltan GABA. El THC puede reducir la liberación de GABA en algunos circuitos: desinhibir de forma local, no «apagar el freno de todo el cerebro». El efecto depende del circuito y de la dosis.",
+            "Nicotina, cocaína y cafeína. No tienen como gesto principal abrir GABA-A. La nicotina actúa sobre receptores nicotínicos; la cocaína, sobre transportadores de monoaminas; la cafeína, sobre adenosina. Cualquier influjo GABAérgico es, aquí, indirecto. No hay porcentajes universales de inhibición."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con alcohol repetido, las redes pueden adaptarse: menos sensibilidad de algunos GABA-A, cambios en el glutamato, plasticidad. El sistema «cuenta» con la sustancia para mantener un equilibrio que, sin ella, queda desplazado. Eso no es un depósito de GABA que se agota; es un desplazamiento del equilibrio.",
+            "Otras sustancias no escriben el mismo guion. El cannabis modula terminales; la nicotina y la cafeína entran por otras puertas. La tolerancia GABAérgica del alcohol no se copia a la taza de café."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar el alcohol, deja de actuar el modulador que reforzaba GABA-A y frenaba NMDA. Si ha habido dependencia física, la red puede quedar temporalmente hiperexcitable: ansiedad, temblor, insomnio; en los cuadros graves, crisis convulsivas o delirium tremens. Eso no es un «rebote de carácter». Es fisiología de retirada.",
+            "La abstinencia de alcohol en personas con dependencia física puede ser peligrosa. No es un experimento casero ni un plazo que Soma pueda calibrar. Quien bebe de forma intensa y regular y plantea dejarlo de golpe necesita valoración sanitaria; en algunos casos la retirada se acompaña y se trata. Esta ficha no sustituye esa valoración ni indica un calendario personal.",
+            "Nicotina, cannabis, cocaína y cafeína no comparten ese mismo riesgo de abstinencia convulsiva ligado a GABA-A. Cada sustancia tiene su propio perfil. Soma no lee tu umbral convulsivo ni tus días como una medida de GABA."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "El GABA no es un sedante universal, y el cloruro no entra siempre. El alcohol es, de las cinco sustancias, la que más claramente potencia GABA-A; el cannabis puede modular la liberación de GABA en terminales CB1; el resto entra de forma más indirecta. La retirada brusca de alcohol en dependencia física es un riesgo médico, no una anécdota educativa. Esta ficha describe mecanismos generales; no describe tu cerebro ni te indica cómo desintoxicarte."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. GABA-A, GABA-B y gradiente de cloruro.",
+        "Rang HP, et al. Rang & Dale’s Pharmacology. Elsevier. Aminoácidos inhibidores y alcohol.",
+        "Olsen RW, Sieghart W. GABA-A receptors: subtypes provide diversity of function and pharmacology. Pharmacol Rev. 2008;60(3):243–260.",
+        "Hall W, Zador D. The alcohol withdrawal syndrome. Lancet. 1997;349(9069):1897–1900."
+      ]
+    },
+    "glutamate": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es el glutamato?",
+          "paragraphs": [
+            "El glutamato es el principal mensajero excitador del sistema nervioso central. Químicamente es un aminoácido: el mismo que entra en proteínas y en el metabolismo energético. En la sinapsis, sin embargo, no actúa como nutriente. Se libera en puntos de contacto y, en milisegundos, empuja a la neurona de al lado a acercarse al umbral de disparo.",
+            "Excitador no significa «peligroso» ni «tóxico por naturaleza». Significa que favorece la transmisión. La mayor parte de las sinapsis rápidas del cerebro usan glutamato. Sin él no hay, en sentido estricto, el diálogo eléctrico del que dependen percibir, decidir y recordar. El problema no es que exista; es que la dosis, el tiempo y la recaptación estén desregulados —un escenario distinto de la neurotransmisión cotidiana."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "En una sinapsis excitadora, las vesículas vierten glutamato al espacio sináptico. Los receptores AMPA son canales rápidos: dejan pasar iones y generan el potencial excitador clásico, en milisegundos. Los NMDA también son canales, pero con condiciones extra: suelen necesitar despolarización previa para que el magnesio deje de taponar el poro, y dejan pasar, entre otros, calcio. Esa coincidencia —«el mensajero está y la célula ya estaba activa»— los convierte en detectores de coincidencia, útiles para el aprendizaje.",
+            "Los receptores metabotrópicos de glutamato no son el canal ellos mismos. Modulan, más despacio, la excitabilidad y la liberación. AMPA, NMDA y metabotrópicos no son tres nombres para lo mismo.",
+            "La glía —sobre todo los astrocitos— recoge gran parte del glutamato de la hendidura mediante transportadores. Recaptar rápido evita que el mensajero se desborde. Si la recaptación falla de forma grave y prolongada, la excitación sostenida puede dañar neuronas: es la idea de excitotoxicidad. Esa es una vía patológica estudiada en isquemia y otras lesiones; no es la descripción de una taza de café ni de una copa aislada."
+          ],
+          "analogies": [
+            [
+              "Imagina una red de comunicaciones que no solo transmite avisos, sino que refuerza las líneas que se usan juntas (plasticidad, potenciación a largo plazo). AMPA es la llamada que pasa; NMDA es la que deja constancia de que dos puestos coincidieron. Los astrocitos recogen los avisos para que la centralita no se sature.",
+              "La analogía muestra transmisión y aprendizaje. Falla si se traduce como «el glutamato es un veneno excitador». La red necesita regulación; no necesita apagarse. El alcohol, en esta imagen, no corta todos los cables: dificulta, entre otras cosas, que algunos NMDA se abran con normalidad."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "El glutamato sostiene la transmisión excitadora de la que dependen percepción, movimiento y pensamiento. En el hipocampo y en la corteza, la plasticidad sináptica —cambios duraderos en la fuerza de una sinapsis— se apoya en buena parte en NMDA y en el calcio que entra cuando coinciden actividad y glutamato. La potenciación a largo plazo (LTP) es el ejemplo más citado de ese refuerzo; no es el único mecanismo de memoria, y no ocurre igual en todas las sinapsis.",
+            "El diálogo con el GABA evita que la excitación se desboque. Aprender no es disparar más: es disparar con más precisión. El glutamato no es un acelerador que deba temerse; es el lenguaje de «ahora sí» que, sin freno, perdería sentido."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "Las proyecciones glutamatérgicas recorren casi todo el encéfalo: tálamo a corteza, corteza a corteza, vías hacia ganglios basales e hipocampo. No hay un único «centro del glutamato».",
+            "La densidad de AMPA y NMDA varía según la región y el tipo de sinapsis. Una sustancia puede influir más en una población de NMDA que en otra. Ninguna ficha honesta lo comprime en un interruptor."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas al glutamato?",
+          "paragraphs": [
+            "Alcohol. Inhibe receptores NMDA, entre otros efectos. A concentraciones relevantes, cuesta más que esos canales se abran como de costumbre. Eso no anula el glutamato; desplaza el equilibrio hacia menos excitación NMDA mientras el alcohol está presente. Al mismo tiempo potencia GABA-A. Los dos gestos no son el mismo, y no son idénticos en todas las regiones ni a todas las dosis.",
+            "Nicotina, cocaína, cannabis y cafeína. No tienen como mecanismo principal bloquear NMDA. La nicotina actúa sobre receptores nicotínicos, algunos en terminales que sueltan glutamato; el THC, sobre CB1 presinápticos que pueden reducir la liberación de varios transmisores, glutamato incluido en ciertos circuitos; la cocaína, sobre transportadores de monoaminas; la cafeína, sobre adenosina. Esos influjos son indirectos o locales. No hay un «subidón de glutamato» universal ni porcentajes comparables entre sustancias."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con alcohol repetido, las redes pueden adaptar NMDA y GABA-A en sentido contrario a la intoxicación aguda: más sensibilidad excitadora cuando la sustancia ya no está. Es uno de los sustratos de la hiperexcitabilidad de la retirada, no un recuento de moléculas de glutamato en sangre.",
+            "Otras sustancias pueden dejar huellas de plasticidad en sinapsis glutamatérgicas de circuitos de refuerzo; la investigación lo describe con matices de región, dosis y especie. No es un único guion de «el glutamato sube»."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar el alcohol, deja de estar la inhibición NMDA y la potenciación GABA-A. Si ha habido adaptación, la red puede quedar temporalmente más excitable. Ese desplazamiento se discute junto a la abstinencia; no es un medidor personal de glutamato.",
+            "No hay un reloj universal. Soma no lee tu NMDA ni convierte días sin beber en una concentración. La recuperación, en términos generales, no es una recta de vuelta a un glutamato de catálogo."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "El glutamato no es perjudicial por ser excitador, y excitotoxicidad no es el nombre cotidiano de una copa. El alcohol es, de las cinco, la que más claramente inhibe NMDA; el resto influye de forma más indirecta. Plasticidad y LTP explican aprendizaje, no un marcador que Soma pueda leer en tu hipocampo. Esta ficha describe mecanismos generales; no describe tu cerebro."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Transmisión glutamatérgica y plasticidad.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. AMPA, NMDA y metabotrópicos.",
+        "Bliss TVP, Collingridge GL. A synaptic model of memory: long-term potentiation in the hippocampus. Nature. 1993;361:31–39.",
+        "Tsai G, Coyle JT. The role of glutamatergic neurotransmission in the pathophysiology of alcoholism. Annu Rev Med. 1998;49:173–184."
+      ]
+    },
+    "norepinephrine": {
+      "sections": {
+        "what": {
+          "title": "¿Qué es la noradrenalina?",
+          "paragraphs": [
+            "La noradrenalina —norepinefrina en la nomenclatura estadounidense— es una catecolamina, la misma familia que la dopamina y la adrenalina. Se fabrica a partir de la dopamina: una enzima, la dopamina β-hidroxilasa, le añade un hidroxilo. Ese parentesco explica por qué algunas enzimas y algunos fármacos las afectan a la vez; no las convierte en la misma señal.",
+            "En el sistema nervioso central actúa como neurotransmisor. En la periferia hay que separar dos gestos: las terminaciones simpáticas sueltan noradrenalina junto a los órganos que inervan; la médula suprarrenal vierte sobre todo adrenalina —y algo de noradrenalina— a la sangre. La noradrenalina de una sinapsis del locus coeruleus no es la misma cosa que esas catecolaminas circulantes, aunque el nombre coincida. Un análisis de orina o de plasma no es un mapa de tus circuitos de atención."
+          ]
+        },
+        "how": {
+          "title": "¿Cómo funciona?",
+          "paragraphs": [
+            "El grueso de las neuronas noradrenérgicas cerebrales está en el locus coeruleus, un núcleo pequeño del tronco del encéfalo, y en grupos vecinos. Desde ahí proyectan de forma amplia hacia corteza, hipocampo, amígdala, tálamo y cerebelo. Como el rafe con la serotonina o el VTA con la dopamina, la fuente es compacta y el abanico, amplio.",
+            "En la sinapsis, la noradrenalina se une a receptores adrenérgicos alfa y beta, proteínas de membrana acopladas a cascadas distintas. Unos frenan la liberación ulterior o cambian la excitabilidad hacia abajo; otros favorecen la respuesta. El mismo mensajero no significa lo mismo en un receptor α2 que en un β1.",
+            "La recaptación corre a cargo, sobre todo, del transportador NET, que la devuelve a la neurona. La MAO y la COMT también la degradan. Recaptar y destruir siguen siendo oficios distintos."
+          ],
+          "analogies": [
+            [
+              "Piensa en un sistema que ajusta el nivel de alerta de distintos departamentos, no en una alarma permanentemente encendida. Desde una sala pequeña (el locus coeruleus) salen avisos: en una planta se sube un poco la iluminación para leer con más detalle; en otra se prepara una respuesta más rápida al ruido. Los receptores alfa y beta son los cuadros distintos de cada planta; el NET recoge los avisos usados.",
+              "La analogía muestra vigilancia modulada. Falla si se traduce como pánico continuo o como «más noradrenalina = más estrés medible en sangre». El ajuste puede ser fino; no es una sirena única, y Soma no lee el volumen de tu alarma."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "¿Para qué sirve?",
+          "paragraphs": [
+            "En el encéfalo la noradrenalina participa en la atención, en la vigilia y en la respuesta a estímulos relevantes o estresantes. Ayuda a que ciertas señales destaquen sobre el ruido. No es solo «ponerse nervioso»: también es sostener el foco cuando la tarea lo pide.",
+            "En la periferia, el simpático usa noradrenalina localmente y la médula suprarrenal aporta un cóctel de catecolaminas a la sangre. Acelerar el corazón o redistribuir el flujo no es el efecto de una sola molécula ni el mismo gesto que la señal en el locus coeruleus. Mezclar ese papel autónomo y hormonal con el de neurotransmisor cortical es un error habitual. Esta ficha habla sobre todo de señalización; no es un holter ni un medidor de ansiedad."
+          ]
+        },
+        "pathways": {
+          "title": "Dónde actúa en el sistema nervioso",
+          "paragraphs": [
+            "El locus coeruleus es la vía más citada hacia el cerebro anterior. Otros grupos noradrenérgicos del tronco inervan, entre otras regiones, el hipotálamo y la médula. El mapa no se reduce a un único núcleo de la alerta.",
+            "La densidad de receptores alfa y beta varía según el tejido. Una misma sustancia puede sentirse más como palpitación periférica que como cambio de foco, o al revés, según dosis y vía."
+          ]
+        },
+        "drugs": {
+          "title": "¿Cómo afectan las drogas a la noradrenalina?",
+          "paragraphs": [
+            "Cocaína. Además del DAT y del SERT, bloquea el NET. La noradrenalina ya liberada permanece más tiempo en algunas sinapsis. Eso no es fabricar más catecolamina ni es solo «el efecto dopamina»; el bloqueo del NET forma parte del perfil de la cocaína, también en la periferia.",
+            "Nicotina. Actúa sobre receptores nicotínicos. Algunos están en neuronas que sueltan noradrenalina o que las modulan, de modo que puede aumentar la liberación de forma indirecta. No bloquea el NET como gesto principal.",
+            "Cafeína. Bloquea receptores de adenosina y empuja hacia más alerta. Se cruza con circuitos de vigilia; no es un bloqueo del NET comparable al de la cocaína.",
+            "Alcohol y cannabis. No tienen como mecanismo principal el NET. El alcohol actúa sobre GABA-A y NMDA, entre otros; el THC, sobre CB1. Cualquier influjo noradrenérgico es, en este marco, más indirecto y dependiente del contexto. No hay porcentajes universales de «cuánto sube la noradrenalina»."
+          ]
+        },
+        "repeated": {
+          "title": "¿Qué ocurre con el consumo repetido?",
+          "paragraphs": [
+            "Con cocaína repetida, transportadores y receptores de catecolaminas pueden adaptarse, y el aprendizaje asocia lugares y rutinas. Con nicotina, el tono de alerta y las señales periféricas también cambian con el uso. No es un único guion de «se acaba la noradrenalina».",
+            "La tolerancia a la alerta de la cafeína no es el mismo fenómeno que el bloqueo del NET. Mezclarlos en una sola curva sería un error."
+          ]
+        },
+        "stopping": {
+          "title": "¿Qué ocurre al dejar de consumir?",
+          "paragraphs": [
+            "Al cesar la cocaína, deja de estar el bloqueo del NET (y del DAT y del SERT). Fatiga, bajón de ánimo o sueño extraño pueden aparecer en algunos patrones; no son un medidor de noradrenalina cerebral. La nicotina y la cafeína tienen sus propias retiradas de alerta, distintas entre sí.",
+            "No hay un reloj universal. Soma no lee tu locus coeruleus ni convierte días sin consumir en una concentración. La recuperación no es una recta de vuelta a un tono simpático de catálogo."
+          ]
+        },
+        "caveats": {
+          "title": "Qué sabemos y qué conviene matizar",
+          "paragraphs": [
+            "La noradrenalina no es una alarma permanente, y la de la sangre no es un espejo del locus coeruleus. De las cinco sustancias, la cocaína toca el NET de forma directa; la nicotina puede aumentar la liberación de forma indirecta; cafeína, alcohol y cannabis entran por otras puertas. Nadie puede inferir su noradrenalina cerebral a partir de los días sin consumir. Esta ficha describe mecanismos generales; no describe tu cerebro."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. Catecolaminas, NET y receptores adrenérgicos.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5.ª ed. Cambridge University Press; 2021. Noradrenalina y alerta.",
+        "Berridge CW, Waterhouse BD. The locus coeruleus–noradrenergic system: modulation of behavioral state and state-dependent cognitive processes. Brain Res Rev. 2003;42(1):33–84.",
+        "Sara SJ. The locus coeruleus and noradrenergic modulation of cognition. Nat Rev Neurosci. 2009;10(3):211–223."
       ]
     },
     "receptors": {
