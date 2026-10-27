@@ -147,9 +147,9 @@ export function PreviewHome() {
   if (dashboard.substances.length === 0) return null;
 
   return (
-    <div className="relative flex min-w-0 flex-col gap-3 pb-6">
+    <div className="relative flex min-w-0 flex-col gap-2 pb-6">
       <div
-        className="grid min-w-0 items-stretch gap-3 lg:grid-cols-[minmax(0,21.5rem)_minmax(0,1fr)] lg:pr-[calc(min(28rem,34%)-4.5rem)]"
+        className="grid min-w-0 items-start gap-2 lg:grid-cols-[minmax(0,21.5rem)_minmax(0,1fr)] lg:pr-[calc(min(28rem,34%)-4.5rem)]"
       >
         <HomeHeader demo={dashboard.showDemoBadge} message={dailyMessage} />
         <ExplorerSummary
@@ -243,23 +243,23 @@ function AnatomyColumn({ anatomyTo }: { anatomyTo: string }) {
 }
 
 function HomeHeader({ demo, message }: { demo: boolean; message: string | null }) {
-  const { t } = useTranslation(["recovery", "common"]);
+  const { t } = useTranslation("recovery");
   return (
     <div className="flex h-full min-w-0 flex-col">
       <header>
         <div className="flex items-start justify-between gap-3">
-          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-shell-accent">
-            {t("common:shell.home")}
-          </p>
+          <h1
+            className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
+            style={{ color: "rgb(var(--soma-shell-accent))" }}
+          >
+            {t("homeTitleLead")}
+          </h1>
           {demo ? <DemoNotice /> : null}
         </div>
-        <h1 className="mt-2 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
-          {t("recovery:homeTitleLead")}
-        </h1>
-        <p className="mt-1 text-sm text-soma-ink-secondary">{t("recovery:homeSubtitle")}</p>
+        <p className="mt-1 text-sm text-soma-ink-secondary">{t("homeSubtitle")}</p>
       </header>
       {message ? (
-        <figure className="mt-4 flex items-center gap-3 rounded-2xl border border-soma-line-strong bg-soma-surface/80 px-4 py-4">
+        <figure className="mt-3 flex items-center gap-3 rounded-2xl border border-soma-line-strong bg-soma-surface/80 px-4 py-4">
           <span aria-hidden="true" className="font-serif text-5xl leading-none" style={accentColor}>
             “
           </span>
@@ -283,9 +283,9 @@ function ExplorerSummary({
 }) {
   const { t } = useTranslation("recovery");
   return (
-    <section className={`${panelClass} lg:self-end`}>
-      <div className="grid h-full grid-cols-[auto_minmax(0,1fr)_11.25rem] items-center gap-3">
-        <span className="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-full border border-soma-line-strong bg-soma-shell-rail">
+    <section className={panelClass}>
+      <div className="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-[auto_minmax(0,1fr)_11.25rem] lg:items-center lg:gap-3">
+        <span className="relative mx-auto h-20 w-20 shrink-0 overflow-hidden rounded-full border border-soma-line-strong bg-soma-shell-rail lg:mx-0 lg:h-[4.5rem] lg:w-[4.5rem]">
           <img
             src="/images/anatomy/soma-hero.png"
             alt=""
@@ -294,12 +294,12 @@ function ExplorerSummary({
           />
         </span>
         <div className="min-w-0">
-          <p className="text-[11px] font-medium uppercase leading-tight tracking-[0.14em]" style={accentColor}>
+          <p className="text-[11px] font-medium uppercase leading-snug tracking-[0.14em]" style={accentColor}>
             {t("homeExplorerIdentity")}
           </p>
           <p className="mt-1 text-lg font-semibold leading-snug text-soma-ink">{nextLabel}</p>
           {temporalBarFill(nextPercent ?? 0) ? (
-            <span className="relative mt-3 block h-3 overflow-hidden rounded-full bg-soma-line" aria-hidden="true">
+            <span className="relative mt-3 block h-3 w-full min-w-0 overflow-hidden rounded-full bg-soma-line" aria-hidden="true">
               <span
                 className="absolute inset-y-0 left-0 rounded-full"
                 style={{ width: temporalBarFill(nextPercent ?? 0) ?? undefined, ...temporalFillColor }}
@@ -310,7 +310,7 @@ function ExplorerSummary({
           )}
           <p className="mt-1 text-[10px] text-soma-ink-muted">{t("homeExplorerBar")}</p>
         </div>
-        <ul className="min-w-0 space-y-2.5 border-l border-soma-line-strong pl-3">
+        <ul className="flex min-w-0 flex-col gap-2.5 border-t border-soma-line-strong pt-3 lg:border-l lg:border-t-0 lg:pl-3 lg:pt-0">
           <ExplorerStat icon={Route} label={t("homeExplorerTracked")} value={String(tracked)} />
           <ExplorerStat
             icon={Award}
@@ -334,11 +334,11 @@ function ExplorerStat({
   value: string;
 }) {
   return (
-    <li className="flex min-w-0 items-start gap-2">
-      <Icon className="mt-0.5 h-8 w-8 shrink-0 rounded-full border border-soma-reward/40 p-1.5 text-soma-reward" aria-hidden="true" />
+    <li className="flex min-w-0 items-center gap-2">
+      <Icon className="h-8 w-8 shrink-0 rounded-full border border-soma-reward/40 p-1.5 text-soma-reward" aria-hidden="true" />
       <span className="min-w-0">
         <span className="block text-[11px] leading-tight text-soma-ink-muted">{label}</span>
-        <span className="mt-0.5 line-clamp-2 block text-sm font-semibold leading-snug text-soma-ink">{value}</span>
+        <span className="mt-0.5 block text-sm font-semibold leading-snug text-soma-ink">{value}</span>
       </span>
     </li>
   );
@@ -360,7 +360,7 @@ function SubstanceRow({
     <div
       className="pointer-events-none relative z-10 lg:pr-[calc(min(28rem,34%)+0.75rem)]"
     >
-      <div className="mb-2 flex min-h-10 items-center justify-between gap-2">
+      <div className="mb-1.5 flex items-center justify-between gap-2">
         <h2 className="text-base font-semibold text-soma-ink">{t("homeRecoveryTitle")}</h2>
         <Link to={recoveryTo} className={`${textLink} pointer-events-auto`}>
           {t("homeSubstancesLink")}

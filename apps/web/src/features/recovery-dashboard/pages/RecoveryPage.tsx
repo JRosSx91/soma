@@ -245,6 +245,7 @@ export function RecoveryPage() {
         description={live ? t("liveDescription") : t("demoDescription")}
         quote={quote}
         demo={dashboard.showDemoBadge}
+        compactHeader
       >
         <ul className={substanceGridClass(dashboard.substances.length)}>
           {dashboard.substances.map((item) => (

@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { useShellLayout } from "../hooks/useShellLayout.js";
+import {
+  SHELL_HERO_BLEED_COLLAPSED_CLASS,
+  SHELL_HERO_BLEED_EXPANDED_CLASS,
+} from "../shell-sidebar.js";
 import { DemoNotice } from "./DemoNotice.js";
 
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
@@ -22,6 +27,8 @@ interface RecoveryHeroProps {
   imageSrc?: string;
   objectPosition?: string;
   overlay?: string;
+  /** Recovery page: sit the heading against the content top without moving other heroes. */
+  compactHeader?: boolean;
   children?: ReactNode;
 }
 
@@ -34,11 +41,17 @@ export function RecoveryHero({
   imageSrc = DEFAULT_IMAGE,
   objectPosition = DEFAULT_OBJECT_POSITION,
   overlay = DEFAULT_OVERLAY,
+  compactHeader = false,
   children,
 }: RecoveryHeroProps) {
   const { t } = useTranslation("recovery");
+  const { collapsed } = useShellLayout();
   return (
-    <section className="relative isolate -mx-4 lg:-mx-6">
+    <section
+      className={`relative isolate ${
+        collapsed ? SHELL_HERO_BLEED_COLLAPSED_CLASS : SHELL_HERO_BLEED_EXPANDED_CLASS
+      }`}
+    >
       <div className="relative overflow-hidden">
         <img
           src={imageSrc}
@@ -58,7 +71,13 @@ export function RecoveryHero({
             ...photoMask,
           }}
         />
-        <div className="relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10">
+        <div
+          className={
+            compactHeader
+              ? "relative z-10 grid items-start gap-5 px-4 pb-6 pt-7 sm:pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:px-6 lg:pb-10 lg:pt-7"
+              : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
+          }
+        >
           <header className="max-w-2xl">
             <div className="flex items-start justify-between gap-3">
               <p
@@ -88,7 +107,15 @@ export function RecoveryHero({
         </div>
       </div>
       {children ? (
-        <div className="relative z-20 px-4 -mt-8 sm:-mt-12 lg:px-6 lg:-mt-20">{children}</div>
+        <div
+          className={
+            compactHeader
+              ? "relative z-20 px-4 pt-4 sm:pt-5 lg:px-6"
+              : "relative z-20 px-4 -mt-8 sm:-mt-12 lg:px-6 lg:-mt-20"
+          }
+        >
+          {children}
+        </div>
       ) : null}
     </section>
   );

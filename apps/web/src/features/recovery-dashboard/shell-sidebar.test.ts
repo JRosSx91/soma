@@ -8,6 +8,8 @@ import {
   SHELL_CONTENT_COLLAPSED_ALIGN_CLASS,
   SHELL_CONTENT_COLLAPSED_PAD_CLASS,
   SHELL_CONTENT_EXPANDED_PAD_CLASS,
+  SHELL_HERO_BLEED_COLLAPSED_CLASS,
+  SHELL_HERO_BLEED_EXPANDED_CLASS,
   SHELL_SIDEBAR_COLLAPSED_CLASS,
   SHELL_SIDEBAR_EXPANDED_CLASS,
   SHELL_SIDEBAR_STORAGE_KEY,
@@ -97,9 +99,11 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /mt-auto/);
   assert.match(sidebar, /translate-x-1\/2/);
   assert.match(shell, /PreviewMobileNav/);
-  assert.match(shell, /--soma-shell-canvas/);
-  assert.match(shell, /--soma-shell-rail/);
+  assert.match(shell, /SHELL_SURFACE/);
   assert.equal(shell.includes("bg-[#081018]"), false);
+  assert.match(shell, /#081018/);
+  assert.match(shell, /#12283a/);
+  assert.equal(shell.includes("homeSurface"), false);
   assert.match(shell, /safe-area-inset-bottom/);
   assert.match(shell, /SHELL_SIDEBAR_COLLAPSED_CLASS/);
   assert.match(shell, /SHELL_CONTENT_COLLAPSED_PAD_CLASS/);
@@ -109,4 +113,6 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.equal(SHELL_CONTENT_EXPANDED_PAD_CLASS, "lg:px-6");
   assert.equal(SHELL_CONTENT_COLLAPSED_PAD_CLASS, "lg:pl-14 lg:pr-6");
   assert.equal(SHELL_CONTENT_COLLAPSED_ALIGN_CLASS, "lg:ml-0");
+  assert.equal(SHELL_HERO_BLEED_EXPANDED_CLASS, "-mx-4 -mt-2 lg:-mx-6 lg:-mt-3");
+  assert.equal(SHELL_HERO_BLEED_COLLAPSED_CLASS, "-mx-4 -mt-2 lg:-ml-14 lg:-mr-6 lg:-mt-3");
 });

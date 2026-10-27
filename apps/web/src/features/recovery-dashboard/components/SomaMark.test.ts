@@ -33,5 +33,7 @@ test("page headings share a CSS atmosphere without photographs", () => {
   assert.equal(heading.includes("<img"), false);
   assert.equal(heading.includes(".png"), false);
   assert.match(home, /SectionFrame/);
-  assert.match(home, /common:shell\.home/);
+  assert.match(home, /homeTitleLead/);
+  assert.match(home, /--soma-shell-accent/);
+  assert.equal(home.includes("common:shell.home"), false);
 });
