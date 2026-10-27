@@ -104,7 +104,13 @@ export function AchievementInboxBell({
         aria-controls={panelId}
         onClick={() => setPanelOpen(!open)}
       >
-        <Bell className={compact ? "h-5 w-5" : "h-4 w-4 shrink-0"} aria-hidden="true" />
+        {compact ? (
+          <Bell className="h-5 w-5" aria-hidden="true" />
+        ) : (
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soma-surface text-soma-ink">
+            <Bell className="h-4 w-4" aria-hidden="true" />
+          </span>
+        )}
         {compact ? null : t("notifications.title")}
         {inbox.unreadCount > 0 ? (
           <span

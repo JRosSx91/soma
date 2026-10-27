@@ -26,3 +26,9 @@ export function remainingProgressPercent(progress: number): number {
   if (progress >= 1) return 100;
   return Math.max(0, Math.floor(progress * 100));
 }
+
+/** Width of a visible fill. Zero or invalid progress must not paint an empty track. */
+export function temporalBarFill(percent: number): string | null {
+  if (!Number.isFinite(percent) || percent <= 0) return null;
+  return `${Math.min(100, Math.floor(percent))}%`;
+}

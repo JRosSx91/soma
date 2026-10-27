@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { remainingProgressPercent, remainingTimeParts } from "./temporal-remaining.ts";
+import { remainingProgressPercent, remainingTimeParts, temporalBarFill } from "./temporal-remaining.ts";
 
 test("remaining time never reports seconds or a negative span", () => {
   assert.deepEqual(remainingTimeParts(-5_000), { kind: "lt_minute" });
@@ -21,6 +21,11 @@ test("remaining time never reports seconds or a negative span", () => {
 test("absolute progress percent floors toward the medal", () => {
   assert.equal(remainingProgressPercent(0.5), 50);
   assert.equal(remainingProgressPercent(90 / 180), 50);
+  assert.equal(remainingProgressPercent(95 / 180), 52);
+  assert.notEqual(remainingProgressPercent(95 / 180), 0);
   assert.equal(remainingProgressPercent(0.999), 99);
   assert.equal(remainingProgressPercent(1), 100);
+  assert.equal(temporalBarFill(remainingProgressPercent(95 / 180)), "52%");
+  assert.equal(temporalBarFill(0), null);
+  assert.equal(temporalBarFill(Number.NaN), null);
 });

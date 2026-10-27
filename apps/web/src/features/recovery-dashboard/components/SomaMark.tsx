@@ -22,7 +22,8 @@ export function SomaMark({
       <svg
         viewBox="0 0 28 16"
         aria-hidden="true"
-        className={`h-4 w-7 ${expeditions ? "text-soma-shell-accent" : "text-soma-action"}`}
+        className="h-4 w-7"
+        style={{ color: "rgb(var(--soma-shell-accent))" }}
         fill="none"
       >
         <path
@@ -38,10 +39,16 @@ export function SomaMark({
       >
         {expeditions ? (
           <>
-            <span className="block text-lg font-semibold tracking-tight text-soma-ink">
+            <span
+              className="block text-lg font-semibold tracking-tight"
+              style={{ color: "rgb(var(--soma-shell-accent))" }}
+            >
               Soma
             </span>
-            <span className="mt-0.5 block text-[9px] font-medium uppercase tracking-[0.28em] text-soma-shell-accent">
+            <span
+              className="mt-0.5 block text-[9px] font-medium uppercase tracking-[0.28em]"
+              style={{ color: "rgb(var(--soma-shell-accent))" }}
+            >
               Expeditions
             </span>
           </>

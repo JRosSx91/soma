@@ -741,23 +741,26 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.equal(hero.includes("-scale-x-100"), false);
   assert.match(home, /HeroFilaments/);
   assert.match(hero, /fadeEdges/);
-  assert.match(home, /lg:grid-cols-\[minmax\(0,3fr\)_minmax\(14rem,2fr\)\]/);
+  assert.match(home, /lg:grid-cols-3/);
+  assert.match(home, /AnatomyColumn/);
   assert.equal(home.includes("h-24 w-[4.75rem]"), false);
   assert.equal(home.includes("sm:h-28 sm:w-20 lg:hidden"), false);
-  assert.match(
-    home,
-    /h-\[min\(17\.5rem,calc\(\(100vw-2rem\)\*0\.932\),calc\(100dvh-16rem\)\)\].*lg:hidden/,
-  );
-  assert.match(home, /absolute inset-0 z-\[1\]/);
-  assert.match(home, /hidden min-h-\[22rem\] overflow-hidden lg:block/);
+  assert.equal(home.includes("lg:hidden"), false);
+  assert.match(home, /w-\[min\(28rem,34%\)\]/);
+  assert.match(home, /absolute right-0 top-0/);
+  assert.equal(home.includes("100vw - 15rem"), false);
+  assert.match(home, /lg:block/);
   assert.equal(home.includes("publishedAdvice"), false);
   assert.match(home, /showTierLabel=\{false\}/);
-  assert.equal((home.match(/showTierLabel/g) ?? []).length, 1);
   assert.match(home, /pickNextLockedAchievement/);
+  assert.match(home, /pickRecentUnlockedAchievements/);
   assert.match(home, /NextTemporalMedalCard/);
-  assert.match(home, /homeNextMilestone/);
-  assert.match(home, /quantifiableAchievementProgress/);
-  assert.match(home, /pickFeaturedUnlockedAchievement/);
+  assert.match(home, /homeDiscoveryTitle/);
+  assert.match(home, /RecommendedExploration/);
+  assert.equal(home.includes("homeDiscoveryEmpty"), false);
+  assert.match(home, /homeRecentEmptyDemo/);
+  assert.equal(home.includes("quantifiableAchievementProgress"), false);
+  assert.equal(home.includes("pickFeaturedUnlockedAchievement"), false);
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(recovery, /EvolutionChart/);
   assert.match(recovery, /SubstanceCard/);

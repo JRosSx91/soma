@@ -9,6 +9,8 @@ test("the expeditions lockup keeps the original waveform and english descriptor"
   assert.match(source, /Soma Expeditions/);
   assert.match(source, />\s*Expeditions\s*</);
   assert.match(source, />\s*soma\s*</);
+  assert.match(source, /--soma-shell-accent/);
+  assert.match(source, /stroke="currentColor"/);
   assert.equal(source.includes("createLogo"), false);
   assert.equal(source.includes(".png"), false);
 });
@@ -30,6 +32,6 @@ test("page headings share a CSS atmosphere without photographs", () => {
   assert.match(heading, /radial-gradient/);
   assert.equal(heading.includes("<img"), false);
   assert.equal(heading.includes(".png"), false);
-  assert.match(home, /ShellHeadingFrame/);
+  assert.match(home, /SectionFrame/);
   assert.match(home, /common:shell\.home/);
 });

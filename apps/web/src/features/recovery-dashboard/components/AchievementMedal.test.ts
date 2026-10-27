@@ -5,12 +5,13 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { test } from "node:test";
 import { AchievementMedal } from "./AchievementMedal.js";
 
-test("the home featured medal is the only surface that hides the tier caption", () => {
+test("home recent medals hide the tier caption", () => {
   const home = readFileSync(new URL("./PreviewHome.tsx", import.meta.url), "utf8");
   const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
 
-  const featured = home.slice(home.indexOf("function FeaturedAchievementCard"));
-  assert.match(featured, /showTierLabel=\{false\}/);
+  const recent = home.slice(home.indexOf("function RecentAchievements"));
+  assert.match(recent, /showTierLabel=\{false\}/);
+  assert.match(recent, /size="compact"/);
   assert.equal(page.includes("showTierLabel={false}"), false);
 });
 
