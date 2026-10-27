@@ -1,6 +1,14 @@
 import type { EducationalNeurotransmitter } from "../anatomy/neurotransmitter-education.js";
 import type { ExploreProcessTopic } from "./explore-art.js";
 
+export const exploreEduProcessSheets = [
+  "receptors",
+  "tolerance",
+  "dependence",
+  "neuroadaptation",
+  "metabolism",
+] as const satisfies readonly ExploreProcessTopic[];
+
 export const exploreEduSheetIds = [
   "dopamine",
   "serotonin",
@@ -12,6 +20,10 @@ export const exploreEduSheetIds = [
   "endorphin",
   "adenosine",
   "receptors",
+  "tolerance",
+  "dependence",
+  "neuroadaptation",
+  "metabolism",
 ] as const;
 export type ExploreEduSheetId = (typeof exploreEduSheetIds)[number];
 
@@ -38,7 +50,13 @@ export const publishedExploreEduNtSheets = [
   "endorphin",
   "adenosine",
 ] as const satisfies readonly (typeof exploreEduNtSheets)[number][];
-export const publishedExploreProcessSheets = ["receptors"] as const satisfies readonly ExploreProcessTopic[];
+export const publishedExploreProcessSheets = [
+  "receptors",
+  "tolerance",
+  "dependence",
+  "neuroadaptation",
+  "metabolism",
+] as const satisfies readonly ExploreProcessTopic[];
 export const publishedExploreEduSheets = [
   ...publishedExploreEduNtSheets,
   ...publishedExploreProcessSheets,
@@ -51,6 +69,17 @@ const ntSectionIds = [
   "pathways",
   "drugs",
   "repeated",
+  "stopping",
+  "caveats",
+] as const;
+
+const processKeySectionIds = [
+  "what",
+  "how",
+  "kinds",
+  "where",
+  "substances",
+  "connections",
   "stopping",
   "caveats",
 ] as const;
@@ -75,6 +104,10 @@ export const exploreEduSectionIds = {
     "tolerance",
     "caveats",
   ],
+  tolerance: processKeySectionIds,
+  dependence: processKeySectionIds,
+  neuroadaptation: processKeySectionIds,
+  metabolism: processKeySectionIds,
 } as const;
 
 export type ExploreEduSectionId<S extends ExploreEduSheetId> =
@@ -91,6 +124,10 @@ export const exploreEduRelatedSheet = {
   endocannabinoid: "receptors",
   endorphin: "receptors",
   adenosine: "receptors",
+  tolerance: "neuroadaptation",
+  dependence: "tolerance",
+  neuroadaptation: "receptors",
+  metabolism: "tolerance",
 } as const satisfies Record<ExploreEduSheetId, ExploreEduSheetId>;
 
 export const exploreEduRelatedI18nKey = {
@@ -104,6 +141,10 @@ export const exploreEduRelatedI18nKey = {
   endocannabinoid: "toEndocannabinoid",
   endorphin: "toEndorphin",
   adenosine: "toAdenosine",
+  tolerance: "toTolerance",
+  dependence: "toDependence",
+  neuroadaptation: "toNeuroadaptation",
+  metabolism: "toMetabolism",
 } as const satisfies Record<ExploreEduSheetId, string>;
 
 /** Catalog mechanism keys that must never appear in reader-facing copy. */
