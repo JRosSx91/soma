@@ -43,6 +43,8 @@ import {
   deleteJournalMilestone,
   fetchAllJournalEntries,
   fetchJournalMilestones,
+  fetchJournalMonthEntries,
+  fetchJournalPage,
   patchJournalEntry,
   patchJournalMilestone,
 } from "../../journal/journal-api.js";
@@ -51,8 +53,13 @@ import {
   JOURNAL_DEMO_MILESTONES,
 } from "../../journal/journal-demo.js";
 import {
+  JOURNAL_DEMO_LIST_PAGE_SIZE,
+  JOURNAL_LIST_PAGE_SIZE,
   JOURNAL_MILESTONE_NOTE_MAX,
   JOURNAL_TABS,
+  appendJournalPage,
+  applyJournalListFilters,
+  civilYearMonth,
   countJournalDays,
   currentJournalStreak,
   daysWithEntriesInMonth,
@@ -65,10 +72,13 @@ import {
   learningEntries,
   localCivilDate,
   moodSeries,
+  selectionForVisibleMonth,
+  shiftCivilMonth,
   wellbeingAverage,
   wellbeingSeries,
   type JournalEntry,
   type JournalEntryWrite,
+  type JournalListFilters,
   type JournalMilestone,
   type JournalMilestoneWrite,
   type JournalTab,
@@ -137,13 +147,34 @@ export function JournalPage() {
   const [saveError, setSaveError] = useState<string | null>(null);
   const [chartSeries, setChartSeries] = useState<ChartSeries>("wellbeing");
   const today = localCivilDate();
+  const todayMonth = civilYearMonth(today);
   const last = latestJournalEntry(entries);
-  const calendarSeed = last
-    ? new Date(`${last.occurredOn}T00:00:00.000Z`)
-    : new Date(`${today}T00:00:00.000Z`);
-  const [calYear, setCalYear] = useState(calendarSeed.getUTCFullYear());
-  const [calMonth, setCalMonth] = useState(calendarSeed.getUTCMonth());
+  const [calYear, setCalYear] = useState(todayMonth.year);
+  const [calMonth, setCalMonth] = useState(todayMonth.monthIndex);
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [monthEntries, setMonthEntries] = useState<JournalEntry[]>([]);
+  const [monthReady, setMonthReady] = useState(false);
+  const [monthError, setMonthError] = useState(false);
+  const [listItems, setListItems] = useState<JournalEntry[]>([]);
+  const [listCursor, setListCursor] = useState<string | null>(null);
+  const [listLoading, setListLoading] = useState(false);
+  const [listMoreLoading, setListMoreLoading] = useState(false);
+  const [listError, setListError] = useState(false);
+  const [demoListLimit, setDemoListLimit] = useState(JOURNAL_DEMO_LIST_PAGE_SIZE);
+  const [filterFrom, setFilterFrom] = useState("");
+  const [filterTo, setFilterTo] = useState("");
+  const [filterHighlighted, setFilterHighlighted] = useState(false);
+  const [filterLearning, setFilterLearning] = useState(false);
   const quote = pickDailyMessage(readDailyMessages(t("quotes", { returnObjects: true })));
+  const listFilters: JournalListFilters = {
+    from: filterFrom || undefined,
+    to: filterTo || undefined,
+    highlighted: filterHighlighted || undefined,
+    learning: filterLearning || undefined,
+  };
+  const filtersActive = Boolean(
+    filterFrom || filterTo || filterHighlighted || filterLearning,
+  );
 
   const loadLive = useCallback(async () => {
     if (!live) return;
@@ -174,6 +205,98 @@ export function JournalPage() {
     if (live) void loadLive();
   }, [demo, live, loadLive]);
 
+  useEffect(() => {
+    if (!live) {
+      setMonthEntries([]);
+      setMonthReady(false);
+      setMonthError(false);
+      return;
+    }
+    let cancelled = false;
+    setMonthReady(false);
+    setMonthError(false);
+    void (async () => {
+      try {
+        const rows = await fetchJournalMonthEntries(calYear, calMonth);
+        if (cancelled) return;
+        setMonthEntries(rows);
+        setMonthReady(true);
+      } catch {
+        if (cancelled) return;
+        setMonthError(true);
+        setMonthReady(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [live, calYear, calMonth]);
+
+  const loadHistoryPage = useCallback(
+    async (mode: "reset" | "more") => {
+      if (!live) return;
+      if (mode === "reset") {
+        setListLoading(true);
+        setListError(false);
+        setListCursor(null);
+        setListItems([]);
+      } else {
+        setListMoreLoading(true);
+      }
+      try {
+        const page = await fetchJournalPage({
+          ...listFilters,
+          cursor: mode === "more" ? (listCursor ?? undefined) : undefined,
+          limit: JOURNAL_LIST_PAGE_SIZE,
+        });
+        setListItems((prev) =>
+          mode === "reset" ? page.items : appendJournalPage(prev, page.items),
+        );
+        setListCursor(page.nextCursor);
+      } catch {
+        setListError(true);
+      } finally {
+        setListLoading(false);
+        setListMoreLoading(false);
+      }
+    },
+    [live, listCursor, listFilters],
+  );
+
+  useEffect(() => {
+    setDemoListLimit(JOURNAL_DEMO_LIST_PAGE_SIZE);
+    if (!live) {
+      setListItems([]);
+      setListCursor(null);
+      setListError(false);
+      return;
+    }
+    if (tab !== "entries") return;
+    let cancelled = false;
+    setListLoading(true);
+    setListError(false);
+    setListCursor(null);
+    setListItems([]);
+    void (async () => {
+      try {
+        const page = await fetchJournalPage({
+          ...listFilters,
+          limit: JOURNAL_LIST_PAGE_SIZE,
+        });
+        if (cancelled) return;
+        setListItems(page.items);
+        setListCursor(page.nextCursor);
+      } catch {
+        if (!cancelled) setListError(true);
+      } finally {
+        if (!cancelled) setListLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [live, tab, filterFrom, filterTo, filterHighlighted, filterLearning]);
+
   const days = countJournalDays(entries);
   const streak = currentJournalStreak(entries, today);
   const wellbeing = wellbeingAverage(entries, today);
@@ -182,7 +305,26 @@ export function JournalPage() {
   const emotions = emotionFrequencies(entries);
   const moods = moodSeries(entries);
   const wellbeingPoints = wellbeingSeries(entries);
-  const markedDays = daysWithEntriesInMonth(entries, calYear, calMonth);
+  const calendarRows =
+    live && monthReady && !monthError ? monthEntries : entries;
+  const markedDays = daysWithEntriesInMonth(calendarRows, calYear, calMonth);
+  const visibleSelectedDay = selectionForVisibleMonth(
+    selectedDay,
+    calYear,
+    calMonth,
+  );
+  const selectedDayEntries = visibleSelectedDay
+    ? entriesOnDay(calendarRows, visibleSelectedDay)
+    : [];
+  const viewingCurrentMonth =
+    calYear === todayMonth.year && calMonth === todayMonth.monthIndex;
+  const demoFiltered = applyJournalListFilters(entries, listFilters);
+  const historyEntries = live
+    ? listItems
+    : demoFiltered.slice(0, demoListLimit);
+  const historyHasMore = live
+    ? Boolean(listCursor)
+    : demoFiltered.length > demoListLimit;
 
   const tabOptions = JOURNAL_TABS.map((id) => ({
     id,
@@ -272,6 +414,18 @@ export function JournalPage() {
         if (editing) await patchJournalEntry(editing.id, draft);
         else await createJournalEntry(draft);
         await loadLive();
+        setMonthReady(false);
+        const monthRows = await fetchJournalMonthEntries(calYear, calMonth);
+        setMonthEntries(monthRows);
+        setMonthReady(true);
+        if (tab === "entries") {
+          const page = await fetchJournalPage({
+            ...listFilters,
+            limit: JOURNAL_LIST_PAGE_SIZE,
+          });
+          setListItems(page.items);
+          setListCursor(page.nextCursor);
+        }
       }
       setSheet(null);
     } catch {
@@ -503,33 +657,50 @@ export function JournalPage() {
 
           <div className="grid gap-4 lg:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]">
             <section className={cardClass}>
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-lg font-semibold text-soma-ink">
                   {t("overview.calendarTitle")}
                 </h2>
-                <div className="flex gap-1">
+                <div className="flex flex-wrap items-center justify-end gap-1">
                   <button
                     type="button"
-                    className={`${previewFocus} rounded-lg p-1.5 text-soma-ink-secondary hover:bg-soma-raised`}
+                    className={`${previewFocus} min-h-11 min-w-11 rounded-lg p-1.5 text-soma-ink-secondary hover:bg-soma-raised`}
                     aria-label={t("overview.calendarPrev")}
                     onClick={() => {
-                      if (calMonth === 0) {
-                        setCalYear((year) => year - 1);
-                        setCalMonth(11);
-                      } else setCalMonth((month) => month - 1);
+                      const next = shiftCivilMonth(calYear, calMonth, -1);
+                      setCalYear(next.year);
+                      setCalMonth(next.monthIndex);
+                      setSelectedDay((iso) =>
+                        selectionForVisibleMonth(iso, next.year, next.monthIndex),
+                      );
                     }}
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     type="button"
-                    className={`${previewFocus} rounded-lg p-1.5 text-soma-ink-secondary hover:bg-soma-raised`}
+                    className={`${previewFocus} min-h-11 rounded-lg px-2 text-sm text-soma-action disabled:text-soma-ink-muted`}
+                    aria-label={t("overview.calendarToday")}
+                    disabled={viewingCurrentMonth}
+                    onClick={() => {
+                      setCalYear(todayMonth.year);
+                      setCalMonth(todayMonth.monthIndex);
+                      setSelectedDay(today);
+                    }}
+                  >
+                    {t("overview.calendarToday")}
+                  </button>
+                  <button
+                    type="button"
+                    className={`${previewFocus} min-h-11 min-w-11 rounded-lg p-1.5 text-soma-ink-secondary hover:bg-soma-raised`}
                     aria-label={t("overview.calendarNext")}
                     onClick={() => {
-                      if (calMonth === 11) {
-                        setCalYear((year) => year + 1);
-                        setCalMonth(0);
-                      } else setCalMonth((month) => month + 1);
+                      const next = shiftCivilMonth(calYear, calMonth, 1);
+                      setCalYear(next.year);
+                      setCalMonth(next.monthIndex);
+                      setSelectedDay((iso) =>
+                        selectionForVisibleMonth(iso, next.year, next.monthIndex),
+                      );
                     }}
                   >
                     <ChevronRight className="h-4 w-4" />
@@ -542,9 +713,31 @@ export function JournalPage() {
                 year={calYear}
                 monthIndex={calMonth}
                 marked={markedDays}
+                selectedIso={visibleSelectedDay}
+                todayIso={today}
                 locale={i18n.language}
-                onSelect={(iso) => setSheet({ kind: "day", iso })}
+                formatCivil={formatCivil}
+                onSelect={setSelectedDay}
               />
+              {markedDays.size === 0 ? (
+                <p className="mt-3 text-sm text-soma-ink-muted">
+                  {t("overview.calendarMonthEmpty")}
+                </p>
+              ) : null}
+              {visibleSelectedDay ? (
+                <div className="mt-4 border-t border-soma-line pt-3">
+                  <DayEntries
+                    iso={visibleSelectedDay}
+                    entries={selectedDayEntries}
+                    formatCivil={formatCivil}
+                    onOpen={(item) => setSheet({ kind: "view", entry: item })}
+                    onEdit={(item) => {
+                      setSaveError(null);
+                      setSheet({ kind: "edit", entry: item });
+                    }}
+                  />
+                </div>
+              ) : null}
             </section>
             <div className="grid min-w-0 gap-4">
               <section className={cardClass}>
@@ -720,10 +913,34 @@ export function JournalPage() {
       ) : null}
 
       {!loading && !error && tab === "entries" ? (
-        <EntryList
-          entries={entries}
+        <EntryHistory
+          entries={historyEntries}
+          totalUnfiltered={live ? undefined : entries.length}
+          filtersActive={filtersActive}
+          filterFrom={filterFrom}
+          filterTo={filterTo}
+          filterHighlighted={filterHighlighted}
+          filterLearning={filterLearning}
+          onFilterFrom={setFilterFrom}
+          onFilterTo={setFilterTo}
+          onFilterHighlighted={setFilterHighlighted}
+          onFilterLearning={setFilterLearning}
+          onClearFilters={() => {
+            setFilterFrom("");
+            setFilterTo("");
+            setFilterHighlighted(false);
+            setFilterLearning(false);
+          }}
+          loading={live && listLoading}
+          loadingMore={live && listMoreLoading}
+          error={live && listError}
+          hasMore={historyHasMore}
           formatCivil={formatCivil}
           onOpen={(item) => setSheet({ kind: "view", entry: item })}
+          onLoadMore={() => {
+            if (live) void loadHistoryPage("more");
+            else setDemoListLimit((count) => count + JOURNAL_DEMO_LIST_PAGE_SIZE);
+          }}
         />
       ) : null}
 
@@ -793,9 +1010,13 @@ export function JournalPage() {
           {sheet.kind === "day" ? (
             <DayEntries
               iso={sheet.iso}
-              entries={entriesOnDay(entries, sheet.iso)}
+              entries={entriesOnDay(calendarRows, sheet.iso)}
               formatCivil={formatCivil}
               onOpen={(item) => setSheet({ kind: "view", entry: item })}
+              onEdit={(item) => {
+                setSaveError(null);
+                setSheet({ kind: "edit", entry: item });
+              }}
             />
           ) : null}
           {sheet.kind === "milestone-create" || sheet.kind === "milestone-edit" ? (
@@ -895,27 +1116,139 @@ function SummaryCard({
   );
 }
 
-function EntryList({
+function EntryHistory({
   entries,
+  totalUnfiltered,
+  filtersActive,
+  filterFrom,
+  filterTo,
+  filterHighlighted,
+  filterLearning,
+  onFilterFrom,
+  onFilterTo,
+  onFilterHighlighted,
+  onFilterLearning,
+  onClearFilters,
+  loading,
+  loadingMore,
+  error,
+  hasMore,
   formatCivil,
   onOpen,
+  onLoadMore,
 }: {
   entries: readonly JournalEntry[];
+  totalUnfiltered?: number;
+  filtersActive: boolean;
+  filterFrom: string;
+  filterTo: string;
+  filterHighlighted: boolean;
+  filterLearning: boolean;
+  onFilterFrom: (value: string) => void;
+  onFilterTo: (value: string) => void;
+  onFilterHighlighted: (value: boolean) => void;
+  onFilterLearning: (value: boolean) => void;
+  onClearFilters: () => void;
+  loading: boolean;
+  loadingMore: boolean;
+  error: boolean;
+  hasMore: boolean;
   formatCivil: (iso: string) => string;
   onOpen: (entry: JournalEntry) => void;
+  onLoadMore: () => void;
 }) {
   const { t } = useTranslation("journal");
-  if (entries.length === 0) {
-    return <p className={`${cardClass} text-sm text-soma-ink-secondary`}>{t("entries.empty")}</p>;
-  }
+  const emptyMessage =
+    filtersActive || (totalUnfiltered !== undefined && totalUnfiltered > 0)
+      ? t("entries.filterEmpty")
+      : t("entries.empty");
   return (
-    <ul className="flex flex-col gap-3">
-      {entries.map((item) => (
-        <li key={item.id} className={cardClass}>
-          <EntryRow entry={item} formatCivil={formatCivil} onOpen={onOpen} />
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col gap-4">
+      <section className={cardClass}>
+        <h2 className="text-lg font-semibold text-soma-ink">{t("entries.filtersTitle")}</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <label className="flex min-w-0 flex-col gap-1 text-sm">
+            <span>{t("entries.filterFrom")}</span>
+            <input
+              type="date"
+              value={filterFrom}
+              onChange={(event) => onFilterFrom(event.target.value)}
+              className={`${previewFocus} min-h-11 rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-soma-ink`}
+            />
+          </label>
+          <label className="flex min-w-0 flex-col gap-1 text-sm">
+            <span>{t("entries.filterTo")}</span>
+            <input
+              type="date"
+              value={filterTo}
+              onChange={(event) => onFilterTo(event.target.value)}
+              className={`${previewFocus} min-h-11 rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-soma-ink`}
+            />
+          </label>
+        </div>
+        <div className="mt-3 flex flex-wrap gap-3">
+          <label className="flex min-h-11 items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={filterHighlighted}
+              onChange={(event) => onFilterHighlighted(event.target.checked)}
+            />
+            {t("entries.filterHighlighted")}
+          </label>
+          <label className="flex min-h-11 items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={filterLearning}
+              onChange={(event) => onFilterLearning(event.target.checked)}
+            />
+            {t("entries.filterLearning")}
+          </label>
+          {filtersActive ? (
+            <button
+              type="button"
+              onClick={onClearFilters}
+              className={`${previewFocus} min-h-11 text-sm text-soma-action`}
+            >
+              {t("entries.filterClear")}
+            </button>
+          ) : null}
+        </div>
+      </section>
+      {error ? (
+        <p className={`${cardClass} text-sm text-soma-ink-secondary`} role="alert">
+          {t("error")}
+        </p>
+      ) : loading ? (
+        <p className={`${cardClass} text-sm text-soma-ink-secondary`} aria-live="polite">
+          {t("loading")}
+        </p>
+      ) : entries.length === 0 ? (
+        <p className={`${cardClass} text-sm text-soma-ink-secondary`}>{emptyMessage}</p>
+      ) : (
+        <ul className="flex flex-col gap-3">
+          {entries.map((item) => (
+            <li key={item.id} className={cardClass}>
+              <EntryRow entry={item} formatCivil={formatCivil} onOpen={onOpen} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {hasMore && !loading && !error ? (
+        <button
+          type="button"
+          onClick={onLoadMore}
+          disabled={loadingMore}
+          className={`${previewFocus} min-h-11 self-center rounded-full bg-soma-raised px-4 text-sm font-medium text-soma-ink`}
+        >
+          {loadingMore ? t("entries.loadingMore") : t("entries.loadMore")}
+        </button>
+      ) : null}
+      {loadingMore ? (
+        <p className="sr-only" aria-live="polite">
+          {t("entries.loadingMore")}
+        </p>
+      ) : null}
+    </div>
   );
 }
 
@@ -1151,11 +1484,13 @@ function DayEntries({
   entries,
   formatCivil,
   onOpen,
+  onEdit,
 }: {
   iso: string;
   entries: readonly JournalEntry[];
   formatCivil: (iso: string) => string;
   onOpen: (entry: JournalEntry) => void;
+  onEdit: (entry: JournalEntry) => void;
 }) {
   const { t } = useTranslation("journal");
   return (
@@ -1168,8 +1503,17 @@ function DayEntries({
       ) : (
         <ul className="mt-3 flex flex-col gap-2">
           {entries.map((item) => (
-            <li key={item.id}>
-              <EntryRow entry={item} formatCivil={formatCivil} onOpen={onOpen} compact />
+            <li key={item.id} className="flex items-start gap-2">
+              <div className="min-w-0 flex-1">
+                <EntryRow entry={item} formatCivil={formatCivil} onOpen={onOpen} compact />
+              </div>
+              <button
+                type="button"
+                onClick={() => onEdit(item)}
+                className={`${previewFocus} mt-3 min-h-11 shrink-0 px-2 text-sm text-soma-action`}
+              >
+                {t("form.edit")}
+              </button>
             </li>
           ))}
         </ul>
@@ -1182,15 +1526,22 @@ function MonthGrid({
   year,
   monthIndex,
   marked,
+  selectedIso,
+  todayIso,
   locale,
+  formatCivil,
   onSelect,
 }: {
   year: number;
   monthIndex: number;
   marked: Set<string>;
+  selectedIso: string | null;
+  todayIso: string;
   locale: string;
+  formatCivil: (iso: string) => string;
   onSelect: (iso: string) => void;
 }) {
+  const { t } = useTranslation("journal");
   const first = new Date(Date.UTC(year, monthIndex, 1));
   const startWeekday = (first.getUTCDay() + 6) % 7;
   const daysInMonth = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
@@ -1213,9 +1564,9 @@ function MonthGrid({
     }),
   ];
   return (
-    <div className="mt-4 max-w-[22rem]">
-      <p className="text-sm font-medium text-soma-ink">
-        {monthLabel.charAt(0).toUpperCase() + monthLabel.slice(1)}
+    <div className="mt-4 w-full min-w-0 max-w-[22rem]">
+      <p className="text-sm font-medium capitalize text-soma-ink">
+        {monthLabel}
       </p>
       <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs">
         {weekdays.map((label, index) => (
@@ -1224,21 +1575,45 @@ function MonthGrid({
           </span>
         ))}
         {cells.map((iso, index) => {
-          if (!iso) return <span key={`e-${index}`} className="h-8" />;
-          const on = marked.has(iso);
+          if (!iso) return <span key={`e-${index}`} className="min-h-11" />;
+          const hasEntry = marked.has(iso);
+          const selected = selectedIso === iso;
+          const isToday = iso === todayIso;
           const day = Number(iso.slice(8));
+          const status = hasEntry
+            ? t("overview.calendarHasEntry")
+            : t("overview.calendarNoEntry");
           return (
             <button
               key={iso}
               type="button"
               onClick={() => onSelect(iso)}
-              className={`${previewFocus} flex h-8 items-center justify-center rounded-full ${
-                on
-                  ? "bg-soma-action/25 font-semibold text-soma-ink"
-                  : "text-soma-ink-muted"
+              aria-pressed={selected}
+              aria-current={isToday ? "date" : undefined}
+              aria-label={`${formatCivil(iso)}. ${status}${
+                selected ? `. ${t("overview.calendarSelected")}` : ""
+              }`}
+              className={`${previewFocus} flex min-h-11 flex-col items-center justify-center rounded-xl ${
+                selected
+                  ? "bg-soma-action font-semibold text-[#081018]"
+                  : isToday
+                    ? "ring-1 ring-soma-action text-soma-ink"
+                    : hasEntry
+                      ? "font-semibold text-soma-ink"
+                      : "text-soma-ink-muted"
               }`}
             >
-              {day}
+              <span>{day}</span>
+              {hasEntry ? (
+                <span
+                  className={`mt-0.5 h-1 w-1 rounded-full ${
+                    selected ? "bg-[#081018]" : "bg-soma-action"
+                  }`}
+                  aria-hidden="true"
+                />
+              ) : (
+                <span className="mt-0.5 h-1 w-1" aria-hidden="true" />
+              )}
             </button>
           );
         })}

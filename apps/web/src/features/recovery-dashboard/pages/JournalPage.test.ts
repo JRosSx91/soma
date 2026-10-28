@@ -51,15 +51,35 @@ test("journal streak is informational and wellbeing is a voluntary rating", () =
 test("LIVE journal fetch is isolated from DEMO samples", () => {
   assert.match(api, /\/me\/journal/);
   assert.match(api, /\/me\/journal\/milestones/);
+  assert.match(api, /fetchJournalPage/);
+  assert.match(api, /fetchJournalMonthEntries/);
   assert.equal(demo.includes("apiRequest"), false);
   assert.equal(demo.includes("/me/journal"), false);
   assert.match(page, /base === "\/preview"/);
   assert.match(page, /base === "\/app"/);
   assert.match(page, /fetchAllJournalEntries/);
+  assert.match(page, /fetchJournalMonthEntries/);
+  assert.match(page, /fetchJournalPage/);
   assert.match(page, /fetchJournalMilestones/);
   assert.match(page, /if \(!live\) return/);
   assert.match(page, /JOURNAL_DEMO_ENTRIES/);
   assert.match(page, /JOURNAL_DEMO_MILESTONES/);
+});
+
+test("journal calendar and history cover month paging, filters and load more", () => {
+  assert.match(page, /shiftCivilMonth/);
+  assert.match(page, /selectionForVisibleMonth/);
+  assert.match(page, /visibleSelectedDay/);
+  assert.match(page, /calendarToday/);
+  assert.match(page, /fetchJournalMonthEntries/);
+  assert.match(page, /fetchJournalPage/);
+  assert.match(page, /appendJournalPage/);
+  assert.match(page, /filterHighlighted/);
+  assert.match(page, /entries\.loadMore/);
+  assert.match(page, /aria-pressed/);
+  assert.match(page, /calendarHasEntry/);
+  assert.match(page, /setDemoListLimit/);
+  assert.match(page, /if \(tab === "entries"\)/);
 });
 
 test("journal form covers required fields and catalogs", () => {

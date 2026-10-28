@@ -336,6 +336,54 @@ function uniqueTags(ids: string[] | null | undefined): string[] {
   return [...new Set(ids)];
 }
 
+export const JOURNAL_LIST_PAGE_SIZE = 20;
+export const JOURNAL_DEMO_LIST_PAGE_SIZE = 8;
+
+export function civilYearMonth(iso: string): { year: number; monthIndex: number } {
+  const year = Number(iso.slice(0, 4));
+  const monthIndex = Number(iso.slice(5, 7)) - 1;
+  return { year, monthIndex };
+}
+
+export function isIsoInCivilMonth(
+  iso: string,
+  year: number,
+  monthIndex: number,
+): boolean {
+  const visible = civilYearMonth(iso);
+  return visible.year === year && visible.monthIndex === monthIndex;
+}
+
+export function selectionForVisibleMonth(
+  selectedIso: string | null,
+  year: number,
+  monthIndex: number,
+): string | null {
+  if (!selectedIso) return null;
+  return isIsoInCivilMonth(selectedIso, year, monthIndex) ? selectedIso : null;
+}
+
+export function shiftCivilMonth(
+  year: number,
+  monthIndex: number,
+  delta: number,
+): { year: number; monthIndex: number } {
+  const utc = new Date(Date.UTC(year, monthIndex + delta, 1));
+  return { year: utc.getUTCFullYear(), monthIndex: utc.getUTCMonth() };
+}
+
+export function civilMonthRange(
+  year: number,
+  monthIndex: number,
+): { from: string; to: string } {
+  const month = String(monthIndex + 1).padStart(2, "0");
+  const last = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+  return {
+    from: `${year}-${month}-01`,
+    to: `${year}-${month}-${String(last).padStart(2, "0")}`,
+  };
+}
+
 export function daysWithEntriesInMonth(
   entries: readonly JournalEntry[],
   year: number,
@@ -349,11 +397,53 @@ export function daysWithEntriesInMonth(
   return days;
 }
 
+export function sortJournalEntries(
+  entries: readonly JournalEntry[],
+): JournalEntry[] {
+  return [...entries].sort(
+    (a, b) =>
+      b.occurredOn.localeCompare(a.occurredOn) ||
+      b.createdAt.localeCompare(a.createdAt) ||
+      b.id.localeCompare(a.id),
+  );
+}
+
 export function entriesOnDay(
   entries: readonly JournalEntry[],
   iso: string,
 ): JournalEntry[] {
-  return entries.filter((row) => row.occurredOn === iso);
+  return sortJournalEntries(entries.filter((row) => row.occurredOn === iso));
+}
+
+export interface JournalListFilters {
+  from?: string;
+  to?: string;
+  highlighted?: boolean;
+  learning?: boolean;
+}
+
+export function applyJournalListFilters(
+  entries: readonly JournalEntry[],
+  filters: JournalListFilters,
+): JournalEntry[] {
+  return sortJournalEntries(
+    entries.filter((row) => {
+      if (filters.from && row.occurredOn < filters.from) return false;
+      if (filters.to && row.occurredOn > filters.to) return false;
+      if (filters.highlighted && !row.highlighted) return false;
+      if (filters.learning && !row.learning) return false;
+      return true;
+    }),
+  );
+}
+
+export function appendJournalPage(
+  existing: readonly JournalEntry[],
+  incoming: readonly JournalEntry[],
+): JournalEntry[] {
+  const seen = new Set(existing.map((row) => row.id));
+  const extra = incoming.filter((row) => !seen.has(row.id));
+  return extra.length === 0 ? [...existing] : [...existing, ...extra];
 }
 
 export function entryPreview(entry: JournalEntry, untitled: string): string {
