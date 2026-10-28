@@ -24,6 +24,8 @@ test("DEMO fixture and PreviewHome do not call the progress API yet", () => {
   assert.equal(home.includes("useProgress"), false);
   assert.equal(home.includes("/me/progress"), false);
   assert.equal(home.includes("HomeProgressIdentity"), false);
+  assert.equal(home.includes("TitleEmblem"), false);
+  assert.equal(home.includes("TitlePicker"), false);
 });
 
 test("LIVE hook never substitutes DEMO data on error", () => {

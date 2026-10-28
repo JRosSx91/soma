@@ -13,3 +13,15 @@ export {
 } from "./progress-demo.js";
 export { fetchMyProgress, patchEquippedTitle } from "./progress-api.js";
 export { useProgress, type ProgressHookState, type ProgressLoadState } from "./useProgress.js";
+export {
+  TITLE_EMBLEM_SIZES,
+  TITLE_EMBLEM_SRC,
+  TITLE_EMBLEM_VARIANT_PX,
+  isTitleEmblemSize,
+  titleEmblemVariantPx,
+  resolveTitleEmblemSrc,
+  resolveTitleEmblemSize,
+  type TitleEmblemSize,
+  type TitleEmblemVariantPx,
+} from "./title-emblem.js";
+export { TitleEmblem, type TitleEmblemProps } from "./TitleEmblem.js";
