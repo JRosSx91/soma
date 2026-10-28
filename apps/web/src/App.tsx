@@ -5,7 +5,6 @@ import { RegisterPage } from "./pages/RegisterPage.js";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage.js";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage.js";
 import { OnboardingPage } from "./pages/OnboardingPage.js";
-import { AchievementsPage } from "./pages/AchievementsPage.js";
 import { LandingV2Page } from "./features/landing-v2/LandingV2Page.js";
 import { NotFoundPage } from "./pages/NotFoundPage.js";
 import { PreviewShell } from "./features/recovery-dashboard/components/PreviewShell.js";
@@ -105,8 +104,11 @@ function App() {
             }
           />
           <Route path="/onboarding" element={<OnboardingPage />} />
-          {/* Legacy Soma 1.0 achievements + toast-driven unlock surface */}
-          <Route path="/achievements" element={<AchievementsPage />} />
+          {/* Compatible entry: Soma 1.0 URL, same auth gate, Logros 2.0 destination. */}
+          <Route
+            path="/achievements"
+            element={<Navigate to="/app/achievements" replace />}
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

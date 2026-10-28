@@ -33,6 +33,7 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /familyBadgeTemporal/);
   assert.match(page, /familyBadgeCurve/);
   assert.match(page, /liveEnabled = Boolean\(user\) && base === "\/app"/);
+  assert.match(page, /achievements:ui\.historyNote/);
   assert.match(page, /useTranslation\("achievements"\)|useTranslation\(\["achievements"/);
   assert.match(page, /\$\{item\.id\}\.title/);
   assert.doesNotMatch(page, /nature-2\.png/);

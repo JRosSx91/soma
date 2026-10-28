@@ -138,6 +138,16 @@ test("preview and live chrome stay semantically aligned", () => {
   assert.match(esUi.descriptionDemo, /no marca una medalla como obtenida/);
   assert.match(enUi.descriptionLive, /Medals on your account/);
   assert.match(enUi.descriptionDemo, /does not mark a medal as earned/);
+  assert.equal(
+    esUi.historyNote,
+    "Las medallas obtenidas permanecen en tu historial, incluso si comienzas una nueva racha.",
+  );
+  assert.equal(
+    enUi.historyNote,
+    "Earned medals stay in your history, even if you start a new streak.",
+  );
+  assert.doesNotMatch(esUi.historyNote, /clínic|certifica|racha anterior/i);
+  assert.doesNotMatch(enUi.historyNote, /clinic|certif|previous streak/i);
   assert.equal(esUi.statusUnlocked, "Obtenida");
   assert.equal(enUi.statusUnlocked, "Earned");
   assert.equal(esUi.statusLocked, "Pendiente");

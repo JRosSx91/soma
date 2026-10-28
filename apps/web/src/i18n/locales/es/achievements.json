@@ -7,6 +7,7 @@
     "eyebrow": "Logros",
     "title": "Pequeños pasos, grandes cambios.",
     "descriptionLive": "Aquí se reconocen las medallas de tu cuenta. Recuperación sigue el reloj y el próximo hito; Logros guarda el historial. Las medallas de curva marcan umbrales de un modelo educativo, no una recuperación individual.",
+    "historyNote": "Las medallas obtenidas permanecen en tu historial, incluso si comienzas una nueva racha.",
     "descriptionDemo": "Catálogo original de Soma. Vista pública: no hay medallas de cuenta. El reloj DEMO puede mostrar el próximo hito temporal, pero no marca una medalla como obtenida.",
     "descriptionLoading": "Comprobando la sesión para mostrar el avance guardado en tu cuenta.",
     "descriptionSignedOut": "Catálogo de {{count}} logros. Inicia sesión para ver medallas obtenidas y progreso real.",

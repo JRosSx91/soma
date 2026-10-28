@@ -7,6 +7,7 @@
     "eyebrow": "Achievements",
     "title": "Small steps, great changes.",
     "descriptionLive": "Medals on your account are recognized here. Recovery follows the clock and the next milestone; Achievements keeps the history. Curve medals mark educational-model thresholds, not an individual recovery.",
+    "historyNote": "Earned medals stay in your history, even if you start a new streak.",
     "descriptionDemo": "Soma’s original catalog. Public view: no account medals. The DEMO clock can show the next temporal milestone, but it does not mark a medal as earned.",
     "descriptionLoading": "Checking the session to show the progress saved on your account.",
     "descriptionSignedOut": "Catalog of {{count}} achievements. Sign in to see earned medals and real progress.",

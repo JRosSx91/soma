@@ -210,6 +210,10 @@ export function AchievementsPage() {
         overlay={ACHIEVEMENTS_HERO_OVERLAY}
       />
 
+      <p className="max-w-xl text-sm leading-relaxed text-soma-ink-secondary">
+        {t("achievements:ui.historyNote")}
+      </p>
+
       {awaitingAccount ? (
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-8 text-sm text-soma-ink-secondary">
           {t("achievements:ui.loading")}

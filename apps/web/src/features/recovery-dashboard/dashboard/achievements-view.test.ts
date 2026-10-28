@@ -256,6 +256,69 @@ test("highlights prefer real unlocks then next temporal then curve and never pad
   assert.deepEqual(short, ["cannabis-temporal-60"]);
 });
 
+test("an earned medal stays earned when the substance is no longer on the profile", () => {
+  const earned = describeAchievement(
+    item("cannabis-temporal-30"),
+    live({
+      id: "cannabis-temporal-30",
+      family: "temporal",
+      unlocked: true,
+      unlockedAt: "2026-09-01T00:00:00.000Z",
+      triggerOrganId: null,
+      triggerSubstanceId: "cannabis",
+      triggerRecoveryThreshold: null,
+      progressAvailability: "not_tracked",
+      achievementProgress: null,
+    }),
+    null,
+  );
+  assert.equal(earned.unlocked, true);
+  assert.equal(earned.bucket, "unlocked");
+  assert.notEqual(earned.bucket, "locked");
+  const curve = describeAchievement(
+    item("alcohol-liver-bronze-1"),
+    live({
+      id: "alcohol-liver-bronze-1",
+      unlocked: true,
+      unlockedAt: "2026-08-01T00:00:00.000Z",
+      progressAvailability: "not_tracked",
+      achievementProgress: null,
+    }),
+    null,
+  );
+  assert.equal(curve.unlocked, true);
+  assert.equal(curve.bucket, "unlocked");
+  const liveById = new Map([
+    [
+      "cannabis-temporal-30",
+      live({
+        id: "cannabis-temporal-30",
+        family: "temporal",
+        unlocked: true,
+        unlockedAt: "2026-09-01T00:00:00.000Z",
+        triggerOrganId: null,
+        triggerSubstanceId: "cannabis",
+        triggerRecoveryThreshold: null,
+        progressAvailability: "not_tracked",
+        achievementProgress: null,
+      }),
+    ],
+  ]);
+  const filtered = filterCatalog({
+    catalog: achievementCatalog,
+    liveById,
+    temporalBySubstance: new Map(),
+    showingLive: true,
+    family: "all",
+    substance: "cannabis",
+    tier: "all",
+    status: "unlocked",
+    query: "",
+    titleFor: (row) => row.title,
+  });
+  assert.equal(filtered.some((row) => row.id === "cannabis-temporal-30"), true);
+});
+
 test("recent sort uses persisted unlockedAt and catalog share is against 156", () => {
   const liveById = new Map([
     [
