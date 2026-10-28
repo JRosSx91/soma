@@ -8,6 +8,7 @@ import type { JournalEntry, JournalPersonalMilestone, Prisma } from "@prisma/cli
 import { Prisma as PrismaNs } from "@prisma/client";
 import { civilDateToUtcDate, utcDateToCivilDate } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
+import { ProgressService } from "../progress/progress.service.js";
 import type { CreateJournalEntryDto } from "./dto/create-journal-entry.dto.js";
 import type { ListJournalQueryDto } from "./dto/list-journal-query.dto.js";
 import {
@@ -36,6 +37,7 @@ const MILESTONE_NOT_FOUND = "Personal milestone not found";
 export class JournalService {
   constructor(
     @Inject(PrismaService) private readonly prisma: PrismaService,
+    @Inject(ProgressService) private readonly progress: ProgressService,
   ) {}
 
   async create(
@@ -64,24 +66,35 @@ export class JournalService {
     }
 
     try {
-      const row = await this.prisma.journalEntry.create({
-        data: {
+      const row = await this.prisma.$transaction(async (tx) => {
+        const created = await tx.journalEntry.create({
+          data: {
+            userId,
+            occurredOn: civilDateToUtcDate(dto.occurredOn),
+            mood: dto.mood ?? null,
+            sleep: dto.sleep ?? null,
+            energy: dto.energy ?? null,
+            anxiety: dto.anxiety ?? null,
+            cravingIntensity: dto.cravingIntensity ?? null,
+            cravingSubstanceId: dto.cravingSubstanceId ?? null,
+            wellbeingRating: dto.wellbeingRating ?? null,
+            title,
+            body,
+            highlighted: dto.highlighted ?? false,
+            learning: dto.learning ?? false,
+            emotionIds: dto.emotionIds ?? [],
+            triggerIds: dto.triggerIds ?? [],
+          },
+        });
+        await this.progress.awardXp(
           userId,
-          occurredOn: civilDateToUtcDate(dto.occurredOn),
-          mood: dto.mood ?? null,
-          sleep: dto.sleep ?? null,
-          energy: dto.energy ?? null,
-          anxiety: dto.anxiety ?? null,
-          cravingIntensity: dto.cravingIntensity ?? null,
-          cravingSubstanceId: dto.cravingSubstanceId ?? null,
-          wellbeingRating: dto.wellbeingRating ?? null,
-          title,
-          body,
-          highlighted: dto.highlighted ?? false,
-          learning: dto.learning ?? false,
-          emotionIds: dto.emotionIds ?? [],
-          triggerIds: dto.triggerIds ?? [],
-        },
+          {
+            source: "journal_create_day",
+            sourceKey: utcDateToCivilDate(created.createdAt),
+          },
+          tx,
+        );
+        return created;
       });
       return toJournalEntryResponse(row);
     } catch (err) {
@@ -253,13 +266,24 @@ export class JournalService {
     userId: string,
     dto: CreateJournalMilestoneDto,
   ): Promise<JournalMilestoneResponse> {
-    const row = await this.prisma.journalPersonalMilestone.create({
-      data: {
+    const row = await this.prisma.$transaction(async (tx) => {
+      const created = await tx.journalPersonalMilestone.create({
+        data: {
+          userId,
+          kind: dto.kind,
+          occurredOn: civilDateToUtcDate(dto.occurredOn),
+          note: normalizeOptionalText(dto.note) ?? null,
+        },
+      });
+      await this.progress.awardXp(
         userId,
-        kind: dto.kind,
-        occurredOn: civilDateToUtcDate(dto.occurredOn),
-        note: normalizeOptionalText(dto.note) ?? null,
-      },
+        {
+          source: "personal_milestone",
+          sourceKey: created.kind,
+        },
+        tx,
+      );
+      return created;
     });
     return toJournalMilestoneResponse(row);
   }

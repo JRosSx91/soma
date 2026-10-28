@@ -13,7 +13,6 @@ import { after, before, test } from "node:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   INestApplication,
@@ -195,21 +194,21 @@ test("pg http: ledger first grant, duplicate, distinct keys, isolation", async (
     source: "journal_create_day",
     sourceKey: "day-1",
   });
-  assert.equal(first.created, true);
+  assert.equal(first.status, "awarded");
   assert.equal(first.totalXp, 12);
 
   const dup = await progress!.awardXp(userA!.id, {
     source: "journal_create_day",
     sourceKey: "day-1",
   });
-  assert.equal(dup.created, false);
+  assert.equal(dup.status, "duplicate");
   assert.equal(dup.totalXp, 12);
 
   const second = await progress!.awardXp(userA!.id, {
     source: "personal_milestone",
     sourceKey: "sleep-better",
   });
-  assert.equal(second.created, true);
+  assert.equal(second.status, "awarded");
   assert.equal(second.totalXp, 22);
 
   activeUserId = userA!.id;
@@ -250,8 +249,12 @@ test("pg http: concurrent duplicate grants add XP once", async (t) => {
       sourceKey: key,
     }),
   ]);
-  const created = results.filter((row) => row.created);
-  assert.equal(created.length, 1);
+  const awarded = results.filter((row) => row.status === "awarded");
+  assert.equal(awarded.length, 1);
+  assert.equal(
+    results.filter((row) => row.status === "duplicate").length,
+    1,
+  );
   assert.ok(results.every((row) => row.totalXp === start + 12));
 
   const distinct = await Promise.all([
@@ -264,7 +267,7 @@ test("pg http: concurrent duplicate grants add XP once", async (t) => {
       sourceKey: `${key}-b`,
     }),
   ]);
-  assert.equal(distinct.filter((row) => row.created).length, 2);
+  assert.equal(distinct.filter((row) => row.status === "awarded").length, 2);
   const after = await prisma!.userProgression.findUniqueOrThrow({
     where: { userId: userA!.id },
   });
@@ -286,14 +289,12 @@ test("pg http: cap miss rolls back grant; 70 and 2790 map to levels", async (t) 
         updatedAt: new Date(),
       },
     });
-    await assert.rejects(
-      () =>
-        progress!.awardXp(capped.id, {
-          source: "onboarding_complete",
-          sourceKey: "would-overflow",
-        }),
-      (err: unknown) => err instanceof BadRequestException,
-    );
+    const overflow = await progress!.awardXp(capped.id, {
+      source: "onboarding_complete",
+      sourceKey: "would-overflow",
+    });
+    assert.equal(overflow.status, "capped");
+    assert.equal(overflow.totalXp, PROGRESS_XP_MAX - 5);
     const grants = await prisma!.xpGrant.count({ where: { userId: capped.id } });
     assert.equal(grants, 0);
     const row = await prisma!.userProgression.findUniqueOrThrow({

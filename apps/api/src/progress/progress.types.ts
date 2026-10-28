@@ -5,8 +5,10 @@ export interface AwardXpInput {
   sourceKey: string;
 }
 
+export type AwardXpStatus = "awarded" | "duplicate" | "capped";
+
 export interface AwardXpResult {
-  created: boolean;
+  status: AwardXpStatus;
   totalXp: number;
 }
 

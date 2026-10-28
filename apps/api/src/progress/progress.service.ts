@@ -1,4 +1,5 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import {
   PROGRESS_STARTING_TITLE_ID,
   PROGRESS_XP_AMOUNT,
@@ -101,62 +102,93 @@ export class ProgressService {
    * PROGRESS_XP_AMOUNT — never from the caller, and never from a client body.
    * Sources without an approved figure (e.g. referral_qualified) are rejected.
    *
-   * Inserts the unique ledger row first, then increments totalXp in the
-   * same transaction. A unique collision returns created=false and does
-   * not add XP. A cap miss rolls both writes back.
+   * Pass `tx` to join an existing write (journal / milestone). Otherwise this
+   * method opens its own transaction. Duplicate keys return status=duplicate
+   * and cap misses return status=capped, both without throwing, so the
+   * business row can still commit.
    */
-  async awardXp(userId: string, input: AwardXpInput): Promise<AwardXpResult> {
+  async awardXp(
+    userId: string,
+    input: AwardXpInput,
+    tx?: Prisma.TransactionClient,
+  ): Promise<AwardXpResult> {
     if (!isProgressXpSource(input.source)) {
       throw new BadRequestException("Invalid XP source");
     }
     const source = input.source;
     const sourceKey = requireSourceKey(input.sourceKey);
     const amount = requireCatalogAmount(source);
+
+    if (tx) {
+      return this.applyAward(tx, userId, source, sourceKey, amount);
+    }
+    return this.prisma.$transaction((inner) =>
+      this.applyAward(inner, userId, source, sourceKey, amount),
+    );
+  }
+
+  private async applyAward(
+    tx: Prisma.TransactionClient,
+    userId: string,
+    source: ProgressXpSource,
+    sourceKey: string,
+    amount: number,
+  ): Promise<AwardXpResult> {
     const amountBig = BigInt(amount);
     const cap = BigInt(PROGRESS_XP_MAX);
 
-    return this.prisma.$transaction(async (tx) => {
-      await tx.userProgression.upsert({
-        where: { userId },
-        create: { userId, totalXp: 0n, equippedTitleId: null },
-        update: {},
-      });
+    await tx.userProgression.upsert({
+      where: { userId },
+      create: { userId, totalXp: 0n, equippedTitleId: null },
+      update: {},
+    });
+    await tx.$queryRaw(
+      Prisma.sql`SELECT "userId" FROM "UserProgression" WHERE "userId" = ${userId} FOR UPDATE`,
+    );
 
-      // ON CONFLICT DO NOTHING — a unique miss must not abort the transaction.
-      const inserted = await tx.xpGrant.createMany({
-        data: [{ userId, source, sourceKey, amount }],
-        skipDuplicates: true,
-      });
-      if (inserted.count === 0) {
-        const existing = await tx.userProgression.findUniqueOrThrow({
-          where: { userId },
-        });
-        return {
-          created: false,
-          totalXp: bigintToXp(existing.totalXp),
-        };
-      }
-
-      const updated = await tx.userProgression.updateMany({
+    const locked = await tx.userProgression.findUniqueOrThrow({
+      where: { userId },
+    });
+    if (locked.totalXp + amountBig > cap) {
+      const already = await tx.xpGrant.findUnique({
         where: {
-          userId,
-          totalXp: { lte: cap - amountBig },
+          userId_source_sourceKey: { userId, source, sourceKey },
         },
-        data: {
-          totalXp: { increment: amountBig },
-        },
-      });
-      if (updated.count !== 1) {
-        throw new BadRequestException("XP cap exceeded");
-      }
-
-      const row = await tx.userProgression.findUniqueOrThrow({
-        where: { userId },
+        select: { id: true },
       });
       return {
-        created: true,
-        totalXp: bigintToXp(row.totalXp),
+        status: already ? "duplicate" : "capped",
+        totalXp: bigintToXp(locked.totalXp),
       };
+    }
+
+    const inserted = await tx.xpGrant.createMany({
+      data: [{ userId, source, sourceKey, amount }],
+      skipDuplicates: true,
     });
+    if (inserted.count === 0) {
+      return { status: "duplicate", totalXp: bigintToXp(locked.totalXp) };
+    }
+
+    const updated = await tx.userProgression.updateMany({
+      where: {
+        userId,
+        totalXp: { lte: cap - amountBig },
+      },
+      data: {
+        totalXp: { increment: amountBig },
+      },
+    });
+    if (updated.count !== 1) {
+      throw new BadRequestException("XP cap exceeded");
+    }
+
+    const row = await tx.userProgression.findUniqueOrThrow({
+      where: { userId },
+    });
+    return {
+      status: "awarded",
+      totalXp: bigintToXp(row.totalXp),
+    };
   }
 }

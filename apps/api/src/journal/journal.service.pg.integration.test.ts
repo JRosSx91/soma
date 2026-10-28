@@ -13,6 +13,7 @@ import bcrypt from "bcrypt";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { createId } from "../auth/create-id.js";
 import { JournalService } from "./journal.service.js";
+import { ProgressService } from "../progress/progress.service.js";
 import type { CreateJournalEntryDto } from "./dto/create-journal-entry.dto.js";
 
 const PASSWORD = "journal-api-pass-1";
@@ -58,7 +59,11 @@ async function withLiveDb(
   }
 
   try {
-    await run(new JournalService(prisma as unknown as PrismaService), prisma);
+    const prismaSvc = prisma as unknown as PrismaService;
+    await run(
+      new JournalService(prismaSvc, new ProgressService(prismaSvc)),
+      prisma,
+    );
     return "ran";
   } finally {
     await prisma.$disconnect().catch(() => undefined);
