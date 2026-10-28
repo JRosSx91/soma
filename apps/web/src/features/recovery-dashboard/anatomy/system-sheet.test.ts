@@ -33,10 +33,6 @@ test("empty systems resolve educational sheets without inventing organs", () => 
     assert.equal(sheet.availability.hasEducation, true);
     assert.equal(sheet.availability.hasNarratives, false);
     assert.equal(sheet.availability.hasRecoveryCurves, false);
-    assert.ok(sheet.location);
-    assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
-    assert.ok(sheet.physiology && sheet.physiology.length > 40);
-    assert.ok(sheet.relations && sheet.relations.length > 40);
     assert.ok(sheet.sources.length > 0);
     assert.ok(sheet.plate?.src);
     assert.equal(sheet.availability.hasPlate, true);
@@ -66,5 +62,6 @@ test("system sheets stay compatible with twenty-one organ fichas", () => {
   const pns = resolveSystemSheet(systemById("nervous-peripheral"));
   assert.ok(endocrine.education);
   assert.ok(pns.education);
-  assert.notEqual(endocrine.anatomy, pns.anatomy);
+  assert.notEqual(endocrine.systemId, pns.systemId);
+  assert.notDeepEqual(endocrine.sources, pns.sources);
 });

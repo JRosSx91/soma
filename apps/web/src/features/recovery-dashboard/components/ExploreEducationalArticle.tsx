@@ -13,7 +13,6 @@ import {
 import {
   exploreEduAnatomyHref,
   exploreEduAnatomyLinks,
-  exploreEduAnatomyLinksVisible,
   type ExploreEduAnatomyDestination,
 } from "../explore/explore-edu-anatomy.js";
 import { localizedCatalogLabel } from "../explore/explore-search.js";
@@ -136,10 +135,9 @@ export function ExploreEducationalArticle({
 }
 
 function AnatomyRelatedLinks({ sheetId }: { sheetId: ExploreEduSheetId }) {
-  const { t, i18n } = useTranslation(["explore-edu", "explore", "organs"]);
+  const { t } = useTranslation(["explore-edu", "explore", "organs"]);
   const base = useShellBase();
   const destinations = exploreEduAnatomyLinks(sheetId);
-  if (!exploreEduAnatomyLinksVisible(i18n.resolvedLanguage ?? i18n.language)) return null;
   if (destinations.length === 0) return null;
 
   const links = destinations.flatMap((destination) => {

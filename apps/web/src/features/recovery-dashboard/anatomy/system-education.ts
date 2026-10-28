@@ -2,17 +2,13 @@ import type { BodySystem } from "@soma/shared-types";
 import type { AnatomySource } from "./anatomy-education.ts";
 
 /**
- * Neutral educational notes for atlas systems that have no canonical organs.
- * Independent of substance narratives, recovery curves, and personal data.
+ * Identity and bibliography for atlas systems that have no canonical organs.
+ * Visible copy lives in i18n (`anatomy.education.systems.<systemId>`).
  * A missing system returns null. It does not invent OrganId entries.
  */
 
 export interface SystemEducationEntry {
   systemId: BodySystem;
-  location: string;
-  anatomy: string;
-  physiology: string;
-  relations: string;
   sources: readonly AnatomySource[];
 }
 
@@ -68,26 +64,10 @@ const statPearlsSomatic: AnatomySource = {
 const systemEducationEntries: readonly SystemEducationEntry[] = [
   {
     systemId: "endocrine",
-    location:
-      "Red de glándulas y tejidos dispersos por el cuerpo —hipófisis, tiroides, paratiroides, adrenales, pineal y otros— coordinados en gran medida desde el hipotálamo en la base del encéfalo.",
-    anatomy:
-      "El sistema endocrino agrupa glándulas sin conducto que liberan hormonas al líquido extracelular y a la sangre. Las glándulas clásicas incluyen hipófisis (adeno y neurohipófisis), tiroides, paratiroides, adrenales y pineal. Otros órganos —páncreas, gónadas, riñones, tracto digestivo— aportan células endocrinas sin que eso los convierta aquí en órganos canónicos del catálogo Soma. El eje hipotálamo-hipófisis conecta neuronas hipotalámicas con la hipófisis vía portal hipofisario (anterior) o tracto nervioso (posterior).",
-    physiology:
-      "La señalización hormonal regula metabolismo, crecimiento, equilibrio hídrico, reproducción y respuesta al estrés. El hipotálamo libera factores liberadores o inhibidores que controlan la adenohipófisis; hormonas como ACTH, TSH o gonadotropinas actúan después sobre glándulas periféricas. Bucles de retroalimentación negativa (y a veces positiva) ajustan la secreción. Frente a estrés agudo, la vía simpático-adrenal acelera la liberación de catecolaminas; el eje HPA aporta cortisol de forma más sostenida. La señal endocrina suele ser más lenta y difusa que la sinapsis nerviosa.",
-    relations:
-      "Se entrelaza con el sistema nervioso: el hipotálamo integra señales neurales y hormonales. Influye en cardiovascular, renal, digestivo y reproductor a través de hormonas. En Soma, páncreas, ovarios y testículos tienen fichas de órgano propias por su anatomía; esta ficha de sistema describe la coordinación endocrina sin añadir nuevos OrganId ni atribuir curvas de órganos inexistentes.",
     sources: [openStaxEndocrineOverview, statPearlsHypothalamus, statPearlsPituitary],
   },
   {
     systemId: "nervous-peripheral",
-    location:
-      "Fuera del encéfalo y de la médula espinal: nervios craneales y espinales, ganglios y terminaciones en órganos, músculos y piel.",
-    anatomy:
-      "El sistema nervioso periférico (SNP) comprende 12 pares de nervios craneales y 31 pares de nervios espinales, con ganglios sensitivos (p. ej. ganglios de la raíz dorsal) y, en la vía autónoma, ganglios simpáticos y parasimpáticos. Se distingue un componente somático (aferencias sensitivas y eferencias hacia músculo esquelético) y un componente autónomo (simpático, parasimpático y, en el tubo digestivo, el plexo entérico). No incluye la corteza ni los núcleos del tronco: esos pertenecen al sistema nervioso central.",
-    physiology:
-      "Las vías aferentes llevan información sensorial al SNC; las eferentes transmiten órdenes motoras. El somático permite movimiento voluntario y reflejos con un solo neurona motora periférica. El autónomo usa en general dos neuronas (pre y posganglionar) para modular vísceras, vasos y glándulas sin control consciente habitual: el simpático favorece respuestas de movilización; el parasimpático, de conservación y digestión. Ambos cooperan con el SNC; no sustituyen la integración central.",
-    relations:
-      "Converge y diverge respecto al SNC en raíces, nervios craneales y ganglios. Inerva corazón, vías respiratorias, digestivo, piel y gónadas, entre otros. El sistema endocrino y el autónomo se cruzan en la médula adrenal y en el hipotálamo. En el atlas Soma, las estructuras del SNC (corteza prefrontal, hipocampo, etc.) tienen fichas propias; esta ficha cubre el territorio periférico sin inventar órganos canónicos nuevos.",
     sources: [openStaxPns, openStaxAns, statPearlsAns, statPearlsSomatic],
   },
 ];

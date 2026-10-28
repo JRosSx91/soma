@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { educationalSystem } from "./system-education.ts";
 import { educationalAnatomy } from "./anatomy-education.ts";
+import esAnatomy from "../../../i18n/locales/es/anatomy.json" with { type: "json" };
 
 const emptySystemIds = ["endocrine", "nervous-peripheral"] as const;
 
@@ -11,10 +12,7 @@ test("endocrine and peripheral nervous systems have complete system fichas", () 
     const entry = educationalSystem(systemId);
     assert.ok(entry, systemId);
     assert.equal(entry.systemId, systemId);
-    assert.ok(entry.location.length > 20);
-    assert.ok(entry.anatomy.length > 40);
-    assert.ok(entry.physiology.length > 40);
-    assert.ok(entry.relations.length > 40);
+    assert.equal("anatomy" in entry, false, systemId);
     assert.ok(entry.sources.length > 0);
     for (const source of entry.sources) {
       assert.equal(source.verified, true);
@@ -26,11 +24,11 @@ test("endocrine and peripheral nervous systems have complete system fichas", () 
   const endocrine = educationalSystem("endocrine");
   const pns = educationalSystem("nervous-peripheral");
   assert.ok(endocrine && pns);
-  assert.match(endocrine.anatomy, /hipófisis|hipotálamo|hormona/i);
-  assert.match(endocrine.physiology, /retroalimentación|eje|estrés/i);
-  assert.match(pns.anatomy, /craneales|espinales|autónomo|somático/i);
-  assert.match(pns.physiology, /aferent|eferent|simpático|parasimpático/i);
-  assert.notEqual(endocrine.anatomy, pns.anatomy);
+  assert.notDeepEqual(endocrine.sources, pns.sources);
+  assert.match(esAnatomy.education.systems.endocrine.anatomy, /hipófisis|hipotálamo|hormona/i);
+  assert.match(esAnatomy.education.systems.endocrine.physiology, /retroalimentación|eje|estrés/i);
+  assert.match(esAnatomy.education.systems["nervous-peripheral"].anatomy, /craneales|espinales|autónomo|somático/i);
+  assert.match(esAnatomy.education.systems["nervous-peripheral"].physiology, /aferent|eferent|simpático|parasimpático/i);
 });
 
 test("system education does not invent organ ids or borrow organ prose", () => {
@@ -40,8 +38,8 @@ test("system education does not invent organ ids or borrow organ prose", () => {
 
   const endocrine = educationalSystem("endocrine");
   assert.ok(endocrine);
-  assert.equal(educationalAnatomy("pancreas")?.anatomy === endocrine.anatomy, false);
-  assert.doesNotMatch(endocrine.anatomy, /OrganId|brain-prefrontal/i);
+  assert.ok(educationalAnatomy("pancreas"));
+  assert.doesNotMatch(esAnatomy.education.systems.endocrine.anatomy, /OrganId|brain-prefrontal/i);
 });
 
 test("system education stays free of personal recovery and substance catalogs", () => {
