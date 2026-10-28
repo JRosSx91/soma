@@ -263,6 +263,37 @@
   "recoverySystemsTitle": "Órganos y sistemas estimados",
   "recoverySystemsHintDemo": "Estimación de demostración por sistema. No es una medición clínica.",
   "recoverySeeAtlas": "Ver atlas completo",
+  "recoveryNtTitle": "Señalización neuroquímica educativa",
+  "recoveryNtSubstance": "Sustancia enfocada: {{name}}",
+  "recoveryNtDaysUsed": "Días de abstinencia utilizados: {{days}}",
+  "recoveryNtPhaseLabel": "Fase educativa",
+  "recoveryNtWarning": "Esta visualización representa estados cualitativos de un modelo educativo. No mide tus neurotransmisores ni predice tu recuperación individual. Las fases utilizan un calendario compartido entre sustancias y no equivalen a límites clínicos personalizados.",
+  "recoveryNtMissingDate": "No hay fecha de último consumo, así que no asignamos una fase educativa.",
+  "recoveryNtDayZero": "Día 0 de abstinencia: todavía no hay una fase de abstinencia asignable. No es consumo activo.",
+  "recoveryNtActive": "Consumo activo: el catálogo muestra la fase durante el consumo y no un recuento de días de abstinencia.",
+  "recoveryNtDirectionLabel": "Dirección del modelo",
+  "recoveryNtMechanismLabel": "Mecanismo educativo",
+  "recoveryNtConfidence": "Confianza del perfil: {{level}}",
+  "recoveryNtExploreLink": "Ver {{name}} en Explorar",
+  "recoveryNtSeverityLegend": "Severidad cualitativa del modelo",
+  "recoveryNtSeverity": {
+    "severe": "Severo",
+    "moderate": "Moderado",
+    "mild": "Leve",
+    "normalizing": "Normalizando"
+  },
+  "recoveryNtDirection": {
+    "depleted": "Depletado",
+    "elevated": "Elevado",
+    "oscillating": "Oscilando",
+    "normalizing": "Normalizando"
+  },
+  "recoveryNtWindow": {
+    "during_use": "Calendario educativo compartido: consumo activo",
+    "acute_withdrawal": "Calendario educativo compartido: días 1–7",
+    "post_acute": "Calendario educativo compartido: días 8–56",
+    "normalizing": "Calendario educativo compartido: desde el día 57"
+  },
   "recoveryTrajectoryHint": "En trayectoria estimada",
   "demoDisclaimer": "Cifras y textos ficticios. No son mediciones clínicas.",
   "demoChangeStatus": "En progreso",

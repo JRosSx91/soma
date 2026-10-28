@@ -19,6 +19,7 @@ import { DetailSheet } from "../components/DetailSheet.js";
 import { EvolutionChart } from "../components/EvolutionChart.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { RecoveryFocusPanel } from "../components/RecoveryFocusPanel.js";
+import { RecoveryNeurochemistryPanel } from "../components/RecoveryNeurochemistryPanel.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
 import { RecentChangeCard } from "../components/RecentChangeCard.js";
 import { SegmentedControl } from "../components/SegmentedControl.js";
@@ -235,6 +236,7 @@ export function RecoveryPage() {
     (tab === "substance" && live && dashboard.chart.series.length > 0);
 
   const showPanel = tab === "general" || tab === "substance" || tab === "timeline";
+  const showNeurochemistry = tab === "general" || tab === "substance";
   const showSystems = tab === "general" || tab === "system";
 
   return (
@@ -283,6 +285,13 @@ export function RecoveryPage() {
             highlighted={tab === "timeline"}
           />
         </RecoveryFocusPanel>
+      ) : null}
+
+      {showNeurochemistry ? (
+        <RecoveryNeurochemistryPanel
+          substance={substance}
+          temporal={temporalById.get(substance.id)}
+        />
       ) : null}
 
       {tab === "system" ? (

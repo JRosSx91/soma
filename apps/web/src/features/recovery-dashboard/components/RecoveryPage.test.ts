@@ -57,6 +57,10 @@ test("recovery page composition matches GAME-03B regions", () => {
   assert.doesNotMatch(panel, /substance\.phase/);
   const chart = readFileSync(new URL("./EvolutionChart.tsx", import.meta.url), "utf8");
   assert.match(chart, /modelNote/);
+  const recoveryPage = readFileSync(new URL("../pages/RecoveryPage.tsx", import.meta.url), "utf8");
+  assert.match(recoveryPage, /RecoveryNeurochemistryPanel/);
+  assert.doesNotMatch(recoveryPage, /NeurotransmitterPanel/);
+  assert.doesNotMatch(recoveryPage, /\/me\/neurotransmitter-state/);
 });
 
 test("temporal milestone copy stays distinct from educational curve percents", () => {

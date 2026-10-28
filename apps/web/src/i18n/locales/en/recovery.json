@@ -263,6 +263,37 @@
   "recoverySystemsTitle": "Estimated organs and systems",
   "recoverySystemsHintDemo": "Demonstration estimate by system. It is not a clinical measurement.",
   "recoverySeeAtlas": "Open full atlas",
+  "recoveryNtTitle": "Educational neurochemical signaling",
+  "recoveryNtSubstance": "Focused substance: {{name}}",
+  "recoveryNtDaysUsed": "Abstinence days used: {{days}}",
+  "recoveryNtPhaseLabel": "Educational phase",
+  "recoveryNtWarning": "This visualization shows qualitative states from an educational model. It does not measure your neurotransmitters or predict your individual recovery. Phases use a calendar shared across substances and are not personalized clinical limits.",
+  "recoveryNtMissingDate": "There is no last-use date, so we do not assign an educational phase.",
+  "recoveryNtDayZero": "Abstinence day 0: no withdrawal phase can be assigned yet. This is not active use.",
+  "recoveryNtActive": "Active use: the catalog shows the during-use phase and does not present an abstinence day count.",
+  "recoveryNtDirectionLabel": "Model direction",
+  "recoveryNtMechanismLabel": "Educational mechanism",
+  "recoveryNtConfidence": "Profile confidence: {{level}}",
+  "recoveryNtExploreLink": "Open {{name}} in Explore",
+  "recoveryNtSeverityLegend": "Qualitative model severity",
+  "recoveryNtSeverity": {
+    "severe": "Severe",
+    "moderate": "Moderate",
+    "mild": "Mild",
+    "normalizing": "Normalizing"
+  },
+  "recoveryNtDirection": {
+    "depleted": "Depleted",
+    "elevated": "Elevated",
+    "oscillating": "Oscillating",
+    "normalizing": "Normalizing"
+  },
+  "recoveryNtWindow": {
+    "during_use": "Shared educational calendar: active use",
+    "acute_withdrawal": "Shared educational calendar: days 1–7",
+    "post_acute": "Shared educational calendar: days 8–56",
+    "normalizing": "Shared educational calendar: from day 57"
+  },
   "recoveryTrajectoryHint": "On an estimated trajectory",
   "demoDisclaimer": "Fictional figures and copy. They are not clinical measurements.",
   "demoChangeStatus": "In progress",

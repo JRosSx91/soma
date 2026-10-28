@@ -1,0 +1,52 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { test } from "node:test";
+import enRecovery from "../../../i18n/locales/en/recovery.json" with { type: "json" };
+import esRecovery from "../../../i18n/locales/es/recovery.json" with { type: "json" };
+
+test("recovery neurochemistry panel is qualitative and not the 1.0 bar chart", () => {
+  const panel = readFileSync(new URL("./RecoveryNeurochemistryPanel.tsx", import.meta.url), "utf8");
+  const page = readFileSync(new URL("../pages/RecoveryPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /RecoveryNeurochemistryPanel/);
+  assert.match(page, /RecoveryFocusPanel/);
+  assert.match(page, /EvolutionChart/);
+  const focusIndex = page.indexOf("<RecoveryFocusPanel");
+  const ntIndex = page.indexOf("<RecoveryNeurochemistryPanel");
+  const chartIndex = page.indexOf("<EvolutionChart");
+  assert.ok(focusIndex >= 0 && ntIndex > focusIndex && chartIndex > ntIndex);
+  assert.doesNotMatch(panel, /NeurotransmitterPanel/);
+  assert.doesNotMatch(panel, /EducationalPhaseTrack/);
+  assert.doesNotMatch(panel, /useNeurotransmitterState/);
+  assert.doesNotMatch(panel, /\/me\/neurotransmitter-state/);
+  assert.doesNotMatch(panel, /curveProgress/);
+  assert.doesNotMatch(panel, /SEVERITY_FILL/);
+  assert.doesNotMatch(panel, /style=\{\{ width:/);
+  assert.doesNotMatch(panel, /neurotransmitter-phases:/);
+  assert.match(panel, /aria-current=\{current \? "true" : undefined\}/);
+  assert.match(panel, /educationalNtSeverities/);
+  assert.match(panel, /recoveryNtWarning/);
+  assert.match(panel, /exploreEduHref/);
+  assert.match(page, /tab === "general" \|\| tab === "substance"/);
+});
+
+test("recovery NT chrome is present in ES and EN without concentration percents", () => {
+  const es = esRecovery as Record<string, string>;
+  const en = enRecovery as Record<string, string>;
+  assert.equal(es.recoveryNtTitle, "Señalización neuroquímica educativa");
+  assert.equal(en.recoveryNtTitle, "Educational neurochemical signaling");
+  assert.match(es.recoveryNtWarning, /estados cualitativos de un modelo educativo/);
+  assert.match(en.recoveryNtWarning, /qualitative states from an educational model/);
+  assert.match(es.recoveryNtWarning, /calendario compartido/);
+  assert.match(en.recoveryNtWarning, /calendar shared across substances/);
+  assert.doesNotMatch(es.recoveryNtWarning, /%/);
+  assert.doesNotMatch(en.recoveryNtWarning, /%/);
+  assert.doesNotMatch(es.recoveryNtTitle, /concentraci/i);
+  assert.equal(es["recoveryNtSeverity.severe"] ?? (esRecovery as { recoveryNtSeverity: Record<string, string> }).recoveryNtSeverity.severe, "Severo");
+  const esSeverity = (esRecovery as { recoveryNtSeverity: Record<string, string> }).recoveryNtSeverity;
+  const enSeverity = (enRecovery as { recoveryNtSeverity: Record<string, string> }).recoveryNtSeverity;
+  assert.deepEqual(Object.keys(esSeverity), ["severe", "moderate", "mild", "normalizing"]);
+  assert.equal(enSeverity.severe, "Severe");
+  assert.equal(enSeverity.moderate, "Moderate");
+  assert.equal(enSeverity.mild, "Mild");
+  assert.equal(enSeverity.normalizing, "Normalizing");
+});
