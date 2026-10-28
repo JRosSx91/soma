@@ -9,3 +9,4 @@ export * from "./recovery-math.js";
 export * from "./temporal-milestone.js";
 export * from "./neurotransmitters.js";
 export * from "./journal.js";
+export * from "./progress.js";
