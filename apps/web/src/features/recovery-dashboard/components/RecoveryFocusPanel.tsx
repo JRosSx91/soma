@@ -108,7 +108,7 @@ export function RecoveryFocusPanel({
               {next ? (
                 <p className="mt-2 text-xs tabular-nums text-soma-ink-muted">
                   {elapsed != null
-                    ? t("homeNextMedalDays", { current: elapsed, target: next.thresholdDays })
+                    ? t("recoveryNextMilestoneDays", { current: elapsed, target: next.thresholdDays })
                     : formatRemainingLabel(next.remainingMs, t)}
                 </p>
               ) : null}

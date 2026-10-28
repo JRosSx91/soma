@@ -34,11 +34,11 @@ test("demo legend percents are the last sample of each series", () => {
   }
   assert.equal(
     chart.series.find((item) => item.id === "nervous")?.referenceAtYearLabel,
-    "día 365 · 68%",
+    "Modelo: día 365 · 68%",
   );
   assert.equal(
     chart.series.find((item) => item.id === "cardiovascular")?.referenceAtYearLabel,
-    "día 365 · 72%",
+    "Modelo: día 365 · 72%",
   );
 });
 
@@ -99,8 +99,8 @@ test("demo ES/EN copy names curve progress and overlay, not an average", () => {
   assert.equal(enRecoveryOverview().toLowerCase().includes("average"), false);
   assert.match(esRecoveryOverview(), /Mostrar todas las curvas/);
   assert.match(enRecoveryOverview(), /Show all curves/);
-  assert.match(esRecoveryYAxis(), /Avance de cada curva/);
-  assert.match(enRecoveryYAxis(), /Progress along each curve/);
+  assert.match(esRecoveryYAxis(), /Avance de la curva educativa/);
+  assert.match(enRecoveryYAxis(), /Educational curve progress/);
 });
 
 test("live overlay and mixed-organ rules stay in the adapter", () => {
