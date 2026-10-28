@@ -1,7 +1,9 @@
 {
   "level": "Level {{level}}",
   "xp": "Experience",
+  "totalXp": "{{count}} XP",
   "xpProgress": "{{into}} / {{needed}} XP",
+  "xpRemaining": "{{remaining}} XP to reach level {{next}}",
   "nextLevel": "Progress to next level",
   "levelCap": "Highest level reached",
   "equipped": "Equipped title",

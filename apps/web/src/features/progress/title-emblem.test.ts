@@ -108,10 +108,10 @@ test("TitleEmblem stays decorative unless a label is provided", () => {
   assert.equal(component.includes("rounded-full"), false);
 });
 
-test("Home, ExplorerSummary, HeroFigure and NextTemporalMedalCard do not mount emblems yet", () => {
-  assert.equal(home.includes("TitleEmblem"), false);
-  assert.equal(home.includes("HomeProgressIdentity"), false);
+test("Home mounts emblems through HomeProgressIdentity, not TitlePicker", () => {
+  assert.match(home, /HomeProgressIdentity/);
   assert.equal(home.includes("TitlePicker"), false);
+  assert.equal(home.includes("TitleEmblem"), false);
   assert.equal(explorer.includes("TitleEmblem"), false);
   assert.equal(header.includes("TitleEmblem"), false);
   assert.equal(hero.includes("TitleEmblem"), false);

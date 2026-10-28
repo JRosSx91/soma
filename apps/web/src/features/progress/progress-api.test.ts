@@ -18,14 +18,14 @@ test("LIVE client uses GET and PATCH /me/progress", () => {
   assert.match(api, /parseProgressPayload/);
 });
 
-test("DEMO fixture and PreviewHome do not call the progress API yet", () => {
+test("DEMO fixture never calls the progress API; PreviewHome uses the hook without PATCH", () => {
   assert.equal(demo.includes("apiRequest"), false);
   assert.equal(demo.includes("/me/progress"), false);
-  assert.equal(home.includes("useProgress"), false);
+  assert.match(home, /useProgress/);
+  assert.match(home, /HomeProgressIdentity/);
   assert.equal(home.includes("/me/progress"), false);
-  assert.equal(home.includes("HomeProgressIdentity"), false);
-  assert.equal(home.includes("TitleEmblem"), false);
   assert.equal(home.includes("TitlePicker"), false);
+  assert.equal(home.includes("patchEquippedTitle"), false);
 });
 
 test("LIVE hook never substitutes DEMO data on error", () => {

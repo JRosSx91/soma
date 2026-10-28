@@ -14,7 +14,9 @@ function flattenKeys(value: unknown, prefix = ""): string[] {
 const REQUIRED = [
   "level",
   "xp",
+  "totalXp",
   "xpProgress",
+  "xpRemaining",
   "nextLevel",
   "equipped",
   "changeTitle",

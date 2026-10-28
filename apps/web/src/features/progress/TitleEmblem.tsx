@@ -18,9 +18,8 @@ export interface TitleEmblemProps {
 }
 
 /**
- * Approved emblem (WebP variant by display size). Ready for
- * HomeProgressIdentity and TitlePicker; those surfaces are not
- * mounted on Home in this slice.
+ * Approved emblem (WebP variant by display size). Home uses it
+ * through HomeProgressIdentity; TitlePicker is not mounted yet.
  */
 export function TitleEmblem({ titleId, size, className, label }: TitleEmblemProps) {
   const src = resolveTitleEmblemSrc(titleId, size);

@@ -25,3 +25,4 @@ export {
   type TitleEmblemVariantPx,
 } from "./title-emblem.js";
 export { TitleEmblem, type TitleEmblemProps } from "./TitleEmblem.js";
+export { HomeProgressIdentity } from "./HomeProgressIdentity.js";

@@ -19,9 +19,9 @@ test("home 2.0 answers where I am, what I earned, and what comes next", () => {
   assert.match(home, /pickNextLockedAchievement/);
   assert.match(home, /pickRecentUnlockedAchievements\(achievements\.rows, 4\)/);
   assert.equal(home.includes("quantifiableAchievementProgress"), false);
-  assert.equal(home.includes("XP"), false);
-  assert.equal(home.includes("nivel"), false);
   assert.equal(home.includes("demoAchievements"), false);
+  assert.match(home, /HomeProgressIdentity/);
+  assert.match(home, /useProgress/);
 });
 
 test("home keeps DEMO catalog-only medals and LIVE account unlocks", () => {
@@ -37,7 +37,8 @@ test("home keeps DEMO catalog-only medals and LIVE account unlocks", () => {
   assert.match(home, /dashboard\.error/);
   assert.match(home, /homeEmptyBody/);
   assert.match(home, /goOnboarding/);
-  assert.match(home, /dashboard\.substances\.length === 0\) return null/);
+  assert.match(home, /dashboard\.substances\.length === 0/);
+  assert.match(home, /tracked=\{0\}/);
 });
 
 test("home 2.0 uses a three-band expedition board", () => {
@@ -45,6 +46,8 @@ test("home 2.0 uses a three-band expedition board", () => {
   assert.match(home, /AnatomyColumn/);
   assert.match(home, /ExplorerSummary/);
   assert.match(home, /SubstanceRow/);
+  assert.match(home, /repeat\(auto-fit,minmax\(min\(100%,13\.5rem\),1fr\)\)/);
+  assert.equal(home.includes("w-[16.5rem]"), false);
   assert.match(home, /RecommendedExploration/);
   assert.match(home, /HomeSubstanceCard/);
   assert.match(home, /recoveryHref\(basePath, substance\.id\)/);
@@ -58,8 +61,8 @@ test("home 2.0 uses a three-band expedition board", () => {
   assert.match(home, /remainingProgressPercent\(next\.progress\)/);
   assert.equal(home.includes("substance.bar"), false);
   assert.match(home, /layout="home"/);
-  assert.match(home, /homeExplorerBar/);
   assert.match(home, /homeAnatomyBody/);
+  assert.equal(home.includes("homeExplorerBar"), false);
   assert.equal(home.includes("lg:hidden"), false);
   assert.equal(home.includes("homeHorizonCaption"), false);
   assert.equal(home.includes("common:shell.home"), false);
