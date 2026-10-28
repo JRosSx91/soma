@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   BookOpen,
   CalendarDays,
@@ -45,6 +45,7 @@ import { JournalEntryForm } from "../../journal/JournalEntryForm.js";
 import {
   createJournalEntry,
   createJournalMilestone,
+  deleteJournalEntry,
   deleteJournalMilestone,
   fetchAllJournalEntries,
   fetchJournalMilestones,
@@ -57,6 +58,7 @@ import {
   JOURNAL_DEMO_ENTRIES,
   JOURNAL_DEMO_MILESTONES,
 } from "../../journal/journal-demo.js";
+import { runDeleteJournalEntry } from "../../journal/journal-delete.js";
 import {
   JOURNAL_DEMO_LIST_PAGE_SIZE,
   JOURNAL_LIST_PAGE_SIZE,
@@ -171,6 +173,10 @@ export function JournalPage() {
   const [sheet, setSheet] = useState<Sheet | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const deleteInFlight = useRef(false);
   const [chartSeries, setChartSeries] = useState<ChartSeries>("wellbeing");
   const [patternScale, setPatternScale] = useState<JournalScaleId>("wellbeing");
   const [patternWindow, setPatternWindow] = useState<JournalTrendWindow>(28);
@@ -527,6 +533,48 @@ export function JournalPage() {
       setSaveError(t("milestones.saveError"));
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handleDeleteEntry(id: string) {
+    setDeleteError(null);
+    setDeleting(true);
+    try {
+      const outcome = await runDeleteJournalEntry({
+        live,
+        demo,
+        id,
+        inFlight: deleteInFlight,
+        deleteRemote: deleteJournalEntry,
+      });
+      if (outcome === "busy") return;
+      if (outcome === "error") {
+        setDeleteError(t("form.deleteError"));
+        return;
+      }
+      if (demo) {
+        setEntries((rows) => rows.filter((row) => row.id !== id));
+      } else if (live) {
+        await loadLive();
+        setMonthReady(false);
+        const monthRows = await fetchJournalMonthEntries(calYear, calMonth);
+        setMonthEntries(monthRows);
+        setMonthReady(true);
+        if (tab === "entries") {
+          const page = await fetchJournalPage({
+            ...listFilters,
+            limit: JOURNAL_LIST_PAGE_SIZE,
+          });
+          setListItems(page.items);
+          setListCursor(page.nextCursor);
+        }
+      }
+      setConfirmDelete(false);
+      setSheet(null);
+    } catch {
+      setDeleteError(t("form.deleteError"));
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -1185,16 +1233,37 @@ export function JournalPage() {
         <DetailSheet
           title={sheetTitle(sheet, t)}
           size="article"
-          onClose={() => setSheet(null)}
+          onClose={() => {
+            if (deleting) return;
+            setConfirmDelete(false);
+            setDeleteError(null);
+            setSheet(null);
+          }}
         >
           {sheet.kind === "view" ? (
             <EntryDetail
               entry={sheet.entry}
               formatCivil={formatCivil}
+              confirmDelete={confirmDelete}
+              deleting={deleting}
+              deleteError={deleteError}
               onEdit={() => {
                 setSaveError(null);
+                setConfirmDelete(false);
+                setDeleteError(null);
                 setSheet({ kind: "edit", entry: sheet.entry });
               }}
+              onAskDelete={() => {
+                if (deleting) return;
+                setDeleteError(null);
+                setConfirmDelete(true);
+              }}
+              onCancelDelete={() => {
+                if (deleting) return;
+                setConfirmDelete(false);
+                setDeleteError(null);
+              }}
+              onConfirmDelete={() => void handleDeleteEntry(sheet.entry.id)}
             />
           ) : null}
           {sheet.kind === "create" || sheet.kind === "edit" ? (
@@ -1699,13 +1768,43 @@ function EntryRow({
 function EntryDetail({
   entry,
   formatCivil,
+  confirmDelete,
+  deleting,
+  deleteError,
   onEdit,
+  onAskDelete,
+  onCancelDelete,
+  onConfirmDelete,
 }: {
   entry: JournalEntry;
   formatCivil: (iso: string) => string;
+  confirmDelete: boolean;
+  deleting: boolean;
+  deleteError: string | null;
   onEdit: () => void;
+  onAskDelete: () => void;
+  onCancelDelete: () => void;
+  onConfirmDelete: () => void;
 }) {
   const { t } = useTranslation("journal");
+  const askRef = useRef<HTMLButtonElement>(null);
+  const confirmRef = useRef<HTMLButtonElement>(null);
+  const hadConfirm = useRef(false);
+  const confirmTitleId = useId();
+  const confirmBodyId = useId();
+
+  useEffect(() => {
+    if (confirmDelete) {
+      hadConfirm.current = true;
+      confirmRef.current?.focus();
+      return;
+    }
+    if (hadConfirm.current) {
+      hadConfirm.current = false;
+      askRef.current?.focus();
+    }
+  }, [confirmDelete]);
+
   return (
     <div className="flex flex-col gap-3 text-sm text-soma-ink-secondary">
       <p>{formatCivil(entry.occurredOn)}</p>
@@ -1713,13 +1812,67 @@ function EntryDetail({
         {entryPreview(entry, t("entries.untitled"))}
       </h3>
       {entry.body ? <p className="whitespace-pre-wrap leading-relaxed">{entry.body}</p> : null}
-      <button
-        type="button"
-        onClick={onEdit}
-        className={`${previewFocus} mt-2 min-h-11 self-start rounded-full bg-soma-action px-4 font-semibold text-[#081018]`}
-      >
-        {t("form.edit")}
-      </button>
+      <div className="mt-2 flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={onEdit}
+          disabled={deleting}
+          className={`${previewFocus} min-h-11 self-start rounded-full bg-soma-action px-4 font-semibold text-[#081018] disabled:opacity-50`}
+        >
+          {t("form.edit")}
+        </button>
+        {confirmDelete ? (
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby={confirmTitleId}
+            aria-describedby={confirmBodyId}
+            aria-busy={deleting}
+            className="w-full rounded-2xl border border-soma-organ-damaged/40 bg-soma-raised p-3"
+          >
+            <p id={confirmTitleId} className="font-medium text-soma-ink">
+              {t("form.deleteConfirmTitle")}
+            </p>
+            <p id={confirmBodyId} className="mt-1 text-soma-ink-secondary">
+              {t("form.deleteConfirmBody")}
+            </p>
+            {deleteError ? (
+              <p className="mt-2 text-soma-organ-damaged" role="alert">
+                {deleteError}
+              </p>
+            ) : null}
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                ref={confirmRef}
+                type="button"
+                onClick={onConfirmDelete}
+                disabled={deleting}
+                aria-busy={deleting}
+                className={`${previewFocus} min-h-11 rounded-full bg-soma-organ-damaged px-4 font-semibold text-[#081018] disabled:opacity-50`}
+              >
+                {deleting ? t("form.deleting") : t("form.deleteConfirm")}
+              </button>
+              <button
+                type="button"
+                onClick={onCancelDelete}
+                disabled={deleting}
+                className={`${previewFocus} min-h-11 rounded-full border border-soma-line bg-soma-surface px-4 text-soma-ink disabled:opacity-50`}
+              >
+                {t("form.deleteCancel")}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            ref={askRef}
+            type="button"
+            onClick={onAskDelete}
+            className={`${previewFocus} min-h-11 self-start rounded-full border border-soma-organ-damaged/50 px-4 text-soma-ink hover:bg-soma-raised`}
+          >
+            {t("form.delete")}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

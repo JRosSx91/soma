@@ -92,6 +92,11 @@ export function patchJournalEntry(
   });
 }
 
+/** Preview/DEMO must not call this. */
+export function deleteJournalEntry(id: string): Promise<void> {
+  return apiRequest<void>(`/me/journal/${id}`, { method: "DELETE" });
+}
+
 export function fetchJournalMilestones(): Promise<JournalMilestone[]> {
   return apiRequest<JournalMilestone[]>("/me/journal/milestones");
 }

@@ -53,8 +53,10 @@ test("LIVE journal fetch is isolated from DEMO samples", () => {
   assert.match(api, /\/me\/journal\/milestones/);
   assert.match(api, /fetchJournalPage/);
   assert.match(api, /fetchJournalMonthEntries/);
+  assert.match(api, /deleteJournalEntry/);
   assert.equal(demo.includes("apiRequest"), false);
   assert.equal(demo.includes("/me/journal"), false);
+  assert.equal(demo.includes("deleteJournalEntry"), false);
   assert.match(page, /base === "\/preview"/);
   assert.match(page, /base === "\/app"/);
   assert.match(page, /fetchAllJournalEntries/);
@@ -64,6 +66,22 @@ test("LIVE journal fetch is isolated from DEMO samples", () => {
   assert.match(page, /if \(!live\) return/);
   assert.match(page, /JOURNAL_DEMO_ENTRIES/);
   assert.match(page, /JOURNAL_DEMO_MILESTONES/);
+});
+
+test("journal entry delete confirms, reloads LIVE views and stays local in DEMO", () => {
+  assert.match(page, /runDeleteJournalEntry/);
+  assert.match(page, /deleteJournalEntry/);
+  assert.match(page, /handleDeleteEntry/);
+  assert.match(page, /rows\.filter\(\(row\) => row\.id !== id\)/);
+  assert.match(page, /if \(deleting\) return/);
+  assert.match(page, /role="alertdialog"/);
+  assert.match(page, /form\.deleteConfirm/);
+  assert.match(esJournal.form.delete, /Eliminar entrada/);
+  assert.match(enJournal.form.delete, /Delete entry/);
+  assert.match(esJournal.form.deleteConfirmBody, /no se puede deshacer/);
+  assert.match(enJournal.form.deleteConfirmBody, /cannot be undone/);
+  assert.match(page, /await loadLive\(\)/);
+  assert.match(page, /fetchJournalMonthEntries/);
 });
 
 test("journal calendar and history cover month paging, filters and load more", () => {
