@@ -542,6 +542,10 @@ function cardLabels(item: CatalogItem, t: ReturnType<typeof useTranslation>[0]) 
     curveRequirement: (percent: number) => t("achievements:ui.curveRequirement", { percent }),
     substance,
     tier: t(`achievements:ui.${item.tier}`),
+    family:
+      item.family === "temporal"
+        ? t("achievements:ui.familyBadgeTemporal")
+        : t("achievements:ui.familyBadgeCurve"),
   };
 }
 

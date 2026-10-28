@@ -21,7 +21,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "Atravesando la tormenta",
-    "description": "La fase aguda de abstinencia — la más peligrosa fisiológicamente de cualquier sustancia — se está rompiendo. Los receptores GABA-A, sobreexpresados a la baja por el etanol crónico, empiezan a recuperarse. El rebote glutamatérgico cede. Temblor, ansiedad y lo peor han pasado. Las primeras 72 horas son las más duras — y están detrás."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-liver-bronze-1",
@@ -36,7 +36,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Primeros pasos en Mordor",
-    "description": "Los marcadores enzimáticos hepáticos (AST, ALT, GGT) empiezan a bajar desde los picos del consumo crónico. El hígado registra el cambio en cuestión de días."
+    "description": "Hito de la curva educativa del hígado. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-vta-bronze",
@@ -50,8 +50,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "El primer destello dopaminérgico",
-    "description": "El circuito de recompensa, aplanado por la supresión GABAérgica crónica y la regulación a la baja de dopamina, registra sus primeras señales naturales. La anhedonia aún no ha levantado — pero el hardware empieza a responder de nuevo."
+    "title": "El primer destello",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-liver-bronze-2",
@@ -66,7 +66,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La esteatosis en retirada",
-    "description": "La esteatosis hepática empieza a revertirse en las primeras dos semanas de abstinencia. Los depósitos lipídicos se metabolizan y la función hepatocitaria mejora de forma medible."
+    "description": "Hito de la curva educativa del hígado. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-prefrontal-bronze",
@@ -81,7 +81,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El cerebro de Tony Stark calentando motores",
-    "description": "Primeras señales de recuperación cortical. Los marcadores volumétricos empiezan a tender al alza. La memoria de trabajo y la atención muestran mejora medible."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-heart-bronze",
@@ -96,7 +96,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Holiday heart, desestimado",
-    "description": "La hipertensión inducida por alcohol empieza a normalizarse. Los episodios de fibrilación auricular — el fenómeno 'holiday heart' — caen en frecuencia. El miocardio deja de estar crónicamente estresado."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-stomach-bronze",
@@ -111,7 +111,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Se acabó arder al amanecer",
-    "description": "La cicatrización de la mucosa gástrica se acelera. La hipersecreción ácida cede al cesar la estimulación de las células parietales. Las lesiones de gastritis erosiva empiezan a cerrarse."
+    "description": "Hito de la curva educativa del estómago. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-pancreas-bronze",
@@ -126,7 +126,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El páncreas fuera del quirófano",
-    "description": "Las células acinares se recuperan del estrés tóxico crónico. La respuesta inflamatoria cede. La producción de enzimas digestivas se reestabiliza poco a poco."
+    "description": "Hito de la curva educativa del páncreas. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-sleep-bronze",
@@ -141,7 +141,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Vuelve el sueño REM",
-    "description": "El consumo crónico de alcohol suprime el REM y fragmenta el sueño profundo. A medida que el sistema se limpia, el REM rebota — a veces con sueños vívidos — y la arquitectura del sueño profundo empieza a reensamblarse. Las mañanas empiezan a sentirse como descanso."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-vta-silver",
@@ -156,7 +156,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El circuito de recompensa reinicia",
-    "description": "La señalización dopaminérgica empieza a recuperarse de la supresión crónica. Las recompensas naturales empiezan a abrirse paso entre el ruido."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-prefrontal-silver",
@@ -171,7 +171,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Charles Xavier ya no me maneja",
-    "description": "El volumen de sustancia gris en la corteza prefrontal aumenta sustancialmente. Función ejecutiva, control de impulsos y toma de decisiones mejoran. Conduces tú el autobús otra vez."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-liver-silver",
@@ -186,7 +186,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El hígado recuerda cómo se hacía",
-    "description": "Las transaminasas se aproximan a rangos normales. El contenido graso del hígado se reduce sustancialmente. La capacidad regenerativa hepática — de las más fuertes del cuerpo — está haciendo su trabajo."
+    "description": "Hito de la curva educativa del hígado. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-hippocampus-silver",
@@ -201,7 +201,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Los blackouts tienen contraargumento",
-    "description": "El volumen hipocampal se recupera de forma medible. La codificación de memoria episódica se estabiliza. El sustrato neural que el alcohol más fiablemente rompía — el que está detrás de los blackouts y las noches perdidas — se está reconstruyendo."
+    "description": "Hito de la curva educativa de la memoria. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-heart-silver",
@@ -215,8 +215,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Músculo cardíaco, recuperándose",
-    "description": "La miocardiopatía alcohólica revierte sustancialmente con abstinencia sostenida. La fracción de eyección mejora, la dilatación ventricular regresa. El corazón, dado tiempo suficiente, es uno de los mejores perdonadores."
+    "title": "El ritmo encuentra su sitio",
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-prefrontal-silver-2",
@@ -231,7 +231,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Función ejecutiva sostenida",
-    "description": "La recuperación prefrontal ya no es episódica — es la nueva línea base. Planificación, abstracción y memoria de trabajo operan sin el ruido crónico. El árbitro cortical ya no necesita días para recuperarse de cada fin de semana."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-pancreas-silver",
@@ -245,8 +245,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "La insulina en su sitio",
-    "description": "Las funciones exocrina y endocrina del páncreas se normalizan. La sensibilidad a la insulina mejora si no hay daño crónico irreversible."
+    "title": "La receta del páncreas",
+    "description": "Hito de la curva educativa del páncreas. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-stomach-silver",
@@ -260,8 +260,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Estómago de hierro restaurado",
-    "description": "La mucosa gástrica está completamente regenerada. El recambio epitelial de 3-7 días ha hecho su trabajo. El equilibrio ácido y la función digestiva han vuelto a la línea base."
+    "title": "Estómago de hierro",
+    "description": "Hito de la curva educativa del estómago. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-hippocampus-gold",
@@ -275,8 +275,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "La memoria, plenamente en acta",
-    "description": "Volumen y función hipocampales se aproximan a la línea base. Consolidación de memoria a largo plazo, navegación espacial y aprendizaje contextual operan a plena capacidad. Años de noches que no podías recordar — el cerebro ha aprendido a guardar otra vez."
+    "title": "La memoria, en acta",
+    "description": "Hito de la curva educativa de la memoria. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-liver-gold",
@@ -291,7 +291,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Mejor que la regeneración de Lobezno",
-    "description": "El hígado ha regenerado la mayor parte de su tejido funcional. La fibrosis leve, si la había, ha revertido parcialmente. Pocos órganos en el cuerpo podrían hacer esto."
+    "description": "Hito de la curva educativa del hígado. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-vta-gold",
@@ -306,7 +306,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El placer ya no está alquilado",
-    "description": "La densidad de receptores de dopamina se aproxima a la línea base. Las recompensas naturales se sienten reales otra vez, la anhedonia se resuelve sustancialmente. El cerebro ha recordado cómo celebrar sin ayuda."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-sovereignty-platinum",
@@ -321,7 +321,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "Cada sistema, devuelto",
-    "description": "Hígado, corazón, páncreas, estómago, hipocampo, corteza prefrontal, eje mesolímbico, arquitectura del sueño — cada sistema que el alcohol tocó funciona ahora con sus propias señales. La sustancia más punitiva fisiológicamente de dejar está plenamente detrás. El cuerpo es tuyo otra vez, entero."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-intestines-bronze",
@@ -336,7 +336,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La muralla intestinal se reconstituye",
-    "description": "El alcohol afloja las uniones estrechas del epitelio intestinal — las tight junctions — permitiendo que endotoxinas bacterianas atraviesen la pared y lleguen a la circulación portal, alimentando inflamación sistémica. A este umbral, la reparación epitelial está en marcha. El intestino está cerrando sus puertas de nuevo. El \"leaky gut\" no es metáfora: era medible, y ahora está revirtiendo."
+    "description": "Hito de la curva educativa de los intestinos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-intestines-silver",
@@ -351,7 +351,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El microbioma vuelve a la mesa",
-    "description": "La disbiosis asociada al alcohol — colapso de diversidad microbiana, sobrecrecimiento de bacterias gramnegativas, caída de productores de butirato — se resuelve sustancialmente con la abstinencia sostenida. El eje intestino-hígado deja de enviar señales de alarma. El ecosistema interno se reconstruye solo. Tú no tienes que hacer nada más que seguir."
+    "description": "Hito de la curva educativa de los intestinos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-spleen-bronze",
@@ -366,7 +366,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El bazo deja de ser el termómetro del hígado",
-    "description": "La esplenomegalia alcohólica — el agrandamiento del bazo por hipertensión portal secundaria al daño hepático — comienza a revertir a medida que el hígado se recupera y la presión portal baja. El bazo estaba actuando como manómetro de una avería. La avería se está reparando."
+    "description": "Hito de la curva educativa del bazo. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-oral-mucosa-bronze",
@@ -381,7 +381,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La boca recuerda lo que es normal",
-    "description": "El alcohol es un irritante directo y carcinógeno de la mucosa oral. En pocas semanas de abstinencia, los marcadores inflamatorios del epitelio oral bajan, la composición salival se normaliza y la xerostomía crónica comienza a revertir. La boca empieza a no doler de fondo."
+    "description": "Hito de la curva educativa de la boca. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-oral-mucosa-silver",
@@ -396,7 +396,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El carcinógeno ha desalojado el edificio",
-    "description": "El acetaldehído — el metabolito mutagénico del alcohol, clasificado como carcinógeno Grupo 1 por la IARC — ya no es un huésped diario de tu mucosa oral. La reparación del ADN epitelial supera el daño nuevo. La presión carcinogénica sobre el epitelio oral se ha levantado."
+    "description": "Hito de la curva educativa de la boca. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-teeth-bronze",
@@ -411,7 +411,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La erosión del esmalte entra en pausa",
-    "description": "El daño dental por alcohol tiene dos vías: exposición ácida directa y reflujo gástrico secundario a la gastritis. Ambas están remitiendo. La pérdida de esmalte nuevo se detiene. Lo que ya no está no vuelve — pero el daño deja de acumularse. A veces parar es suficiente victoria."
+    "description": "Hito de la curva educativa de dientes y encías. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-eyes-bronze",
@@ -426,7 +426,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El blanco de los ojos vuelve a ser blanco",
-    "description": "La ictericia escleral — el amarillo en la esclerótica por hiperbilirrubinemia secundaria a disfunción hepática — comienza a desvanecerse a medida que el hígado recupera capacidad. Es uno de los marcadores más visibles de recuperación interna. Lo ven antes que tú."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "alcohol-eyes-silver",
@@ -441,7 +441,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El nervio óptico sale del asedio",
-    "description": "La neuropatía óptica alcohólica — causada por déficits nutricionales (tiamina, B12) y daño tóxico directo — estabiliza y revierte parcialmente. La agudeza visual y la sensibilidad al contraste mejoran a medida que el nervio se recupera del insulto metabólico crónico. Ojos que volvían a ver borroso, despejándose."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-bronchi-bronze-1",
@@ -456,7 +456,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Los cilios estirándose tras un largo sueño",
-    "description": "En las primeras 24-72 horas tras el cese, los cilios bronquiales paralizados empiezan a recuperar su movimiento rítmico. El ascensor mucociliar se despierta."
+    "description": "Hito de la curva educativa de los bronquios. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-oral-mucosa-bronze",
@@ -471,7 +471,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La boca deja de saber a cenicero",
-    "description": "La mucosa oral es de las primeras en notar la abstinencia. En días, la inflamación crónica del epitelio bucal comienza a revertir, la producción salival se normaliza y los receptores gustativos — embotados por el humo — empiezan a recuperar sensibilidad. La comida empieza a tener sabor de verdad."
+    "description": "Hito de la curva educativa de la boca. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-oral-mucosa-silver",
@@ -486,7 +486,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La leucoplasia cede terreno",
-    "description": "Las lesiones de leucoplasia oral asociadas al tabaco — placas blanquecinas precancerosas en la mucosa — muestran regresión parcial con abstinencia sostenida. El epitelio oral ha salido del estado de alarma carcinogénica permanente. Lo que el tabaco convirtió en tejido de riesgo, el tiempo lo está devolviendo a tejido sano."
+    "description": "Hito de la curva educativa de la boca. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-nasal-mucosa-bronze",
@@ -501,7 +501,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El olfato sale del sótano",
-    "description": "La mucosa nasal, inflamada y atrofiada por la exposición crónica al humo, comienza a regenerarse. Los cilios nasales recuperan movilidad. El olfato — uno de los sentidos que el tabaco roba más silenciosamente — empieza a volver. Primero hueles lo obvio. Luego hueles lo sutil."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-nasal-mucosa-silver",
@@ -516,7 +516,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Filtro nasal operativo",
-    "description": "La mucosa nasal ha recuperado su función de barrera y filtrado. La aclaración mucociliar nasal está normalizada. El epitelio que el humo desnudó durante años vuelve a hacer su trabajo: calentar, humedecer y filtrar el aire antes de que llegue a los pulmones."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-teeth-bronze",
@@ -531,7 +531,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Las encías dejan de sangrar en silencio",
-    "description": "La enfermedad periodontal asociada al tabaco tiene un componente insidioso: la nicotina enmascara la inflamación gingival vasoconstrictando los vasos, así que las encías sangran menos durante el consumo — y mucho más al dejarlo. Ese sangrado inicial es la inflamación real saliendo a la luz. En pocas semanas, la respuesta inflamatoria gingival se normaliza."
+    "description": "Hito de la curva educativa de dientes y encías. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-teeth-silver",
@@ -546,7 +546,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El hueso alveolar para de retroceder",
-    "description": "La pérdida ósea alveolar — uno de los daños periodontales más permanentes del tabaco — se detiene con la abstinencia sostenida. Lo que ya se perdió no vuelve, pero la progresión se frena. Los dientes que quedaron tienen ahora suelo firme bajo ellos."
+    "description": "Hito de la curva educativa de dientes y encías. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-eyes-bronze",
@@ -561,7 +561,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La DMAE tiene un enemigo menos",
-    "description": "Fumar es el principal factor de riesgo modificable para la degeneración macular asociada a la edad. El mecanismo es doble: estrés oxidativo en el epitelio pigmentario retiniano y vasoconstricción coroidea crónica. Con la abstinencia, ambos ceden. El riesgo de DMAE empieza a bajar desde el primer mes."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-eyes-silver",
@@ -576,7 +576,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La retina respira",
-    "description": "La perfusión coroidea — el flujo sanguíneo que nutre la retina — mejora sustancialmente con la abstinencia sostenida. La presión intraocular se normaliza. El epitelio pigmentario retiniano, bajo estrés oxidativo crónico durante años, opera con una carga de daño que ya no crece. Los ojos que miraban a través del humo, despejándose."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-bronchi-bronze-2",
@@ -591,7 +591,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La chimenea se está deshollinando",
-    "description": "Los cilios bronquiales eliminan alquitrán y partículas acumuladas con eficiencia medible. La tos productiva en esta fase es el sistema expulsando residuos — no es un problema, es la solución."
+    "description": "Hito de la curva educativa de los bronquios. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-bronchi-silver",
@@ -606,7 +606,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Respirar sin pagar peajes",
-    "description": "La mucosa bronquial se ha recuperado en gran medida. La tos crónica cede, la tolerancia al ejercicio mejora visiblemente. Cada respiración cuesta menos."
+    "description": "Hito de la curva educativa de los bronquios. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-lungs-bronze",
@@ -621,7 +621,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Macrófagos en turno de limpieza",
-    "description": "Los macrófagos alveolares, sobrecargados de partículas de alquitrán, intensifican su trabajo de barrido. La capacidad de difusión empieza a subir."
+    "description": "Hito de la curva educativa de los pulmones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-lungs-silver",
@@ -635,8 +635,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "FEV1 por encima del umbral de la dignidad",
-    "description": "El volumen espiratorio forzado mejora. La tasa de declive funcional pulmonar asociada a la edad se ha normalizado a la de un no-fumador."
+    "title": "Aire por encima del umbral de la dignidad",
+    "description": "Hito de la curva educativa de los pulmones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-lungs-gold",
@@ -651,7 +651,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Pulmones de Black Bolt",
-    "description": "La capacidad pulmonar se aproxima a la línea base de un no-fumador. El enfisema persistente, si lo había, ha dejado de progresar. Los pulmones trabajan cerca de su capacidad plena."
+    "description": "Hito de la curva educativa de los pulmones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-heart-bronze",
@@ -666,7 +666,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El endotelio recuerda cómo se relaja",
-    "description": "La vasoconstricción inducida por la nicotina cede. La función endotelial empieza a recuperarse. El riesgo cardiovascular agudo cae con cada día sin tabaco."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-heart-silver",
@@ -681,7 +681,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Pulso en reposo, descanso real",
-    "description": "La frecuencia cardíaca en reposo se normaliza. El monóxido de carbono ya no compite con el oxígeno. La hemoglobina vuelve a su trabajo de verdad."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-heart-gold",
@@ -695,8 +695,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Riesgo cardiovascular cortado por la mitad",
-    "description": "El riesgo de infarto cae drásticamente. Agregación plaquetaria, función endotelial y perfil lipídico se aproximan a rangos de no-fumador."
+    "title": "La apuesta cardiovascular cambia de lado",
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-vta-bronze",
@@ -711,7 +711,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "La alarma de la nicotina baja el volumen",
-    "description": "Los receptores nicotínicos de acetilcolina, sobreexpresados, empiezan a volver a densidad normal. Cuando llega la urgencia, golpea menos receptores."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-vta-silver",
@@ -725,8 +725,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "El cerebro deja de pedir",
-    "description": "La densidad de nAChR se aproxima a la línea base. Intensidad y frecuencia de la urgencia caen sustancialmente. La demanda neuroquímica de nicotina se está disolviendo."
+    "title": "La alarma deja de pedir",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-vta-gold",
@@ -741,7 +741,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El circuito de recompensa, por fin libre",
-    "description": "La liberación de dopamina en respuesta a recompensas naturales se normaliza. El cerebro ya no depende de nicotina para activar el placer. El secuestro ha terminado."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "nicotine-sovereignty-platinum",
@@ -756,7 +756,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "La chimenea ha desaparecido",
-    "description": "Pulmones, bronquios, corazón, vasculatura, eje mesolímbico — cada sistema que la nicotina y el humo del tabaco tocaron funciona ahora con sus propias señales. Densidad de nAChR en la línea base. Los perfiles de riesgo cardiovascular y pulmonar son indistinguibles de los de un no-fumador. La adicción legal más letal está plenamente detrás."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-vta-bronze-1",
@@ -771,7 +771,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "La niebla empieza a levantarse",
-    "description": "La nube neuroquímica aguda de la abstinencia empieza a disiparse. Los receptores CB1, sobreexpresados a la baja por la saturación crónica de THC, inician el lento ascenso hacia la densidad basal."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-prefrontal-bronze-1",
@@ -786,7 +786,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La primera mañana tranquila",
-    "description": "La ansiedad, irritabilidad y reactividad emocional propias de la abstinencia empiezan a ceder. La corteza prefrontal recupera un mínimo de control top-down sobre el ruido límbico. La primera semana es la más empinada — y la estás subiendo."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-bronchi-bronze",
@@ -801,7 +801,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Limpiando residuos de combustión",
-    "description": "Los cilios bronquiales, suprimidos por la irritación del humo y el alquitrán, reanudan su barrido rítmico. La tos productiva en esta fase es limpieza mucociliar — no es retroceso, es avance."
+    "description": "Hito de la curva educativa de los bronquios. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-hippocampus-bronze",
@@ -816,7 +816,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La memoria de trabajo vuelve online",
-    "description": "La memoria a corto plazo y el recuerdo verbal mejoran de forma medible a medida que la señalización CB1 hipocampal se renormaliza. La niebla del 'dónde dejé las llaves' se aclara."
+    "description": "Hito de la curva educativa de la memoria. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-vta-bronze-2",
@@ -831,7 +831,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La motivación tiene pulso",
-    "description": "La niebla amotivacional empieza a romperse. El tono dopaminérgico del eje mesolímbico se recupera lo suficiente para que los objetivos dejen de sentirse abstractos. El querer vuelve antes que el gustar."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-prefrontal-silver-1",
@@ -846,7 +846,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El piloto está sobrio",
-    "description": "Función ejecutiva, toma de decisiones y control de impulsos sustancialmente restaurados. El árbitro cortical vuelve al ring; el sistema límbico ya no gana por incomparecencia."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-hippocampus-silver",
@@ -861,7 +861,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Almacenamiento a largo plazo online",
-    "description": "La consolidación de memoria de corto a largo plazo se recupera. El aprendizaje se queda. El sistema CB1 hipocampal, denso y central en la codificación, está encontrando su línea base."
+    "description": "Hito de la curva educativa de la memoria. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-intestines-bronze",
@@ -876,7 +876,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El sistema cannabinoide intestinal vuelve a regular",
-    "description": "Los receptores CB1 del tracto gastrointestinal — que el THC crónico había saturado, alterando la motilidad y la secreción — comienzan a recuperar densidad y sensibilidad. Los episodios de náuseas, el síndrome de hiperémesis cannabinoide en casos severos, y la motilidad errática se normalizan. El intestino vuelve a funcionar sin supervisión química externa."
+    "description": "Hito de la curva educativa de los intestinos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-oral-mucosa-bronze",
@@ -891,7 +891,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La boca sin humo",
-    "description": "La mucosa oral se recupera de la irritación térmica y química del humo de cannabis. La xerostomía — la sequedad bucal característica del consumo, mediada por CB1 en glándulas salivales — remite a medida que los receptores renormalizan. La saliva vuelve. Con ella, la primera línea de defensa inmune oral."
+    "description": "Hito de la curva educativa de la boca. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-nasal-mucosa-bronze",
@@ -906,7 +906,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Las fosas nasales recuerdan para qué sirven",
-    "description": "La mucosa nasal se recupera de la irritación crónica por humo y, en consumidores que vaporizan o consumen en otras formas, del contacto directo con irritantes. La función mucociliar nasal mejora. El olfato, parcialmente embotado, empieza a afinar."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-teeth-bronze",
@@ -921,7 +921,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Las encías sin el velo",
-    "description": "El cannabis se asocia a mayor incidencia de enfermedad periodontal, xerostomía e higiene oral comprometida por el patrón de consumo. Con la abstinencia, la inflamación gingival remite y la saliva — que protege el esmalte y neutraliza ácidos — vuelve a fluir con normalidad."
+    "description": "Hito de la curva educativa de dientes y encías. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-eyes-bronze",
@@ -936,7 +936,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El rojo se va",
-    "description": "La hiperemia conjuntival — los ojos rojos característicos del THC, causados por vasodilatación mediada por CB1 en la vasculatura ocular — desaparece en horas tras el último consumo. Con la abstinencia sostenida, la respuesta vasomotora ocular se normaliza completamente. La esclerótica vuelve a ser blanca. Ya no llevas el consumo escrito en la cara."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-bronchi-silver",
@@ -951,7 +951,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Pulmones sin el cascabeleo",
-    "description": "La inflamación bronquial crónica se ha resuelto en gran medida. La tolerancia al ejercicio sube, la tos productiva cede, respirar deja de cargar con atrasos."
+    "description": "Hito de la curva educativa de los bronquios. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-prefrontal-silver-2",
@@ -966,7 +966,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Tiempo emocional, no clima emocional",
-    "description": "Regulación sostenida del estado de ánimo y el afecto. La irritabilidad reactiva y el aplanamiento emocional dan paso al rango — los sentimientos van y vienen sin desbordar el sistema."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-vta-silver-1",
@@ -980,8 +980,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Receptores CB1 reconstruyéndose",
-    "description": "Una neuroimagen PET con [11C]OMAR ahora mostraría densidad de receptores CB1 aproximándose a niveles control en el eje mesolímbico. La mayor parte de la ventana de recuperación de cuatro semanas está detrás. El sistema endocannabinoide está encontrando su propio ritmo."
+    "title": "El mapa interior se redibuja",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-vta-silver-2",
@@ -995,8 +995,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Anhedonia, desestimada",
-    "description": "Las recompensas naturales vuelven a llegar con peso pleno. Música, comida, sexo, conversación — la respuesta dopaminérgica al placer ordinario ya no está atenuada. El síndrome amotivacional, funcionalmente resuelto."
+    "title": "El peso de las cosas pequeñas",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-hippocampus-gold",
@@ -1011,7 +1011,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La biblioteca está plenamente indexada",
-    "description": "Volumen y función hipocampales se aproximan a la línea base. Codificación de memoria, navegación espacial y aprendizaje contextual operan a plena capacidad. El cerebro recuerda cómo recordar."
+    "description": "Hito de la curva educativa de la memoria. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-prefrontal-gold",
@@ -1025,8 +1025,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Despacho ejecutivo restaurado",
-    "description": "Función de la corteza prefrontal cerca de la línea base. Memoria de trabajo, planificación, razonamiento abstracto, control de impulsos — todo lo que el THC fue atenuando silenciosamente durante años — operando a pleno ancho de banda."
+    "title": "Despacho ejecutivo",
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-vta-gold",
@@ -1040,8 +1040,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Soberanía endocannabinoide",
-    "description": "Densidad de receptores CB1 y tono cannabinoide endógeno (anandamida, 2-AG) normalizados. El sistema cannabinoide propio del cuerpo lleva las riendas — no se requiere anulación externa."
+    "title": "Soberanía del mapa interior",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-sovereignty-platinum",
@@ -1055,8 +1055,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": true,
     "ruleReview": false,
-    "title": "La bruma se ha disipado, para siempre",
-    "description": "Recalibración completa del sistema endocannabinoide. Recompensa, memoria, emoción, motivación, respiración — cada sistema que el cannabis tocó funciona ahora con sus propias señales. El cuerpo es tuyo, sin partir."
+    "title": "La bruma se ha disipado",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-vta-bronze-1",
@@ -1071,7 +1071,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "El primer píxel de color",
-    "description": "El sistema de recompensa empieza a despejar el ruido. Los receptores D2, ahogados por el exceso crónico, detectan los primeros parpadeos de dopamina natural."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-nasal-mucosa-bronze-1",
@@ -1086,7 +1086,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La hemorragia se detiene",
-    "description": "Las epistaxis crónicas — el sangrado nasal recurrente por vasoconstricción isquémica de la mucosa — cesan con la abstinencia. La cocaína bloquea la recaptación de noradrenalina causando vasoconstricción sostenida que mata tejido por isquemia. Sin el vasoconstrictor, la circulación mucosa comienza a recuperarse. Lo primero que notas es que ya no sangras."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-nasal-mucosa-bronze-2",
@@ -1101,7 +1101,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El tabique empieza a cerrar",
-    "description": "La mucosa septal, sometida a isquemia crónica y trauma químico directo, inicia reparación epitelial. En casos sin perforación establecida, el tejido se reconstituye. En casos con perforación, los bordes se estabilizan y dejan de necrosar. El daño más visible de la cocaína — el que los médicos usan para diagnosticarla sin que el paciente lo admita — está parando."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-nasal-mucosa-silver",
@@ -1116,7 +1116,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Cartílago que no cede más",
-    "description": "La necrosis del cartílago septal se detiene con abstinencia sostenida. La mucosa que sobrevivió se ha consolidado como epitelio funcional. Lo que se perdió no vuelve — la cocaína es el único fármaco de abuso que destruye cartílago de forma directa e irreversible — pero la destrucción ha terminado. Lo que queda, es tuyo."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-nasal-mucosa-gold",
@@ -1131,7 +1131,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La nariz reconstruida desde dentro",
-    "description": "Máxima recuperación tisular alcanzable sin intervención quirúrgica. El epitelio respiratorio pseudoestratificado — el tejido correcto, no tejido cicatricial — ha repoblado la mayor parte de la superficie mucosa. El olfato, si no fue destruido por necrosis extensa, ha recuperado sensibilidad real. Lo que la cocaína deshizo durante años, el cuerpo lo ha rehecho con lo que tenía."
+    "description": "Hito de la curva educativa de la nariz. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-teeth-bronze",
@@ -1146,7 +1146,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El bruxismo cede",
-    "description": "El apretamiento y rechinamiento dentales inducidos por cocaína — mediados por el exceso dopaminérgico y noradrenérgico — remiten con la abstinencia. El esmalte deja de ser triturado desde dentro. La erosión química directa por el alcaloide aplicado sobre encías también cesa. Los dientes tienen por primera vez en mucho tiempo una tregua."
+    "description": "Hito de la curva educativa de dientes y encías. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-teeth-silver",
@@ -1161,7 +1161,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Las encías recuperan su territorio",
-    "description": "La enfermedad periodontal acelerada por cocaína — vasoconstricción gingival crónica, xerostomía, bruxismo, aplicación directa del alcaloide — muestra reversión sustancial. La inflamación gingival remite, el flujo salival se normaliza, el hueso alveolar para de retroceder. Lo que parecía una boca de décadas más, rejuvenece."
+    "description": "Hito de la curva educativa de dientes y encías. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-eyes-bronze",
@@ -1176,7 +1176,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La vasoconstricción ocular se rinde",
-    "description": "La cocaína contrae los vasos de la retina y la coroides con la misma brutalidad que los del tabique nasal. Con la abstinencia, la perfusión retiniana se normaliza. El riesgo de oclusión vascular retiniana — uno de los mecanismos de pérdida visual aguda asociados al consumo — desaparece. Los ojos vuelven a tener sangre suficiente."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-eyes-silver",
@@ -1191,7 +1191,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La retina fuera de peligro",
-    "description": "La perfusión coroidea y retiniana se ha estabilizado en rangos normales de forma sostenida. El riesgo de eventos vasculares oculares agudos es ya comparable al de la población general. Los ojos que miraron demasiadas noches sin dormir, con los vasos en espasmo, tienen ahora suministro estable. Ven más. Duelen menos."
+    "description": "Hito de la curva educativa de los ojos. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-bronze-1",
@@ -1206,7 +1206,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Estabilizando el reactor arc",
-    "description": "El corazón deja de ser una bomba a punto de estallar. Frecuencia cardíaca y presión arterial en reposo abandonan la zona de combate."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-bronze-2",
@@ -1221,7 +1221,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Tregua coronaria",
-    "description": "La vasoconstricción crónica cede en el árbol coronario. Las arterias ya no están en espasmo permanente; la sangre vuelve a circular sin miedo."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-bronchi-bronze-1",
@@ -1236,7 +1236,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Vía aérea baja despejada",
-    "description": "El epitelio bronquial se recupera de la inflamación crónica causada por vapores inhalados e irritantes aspirados. El ascensor mucociliar recupera su ritmo."
+    "description": "Hito de la curva educativa de los bronquios. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-vta-bronze-2",
@@ -1250,8 +1250,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Dopamina de cosecha propia",
-    "description": "El eje mesolímbico vuelve a fabricar su propio placer. La anhedonia profunda empieza a romperse. Bienvenido de vuelta al mundo real."
+    "title": "Color de cosecha propia",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-vta-bronze-3",
@@ -1266,7 +1266,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Vuelve el disparo tónico",
-    "description": "Las neuronas dopaminérgicas del ATV recuperan su disparo tónico basal. El sistema ya no está atrapado entre el hambre y el atracón — vuelve la señalización tranquila y sostenida."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-bronze-3",
@@ -1281,7 +1281,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Vuelve el color a la periferia",
-    "description": "La microcirculación cutánea y periférica se recupera. La palidez se levanta a medida que la vasoconstricción sistémica afloja — el sistema cardiovascular en su conjunto está soltando el agarre."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-prefrontal-silver-1",
@@ -1296,7 +1296,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La Guardia de la Noche se retira",
-    "description": "La corteza prefrontal recupera el control top-down sobre el impulso noradrenérgico límbico. La hipervigilancia constante y la paranoia ceden ante una calma más profunda."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-silver-1",
@@ -1311,7 +1311,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Corazón de adamantium",
-    "description": "El riesgo de arritmias letales y muerte súbita se desploma. El tejido cardíaco recupera su ritmo natural y estable."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-prefrontal-silver-2",
@@ -1326,7 +1326,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El arquitecto retoma el mando",
-    "description": "La corteza prefrontal recupera el control sobre el impulso. Ya no eres pasajero; vuelves a ser el piloto."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-vta-silver-1",
@@ -1341,7 +1341,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Rebelión en el accumbens",
-    "description": "El secuestro neuroquímico ha fracasado. El eje mesolímbico ahora responde a la música y al contacto humano, no al polvo."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-prefrontal-silver-3",
@@ -1356,7 +1356,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "El árbitro vuelve al ring",
-    "description": "El control inhibitorio top-down de la corteza prefrontal sobre los circuitos límbicos se recalibra. La ansiedad reactiva disminuye a medida que el freno cortical vuelve a estar online."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-prefrontal-silver-4",
@@ -1371,7 +1371,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La simulación está corriendo",
-    "description": "Capacidad mejorada de proyección a futuro. El cerebro vuelve a planear a largo plazo sin la urgencia del 'ahora' químico."
+    "description": "Hito de la curva educativa de atención y decisiones. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-silver-2",
@@ -1386,7 +1386,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Restaurando el pulso vital",
-    "description": "La respuesta vascular se sincroniza. La salud circulatoria permite al cuerpo responder con eficiencia al esfuerzo físico."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-silver-3",
@@ -1401,7 +1401,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Limpieza endotelial profunda",
-    "description": "La elasticidad arterial se ha restaurado sustancialmente. El sistema cardiovascular trabaja con una fluidez que parecía perdida."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-hippocampus-gold-1",
@@ -1416,7 +1416,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": true,
     "title": "Protocolo Lázaro neuronal",
-    "description": "El hipocampo registra recuperación celular profunda. La neurogénesis en el giro dentado se reanuda; la plasticidad cerebral está en su pico, reconstruyendo lo que se dañó."
+    "description": "Hito de la curva educativa de la memoria. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-vta-gold-1",
@@ -1430,8 +1430,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Soberanía dopaminérgica",
-    "description": "Densidad de receptores D2 normalizada. Has recuperado la capacidad de sentir felicidad sin pagar peaje de agotamiento."
+    "title": "Soberanía del circuito",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-heart-gold-1",
@@ -1446,7 +1446,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "Malla de vibranium",
-    "description": "Salud cardiovascular optimizada. El daño estructural está minimizado y el sistema circulatorio funciona a plena capacidad."
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-liver-gold-1",
@@ -1461,7 +1461,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": false,
     "title": "La fortaleza reconstruida",
-    "description": "La maquinaria hepática de detoxificación vuelve a plena potencia. Reservas de glutatión repuestas, los metabolitos reactivos de la cocaína (norcocaína, N-hidroxinorcocaína) ya no desbordan al sistema. El estrés oxidativo, derrotado por la regeneración celular."
+    "description": "Hito de la curva educativa del hígado. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cocaine-sovereignty-platinum",
@@ -1476,7 +1476,7 @@ export const achievementCatalog = [
     "hidden": true,
     "ruleReview": false,
     "title": "El dictador ha caído",
-    "description": "Libertad neuroquímica absoluta. El circuito de recompensa está plenamente restaurado. Eres el único dueño de tu biología."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-vta-bronze-1",
@@ -1491,7 +1491,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": true,
     "title": "El dolor de cabeza cede",
-    "description": "El rebote de vasodilatación cerebral — síntoma cardinal de la abstinencia — se resuelve a medida que la señalización A2A de adenosina sobre la vasculatura cerebral se recalibra. Los primeros 2-9 días son los más empinados, y los has pasado."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-vta-bronze-2",
@@ -1505,8 +1505,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": true,
-    "title": "Receptores de adenosina recalibrándose",
-    "description": "Los receptores A2A de adenosina, sobreexpresados para compensar el bloqueo crónico de la cafeína, empiezan a recuperar densidad basal. La presión de sueño y los ciclos naturales de alerta están renormalizándose."
+    "title": "El despertar cambia de marcha",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-heart-bronze",
@@ -1520,8 +1520,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Tono cardiovascular en reposo normalizado",
-    "description": "Frecuencia cardíaca y presión arterial en reposo vuelven a la línea base sin cafeína. Palpitaciones y latidos ectópicos inducidos por cafeína ceden."
+    "title": "El pulso en reposo encuentra el silencio",
+    "description": "Hito de la curva educativa del corazón. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-stomach-bronze",
@@ -1535,8 +1535,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": false,
-    "title": "Equilibrio del ácido gástrico restaurado",
-    "description": "La secreción ácida gástrica basal vuelve a rango normal. Los síntomas de reflujo y dispepsia atribuibles a cafeína se resuelven."
+    "title": "El estómago deja de protestar",
+    "description": "Hito de la curva educativa del estómago. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-vta-silver-1",
@@ -1551,7 +1551,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": true,
     "title": "Sueño profundo, por fin",
-    "description": "La arquitectura del sueño profundo se recupera. La supresión del sueño de onda lenta que causa la cafeína — incluso 12 horas después de la última dosis — se levanta. Las mañanas empiezan a sentirse como mañanas."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-vta-silver-2",
@@ -1565,8 +1565,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": true,
-    "title": "Equilibrio adenosinérgico restaurado",
-    "description": "La densidad de receptores de adenosina se ha normalizado sustancialmente. El inicio natural del sueño, la alerta diurna y la energía matinal ya no requieren estimulación externa."
+    "title": "Energía sin el interruptor prestado",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-vta-silver-3",
@@ -1581,7 +1581,7 @@ export const achievementCatalog = [
     "hidden": false,
     "ruleReview": true,
     "title": "Energía sin el precipicio",
-    "description": "El ciclo cafeína-bajón-cafeína se ha roto. La alerta sube y baja siguiendo su propia curva circadiana, no el horario de tu última taza. El muro de las 3 de la tarde deja de existir."
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "caffeine-vta-silver-4",
@@ -1595,8 +1595,8 @@ export const achievementCatalog = [
     "abstinenceDays": null,
     "hidden": false,
     "ruleReview": true,
-    "title": "Sensibilidad recuperada",
-    "description": "Densidad de receptores de adenosina en la línea base. Una sola taza ahora pega como pegaba antes de que se construyera la tolerancia — la cafeína vuelve a ser una herramienta, no una dosis de mantenimiento."
+    "title": "La taza vuelve a ser opcional",
+    "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
   },
   {
     "id": "cannabis-temporal-1",

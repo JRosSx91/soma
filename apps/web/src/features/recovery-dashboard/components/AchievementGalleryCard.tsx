@@ -17,6 +17,7 @@ interface Labels {
   curveRequirement: (percent: number) => string;
   substance: string;
   tier: string;
+  family: string;
 }
 
 export function AchievementGalleryCard({
@@ -34,6 +35,10 @@ export function AchievementGalleryCard({
 }) {
   const status = statusLabel(view, labels);
   const requirement = requirementCopy(item, view, labels);
+  const title = view.sealed ? "???" : item.title;
+  const accessibleName = [status, title, labels.family, requirement, labels.substance]
+    .filter(Boolean)
+    .join(". ");
   const fill =
     view.bucket === "in_progress" && view.temporal?.fillPercent
       ? temporalBarFill(view.temporal.fillPercent)
@@ -78,7 +83,7 @@ export function AchievementGalleryCard({
       <button
         type="button"
         onClick={() => onOpen(item.id)}
-        aria-label={view.sealed ? `${labels.locked}. ${labels.substance}. ${labels.tier}` : undefined}
+        aria-label={accessibleName}
         className={`${previewFocus} flex h-full w-full min-w-0 items-center gap-3 rounded-2xl border border-soma-line bg-soma-surface p-3 text-left`}
       >
         <span className="shrink-0">{medal}</span>
@@ -88,11 +93,16 @@ export function AchievementGalleryCard({
             <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
           </span>
           <span className="mt-2 block line-clamp-2 text-sm font-semibold leading-snug text-soma-ink">
-            {view.sealed ? "???" : item.title}
+            {title}
           </span>
           <span className="mt-1 block text-[11px] text-soma-ink-secondary">{requirement}</span>
-          <span className="mt-2 inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
-            {labels.substance}
+          <span className="mt-2 flex flex-wrap gap-1">
+            <span className="inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
+              {labels.family}
+            </span>
+            <span className="inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
+              {labels.substance}
+            </span>
           </span>
           {fill || progressCaption ? (
             <span className="mt-2 flex flex-col gap-1">
@@ -117,20 +127,25 @@ export function AchievementGalleryCard({
   return (
     <button
       type="button"
-      onClick={() => onOpen(item.id)}
-      aria-label={view.sealed ? `${labels.locked}. ${labels.substance}. ${labels.tier}` : undefined}
-      className={`${previewFocus} relative flex h-full w-full min-w-0 flex-col items-start gap-1 rounded-2xl border border-soma-line bg-soma-surface px-2.5 py-2 text-left ${
-        view.review ? "border-dashed border-soma-line-strong" : ""
-      }`}
+        onClick={() => onOpen(item.id)}
+        aria-label={accessibleName}
+        className={`${previewFocus} relative flex h-full w-full min-w-0 flex-col items-start gap-1 rounded-2xl border border-soma-line bg-soma-surface px-2.5 py-2 text-left ${
+          view.review ? "border-dashed border-soma-line-strong" : ""
+        }`}
     >
       <ChevronRight className="absolute top-2 right-2 h-3.5 w-3.5 text-soma-ink-muted" aria-hidden="true" />
       <span className="mx-auto">{medal}</span>
       <span className="line-clamp-2 text-sm font-semibold leading-snug text-soma-ink">
-        {view.sealed ? "???" : item.title}
+        {title}
       </span>
       <span className="text-[11px] leading-snug text-soma-ink-secondary">{requirement}</span>
-      <span className="inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
-        {labels.substance}
+      <span className="flex min-w-0 flex-wrap gap-1">
+        <span className="inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
+          {labels.family}
+        </span>
+        <span className="inline-flex max-w-full truncate rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
+          {labels.substance}
+        </span>
       </span>
       <span className="mt-auto flex w-full flex-col gap-1 pt-1.5">
         {view.bucket !== "in_progress" ? <span className="self-start">{pill}</span> : null}

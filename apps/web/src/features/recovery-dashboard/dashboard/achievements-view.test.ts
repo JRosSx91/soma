@@ -206,6 +206,25 @@ test("DEMO counts zero unlocks and only current temporal next as in progress", (
   });
   assert.equal(past?.isCurrentNext, false);
   assert.equal(past?.clockPassed, true);
+  const clockOnly = describeAchievement(
+    item("cannabis-temporal-7"),
+    live({
+      id: "cannabis-temporal-7",
+      family: "temporal",
+      unlocked: false,
+      triggerRecoveryThreshold: null,
+      progressAvailability: "ready",
+      achievementProgress: 1,
+    }),
+    {
+      substanceId: "cannabis",
+      status: "upcoming",
+      daysAbstinent: 42,
+      next: upcoming("cannabis", 60, 1).next,
+    },
+  );
+  assert.equal(clockOnly.unlocked, false);
+  assert.equal(clockOnly.bucket, "locked");
 });
 
 test("highlights prefer real unlocks then next temporal then curve and never pad", () => {

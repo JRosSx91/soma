@@ -10,10 +10,10 @@ test("achievements 2.0 chrome exists in spanish and english", () => {
   assert.equal(es.ui.title, "Pequeños pasos, grandes cambios.");
   assert.equal(en.ui.title, "Small steps, great changes.");
   assert.equal(es.ui.familyTemporal, "Tiempo");
-  assert.equal(en.ui.familyCurve, "Body");
+  assert.equal(en.ui.familyCurve, "Curve");
   assert.equal(es.ui.catalogLabel, "Logros disponibles");
-  assert.match(es.ui.curveSectionSubtitle, /salud recuperada/);
-  assert.match(en.ui.curveSectionSubtitle, /health recovered/);
+  assert.match(es.ui.curveSectionSubtitle, /neurotransmisores/);
+  assert.match(en.ui.curveSectionSubtitle, /neurotransmitters/);
   assert.doesNotMatch(es.ui.catalogLabel, /XP/i);
   assert.doesNotMatch(en.ui.inProgressLabel, /level/i);
 });
@@ -30,6 +30,8 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /temporalSectionTitle/);
   assert.match(page, /curveSectionTitle/);
   assert.match(page, /pickAchievementHighlights/);
+  assert.match(page, /familyBadgeTemporal/);
+  assert.match(page, /familyBadgeCurve/);
   assert.match(page, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(page, /useTranslation\("achievements"\)|useTranslation\(\["achievements"/);
   assert.match(page, /\$\{item\.id\}\.title/);

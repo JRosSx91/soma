@@ -26,11 +26,11 @@ test("recovery 2.0 copy exists in spanish and english", () => {
   assert.equal(es.recoveryEditLastUse, "Editar fecha de última vez");
   assert.equal(
     es.recoveryFocusIntro,
-    "Aquí ves el tiempo de abstinencia y los hitos temporales. Las curvas de más abajo son modelos educativos, no una medición de tu organismo.",
+    "Aquí sigues el tiempo de abstinencia y el próximo hito. Las medallas se reconocen en Logros. Las curvas de más abajo son modelos educativos, no una medición de tu organismo.",
   );
   assert.equal(
     en.recoveryFocusIntro,
-    "Here you see abstinence time and temporal milestones. The curves below are educational models, not a measurement of your body.",
+    "Here you follow abstinence time and the next milestone. Medals are recognized in Achievements. The curves below are educational models, not a measurement of your body.",
   );
   assert.equal(en.recoverySeeAtlas, "Open full atlas");
   assert.doesNotMatch(es.recoveryProgressMedals, /nivel/i);
