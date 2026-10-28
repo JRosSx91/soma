@@ -1,4 +1,4 @@
-import type { JournalEntry } from "@prisma/client";
+import type { JournalEntry, JournalPersonalMilestone } from "@prisma/client";
 import { utcDateToCivilDate } from "@soma/shared-types";
 
 export interface JournalEntryResponse {
@@ -12,12 +12,22 @@ export interface JournalEntryResponse {
   anxiety: number | null;
   cravingIntensity: number | null;
   cravingSubstanceId: string | null;
+  wellbeingRating: number | null;
   title: string | null;
   body: string | null;
   highlighted: boolean;
   learning: boolean;
   emotionIds: string[];
   triggerIds: string[];
+}
+
+export interface JournalMilestoneResponse {
+  id: string;
+  kind: string;
+  occurredOn: string;
+  note: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export function toJournalEntryResponse(row: JournalEntry): JournalEntryResponse {
@@ -32,6 +42,7 @@ export function toJournalEntryResponse(row: JournalEntry): JournalEntryResponse 
     anxiety: row.anxiety,
     cravingIntensity: row.cravingIntensity,
     cravingSubstanceId: row.cravingSubstanceId,
+    wellbeingRating: row.wellbeingRating,
     title: row.title,
     body: row.body,
     highlighted: row.highlighted,
@@ -41,12 +52,26 @@ export function toJournalEntryResponse(row: JournalEntry): JournalEntryResponse 
   };
 }
 
+export function toJournalMilestoneResponse(
+  row: JournalPersonalMilestone,
+): JournalMilestoneResponse {
+  return {
+    id: row.id,
+    kind: row.kind,
+    occurredOn: utcDateToCivilDate(row.occurredOn),
+    note: row.note,
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
+  };
+}
+
 export function hasSignificantJournalContent(fields: {
   mood?: number | null;
   sleep?: number | null;
   energy?: number | null;
   anxiety?: number | null;
   cravingIntensity?: number | null;
+  wellbeingRating?: number | null;
   title?: string | null;
   body?: string | null;
   emotionIds?: string[] | null;
@@ -58,6 +83,7 @@ export function hasSignificantJournalContent(fields: {
     fields.energy,
     fields.anxiety,
     fields.cravingIntensity,
+    fields.wellbeingRating,
   ];
   if (scales.some((value) => typeof value === "number")) return true;
   if (Array.isArray(fields.emotionIds) && fields.emotionIds.length > 0) {

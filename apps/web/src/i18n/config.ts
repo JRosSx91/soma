@@ -25,6 +25,7 @@ import enRecovery from "./locales/en/recovery.json";
 import enExplore from "./locales/en/explore.json";
 import enExploreEdu from "./locales/en/explore-edu.json";
 import enAnatomy from "./locales/en/anatomy.json";
+import enJournal from "./locales/en/journal.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -45,6 +46,7 @@ import esExplore from "./locales/es/explore.json";
 import esExploreEdu from "./locales/es/explore-edu.json";
 import esAnatomy from "./locales/es/anatomy.json";
 import esAccount from "./locales/es/account.json";
+import esJournal from "./locales/es/journal.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -132,7 +134,7 @@ import deAchievements from "./locales/de/achievements.json";
  * - When a key is missing in the active language, fall back to
  *   English. If still missing, the key string itself is shown
  *   (helpful during development).
- * - Recovery, Explore and Anatomy namespaces: complete for English (base) and Spanish.
+ * - Recovery, Explore, Anatomy and Journal namespaces: complete for English (base) and Spanish.
  *   ca, gl, eu, fr, it and de reuse the English bundle as an explicit
  *   interim fallback — not a complete Recovery, Explore or Anatomy translation.
  * - Neurotransmitter phases and mechanisms: reviewed English and Spanish only (8N.6B).
@@ -203,6 +205,7 @@ i18n
       "explore",
       "explore-edu",
       "anatomy",
+      "journal",
     ],
     defaultNS: "common",
     interpolation: {
@@ -238,6 +241,7 @@ i18n
         explore: enExplore,
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy,
+        journal: enJournal,
       },
       es: {
         common: esCommon,
@@ -258,6 +262,7 @@ i18n
         explore: esExplore,
         "explore-edu": esExploreEdu,
         anatomy: esAnatomy,
+        journal: esJournal,
       },
       ca: {
         common: caCommon,
@@ -278,6 +283,7 @@ i18n
         explore: enExplore, // explicit EN fallback until a real translation exists
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
+        journal: enJournal,
       },
       gl: {
         common: glCommon,
@@ -298,6 +304,7 @@ i18n
         explore: enExplore, // explicit EN fallback until a real translation exists
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
+        journal: enJournal,
       },
       eu: {
         common: euCommon,
@@ -318,6 +325,7 @@ i18n
         explore: enExplore, // explicit EN fallback until a real translation exists
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
+        journal: enJournal,
       },
       fr: {
         common: frCommon,
@@ -338,6 +346,7 @@ i18n
         explore: enExplore, // explicit EN fallback until a real translation exists
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
+        journal: enJournal,
       },
       it: {
         common: itCommon,
@@ -358,6 +367,7 @@ i18n
         explore: enExplore, // explicit EN fallback until a real translation exists
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
+        journal: enJournal,
       },
       de: {
         common: deCommon,
@@ -378,6 +388,7 @@ i18n
         explore: enExplore, // explicit EN fallback until a real translation exists
         "explore-edu": enExploreEdu,
         anatomy: enAnatomy, // explicit EN fallback until a real translation exists
+        journal: enJournal,
       },
     },
   }, () => {

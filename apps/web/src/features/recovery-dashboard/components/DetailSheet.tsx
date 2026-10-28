@@ -132,7 +132,7 @@ export function DetailSheet({
         aria-labelledby={titleId}
         tabIndex={-1}
         onKeyDown={onPanelKeyDown}
-        className={`flex w-full flex-col rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${
+        className={`flex w-full flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${
           size === "article"
             ? "max-h-[min(90vh,52rem)] max-w-lg sm:max-w-2xl"
             : "max-h-[min(85vh,46rem)] max-w-md"
@@ -158,7 +158,7 @@ export function DetailSheet({
             {t("close")}
           </button>
         </div>
-        <div className="mt-3 min-h-0 flex-1 overflow-y-auto text-sm leading-relaxed text-soma-ink-secondary">
+        <div className="mt-3 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-4 [scrollbar-gutter:stable] text-sm leading-relaxed text-soma-ink-secondary">
           {children}
         </div>
       </div>

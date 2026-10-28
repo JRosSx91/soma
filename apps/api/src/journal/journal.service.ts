@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import type { JournalEntry, Prisma } from "@prisma/client";
+import type { JournalEntry, JournalPersonalMilestone, Prisma } from "@prisma/client";
 import { Prisma as PrismaNs } from "@prisma/client";
 import { civilDateToUtcDate, utcDateToCivilDate } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
@@ -13,7 +13,9 @@ import type { ListJournalQueryDto } from "./dto/list-journal-query.dto.js";
 import {
   JOURNAL_LIST_DEFAULT_LIMIT,
 } from "./dto/list-journal-query.dto.js";
+import type { CreateJournalMilestoneDto } from "./dto/create-journal-milestone.dto.js";
 import type { PatchJournalEntryDto } from "./dto/patch-journal-entry.dto.js";
+import type { PatchJournalMilestoneDto } from "./dto/patch-journal-milestone.dto.js";
 import {
   decodeJournalCursor,
   encodeJournalCursor,
@@ -22,10 +24,13 @@ import {
   hasSignificantJournalContent,
   normalizeOptionalText,
   toJournalEntryResponse,
+  toJournalMilestoneResponse,
   type JournalEntryResponse,
+  type JournalMilestoneResponse,
 } from "./journal.mapper.js";
 
 const NOT_FOUND = "Journal entry not found";
+const MILESTONE_NOT_FOUND = "Personal milestone not found";
 
 @Injectable()
 export class JournalService {
@@ -46,6 +51,7 @@ export class JournalService {
         energy: dto.energy,
         anxiety: dto.anxiety,
         cravingIntensity: dto.cravingIntensity,
+        wellbeingRating: dto.wellbeingRating,
         title,
         body,
         emotionIds: dto.emotionIds,
@@ -68,6 +74,7 @@ export class JournalService {
           anxiety: dto.anxiety ?? null,
           cravingIntensity: dto.cravingIntensity ?? null,
           cravingSubstanceId: dto.cravingSubstanceId ?? null,
+          wellbeingRating: dto.wellbeingRating ?? null,
           title,
           body,
           highlighted: dto.highlighted ?? false,
@@ -157,20 +164,29 @@ export class JournalService {
    * silently cap. If memory becomes a problem, stream NDJSON in a later
    * hito — never truncate.
    */
-  async exportAll(
-    userId: string,
-  ): Promise<{ exportedAt: string; entries: JournalEntryResponse[] }> {
-    const rows = await this.prisma.journalEntry.findMany({
-      where: { userId },
-      orderBy: [
-        { occurredOn: "desc" },
-        { createdAt: "desc" },
-        { id: "desc" },
-      ],
-    });
+  async exportAll(userId: string): Promise<{
+    exportedAt: string;
+    entries: JournalEntryResponse[];
+    personalMilestones: JournalMilestoneResponse[];
+  }> {
+    const [rows, milestones] = await Promise.all([
+      this.prisma.journalEntry.findMany({
+        where: { userId },
+        orderBy: [
+          { occurredOn: "desc" },
+          { createdAt: "desc" },
+          { id: "desc" },
+        ],
+      }),
+      this.prisma.journalPersonalMilestone.findMany({
+        where: { userId },
+        orderBy: [{ occurredOn: "desc" }, { createdAt: "desc" }, { id: "desc" }],
+      }),
+    ]);
     return {
       exportedAt: new Date().toISOString(),
       entries: rows.map(toJournalEntryResponse),
+      personalMilestones: milestones.map(toJournalMilestoneResponse),
     };
   }
 
@@ -198,6 +214,7 @@ export class JournalService {
           anxiety: next.anxiety,
           cravingIntensity: next.cravingIntensity,
           cravingSubstanceId: next.cravingSubstanceId,
+          wellbeingRating: next.wellbeingRating,
           title: next.title,
           body: next.body,
           highlighted: next.highlighted,
@@ -218,7 +235,71 @@ export class JournalService {
   }
 
   async wipeAll(userId: string): Promise<void> {
-    await this.prisma.journalEntry.deleteMany({ where: { userId } });
+    await this.prisma.$transaction([
+      this.prisma.journalPersonalMilestone.deleteMany({ where: { userId } }),
+      this.prisma.journalEntry.deleteMany({ where: { userId } }),
+    ]);
+  }
+
+  async listMilestones(userId: string): Promise<JournalMilestoneResponse[]> {
+    const rows = await this.prisma.journalPersonalMilestone.findMany({
+      where: { userId },
+      orderBy: [{ occurredOn: "desc" }, { createdAt: "desc" }, { id: "desc" }],
+    });
+    return rows.map(toJournalMilestoneResponse);
+  }
+
+  async createMilestone(
+    userId: string,
+    dto: CreateJournalMilestoneDto,
+  ): Promise<JournalMilestoneResponse> {
+    const row = await this.prisma.journalPersonalMilestone.create({
+      data: {
+        userId,
+        kind: dto.kind,
+        occurredOn: civilDateToUtcDate(dto.occurredOn),
+        note: normalizeOptionalText(dto.note) ?? null,
+      },
+    });
+    return toJournalMilestoneResponse(row);
+  }
+
+  async getMilestone(
+    userId: string,
+    id: string,
+  ): Promise<JournalMilestoneResponse> {
+    const row = await this.findOwnedMilestone(userId, id);
+    return toJournalMilestoneResponse(row);
+  }
+
+  async patchMilestone(
+    userId: string,
+    id: string,
+    dto: PatchJournalMilestoneDto,
+  ): Promise<JournalMilestoneResponse> {
+    const current = await this.findOwnedMilestone(userId, id);
+    const row = await this.prisma.journalPersonalMilestone.update({
+      where: { id: current.id },
+      data: {
+        kind: dto.kind === undefined ? current.kind : dto.kind,
+        occurredOn:
+          dto.occurredOn === undefined
+            ? current.occurredOn
+            : civilDateToUtcDate(dto.occurredOn),
+        note:
+          dto.note === undefined
+            ? current.note
+            : (normalizeOptionalText(dto.note) ?? null),
+      },
+    });
+    return toJournalMilestoneResponse(row);
+  }
+
+  async removeMilestone(userId: string, id: string): Promise<void> {
+    const current = await this.findOwnedMilestone(userId, id);
+    await this.prisma.journalPersonalMilestone.delete({
+      where: { id: current.id },
+    });
   }
 
   private async findOwned(userId: string, id: string): Promise<JournalEntry> {
@@ -227,6 +308,19 @@ export class JournalService {
     });
     if (!row) {
       throw new NotFoundException(NOT_FOUND);
+    }
+    return row;
+  }
+
+  private async findOwnedMilestone(
+    userId: string,
+    id: string,
+  ): Promise<JournalPersonalMilestone> {
+    const row = await this.prisma.journalPersonalMilestone.findFirst({
+      where: { id, userId },
+    });
+    if (!row) {
+      throw new NotFoundException(MILESTONE_NOT_FOUND);
     }
     return row;
   }
@@ -253,6 +347,10 @@ export class JournalService {
         dto.cravingIntensity === undefined
           ? current.cravingIntensity
           : dto.cravingIntensity,
+      wellbeingRating:
+        dto.wellbeingRating === undefined
+          ? current.wellbeingRating
+          : dto.wellbeingRating,
       cravingSubstanceId:
         dto.cravingSubstanceId === undefined
           ? current.cravingSubstanceId

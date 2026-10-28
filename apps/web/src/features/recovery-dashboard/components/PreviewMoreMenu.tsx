@@ -9,15 +9,26 @@ import { useShellBase } from "../context/ShellBaseContext.js";
 import {
   isSectionPathActive,
   moreShellSections,
+  railMoreShellSections,
 } from "../shell-base.js";
 import { shellNavActiveClass, shellNavIdleClass } from "../shell-chrome.js";
 import { shellIcons } from "../shell-icons.js";
 
-export function PreviewMoreMenu() {
+interface PreviewMoreMenuProps {
+  /** `dock` is the mobile bar; `rail` sits in the desktop sidebar. */
+  variant?: "dock" | "rail";
+  collapsed?: boolean;
+}
+
+export function PreviewMoreMenu({
+  variant = "dock",
+  collapsed = false,
+}: PreviewMoreMenuProps) {
   const { t } = useTranslation("common");
   const base = useShellBase();
   const { pathname } = useLocation();
-  const items = moreShellSections(base);
+  const items =
+    variant === "rail" ? railMoreShellSections(base) : moreShellSections(base);
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -36,8 +47,8 @@ export function PreviewMoreMenu() {
     const panel = panelRef.current;
     function place() {
       placeAnchoredPanel(trigger, panel, {
-        align: "end",
-        anchor: "bottom",
+        align: variant === "rail" ? "start" : "end",
+        anchor: variant === "rail" ? "right" : "bottom",
         minHeight: 120,
         width: 240,
       });
@@ -45,7 +56,7 @@ export function PreviewMoreMenu() {
     place();
     window.addEventListener("resize", place);
     return () => window.removeEventListener("resize", place);
-  }, [open]);
+  }, [open, variant]);
 
   useEffect(() => {
     if (!open) return;
@@ -88,22 +99,37 @@ export function PreviewMoreMenu() {
     first?.focus();
   }, [open]);
 
+  if (items.length === 0) return null;
+
+  const triggerClass =
+    variant === "rail"
+      ? `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm ${
+          collapsed ? "justify-center px-0" : ""
+        } ${open || childActive ? shellNavActiveClass : shellNavIdleClass}`
+      : `${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2.5 text-[10px] ${
+          open || childActive ? shellNavActiveClass : shellNavIdleClass
+        }`;
+
   return (
     <>
       <button
         ref={triggerRef}
         type="button"
-        className={`${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2.5 text-[10px] ${
-          open || childActive ? shellNavActiveClass : shellNavIdleClass
-        }`}
+        className={triggerClass}
         aria-label={t("shell.more")}
+        title={variant === "rail" && collapsed ? t("shell.more") : undefined}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => setOpen((value) => !value)}
       >
-        <Ellipsis className="h-5 w-5" aria-hidden="true" />
-        {t("shell.more")}
+        <Ellipsis
+          className={variant === "rail" ? "h-4 w-4 shrink-0" : "h-5 w-5"}
+          aria-hidden="true"
+        />
+        <span className={variant === "rail" && collapsed ? "sr-only" : undefined}>
+          {t("shell.more")}
+        </span>
       </button>
       {open
         ? createPortal(

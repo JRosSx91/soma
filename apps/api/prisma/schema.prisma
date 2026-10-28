@@ -138,6 +138,7 @@ model User {
   usages              SubstanceUsage[]
   achievements        UserAchievement[]
   journalEntries      JournalEntry[]
+  journalMilestones   JournalPersonalMilestone[]
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
   registrationInvite  RegistrationInvite?
@@ -458,6 +459,8 @@ model JournalEntry {
   anxiety            Int?
   cravingIntensity   Int?
   cravingSubstanceId String?
+  /// Voluntary 0–10 self-rating. Null on historical rows; never backfilled.
+  wellbeingRating    Int?
   title              String?
   body               String?   @db.Text
   highlighted        Boolean   @default(false)
@@ -471,6 +474,21 @@ model JournalEntry {
   @@index([userId, occurredOn])
   @@index([userId, createdAt])
   @@index([userId, highlighted])
+}
+
+/// Perceived everyday improvements recorded by the person. Not medals.
+model JournalPersonalMilestone {
+  id         String   @id @default(cuid())
+  userId     String
+  kind       String
+  occurredOn DateTime @db.Date
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, occurredOn])
 }
 
 model UserAchievement {

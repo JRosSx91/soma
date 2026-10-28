@@ -12,6 +12,7 @@ import {
   civilDateToUtcDate,
   utcDateToCivilDate,
 } from "@soma/shared-types";
+import { seedSubstances } from "../../prisma/seed/substances.js";
 import { createId } from "../auth/create-id.js";
 
 const PASSWORD = "journal-persist-pass-1";
@@ -110,7 +111,11 @@ test("pg: journal row belongs to user; craving substance is optional catalog FK"
       assert.deepEqual(blank.emotionIds, []);
       assert.deepEqual(blank.triggerIds, []);
 
-      const cannabis = await prisma.substance.findUnique({ where: { id: "cannabis" } });
+      let cannabis = await prisma.substance.findUnique({ where: { id: "cannabis" } });
+      if (!cannabis) {
+        await seedSubstances(prisma);
+        cannabis = await prisma.substance.findUnique({ where: { id: "cannabis" } });
+      }
       assert.ok(cannabis, "catalog substance cannabis must exist");
 
       const withCraving = await prisma.journalEntry.create({

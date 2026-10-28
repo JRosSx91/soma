@@ -18,8 +18,10 @@ import type { User } from "@prisma/client";
 import { CurrentUser } from "../auth/current-user.decorator.js";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { CreateJournalEntryDto } from "./dto/create-journal-entry.dto.js";
+import { CreateJournalMilestoneDto } from "./dto/create-journal-milestone.dto.js";
 import { ListJournalQueryDto } from "./dto/list-journal-query.dto.js";
 import { PatchJournalEntryDto } from "./dto/patch-journal-entry.dto.js";
+import { PatchJournalMilestoneDto } from "./dto/patch-journal-milestone.dto.js";
 import { WipeJournalDto } from "./dto/wipe-journal.dto.js";
 import {
   JOURNAL_EXPORT_THROTTLE,
@@ -76,6 +78,67 @@ export class JournalController {
     @Query(queryOf(ListJournalQueryDto)) query: ListJournalQueryDto,
   ) {
     return this.journal.list(user.id, query);
+  }
+
+  @Get("milestones")
+  listMilestones(@CurrentUser() user: Omit<User, "hashedPassword">) {
+    return this.journal.listMilestones(user.id);
+  }
+
+  @Post("milestones")
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(ThrottlerGuard)
+  @Throttle({
+    default: {
+      limit: JOURNAL_WRITE_THROTTLE.limit,
+      ttl: JOURNAL_WRITE_THROTTLE.ttl,
+    },
+  })
+  createMilestone(
+    @CurrentUser() user: Omit<User, "hashedPassword">,
+    @Body(bodyOf(CreateJournalMilestoneDto)) dto: CreateJournalMilestoneDto,
+  ) {
+    return this.journal.createMilestone(user.id, dto);
+  }
+
+  @Get("milestones/:id")
+  getMilestone(
+    @CurrentUser() user: Omit<User, "hashedPassword">,
+    @Param("id") id: string,
+  ) {
+    return this.journal.getMilestone(user.id, id);
+  }
+
+  @Patch("milestones/:id")
+  @UseGuards(ThrottlerGuard)
+  @Throttle({
+    default: {
+      limit: JOURNAL_WRITE_THROTTLE.limit,
+      ttl: JOURNAL_WRITE_THROTTLE.ttl,
+    },
+  })
+  patchMilestone(
+    @CurrentUser() user: Omit<User, "hashedPassword">,
+    @Param("id") id: string,
+    @Body(bodyOf(PatchJournalMilestoneDto)) dto: PatchJournalMilestoneDto,
+  ) {
+    return this.journal.patchMilestone(user.id, id, dto);
+  }
+
+  @Delete("milestones/:id")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(ThrottlerGuard)
+  @Throttle({
+    default: {
+      limit: JOURNAL_WRITE_THROTTLE.limit,
+      ttl: JOURNAL_WRITE_THROTTLE.ttl,
+    },
+  })
+  async removeMilestone(
+    @CurrentUser() user: Omit<User, "hashedPassword">,
+    @Param("id") id: string,
+  ): Promise<void> {
+    await this.journal.removeMilestone(user.id, id);
   }
 
   @Get("export")

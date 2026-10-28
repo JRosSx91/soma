@@ -10,6 +10,7 @@ import {
   OptionalScale,
   OptionalTagList,
   OptionalTitle,
+  OptionalWellbeing,
 } from "./journal-field-validators.js";
 
 export class CreateJournalEntryDto {
@@ -34,6 +35,9 @@ export class CreateJournalEntryDto {
 
   @OptionalScale()
   cravingIntensity?: number;
+
+  @OptionalWellbeing()
+  wellbeingRating?: number;
 
   @OptionalCravingSubstance()
   cravingSubstanceId?: string;

@@ -2,8 +2,12 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   JOURNAL_EMOTION_IDS,
+  JOURNAL_MILESTONE_KIND_IDS,
   JOURNAL_OCCURRED_ON_MIN,
   JOURNAL_TRIGGER_IDS,
+  JOURNAL_WELLBEING_MAX,
+  JOURNAL_WELLBEING_MIN,
+  JOURNAL_WELLBEING_WINDOW_DAYS,
   civilDateToUtcDate,
   isCivilDateString,
   isJournalOccurredOnInRange,
@@ -39,6 +43,17 @@ test("journal catalogs expose the v1 emotion and trigger ids", () => {
     "loneliness",
     "stress",
   ]);
+  assert.deepEqual([...JOURNAL_MILESTONE_KIND_IDS], [
+    "clarity",
+    "rest",
+    "lessAnxiety",
+    "energy",
+    "focus",
+    "emotionalStability",
+  ]);
+  assert.equal(JOURNAL_WELLBEING_MIN, 0);
+  assert.equal(JOURNAL_WELLBEING_MAX, 10);
+  assert.equal(JOURNAL_WELLBEING_WINDOW_DAYS, 28);
 });
 
 test("civil dates round-trip through UTC midnight without local TZ shift", () => {

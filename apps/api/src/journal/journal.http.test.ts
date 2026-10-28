@@ -53,7 +53,9 @@ class RecordingJournalService {
   lastRemove: { userId: string; id: string } | null = null;
   lastWipe: { userId: string } | null = null;
   lastExport: { userId: string } | null = null;
+  lastMilestoneGet: { userId: string; id: string } | null = null;
   foreignIds = new Set(["foreign-entry"]);
+  foreignMilestones = new Set(["foreign-milestone"]);
 
   async create(userId: string) {
     this.lastCreate = { userId };
@@ -88,6 +90,35 @@ class RecordingJournalService {
 
   async wipeAll(userId: string) {
     this.lastWipe = { userId };
+  }
+
+  async listMilestones(userId: string) {
+    return [{ id: "own-ms", userId, kind: "clarity" }];
+  }
+
+  async createMilestone(userId: string) {
+    return { id: "ms-1", userId, kind: "clarity", occurredOn: "2026-04-29" };
+  }
+
+  async getMilestone(userId: string, id: string) {
+    this.lastMilestoneGet = { userId, id };
+    if (this.foreignMilestones.has(id)) {
+      throw new NotFoundException("Personal milestone not found");
+    }
+    return { id, kind: "clarity", occurredOn: "2026-04-29" };
+  }
+
+  async patchMilestone(userId: string, id: string) {
+    if (this.foreignMilestones.has(id)) {
+      throw new NotFoundException("Personal milestone not found");
+    }
+    return { id, userId, kind: "rest" };
+  }
+
+  async removeMilestone(userId: string, id: string) {
+    if (this.foreignMilestones.has(id)) {
+      throw new NotFoundException("Personal milestone not found");
+    }
   }
 }
 
@@ -160,6 +191,23 @@ test("GET /me/journal/export is registered before :id", async () => {
   const res = await request(app.getHttpServer()).get("/me/journal/export");
   assert.equal(res.status, 200);
   assert.equal(stub.lastExport?.userId, USER_A.id);
+});
+
+test("GET /me/journal/milestones is not captured by :id", async () => {
+  activeUser = USER_A;
+  const res = await request(app.getHttpServer()).get("/me/journal/milestones");
+  assert.equal(res.status, 200);
+  assert.equal(Array.isArray(res.body), true);
+});
+
+test("GET /me/journal/milestones/:id maps foreign ids to 404", async () => {
+  activeUser = USER_A;
+  const res = await request(app.getHttpServer()).get(
+    "/me/journal/milestones/foreign-milestone",
+  );
+  assert.equal(res.status, 404);
+  assert.equal(res.body.message, "Personal milestone not found");
+  assert.equal(stub.lastMilestoneGet?.userId, USER_A.id);
 });
 
 test("GET /me/journal/:id maps missing rows to 404 without leaking owner", async () => {

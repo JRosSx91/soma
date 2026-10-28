@@ -40,6 +40,29 @@ export const JOURNAL_TRIGGER_IDS = [
 
 export type JournalTriggerId = (typeof JOURNAL_TRIGGER_IDS)[number];
 
+/** Voluntary 0–10 self-rating. Not derived from mood/sleep/energy/anxiety. */
+export const JOURNAL_WELLBEING_MIN = 0;
+export const JOURNAL_WELLBEING_MAX = 10;
+/** Inclusive civil-day window for the overview average (today back 27 days). */
+export const JOURNAL_WELLBEING_WINDOW_DAYS = 28;
+
+/**
+ * Perceived everyday improvements the person records themselves.
+ * Independent of medals, XP, and abstinence counters.
+ */
+export const JOURNAL_MILESTONE_KIND_IDS = [
+  "clarity",
+  "rest",
+  "lessAnxiety",
+  "energy",
+  "focus",
+  "emotionalStability",
+] as const;
+
+export type JournalMilestoneKindId = (typeof JOURNAL_MILESTONE_KIND_IDS)[number];
+
+export const JOURNAL_MILESTONE_NOTE_MAX = 400;
+
 const CIVIL_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 export function isCivilDateString(value: string): boolean {

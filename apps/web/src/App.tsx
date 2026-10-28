@@ -13,6 +13,7 @@ import { RecoveryPage } from "./features/recovery-dashboard/pages/RecoveryPage.j
 import { ExplorePage } from "./features/recovery-dashboard/pages/ExplorePage.js";
 import { AnatomyExplorerPage } from "./features/recovery-dashboard/pages/AnatomyExplorerPage.js";
 import { AchievementsPage as Soma2AchievementsPage } from "./features/recovery-dashboard/pages/AchievementsPage.js";
+import { JournalPage } from "./features/recovery-dashboard/pages/JournalPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
 import { useTranslation } from "react-i18next";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
@@ -65,6 +66,7 @@ const soma2Pages = (
     <Route path="explore" element={<ExplorePage />} />
     <Route path="anatomy" element={<AnatomyExplorerPage />} />
     <Route path="achievements" element={<Soma2AchievementsPage />} />
+    <Route path="journal" element={<JournalPage />} />
     <Route path="account" element={<AccountPage />} />
   </>
 );

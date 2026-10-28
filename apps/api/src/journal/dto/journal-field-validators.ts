@@ -18,7 +18,11 @@ import {
 } from "class-validator";
 import {
   JOURNAL_EMOTION_IDS,
+  JOURNAL_MILESTONE_KIND_IDS,
+  JOURNAL_MILESTONE_NOTE_MAX,
   JOURNAL_TRIGGER_IDS,
+  JOURNAL_WELLBEING_MAX,
+  JOURNAL_WELLBEING_MIN,
   isJournalOccurredOnInRange,
 } from "@soma/shared-types";
 import { hasSignificantJournalContent } from "../journal.mapper.js";
@@ -75,6 +79,7 @@ export class JournalHasSignificantContentConstraint
         energy?: number | null;
         anxiety?: number | null;
         cravingIntensity?: number | null;
+        wellbeingRating?: number | null;
         title?: string | null;
         body?: string | null;
         emotionIds?: string[] | null;
@@ -84,8 +89,21 @@ export class JournalHasSignificantContentConstraint
   }
 
   defaultMessage(): string {
-    return "At least one significant field is required (mood, sleep, energy, anxiety, cravingIntensity, emotions, triggers, title, or body)";
+    return "At least one significant field is required (mood, sleep, energy, anxiety, cravingIntensity, wellbeingRating, emotions, triggers, title, or body)";
   }
+}
+
+export function OptionalWellbeing() {
+  return function (target: object, propertyKey: string): void {
+    ValidateIf((_, value) => value !== undefined && value !== null)(
+      target,
+      propertyKey,
+    );
+    Transform(toIntOrPassthrough)(target, propertyKey);
+    IsInt()(target, propertyKey);
+    Min(JOURNAL_WELLBEING_MIN)(target, propertyKey);
+    Max(JOURNAL_WELLBEING_MAX)(target, propertyKey);
+  };
 }
 
 export function OptionalScale() {
@@ -154,4 +172,10 @@ export function OptionalFlag() {
   };
 }
 
-export { JOURNAL_EMOTION_IDS, JOURNAL_TRIGGER_IDS, Validate };
+export {
+  JOURNAL_EMOTION_IDS,
+  JOURNAL_MILESTONE_KIND_IDS,
+  JOURNAL_MILESTONE_NOTE_MAX,
+  JOURNAL_TRIGGER_IDS,
+  Validate,
+};

@@ -19,6 +19,7 @@ test("hasSignificantJournalContent ignores highlighted and learning", () => {
     false,
   );
   assert.equal(hasSignificantJournalContent({ mood: 3 }), true);
+  assert.equal(hasSignificantJournalContent({ wellbeingRating: 0 }), true);
   assert.equal(hasSignificantJournalContent({ title: "Note" }), true);
   assert.equal(hasSignificantJournalContent({ emotionIds: ["calm"] }), true);
 });
@@ -43,6 +44,7 @@ test("toJournalEntryResponse keeps optional scalars as null", () => {
     anxiety: null,
     cravingIntensity: null,
     cravingSubstanceId: null,
+    wellbeingRating: null,
     title: null,
     body: null,
     highlighted: false,
@@ -57,5 +59,6 @@ test("toJournalEntryResponse keeps optional scalars as null", () => {
   assert.equal(dto.title, null);
   assert.equal(dto.body, null);
   assert.equal(dto.cravingSubstanceId, null);
+  assert.equal(dto.wellbeingRating, null);
   assert.deepEqual(dto.emotionIds, []);
 });

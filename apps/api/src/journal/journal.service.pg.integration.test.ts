@@ -246,8 +246,24 @@ test("pg service: export is complete and owner-only; wipe is owner-only", async 
       assert.equal(sparse.body, null);
       assert.equal(sparse.sleep, null);
 
+      const ownMilestone = await journal.createMilestone(a.id, {
+        kind: "clarity",
+        occurredOn: "2026-08-01",
+        note: "Clearer morning",
+      });
+      await journal.createMilestone(b.id, {
+        kind: "rest",
+        occurredOn: "2026-08-01",
+      });
+      await assert.rejects(
+        () => journal.getMilestone(b.id, ownMilestone.id),
+        NotFoundException,
+      );
+
       const exported = await journal.exportAll(a.id);
       assert.equal(exported.entries.length, 13);
+      assert.equal(exported.personalMilestones.length, 1);
+      assert.equal(exported.personalMilestones[0]?.kind, "clarity");
       assert.ok(exported.exportedAt);
       assert.ok(exported.entries.every((row) => row.title !== "b-only"));
       const sparseExported = exported.entries.find((row) => row.id === sparse.id);
@@ -267,9 +283,11 @@ test("pg service: export is complete and owner-only; wipe is owner-only", async 
       await journal.wipeAll(a.id);
       const afterA = await journal.list(a.id, {});
       assert.equal(afterA.items.length, 0);
+      assert.equal((await journal.listMilestones(a.id)).length, 0);
       const stillB = await journal.list(b.id, {});
       assert.equal(stillB.items.length, 1);
       assert.equal(stillB.items[0]?.title, "b-only");
+      assert.equal((await journal.listMilestones(b.id)).length, 1);
 
       const usages = await prisma.substanceUsage.count({ where: { userId: a.id } });
       assert.equal(usages, 0);

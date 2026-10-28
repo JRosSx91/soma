@@ -32,6 +32,17 @@ test("CreateJournalEntryDto accepts text, tags, and craving catalog id", () => {
   );
 });
 
+test("CreateJournalEntryDto accepts wellbeingRating as sole content", () => {
+  assert.equal(
+    validate({ occurredOn: "2026-04-29", wellbeingRating: 0 }).length,
+    0,
+  );
+  assert.equal(
+    validate({ occurredOn: "2026-04-29", wellbeingRating: 10 }).length,
+    0,
+  );
+});
+
 test("CreateJournalEntryDto rejects empty content", () => {
   assert.ok(validate({ occurredOn: "2026-04-29" }).length > 0);
 });
@@ -50,6 +61,12 @@ test("CreateJournalEntryDto rejects out-of-range scales", () => {
   assert.ok(validate({ occurredOn: "2026-04-29", mood: 0 }).length > 0);
   assert.ok(validate({ occurredOn: "2026-04-29", sleep: 6 }).length > 0);
   assert.ok(validate({ occurredOn: "2026-04-29", energy: 1.5 }).length > 0);
+  assert.ok(
+    validate({ occurredOn: "2026-04-29", wellbeingRating: 11 }).length > 0,
+  );
+  assert.ok(
+    validate({ occurredOn: "2026-04-29", wellbeingRating: -1 }).length > 0,
+  );
 });
 
 test("CreateJournalEntryDto rejects unknown catalog ids and duplicates", () => {

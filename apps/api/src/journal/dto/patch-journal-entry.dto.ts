@@ -9,6 +9,7 @@ import {
   OptionalScale,
   OptionalTagList,
   OptionalTitle,
+  OptionalWellbeing,
   Validate,
 } from "./journal-field-validators.js";
 
@@ -35,6 +36,9 @@ export class PatchJournalEntryDto {
 
   @OptionalScale()
   cravingIntensity?: number | null;
+
+  @OptionalWellbeing()
+  wellbeingRating?: number | null;
 
   @OptionalCravingSubstance()
   cravingSubstanceId?: string | null;
