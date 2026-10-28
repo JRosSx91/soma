@@ -24,7 +24,7 @@ import { Test } from "@nestjs/testing";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import request from "supertest";
-import { PROGRESS_XP_MAX } from "@soma/shared-types";
+import { PROGRESS_XP_MAX, totalXpToReach } from "@soma/shared-types";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { createId } from "../auth/create-id.js";
 import { ProgressModule } from "./progress.module.js";
@@ -371,6 +371,114 @@ test("pg http: cap miss rolls back grant; 70 and 2790 map to levels", async (t) 
     await prisma!.user.delete({ where: { id: atCap.id } });
   } finally {
     await prisma!.user.delete({ where: { id: capped.id } }).catch(() => undefined);
+    activeUserId = userA!.id;
+  }
+});
+
+test("pg http: PATCH equips unlocked titles only; does not change XP", async (t) => {
+  if (skipReason) {
+    t.skip(skipReason);
+    return;
+  }
+  const user = await createUser("equip");
+  const peer = await createUser("equip-peer");
+  try {
+    activeUserId = user.id;
+    const init = await http().patch("/me/progress").send({
+      equippedTitleId: "walker",
+    });
+    assert.equal(init.status, 200);
+    assert.equal(init.body.totalXp, 0);
+    assert.equal(init.body.level, 1);
+    assert.equal(init.body.equippedTitleId, "walker");
+    assert.deepEqual(init.body.unlockedTitleIds, ["walker"]);
+
+    const locked = await http().patch("/me/progress").send({
+      equippedTitleId: "explorer",
+    });
+    assert.equal(locked.status, 400);
+    assert.equal(await prisma!.xpGrant.count({ where: { userId: user.id } }), 0);
+
+    await prisma!.userProgression.update({
+      where: { userId: user.id },
+      data: { totalXp: BigInt(totalXpToReach(5)) },
+    });
+    const explorer = await http().patch("/me/progress").send({
+      equippedTitleId: "explorer",
+    });
+    assert.equal(explorer.status, 200);
+    assert.equal(explorer.body.level, 5);
+    assert.equal(explorer.body.equippedTitleId, "explorer");
+    assert.equal(explorer.body.totalXp, totalXpToReach(5));
+
+    await prisma!.userProgression.update({
+      where: { userId: user.id },
+      data: { totalXp: BigInt(totalXpToReach(10)) },
+    });
+    const walkerAgain = await http().patch("/me/progress").send({
+      equippedTitleId: "walker",
+    });
+    assert.equal(walkerAgain.status, 200);
+    assert.equal(walkerAgain.body.level, 10);
+    assert.equal(walkerAgain.body.equippedTitleId, "walker");
+    assert.ok(walkerAgain.body.unlockedTitleIds.includes("cartographer"));
+
+    const repeat = await http().patch("/me/progress").send({
+      equippedTitleId: "walker",
+    });
+    assert.equal(repeat.status, 200);
+    assert.deepEqual(repeat.body, walkerAgain.body);
+
+    const got = await http().get("/me/progress");
+    assert.equal(got.body.equippedTitleId, "walker");
+    assert.equal(got.body.totalXp, totalXpToReach(10));
+    assert.equal(await prisma!.xpGrant.count({ where: { userId: user.id } }), 0);
+
+    const xpBeforePeer = got.body.totalXp;
+    activeUserId = peer.id;
+    const peerPatch = await http().patch("/me/progress").send({
+      equippedTitleId: "explorer",
+    });
+    assert.equal(peerPatch.status, 400);
+    const owner = await prisma!.userProgression.findUniqueOrThrow({
+      where: { userId: user.id },
+    });
+    assert.equal(owner.equippedTitleId, "walker");
+    assert.equal(Number(owner.totalXp), xpBeforePeer);
+  } finally {
+    await prisma!.user.delete({ where: { id: user.id } }).catch(() => undefined);
+    await prisma!.user.delete({ where: { id: peer.id } }).catch(() => undefined);
+    activeUserId = userA!.id;
+  }
+});
+
+test("pg http: PATCH walker initializes a missing progression row", async (t) => {
+  if (skipReason) {
+    t.skip(skipReason);
+    return;
+  }
+  const user = await createUser("init-title");
+  try {
+    const existing = await prisma!.userProgression.findUnique({
+      where: { userId: user.id },
+    });
+    assert.equal(existing, null);
+    activeUserId = user.id;
+    const res = await http().patch("/me/progress").send({
+      equippedTitleId: "walker",
+    });
+    assert.equal(res.status, 200);
+    assert.equal(res.body.equippedTitleId, "walker");
+    assert.equal(res.body.totalXp, 0);
+    assert.equal(res.body.level, 1);
+    const row = await prisma!.userProgression.findUniqueOrThrow({
+      where: { userId: user.id },
+    });
+    assert.equal(row.equippedTitleId, "walker");
+    assert.equal(Number(row.totalXp), 0);
+    assert.equal(await prisma!.xpGrant.count({ where: { userId: user.id } }), 0);
+  } finally {
+    await prisma!.user.delete({ where: { id: user.id } }).catch(() => undefined);
     activeUserId = userA!.id;
   }
 });

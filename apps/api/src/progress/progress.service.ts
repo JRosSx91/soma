@@ -5,8 +5,10 @@ import {
   PROGRESS_XP_AMOUNT,
   PROGRESS_XP_MAX,
   isProgressTitleId,
+  isProgressTitleUnlocked,
   isProgressXp,
   isProgressXpSource,
+  levelFromTotalXp,
   progressFromTotalXp,
   type ProgressTitleId,
   type ProgressXpSource,
@@ -33,8 +35,17 @@ function bigintToXp(value: bigint): number {
   return xp;
 }
 
-function resolveEquippedTitleId(stored: string | null): ProgressTitleId {
-  if (stored && isProgressTitleId(stored)) return stored;
+function resolveEquippedTitleId(
+  stored: string | null,
+  level: number,
+): ProgressTitleId {
+  if (
+    stored &&
+    isProgressTitleId(stored) &&
+    isProgressTitleUnlocked(stored, level)
+  ) {
+    return stored;
+  }
   return PROGRESS_STARTING_TITLE_ID;
 }
 
@@ -45,7 +56,7 @@ function toResponse(
   const breakdown = progressFromTotalXp(totalXp);
   return {
     ...breakdown,
-    equippedTitleId: resolveEquippedTitleId(equippedTitleId),
+    equippedTitleId: resolveEquippedTitleId(equippedTitleId, breakdown.level),
   };
 }
 
@@ -95,6 +106,40 @@ export class ProgressService {
       update: {},
     });
     return toResponse(bigintToXp(row.totalXp), row.equippedTitleId);
+  }
+
+  /**
+   * Equip an unlocked title for the authenticated user. Level is derived
+   * from persisted XP only. Does not write grants or totalXp.
+   */
+  async equipTitle(
+    userId: string,
+    titleId: string,
+  ): Promise<ProgressResponse> {
+    if (!isProgressTitleId(titleId)) {
+      throw new BadRequestException("Invalid equippedTitleId");
+    }
+
+    const row = await this.prisma.userProgression.upsert({
+      where: { userId },
+      create: { userId, totalXp: 0n, equippedTitleId: null },
+      update: {},
+    });
+    const totalXp = bigintToXp(row.totalXp);
+    const level = levelFromTotalXp(totalXp);
+    if (!isProgressTitleUnlocked(titleId, level)) {
+      throw new BadRequestException("Title is not unlocked");
+    }
+
+    if (row.equippedTitleId === titleId) {
+      return toResponse(totalXp, titleId);
+    }
+
+    const updated = await this.prisma.userProgression.update({
+      where: { userId },
+      data: { equippedTitleId: titleId },
+    });
+    return toResponse(bigintToXp(updated.totalXp), updated.equippedTitleId);
   }
 
   /**

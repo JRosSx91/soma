@@ -46,7 +46,12 @@ class TestJwtGuard implements CanActivate {
 @Injectable()
 class RecordingProgressService {
   lastGetId: string | null = null;
+  lastEquip: { userId: string; titleId: string } | null = null;
   awardCalls = 0;
+  equippedByUser = new Map<string, string>([
+    [USER_A.id, "walker"],
+    [USER_B.id, "walker"],
+  ]);
 
   async getMine(userId: string) {
     this.lastGetId = userId;
@@ -58,8 +63,14 @@ class RecordingProgressService {
       xpForNextLevel: userId === USER_A.id ? 130 : 70,
       percentToNextLevel: 0,
       unlockedTitleIds: ["walker"],
-      equippedTitleId: "walker",
+      equippedTitleId: this.equippedByUser.get(userId) ?? "walker",
     };
+  }
+
+  async equipTitle(userId: string, titleId: string) {
+    this.lastEquip = { userId, titleId };
+    this.equippedByUser.set(userId, titleId);
+    return this.getMine(userId);
   }
 }
 
@@ -126,4 +137,56 @@ test("GET /me/progress does not expose an award route", async () => {
   const post = await http().post("/me/progress").send({ amount: 12 });
   assert.equal(post.status, 404);
   assert.equal(stub.awardCalls, 0);
+});
+
+test("PATCH /me/progress without JWT is 401", async () => {
+  activeUser = null;
+  stub.lastEquip = null;
+  const res = await http().patch("/me/progress").send({
+    equippedTitleId: "walker",
+  });
+  assert.equal(res.status, 401);
+  assert.equal(stub.lastEquip, null);
+  activeUser = USER_A;
+});
+
+test("PATCH /me/progress uses the authenticated user only", async () => {
+  activeUser = USER_A;
+  const a = await http().patch("/me/progress").send({
+    equippedTitleId: "walker",
+  });
+  assert.equal(a.status, 200);
+  assert.deepEqual(stub.lastEquip, { userId: USER_A.id, titleId: "walker" });
+
+  activeUser = USER_B;
+  const b = await http().patch("/me/progress").send({
+    equippedTitleId: "walker",
+  });
+  assert.equal(b.status, 200);
+  assert.deepEqual(stub.lastEquip, { userId: USER_B.id, titleId: "walker" });
+  assert.equal(JSON.stringify(b.body).includes("user-a"), false);
+});
+
+test("PATCH /me/progress rejects unknown titles and extra fields", async () => {
+  activeUser = USER_A;
+  stub.lastEquip = null;
+  const unknown = await http().patch("/me/progress").send({
+    equippedTitleId: "jedi",
+  });
+  assert.equal(unknown.status, 400);
+  assert.equal(stub.lastEquip, null);
+
+  const extra = await http().patch("/me/progress").send({
+    equippedTitleId: "walker",
+    totalXp: 999,
+    level: 10,
+    amount: 12,
+    source: "journal_create_day",
+  });
+  assert.equal(extra.status, 400);
+  assert.equal(stub.lastEquip, null);
+
+  const empty = await http().patch("/me/progress").send({});
+  assert.equal(empty.status, 400);
+  assert.equal(stub.lastEquip, null);
 });
