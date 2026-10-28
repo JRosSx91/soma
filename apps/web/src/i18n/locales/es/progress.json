@@ -1,0 +1,27 @@
+{
+  "level": "Nivel {{level}}",
+  "xp": "Experiencia",
+  "xpProgress": "{{into}} / {{needed}} XP",
+  "nextLevel": "Progreso hacia el siguiente nivel",
+  "levelCap": "Nivel máximo alcanzado",
+  "equipped": "Título equipado",
+  "changeTitle": "Cambiar título",
+  "titleLocked": "Título bloqueado",
+  "levelRequired": "Se desbloquea en el nivel {{level}}",
+  "loading": "Cargando progresión…",
+  "loadError": "No se ha podido cargar la progresión.",
+  "retry": "Reintentar",
+  "updatingTitle": "Actualizando título…",
+  "titlesNote": "Los nombres de los títulos son provisionales.",
+  "titles": {
+    "walker": "Caminante",
+    "explorer": "Explorador",
+    "cartographer": "Cartógrafo",
+    "naturalist": "Naturalista",
+    "researcher": "Investigador",
+    "guide": "Guía",
+    "chronicler": "Cronista",
+    "pathfinder": "Abrecaminos",
+    "expeditioner": "Expedicionario"
+  }
+}

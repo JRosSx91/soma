@@ -1,0 +1,27 @@
+{
+  "level": "Level {{level}}",
+  "xp": "Experience",
+  "xpProgress": "{{into}} / {{needed}} XP",
+  "nextLevel": "Progress to next level",
+  "levelCap": "Highest level reached",
+  "equipped": "Equipped title",
+  "changeTitle": "Change title",
+  "titleLocked": "Locked title",
+  "levelRequired": "Unlocks at level {{level}}",
+  "loading": "Loading progress…",
+  "loadError": "Could not load progress.",
+  "retry": "Try again",
+  "updatingTitle": "Updating title…",
+  "titlesNote": "Title names are provisional.",
+  "titles": {
+    "walker": "Walker",
+    "explorer": "Explorer",
+    "cartographer": "Cartographer",
+    "naturalist": "Naturalist",
+    "researcher": "Researcher",
+    "guide": "Guide",
+    "chronicler": "Chronicler",
+    "pathfinder": "Pathfinder",
+    "expeditioner": "Expeditioner"
+  }
+}
