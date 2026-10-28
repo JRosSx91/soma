@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../recovery-dashboard/focus.js";
 import { TitleEmblem } from "./TitleEmblem.js";
+import { TitlePicker } from "./TitlePicker.js";
 import type { ProgressHookState } from "./useProgress.js";
 import type { ProgressView } from "./progress-model.js";
 
@@ -11,9 +13,14 @@ export function HomeProgressIdentity({
   live,
   state,
   progress,
+  equipError,
   updatingTitle,
   reload,
-}: Pick<ProgressHookState, "live" | "state" | "progress" | "updatingTitle" | "reload">) {
+  equipTitle,
+}: Pick<
+  ProgressHookState,
+  "live" | "state" | "progress" | "equipError" | "updatingTitle" | "reload" | "equipTitle"
+>) {
   const { t } = useTranslation("progress");
 
   if (state === "loading" && !progress) {
@@ -39,17 +46,29 @@ export function HomeProgressIdentity({
     return <IdentitySkeleton label={t("loading")} />;
   }
 
-  return <IdentityReady progress={progress} updatingTitle={updatingTitle} />;
+  return (
+    <IdentityReady
+      progress={progress}
+      equipError={equipError}
+      updatingTitle={updatingTitle}
+      equipTitle={equipTitle}
+    />
+  );
 }
 
 function IdentityReady({
   progress,
+  equipError,
   updatingTitle,
+  equipTitle,
 }: {
   progress: ProgressView;
+  equipError: string | null;
   updatingTitle: boolean;
+  equipTitle: ProgressHookState["equipTitle"];
 }) {
   const { t } = useTranslation(["progress", "recovery"]);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const titleName = t(`progress:titles.${progress.equippedTitleId}`);
   const atCap = progress.xpToNextLevel === 0;
   const percent = atCap ? 100 : progress.percentToNextLevel;
@@ -104,8 +123,25 @@ function IdentityReady({
           />
         </div>
         <p className="mt-1 text-[11px] leading-snug text-soma-ink-muted">{caption}</p>
+        <button
+          type="button"
+          onClick={() => setPickerOpen(true)}
+          disabled={updatingTitle}
+          className={`${previewFocus} mt-2 text-sm text-soma-action hover:text-soma-action-hover disabled:opacity-60`}
+        >
+          {t("progress:changeTitle")}
+        </button>
         {updatingTitle ? <p className="sr-only">{t("progress:updatingTitle")}</p> : null}
       </div>
+      {pickerOpen ? (
+        <TitlePicker
+          progress={progress}
+          updatingTitle={updatingTitle}
+          equipError={equipError}
+          onClose={() => setPickerOpen(false)}
+          onEquip={equipTitle}
+        />
+      ) : null}
     </>
   );
 }

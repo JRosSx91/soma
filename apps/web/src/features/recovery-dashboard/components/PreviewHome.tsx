@@ -346,8 +346,10 @@ function ExplorerSummary({
           live={progression.live}
           state={progression.state}
           progress={progression.progress}
+          equipError={progression.equipError}
           updatingTitle={progression.updatingTitle}
           reload={progression.reload}
+          equipTitle={progression.equipTitle}
         />
         <ul className="flex min-w-0 flex-col gap-2.5 border-t border-soma-line-strong pt-3 lg:border-l lg:border-t-0 lg:pl-3 lg:pt-0">
           <ExplorerStat icon={Route} label={t("homeExplorerTracked")} value={String(tracked)} />

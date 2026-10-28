@@ -19,7 +19,7 @@ export interface TitleEmblemProps {
 
 /**
  * Approved emblem (WebP variant by display size). Home uses it
- * through HomeProgressIdentity; TitlePicker is not mounted yet.
+ * through HomeProgressIdentity; TitlePicker mounts decorative stamps.
  */
 export function TitleEmblem({ titleId, size, className, label }: TitleEmblemProps) {
   const src = resolveTitleEmblemSrc(titleId, size);

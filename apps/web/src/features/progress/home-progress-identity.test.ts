@@ -85,7 +85,9 @@ test("PreviewHome wires LIVE /app to useProgress and DEMO /preview to the local 
   assert.equal(home.includes("/me/progress"), false);
   assert.equal(home.includes("patchEquippedTitle"), false);
   assert.equal(home.includes("TitlePicker"), false);
-  assert.equal(home.includes("equipTitle"), false);
+  assert.match(home, /equipTitle=\{progression\.equipTitle\}/);
+  assert.match(identity, /TitlePicker/);
+  assert.match(identity, /progress:changeTitle/);
   assert.match(hook, /if \(!live\)/);
   assert.match(hook, /buildDemoProgress\(\)/);
   assert.match(hook, /setProgress\(null\);\s*setState\("error"\)/);

@@ -26,3 +26,4 @@ export {
 } from "./title-emblem.js";
 export { TitleEmblem, type TitleEmblemProps } from "./TitleEmblem.js";
 export { HomeProgressIdentity } from "./HomeProgressIdentity.js";
+export { TitlePicker, type TitlePickerProps } from "./TitlePicker.js";
