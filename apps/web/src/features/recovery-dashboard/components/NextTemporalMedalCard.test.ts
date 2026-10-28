@@ -21,8 +21,8 @@ test("temporal cards reuse GAME-01 title keys and avoid hardcoded Spanish", () =
   assert.match(home, /pickNextLockedAchievement/);
   assert.match(home, /NextTemporalMedalCard/);
   assert.match(recovery, /temporal=\{temporalById\.get\(item\.id\)\}/);
-  assert.match(es, /"homeNextMedal": "Tu próxima recompensa"/);
-  assert.match(en, /"homeNextMedal": "Your next reward"/);
+  assert.match(es, /"homeNextMedal": "Tu próximo hito temporal"/);
+  assert.match(en, /"homeNextMedal": "Your next temporal milestone"/);
   assert.equal(card.includes("Tu próxima recompensa"), false);
   assert.equal(card.includes("segundo"), false);
 });

@@ -10,7 +10,13 @@ export type LiveRow = AchievementWithUnlockState;
 export type FamilyFilter = "all" | "temporal" | "curve";
 export type SubstanceFilter = "all" | CatalogItem["substanceId"];
 export type TierFilter = "all" | MedalTier;
-export type StatusFilter = "all" | "unlocked" | "in_progress" | "locked" | "indeterminate";
+export type StatusFilter =
+  | "all"
+  | "unlocked"
+  | "in_progress"
+  | "locked"
+  | "indeterminate"
+  | "unavailable";
 export type SortMode = "catalog" | "recent";
 export type StatusBucket = Exclude<StatusFilter, "all">;
 
@@ -18,6 +24,22 @@ export interface CatalogFamilyCounts {
   total: number;
   curve: number;
   temporal: number;
+  available: number;
+  unavailable: number;
+  availableCurve: number;
+  availableTemporal: number;
+}
+
+export interface CollectionStats {
+  catalogTotal: number;
+  availableTotal: number;
+  unavailableTotal: number;
+  unlockedTotal: number;
+  unlocked: number;
+  inProgress: number;
+  /** Grantable medals plus historically earned medals without a current rule. */
+  collectionTotal: number;
+  collectionPercent: number;
 }
 
 export interface TemporalCardProgress {
@@ -47,16 +69,40 @@ export type LiveGap =
   | "missing_date"
   | "insufficient";
 
+export function hasUnlockRule(item: Pick<CatalogItem, "ruleReview">): boolean {
+  return item.ruleReview !== true;
+}
+
 export function catalogFamilyCounts(
   catalog: readonly CatalogItem[],
 ): CatalogFamilyCounts {
   let curve = 0;
   let temporal = 0;
+  let available = 0;
+  let unavailable = 0;
+  let availableCurve = 0;
+  let availableTemporal = 0;
   for (const item of catalog) {
-    if (item.family === "temporal") temporal += 1;
+    const temporalItem = item.family === "temporal";
+    if (temporalItem) temporal += 1;
     else curve += 1;
+    if (hasUnlockRule(item)) {
+      available += 1;
+      if (temporalItem) availableTemporal += 1;
+      else availableCurve += 1;
+    } else {
+      unavailable += 1;
+    }
   }
-  return { total: catalog.length, curve, temporal };
+  return {
+    total: catalog.length,
+    curve,
+    temporal,
+    available,
+    unavailable,
+    availableCurve,
+    availableTemporal,
+  };
 }
 
 export function isSealedAchievement(
@@ -157,7 +203,8 @@ export function describeAchievement(
 
   let bucket: StatusBucket;
   if (unlocked) bucket = "unlocked";
-  else if (review || gap !== null) bucket = "indeterminate";
+  else if (review) bucket = "unavailable";
+  else if (gap !== null) bucket = "indeterminate";
   else if (item.family === "temporal") {
     if (!temporal || temporal.daysAbstinent == null) bucket = "indeterminate";
     else if (temporalView?.isCurrentNext) bucket = "in_progress";
@@ -259,9 +306,12 @@ export function countProgressStats(
   liveById: ReadonlyMap<string, LiveRow>,
   temporalBySubstance: ReadonlyMap<string, TemporalMilestoneState>,
   showingLive: boolean,
-): { unlocked: number; inProgress: number } {
+): CollectionStats {
   let unlocked = 0;
   let inProgress = 0;
+  let available = 0;
+  let unavailable = 0;
+  let collection = 0;
   for (const item of catalog) {
     const live = showingLive ? (liveById.get(item.id) ?? null) : undefined;
     const view = describeAchievement(
@@ -269,10 +319,23 @@ export function countProgressStats(
       live,
       temporalBySubstance.get(item.substanceId) ?? null,
     );
-    if (view.bucket === "unlocked") unlocked += 1;
+    const grantable = hasUnlockRule(item);
+    if (grantable) available += 1;
+    else unavailable += 1;
+    if (grantable || view.unlocked) collection += 1;
+    if (view.unlocked) unlocked += 1;
     else if (view.bucket === "in_progress") inProgress += 1;
   }
-  return { unlocked, inProgress };
+  return {
+    catalogTotal: catalog.length,
+    availableTotal: available,
+    unavailableTotal: unavailable,
+    unlockedTotal: unlocked,
+    unlocked,
+    inProgress,
+    collectionTotal: collection,
+    collectionPercent: catalogSharePercent(unlocked, collection),
+  };
 }
 
 export function catalogSharePercent(part: number, total: number): number {
@@ -289,14 +352,18 @@ export function pickAchievementHighlights(input: {
   recentUnlockedIds: readonly string[];
   temporalStates: readonly TemporalMilestoneState[];
   nextCurveId: string | null;
+  excludeIds?: ReadonlySet<string>;
   limit?: number;
 }): string[] {
   const limit = input.limit ?? 4;
   const seen = new Set<string>();
   const ids: string[] = [];
+  const excluded = input.excludeIds ?? new Set<string>();
 
   function push(id: string | null | undefined) {
-    if (!id || seen.has(id) || !input.catalogIds.has(id) || ids.length >= limit) return;
+    if (!id || seen.has(id) || excluded.has(id) || !input.catalogIds.has(id) || ids.length >= limit) {
+      return;
+    }
     seen.add(id);
     ids.push(id);
   }

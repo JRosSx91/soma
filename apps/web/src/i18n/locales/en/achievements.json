@@ -6,27 +6,33 @@
   "ui": {
     "eyebrow": "Achievements",
     "title": "Small steps, great changes.",
-    "descriptionLive": "Each day of abstinence, each milestone and each discovery brings you closer to a freer life. Here you can see your achievements, explore what is still ahead, and find what you can reach. Physiological progress is a curve-model estimate, not a clinical measurement.",
-    "descriptionDemo": "Soma’s original catalog. Public view: no unlocked achievements and no account dates. The DEMO clock only shows temporal milestones when sample abstinence days exist.",
+    "descriptionLive": "Medals on your account are recognized here. Recovery follows the clock and the next milestone; Achievements keeps the history. Curve medals mark educational-model thresholds, not an individual recovery.",
+    "historyNote": "Earned medals stay in your history, even if you start a new streak.",
+    "descriptionDemo": "Soma’s original catalog. Public view: no account medals. The DEMO clock can show the next temporal milestone, but it does not mark a medal as earned.",
     "descriptionLoading": "Checking the session to show the progress saved on your account.",
-    "descriptionSignedOut": "Catalog of {{count}} achievements. Sign in to see real unlocks and progress.",
-    "catalogLabel": "Achievements available",
-    "catalogSplit": "{{curve}} physiological · {{temporal}} temporal",
-    "unlockedLabel": "Unlocked",
+    "descriptionSignedOut": "{{available}} medals have an unlock criterion. {{unavailable}} are still pending a definition. Sign in to see earned medals.",
+    "catalogLabel": "Available",
+    "catalogSplit": "{{curve}} educational curves · {{temporal}} time",
+    "unlockedLabel": "Earned",
     "inProgressLabel": "In progress",
+    "unavailableCountLabel": "Pending definition",
+    "unavailableCountHint": "There is no unlock criterion yet",
+    "collectionPercentHint": "{{unlocked}} of {{total}} reachable",
     "featuredTitle": "Featured achievements",
-    "featuredSubtitle": "Major milestones on your recovery path.",
+    "featuredSubtitle": "Recent recognitions and the next step. Clock tracking lives in Recovery.",
     "allTitle": "All achievements",
     "filteredTitle": "Filtered achievements",
-    "allSubtitle": "Browse the full catalog. Each medal is a step on the journey.",
-    "temporalSectionTitle": "Temporal achievements",
-    "temporalSectionSubtitle": "Abstinence milestones in days. These are not recovery curves.",
-    "curveSectionTitle": "Physiological achievements",
-    "curveSectionSubtitle": "Estimated curve-model progress, not a percentage of health recovered.",
+    "allSubtitle": "Each medal recognizes a catalog event: abstinence days or an educational-curve threshold.",
+    "temporalSectionTitle": "Time medals",
+    "temporalSectionSubtitle": "They recognize abstinence days. Recovery’s rail follows the same clock; the medal is stored here.",
+    "curveSectionTitle": "Educational-curve medals",
+    "curveSectionSubtitle": "They recognize thresholds of a mathematical model. They do not certify your body or your neurotransmitters.",
     "familyLabel": "Filter by family",
     "familyAll": "All",
     "familyTemporal": "Time",
-    "familyCurve": "Body",
+    "familyCurve": "Curve",
+    "familyBadgeTemporal": "Time",
+    "familyBadgeCurve": "Educational curve",
     "substanceLabel": "Filter by substance",
     "substanceAll": "All",
     "tierLabel": "Filter by rarity",
@@ -36,15 +42,17 @@
     "silver": "Silver",
     "gold": "Gold",
     "platinum": "Platinum",
-    "unlocked": "Unlocked",
+    "unlocked": "Earned",
     "inProgress": "In progress",
-    "locked": "Locked",
+    "locked": "Pending",
     "indeterminate": "No progress",
-    "statusUnlocked": "Unlocked",
+    "unavailable": "Unavailable",
+    "statusUnlocked": "Earned",
     "statusInProgress": "In progress",
-    "statusLocked": "Locked",
+    "statusLocked": "Pending",
     "statusIndeterminate": "No progress",
-    "statusReview": "Pending review",
+    "statusReview": "Unavailable",
+    "unavailableHint": "There is no unlock criterion yet",
     "searchPlaceholder": "Search achievements...",
     "searchAria": "Search achievements",
     "sortAria": "Sort achievements",
@@ -58,16 +66,16 @@
     "daysProgress": "{{current}} / {{target}} days",
     "temporalRequirement_one": "{{count}} day without {{substance}}",
     "temporalRequirement_other": "{{count}} days without {{substance}}",
-    "curveProgress": "{{current}}% / {{threshold}}% of the model threshold",
-    "curveRequirement": "Model threshold: {{percent}}%",
+    "curveProgress": "{{current}}% / {{threshold}}% of the educational threshold",
+    "curveRequirement": "Educational-curve threshold: {{percent}}%",
     "unlockedOn": "Earned on {{date}}",
-    "temporalDetail": "Temporal milestone: {{count}} {{unit}} without {{substance}}.",
+    "temporalDetail": "Time medal: {{count}} {{unit}} without {{substance}}. Recovery follows this clock; the event is recognized here.",
     "day": "day",
     "days": "days",
-    "reviewDetail": "The catalog stores a {{percent}}% threshold in {{organ}}. There is no recovery curve for this pair, so this card is not presented as a reachable goal.",
-    "curveDetail": "Model threshold: {{percent}}% curve progress in {{organ}}. This is not a clinical measurement.",
-    "curveProgressDetail": "Current progress {{current}}% toward the {{threshold}}% threshold. It is a model estimate, not recovered health.",
-    "hiddenLocked": "Locked.",
+    "reviewDetail": "This medal remains in the catalog, but there is no unlock criterion available yet.",
+    "curveDetail": "Educational-curve threshold: {{percent}}% model progress in {{organ}}. It does not certify your health or measure neurotransmitters.",
+    "curveProgressDetail": "Current progress {{current}}% toward the {{threshold}}% educational threshold. It is the model, not recovered health.",
+    "hiddenLocked": "Pending.",
     "gapMissingRow": "This achievement did not arrive in the response, so no percentage is shown.",
     "gapNotTracked": "This substance is not on your profile, so there is no progress to calculate.",
     "gapActiveUse": "Use is still active. The milestone measures abstinence and has no progress yet.",
@@ -88,427 +96,427 @@
   },
   "alcohol-acute-survival-bronze": {
     "title": "Through the storm",
-    "description": "The acute withdrawal phase — the most physiologically dangerous of any drug — is breaking. GABA-A receptors, downregulated by chronic ethanol, begin recovering. Glutamatergic rebound subsides. Tremor, anxiety, and the worst of it are behind you. The hardest 72 hours have passed."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-liver-bronze-1": {
     "title": "First steps in Mordor",
-    "description": "Hepatic enzyme markers (AST, ALT, GGT) begin descending from chronic-use peaks. The liver registers the change within days."
+    "description": "Educational-curve milestone for the liver. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-vta-bronze": {
-    "title": "The first dopaminergic flicker",
-    "description": "The reward circuit, flattened by chronic GABAergic suppression and dopamine downregulation, registers its first natural signals. Anhedonia hasn't lifted yet — but the hardware is starting to respond again."
+    "title": "The first spark",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-liver-bronze-2": {
     "title": "Steatosis on the retreat",
-    "description": "Hepatic steatosis begins reversing within the first two weeks of abstinence. Lipid deposits are metabolized and hepatocyte function improves measurably."
+    "description": "Educational-curve milestone for the liver. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-prefrontal-bronze": {
     "title": "Tony Stark's brain warming up",
-    "description": "Early signs of cortical recovery. Volumetric markers begin trending upward. Working memory and attention show measurable improvement."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-heart-bronze": {
     "title": "Holiday heart, dismissed",
-    "description": "Alcohol-induced hypertension begins normalizing. Atrial fibrillation episodes — the 'holiday heart' phenomenon — drop in frequency. The myocardium stops being chronically stressed."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-stomach-bronze": {
     "title": "No more burning at dawn",
-    "description": "Gastric mucosa healing accelerates. Acid hypersecretion subsides as parietal cell stimulation ends. Erosive gastritis lesions begin to close."
+    "description": "Educational-curve milestone for the stomach. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-pancreas-bronze": {
     "title": "Pancreas off the operating table",
-    "description": "Acinar cells recover from chronic toxic stress. Inflammatory response subsides. Digestive enzyme production gradually re-stabilizes."
+    "description": "Educational-curve milestone for the pancreas. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-sleep-bronze": {
     "title": "REM sleep returns",
-    "description": "Chronic alcohol use suppresses REM and fragments slow-wave sleep. As the system clears, REM rebounds — sometimes with vivid dreams — and deep sleep architecture begins reassembling. Mornings start feeling like rest."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-vta-silver": {
     "title": "The reward circuit reboots",
-    "description": "Dopaminergic signaling begins recovering from chronic suppression. Natural rewards start cutting through the noise."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-prefrontal-silver": {
     "title": "Charles Xavier doesn't run me anymore",
-    "description": "Gray matter volume in the prefrontal cortex is increasing substantially. Executive function, impulse control, and decision-making improve. You're driving the bus again."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-liver-silver": {
     "title": "The liver remembers how",
-    "description": "Transaminase levels approach normal ranges. Liver fat content is substantially reduced. Hepatic regenerative capacity — among the body's strongest — is doing its work."
+    "description": "Educational-curve milestone for the liver. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-hippocampus-silver": {
     "title": "The blackouts have a counterargument",
-    "description": "Hippocampal volume recovers measurably. Episodic memory encoding stabilizes. The neural substrate that alcohol most reliably broke — the one behind blackouts and lost evenings — is rebuilding itself."
+    "description": "Educational-curve milestone for the memory. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-heart-silver": {
-    "title": "Cardiac muscle, recovering",
-    "description": "Alcoholic cardiomyopathy reverses substantially with sustained abstinence. Ejection fraction improves, ventricular dilation regresses. The heart, given enough time, is one of the better forgivers."
+    "title": "The rhythm finds its place",
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-prefrontal-silver-2": {
     "title": "Sustained executive function",
-    "description": "Prefrontal recovery is no longer episodic — it's the new baseline. Planning, abstraction, working memory operate without the chronic noise. The cortical referee no longer needs days to recover from each weekend."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-pancreas-silver": {
-    "title": "Insulin in its place",
-    "description": "Pancreatic exocrine and endocrine functions normalize. Insulin sensitivity improves if not chronically compromised."
+    "title": "The pancreas recipe",
+    "description": "Educational-curve milestone for the pancreas. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-stomach-silver": {
-    "title": "Iron stomach restored",
-    "description": "Gastric mucosa is fully regenerated. The 3-7 day epithelial turnover has done its job. Acid balance and digestive function are back to baseline."
+    "title": "Iron stomach",
+    "description": "Educational-curve milestone for the stomach. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-hippocampus-gold": {
-    "title": "Memory, fully on the record",
-    "description": "Hippocampal volume and function approach baseline. Long-term memory consolidation, spatial navigation, and contextual learning operate at full capacity. Years of nights you couldn't remember — the brain has learned how to keep again."
+    "title": "Memory, on the record",
+    "description": "Educational-curve milestone for the memory. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-liver-gold": {
     "title": "Better than Wolverine's regeneration",
-    "description": "The liver has regenerated most of its functional tissue. Mild fibrosis, if present, has partially reversed. Few organs in the body could pull this off."
+    "description": "Educational-curve milestone for the liver. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-vta-gold": {
     "title": "Pleasure is no longer rented",
-    "description": "Dopamine receptor density approaches baseline. Natural rewards feel meaningful again, anhedonia substantially resolves. The brain has remembered how to celebrate without help."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-sovereignty-platinum": {
     "title": "Every system, returned",
-    "description": "Liver, heart, pancreas, stomach, hippocampus, prefrontal cortex, mesolimbic axis, sleep architecture — every system alcohol touched runs on its own signals now. The most physiologically punishing substance to leave is fully behind you. The body is yours again, all of it."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-bronchi-bronze-1": {
     "title": "Cilia stretching after a long sleep",
-    "description": "Within 24-72 hours of cessation, paralyzed bronchial cilia begin to recover their rhythmic motion. The mucociliary escalator wakes up."
+    "description": "Educational-curve milestone for the airways. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-bronchi-bronze-2": {
     "title": "The chimney is being swept",
-    "description": "Bronchial cilia clear accumulated tar and particulates with measurable efficiency. Productive cough in this phase is the system expelling residue — not a problem, but the solution."
+    "description": "Educational-curve milestone for the airways. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-bronchi-silver": {
     "title": "Breathing without paying tolls",
-    "description": "Bronchial mucosa has largely recovered. Chronic cough subsides, exercise tolerance noticeably improves. Each breath costs less."
+    "description": "Educational-curve milestone for the airways. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-lungs-bronze": {
     "title": "Macrophages on cleaning shift",
-    "description": "Alveolar macrophages, overloaded with tar particulates, intensify their clearing work. Diffusion capacity begins to climb."
+    "description": "Educational-curve milestone for the lungs. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-lungs-silver": {
-    "title": "FEV1 above the dignity threshold",
-    "description": "Forced expiratory volume is improving. The rate of age-related lung function decline has normalized to that of a non-smoker."
+    "title": "Air above the dignity threshold",
+    "description": "Educational-curve milestone for the lungs. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-lungs-gold": {
     "title": "Black Bolt's lungs",
-    "description": "Pulmonary capacity approaches non-smoker baseline. Persistent emphysema, if present, no longer progresses. The lungs work near their full capacity again."
+    "description": "Educational-curve milestone for the lungs. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-heart-bronze": {
     "title": "Endothelium remembers how to relax",
-    "description": "Vasoconstriction induced by nicotine resolves. Endothelial function begins recovering. Acute cardiovascular risk drops with each tobacco-free day."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-heart-silver": {
     "title": "Resting pulse, real rest",
-    "description": "Resting heart rate normalizes. Carbon monoxide is no longer competing with oxygen. Hemoglobin returns to its actual job."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-heart-gold": {
-    "title": "Cardiovascular risk slashed in half",
-    "description": "Risk of myocardial infarction drops dramatically. Platelet aggregation, endothelial function, and lipid profiles approach non-smoker ranges."
+    "title": "The cardiovascular bet changes sides",
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-vta-bronze": {
     "title": "The nicotine alarm gets quieter",
-    "description": "Upregulated nicotinic acetylcholine receptors begin returning to normal density. Cravings, when they arrive, hit fewer receptors."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-vta-silver": {
-    "title": "The brain stops asking",
-    "description": "nAChR density approaches baseline. Craving intensity and frequency drop substantially. The neurochemical demand for nicotine is dissolving."
+    "title": "The alarm stops asking",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-vta-gold": {
     "title": "The reward circuit finally free",
-    "description": "Dopamine release in response to natural rewards normalizes. The brain no longer depends on nicotine to trigger pleasure responses. The hijacking is over."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-sovereignty-platinum": {
     "title": "The chimney is gone",
-    "description": "Lungs, bronchi, heart, vasculature, mesolimbic axis — every system nicotine and tobacco smoke touched runs on its own signals now. nAChR density at baseline. Cardiovascular and pulmonary risk profiles indistinguishable from never-smokers. The most lethal legal addiction is fully behind you."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-vta-bronze-1": {
     "title": "The first pixel of color",
-    "description": "The reward system begins clearing the noise. D2 receptors, drowned by chronic excess, detect the first flickers of natural dopamine."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-bronze-1": {
     "title": "Stabilizing the arc reactor",
-    "description": "The heart stops being a bomb about to go off. Resting heart rate and blood pressure leave the combat zone."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-bronze-2": {
     "title": "Coronary truce",
-    "description": "Chronic vasoconstriction eases across the coronary tree. The arteries are no longer in permanent spasm; blood flows without fear again."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-bronchi-bronze-1": {
     "title": "Lower airway cleared",
-    "description": "Bronchial epithelium recovers from chronic inflammation caused by inhaled vapors and aspirated irritants. The mucociliary escalator regains its rhythm."
+    "description": "Educational-curve milestone for the airways. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-vta-bronze-2": {
-    "title": "Home-grown dopamine",
-    "description": "The mesolimbic axis starts manufacturing its own pleasure again. Deep anhedonia begins to crack. Welcome back to the real world."
+    "title": "Color of your own harvest",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-vta-bronze-3": {
     "title": "Tonic firing returns",
-    "description": "Dopaminergic neurons in the VTA recover their baseline tonic firing. The system is no longer locked between famine and bingeing — quiet, steady signaling resumes."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-bronze-3": {
     "title": "Color returns to the periphery",
-    "description": "Cutaneous and peripheral microcirculation recover. The pallor lifts as systemic vasoconstriction releases — the cardiovascular system as a whole is letting go of its grip."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-prefrontal-silver-1": {
     "title": "The Night's Watch stands down",
-    "description": "The prefrontal cortex regains top-down control over limbic noradrenergic drive. Constant hypervigilance and paranoia give way to a deeper calmness."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-silver-1": {
     "title": "Adamantium heart",
-    "description": "The risk of lethal arrhythmias and sudden death plummets. Cardiac tissue regains its natural and stable rhythm."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-prefrontal-silver-2": {
     "title": "The architect takes charge",
-    "description": "The prefrontal cortex regains control over impulse. You're no longer a passenger; you're the pilot again."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-vta-silver-1": {
     "title": "Rebellion in the accumbens",
-    "description": "The neurochemical hijacking has failed. The mesolimbic axis now responds to music and human contact, not powder."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-prefrontal-silver-3": {
     "title": "The referee returns to the ring",
-    "description": "Top-down inhibitory control from prefrontal cortex onto limbic circuits recalibrates. Reactive anxiety diminishes as the cortical brake comes back online."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-prefrontal-silver-4": {
     "title": "The simulation is running",
-    "description": "Enhanced ability to project the future. The brain plans long-term again without the urgency of the chemical 'now'."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-silver-2": {
     "title": "Restoring the vital pulse",
-    "description": "Vascular response synchronizes. Circulatory health allows the body to respond efficiently to physical effort."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-silver-3": {
     "title": "Deep endothelial cleansing",
-    "description": "Arterial elasticity is substantially restored. The cardiovascular system works with a fluidity that seemed lost."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-hippocampus-gold-1": {
     "title": "Neuronal Lazarus protocol",
-    "description": "The hippocampus records deep cellular recovery. Neurogenesis in the dentate gyrus resumes; brain plasticity is at its peak, rebuilding what was damaged."
+    "description": "Educational-curve milestone for the memory. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-vta-gold-1": {
-    "title": "Dopaminergic sovereignty",
-    "description": "D2 receptor density normalized. You've regained the ability to feel happiness without paying a toll of exhaustion."
+    "title": "Sovereignty of the circuit",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-heart-gold-1": {
     "title": "Vibranium mesh",
-    "description": "Cardiovascular health optimized. Structural damage is minimized, and the circulatory system is at full capacity."
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-liver-gold-1": {
     "title": "The fortress rebuilt",
-    "description": "Hepatic detoxification machinery is back at full power. Glutathione reserves replenished, reactive metabolites of cocaine (norcocaine, N-hydroxynorcocaine) no longer overwhelming the system. Oxidative stress defeated by cellular regeneration."
+    "description": "Educational-curve milestone for the liver. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-sovereignty-platinum": {
     "title": "The dictator has fallen",
-    "description": "Absolute neurochemical freedom. The reward circuit is fully restored. You are the sole owner of your biology."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-vta-bronze-1": {
     "title": "The fog begins to lift",
-    "description": "The acute neurochemical cloud of withdrawal starts dissolving. CB1 receptors, downregulated by chronic THC saturation, begin the slow climb back toward baseline density."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-prefrontal-bronze-1": {
     "title": "The first quiet morning",
-    "description": "Withdrawal-driven anxiety, irritability and emotional reactivity start to ease. The prefrontal cortex regains a sliver of top-down control over limbic noise. The first week is the steepest — and you're climbing it."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-bronchi-bronze": {
     "title": "Combustion residue clearing",
-    "description": "Bronchial cilia, suppressed by smoke and tar irritation, restart their rhythmic clearance. Productive cough in this phase is mucociliary cleanup — not regression, but progress."
+    "description": "Educational-curve milestone for the airways. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-hippocampus-bronze": {
     "title": "Working memory comes back online",
-    "description": "Short-term memory and verbal recall improve measurably as hippocampal CB1 signaling renormalizes. The 'where did I put my keys' fog thins."
+    "description": "Educational-curve milestone for the memory. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-vta-bronze-2": {
     "title": "Motivation has a pulse",
-    "description": "The amotivational fog starts breaking. Dopaminergic tone in the mesolimbic axis recovers enough that goals stop feeling abstract. Wanting comes back before liking."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-prefrontal-silver-1": {
     "title": "The pilot is sober",
-    "description": "Executive function, decision-making and impulse control are substantially restored. The cortical referee is back in the ring; the limbic system no longer wins by default."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-hippocampus-silver": {
     "title": "Long-term storage online",
-    "description": "Memory consolidation from short-term to long-term recovers. Learning sticks. The hippocampal CB1 system, dense and central to encoding, is finding its baseline."
+    "description": "Educational-curve milestone for the memory. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-bronchi-silver": {
     "title": "Lungs without the rattle",
-    "description": "Chronic bronchial inflammation has substantially resolved. Exercise tolerance climbs, productive cough subsides, breathing no longer carries a backlog."
+    "description": "Educational-curve milestone for the airways. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-prefrontal-silver-2": {
     "title": "Emotional weather, not emotional climate",
-    "description": "Sustained regulation of mood and affect. Reactive irritability and emotional flatness give way to range — feelings come and go without overwhelming the system."
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-vta-silver-1": {
-    "title": "CB1 receptors rebuilding",
-    "description": "[11C]OMAR PET imaging would now show CB1 receptor density approaching control levels in the mesolimbic axis. Most of the four-week recovery window is behind you. The endocannabinoid system is finding its own rhythm."
+    "title": "The inner map redraws itself",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-vta-silver-2": {
-    "title": "Anhedonia, dismissed",
-    "description": "Natural rewards land with full weight again. Music, food, sex, conversation — the dopaminergic response to ordinary pleasure is no longer dampened. The amotivational syndrome is functionally resolved."
+    "title": "The weight of small things",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-hippocampus-gold": {
     "title": "The library is fully indexed",
-    "description": "Hippocampal volume and function approach baseline. Memory encoding, spatial navigation and contextual learning operate at full capacity. The brain remembers how to remember."
+    "description": "Educational-curve milestone for the memory. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-prefrontal-gold": {
-    "title": "Executive suite restored",
-    "description": "Prefrontal cortex function at near-baseline. Working memory, planning, abstract reasoning, impulse control — all the things THC quietly dimmed for years — operating at full bandwidth."
+    "title": "The executive office",
+    "description": "Educational-curve milestone for the attention and decisions. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-vta-gold": {
-    "title": "Endocannabinoid sovereignty",
-    "description": "CB1 receptor density and endogenous cannabinoid tone (anandamide, 2-AG) normalized. The body's own cannabinoid system runs the show — no exogenous override required."
+    "title": "Sovereignty of the inner map",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-sovereignty-platinum": {
-    "title": "The haze has lifted, for good",
-    "description": "Complete recalibration of the endocannabinoid system. Reward, memory, emotion, motivation, breath — every system the cannabis touched runs on its own signals now. The body is yours, undivided."
+    "title": "The haze has lifted",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-vta-bronze-1": {
     "title": "The headache breaks",
-    "description": "Cerebral vasodilation rebound — the cardinal withdrawal symptom — resolves as adenosine A2A signaling on cerebral vasculature recalibrates. The first 2-9 days are the steepest, and you're through them."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-vta-bronze-2": {
-    "title": "Adenosine receptors recalibrating",
-    "description": "Adenosine A2A receptors, downregulated to compensate for chronic blockade by caffeine, begin restoring baseline density. Sleep pressure and natural alertness cycles are renormalizing."
+    "title": "Waking changes gear",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-heart-bronze": {
-    "title": "Resting cardiovascular tone normalized",
-    "description": "Resting heart rate and blood pressure return to non-caffeinated baseline. Palpitations and caffeine-induced ectopic beats subside."
+    "title": "The resting pulse finds quiet",
+    "description": "Educational-curve milestone for the heart. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-stomach-bronze": {
-    "title": "Gastric acid balance restored",
-    "description": "Basal gastric acid secretion returns to normal range. Reflux and dyspepsia symptoms attributable to caffeine resolve."
+    "title": "The stomach stops protesting",
+    "description": "Educational-curve milestone for the stomach. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-vta-silver-1": {
     "title": "Slow-wave sleep, finally",
-    "description": "Deep sleep architecture recovers. The suppression of slow-wave sleep that caffeine causes — even 12 hours after the last dose — lifts. Mornings start feeling like mornings."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-vta-silver-2": {
-    "title": "Adenosinergic balance restored",
-    "description": "Adenosine receptor density has substantially normalized. Natural sleep onset, daytime alertness, and morning energy no longer require external stimulation."
+    "title": "Energy without a borrowed switch",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-vta-silver-3": {
     "title": "Energy without the cliff",
-    "description": "The caffeine-crash-caffeine cycle is broken. Alertness rises and falls on its own circadian curve, not on the timing of your last cup. The 3pm wall stops existing."
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "caffeine-vta-silver-4": {
-    "title": "Sensitivity returned",
-    "description": "Adenosine receptor density at baseline. A single cup now hits the way it used to before tolerance built up — caffeine is back to being a tool, not a maintenance dose."
+    "title": "The cup becomes optional again",
+    "description": "Educational-curve milestone for the reward circuit. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-intestines-bronze": {
     "title": "The intestinal wall reconstitutes",
-    "description": "Alcohol loosens the tight junctions of the intestinal epithelium, allowing bacterial endotoxins to cross the gut wall and reach portal circulation, fueling systemic inflammation. At this threshold, epithelial repair is underway. The gut is closing its doors again. Leaky gut is not a metaphor here — it was measurable, and now it's reversing."
+    "description": "Educational-curve milestone for the intestines. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-intestines-silver": {
     "title": "The microbiome returns to the table",
-    "description": "Alcohol-associated dysbiosis — collapse of microbial diversity, overgrowth of gram-negative bacteria, loss of butyrate producers — substantially resolves with sustained abstinence. The gut-liver axis stops sending distress signals. The internal ecosystem rebuilds on its own. You don't have to do anything except keep going."
+    "description": "Educational-curve milestone for the intestines. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-spleen-bronze": {
     "title": "The spleen stops being the liver's pressure gauge",
-    "description": "Alcohol-related splenomegaly — enlargement driven by portal hypertension secondary to liver damage — begins reversing as hepatic recovery reduces portal pressure. The spleen was acting as a manometer for a failing system. The failure is being repaired."
+    "description": "Educational-curve milestone for the spleen. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-oral-mucosa-bronze": {
     "title": "The mouth remembers what normal feels like",
-    "description": "Alcohol is a direct mucosal irritant and carcinogen. Within weeks of abstinence, inflammatory markers in the oral epithelium drop, salivary composition normalizes, and chronic xerostomia begins to reverse. The mouth starts not hurting in the background."
+    "description": "Educational-curve milestone for the mouth. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-oral-mucosa-silver": {
     "title": "The carcinogen has vacated the premises",
-    "description": "Acetaldehyde — the mutagenic metabolite of alcohol, classified as a Group 1 carcinogen by the IARC — is no longer a daily occupant of your oral mucosa. Epithelial DNA repair outpaces new damage. The carcinogenic pressure on the oral epithelium has lifted."
+    "description": "Educational-curve milestone for the mouth. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-teeth-bronze": {
     "title": "Enamel erosion on pause",
-    "description": "Alcohol-related dental erosion has two mechanisms: direct acid exposure and gastric reflux secondary to gastritis. Both are subsiding. New enamel loss stops. What's already gone doesn't come back — but the damage stops accumulating. Sometimes stopping is enough of a victory."
+    "description": "Educational-curve milestone for the teeth and gums. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-eyes-bronze": {
     "title": "The whites of the eyes go white again",
-    "description": "Scleral jaundice — the yellowing of the sclera from hyperbilirubinemia secondary to hepatic dysfunction — begins fading as liver function recovers. It's one of the most visible markers of internal recovery. Others see it before you do."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "alcohol-eyes-silver": {
     "title": "The optic nerve out of siege",
-    "description": "Alcoholic optic neuropathy — driven by nutritional deficiencies (thiamine, B12) and direct toxic damage — substantially stabilizes and partially reverses. Visual acuity and contrast sensitivity improve as the nerve recovers from chronic metabolic insult. Eyes that were going blurry, clearing."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-oral-mucosa-bronze": {
     "title": "The mouth stops tasting like an ashtray",
-    "description": "The oral mucosa is among the first to register abstinence. Within days, chronic inflammation of the buccal epithelium begins to reverse, salivary production normalizes, and taste receptors — dulled by smoke — start recovering sensitivity. Food begins to actually taste like something."
+    "description": "Educational-curve milestone for the mouth. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-oral-mucosa-silver": {
     "title": "Leukoplakia losing ground",
-    "description": "Oral leukoplakia lesions associated with tobacco — white precancerous plaques on the mucosa — show partial regression with sustained abstinence. The oral epithelium has exited its state of permanent carcinogenic alert. What tobacco turned into at-risk tissue, time is turning back into healthy tissue."
+    "description": "Educational-curve milestone for the mouth. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-nasal-mucosa-bronze": {
     "title": "The sense of smell climbs out of the basement",
-    "description": "The nasal mucosa, inflamed and atrophied by chronic smoke exposure, begins to regenerate. Nasal cilia recover motility. The sense of smell — one of the senses tobacco steals most quietly — starts coming back. First you smell the obvious. Then you smell the subtle."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-nasal-mucosa-silver": {
     "title": "Nasal filter back online",
-    "description": "The nasal mucosa has recovered its barrier and filtration function. Nasal mucociliary clearance is normalized. The epithelium that smoke stripped bare for years is doing its job again: warming, humidifying, and filtering air before it reaches the lungs."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-teeth-bronze": {
     "title": "The gums stop bleeding in silence",
-    "description": "Tobacco-associated periodontal disease has an insidious component: nicotine masks gingival inflammation by vasoconstricting the vessels, so gums bleed less during use — and much more when quitting. That initial bleeding is the real inflammation coming to light. Within weeks, the gingival inflammatory response normalizes."
+    "description": "Educational-curve milestone for the teeth and gums. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-teeth-silver": {
     "title": "Alveolar bone stops retreating",
-    "description": "Alveolar bone loss — one of the most permanent periodontal damages of tobacco — stops with sustained abstinence. What was already lost doesn't return, but progression halts. The teeth that remain now have solid ground beneath them."
+    "description": "Educational-curve milestone for the teeth and gums. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-eyes-bronze": {
     "title": "AMD has one fewer enemy",
-    "description": "Smoking is the leading modifiable risk factor for age-related macular degeneration. The mechanism is twofold: oxidative stress on the retinal pigment epithelium and chronic choroidal vasoconstriction. With abstinence, both relent. AMD risk starts dropping from the first month."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "nicotine-eyes-silver": {
     "title": "The retina breathes",
-    "description": "Choroidal perfusion — the blood flow nourishing the retina — improves substantially with sustained abstinence. Intraocular pressure normalizes. The retinal pigment epithelium, under chronic oxidative stress for years, operates with a damage load that no longer grows. Eyes that were looking through smoke, clearing."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-intestines-bronze": {
     "title": "The intestinal cannabinoid system regulates again",
-    "description": "CB1 receptors throughout the gastrointestinal tract — saturated by chronic THC, disrupting motility and secretion — begin recovering density and sensitivity. Nausea episodes, cannabinoid hyperemesis syndrome in severe cases, and erratic motility normalize. The gut functions again without external chemical supervision."
+    "description": "Educational-curve milestone for the intestines. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-oral-mucosa-bronze": {
     "title": "The mouth without smoke",
-    "description": "The oral mucosa recovers from the thermal and chemical irritation of cannabis smoke. Xerostomia — the characteristic dry mouth of cannabis use, mediated by CB1 receptors in salivary glands — remits as receptors renormalize. Saliva returns. With it, the first line of oral immune defense."
+    "description": "Educational-curve milestone for the mouth. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-nasal-mucosa-bronze": {
     "title": "The nasal passages remember what they're for",
-    "description": "The nasal mucosa recovers from chronic irritation by smoke and, in users who vaporize or use other forms, from direct contact with irritants. Nasal mucociliary function improves. The sense of smell, partially dulled, starts to sharpen."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-teeth-bronze": {
     "title": "The gums without the veil",
-    "description": "Cannabis is associated with higher rates of periodontal disease, xerostomia, and compromised oral hygiene tied to usage patterns. With abstinence, gingival inflammation remits and saliva — which protects enamel and neutralizes acids — flows normally again."
+    "description": "Educational-curve milestone for the teeth and gums. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-eyes-bronze": {
     "title": "The red fades",
-    "description": "Conjunctival hyperemia — the characteristic red eyes of THC, caused by CB1-mediated vasodilation in ocular vasculature — disappears within hours of last use. With sustained abstinence, the ocular vasomotor response normalizes completely. The sclera goes white again. You no longer carry your use written on your face."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-nasal-mucosa-bronze-1": {
     "title": "The bleeding stops",
-    "description": "Chronic epistaxis — recurrent nosebleeds from ischemic vasoconstriction of the mucosa — ceases with abstinence. Cocaine blocks noradrenaline reuptake, causing sustained vasoconstriction that kills tissue through ischemia. Without the vasoconstrictor, mucosal circulation begins to recover. The first thing you notice is that you no longer bleed."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-nasal-mucosa-bronze-2": {
     "title": "The septum starts to close",
-    "description": "The septal mucosa, subjected to chronic ischemia and direct chemical trauma, initiates epithelial repair. In cases without established perforation, tissue reconstitutes. In cases with perforation, the edges stabilize and stop necrosing. The most visible damage of cocaine — the one doctors use to diagnose it without the patient admitting it — is stopping."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-nasal-mucosa-silver": {
     "title": "Cartilage that holds",
-    "description": "Septal cartilage necrosis stops with sustained abstinence. The mucosa that survived has consolidated as functional epithelium. What was lost doesn't return — cocaine is the only drug of abuse that destroys cartilage directly and irreversibly — but the destruction is over. What remains is yours."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-nasal-mucosa-gold": {
     "title": "The nose rebuilt from within",
-    "description": "Maximum tissue recovery achievable without surgical intervention. Pseudostratified respiratory epithelium — the correct tissue, not scar tissue — has repopulated most of the mucosal surface. The sense of smell, if not destroyed by extensive necrosis, has recovered real sensitivity. What cocaine undid over years, the body has remade with what it had."
+    "description": "Educational-curve milestone for the nose. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-teeth-bronze": {
     "title": "The bruxism relents",
-    "description": "Cocaine-induced teeth grinding and clenching — mediated by dopaminergic and noradrenergic excess — remit with abstinence. The enamel stops being ground from within. Direct chemical erosion from the alkaloid applied to gums also ceases. The teeth have a truce, for the first time in a long time."
+    "description": "Educational-curve milestone for the teeth and gums. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-teeth-silver": {
     "title": "The gums reclaim their territory",
-    "description": "Cocaine-accelerated periodontal disease — chronic gingival vasoconstriction, xerostomia, bruxism, direct alkaloid application — shows substantial reversal. Gingival inflammation remits, salivary flow normalizes, alveolar bone stops retreating. What looked like a mouth decades older, rejuvenating."
+    "description": "Educational-curve milestone for the teeth and gums. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-eyes-bronze": {
     "title": "Ocular vasoconstriction surrenders",
-    "description": "Cocaine constricts the vessels of the retina and choroid with the same brutality as those of the nasal septum. With abstinence, retinal perfusion normalizes. The risk of retinal vascular occlusion — one of the mechanisms of acute visual loss associated with use — disappears. The eyes have enough blood again."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cocaine-eyes-silver": {
     "title": "The retina out of danger",
-    "description": "Choroidal and retinal perfusion has stabilized within normal ranges on a sustained basis. The risk of acute ocular vascular events is now comparable to the general population. Eyes that watched too many sleepless nights with vessels in spasm now have stable supply. They see more. They hurt less."
+    "description": "Educational-curve milestone for the eyes. It marks a model threshold, not a measurement of your body or neurotransmitters."
   },
   "cannabis-temporal-1": {
     "title": "Awakening in the Shire",

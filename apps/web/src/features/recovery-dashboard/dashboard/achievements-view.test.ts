@@ -68,6 +68,9 @@ test("catalog is 156 achievements split 106 curve and 50 temporal", () => {
   assert.equal(counts.curve, 106);
   assert.equal(counts.temporal, 50);
   assert.equal(counts.curve + counts.temporal, 156);
+  assert.equal(counts.available, 149);
+  assert.equal(counts.unavailable, 7);
+  assert.equal(counts.availableCurve + counts.availableTemporal, 149);
 });
 
 test("secret bronzes stay sealed and platinums stay visible", () => {
@@ -206,6 +209,25 @@ test("DEMO counts zero unlocks and only current temporal next as in progress", (
   });
   assert.equal(past?.isCurrentNext, false);
   assert.equal(past?.clockPassed, true);
+  const clockOnly = describeAchievement(
+    item("cannabis-temporal-7"),
+    live({
+      id: "cannabis-temporal-7",
+      family: "temporal",
+      unlocked: false,
+      triggerRecoveryThreshold: null,
+      progressAvailability: "ready",
+      achievementProgress: 1,
+    }),
+    {
+      substanceId: "cannabis",
+      status: "upcoming",
+      daysAbstinent: 42,
+      next: upcoming("cannabis", 60, 1).next,
+    },
+  );
+  assert.equal(clockOnly.unlocked, false);
+  assert.equal(clockOnly.bucket, "locked");
 });
 
 test("highlights prefer real unlocks then next temporal then curve and never pad", () => {
@@ -237,7 +259,70 @@ test("highlights prefer real unlocks then next temporal then curve and never pad
   assert.deepEqual(short, ["cannabis-temporal-60"]);
 });
 
-test("recent sort uses persisted unlockedAt and catalog share is against 156", () => {
+test("an earned medal stays earned when the substance is no longer on the profile", () => {
+  const earned = describeAchievement(
+    item("cannabis-temporal-30"),
+    live({
+      id: "cannabis-temporal-30",
+      family: "temporal",
+      unlocked: true,
+      unlockedAt: "2026-09-01T00:00:00.000Z",
+      triggerOrganId: null,
+      triggerSubstanceId: "cannabis",
+      triggerRecoveryThreshold: null,
+      progressAvailability: "not_tracked",
+      achievementProgress: null,
+    }),
+    null,
+  );
+  assert.equal(earned.unlocked, true);
+  assert.equal(earned.bucket, "unlocked");
+  assert.notEqual(earned.bucket, "locked");
+  const curve = describeAchievement(
+    item("alcohol-liver-bronze-1"),
+    live({
+      id: "alcohol-liver-bronze-1",
+      unlocked: true,
+      unlockedAt: "2026-08-01T00:00:00.000Z",
+      progressAvailability: "not_tracked",
+      achievementProgress: null,
+    }),
+    null,
+  );
+  assert.equal(curve.unlocked, true);
+  assert.equal(curve.bucket, "unlocked");
+  const liveById = new Map([
+    [
+      "cannabis-temporal-30",
+      live({
+        id: "cannabis-temporal-30",
+        family: "temporal",
+        unlocked: true,
+        unlockedAt: "2026-09-01T00:00:00.000Z",
+        triggerOrganId: null,
+        triggerSubstanceId: "cannabis",
+        triggerRecoveryThreshold: null,
+        progressAvailability: "not_tracked",
+        achievementProgress: null,
+      }),
+    ],
+  ]);
+  const filtered = filterCatalog({
+    catalog: achievementCatalog,
+    liveById,
+    temporalBySubstance: new Map(),
+    showingLive: true,
+    family: "all",
+    substance: "cannabis",
+    tier: "all",
+    status: "unlocked",
+    query: "",
+    titleFor: (row) => row.title,
+  });
+  assert.equal(filtered.some((row) => row.id === "cannabis-temporal-30"), true);
+});
+
+test("recent sort uses persisted unlockedAt and catalog share helper stays bounded", () => {
   const liveById = new Map([
     [
       "alcohol-liver-bronze-1",
