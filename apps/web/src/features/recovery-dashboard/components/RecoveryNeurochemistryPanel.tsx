@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import type { TemporalMilestoneState } from "@soma/shared-types";
 import type { DemoSubstance } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import {
-  educationalNtInputFromRecovery,
   presentEducationalNtRecovery,
   type EducationalNtRecoveryRow,
-  type EducationalNtRecoveryView,
 } from "../anatomy/educational-nt-recovery.js";
 import { educationalNtSeverities } from "../anatomy/educational-nt-qualitative-catalog.js";
 import { signalingMarkClassName } from "../anatomy/signaling-presentation.js";
@@ -20,7 +17,6 @@ import {
 
 interface RecoveryNeurochemistryPanelProps {
   substance: DemoSubstance;
-  temporal: TemporalMilestoneState | undefined;
 }
 
 function confidenceKey(level: EducationalNtRecoveryRow["confidence"]): string {
@@ -66,52 +62,27 @@ function SeveritySegments({
   );
 }
 
-function statusCopy(
-  view: EducationalNtRecoveryView,
-  translate: (key: string) => string,
-): string | null {
-  if (view.clockStatus === "missing_date") return translate("recoveryNtMissingDate");
-  if (view.clockStatus === "day_zero") return translate("recoveryNtDayZero");
-  if (view.clockStatus === "active") return translate("recoveryNtActive");
-  return null;
-}
-
-export function RecoveryNeurochemistryPanel({
-  substance,
-  temporal,
-}: RecoveryNeurochemistryPanelProps) {
-  const { t } = useTranslation(["recovery", "neurotransmitters", "mechanisms", "explore"]);
+export function RecoveryNeurochemistryPanel({ substance }: RecoveryNeurochemistryPanelProps) {
+  const { t } = useTranslation(["recovery", "neurotransmitters", "mechanisms"]);
   const base = useShellBase();
-  const view = presentEducationalNtRecovery(
-    educationalNtInputFromRecovery(substance, temporal),
-  );
-  const emptyHint = statusCopy(view, (key) => t(key));
-  const daysLabel =
-    view.daysUsed == null
-      ? null
-      : view.daysUsed === 1
-        ? t("dayOne")
-        : t("daysMany", { count: view.daysUsed });
+  const view = presentEducationalNtRecovery(substance.id);
+  const describedBy = view.showAlcoholClinicalWarning
+    ? "recovery-nt-warning recovery-nt-alcohol-warning"
+    : "recovery-nt-warning";
 
   return (
     <section
       className="rounded-2xl border border-soma-line-strong bg-soma-surface/80 p-4 sm:p-5"
       aria-labelledby="recovery-nt-title"
-      aria-describedby="recovery-nt-warning"
+      aria-describedby={describedBy}
     >
       <h2 id="recovery-nt-title" className="text-base font-semibold text-soma-ink">
         {t("recoveryNtTitle")}
       </h2>
       <p className="mt-1 text-sm text-soma-ink-secondary">
         {t("recoveryNtSubstance", { name: substance.name })}
-        {daysLabel ? ` · ${t("recoveryNtDaysUsed", { days: daysLabel })}` : null}
       </p>
-      {view.educationalPhase ? (
-        <p className="mt-1 text-xs text-soma-ink-muted">
-          {t("recoveryNtPhaseLabel")}: {t(`explore:ntPhases.${view.educationalPhase}`)}
-          {view.window ? ` · ${t(`recoveryNtWindow.${view.educationalPhase}`)}` : null}
-        </p>
-      ) : null}
+      <p className="mt-1 text-xs text-soma-ink-muted">{t("recoveryNtIllustrativePhase")}</p>
 
       <p
         id="recovery-nt-warning"
@@ -120,8 +91,13 @@ export function RecoveryNeurochemistryPanel({
         {t("recoveryNtWarning")}
       </p>
 
-      {emptyHint ? (
-        <p className="mt-3 text-sm text-soma-ink-muted">{emptyHint}</p>
+      {view.showAlcoholClinicalWarning ? (
+        <p
+          id="recovery-nt-alcohol-warning"
+          className="mt-2 rounded-xl border border-soma-warning/40 bg-soma-warning/10 px-3 py-2 text-xs leading-relaxed text-soma-ink-secondary"
+        >
+          {t("recoveryNtAlcoholWarning")}
+        </p>
       ) : null}
 
       {view.rows.length > 0 ? (

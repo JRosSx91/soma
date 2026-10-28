@@ -265,12 +265,9 @@
   "recoverySeeAtlas": "Open full atlas",
   "recoveryNtTitle": "Educational neurochemical signaling",
   "recoveryNtSubstance": "Focused substance: {{name}}",
-  "recoveryNtDaysUsed": "Abstinence days used: {{days}}",
-  "recoveryNtPhaseLabel": "Educational phase",
-  "recoveryNtWarning": "This visualization shows qualitative states from an educational model. It does not measure your neurotransmitters or predict your individual recovery. Phases use a calendar shared across substances and are not personalized clinical limits.",
-  "recoveryNtMissingDate": "There is no last-use date, so we do not assign an educational phase.",
-  "recoveryNtDayZero": "Abstinence day 0: no withdrawal phase can be assigned yet. This is not active use.",
-  "recoveryNtActive": "Active use: the catalog shows the during-use phase and does not present an abstinence day count.",
+  "recoveryNtIllustrativePhase": "Educational example: post-acute phase",
+  "recoveryNtWarning": "These profiles are educational. The phase shown is illustrative: it is not deduced from your abstinence days, it is not a neurotransmitter measurement, and it does not predict your individual recovery.",
+  "recoveryNtAlcoholWarning": "Alcohol withdrawal can cause serious complications, including seizures and delirium tremens, especially in people with physical dependence. This panel cannot assess that risk. If there is physical dependence or a history of complicated withdrawal, stopping alcohol should include medical assessment.",
   "recoveryNtDirectionLabel": "Model direction",
   "recoveryNtMechanismLabel": "Educational mechanism",
   "recoveryNtConfidence": "Profile confidence: {{level}}",
@@ -287,12 +284,6 @@
     "elevated": "Elevated",
     "oscillating": "Oscillating",
     "normalizing": "Normalizing"
-  },
-  "recoveryNtWindow": {
-    "during_use": "Shared educational calendar: active use",
-    "acute_withdrawal": "Shared educational calendar: days 1–7",
-    "post_acute": "Shared educational calendar: days 8–56",
-    "normalizing": "Shared educational calendar: from day 57"
   },
   "recoveryTrajectoryHint": "On an estimated trajectory",
   "demoDisclaimer": "Fictional figures and copy. They are not clinical measurements.",

@@ -287,12 +287,7 @@ export function RecoveryPage() {
         </RecoveryFocusPanel>
       ) : null}
 
-      {showNeurochemistry ? (
-        <RecoveryNeurochemistryPanel
-          substance={substance}
-          temporal={temporalById.get(substance.id)}
-        />
-      ) : null}
+      {showNeurochemistry ? <RecoveryNeurochemistryPanel substance={substance} /> : null}
 
       {tab === "system" ? (
         dashboard.systems.length === 0 ? (

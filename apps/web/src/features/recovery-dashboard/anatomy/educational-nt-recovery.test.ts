@@ -6,7 +6,7 @@ import {
   educationalNtQualitativeProfiles,
 } from "./educational-nt-qualitative-catalog.ts";
 import {
-  educationalNtInputFromRecovery,
+  ILLUSTRATIVE_NT_PHASE,
   presentEducationalNtRecovery,
 } from "./educational-nt-recovery.ts";
 import { educationalNtProfiles } from "./neurotransmitter-education.ts";
@@ -15,6 +15,7 @@ const seedSource = readFileSync(
   new URL("../../../../../../apps/api/prisma/seed/neurotransmitter-profiles.ts", import.meta.url),
   "utf8",
 );
+const adapterSource = readFileSync(new URL("./educational-nt-recovery.ts", import.meta.url), "utf8");
 
 function parseSeedProfiles(source: string) {
   const ranges: Record<string, { startDay: number; endDay: number | null }> = {};
@@ -60,6 +61,23 @@ function parseSeedProfiles(source: string) {
   return { ranges, profiles };
 }
 
+function snapshot(substanceId: string) {
+  const view = presentEducationalNtRecovery(substanceId);
+  return {
+    phase: view.illustrativePhase,
+    warning: view.showAlcoholClinicalWarning,
+    rows: view.rows.map((row) => ({
+      substanceId: row.substanceId,
+      neurotransmitter: row.neurotransmitter,
+      mechanismKey: row.mechanismKey,
+      direction: row.direction,
+      severity: row.severity,
+      illustrativePhase: row.illustrativePhase,
+      confidence: row.confidence,
+    })),
+  };
+}
+
 test("qualitative catalog is a read-only parity mirror of the NT seed", () => {
   const parsed = parseSeedProfiles(seedSource);
   assert.deepEqual(parsed.ranges, educationalNtPhaseWindows);
@@ -82,46 +100,41 @@ test("qualitative catalog is a read-only parity mirror of the NT seed", () => {
   assert.doesNotMatch(seedSource, /curveProgress/);
 });
 
-test("cannabis at 42 days uses the shared post-acute educational phase", () => {
-  const view = presentEducationalNtRecovery({
-    substanceId: "cannabis",
-    usageStatus: "abstinent",
-    daysAbstinent: 42,
-  });
-  assert.equal(view.clockStatus, "abstinent");
-  assert.equal(view.daysUsed, 42);
-  assert.equal(view.educationalPhase, "post_acute");
+test("adapter does not select a cell from abstinence days", () => {
+  assert.doesNotMatch(adapterSource, /daysAbstinent/);
+  assert.doesNotMatch(adapterSource, /abstinencePhaseForDays/);
+  assert.doesNotMatch(adapterSource, /educationalNtPhaseWindows/);
+  assert.doesNotMatch(adapterSource, /usageStatus/);
+  assert.doesNotMatch(adapterSource, /clockStatus/);
+  assert.equal(ILLUSTRATIVE_NT_PHASE, "post_acute");
+});
+
+test("cannabis at 42 and 120 days would show the same educational example", () => {
+  const at42 = snapshot("cannabis");
+  const at120 = snapshot("cannabis");
+  assert.deepEqual(at42, at120);
+  assert.equal(at42.phase, "post_acute");
+  assert.equal(at42.warning, false);
   assert.deepEqual(
-    view.rows.map((row) => row.neurotransmitter),
-    ["endocannabinoid", "dopamine", "gaba"],
+    at42.rows.map((row) => [row.neurotransmitter, row.direction, row.severity]),
+    [
+      ["endocannabinoid", "depleted", "mild"],
+      ["dopamine", "normalizing", "mild"],
+      ["gaba", "normalizing", "mild"],
+    ],
   );
-  assert.deepEqual(
-    view.rows.map((row) => row.severity),
-    ["mild", "mild", "mild"],
-  );
-  assert.deepEqual(
-    view.rows.map((row) => row.direction),
-    ["depleted", "normalizing", "normalizing"],
-  );
-  for (const row of view.rows) {
+  for (const row of at42.rows) {
     assert.equal(row.substanceId, "cannabis");
-    assert.equal(row.educationalPhase, "post_acute");
-    assert.equal(row.daysUsed, 42);
-    assert.equal(row.calendarKind, "shared_educational_windows");
-    assert.equal(row.window.startDay, 8);
-    assert.equal(row.window.endDay, 56);
+    assert.equal(row.illustrativePhase, "post_acute");
   }
 });
 
-test("nicotine at 15 days uses the shared post-acute educational phase", () => {
-  const view = presentEducationalNtRecovery({
-    substanceId: "nicotine",
-    usageStatus: "abstinent",
-    daysAbstinent: 15,
-  });
-  assert.equal(view.educationalPhase, "post_acute");
+test("nicotine at 15 and 90 days does not change severity by clock", () => {
+  const at15 = snapshot("nicotine");
+  const at90 = snapshot("nicotine");
+  assert.deepEqual(at15, at90);
   assert.deepEqual(
-    view.rows.map((row) => [row.neurotransmitter, row.direction, row.severity]),
+    at15.rows.map((row) => [row.neurotransmitter, row.direction, row.severity]),
     [
       ["acetylcholine", "depleted", "moderate"],
       ["dopamine", "depleted", "mild"],
@@ -129,84 +142,41 @@ test("nicotine at 15 days uses the shared post-acute educational phase", () => {
   );
 });
 
-test("cocaine at 120 days uses the educational normalizing phase", () => {
-  const view = presentEducationalNtRecovery({
-    substanceId: "cocaine",
-    usageStatus: "abstinent",
-    daysAbstinent: 120,
-  });
-  assert.equal(view.educationalPhase, "normalizing");
-  assert.equal(view.window?.startDay, 57);
-  assert.equal(view.window?.endDay, null);
+test("cocaine keeps its own post-acute profiles", () => {
+  const view = presentEducationalNtRecovery("cocaine");
+  assert.equal(view.illustrativePhase, "post_acute");
   assert.deepEqual(
-    view.rows.map((row) => [row.neurotransmitter, row.direction, row.severity]),
+    view.rows.map((row) => [row.neurotransmitter, row.direction, row.severity, row.mechanismKey]),
     [
-      ["dopamine", "normalizing", "mild"],
-      ["norepinephrine", "normalizing", "mild"],
-      ["serotonin", "normalizing", "mild"],
+      ["dopamine", "depleted", "moderate", "DAT_BLOCKADE"],
+      ["norepinephrine", "oscillating", "moderate", "NET_BLOCKADE"],
+      ["serotonin", "depleted", "mild", "SERT_BLOCKADE"],
     ],
   );
 });
 
-test("active use selects during_use and does not present abstinence days", () => {
-  const view = presentEducationalNtRecovery({
-    substanceId: "cannabis",
-    usageStatus: "active",
-    daysAbstinent: 42,
-  });
-  assert.equal(view.clockStatus, "active");
-  assert.equal(view.daysUsed, null);
-  assert.equal(view.educationalPhase, "during_use");
-  for (const row of view.rows) {
-    assert.equal(row.daysUsed, null);
-    assert.equal(row.clockStatus, "active");
-    assert.equal(row.educationalPhase, "during_use");
-  }
-  assert.deepEqual(
-    view.rows.map((row) => [row.neurotransmitter, row.direction, row.severity]),
-    [
-      ["endocannabinoid", "elevated", "severe"],
-      ["dopamine", "elevated", "mild"],
-      ["gaba", "oscillating", "mild"],
-    ],
+test("active use does not produce a personalized during-use phase", () => {
+  const active = snapshot("cannabis");
+  const abstinent = snapshot("cannabis");
+  assert.deepEqual(active, abstinent);
+  assert.equal(active.phase, "post_acute");
+  assert.equal(
+    active.rows.some((row) => row.direction === "elevated" && row.severity === "severe"),
+    false,
   );
 });
 
-test("missing date does not invent a phase", () => {
-  const view = presentEducationalNtRecovery({
-    substanceId: "nicotine",
-    usageStatus: "abstinent",
-    daysAbstinent: null,
-  });
-  assert.equal(view.clockStatus, "missing_date");
-  assert.equal(view.educationalPhase, null);
-  assert.deepEqual(view.rows, []);
-});
-
-test("day zero abstinence is not active use and has no withdrawal phase", () => {
-  const view = presentEducationalNtRecovery({
-    substanceId: "cannabis",
-    usageStatus: "abstinent",
-    daysAbstinent: 0,
-  });
-  assert.equal(view.clockStatus, "day_zero");
-  assert.equal(view.daysUsed, 0);
-  assert.equal(view.educationalPhase, null);
-  assert.deepEqual(view.rows, []);
-  assert.notEqual(view.clockStatus, "active");
+test("missing date does not invent a personal neurochemical state", () => {
+  const missing = snapshot("nicotine");
+  const dated = snapshot("nicotine");
+  assert.deepEqual(missing, dated);
+  assert.equal(missing.phase, "post_acute");
+  assert.ok(missing.rows.length > 0);
 });
 
 test("focused substance is never composed with another substance", () => {
-  const cannabis = presentEducationalNtRecovery({
-    substanceId: "cannabis",
-    usageStatus: "abstinent",
-    daysAbstinent: 42,
-  });
-  const nicotine = presentEducationalNtRecovery({
-    substanceId: "nicotine",
-    usageStatus: "abstinent",
-    daysAbstinent: 15,
-  });
+  const cannabis = presentEducationalNtRecovery("cannabis");
+  const nicotine = presentEducationalNtRecovery("nicotine");
   assert.equal(
     cannabis.rows.some((row) => row.substanceId !== "cannabis"),
     false,
@@ -222,60 +192,34 @@ test("focused substance is never composed with another substance", () => {
   assert.equal(cannabisDopamine.substanceId, "cannabis");
   assert.equal(nicotineDopamine.substanceId, "nicotine");
   assert.notEqual(cannabisDopamine.mechanismKey, nicotineDopamine.mechanismKey);
-  assert.equal(cannabisDopamine.daysUsed, 42);
-  assert.equal(nicotineDopamine.daysUsed, 15);
+  assert.notEqual(cannabisDopamine.direction, nicotineDopamine.direction);
+});
+
+test("illustrative phase is labeled post-acute and alcohol gets a clinical warning flag", () => {
+  const cannabis = presentEducationalNtRecovery("cannabis");
+  const alcohol = presentEducationalNtRecovery("alcohol");
+  assert.equal(cannabis.illustrativePhase, "post_acute");
+  assert.equal(alcohol.illustrativePhase, "post_acute");
+  assert.equal(cannabis.showAlcoholClinicalWarning, false);
+  assert.equal(alcohol.showAlcoholClinicalWarning, true);
+  assert.deepEqual(
+    alcohol.rows.map((row) => [row.neurotransmitter, row.direction, row.severity]),
+    [
+      ["gaba", "depleted", "moderate"],
+      ["glutamate", "elevated", "mild"],
+      ["dopamine", "depleted", "mild"],
+      ["serotonin", "normalizing", "mild"],
+    ],
+  );
 });
 
 test("adapter does not read curveProgress or invent extra transmitters", () => {
-  const source = readFileSync(new URL("./educational-nt-recovery.ts", import.meta.url), "utf8");
-  assert.doesNotMatch(source, /curveProgress/);
-  assert.doesNotMatch(source, /estimatedRecovery/);
-  assert.doesNotMatch(source, /worstSource/);
-  assert.doesNotMatch(source, /neurotransmitter-state/);
-  const unknown = presentEducationalNtRecovery({
-    substanceId: "unknown",
-    usageStatus: "abstinent",
-    daysAbstinent: 20,
-  });
-  assert.equal(unknown.educationalPhase, "post_acute");
+  assert.doesNotMatch(adapterSource, /curveProgress/);
+  assert.doesNotMatch(adapterSource, /estimatedRecovery/);
+  assert.doesNotMatch(adapterSource, /worstSource/);
+  assert.doesNotMatch(adapterSource, /neurotransmitter-state/);
+  const unknown = presentEducationalNtRecovery("unknown");
+  assert.equal(unknown.illustrativePhase, "post_acute");
+  assert.equal(unknown.showAlcoholClinicalWarning, false);
   assert.deepEqual(unknown.rows, []);
-});
-
-test("recovery clock mapping uses the temporal milestone clock", () => {
-  assert.deepEqual(
-    educationalNtInputFromRecovery(
-      { id: "cannabis", usageStatus: "abstinent" },
-      {
-        substanceId: "cannabis",
-        status: "upcoming",
-        daysAbstinent: 42,
-        next: null,
-      },
-    ),
-    { substanceId: "cannabis", usageStatus: "abstinent", daysAbstinent: 42 },
-  );
-  assert.deepEqual(
-    educationalNtInputFromRecovery(
-      { id: "nicotine", usageStatus: "active" },
-      {
-        substanceId: "nicotine",
-        status: "active_use",
-        daysAbstinent: null,
-        next: null,
-      },
-    ),
-    { substanceId: "nicotine", usageStatus: "active", daysAbstinent: null },
-  );
-  assert.deepEqual(
-    educationalNtInputFromRecovery(
-      { id: "cocaine", usageStatus: "abstinent" },
-      {
-        substanceId: "cocaine",
-        status: "missing_date",
-        daysAbstinent: null,
-        next: null,
-      },
-    ),
-    { substanceId: "cocaine", usageStatus: "abstinent", daysAbstinent: null },
-  );
 });
