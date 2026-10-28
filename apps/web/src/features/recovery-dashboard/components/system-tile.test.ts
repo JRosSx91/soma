@@ -9,8 +9,8 @@ test("demo system tiles keep numeric percents and label them as day 365", () => 
   const tile = readFileSync(new URL("./SystemTile.tsx", import.meta.url), "utf8");
   assert.match(tile, /t\("day365"\)/);
   assert.match(tile, /!live \? \(/);
-  assert.equal(esRecovery.day365, "día 365");
-  assert.equal(enRecovery.day365, "day 365");
+  assert.equal(esRecovery.day365, "Modelo: día 365");
+  assert.equal(enRecovery.day365, "Model: day 365");
   const systems = demoDashboardSystems();
   assert.equal(systems.find((item) => item.id === "nervous")?.endLabel, "68%");
   assert.equal(systems.find((item) => item.id === "cardio")?.endLabel, "72%");

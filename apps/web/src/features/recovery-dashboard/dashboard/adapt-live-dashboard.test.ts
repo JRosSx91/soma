@@ -300,7 +300,7 @@ test("multi-substance overlay hides Today and keeps checkpoint axis", () => {
   for (const series of overlay.series) {
     assert.equal(series.endLabel, "");
     assert.doesNotMatch(series.endLabel, /Hoy/);
-    assert.match(series.referenceAtYearLabel ?? "", /^día 365 · /);
+    assert.match(series.referenceAtYearLabel ?? "", /^Modelo: día 365 · /);
     assert.equal(series.samples.length, LIVE_AXIS_DAYS.length);
     assert.deepEqual([...LIVE_AXIS_DAYS], [0, 30, 90, 180, 365]);
   }
@@ -925,11 +925,11 @@ test("chart endLabel is today trajectory, not day-365 sample", () => {
     recoveryCeiling: 0.9,
   }).curveProgress;
   assert.match(cardio.endLabel, /^Hoy · \d+ % de la curva$/);
-  assert.match(cardio.referenceAtYearLabel ?? "", /^día 365 · \d+%/);
+  assert.match(cardio.referenceAtYearLabel ?? "", /^Modelo: día 365 · \d+%/);
   assert.equal(cardio.endLabel, `Hoy · ${Math.round(today * 100)} % de la curva`);
   assert.equal(
     cardio.referenceAtYearLabel,
-    `día 365 · ${Math.round(atYear * 100)}%`,
+    `Modelo: día 365 · ${Math.round(atYear * 100)}%`,
   );
   assert.notEqual(cardio.endLabel, cardio.referenceAtYearLabel);
   assert.equal(cardio.samples.length, LIVE_AXIS_DAYS.length);
@@ -974,7 +974,7 @@ test("day 0 and >365 keep distinct today vs year labels", () => {
   const cardioFar = far.series.find((item) => item.id === "cardiovascular");
   assert.ok(cardioFar);
   assert.match(cardioFar.endLabel, /^Hoy · /);
-  assert.match(cardioFar.referenceAtYearLabel ?? "", /^día 365 · /);
+  assert.match(cardioFar.referenceAtYearLabel ?? "", /^Modelo: día 365 · /);
 });
 
 test("ceiling 0.6 keeps progressFraction as primary bar; absoluteRecovery lower", () => {

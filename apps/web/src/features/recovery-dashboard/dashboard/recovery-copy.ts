@@ -105,7 +105,7 @@ export function recoveryCopyFromSource(
 const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   unavailable: "Fecha pendiente",
   today: "Hoy",
-  day365: "día 365",
+  day365: "Modelo: día 365",
   axisStart: "Inicio",
   axis1Month: "1 mes",
   axis3Months: "3 meses",
@@ -116,7 +116,7 @@ const SPANISH_RECOVERY_BUNDLE: Record<string, string> = {
   liveFootnoteOverlay:
     "Como las sustancias tienen distintos días de abstinencia, no podemos señalar un único «hoy» en el gráfico.",
   demoFootnote:
-    "Valores de demostración. Cada sustancia tiene su propio recuento de días, así que no hay un «hoy» compartido. La leyenda usa el punto de cada curva en el día 365 del eje.",
+    "Valores de demostración. Cada sustancia tiene su propio recuento de días, así que no hay un «hoy» compartido. La leyenda muestra el avance de cada curva educativa en «Modelo: día 365», no el día actual de abstinencia.",
   dayOne: "1 día",
   daysMany: "{{count}} días",
   activeShort: "Consumo activo",
