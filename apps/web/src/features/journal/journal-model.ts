@@ -222,6 +222,12 @@ export interface EmotionFrequency {
   percent: number;
 }
 
+export interface TriggerFrequency {
+  id: JournalTriggerId;
+  count: number;
+  percent: number;
+}
+
 /**
  * Percent of entries that include the emotion, among entries that have at
  * least one emotion. One entry may carry several tags, so percents need not
@@ -230,16 +236,34 @@ export interface EmotionFrequency {
 export function emotionFrequencies(
   entries: readonly JournalEntry[],
 ): EmotionFrequency[] {
-  const withEmotions = entries.filter((row) =>
-    row.emotionIds.some((id) => isJournalEmotionId(id)),
-  );
-  const denom = withEmotions.length;
+  return tagFrequencies(
+    entries,
+    (row) => row.emotionIds,
+    isJournalEmotionId,
+  ) as EmotionFrequency[];
+}
+
+export function triggerFrequencies(
+  entries: readonly JournalEntry[],
+): TriggerFrequency[] {
+  return tagFrequencies(
+    entries,
+    (row) => row.triggerIds,
+    isJournalTriggerId,
+  ) as TriggerFrequency[];
+}
+
+function tagFrequencies<T extends string>(
+  entries: readonly JournalEntry[],
+  tagsOf: (row: JournalEntry) => readonly string[],
+  isId: (value: string) => value is T,
+): Array<{ id: T; count: number; percent: number }> {
+  const tagged = entries.filter((row) => tagsOf(row).some((id) => isId(id)));
+  const denom = tagged.length;
   if (denom === 0) return [];
-  const counts = new Map<JournalEmotionId, number>();
-  for (const row of withEmotions) {
-    const unique = new Set(
-      row.emotionIds.filter((id): id is JournalEmotionId => isJournalEmotionId(id)),
-    );
+  const counts = new Map<T, number>();
+  for (const row of tagged) {
+    const unique = new Set(tagsOf(row).filter((id): id is T => isId(id)));
     for (const id of unique) {
       counts.set(id, (counts.get(id) ?? 0) + 1);
     }
@@ -253,6 +277,77 @@ export function emotionFrequencies(
     .sort((a, b) => b.count - a.count || a.id.localeCompare(b.id));
 }
 
+export const JOURNAL_SCALE_IDS = [
+  "wellbeing",
+  "mood",
+  "sleep",
+  "energy",
+  "anxiety",
+  "craving",
+] as const;
+
+export type JournalScaleId = (typeof JOURNAL_SCALE_IDS)[number];
+
+export const JOURNAL_SCALE_RANGE: Record<
+  JournalScaleId,
+  { min: number; max: number; field: keyof JournalEntry }
+> = {
+  wellbeing: { min: 0, max: 10, field: "wellbeingRating" },
+  mood: { min: 1, max: 5, field: "mood" },
+  sleep: { min: 1, max: 5, field: "sleep" },
+  energy: { min: 1, max: 5, field: "energy" },
+  anxiety: { min: 1, max: 5, field: "anxiety" },
+  craving: { min: 1, max: 5, field: "cravingIntensity" },
+};
+
+export const JOURNAL_TREND_WINDOWS = [28, 90, "all"] as const;
+export type JournalTrendWindow = (typeof JOURNAL_TREND_WINDOWS)[number];
+export const JOURNAL_COINCIDENCE_MIN = 3;
+export const JOURNAL_COINCIDENCE_MAX = 8;
+export const JOURNAL_TAG_ENTRY_PAGE = 8;
+
+export interface DailyScalePoint {
+  occurredOn: string;
+  value: number;
+}
+
+export function filterEntriesInCivilWindow(
+  entries: readonly JournalEntry[],
+  today: string,
+  window: JournalTrendWindow,
+): JournalEntry[] {
+  if (window === "all") return [...entries];
+  const from = shiftCivilDate(today, -(window - 1));
+  return entries.filter(
+    (row) => row.occurredOn >= from && row.occurredOn <= today,
+  );
+}
+
+/**
+ * One civil-day point per scale: mean of present ratings that day.
+ * Nulls omitted. Wellbeing 0 is kept. Days without ratings are skipped.
+ */
+export function dailyScaleSeries(
+  entries: readonly JournalEntry[],
+  scale: JournalScaleId,
+): DailyScalePoint[] {
+  const field = JOURNAL_SCALE_RANGE[scale].field;
+  const buckets = new Map<string, number[]>();
+  for (const row of entries) {
+    const raw = row[field];
+    if (typeof raw !== "number") continue;
+    const list = buckets.get(row.occurredOn) ?? [];
+    list.push(raw);
+    buckets.set(row.occurredOn, list);
+  }
+  return [...buckets.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([occurredOn, values]) => ({
+      occurredOn,
+      value: values.reduce((sum, value) => sum + value, 0) / values.length,
+    }));
+}
+
 export interface MoodPoint {
   occurredOn: string;
   mood: number;
@@ -264,25 +359,83 @@ export interface WellbeingPoint {
 }
 
 export function moodSeries(entries: readonly JournalEntry[]): MoodPoint[] {
-  return [...entries]
-    .filter((row): row is JournalEntry & { mood: number } => typeof row.mood === "number")
-    .reverse()
-    .map((row) => ({ occurredOn: row.occurredOn, mood: row.mood }));
+  return dailyScaleSeries(entries, "mood").map((point) => ({
+    occurredOn: point.occurredOn,
+    mood: point.value,
+  }));
 }
 
 export function wellbeingSeries(
   entries: readonly JournalEntry[],
 ): WellbeingPoint[] {
-  return [...entries]
-    .filter(
-      (row): row is JournalEntry & { wellbeingRating: number } =>
-        typeof row.wellbeingRating === "number",
+  return dailyScaleSeries(entries, "wellbeing").map((point) => ({
+    occurredOn: point.occurredOn,
+    wellbeingRating: point.value,
+  }));
+}
+
+export function entriesWithEmotion(
+  entries: readonly JournalEntry[],
+  emotionId: JournalEmotionId,
+): JournalEntry[] {
+  return sortJournalEntries(
+    entries.filter((row) => row.emotionIds.includes(emotionId)),
+  );
+}
+
+export function entriesWithTrigger(
+  entries: readonly JournalEntry[],
+  triggerId: JournalTriggerId,
+): JournalEntry[] {
+  return sortJournalEntries(
+    entries.filter((row) => row.triggerIds.includes(triggerId)),
+  );
+}
+
+export interface TagCoincidence {
+  emotionId: JournalEmotionId;
+  triggerId: JournalTriggerId;
+  count: number;
+}
+
+/**
+ * Descriptive co-occurrence of emotion and trigger on the same entry.
+ * Counts entries, not days. Presentation threshold is not a statistic.
+ */
+export function emotionTriggerCoincidences(
+  entries: readonly JournalEntry[],
+  minCount = JOURNAL_COINCIDENCE_MIN,
+): TagCoincidence[] {
+  const counts = new Map<string, TagCoincidence>();
+  for (const row of entries) {
+    const emotions = [
+      ...new Set(
+        row.emotionIds.filter((id): id is JournalEmotionId => isJournalEmotionId(id)),
+      ),
+    ];
+    const triggers = [
+      ...new Set(
+        row.triggerIds.filter((id): id is JournalTriggerId => isJournalTriggerId(id)),
+      ),
+    ];
+    for (const emotionId of emotions) {
+      for (const triggerId of triggers) {
+        const key = `${emotionId}\0${triggerId}`;
+        const current = counts.get(key);
+        if (current) current.count += 1;
+        else counts.set(key, { emotionId, triggerId, count: 1 });
+      }
+    }
+  }
+  return [...counts.values()]
+    .filter((row) => row.count >= minCount)
+    .sort(
+      (a, b) =>
+        b.count - a.count ||
+        a.emotionId.localeCompare(b.emotionId) ||
+        a.triggerId.localeCompare(b.triggerId),
     )
-    .reverse()
-    .map((row) => ({
-      occurredOn: row.occurredOn,
-      wellbeingRating: row.wellbeingRating,
-    }));
+    .slice(0, JOURNAL_COINCIDENCE_MAX);
 }
 
 export type JournalFormIssue =

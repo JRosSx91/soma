@@ -97,6 +97,24 @@ test("journal form covers required fields and catalogs", () => {
   assert.match(form, /form.sectionFeeling/);
 });
 
+test("journal patterns and emotions tabs stay descriptive and local for DEMO", () => {
+  assert.match(page, /dailyScaleSeries/);
+  assert.match(page, /filterEntriesInCivilWindow/);
+  assert.match(page, /emotionTriggerCoincidences\(patternEntries\)/);
+  assert.match(page, /triggerFrequencies/);
+  assert.match(page, /wellbeingAverage\(entries, today\)/);
+  assert.match(page, /tagListLimit/);
+  assert.match(page, /JOURNAL_TAG_ENTRY_PAGE/);
+  assert.match(page, /patterns\.coincidencesHint/);
+  assert.match(esJournal.emotionsTab.hint, /todo el historial/);
+  assert.match(enJournal.emotionsTab.hint, /full history/);
+  assert.match(page, /fetchAllJournalEntries/);
+  assert.equal(esJournal.patterns.coincidencesHint.includes("provoque"), true);
+  assert.equal(enJournal.patterns.coincidencesHint.includes("cause"), true);
+  assert.match(esJournal.emotionsTab.help, /100/);
+  assert.equal(demo.includes("/me/journal"), false);
+});
+
 test("journal copy exists in spanish and english", () => {
   assert.equal(esJournal.eyebrow, "Bitácora");
   assert.equal(enJournal.eyebrow, "Journal");

@@ -21,11 +21,16 @@ import {
   Sparkles,
   Sun,
   Target,
+  Users,
   Waves,
   Zap,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { JOURNAL_MILESTONE_KIND_IDS } from "@soma/shared-types";
+import {
+  JOURNAL_MILESTONE_KIND_IDS,
+  type JournalEmotionId,
+  type JournalTriggerId,
+} from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import {
@@ -56,32 +61,42 @@ import {
   JOURNAL_DEMO_LIST_PAGE_SIZE,
   JOURNAL_LIST_PAGE_SIZE,
   JOURNAL_MILESTONE_NOTE_MAX,
+  JOURNAL_SCALE_IDS,
+  JOURNAL_SCALE_RANGE,
+  JOURNAL_TAG_ENTRY_PAGE,
   JOURNAL_TABS,
+  JOURNAL_TREND_WINDOWS,
   appendJournalPage,
   applyJournalListFilters,
   civilYearMonth,
   countJournalDays,
   currentJournalStreak,
+  dailyScaleSeries,
   daysWithEntriesInMonth,
   emotionFrequencies,
+  emotionTriggerCoincidences,
   entriesOnDay,
+  entriesWithEmotion,
+  entriesWithTrigger,
   entryPreview,
+  filterEntriesInCivilWindow,
   highlightedEntries,
   isJournalMilestoneKind,
   latestJournalEntry,
   learningEntries,
   localCivilDate,
-  moodSeries,
   selectionForVisibleMonth,
   shiftCivilMonth,
+  triggerFrequencies,
   wellbeingAverage,
-  wellbeingSeries,
   type JournalEntry,
   type JournalEntryWrite,
   type JournalListFilters,
   type JournalMilestone,
   type JournalMilestoneWrite,
+  type JournalScaleId,
   type JournalTab,
+  type JournalTrendWindow,
 } from "../../journal/journal-model.js";
 import { useSubstances } from "../../substances/index.js";
 
@@ -117,6 +132,17 @@ const EMOTION_STYLE: Record<string, { icon: typeof Sun; color: string }> = {
   grateful: { icon: Leaf, color: "#86efac" },
 };
 
+const TRIGGER_STYLE: Record<string, { icon: typeof Sun; color: string }> = {
+  conflict: { icon: Flame, color: "#fb7185" },
+  fatigue: { icon: Moon, color: "#94a3b8" },
+  boredom: { icon: Cloud, color: "#818cf8" },
+  social: { icon: Users, color: "#fb923c" },
+  place: { icon: Flag, color: "#86efac" },
+  cue: { icon: Sparkles, color: "#facc15" },
+  loneliness: { icon: CloudRain, color: "#38bdf8" },
+  stress: { icon: Zap, color: "#f472b6" },
+};
+
 const MILESTONE_STYLE: Record<string, { icon: typeof Sun; color: string }> = {
   clarity: { icon: Sun, color: "#5eead4" },
   rest: { icon: Moon, color: "#818cf8" },
@@ -146,6 +172,14 @@ export function JournalPage() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [chartSeries, setChartSeries] = useState<ChartSeries>("wellbeing");
+  const [patternScale, setPatternScale] = useState<JournalScaleId>("wellbeing");
+  const [patternWindow, setPatternWindow] = useState<JournalTrendWindow>(28);
+  const [tagPick, setTagPick] = useState<
+    | { kind: "emotion"; id: JournalEmotionId }
+    | { kind: "trigger"; id: JournalTriggerId }
+    | null
+  >(null);
+  const [tagListLimit, setTagListLimit] = useState(JOURNAL_TAG_ENTRY_PAGE);
   const today = localCivilDate();
   const todayMonth = civilYearMonth(today);
   const last = latestJournalEntry(entries);
@@ -303,8 +337,28 @@ export function JournalPage() {
   const highlights = highlightedEntries(entries);
   const learnings = learningEntries(entries);
   const emotions = emotionFrequencies(entries);
-  const moods = moodSeries(entries);
-  const wellbeingPoints = wellbeingSeries(entries);
+  const overviewWindow = filterEntriesInCivilWindow(entries, today, 28);
+  const overviewPoints = dailyScaleSeries(
+    overviewWindow,
+    chartSeries === "wellbeing" ? "wellbeing" : "mood",
+  );
+  const overviewRange = JOURNAL_SCALE_RANGE[chartSeries];
+  const patternEntries = filterEntriesInCivilWindow(entries, today, patternWindow);
+  const patternPoints = dailyScaleSeries(patternEntries, patternScale);
+  const patternRange = JOURNAL_SCALE_RANGE[patternScale];
+  const patternEmpty =
+    patternPoints.length === 0
+      ? t("patterns.emptyNone")
+      : patternPoints.length === 1
+        ? t("patterns.emptySingle")
+        : t("overview.evolutionEmpty");
+  const coincidences = emotionTriggerCoincidences(patternEntries);
+  const triggers = triggerFrequencies(entries);
+  const taggedEntries = tagPick
+    ? tagPick.kind === "emotion"
+      ? entriesWithEmotion(entries, tagPick.id)
+      : entriesWithTrigger(entries, tagPick.id)
+    : [];
   const calendarRows =
     live && monthReady && !monthError ? monthEntries : entries;
   const markedDays = daysWithEntriesInMonth(calendarRows, calYear, calMonth);
@@ -601,7 +655,9 @@ export function JournalPage() {
                   <p className="mt-1 text-sm text-soma-ink-secondary">
                     {t("overview.evolutionHint")}
                   </p>
-                  <p className="sr-only">{t("overview.evolutionHelp")}</p>
+                  <p className="mt-1 text-sm text-soma-ink-muted">
+                    {t("overview.evolutionHelp")}
+                  </p>
                 </div>
                 <div className="flex shrink-0 gap-1">
                   {(["wellbeing", "mood"] as const).map((id) => (
@@ -623,26 +679,17 @@ export function JournalPage() {
                 </div>
               </div>
               <div className="mt-2 min-w-0">
-                {chartSeries === "wellbeing" ? (
-                  <ValueChart
-                    points={wellbeingPoints.map((p) => ({
-                      occurredOn: p.occurredOn,
-                      value: p.wellbeingRating,
-                    }))}
-                    min={0}
-                    max={10}
-                    formatCivilShort={formatCivilShort}
-                    empty={t("overview.evolutionEmpty")}
-                  />
-                ) : (
-                  <ValueChart
-                    points={moods.map((p) => ({ occurredOn: p.occurredOn, value: p.mood }))}
-                    min={1}
-                    max={5}
-                    formatCivilShort={formatCivilShort}
-                    empty={t("overview.evolutionEmpty")}
-                  />
-                )}
+                <ValueChart
+                  points={overviewPoints}
+                  min={overviewRange.min}
+                  max={overviewRange.max}
+                  formatCivilShort={formatCivilShort}
+                  empty={
+                    overviewPoints.length === 1
+                      ? t("patterns.emptySingle")
+                      : t("overview.evolutionEmpty")
+                  }
+                />
               </div>
             </section>
             <section className={cardClass}>
@@ -650,7 +697,7 @@ export function JournalPage() {
               <p className="mt-1 text-sm text-soma-ink-secondary">
                 {t("overview.emotionsHint")}
               </p>
-              <p className="sr-only">{t("overview.emotionsHelp")}</p>
+              <p className="mt-1 text-sm text-soma-ink-muted">{t("overview.emotionsHelp")}</p>
               <EmotionBars emotions={emotions} empty={t("overview.emotionsEmpty")} />
             </section>
           </div>
@@ -945,21 +992,174 @@ export function JournalPage() {
       ) : null}
 
       {!loading && !error && tab === "emotions" ? (
-        <section className={cardClass}>
-          <SectionTitle icon={<Smile className="h-4 w-4" />} title={t("overview.emotionsTitle")} />
-          <p className="mt-1 text-sm text-soma-ink-secondary">{t("overview.emotionsHint")}</p>
-          <p className="sr-only">{t("overview.emotionsHelp")}</p>
-          <EmotionBars emotions={emotions} empty={t("overview.emotionsEmpty")} />
-        </section>
+        <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+          <section className={cardClass}>
+            <SectionTitle icon={<Smile className="h-4 w-4" />} title={t("overview.emotionsTitle")} />
+            <p className="mt-1 text-sm text-soma-ink-secondary">{t("emotionsTab.hint")}</p>
+            <p className="mt-1 text-sm text-soma-ink-muted">{t("emotionsTab.help")}</p>
+            <FrequencyBars
+              items={emotions}
+              empty={t("overview.emotionsEmpty")}
+              labelKey="emotions"
+              styles={EMOTION_STYLE}
+              selectedId={tagPick?.kind === "emotion" ? tagPick.id : null}
+              onSelect={(id) => {
+                setTagListLimit(JOURNAL_TAG_ENTRY_PAGE);
+                setTagPick((current) =>
+                  current?.kind === "emotion" && current.id === id
+                    ? null
+                    : { kind: "emotion", id: id as JournalEmotionId },
+                );
+              }}
+            />
+          </section>
+          <section className={cardClass}>
+            <SectionTitle icon={<Flag className="h-4 w-4" />} title={t("emotionsTab.triggersTitle")} />
+            <p className="mt-1 text-sm text-soma-ink-secondary">{t("emotionsTab.hint")}</p>
+            <p className="mt-1 text-sm text-soma-ink-muted">{t("emotionsTab.help")}</p>
+            <FrequencyBars
+              items={triggers}
+              empty={t("emotionsTab.triggersEmpty")}
+              labelKey="triggers"
+              styles={TRIGGER_STYLE}
+              selectedId={tagPick?.kind === "trigger" ? tagPick.id : null}
+              onSelect={(id) => {
+                setTagListLimit(JOURNAL_TAG_ENTRY_PAGE);
+                setTagPick((current) =>
+                  current?.kind === "trigger" && current.id === id
+                    ? null
+                    : { kind: "trigger", id: id as JournalTriggerId },
+                );
+              }}
+            />
+          </section>
+          <section className={`${cardClass} lg:col-span-2`}>
+            {tagPick ? (
+              <>
+                <h2 className="text-lg font-semibold text-soma-ink">
+                  {t("emotionsTab.relatedTitle", {
+                    label:
+                      tagPick.kind === "emotion"
+                        ? t(`emotions.${tagPick.id}`)
+                        : t(`triggers.${tagPick.id}`),
+                  })}
+                </h2>
+                {taggedEntries.length === 0 ? (
+                  <p className="mt-3 text-sm text-soma-ink-muted">
+                    {t("emotionsTab.relatedEmpty")}
+                  </p>
+                ) : (
+                  <ul className="mt-3 flex flex-col gap-2">
+                    {taggedEntries.slice(0, tagListLimit).map((item) => (
+                      <li key={item.id}>
+                        <EntryRow
+                          entry={item}
+                          formatCivil={formatCivil}
+                          onOpen={(row) => setSheet({ kind: "view", entry: row })}
+                          compact
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {taggedEntries.length > tagListLimit ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setTagListLimit((count) => count + JOURNAL_TAG_ENTRY_PAGE)
+                    }
+                    className={`${previewFocus} mt-3 min-h-11 text-sm text-soma-action`}
+                  >
+                    {t("entries.loadMore")}
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              <p className="text-sm text-soma-ink-secondary">{t("emotionsTab.selectHint")}</p>
+            )}
+          </section>
+        </div>
       ) : null}
 
       {!loading && !error && tab === "patterns" ? (
-        <section className={cardClass}>
-          <h2 className="text-lg font-semibold text-soma-ink">{t("patterns.title")}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
-            {t("patterns.body")}
-          </p>
-        </section>
+        <div className="grid min-w-0 gap-4">
+          <section className={cardClass}>
+            <SectionTitle
+              icon={<Waves className="h-4 w-4" />}
+              title={t("patterns.evolutionTitle")}
+            />
+            <p className="mt-1 text-sm text-soma-ink-secondary">
+              {t("patterns.evolutionHint")}
+            </p>
+            <p className="mt-1 text-sm text-soma-ink-muted">{t("patterns.evolutionHelp")}</p>
+            <div className="mt-4 flex flex-col gap-3">
+              <SegmentedControl
+                label={t("patterns.scaleLabel")}
+                value={patternScale}
+                options={JOURNAL_SCALE_IDS.map((id) => ({
+                  id,
+                  label: t(`patterns.scales.${id}`),
+                }))}
+                onChange={setPatternScale}
+              />
+              <SegmentedControl
+                label={t("patterns.windowLabel")}
+                value={String(patternWindow)}
+                options={JOURNAL_TREND_WINDOWS.map((id) => ({
+                  id: String(id),
+                  label:
+                    id === 28
+                      ? t("patterns.window28")
+                      : id === 90
+                        ? t("patterns.window90")
+                        : t("patterns.windowAll"),
+                }))}
+                onChange={(id) =>
+                  setPatternWindow(id === "all" ? "all" : (Number(id) as 28 | 90))
+                }
+              />
+            </div>
+            <p className="mt-3 text-sm text-soma-ink-secondary">
+              {t("patterns.daysCounted", { count: patternPoints.length })}
+            </p>
+            <ValueChart
+              points={patternPoints}
+              min={patternRange.min}
+              max={patternRange.max}
+              formatCivilShort={formatCivilShort}
+              empty={patternEmpty}
+            />
+          </section>
+          <section className={cardClass}>
+            <SectionTitle
+              icon={<Sparkles className="h-4 w-4" />}
+              title={t("patterns.coincidencesTitle")}
+            />
+            <p className="mt-1 text-sm text-soma-ink-muted">
+              {t("patterns.coincidencesHint")}
+            </p>
+            {coincidences.length === 0 ? (
+              <p className="mt-3 text-sm text-soma-ink-secondary">
+                {t("patterns.coincidencesEmpty")}
+              </p>
+            ) : (
+              <ul className="mt-3 flex flex-col gap-2">
+                {coincidences.map((row) => (
+                  <li
+                    key={`${row.emotionId}-${row.triggerId}`}
+                    className="rounded-xl bg-soma-raised px-3 py-2 text-sm text-soma-ink"
+                  >
+                    {t("patterns.coincidencesItem", {
+                      emotion: t(`emotions.${row.emotionId}`),
+                      trigger: t(`triggers.${row.triggerId}`),
+                      count: row.count,
+                    })}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        </div>
       ) : null}
 
       {!loading && !error && tab === "notes" ? (
@@ -1290,30 +1490,75 @@ function EmotionBars({
   emotions: ReturnType<typeof emotionFrequencies>;
   empty: string;
 }) {
+  return (
+    <FrequencyBars
+      items={emotions}
+      empty={empty}
+      labelKey="emotions"
+      styles={EMOTION_STYLE}
+    />
+  );
+}
+
+function FrequencyBars({
+  items,
+  empty,
+  labelKey,
+  styles,
+  selectedId,
+  onSelect,
+}: {
+  items: readonly { id: string; percent: number }[];
+  empty: string;
+  labelKey: "emotions" | "triggers";
+  styles: Record<string, { icon: typeof Sun; color: string }>;
+  selectedId?: string | null;
+  onSelect?: (id: string) => void;
+}) {
   const { t } = useTranslation("journal");
-  if (emotions.length === 0) {
+  if (items.length === 0) {
     return <p className="mt-4 text-sm text-soma-ink-muted">{empty}</p>;
   }
   return (
     <ul className="mt-4 flex flex-col gap-3">
-      {emotions.map((item) => {
-        const style = EMOTION_STYLE[item.id] ?? EMOTION_STYLE.calm;
+      {items.map((item) => {
+        const style = styles[item.id] ?? EMOTION_STYLE.calm;
         const Icon = style.icon;
-        return (
-          <li key={item.id}>
-            <div className="flex items-center justify-between gap-2 text-sm">
-              <span className="flex items-center gap-2 text-soma-ink">
-                <Icon className="h-4 w-4" style={{ color: style.color }} aria-hidden="true" />
-                {t(`emotions.${item.id}`)}
+        const label = t(`${labelKey}.${item.id}`);
+        const selected = selectedId === item.id;
+        const body = (
+          <>
+            <span className="flex min-w-0 items-center justify-between gap-2 text-sm">
+              <span className="flex min-w-0 items-center gap-2 text-soma-ink">
+                <Icon className="h-4 w-4 shrink-0" style={{ color: style.color }} aria-hidden="true" />
+                {label}
               </span>
               <span className="tabular-nums text-soma-ink-muted">{item.percent}%</span>
-            </div>
+            </span>
             <span className="mt-1 block h-1.5 overflow-hidden rounded-full bg-soma-line">
               <span
                 className="block h-full rounded-full"
                 style={{ width: `${item.percent}%`, background: style.color }}
               />
             </span>
+          </>
+        );
+        return (
+          <li key={item.id}>
+            {onSelect ? (
+              <button
+                type="button"
+                onClick={() => onSelect(item.id)}
+                aria-pressed={selected}
+                className={`${previewFocus} w-full rounded-xl p-2 text-left ${
+                  selected ? "bg-soma-raised" : ""
+                }`}
+              >
+                {body}
+              </button>
+            ) : (
+              body
+            )}
           </li>
         );
       })}

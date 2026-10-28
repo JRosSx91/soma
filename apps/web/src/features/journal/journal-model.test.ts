@@ -2,21 +2,27 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { JOURNAL_WELLBEING_WINDOW_DAYS } from "@soma/shared-types";
 import {
+  JOURNAL_COINCIDENCE_MIN,
   appendJournalPage,
   applyJournalListFilters,
   civilMonthRange,
   civilYearMonth,
   countJournalDays,
   currentJournalStreak,
+  dailyScaleSeries,
   daysWithEntriesInMonth,
   emotionFrequencies,
+  emotionTriggerCoincidences,
   entriesOnDay,
+  entriesWithEmotion,
+  filterEntriesInCivilWindow,
   hasSignificantJournalContent,
   isIsoInCivilMonth,
   localCivilDate,
   shiftCivilDate,
   selectionForVisibleMonth,
   shiftCivilMonth,
+  triggerFrequencies,
   validateJournalWrite,
   wellbeingAverage,
 } from "./journal-model.ts";
@@ -101,6 +107,112 @@ test("emotion frequencies use tagged-entry denominator and need not sum to 100",
   const motivated = freq.find((row) => row.id === "motivated");
   assert.equal(calm?.percent, 100);
   assert.equal(motivated?.percent, 50);
+});
+
+test("dailyScaleSeries means same-day ratings and keeps wellbeing zero", () => {
+  const points = dailyScaleSeries(
+    [
+      { occurredOn: "2026-05-01", mood: 2 },
+      { occurredOn: "2026-05-01", mood: 3 },
+      { occurredOn: "2026-05-01", mood: 4 },
+      { occurredOn: "2026-05-02", mood: null },
+      { occurredOn: "2026-05-03", mood: 5 },
+    ] as never,
+    "mood",
+  );
+  assert.deepEqual(
+    points.map((row) => ({ occurredOn: row.occurredOn, value: row.value })),
+    [
+      { occurredOn: "2026-05-01", value: 3 },
+      { occurredOn: "2026-05-03", value: 5 },
+    ],
+  );
+  const wellbeing = dailyScaleSeries(
+    [
+      { occurredOn: "2026-05-01", wellbeingRating: 0 },
+      { occurredOn: "2026-05-02", wellbeingRating: null },
+    ] as never,
+    "wellbeing",
+  );
+  assert.equal(wellbeing.length, 1);
+  assert.equal(wellbeing[0]?.value, 0);
+  assert.equal(dailyScaleSeries(wellbeing as never, "sleep").length, 0);
+});
+
+test("civil windows of 28 and 90 days include today and skip empty days", () => {
+  const today = "2026-10-28";
+  const rows = [
+    { occurredOn: "2026-10-28", mood: 3 },
+    { occurredOn: "2026-10-01", mood: 2 },
+    { occurredOn: "2026-09-30", mood: 4 },
+    { occurredOn: "2026-07-31", mood: 5 },
+    { occurredOn: "2026-07-30", mood: 1 },
+  ] as never;
+  const days28 = filterEntriesInCivilWindow(rows, today, 28);
+  assert.deepEqual(
+    days28.map((row) => row.occurredOn),
+    ["2026-10-28", "2026-10-01"],
+  );
+  const days90 = filterEntriesInCivilWindow(rows, today, 90);
+  assert.equal(days90.some((row) => row.occurredOn === "2026-07-31"), true);
+  assert.equal(days90.some((row) => row.occurredOn === "2026-07-30"), false);
+  assert.equal(filterEntriesInCivilWindow(rows, today, "all").length, 5);
+  const sleep = dailyScaleSeries(rows, "sleep");
+  assert.equal(sleep.length, 0);
+});
+
+test("trigger frequencies and coincidences count entries with a stable threshold", () => {
+  const rows = [
+    { id: "a", occurredOn: "2026-05-01", createdAt: "1", emotionIds: ["tired"], triggerIds: ["fatigue"] },
+    { id: "b", occurredOn: "2026-05-02", createdAt: "2", emotionIds: ["tired", "calm"], triggerIds: ["fatigue"] },
+    { id: "c", occurredOn: "2026-05-03", createdAt: "3", emotionIds: ["tired"], triggerIds: ["fatigue", "stress"] },
+    { id: "d", occurredOn: "2026-05-04", createdAt: "4", emotionIds: ["anxious"], triggerIds: ["conflict"] },
+    { id: "e", occurredOn: "2026-05-05", createdAt: "5", emotionIds: [], triggerIds: [] },
+  ] as never;
+  const triggers = triggerFrequencies(rows);
+  assert.equal(triggers.find((row) => row.id === "fatigue")?.percent, 75);
+  assert.equal(JOURNAL_COINCIDENCE_MIN, 3);
+  const hits = emotionTriggerCoincidences(rows);
+  assert.equal(hits.length, 1);
+  assert.equal(hits[0]?.emotionId, "tired");
+  assert.equal(hits[0]?.triggerId, "fatigue");
+  assert.equal(hits[0]?.count, 3);
+  assert.equal(emotionTriggerCoincidences(rows.slice(0, 2)).length, 0);
+  assert.equal(entriesWithEmotion(rows, "tired").length, 3);
+  const today = "2026-10-28";
+  const windowed = [
+    {
+      id: "w1",
+      occurredOn: "2026-10-20",
+      createdAt: "1",
+      emotionIds: ["tired"],
+      triggerIds: ["fatigue"],
+    },
+    {
+      id: "w2",
+      occurredOn: "2026-10-22",
+      createdAt: "2",
+      emotionIds: ["tired"],
+      triggerIds: ["fatigue"],
+    },
+    {
+      id: "w3",
+      occurredOn: "2026-07-01",
+      createdAt: "3",
+      emotionIds: ["tired"],
+      triggerIds: ["fatigue"],
+    },
+  ] as never;
+  assert.equal(
+    emotionTriggerCoincidences(filterEntriesInCivilWindow(windowed, today, 28))
+      .length,
+    0,
+  );
+  assert.equal(
+    emotionTriggerCoincidences(filterEntriesInCivilWindow(windowed, today, "all"))[0]
+      ?.count,
+    3,
+  );
 });
 
 test("demo samples fill streak, wellbeing, emotions and days", () => {
@@ -196,4 +308,6 @@ test("demo samples span months and keep two notes on today", () => {
   assert.ok(sameDay.length >= 2);
   const months = new Set(JOURNAL_DEMO_ENTRIES.map((row) => row.occurredOn.slice(0, 7)));
   assert.ok(months.size >= 2);
+  assert.ok(emotionTriggerCoincidences(JOURNAL_DEMO_ENTRIES).length >= 1);
+  assert.ok(dailyScaleSeries(JOURNAL_DEMO_ENTRIES, "craving").length >= 1);
 });

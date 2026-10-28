@@ -171,6 +171,7 @@ export function buildJournalDemoEntries(now = new Date()): JournalEntry[] {
       title: "Noche más corta",
       body: "Dormí menos, pero anoté cómo me sentí al despertar.",
       emotionIds: ["tired"],
+      triggerIds: ["fatigue"],
     }),
     entry({
       id: "demo-journal-10",
