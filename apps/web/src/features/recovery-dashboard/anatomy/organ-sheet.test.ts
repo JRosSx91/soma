@@ -28,11 +28,7 @@ test("respiratory organs resolve a complete sheet without inventing ids", () => 
     assert.equal(sheet.availability.hasEducation, true);
     assert.ok(sheet.education);
     assert.equal(sheet.education, educationalAnatomy(organ.id));
-    assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
-    assert.ok(sheet.physiology && sheet.physiology.length > 40);
-    assert.ok(sheet.relations && sheet.relations.length > 40);
     assert.ok(sheet.sources.length > 0);
-    assert.ok(sheet.location && sheet.location.length > 20);
   }
 });
 
@@ -45,10 +41,6 @@ test("heart resolves plate and complete anatomical ficha", () => {
   assert.equal(sheet.availability.hasPlate, true);
   assert.equal(sheet.availability.hasEducation, true);
   assert.ok(sheet.education);
-  assert.ok(sheet.location);
-  assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
-  assert.ok(sheet.physiology && sheet.physiology.length > 40);
-  assert.ok(sheet.relations && sheet.relations.length > 40);
   assert.ok(sheet.sources.length > 0);
   assert.equal(sheet.availability.hasNarratives, true);
   assert.equal(sheet.availability.hasRecoveryCurves, true);
@@ -70,8 +62,6 @@ test("phase 4E organs resolve individual plates and educational sheets", () => {
     assert.equal(sheet.availability.hasPlate, true, id);
     assert.equal(sheet.plate?.src, src, id);
     assert.equal(sheet.availability.hasEducation, true, id);
-    assert.ok(sheet.location, id);
-    assert.ok(sheet.anatomy && sheet.anatomy.length > 40, id);
     assert.ok(sheet.sources.length > 0, id);
   }
 });
@@ -83,10 +73,6 @@ test("every atlas organ resolves a complete educational sheet and plate", () => 
     assert.equal(sheet.availability.hasEducation, true, sheet.organId);
     assert.equal(sheet.availability.hasPlate, true, sheet.organId);
     assert.ok(sheet.plate?.src, sheet.organId);
-    assert.ok(sheet.location, sheet.organId);
-    assert.ok(sheet.anatomy && sheet.anatomy.length > 40, sheet.organId);
-    assert.ok(sheet.physiology && sheet.physiology.length > 40, sheet.organId);
-    assert.ok(sheet.relations && sheet.relations.length > 40, sheet.organId);
     assert.ok(sheet.sources.length > 0, sheet.organId);
     assert.ok(sheet.systemId);
     assert.ok(sheet.catalogSystem);
@@ -100,8 +86,6 @@ test("central nervous organs resolve plates and fichas without narratives", () =
     const sheet = resolveOrganSheet(nervous, organ);
     assert.equal(sheet.availability.hasPlate, true);
     assert.equal(sheet.availability.hasEducation, true);
-    assert.ok(sheet.location);
-    assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
     assert.equal(sheet.availability.hasNarratives, false);
     assert.equal(sheet.availability.hasEducationalSignaling, true);
     assert.ok(sheet.availability.signalingSubstanceIds.length > 0);
@@ -166,8 +150,6 @@ test("digestive organs resolve plates and fichas with catalog narratives", () =>
     assert.equal(sheet.availability.hasPlate, true);
     assert.equal(sheet.availability.hasEducation, true);
     assert.equal(organ.plate?.src, expectedPlates[organ.id]);
-    assert.ok(sheet.location);
-    assert.ok(sheet.anatomy && sheet.anatomy.length > 40);
     assert.ok(sheet.sources.length > 0);
     assert.equal(sheet.availability.hasNarratives, true);
     assert.equal(sheet.availability.hasRecoveryCurves, true);

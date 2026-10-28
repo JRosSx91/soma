@@ -41,12 +41,6 @@ export function exploreEduAnatomyLinks(
   return exploreEduAnatomyDestinations[sheetId as ExploreEduAnatomySheetId];
 }
 
-/** Anatomical prose is still Spanish-first. Hide atlas links outside Spanish UI. */
-export function exploreEduAnatomyLinksVisible(language: string | undefined): boolean {
-  const code = (language ?? "").toLowerCase();
-  return code === "es" || code.startsWith("es-");
-}
-
 export function isExploreEduAnatomyDestinationValid(
   destination: ExploreEduAnatomyDestination,
 ): boolean {

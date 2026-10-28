@@ -9,7 +9,6 @@ import {
   exploreEduAnatomyDestinations,
   exploreEduAnatomyHref,
   exploreEduAnatomyLinks,
-  exploreEduAnatomyLinksVisible,
   exploreEduSheetForOrgan,
   exploreEduSheetForSystem,
   isExploreEduAnatomyDestinationValid,
@@ -21,7 +20,6 @@ const article = readFileSync(
   new URL("../components/ExploreEducationalArticle.tsx", import.meta.url),
   "utf8",
 );
-const page = readFileSync(new URL("../pages/ExplorePage.tsx", import.meta.url), "utf8");
 const recovery = readFileSync(new URL("../anatomy/recovery-catalog.ts", import.meta.url), "utf8");
 const relatedSnapshot = {
   dopamine: "receptors",
@@ -115,20 +113,20 @@ test("anatomy hrefs use organ and system helpers without inventing query pairs",
   );
 });
 
-test("anatomy related section is Spanish-only and uses real links", () => {
-  assert.equal(exploreEduAnatomyLinksVisible("es"), true);
-  assert.equal(exploreEduAnatomyLinksVisible("es-ES"), true);
-  assert.equal(exploreEduAnatomyLinksVisible("en"), false);
-  assert.equal(exploreEduAnatomyLinksVisible("en-US"), false);
-  assert.equal(exploreEduAnatomyLinksVisible("fr"), false);
+test("anatomy related section is visible in spanish and english and uses real links", () => {
   assert.equal(esExploreEdu.anatomyLinksTitle.includes("explorador anatómico"), true);
   assert.equal(enExploreEdu.anatomyLinksTitle.includes("anatomical explorer"), true);
   assert.notEqual(esExploreEdu.anatomyLinksTitle, enExploreEdu.anatomyLinksTitle);
-  assert.match(article, /exploreEduAnatomyLinksVisible/);
+  assert.equal(article.includes("exploreEduAnatomyLinksVisible"), false);
   assert.match(article, /<Link/);
   assert.match(article, /anatomyExplorerHrefForOrgan|exploreEduAnatomyHref/);
   assert.match(article, /data-edu-anatomy-links/);
   assert.equal(article.includes("DetailSheet"), false);
+  const app = readFileSync(new URL("../../../App.tsx", import.meta.url), "utf8");
+  assert.match(app, /const soma2Pages/);
+  assert.match(app, /path="\/preview"/);
+  assert.match(app, /path="\/app"/);
+  assert.match(app, /\{soma2Pages\}/);
 });
 
 test("inverse anatomy destinations map uniquely to authorized educational sheets", () => {

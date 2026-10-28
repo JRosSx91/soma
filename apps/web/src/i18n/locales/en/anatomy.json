@@ -124,5 +124,169 @@
     "sigmoidal": "sigmoidal",
     "linear": "linear",
     "stepwise": "stepwise"
+  },
+  "education": {
+    "citation": {
+      "section": "Section",
+      "updated": "Updated",
+      "revision": "Revised",
+      "date": "{{day}} {{month}} {{year}}",
+      "months": {
+        "enero": "January",
+        "febrero": "February",
+        "marzo": "March",
+        "abril": "April",
+        "mayo": "May",
+        "junio": "June",
+        "julio": "July",
+        "agosto": "August",
+        "septiembre": "September",
+        "octubre": "October",
+        "noviembre": "November",
+        "diciembre": "December"
+      }
+    },
+    "organs": {
+      "lungs": {
+        "location": "In the thoracic cavity, on both sides of the mediastinum, inside the rib cage and resting on the diaphragm.",
+        "anatomy": "The lungs house the territory where air sits next to blood. Inside each lung, the airway continues beyond the bronchi: it divides into bronchioles and opens into alveoli, small sacs surrounded by capillaries. Bronchioles are not bronchi. They are finer conduits and lack cartilage.",
+        "physiology": "Gases are exchanged in the alveoli. Oxygen passes into the blood and carbon dioxide leaves toward alveolar air across the alveolocapillary barrier: the alveolar epithelium, the basement membranes and the capillary endothelium. That exchange does not occur in the bronchi or in the nasal mucosa.",
+        "relations": "Air arrives from the trachea through the main bronchi, which enter the lung at the hilum together with blood vessels and nerves. Those bronchi have their own sheet. The nasal mucosa lies earlier, in the nasal cavity: it conditions the air and is not part of the lung."
+      },
+      "bronchi": {
+        "location": "From the tracheal carina, in the mediastinum, to the hilum of each lung, where they continue as the intrapulmonary bronchial tree.",
+        "anatomy": "The bronchi are the airways into which the trachea divides, one toward each lung. The main bronchi, before entering the lung, keep cartilage rings similar to those of the trachea. Once inside the lung, the cartilage forms discontinuous plates, not rings. Bronchioles, further on, lack cartilage. The bronchial lining is an epithelium with cilia and goblet cells, which produce mucus.",
+        "physiology": "They serve as a passage for air entering and leaving each lung. Mucus traps particles and microorganisms carried by that air, and the cilia move it along. Gas exchange does not occur here: it belongs to the alveoli, inside the lung.",
+        "relations": "They arise from the trachea at the carina and enter the lungs at the hilum. Inside the lung they branch into a bronchial tree. From the more distal branches come the bronchioles, cartilage-free conduits that lead toward the alveoli. The nasal mucosa is in the nose, before this pathway."
+      },
+      "nasal-mucosa": {
+        "location": "It lines the walls of the nasal cavity, from the nares to the nasopharynx, including the surfaces of the turbinates.",
+        "anatomy": "The nasal mucosa lines the nasal cavity. In the respiratory region, the most extensive, the epithelium has cilia and cells that secrete mucus, over well-vascularized tissue. In the upper part there is another region, the olfactory one, with a different epithelium.",
+        "physiology": "As air enters, this mucosa warms it, moistens it and traps particles. Cilia push the mucus toward the pharynx. The olfactory region takes part in detecting odours. It does not exchange oxygen or carbon dioxide: that function belongs to the alveoli of the lung.",
+        "relations": "It covers the walls of the nasal cavity, including the turbinates, which enlarge the surface in contact with air. Posteriorly it continues with the nasopharynx. Air then continues through the larynx and trachea to the bronchi. Secretions from the paranasal sinuses drain into this cavity."
+      },
+      "brain-prefrontal-cortex": {
+        "location": "Anterior portion of the frontal lobe of each cerebral hemisphere, in front of the motor cortex.",
+        "anatomy": "The prefrontal cortex is the most anterior region of the frontal-lobe cortex. It includes dorsolateral, ventromedial and orbital divisions, with layers of cortical neurons densely connected with one another and with the rest of the brain. It is not a single homogeneous structure: its subregions differ in connections and functional role.",
+        "physiology": "It takes part in executive functions such as planning, working memory, impulse control and decision-making in social contexts. It integrates sensory, emotional and contextual information, but it is not the only substrate of those capacities: other cortices and subcortical networks also take part.",
+        "relations": "It connects reciprocally with the thalamus, the hippocampus, the amygdala and basal-ganglia circuits, including the nucleus accumbens. It sends projections toward the ventral tegmental area and receives modulating signals from the midbrain. Those pathways allow cortical plans to be coupled with affective valuation and context."
+      },
+      "brain-hippocampus": {
+        "location": "A formation on the medial face of the temporal lobe, along the inferior horn of the lateral ventricle.",
+        "anatomy": "The hippocampus is an elevation of grey matter within the parahippocampal gyrus. It forms part of the hippocampal formation together with the dentate gyrus and the subiculum, and is organized into fields CA1–CA4. Its curved appearance recalls a seahorse; head, body and tail are described along the anteroposterior axis.",
+        "physiology": "It takes part in consolidating declarative memories and in spatial and contextual representation. It does not store all long-term recollection on its own: it works with entorhinal cortex and other neocortical areas. Extensive bilateral lesions are associated mainly with anterograde amnesia.",
+        "relations": "It receives afferents from entorhinal cortex and relates to the amygdala at the anterior pole of the temporal lobe. Its main efferent travels through the fornix. The ventral subiculum contributes contextual information to the nucleus accumbens; the hippocampus is not confused with prefrontal cortex or with the amygdala, even though it cooperates with both."
+      },
+      "brain-amygdala": {
+        "location": "A nuclear complex in the medial temporal lobe, under the uncus, at the anterior border of the hippocampal formation.",
+        "anatomy": "The amygdala is a set of nuclei — around a dozen — grouped into basolateral, cortical and central sets and regions of the extended amygdala. It has an almond shape and continues with periamygdaloid cortex on the surface of the uncus. It is not a single nucleus nor an “emotion gland”.",
+        "physiology": "It takes part in processing emotional responses, particularly fear and anxiety, and in associative conditioning. It also contributes to aspects of affective memory and of decision-making. Those functions it shares with cortical and brainstem networks; it does not “generate” all emotional life on its own.",
+        "relations": "It lies in front of the hippocampal formation and of the inferior horn of the lateral ventricle. It sends pathways through the stria terminalis and the ventral amygdalofugal pathway toward hypothalamus, brainstem and cortex. The basolateral amygdala contributes affective influence to the nucleus accumbens and maintains dialogues with prefrontal cortex."
+      },
+      "brain-nucleus-accumbens": {
+        "location": "Ventral portion of the striatum, under the body of the caudate nucleus and around the anterior commissure, in the basal forebrain.",
+        "anatomy": "The nucleus accumbens forms part of the ventral striatum. A core continuous with dorsal striatum is distinguished from a more ventral and medial shell; a rostral pole is also described. The great majority of its neurons are medium spiny projection neurons, typical of the striatum.",
+        "physiology": "It integrates limbicocortical signals — context, affect and plans — and contributes to selecting motivated behaviour. Dopamine from the ventral tegmental area modulates that integration; it does not act as an isolated “pleasure centre”. Its output toward the ventral pallidum links valuation and action.",
+        "relations": "It receives excitatory afferents from prefrontal cortex, from the ventral subiculum of the hippocampus and from the basolateral amygdala, as well as mesencephalic dopaminergic innervation. It projects to the ventral pallidum and takes part in loops that return to cortex through the thalamus. It lies caudal to the septum and ventral relative to the dorsal caudate-putamen."
+      },
+      "brain-vta": {
+        "location": "Medial region of the tegmental midbrain, near the substantia nigra and above the pontine region.",
+        "anatomy": "The ventral tegmental area is a territory of the midbrain tegmentum that houses, among others, dopaminergic neurons of the mesocorticolimbic system. It is not a compact nucleus like substantia nigra pars compacta: it is a region with diffuse borders and several cell types, including interneurons and non-dopaminergic projections.",
+        "physiology": "Its dopaminergic neurons contribute to prediction and valuation signals that modulate circuits of the ventral striatum and of the cortex. That modulation biases behaviour according to environmental contingencies and internal states. The VTA does not “decide” on its own nor does it equal conscious motivation.",
+        "relations": "It projects densely to the nucleus accumbens (mesolimbic pathway) and also to prefrontal cortex (mesocortical pathway). It receives excitatory and inhibitory inputs of cortical, limbic and brainstem origin. It is related anatomically to the substantia nigra, but their projection territories and roles are not identical."
+      },
+      "stomach": {
+        "location": "In the upper hemiabdomen, mostly to the left of the midline, between the oesophagus above and the duodenum below.",
+        "anatomy": "The stomach is the most dilated portion of the digestive tube. Cardia (oesophageal junction), fundus (upper dome), body (main region) and pylorus (antrum and canal that empty into the duodenum through the pyloric sphincter) are described. The wall presents mucosa, submucosa, muscularis externa — with longitudinal, circular and an inner oblique layer typical of the stomach — and serosa. The gastric mucosa forms folds (rugae) and houses glands that secrete acid, pepsinogen, mucus and intrinsic factor.",
+        "physiology": "It acts as a temporary reservoir and mixing chamber: waves of contraction grind the food and turn it into chyme. Gastric secretion supplies hydrochloric acid and pepsinogen to begin protein digestion; intrinsic factor is needed for later absorption of vitamin B12. Emptying toward the duodenum is regulated by the pylorus and by signals from the proximal intestine. Nutrient absorption in the stomach is minimal.",
+        "relations": "It receives the bolus from the oesophagus and delivers chyme to the duodenum. The lesser curvature relates to the lesser omentum toward the liver; the greater, to the greater omentum. It lies in front of the pancreas and is functionally coupled to pancreatic and biliary secretion when chyme reaches the small intestine."
+      },
+      "pancreas": {
+        "location": "A retroperitoneal gland in the upper abdomen, lying transversely between the C-loop of the duodenum on the right and the splenic hilum on the left, behind the stomach.",
+        "anatomy": "It is divided into head (housed in the duodenal curve), neck, body and tail. Most of the tissue is exocrine: acini that drain toward the main pancreatic duct, which usually joins the common bile duct at the hepatopancreatic ampulla before opening into the duodenum. Scattered among the acini are pancreatic islets (of Langerhans), the endocrine component. It is not an organ of the digestive tube proper, but an accessory gland.",
+        "physiology": "Exocrine secretion supplies digestive enzymes (amylase, lipase, proteases as zymogens) and bicarbonate, which neutralizes acidic chyme and creates a suitable environment in the small intestine. The islets release hormones such as insulin and glucagon into the blood, which regulate glucose metabolism. Both functions coexist in the same gland without being confused with the mechanical digestion of the stomach or with intestinal absorption.",
+        "relations": "The head rests on the duodenum; the tail approaches the spleen. Pancreatic juice and bile converge toward the duodenum, where they act on chyme coming from the stomach. It lies behind the stomach and in close relation to the superior mesenteric vessels at the neck of the gland."
+      },
+      "intestines": {
+        "location": "They occupy much of the abdominal cavity, from the pylorus to the anal canal: small intestine in the centre and large intestine forming a peripheral frame.",
+        "anatomy": "The small intestine comprises duodenum, jejunum and ileum; its mucosa increases surface area with folds, villi and microvilli. The large intestine includes caecum (with appendix), colon (ascending, transverse, descending and sigmoid) and rectum; it shows haustra and taeniae coli. Both segments share the general architecture of the digestive tube (mucosa, submucosa, muscularis and serosa or adventitia), with regional specializations. In this atlas they appear together as “Intestines”, without separate organs for small and large bowel.",
+        "physiology": "In the small intestine enzymatic digestion is completed and most absorption of nutrients, water and electrolytes occurs. The large intestine reabsorbs remaining water and electrolytes, compacts the residue and houses a microbiota that takes part in fermenting undigested material and in synthesizing some vitamins. Motility (segmentation, peristalsis and mass movements) moves the contents along both stretches.",
+        "relations": "The duodenum receives chyme from the stomach and secretions from the pancreas and the biliary tract. The ileum opens into the caecum at the ileocecal valve. The mesentery and mesocolon fix loops to the posterior wall and carry vessels and nerves. Oral mucosa and stomach prepare the bolus before it reaches this stretch; the liver processes many of the absorbed nutrients via the portal vein."
+      },
+      "oral-mucosa": {
+        "location": "Moist lining of the oral cavity, from the labial mucosa to the palatopharyngeal folds, covering cheeks, floor of the mouth, gingiva and palate.",
+        "anatomy": "It is formed by a stratified squamous epithelium over a lamina propria of connective tissue; in many regions there is also submucosa. Lining mucosa (non-keratinized, in mobile zones such as cheeks and floor of the mouth), masticatory mucosa (keratinized or parakeratinized, on attached gingiva and hard palate) and specialized mucosa on the dorsum of the tongue, with papillae, are distinguished. It is not the tooth, nor the major salivary glands, nor the whole oral apparatus: it is the mucous membrane that surrounds and protects them.",
+        "physiology": "It acts as a mechanical, chemical and microbial barrier against the oral environment. It allows tactile, thermal and pain sensitivity, and in specialized mucosa it contributes to taste perception through the papillae. Its permeability and keratinization vary by region, adapting to the friction of chewing or to the mobility of cheeks and lips.",
+        "relations": "It borders the teeth at the gingiva and the oropharynx posteriorly. Salivary secretions moisten it, but the salivary glands are distinct organs. It continues toward the oesophagus through the pharynx; the chewed bolus then passes to the stomach. It is not confused with the nasal mucosa, which lines the nasal cavity."
+      },
+      "heart": {
+        "location": "In the middle mediastinum, behind the sternum and between the lungs, slightly tilted to the left.",
+        "anatomy": "The heart is a hollow muscular organ with four chambers: right and left atria and right and left ventricles. Myocardium forms the contractile wall; endocardium lines the interior and epicardium forms the visceral layer of the pericardium. Atrioventricular valves (tricuspid and mitral) and semilunar valves (pulmonary and aortic) direct the flow. The interatrial and interventricular septa separate the right and left halves.",
+        "physiology": "It acts as a double pump: the right side sends deoxygenated blood to the pulmonary circulation and the left drives oxygenated blood into the systemic circulation. The cardiac cycle alternates contraction (systole) and relaxation (diastole). The sinus node initiates the electrical impulse that spreads through the conduction system; it does not replace hormonal regulation or peripheral vascular tone.",
+        "relations": "It receives venous return through the venae cavae and the coronary sinus into the right atrium, and through the pulmonary veins into the left atrium. It ejects blood through the pulmonary artery and the aorta. The coronary arteries supply the myocardium itself. It is related anatomically to pericardium, diaphragm and the great vessels of the mediastinum."
+      },
+      "liver": {
+        "location": "In the right upper quadrant of the abdomen, under the diaphragm, mostly intraperitoneal except for the posterior bare area.",
+        "anatomy": "The liver is the largest gland in the body. Anatomical right and left lobes are described, plus caudate and quadrate; functional division into segments follows portal and hepatic blood supply. The parenchyma is organized into lobules with hepatocytes around a central vein, sinusoids and portal triads (a branch of the hepatic artery, the portal vein and a bile duct). Bile flows through canaliculi toward the hepatic ducts.",
+        "physiology": "It processes nutrients absorbed in the intestine, synthesizes plasma proteins, stores glycogen and regulates aspects of lipid metabolism. It detoxifies and transforms many compounds before returning them to the blood or excreting them in bile. It produces bile to emulsify lipids in the small intestine. It does not digest the bolus as the stomach does, nor filter blood as the kidney does.",
+        "relations": "It receives oxygenated blood through the hepatic artery and nutrient-rich blood through the portal vein. It drains toward the hepatic veins and the inferior vena cava. It relates to the gallbladder and the common bile duct, which empty into the duodenum together with pancreatic juice. The falciform ligament and the lesser omentum fix it to the wall and to the stomach."
+      },
+      "kidneys": {
+        "location": "Paired retroperitoneal organs on both sides of the spine, roughly between T12 and L3; the right one usually sits a little lower because of the liver.",
+        "anatomy": "Each kidney has an outer cortex and a medulla with renal pyramids. The medial hilum gives passage to vessels, nerves and the ureter. The functional unit is the nephron: renal corpuscle (glomerulus and Bowman’s capsule) and tubule (proximal, loop of Henle, distal) that empties into collecting ducts. Urine is collected in calyces and the renal pelvis before the ureter.",
+        "physiology": "They filter plasma in the glomerulus and reabsorb or secrete solutes and water along the tubule, regulating extracellular volume, electrolytes and acid–base balance. They excrete nitrogenous waste and take part in blood pressure through the juxtaglomerular apparatus. They also produce erythropoietin and contribute to activation of vitamin D. They do not perform gas exchange or enzymatic digestion.",
+        "relations": "The renal arteries arise from the aorta; the renal veins drain to the inferior vena cava. Each kidney continues with a ureter toward the bladder. The adrenal glands sit on the upper pole, but they are distinct endocrine organs. The left kidney relates to spleen, stomach and the tail of the pancreas; the right, to the liver and the duodenum."
+      },
+      "spleen": {
+        "location": "In the left hypochondrium, between the diaphragm and the gastric fundus, protected roughly by ribs 9 to 11.",
+        "anatomy": "The spleen is the largest organ of the lymphatic system. It has a fibrous capsule, a vascular hilum and parenchyma divided into white pulp (periarteriolar lymphoid sheaths and follicles) and red pulp (cords of Billroth and venous sinusoids), separated by a marginal zone. It is not a lymph node nor an organ of the digestive tube.",
+        "physiology": "It filters blood: it removes aged or damaged erythrocytes and captures circulating antigens. White pulp initiates adaptive immune responses against blood-borne pathogens. It can also sequester platelets and other formed elements. It does not synthesize bile or urine.",
+        "relations": "The splenic artery arrives from the coeliac trunk; the splenic vein contributes to forming the portal vein. Splenorenal and gastrosplenic ligaments fix it. It relates to stomach, left kidney, left colic flexure and the tail of the pancreas. Immune cooperation with nodes and mucosa-associated lymphoid tissue, without being confused with them."
+      },
+      "testes": {
+        "location": "In the scrotum, outside the pelvic cavity, suspended by the spermatic cord; the left one usually sits a little lower.",
+        "anatomy": "Each testis is an oval gonad lined by tunica albuginea. The parenchyma is organized into lobules with seminiferous tubules, where spermatogenesis occurs. Between the tubules are Leydig cells. The epididymis is attached to the posterior border. It does not include prostate or seminal vesicles, which are distinct accessory glands.",
+        "physiology": "Exocrine function: producing spermatozoa. Endocrine function: synthesizing testosterone and other sex hormones that maintain secondary sexual characters and regulate, by feedback, the hypothalamic–pituitary axis. Sperm maturation continues in the epididymis. It is not equivalent to the whole male reproductive apparatus.",
+        "relations": "The spermatic cord carries vessels, nerves and the ductus deferens toward the pelvis. It relates to the epididymis and, via the deferens, to the ejaculatory pathways. Scrotal temperature lower than body temperature favours spermatogenesis. In Soma the canonical organ is the testis, not the scrotum or the accessory glands."
+      },
+      "ovaries": {
+        "location": "Paired, in the pelvic cavity within the ovarian fossa, near the distal end of each uterine tube.",
+        "anatomy": "Each ovary has a surface epithelium, tunica albuginea, a cortex with follicles at different stages and a vascular medulla at the hilum. It is an intraperitoneal gonad attached by the mesovarium and the suspensory ligament. It does not include uterus or tubes as part of the same canonical organ.",
+        "physiology": "It produces oocytes through folliculogenesis and ovulation, and secretes oestrogens, progesterone and inhibin according to the phase of the cycle. After ovulation, the corpus luteum maintains progesterone if there is an adequate signal; if not, it degenerates. Those hormones act on endometrium, breast and the hypothalamic–pituitary axis. It does not manage implantation or pregnancy on its own.",
+        "relations": "The ovulated oocyte is captured by the uterine tube. The suspensory ligament carries ovarian vessels. It relates to uterus, tubes and pelvic peritoneum. Functionally coupled to the menstrual cycle and, in pregnancy, to the hormonal transition toward the placenta, without being confused with it."
+      },
+      "skin": {
+        "location": "It covers the entire external surface of the body and continues with mucosae at natural orifices (lips, nares, anus, genitals).",
+        "anatomy": "The skin comprises epidermis (keratinized stratified squamous epithelium, with strata from basal to cornified), dermis (papillary and reticular, with collagen, vessels and appendages) and hypodermis or subcutaneous tissue. The appendages — hair follicles, sweat and sebaceous glands — originate in the epidermis but lodge in the dermis. Thickness and keratinization vary by region.",
+        "physiology": "A barrier against microorganisms, dehydration, trauma and ultraviolet radiation. It takes part in thermoregulation (vessels and sweat), sensation (cutaneous receptors), initial synthesis of vitamin D and local immune surveillance. It is not oral or nasal mucosa: those moist membranes have their own sheets.",
+        "relations": "It continues with mucosae at mucocutaneous junctions. Cutaneous blood supply and innervation connect it with the cardiovascular and nervous systems. Appendages and subcutaneous tissue form part of the integumentary system in a broad sense; in this atlas the canonical organ “Skin” designates the cutaneous organ, distinct from “Teeth”."
+      },
+      "teeth": {
+        "location": "Fixed in the alveolar processes of the maxilla and mandible, inside the oral cavity.",
+        "anatomy": "Each tooth has a crown (visible, covered with enamel) and a root (in alveolar bone, covered with cementum), joined at the cementoenamel junction. Dentine forms the core around the neurovascular pulp. Humans are heterodont (incisors, canines, premolars and molars) and diphyodont (deciduous and permanent dentition). They are not oral mucosa: the gingiva and the rest of the mucosa have their own sheet.",
+        "physiology": "They cut, tear and grind food; they also take part in speech and in facial morphology. The periodontium (periodontal ligament, cementum and alveolar bone) anchors the tooth and cushions forces. The pulp supplies innervation and vascularization. They do not chemically digest the bolus: that digestion continues in stomach and intestine.",
+        "relations": "They relate to the oral mucosa at the gingiva and to the salivary glands that moisten the cavity. The chewed bolus passes to pharynx and oesophagus. In the Soma catalog, “Teeth” belongs to the integumentary system together with skin; it does not replace the oral-mucosa sheet."
+      },
+      "eyes": {
+        "location": "In the bony orbits of the skull, protected by eyelids, conjunctiva and the lacrimal apparatus.",
+        "anatomy": "The eyeball has three layers: fibrous (cornea and sclera), vascular (choroid, ciliary body and iris) and neural (retina). Aqueous humour, the lens and vitreous humour complete the optical apparatus. The retina contains photoreceptors and neurons that form the optic nerve. It does not include visual cortex or the ear.",
+        "physiology": "It focuses light onto the retina, where photoreceptors convert the stimulus into nerve signals. The iris regulates the entry of light; the lens accommodates focal distance. The optic pathways carry the information to the brain for visual perception. The eye does not interpret by itself the meaning of what is seen: that requires central processing.",
+        "relations": "Extrinsic muscles move the globe in the orbit. Cranial nerves (mainly II, III, IV and VI) connect it with the brainstem. Retinal and uveal circulation nourish the inner layers. Cooperation with eyelids and tears for protection; distinct from the central nervous system, even though its pathways end there."
+      }
+    },
+    "systems": {
+      "endocrine": {
+        "location": "A network of glands and tissues scattered through the body — pituitary, thyroid, parathyroids, adrenals, pineal and others — coordinated to a large extent from the hypothalamus at the base of the brain.",
+        "anatomy": "The endocrine system groups ductless glands that release hormones into extracellular fluid and blood. The classic glands include the pituitary (adeno- and neurohypophysis), thyroid, parathyroids, adrenals and pineal. Other organs — pancreas, gonads, kidneys, digestive tract — contribute endocrine cells without that making them canonical organs of the Soma catalog here. The hypothalamic–pituitary axis connects hypothalamic neurons with the pituitary via the hypophyseal portal system (anterior) or a nerve tract (posterior).",
+        "physiology": "Hormonal signalling regulates metabolism, growth, water balance, reproduction and the stress response. The hypothalamus releases releasing or inhibiting factors that control the anterior pituitary; hormones such as ACTH, TSH or gonadotropins then act on peripheral glands. Negative-feedback loops (and sometimes positive) adjust secretion. Faced with acute stress, the sympathoadrenal pathway speeds catecholamine release; the HPA axis supplies cortisol in a more sustained way. The endocrine signal is usually slower and more diffuse than a nerve synapse.",
+        "relations": "It intertwines with the nervous system: the hypothalamus integrates neural and hormonal signals. It influences cardiovascular, renal, digestive and reproductive systems through hormones. In Soma, pancreas, ovaries and testes have their own organ sheets because of their anatomy; this system sheet describes endocrine coordination without adding new OrganId entries or attributing curves of nonexistent organs."
+      },
+      "nervous-peripheral": {
+        "location": "Outside the brain and the spinal cord: cranial and spinal nerves, ganglia and endings in organs, muscles and skin.",
+        "anatomy": "The peripheral nervous system (PNS) comprises 12 pairs of cranial nerves and 31 pairs of spinal nerves, with sensory ganglia (e.g. dorsal-root ganglia) and, in the autonomic pathway, sympathetic and parasympathetic ganglia. A somatic component (sensory afferents and efferents to skeletal muscle) is distinguished from an autonomic component (sympathetic, parasympathetic and, in the digestive tube, the enteric plexus). It does not include the cortex or the brainstem nuclei: those belong to the central nervous system.",
+        "physiology": "Afferent pathways carry sensory information to the CNS; efferent pathways transmit motor commands. The somatic division allows voluntary movement and reflexes with a single peripheral motor neuron. The autonomic division generally uses two neurons (pre- and postganglionic) to modulate viscera, vessels and glands without habitual conscious control: the sympathetic favours mobilisation responses; the parasympathetic, conservation and digestion. Both cooperate with the CNS; they do not replace central integration.",
+        "relations": "It converges and diverges relative to the CNS at roots, cranial nerves and ganglia. It innervates heart, airways, digestive tract, skin and gonads, among others. The endocrine system and the autonomic system meet in the adrenal medulla and in the hypothalamus. In the Soma atlas, CNS structures (prefrontal cortex, hippocampus, etc.) have their own sheets; this sheet covers the peripheral territory without inventing new canonical organs."
+      }
+    }
   }
 }
