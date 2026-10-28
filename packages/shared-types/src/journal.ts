@@ -7,15 +7,12 @@
  * API boundary — never `new Date("YYYY-MM-DD")` in the local timezone, and
  * never `toISOString().slice(0, 10)` on a local midnight Date.
  *
- * JRN-01D (not implemented here):
- * - List order: occurredOn DESC, createdAt DESC, id DESC
- * - Cursor over those three fields
- * - External dates YYYY-MM-DD
- * - Full-user JSON export (no 5_000-row cap)
- * - Owner-only authorization; foreign ids → 404
- * - No personal text in logs
- * - DEMO never calls LIVE journal storage
+ * API (JRN-01D): list occurredOn DESC, createdAt DESC, id DESC; cursor of
+ * those three fields; wire dates YYYY-MM-DD; full-user JSON export; owner-only
+ * (foreign ids → 404); no personal text in logs.
  */
+
+export const JOURNAL_OCCURRED_ON_MIN = "1970-01-01";
 
 export const JOURNAL_EMOTION_IDS = [
   "calm",
@@ -78,4 +75,23 @@ export function utcDateToCivilDate(value: Date): string {
   const month = String(value.getUTCMonth() + 1).padStart(2, "0");
   const day = String(value.getUTCDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+/** Inclusive civil-day cap: UTC today + 1 (client TZ slack). */
+export function journalOccurredOnMax(now = new Date()): string {
+  const cap = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1),
+  );
+  return utcDateToCivilDate(cap);
+}
+
+export function isJournalOccurredOnInRange(
+  isoDate: string,
+  now = new Date(),
+): boolean {
+  if (!isCivilDateString(isoDate)) return false;
+  const value = civilDateToUtcDate(isoDate);
+  const min = civilDateToUtcDate(JOURNAL_OCCURRED_ON_MIN);
+  const max = civilDateToUtcDate(journalOccurredOnMax(now));
+  return value.getTime() >= min.getTime() && value.getTime() <= max.getTime();
 }
