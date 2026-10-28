@@ -185,4 +185,6 @@ test("gallery cards always expose a textual status label", () => {
   );
   assert.match(card, /aria-label=\{accessibleName\}/);
   assert.match(card, /labels\.family/);
+  assert.match(card, /view\.review/);
+  assert.match(card, /Ban/);
 });

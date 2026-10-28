@@ -68,6 +68,9 @@ test("catalog is 156 achievements split 106 curve and 50 temporal", () => {
   assert.equal(counts.curve, 106);
   assert.equal(counts.temporal, 50);
   assert.equal(counts.curve + counts.temporal, 156);
+  assert.equal(counts.available, 149);
+  assert.equal(counts.unavailable, 7);
+  assert.equal(counts.availableCurve + counts.availableTemporal, 149);
 });
 
 test("secret bronzes stay sealed and platinums stay visible", () => {
@@ -319,7 +322,7 @@ test("an earned medal stays earned when the substance is no longer on the profil
   assert.equal(filtered.some((row) => row.id === "cannabis-temporal-30"), true);
 });
 
-test("recent sort uses persisted unlockedAt and catalog share is against 156", () => {
+test("recent sort uses persisted unlockedAt and catalog share helper stays bounded", () => {
   const liveById = new Map([
     [
       "alcohol-liver-bronze-1",

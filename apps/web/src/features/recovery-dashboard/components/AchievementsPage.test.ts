@@ -11,7 +11,9 @@ test("achievements 2.0 chrome exists in spanish and english", () => {
   assert.equal(en.ui.title, "Small steps, great changes.");
   assert.equal(es.ui.familyTemporal, "Tiempo");
   assert.equal(en.ui.familyCurve, "Curve");
-  assert.equal(es.ui.catalogLabel, "Logros disponibles");
+  assert.equal(es.ui.catalogLabel, "Disponibles");
+  assert.equal(es.ui.unavailableCountLabel, "Pendientes de definición");
+  assert.equal(en.ui.unavailableCountLabel, "Pending definition");
   assert.match(es.ui.curveSectionSubtitle, /neurotransmisores/);
   assert.match(en.ui.curveSectionSubtitle, /neurotransmitters/);
   assert.doesNotMatch(es.ui.catalogLabel, /XP/i);
@@ -26,10 +28,16 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(hero, /imageSrc = DEFAULT_IMAGE/);
   assert.match(hero, /nature-2\.png/);
   assert.match(page, /AchievementSummaryStrip/);
+  assert.match(page, /stats\.availableTotal/);
+  assert.match(page, /stats\.collectionPercent/);
+  assert.match(page, /unavailableCountLabel/);
+  assert.doesNotMatch(page, /catalogSharePercent\(stats\.unlocked, counts\.total\)/);
   assert.match(page, /featuredTitle/);
   assert.match(page, /temporalSectionTitle/);
   assert.match(page, /curveSectionTitle/);
   assert.match(page, /pickAchievementHighlights/);
+  assert.match(page, /excludeIds: unavailableIds/);
+  assert.match(page, /"unavailable"/);
   assert.match(page, /familyBadgeTemporal/);
   assert.match(page, /familyBadgeCurve/);
   assert.match(page, /liveEnabled = Boolean\(user\) && base === "\/app"/);

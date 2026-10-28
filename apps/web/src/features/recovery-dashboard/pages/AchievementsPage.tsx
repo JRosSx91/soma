@@ -24,7 +24,6 @@ import {
 } from "../dashboard/home-progress.js";
 import {
   catalogFamilyCounts,
-  catalogSharePercent,
   countProgressStats,
   describeAchievement,
   filterCatalog,
@@ -55,6 +54,7 @@ const statusIds: StatusFilter[] = [
   "in_progress",
   "locked",
   "indeterminate",
+  "unavailable",
 ];
 
 export function AchievementsPage() {
@@ -160,13 +160,19 @@ export function AchievementsPage() {
     const nextCurve = showingLive
       ? pickNextLockedAchievement(live.rows, tracked)
       : null;
+    const unavailableIds = new Set(
+      achievementCatalog
+        .filter((item) => item.ruleReview && !liveById.get(item.id)?.unlocked)
+        .map((item) => item.id),
+    );
     return pickAchievementHighlights({
       catalogIds: new Set(achievementCatalog.map((item) => item.id)),
       recentUnlockedIds: recent.map((row) => row.id),
       temporalStates: temporal.states,
       nextCurveId: nextCurve?.id ?? null,
+      excludeIds: unavailableIds,
     });
-  }, [dashboard.substances, live.rows, showingLive, temporal.states]);
+  }, [dashboard.substances, live.rows, liveById, showingLive, temporal.states]);
 
   const highlightItems = highlightIds
     .map((id) => achievementCatalog.find((item) => item.id === id) ?? null)
@@ -195,7 +201,10 @@ export function AchievementsPage() {
       ? t("achievements:ui.descriptionLoading")
       : base === "/preview"
         ? t("achievements:ui.descriptionDemo")
-        : t("achievements:ui.descriptionSignedOut", { count: counts.total });
+        : t("achievements:ui.descriptionSignedOut", {
+            available: stats.availableTotal,
+            unavailable: stats.unavailableTotal,
+          });
 
   return (
     <div className="flex min-w-0 flex-col gap-5 pb-6">
@@ -238,28 +247,32 @@ export function AchievementsPage() {
           <AchievementSummaryStrip
             cards={[
               {
-                id: "catalog",
-                icon: "catalog",
-                label: t("achievements:ui.catalogLabel"),
-                value: String(counts.total),
-                hint: t("achievements:ui.catalogSplit", {
-                  curve: counts.curve,
-                  temporal: counts.temporal,
-                }),
-              },
-              {
                 id: "unlocked",
                 icon: "unlocked",
                 label: t("achievements:ui.unlockedLabel"),
-                value: String(stats.unlocked),
-                percent: catalogSharePercent(stats.unlocked, counts.total),
+                value: String(stats.unlockedTotal),
+                percent: stats.collectionPercent,
+                hint: t("achievements:ui.collectionPercentHint", {
+                  unlocked: stats.unlockedTotal,
+                  total: stats.collectionTotal,
+                }),
               },
               {
-                id: "progress",
+                id: "catalog",
+                icon: "catalog",
+                label: t("achievements:ui.catalogLabel"),
+                value: String(stats.availableTotal),
+                hint: t("achievements:ui.catalogSplit", {
+                  curve: counts.availableCurve,
+                  temporal: counts.availableTemporal,
+                }),
+              },
+              {
+                id: "unavailable",
                 icon: "progress",
-                label: t("achievements:ui.inProgressLabel"),
-                value: String(stats.inProgress),
-                percent: catalogSharePercent(stats.inProgress, counts.total),
+                label: t("achievements:ui.unavailableCountLabel"),
+                value: String(stats.unavailableTotal),
+                hint: t("achievements:ui.unavailableCountHint"),
               },
             ]}
           />
@@ -340,7 +353,9 @@ export function AchievementsPage() {
                           ? "inProgress"
                           : id === "indeterminate"
                             ? "indeterminate"
-                            : id
+                            : id === "unavailable"
+                              ? "unavailable"
+                              : id
                     }`,
                   ),
                 }))}
@@ -544,6 +559,7 @@ function cardLabels(item: CatalogItem, t: ReturnType<typeof useTranslation>[0]) 
     curveProgress: (current: number, threshold: number) =>
       t("achievements:ui.curveProgress", { current, threshold }),
     curveRequirement: (percent: number) => t("achievements:ui.curveRequirement", { percent }),
+    unavailableHint: t("achievements:ui.unavailableHint"),
     substance,
     tier: t(`achievements:ui.${item.tier}`),
     family:
@@ -657,9 +673,7 @@ function AchievementDetail({
           })}
         </p>
       ) : view.review ? (
-        <p className="mt-2">
-          {t("ui.reviewDetail", { percent: thresholdPercent, organ: item.organName })}
-        </p>
+        <p className="mt-2">{t("ui.reviewDetail")}</p>
       ) : (
         <p className="mt-2">
           {t("ui.curveDetail", { percent: thresholdPercent, organ: item.organName })}

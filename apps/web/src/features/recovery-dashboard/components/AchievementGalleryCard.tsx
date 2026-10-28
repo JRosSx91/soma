@@ -1,4 +1,4 @@
-import { Check, ChevronRight, Lock } from "lucide-react";
+import { Ban, Check, ChevronRight, Lock } from "lucide-react";
 import { AchievementMedal } from "./AchievementMedal.js";
 import { previewFocus } from "../focus.js";
 import { temporalBarFill } from "../dashboard/temporal-remaining.js";
@@ -15,6 +15,7 @@ interface Labels {
   temporalRequirement: (days: number, substance: string) => string;
   curveProgress: (current: number, threshold: number) => string;
   curveRequirement: (percent: number) => string;
+  unavailableHint: string;
   substance: string;
   tier: string;
   family: string;
@@ -71,7 +72,8 @@ export function AchievementGalleryCard({
       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] ${pillClass(view.bucket)}`}
     >
       {view.unlocked ? <Check className="h-3 w-3" aria-hidden="true" /> : null}
-      {view.bucket === "locked" && !view.unlocked ? (
+      {view.review ? <Ban className="h-3 w-3" aria-hidden="true" /> : null}
+      {view.bucket === "locked" && !view.unlocked && !view.review ? (
         <Lock className="h-3 w-3" aria-hidden="true" />
       ) : null}
       {status}
@@ -182,11 +184,13 @@ function statusLabel(view: AchievementViewModel, labels: Labels): string {
 function pillClass(bucket: StatusBucket): string {
   if (bucket === "unlocked") return "bg-emerald-500/15 text-emerald-300";
   if (bucket === "in_progress") return "bg-soma-action/15 text-soma-action";
+  if (bucket === "unavailable") return "bg-soma-raised text-soma-ink-secondary";
   return "bg-soma-raised text-soma-ink-muted";
 }
 
 function requirementCopy(item: CatalogItem, view: AchievementViewModel, labels: Labels): string {
   if (view.sealed) return labels.tier;
+  if (view.review) return labels.unavailableHint;
   if (item.family === "temporal" && item.abstinenceDays != null) {
     return labels.temporalRequirement(item.abstinenceDays, labels.substance);
   }
