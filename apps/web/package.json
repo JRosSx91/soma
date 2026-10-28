@@ -8,7 +8,7 @@
     "build": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "tsx --tsconfig ./tsconfig.app.json --test \"src/features/auth/**/*.test.ts\" \"src/features/profile/**/*.test.ts\" \"src/features/achievements/**/*.test.ts\" \"src/features/recovery-dashboard/**/*.test.ts\" \"src/features/landing-v2/**/*.test.ts\""
+    "test": "tsx --tsconfig ./tsconfig.app.json --test \"src/features/auth/**/*.test.ts\" \"src/features/profile/**/*.test.ts\" \"src/features/achievements/**/*.test.ts\" \"src/features/journal/**/*.test.ts\" \"src/features/recovery-dashboard/**/*.test.ts\" \"src/features/landing-v2/**/*.test.ts\""
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

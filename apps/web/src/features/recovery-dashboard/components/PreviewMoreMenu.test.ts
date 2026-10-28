@@ -14,6 +14,8 @@ test("the more menu closes on escape, outside pointer, and navigation", () => {
   assert.match(source, /role="menuitem"/);
   assert.match(source, /min-h-11/);
   assert.match(source, /moreShellSections/);
+  assert.match(source, /railMoreShellSections/);
+  assert.match(source, /variant === "rail"/);
   assert.match(source, /shellNavActiveClass/);
   assert.match(source, /bg-soma-shell-rail/);
   assert.equal(source.includes("/expedition"), false);

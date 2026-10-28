@@ -5,11 +5,12 @@ import { LanguageSelector } from "../../../components/LanguageSelector.js";
 import { AchievementInboxBell } from "../../achievements/components/AchievementInboxBell.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { useShellLayout } from "../hooks/useShellLayout.js";
-import { desktopShellSections } from "../shell-base.js";
+import { desktopShellSections, railMoreShellSections } from "../shell-base.js";
 import { shellNavActiveClass, shellNavIdleClass } from "../shell-chrome.js";
 import { shellIcons } from "../shell-icons.js";
 import { previewFocus } from "../focus.js";
 import { AccountMenu } from "./AccountMenu.js";
+import { PreviewMoreMenu } from "./PreviewMoreMenu.js";
 import { SomaMark } from "./SomaMark.js";
 
 export function PreviewSidebar() {
@@ -87,6 +88,11 @@ export function PreviewSidebar() {
               </li>
             );
           })}
+          {railMoreShellSections(base).length > 0 ? (
+            <li>
+              <PreviewMoreMenu variant="rail" collapsed={collapsed} />
+            </li>
+          ) : null}
         </ul>
       </nav>
 

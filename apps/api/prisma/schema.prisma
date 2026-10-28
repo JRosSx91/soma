@@ -137,6 +137,8 @@ model User {
 
   usages              SubstanceUsage[]
   achievements        UserAchievement[]
+  journalEntries      JournalEntry[]
+  journalMilestones   JournalPersonalMilestone[]
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
   registrationInvite  RegistrationInvite?
@@ -220,6 +222,7 @@ model Substance {
   achievements             Achievement[]
   neurotransmitterProfiles NeurotransmitterProfile[]
   narrativeProfiles        OrganNarrativeProfile[]
+  journalCravings          JournalEntry[]
 }
 
 model SubstanceUsage {
@@ -429,6 +432,64 @@ model OrganNarrativePhase {
 // `inboxReadAt` is when the in-app notification center marked it read.
 // `celebratedAt` is when a celebration presentation was *claimed*
 // (atomic lock before show). It is not proof the modal finished.
+
+// -----------------------------------------------------------------------------
+// Personal journal (JRN-01)
+// -----------------------------------------------------------------------------
+//
+// `occurredOn` is a civil calendar date (`DATE` / `@db.Date`), not a UTC
+// instant. The public contract is `YYYY-MM-DD`. Map at the API boundary with
+// `civilDateToUtcDate` / `utcDateToCivilDate` in `@soma/shared-types` so a
+// local timezone never shifts the stored day. `createdAt` / `updatedAt` are
+// real timestamps. Several rows may share the same (`userId`, `occurredOn`).
+// Catalog IDs for emotions/triggers live in shared-types, not extra tables.
+// Optional `cravingSubstanceId` points at the Substance catalog; it never
+// writes SubstanceUsage or abstinence clocks.
+
+model JournalEntry {
+  id                 String    @id @default(cuid())
+  userId             String
+  /// Civil date the user associates with the entry (`YYYY-MM-DD` at the API).
+  occurredOn         DateTime  @db.Date
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  mood               Int?
+  sleep              Int?
+  energy             Int?
+  anxiety            Int?
+  cravingIntensity   Int?
+  cravingSubstanceId String?
+  /// Voluntary 0–10 self-rating. Null on historical rows; never backfilled.
+  wellbeingRating    Int?
+  title              String?
+  body               String?   @db.Text
+  highlighted        Boolean   @default(false)
+  learning           Boolean   @default(false)
+  emotionIds         String[]  @default([])
+  triggerIds         String[]  @default([])
+
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cravingSubstance   Substance? @relation(fields: [cravingSubstanceId], references: [id], onDelete: SetNull)
+
+  @@index([userId, occurredOn])
+  @@index([userId, createdAt])
+  @@index([userId, highlighted])
+}
+
+/// Perceived everyday improvements recorded by the person. Not medals.
+model JournalPersonalMilestone {
+  id         String   @id @default(cuid())
+  userId     String
+  kind       String
+  occurredOn DateTime @db.Date
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, occurredOn])
+}
 
 model UserAchievement {
   id              String      @id @default(cuid())

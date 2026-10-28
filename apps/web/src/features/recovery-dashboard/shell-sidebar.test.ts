@@ -83,6 +83,7 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /LanguageSelector compact=\{collapsed\} floating/);
   assert.match(sidebar, /AchievementInboxBell compact=\{collapsed\} anchor="right"/);
   assert.match(sidebar, /AccountMenu compact=\{collapsed\} anchor="right"/);
+  assert.match(sidebar, /PreviewMoreMenu variant="rail"/);
   assert.equal(sidebar.includes("mobileOpen"), false);
   assert.match(sidebar, /hidden flex-col/);
   assert.match(sidebar, /lg:flex/);

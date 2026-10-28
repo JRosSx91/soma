@@ -6,8 +6,10 @@
  * Visible labels live in `common.shell` (ES/EN). This module only
  * stores ids, i18n keys, routes, icons, and which chrome shows each item.
  *
- * Pending destinations (Expedition, Missions, Journal) are omitted until they
+ * Pending destinations (Expedition, Missions) are omitted until they
  * have real pages. Add a def with desktop/mobile/more flags; menus filter.
+ * Journal is on the desktop rail and in mobile «Más». Account stays in
+ * AccountMenu, not in the desktop overflow.
  */
 export type ShellBase = "/app" | "/preview";
 
@@ -17,6 +19,7 @@ export type ShellIconId =
   | "compass"
   | "personStanding"
   | "trophy"
+  | "book"
   | "user";
 
 export const shellSectionDefs = [
@@ -66,6 +69,16 @@ export const shellSectionDefs = [
     mobileLabelKey: "achievements",
     path: "/achievements",
     icon: "trophy",
+    desktop: true,
+    mobile: false,
+    more: true,
+  },
+  {
+    id: "bitacora",
+    labelKey: "journal",
+    mobileLabelKey: "journal",
+    path: "/journal",
+    icon: "book",
     desktop: true,
     mobile: false,
     more: true,
@@ -127,6 +140,16 @@ export function mobileShellSections(base: ShellBase): readonly ShellSection[] {
 
 export function moreShellSections(base: ShellBase): readonly ShellSection[] {
   return shellSections(base).filter((item) => item.more);
+}
+
+/**
+ * Desktop «Más» overflow: more-only destinations that are not already on
+ * the rail or in AccountMenu.
+ */
+export function railMoreShellSections(base: ShellBase): readonly ShellSection[] {
+  return moreShellSections(base).filter(
+    (item) => !item.desktop && item.id !== "cuenta",
+  );
 }
 
 export function isSectionPathActive(
