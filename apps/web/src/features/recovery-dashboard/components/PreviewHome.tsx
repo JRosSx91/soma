@@ -1,7 +1,8 @@
 import { useMemo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Award, ChevronRight, Compass, Route } from "lucide-react";
+import { Award, ChevronRight, Route } from "lucide-react";
+import { HomeProgressIdentity, useProgress } from "../../progress/index.js";
 import type { TemporalMilestoneState } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
 import type { AchievementWithUnlockState } from "../../achievements/types.js";
@@ -64,6 +65,10 @@ export function PreviewHome() {
   const live = dashboard.mode === "live";
   /** Live unlock state only under /app — /preview stays without account medals. */
   const liveEnabled = Boolean(user) && base === "/app";
+  const progression = useProgress({
+    live,
+    userId: live ? (user?.id ?? null) : null,
+  });
   const achievements = useLiveAchievements(liveEnabled ? (user?.id ?? null) : null);
 
   const trackedIds = dashboard.substances.map((item) => item.id);
@@ -91,9 +96,6 @@ export function PreviewHome() {
     enabled: !dashboard.loading && !dashboard.error && dashboard.substances.length > 0,
     syncUnlocks: liveEnabled,
   });
-  const nextPercent = temporal.featured?.next
-    ? remainingProgressPercent(temporal.featured.next.progress)
-    : null;
   const temporalById = useMemo(() => {
     const map = new Map<string, TemporalMilestoneState>();
     for (const state of temporal.states) map.set(state.substanceId, state);
@@ -109,23 +111,41 @@ export function PreviewHome() {
 
   if (dashboard.loading) {
     return (
-      <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
-        {t("recovery:loading")}
+      <div className="flex flex-col gap-4 pb-6">
+        <HomeLead
+          demo={dashboard.showDemoBadge}
+          message={dailyMessage}
+          tracked={0}
+          unlockedCount={unlockedCount}
+          progression={progression}
+        />
+        <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-10 text-sm text-soma-ink-secondary">
+          {t("recovery:loading")}
+        </p>
       </div>
     );
   }
 
   if (dashboard.error) {
     return (
-      <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
-        <p>{t("recovery:loadError")}</p>
-        <button
-          type="button"
-          onClick={dashboard.reload}
-          className={`${previewFocus} mt-3 text-soma-action hover:text-soma-action-hover`}
-        >
-          {t("recovery:retry")}
-        </button>
+      <div className="flex flex-col gap-4 pb-6">
+        <HomeLead
+          demo={dashboard.showDemoBadge}
+          message={dailyMessage}
+          tracked={0}
+          unlockedCount={unlockedCount}
+          progression={progression}
+        />
+        <div className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
+          <p>{t("recovery:loadError")}</p>
+          <button
+            type="button"
+            onClick={dashboard.reload}
+            className={`${previewFocus} mt-3 text-soma-action hover:text-soma-action-hover`}
+          >
+            {t("recovery:retry")}
+          </button>
+        </div>
       </div>
     );
   }
@@ -133,7 +153,13 @@ export function PreviewHome() {
   if (live && dashboard.emptyUsages) {
     return (
       <div className="flex flex-col gap-4 pb-6">
-        <HomeHeader demo={false} message={dailyMessage} />
+        <HomeLead
+          demo={false}
+          message={dailyMessage}
+          tracked={0}
+          unlockedCount={unlockedCount}
+          progression={progression}
+        />
         <p className="rounded-2xl border border-dashed border-soma-line px-4 py-5 text-sm text-soma-ink-secondary">
           {t("recovery:homeEmptyBody")}
         </p>
@@ -144,23 +170,31 @@ export function PreviewHome() {
     );
   }
 
-  if (dashboard.substances.length === 0) return null;
+  if (dashboard.substances.length === 0) {
+    return (
+      <div className="flex flex-col gap-4 pb-6">
+        <HomeLead
+          demo={dashboard.showDemoBadge}
+          message={dailyMessage}
+          tracked={0}
+          unlockedCount={unlockedCount}
+          progression={progression}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex min-w-0 flex-col gap-2 pb-6">
       <div
-        className="grid min-w-0 items-start gap-2 lg:grid-cols-[minmax(0,21.5rem)_minmax(0,1fr)] lg:pr-[calc(min(28rem,34%)-4.5rem)]"
+        className="grid min-w-0 items-start gap-2 lg:grid-cols-[minmax(0,21.5rem)_minmax(0,1fr)] lg:items-stretch lg:pr-[calc(min(28rem,34%)-4.5rem)]"
       >
-        <HomeHeader demo={dashboard.showDemoBadge} message={dailyMessage} />
-        <ExplorerSummary
+        <HomeLead
+          demo={dashboard.showDemoBadge}
+          message={dailyMessage}
           tracked={dashboard.substances.length}
           unlockedCount={unlockedCount}
-          nextLabel={
-            temporal.featured?.next
-              ? t(`achievements:${temporal.featured.next.titleKey}`)
-              : t("recovery:homeExplorerNextNone")
-          }
-          nextPercent={nextPercent}
+          progression={progression}
         />
       </div>
       <AnatomyColumn anatomyTo={anatomyTo} />
@@ -242,6 +276,31 @@ function AnatomyColumn({ anatomyTo }: { anatomyTo: string }) {
   );
 }
 
+function HomeLead({
+  demo,
+  message,
+  tracked,
+  unlockedCount,
+  progression,
+}: {
+  demo: boolean;
+  message: string | null;
+  tracked: number;
+  unlockedCount: number | null;
+  progression: ReturnType<typeof useProgress>;
+}) {
+  return (
+    <>
+      <HomeHeader demo={demo} message={message} />
+      <ExplorerSummary
+        tracked={tracked}
+        unlockedCount={unlockedCount}
+        progression={progression}
+      />
+    </>
+  );
+}
+
 function HomeHeader({ demo, message }: { demo: boolean; message: string | null }) {
   const { t } = useTranslation("recovery");
   return (
@@ -273,43 +332,25 @@ function HomeHeader({ demo, message }: { demo: boolean; message: string | null }
 function ExplorerSummary({
   tracked,
   unlockedCount,
-  nextLabel,
-  nextPercent,
+  progression,
 }: {
   tracked: number;
   unlockedCount: number | null;
-  nextLabel: string;
-  nextPercent: number | null;
+  progression: ReturnType<typeof useProgress>;
 }) {
   const { t } = useTranslation("recovery");
   return (
-    <section className={panelClass}>
-      <div className="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-[auto_minmax(0,1fr)_11.25rem] lg:items-center lg:gap-3">
-        <span className="relative mx-auto h-20 w-20 shrink-0 overflow-hidden rounded-full border border-soma-line-strong bg-soma-shell-rail lg:mx-0 lg:h-[4.5rem] lg:w-[4.5rem]">
-          <img
-            src="/images/anatomy/soma-hero.png"
-            alt=""
-            draggable={false}
-            className="h-full w-full object-cover object-[42%_12%] mix-blend-lighten"
-          />
-        </span>
-        <div className="min-w-0">
-          <p className="text-[11px] font-medium uppercase leading-snug tracking-[0.14em]" style={accentColor}>
-            {t("homeExplorerIdentity")}
-          </p>
-          <p className="mt-1 text-lg font-semibold leading-snug text-soma-ink">{nextLabel}</p>
-          {temporalBarFill(nextPercent ?? 0) ? (
-            <span className="relative mt-3 block h-3 w-full min-w-0 overflow-hidden rounded-full bg-soma-line" aria-hidden="true">
-              <span
-                className="absolute inset-y-0 left-0 rounded-full"
-                style={{ width: temporalBarFill(nextPercent ?? 0) ?? undefined, ...temporalFillColor }}
-              />
-            </span>
-          ) : (
-            <p className="mt-3 text-xs text-soma-ink-muted">{t("homeExplorerNextNone")}</p>
-          )}
-          <p className="mt-1 text-[10px] text-soma-ink-muted">{t("homeExplorerBar")}</p>
-        </div>
+    <section className={`${panelClass} h-full`}>
+      <div className="grid h-full min-w-0 grid-cols-1 gap-4 lg:grid-cols-[auto_minmax(0,1fr)_11.25rem] lg:items-center lg:gap-3">
+        <HomeProgressIdentity
+          live={progression.live}
+          state={progression.state}
+          progress={progression.progress}
+          equipError={progression.equipError}
+          updatingTitle={progression.updatingTitle}
+          reload={progression.reload}
+          equipTitle={progression.equipTitle}
+        />
         <ul className="flex min-w-0 flex-col gap-2.5 border-t border-soma-line-strong pt-3 lg:border-l lg:border-t-0 lg:pl-3 lg:pt-0">
           <ExplorerStat icon={Route} label={t("homeExplorerTracked")} value={String(tracked)} />
           <ExplorerStat
@@ -317,7 +358,6 @@ function ExplorerSummary({
             label={t("homeExplorerMedals")}
             value={unlockedCount == null ? t("homeExplorerMedalsNone") : String(unlockedCount)}
           />
-          <ExplorerStat icon={Compass} label={t("homeExplorerNext")} value={nextLabel} />
         </ul>
       </div>
     </section>
@@ -367,9 +407,9 @@ function SubstanceRow({
           <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
-      <ul className="pointer-events-auto flex flex-wrap gap-3">
+      <ul className="pointer-events-auto grid grid-cols-[repeat(auto-fit,minmax(min(100%,13.5rem),1fr))] gap-3">
         {substances.map((substance) => (
-          <li key={substance.id} className="w-[16.5rem] max-w-full shrink-0">
+          <li key={substance.id} className="min-w-0">
               <HomeSubstanceCard
                 substance={substance}
                 temporal={temporalById.get(substance.id)}

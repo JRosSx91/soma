@@ -139,6 +139,8 @@ model User {
   achievements        UserAchievement[]
   journalEntries      JournalEntry[]
   journalMilestones   JournalPersonalMilestone[]
+  xpGrants            XpGrant[]
+  progression         UserProgression?
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
   registrationInvite  RegistrationInvite?
@@ -490,6 +492,70 @@ model JournalPersonalMilestone {
 
   @@index([userId, occurredOn])
 }
+
+// -----------------------------------------------------------------------------
+// Progression (GAM-01C)
+// -----------------------------------------------------------------------------
+//
+// XpGrant is the ledger of granted facts. Each (userId, source, sourceKey) is
+// inserted at most once. There is no revoke path for relapse, inactivity, or
+// journal deletion.
+//
+// UserProgression.totalXp is a denormalized running sum. It is incremented in
+// the same transaction as a successful ledger INSERT, and only then. GET
+// /me/progress reads totalXp (not SUM of grants) so the query stays O(1).
+// Divergence would be a bug; repair is out of scope here.
+//
+// totalXp is BIGINT because T(100000) = 299997999990 exceeds INTEGER.
+// Grant `amount` stays INTEGER: individual awards are small catalog figures.
+// Level is never stored; it is derived from totalXp via @soma/shared-types.
+// equippedTitleId null means the starting title (`walker`) at the API boundary.
+
+model XpGrant {
+  id        String   @id @default(cuid())
+  userId    String
+  source    String
+  sourceKey String
+  amount    Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, source, sourceKey])
+  @@index([userId])
+}
+
+model UserProgression {
+  userId          String   @id
+  totalXp         BigInt   @default(0)
+  equippedTitleId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// -----------------------------------------------------------------------------
+// User achievements
+// -----------------------------------------------------------------------------
+//
+// Persisted record of which achievements a user has unlocked, when, and
+// whether they have been notified about it. Calculated on-demand when
+// the user queries /me/achievements; new unlocks are inserted, existing
+// rows are not modified.
+//
+// `unlockedAt` reflects the actual date the recovery threshold was
+// crossed (computed by inverting the recovery curve from the user's
+// lastUseDate), not the time of detection.
+//
+// `notifiedAt` is null until the frontend (web) or push system (mobile)
+// surfaces the achievement to the user via trophy toasts (POST mark-notified).
+// Historical toast-ack only. Not inbox-read and not celebration-claim.
+//
+// `createdAt` is when Soma inserted the unlock (API: detectedAt).
+// `inboxReadAt` is when the in-app notification center marked it read.
+// `celebratedAt` is when a celebration presentation was *claimed*
+// (atomic lock before show). It is not proof the modal finished.
 
 model UserAchievement {
   id              String      @id @default(cuid())

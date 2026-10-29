@@ -12,6 +12,7 @@ import { NeurotransmitterStateModule } from "./neurotransmitter-state/neurotrans
 import { OrganNarrativeStateModule } from "./organ-narrative-state/organ-narrative-state.module.js";
 import { AchievementsModule } from "./achievements/achievements.module.js";
 import { JournalModule } from "./journal/journal.module.js";
+import { ProgressModule } from "./progress/progress.module.js";
 
 /**
  * Throttler is registered globally as infrastructure, but ThrottlerGuard
@@ -42,6 +43,7 @@ import { JournalModule } from "./journal/journal.module.js";
     OrganNarrativeStateModule,
     AchievementsModule,
     JournalModule,
+    ProgressModule,
   ],
 })
 export class AppModule {}
