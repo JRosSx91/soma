@@ -1,0 +1,10 @@
+# Soma public crawler policy (SEO-01A).
+# Allow fetching HTML routes so crawlers can read robots meta and
+# X-Robots-Tag (Render Headers on private/demo/auth paths).
+# Do not Disallow those prefixes: blocked URLs cannot honor noindex.
+# The sitemap lists only the public landing.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://somarecovery.app/sitemap.xml

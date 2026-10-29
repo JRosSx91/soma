@@ -38,3 +38,9 @@ test("landing intro first-paint gate is unchanged", () => {
   assert.match(page, /shouldPlayLandingV2Intro\(\)/);
   assert.equal(page.includes("shouldPlayLandingV2Intro,"), false);
 });
+
+test("landing still mounts the existing page tree", () => {
+  assert.match(page, /<LandingV2Header \/>/);
+  assert.match(page, /<LandingV2Hero \/>/);
+  assert.match(page, /<LandingV2Closing \/>/);
+});
