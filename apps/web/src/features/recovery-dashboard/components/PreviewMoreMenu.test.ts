@@ -21,10 +21,11 @@ test("the more menu closes on escape, outside pointer, and navigation", () => {
   assert.equal(source.includes("/expedition"), false);
 });
 
-test("mobile nav uses four destinations and does not pad a fifth empty slot", () => {
+test("mobile nav sizes columns from destinations plus Más and does not hardcode a padded grid", () => {
   const mobile = readFileSync(new URL("./PreviewMobileNav.tsx", import.meta.url), "utf8");
   assert.match(mobile, /PreviewMoreMenu/);
   assert.equal(mobile.includes("grid-cols-5"), false);
+  assert.equal(mobile.includes("grid-cols-6"), false);
   assert.match(mobile, /sections\.length \+ 1/);
   assert.match(mobile, /shellNavActiveClass/);
   assert.match(mobile, /bg-soma-shell-rail/);
