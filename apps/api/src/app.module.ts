@@ -14,11 +14,13 @@ import { AchievementsModule } from "./achievements/achievements.module.js";
 import { JournalModule } from "./journal/journal.module.js";
 import { ProgressModule } from "./progress/progress.module.js";
 import { MissionsModule } from "./missions/missions.module.js";
+import { FeedbackModule } from "./feedback/feedback.module.js";
 
 /**
  * Throttler is registered globally as infrastructure, but ThrottlerGuard
- * is applied only on auth mutations, DELETE /me/account, and journal
- * writes/export/wipe. Other routes stay unthrottled in this delivery.
+ * is applied only on auth mutations, DELETE /me/account, journal
+ * writes/export/wipe, and POST /me/feedback. Other routes stay unthrottled
+ * in this delivery.
  *
  * Storage is in-memory per process — insufficient for multi-instance
  * deployments until a shared store is introduced.
@@ -46,6 +48,7 @@ import { MissionsModule } from "./missions/missions.module.js";
     JournalModule,
     ProgressModule,
     MissionsModule,
+    FeedbackModule,
   ],
 })
 export class AppModule {}
