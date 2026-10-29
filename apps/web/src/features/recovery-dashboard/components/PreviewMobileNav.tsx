@@ -14,9 +14,9 @@ export function PreviewMobileNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-soma-line/30 bg-soma-shell-rail/95 backdrop-blur lg:hidden"
+      className="z-30 shrink-0 border-t border-soma-line/30 bg-soma-shell-rail/95 backdrop-blur lg:hidden"
       aria-label={t("shell.navAria")}
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       <ul
         className="grid"

@@ -138,6 +138,14 @@ export function AccountMenu({ compact = false, anchor = "bottom" }: AccountMenuP
                   </Link>
                   <Link
                     role="menuitem"
+                    to={`${base}/feedback`}
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuFeedback")}
+                  </Link>
+                  <Link
+                    role="menuitem"
                     to="/onboarding"
                     className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                     onClick={() => setOpen(false)}

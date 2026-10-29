@@ -1,0 +1,45 @@
+{
+  "pageTitle": "Help and suggestions",
+  "headline": "Your voice is part of Soma too",
+  "eyebrow": "Feedback",
+  "intro": "Your notes help us improve Soma: what broke, what could work better, or what you would like to see. We read every note. This is not a medical channel and we cannot promise when we will reply.",
+  "privacy": "Your message stays in your account. We do not publish it, and it is not a clinical record. Avoid passwords, personal health details, or anything you would not want stored.",
+  "demoNotice": "Demo mode: this form shows how Help and suggestions will look. Nothing is saved to an account.",
+  "categoriesLabel": "What would you like to share?",
+  "categories": {
+    "bug": "Error",
+    "suggestion": "Suggestion",
+    "general": "General comment"
+  },
+  "titleLabel": "Title",
+  "titlePlaceholder": "A short headline",
+  "bodyLabel": "Description",
+  "bodyPlaceholder": "What happened, or what you would like to see. A few honest sentences are enough.",
+  "submit": "Send",
+  "submitting": "Sending…",
+  "confirmation": "Thank you. We have received your note. You can see it below with its status.",
+  "duplicate": "This looks the same as a note you sent in the last 24 hours. We kept the earlier one instead of adding a copy.",
+  "historyTitle": "Your messages",
+  "historyHint": "Only you see this list in Soma. Status is updated by the team when they look at a note.",
+  "empty": "You have not sent any notes yet. When you do, they will appear here.",
+  "statusLabel": "Status",
+  "statuses": {
+    "open": "Received",
+    "in_review": "In review",
+    "resolved": "Resolved",
+    "closed": "Closed"
+  },
+  "loading": "Loading your messages…",
+  "loadMore": "Show earlier messages",
+  "loadingMore": "Loading…",
+  "expandBody": "Read description",
+  "collapseBody": "Hide description",
+  "errors": {
+    "category": "Choose a category.",
+    "title": "Write a short title (at least 3 characters, up to 80).",
+    "body": "Add a little more detail (at least 20 characters, up to 4,000).",
+    "network": "We could not send your note. Check your connection and try again.",
+    "load": "We could not load your notes. Try again in a moment."
+  },
+  "retry": "Try again"
+}
