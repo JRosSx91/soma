@@ -129,10 +129,44 @@
     "title": "How to read the model.",
     "subtitle": "Each shape describes an interpolation pattern. Confidence speaks to the sources. The limits recall what the model cannot claim."
   },
+  "origin": {
+    "title": "Why Soma?",
+    "word": "σῶμα",
+    "etymology": "From Ancient Greek: body.",
+    "p1": "Our organism is in constant transformation. Even when we are not aware of it, extraordinary processes take place within.",
+    "p2": "Soma is born of the will to make those changes visible and understandable, bringing the science of recovery closer to those who want to understand what happens in their body.",
+    "p3": "Because understanding what happens inside us can also help us make sense of the path we are walking."
+  },
+  "path": {
+    "eyebrow": "Tools for your path",
+    "title": "Every step counts. Every story matters.",
+    "missions": {
+      "title": "Missions",
+      "subtitle": "Small challenges, real progress",
+      "body": "Put what you have learned to the test. Missions invite you to explore how your organism works through small educational challenges. Answer correctly and gain experience as you broaden your knowledge.",
+      "note": "Illustrative examples from the real catalog. They are not your progress.",
+      "demo": "See missions in the demo"
+    },
+    "journal": {
+      "title": "Journal",
+      "subtitle": "Your story matters too",
+      "body": "Recovery is also made of experiences, thoughts and small discoveries. The Journal is a personal space to record and remember your path.",
+      "sampleLabel": "Sample entry",
+      "sampleTitle": "A clearer stretch",
+      "sampleMeta": "12 Oct 2026 · Mood 4/5",
+      "sampleBody": "Today I could name what I felt without turning it into a diagnosis. Just a note so I do not lose the thread.",
+      "historyOneTitle": "Evening walk",
+      "historyOneMeta": "11 Oct 2026 · Learning",
+      "historyTwoTitle": "In the morning",
+      "historyTwoMeta": "10 Oct 2026",
+      "note": "Fictional notes. They do not belong to any account.",
+      "demo": "See the journal in the demo"
+    }
+  },
   "achievements": {
     "eyebrow": "Milestones along the way",
     "title": "Every step deserves to be recognized.",
-    "intro": "Soma recognizes {{count}} achievements tied to thresholds in its educational models. This showcase displays real catalog pieces, not personal progress.",
+    "intro": "Soma recognizes milestones tied to thresholds in its educational models. This showcase displays real catalog pieces, not personal progress.",
     "galleryLabel": "Achievement showcase",
     "selectedLabel": "Selected milestone",
     "substance": "Substance",

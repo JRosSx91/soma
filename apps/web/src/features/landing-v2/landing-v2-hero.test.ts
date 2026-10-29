@@ -42,5 +42,22 @@ test("landing intro first-paint gate is unchanged", () => {
 test("landing still mounts the existing page tree", () => {
   assert.match(page, /<LandingV2Header \/>/);
   assert.match(page, /<LandingV2Hero \/>/);
+  assert.match(page, /<LandingV2Journey \/>/);
+  assert.match(page, /<LandingV2Atlas \/>/);
+  assert.match(page, /<LandingV2Science \/>/);
+  assert.match(page, /<LandingV2Methodology \/>/);
+  assert.match(page, /<LandingV2Origin \/>/);
+  assert.match(page, /<LandingV2MissionsJournal \/>/);
+  assert.match(page, /<LandingV2Achievements \/>/);
   assert.match(page, /<LandingV2Closing \/>/);
+  const originAt = page.indexOf("<LandingV2Origin />");
+  const pathAt = page.indexOf("<LandingV2MissionsJournal />");
+  const methodAt = page.indexOf("<LandingV2Methodology />");
+  const achievementsAt = page.indexOf("<LandingV2Achievements />");
+  assert.ok(
+    methodAt >= 0 &&
+      originAt > methodAt &&
+      pathAt > originAt &&
+      achievementsAt > pathAt,
+  );
 });

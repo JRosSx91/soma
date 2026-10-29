@@ -59,12 +59,26 @@ export function LandingV2Journey() {
 
   return (
     <section
-      className="relative overflow-x-hidden bg-[#081018] px-4 py-10 sm:px-6 sm:py-24 lg:px-12 lg:py-28 xl:px-16"
+      className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-10 sm:px-6 sm:py-24 lg:px-12 lg:py-28 xl:px-16"
       aria-labelledby="landing-v2-journey-title"
     >
+      <img
+        src="/images/landing-v2/soma-journey-bg.png"
+        alt=""
+        width={1920}
+        height={800}
+        decoding="async"
+        draggable={false}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[center_70%] opacity-80"
+      />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_8%,rgba(134,183,232,0.14),transparent_46%),radial-gradient(ellipse_at_8%_88%,rgba(104,216,192,0.09),transparent_42%)]"
+        className="pointer-events-none absolute inset-0 bg-[#081018]/45 md:bg-[#081018]/30"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_8%,rgba(8,16,24,0.2),transparent_46%),radial-gradient(ellipse_at_8%_88%,rgba(8,16,24,0.35),transparent_42%)]"
       />
       <div
         aria-hidden="true"
@@ -104,7 +118,7 @@ export function LandingV2Journey() {
         </header>
 
         <motion.div
-          className="overflow-hidden rounded-3xl border border-soma-line/80 bg-soma-canvas/70 shadow-[0_24px_80px_rgba(8,16,24,0.45)] backdrop-blur-[2px]"
+          className="overflow-hidden rounded-3xl border border-soma-line/70 bg-[#081018]/82 shadow-[0_24px_80px_rgba(8,16,24,0.45)] backdrop-blur-[2px]"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
