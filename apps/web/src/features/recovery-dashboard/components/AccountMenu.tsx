@@ -152,14 +152,6 @@ export function AccountMenu({ compact = false, anchor = "bottom" }: AccountMenuP
                   >
                     {t("menuSubstances")}
                   </Link>
-                  <Link
-                    role="menuitem"
-                    to="/app-legacy"
-                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                    onClick={() => setOpen(false)}
-                  >
-                    {t("menuOpenLegacy")}
-                  </Link>
                   <button
                     type="button"
                     role="menuitem"

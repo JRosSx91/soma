@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
@@ -23,15 +22,6 @@ import { useAuth } from "./features/auth/index.js";
 import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
 import { DocumentSeo } from "./seo/DocumentSeo.js";
 
-// The anatomical viewer preloads its model at module scope. Keep that
-// module out of the initial graph so Soma 2.0 (/app, /preview) does not
-// download the GLB until /app-legacy is opened.
-const MainPage = lazy(() =>
-  import("./pages/MainPage.js").then((module) => ({
-    default: module.MainPage,
-  })),
-);
-
 function RootRoute() {
   const { user, loading, sessionNotice } = useAuth();
   const { t } = useTranslation("common");
@@ -54,12 +44,6 @@ function RootRoute() {
   // Avoids sending pending sessions straight to /app without a coherent invite.
   return user ? <Navigate to="/login" replace /> : <LandingV2Page />;
 }
-
-const legacyFallback = (
-  <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-    Loading…
-  </div>
-);
 
 /** Shared Soma 2.0 page tree — same elements under `/app` and `/preview`. */
 const soma2Pages = (
@@ -103,14 +87,7 @@ function App() {
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Route>
-          <Route
-            path="/app-legacy"
-            element={
-              <Suspense fallback={legacyFallback}>
-                <MainPage />
-              </Suspense>
-            }
-          />
+          <Route path="/app-legacy" element={<Navigate to="/app" replace />} />
           <Route path="/onboarding" element={<OnboardingPage />} />
           {/* Compatible entry: Soma 1.0 URL, same auth gate, Logros 2.0 destination. */}
           <Route

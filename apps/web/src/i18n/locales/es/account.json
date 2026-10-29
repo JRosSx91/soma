@@ -33,7 +33,6 @@
   "menuSignIn": "Iniciar sesión",
   "menuPreviewGuest": "Vista demo pública. Sin datos de cuenta.",
   "menuAnonymous": "No has iniciado sesión.",
-  "menuOpenLegacy": "Abrir Soma 1.0",
   "menuOpenApp": "Abrir tu cuenta de Soma",
   "errors": {
     "displayNameRequired": "Introduce un nombre visible.",

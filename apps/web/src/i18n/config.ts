@@ -17,7 +17,6 @@ import enNeurotransmitters from "./locales/en/neurotransmitters.json";
 import enPhases from "./locales/en/phases.json";
 import enAuth from "./locales/en/auth.json";
 import enCommon from "./locales/en/common.json";
-import enMain from "./locales/en/main.json";
 import enOnboarding from "./locales/en/onboarding.json";
 import enOrgans from "./locales/en/organs.json";
 import enOrganNarrative from "./locales/en/organ-narrative.json";
@@ -41,7 +40,6 @@ import esNeurotransmitters from "./locales/es/neurotransmitters.json";
 import esPhases from "./locales/es/phases.json";
 import esAuth from "./locales/es/auth.json";
 import esCommon from "./locales/es/common.json";
-import esMain from "./locales/es/main.json";
 import esOnboarding from "./locales/es/onboarding.json";
 import esOrgans from "./locales/es/organs.json";
 import esOrganNarrative from "./locales/es/organ-narrative.json";
@@ -64,7 +62,6 @@ import caNeurotransmitters from "./locales/ca/neurotransmitters.json";
 import caPhases from "./locales/ca/phases.json";
 import caAuth from "./locales/ca/auth.json";
 import caCommon from "./locales/ca/common.json";
-import caMain from "./locales/ca/main.json";
 import caOnboarding from "./locales/ca/onboarding.json";
 import caOrgans from "./locales/ca/organs.json";
 import caOrganNarrative from "./locales/ca/organ-narrative.json";
@@ -76,7 +73,6 @@ import glNeurotransmitters from "./locales/gl/neurotransmitters.json";
 import glPhases from "./locales/gl/phases.json";
 import glAuth from "./locales/gl/auth.json";
 import glCommon from "./locales/gl/common.json";
-import glMain from "./locales/gl/main.json";
 import glOnboarding from "./locales/gl/onboarding.json";
 import glOrgans from "./locales/gl/organs.json";
 import glOrganNarrative from "./locales/gl/organ-narrative.json";
@@ -88,7 +84,6 @@ import euNeurotransmitters from "./locales/eu/neurotransmitters.json";
 import euPhases from "./locales/eu/phases.json";
 import euAuth from "./locales/eu/auth.json";
 import euCommon from "./locales/eu/common.json";
-import euMain from "./locales/eu/main.json";
 import euOnboarding from "./locales/eu/onboarding.json";
 import euOrgans from "./locales/eu/organs.json";
 import euOrganNarrative from "./locales/eu/organ-narrative.json";
@@ -100,7 +95,6 @@ import frNeurotransmitters from "./locales/fr/neurotransmitters.json";
 import frPhases from "./locales/fr/phases.json";
 import frAuth from "./locales/fr/auth.json";
 import frCommon from "./locales/fr/common.json";
-import frMain from "./locales/fr/main.json";
 import frOnboarding from "./locales/fr/onboarding.json";
 import frOrgans from "./locales/fr/organs.json";
 import frOrganNarrative from "./locales/fr/organ-narrative.json";
@@ -112,7 +106,6 @@ import itNeurotransmitters from "./locales/it/neurotransmitters.json";
 import itPhases from "./locales/it/phases.json";
 import itAuth from "./locales/it/auth.json";
 import itCommon from "./locales/it/common.json";
-import itMain from "./locales/it/main.json";
 import itOnboarding from "./locales/it/onboarding.json";
 import itOrgans from "./locales/it/organs.json";
 import itOrganNarrative from "./locales/it/organ-narrative.json";
@@ -124,7 +117,6 @@ import deNeurotransmitters from "./locales/de/neurotransmitters.json";
 import dePhases from "./locales/de/phases.json";
 import deAuth from "./locales/de/auth.json";
 import deCommon from "./locales/de/common.json";
-import deMain from "./locales/de/main.json";
 import deOnboarding from "./locales/de/onboarding.json";
 import deOrgans from "./locales/de/organs.json";
 import deOrganNarrative from "./locales/de/organ-narrative.json";
@@ -199,7 +191,6 @@ i18n
     ns: [
       "common",
       "auth",
-      "main",
       "onboarding",
       "organs",
       "substances",
@@ -238,7 +229,6 @@ i18n
       en: {
         common: enCommon,
         auth: enAuth,
-        main: enMain,
         onboarding: enOnboarding,
         organs: enOrgans,
         substances: enSubstances,
@@ -262,7 +252,6 @@ i18n
       es: {
         common: esCommon,
         auth: esAuth,
-        main: esMain,
         onboarding: esOnboarding,
         organs: esOrgans,
         substances: esSubstances,
@@ -286,7 +275,6 @@ i18n
       ca: {
         common: caCommon,
         auth: caAuth,
-        main: caMain,
         onboarding: caOnboarding,
         organs: caOrgans,
         substances: caSubstances,
@@ -310,7 +298,6 @@ i18n
       gl: {
         common: glCommon,
         auth: glAuth,
-        main: glMain,
         onboarding: glOnboarding,
         organs: glOrgans,
         substances: glSubstances,
@@ -334,7 +321,6 @@ i18n
       eu: {
         common: euCommon,
         auth: euAuth,
-        main: euMain,
         onboarding: euOnboarding,
         organs: euOrgans,
         substances: euSubstances,
@@ -358,7 +344,6 @@ i18n
       fr: {
         common: frCommon,
         auth: frAuth,
-        main: frMain,
         onboarding: frOnboarding,
         organs: frOrgans,
         substances: frSubstances,
@@ -382,7 +367,6 @@ i18n
       it: {
         common: itCommon,
         auth: itAuth,
-        main: itMain,
         onboarding: itOnboarding,
         organs: itOrgans,
         substances: itSubstances,
@@ -406,7 +390,6 @@ i18n
       de: {
         common: deCommon,
         auth: deAuth,
-        main: deMain,
         onboarding: deOnboarding,
         organs: deOrgans,
         substances: deSubstances,
