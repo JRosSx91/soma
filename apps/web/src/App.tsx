@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
 import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
+import { DocumentSeo } from "./seo/DocumentSeo.js";
 
 // The anatomical viewer preloads its model at module scope. Keep that
 // module out of the initial graph so Soma 2.0 (/app, /preview) does not
@@ -76,6 +77,7 @@ const soma2Pages = (
 function App() {
   return (
     <BrowserRouter>
+      <DocumentSeo />
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<RootRoute />} />

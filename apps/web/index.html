@@ -51,7 +51,62 @@
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>web</title>
+    <title>Soma — Physiological recovery</title>
+    <meta
+      name="description"
+      content="Soma is an educational companion for exploring modelled physiological recovery after substance use. Catalog curves are illustrative estimates, not clinical measurements or diagnoses."
+    />
+    <link rel="canonical" href="https://somarecovery.app/" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Soma" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:title" content="Soma — Physiological recovery" />
+    <meta
+      property="og:description"
+      content="Soma is an educational companion for exploring modelled physiological recovery after substance use. Catalog curves are illustrative estimates, not clinical measurements or diagnoses."
+    />
+    <meta property="og:url" content="https://somarecovery.app/" />
+    <meta
+      property="og:image"
+      content="https://somarecovery.app/images/landing-v2/hero-holographic-anatomy.png"
+    />
+    <meta
+      property="og:image:alt"
+      content="Educational holographic anatomy illustration from the Soma landing. Not a clinical scan or personal measurement."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!--
+      SPA: every route serves this document. Static robots/canonical/og:url
+      describe the public landing and remain valid without JavaScript.
+      Production also sends X-Robots-Tag: noindex, nofollow on private paths
+      (Render Headers; not in this file). This parser-blocking script only
+      runs off `/`: HTML noindex and strip canonical/og:url before React.
+    -->
+    <script>
+      (function () {
+        try {
+          var path = location.pathname || "/";
+          if (path.length > 1 && path.charAt(path.length - 1) === "/") {
+            path = path.slice(0, -1);
+          }
+          if (path === "/" || path === "") return;
+          var robots = document.querySelector('meta[name="robots"]');
+          if (!robots) {
+            robots = document.createElement("meta");
+            robots.setAttribute("name", "robots");
+            document.head.appendChild(robots);
+          }
+          robots.setAttribute("content", "noindex,nofollow");
+          var canonical = document.querySelector('link[rel="canonical"]');
+          if (canonical) canonical.parentNode.removeChild(canonical);
+          var ogUrl = document.querySelector('meta[property="og:url"]');
+          if (ogUrl) ogUrl.parentNode.removeChild(ogUrl);
+        } catch (_) {
+          /* keep static landing robots */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
