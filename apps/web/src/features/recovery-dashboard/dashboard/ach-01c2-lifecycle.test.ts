@@ -27,7 +27,8 @@ test("legacy /achievements redirects to Logros 2.0 inside the auth gate", () => 
   assert.match(app, /path="achievements" element=\{<Soma2AchievementsPage/);
   const afterLegacy = protectedBlock.slice(protectedBlock.indexOf('path="/achievements"'));
   assert.doesNotMatch(afterLegacy.slice(0, 400), /path="\/app\/achievements"/);
-  assert.ok(existsSync(new URL("../../../pages/AchievementsPage.tsx", import.meta.url)));
+  assert.equal(existsSync(new URL("../../../pages/AchievementsPage.tsx", import.meta.url)), false);
+  assert.ok(existsSync(new URL("../pages/AchievementsPage.tsx", import.meta.url)));
 });
 
 test("/app-legacy redirects to /app inside the auth gate", () => {
@@ -39,6 +40,11 @@ test("/app-legacy redirects to /app inside the auth gate", () => {
   assert.doesNotMatch(app, /pages\/MainPage/);
   const outsideProtected = app.slice(0, app.indexOf('element={<ProtectedLayout />}'));
   assert.doesNotMatch(outsideProtected, /path="\/app-legacy"/);
+  assert.equal(existsSync(new URL("../../../pages/MainPage.tsx", import.meta.url)), false);
+  assert.equal(
+    existsSync(new URL("../../../../public/models/body_male.glb", import.meta.url)),
+    false,
+  );
 });
 
 test("/preview still mounts PreviewShell and Soma 2.0 pages", () => {
@@ -58,6 +64,13 @@ test("preview still does not enable live achievement persistence", () => {
   assert.match(hook, /isLive = Boolean\(user\) && base === "\/app"/);
   assert.match(shell, /base === "\/app" \? <AchievementCelebrationHost/);
   assert.doesNotMatch(page, /fetchAchievements/);
+});
+
+test("Soma 1.0 Three.js and zustand leave the web package", () => {
+  const pkg = readFileSync(new URL("../../../../package.json", import.meta.url), "utf8");
+  for (const dep of ["three", "@react-three/fiber", "@react-three/drei", "zustand", "@types/three"]) {
+    assert.doesNotMatch(pkg, new RegExp(`"${dep.replace("/", "\\/")}"`));
+  }
 });
 
 test("ACH-01C.2 does not change unlock persistence or shared math", () => {

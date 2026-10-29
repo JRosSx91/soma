@@ -14,10 +14,6 @@ const card = readFileSync(
   new URL("../components/EducationalSignalingCard.tsx", import.meta.url),
   "utf8",
 );
-const legacyPanel = readFileSync(
-  new URL("../../neurotransmitter-state/components/NeurotransmitterPanel.tsx", import.meta.url),
-  "utf8",
-);
 
 const REGISTERED = ["en", "es", "ca", "gl", "eu", "fr", "it", "de"] as const;
 const ES_BRIDGE = ["ca", "gl", "eu"] as const;
@@ -222,11 +218,13 @@ test("the signaling card still reads the shared namespaces without a language ov
   assert.equal(card.includes('lng:'), false);
 });
 
-test("the legacy neurotransmitter panel shares the remapped namespaces", () => {
-  assert.match(legacyPanel, /"neurotransmitter-phases"/);
-  assert.match(legacyPanel, /"mechanisms"/);
-  assert.match(legacyPanel, /t\(\s*`neurotransmitter-phases:\$\{entry\.resultingSymptomKey\}`/);
-  assert.match(legacyPanel, /t\(`mechanisms:\$\{s\.mechanismKey\}`/);
-  assert.equal(legacyPanel.includes('lng: "ca"'), false);
-  assert.equal(legacyPanel.includes("caNeurotransmitterPhases"), false);
+test("the Soma 1.0 neurotransmitter panel is gone and 2.0 still uses remapped namespaces", () => {
+  assert.equal(
+    existsSync(new URL("../../neurotransmitter-state/components/NeurotransmitterPanel.tsx", import.meta.url)),
+    false,
+  );
+  assert.match(card, /"neurotransmitter-phases"/);
+  assert.match(card, /"mechanisms"/);
+  assert.equal(card.includes('lng: "ca"'), false);
+  assert.equal(card.includes("caNeurotransmitterPhases"), false);
 });
