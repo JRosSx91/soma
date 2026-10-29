@@ -35,6 +35,12 @@ test("navigation exposes Más and Account links without a bottom-nav slot", () =
   assert.match(mobile, /safe-area-inset-bottom/);
 });
 
+test("the account menu does not offer Soma 1.0", () => {
+  assert.equal(menu.includes("menuOpenLegacy"), false);
+  assert.equal(menu.includes("/app-legacy"), false);
+  assert.equal(menu.includes("Abrir Soma 1.0"), false);
+});
+
 test("form renders categories, title, body, submit and history chrome", () => {
   assert.match(page, /useFeedback/);
   assert.match(page, /radiogroup/);

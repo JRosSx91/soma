@@ -194,6 +194,8 @@ test("app shell path detection does not swallow app-legacy", () => {
   assert.equal(isAppShellPath("/preview"), false);
   assert.equal(shellBaseFromPath("/app/anatomy"), "/app");
   assert.equal(shellBaseFromPath("/preview/explore"), "/preview");
+  const app = readFileSync(new URL("../../App.tsx", import.meta.url), "utf8");
+  assert.match(app, /path="\/app-legacy" element=\{<Navigate to="\/app" replace/);
 });
 
 test("desktop, mobile and more menus split one section table", () => {

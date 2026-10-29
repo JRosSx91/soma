@@ -24,19 +24,30 @@ test("legacy /achievements redirects to Logros 2.0 inside the auth gate", () => 
   assert.match(protectedBlock, /path="\/achievements"/);
   assert.match(protectedBlock, /Navigate to="\/app\/achievements" replace/);
   assert.doesNotMatch(app, /from "\.\/pages\/AchievementsPage/);
-  assert.match(app, /path="\/app-legacy"/);
-  assert.match(app, /<MainPage \/>/);
   assert.match(app, /path="achievements" element=\{<Soma2AchievementsPage/);
   const afterLegacy = protectedBlock.slice(protectedBlock.indexOf('path="/achievements"'));
   assert.doesNotMatch(afterLegacy.slice(0, 400), /path="\/app\/achievements"/);
   assert.ok(existsSync(new URL("../../../pages/AchievementsPage.tsx", import.meta.url)));
 });
 
-test("/app-legacy still enters achievements through the compatible URL", () => {
-  const main = readFileSync(new URL("../../../pages/MainPage.tsx", import.meta.url), "utf8");
+test("/app-legacy redirects to /app inside the auth gate", () => {
   const app = readFileSync(new URL("../../../App.tsx", import.meta.url), "utf8");
-  assert.match(main, /navigate\("\/achievements"\)/);
-  assert.match(app, /path="\/app-legacy"/);
+  const protectedBlock = app.slice(app.indexOf('element={<ProtectedLayout />}'));
+  assert.match(protectedBlock, /path="\/app-legacy"/);
+  assert.match(protectedBlock, /Navigate to="\/app" replace/);
+  assert.doesNotMatch(app, /<MainPage \/>/);
+  assert.doesNotMatch(app, /pages\/MainPage/);
+  const outsideProtected = app.slice(0, app.indexOf('element={<ProtectedLayout />}'));
+  assert.doesNotMatch(outsideProtected, /path="\/app-legacy"/);
+});
+
+test("/preview still mounts PreviewShell and Soma 2.0 pages", () => {
+  const app = readFileSync(new URL("../../../App.tsx", import.meta.url), "utf8");
+  assert.match(app, /path="\/preview"/);
+  assert.match(app, /PreviewShell base="\/preview"/);
+  assert.match(app, /PreviewShell base="\/app"/);
+  assert.match(app, /soma2Pages/);
+  assert.doesNotMatch(app, /PreviewPage/);
 });
 
 test("preview still does not enable live achievement persistence", () => {
