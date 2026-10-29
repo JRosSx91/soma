@@ -41,7 +41,7 @@ export function LanguageSelector({
   compact = false,
   floating = false,
 }: LanguageSelectorProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("common");
   const activeLang = resolveInterfaceLanguage(i18n.language);
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -150,7 +150,7 @@ export function LanguageSelector({
       ref={panelRef}
       id={listId}
       role="listbox"
-      aria-label="Select language"
+      aria-label={t("language.list")}
       className={
         floating
           ? listClass
@@ -170,8 +170,8 @@ export function LanguageSelector({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
-        aria-label={`Language: ${active.native}`}
-        title={`Language: ${active.native}`}
+        aria-label={t("language.selector", { language: active.native })}
+        title={t("language.selector", { language: active.native })}
         className={triggerClass}
       >
         {compact ? (

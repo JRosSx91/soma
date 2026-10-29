@@ -7,6 +7,11 @@
   "continue": "Continue",
   "back": "Back",
   "signOut": "Sign out",
+  "skipToContent": "Skip to main content",
+  "language": {
+    "selector": "Language: {{language}}",
+    "list": "Languages"
+  },
   "yes": "Yes",
   "no": "No",
   "shell": {

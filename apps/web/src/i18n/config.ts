@@ -2,6 +2,10 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import {
+  INTERFACE_LANGUAGE_STORAGE_KEY,
+  syncDocumentLanguage,
+} from "./document-language.js";
+import {
   isInterfaceLanguage,
   resolveInterfaceLanguage,
 } from "./interface-languages.js";
@@ -226,7 +230,7 @@ i18n
     },
     detection: {
       order: ["localStorage", "navigator"],
-      lookupLocalStorage: "soma.i18n.lang",
+      lookupLocalStorage: INTERFACE_LANGUAGE_STORAGE_KEY,
       caches: ["localStorage"],
       convertDetectedLanguage: (lng) => resolveInterfaceLanguage(lng),
     },
@@ -429,9 +433,11 @@ i18n
   });
 
 function applyInterfaceLanguage() {
+  const resolved = resolveInterfaceLanguage(i18n.language ?? "en");
+  syncDocumentLanguage(resolved);
   const current = (i18n.language ?? "").split("-")[0] ?? "";
   if (isInterfaceLanguage(current)) return;
-  void i18n.changeLanguage(resolveInterfaceLanguage(i18n.language ?? "en"));
+  void i18n.changeLanguage(resolved);
 }
 
 if (i18n.isInitialized) {

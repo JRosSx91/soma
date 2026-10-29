@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useReducedMotion } from "framer-motion";
 import { LanguageSelector } from "../components/LanguageSelector.js";
+import { MAIN_CONTENT_ID, SkipToContent } from "../components/SkipToContent.js";
 import { LandingPulseWave } from "../features/landing-v2/LandingPulseWave.js";
 import { SomaMark } from "../features/recovery-dashboard/components/SomaMark.js";
 import { previewFocus } from "../features/recovery-dashboard/focus.js";
@@ -26,6 +27,7 @@ export function NotFoundPage() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_8%_50%,rgba(104,216,192,0.16),transparent_34%),radial-gradient(ellipse_at_92%_48%,rgba(134,183,232,0.14),transparent_36%),radial-gradient(ellipse_at_50%_18%,rgba(134,183,232,0.06),transparent_42%)]"
       />
 
+      <SkipToContent />
       <header className="relative z-20 h-[var(--landing-v2-header,3.5rem)] border-b border-soma-line/60 bg-[#081018]/90 backdrop-blur-md">
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link to="/" className={`${previewFocus} rounded-lg`}>
@@ -35,7 +37,11 @@ export function NotFoundPage() {
         </div>
       </header>
 
-      <main className="relative mx-auto flex min-h-[calc(100svh-var(--landing-v2-header,3.5rem))] w-full max-w-[88rem] flex-col px-4 sm:px-6 lg:px-12">
+      <main
+        id={MAIN_CONTENT_ID}
+        tabIndex={-1}
+        className="relative mx-auto flex min-h-[calc(100svh-var(--landing-v2-header,3.5rem))] w-full max-w-[88rem] flex-col px-4 sm:px-6 lg:px-12"
+      >
         <div className="relative flex flex-1 flex-col justify-center gap-6 py-8 sm:gap-8 sm:py-10">
           <div className="relative z-10 mx-auto flex w-full max-w-xl shrink-0 flex-col items-center text-center">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-soma-action">

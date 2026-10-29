@@ -7,6 +7,7 @@ import i18n from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { test } from "node:test";
 import enAuth from "../../../i18n/locales/en/auth.json" with { type: "json" };
+import enCommon from "../../../i18n/locales/en/common.json" with { type: "json" };
 import { ForgotPasswordPage } from "../../../pages/ForgotPasswordPage.js";
 import { ResetPasswordPage } from "../../../pages/ResetPasswordPage.js";
 import { LoginPage } from "../../../pages/LoginPage.js";
@@ -24,10 +25,12 @@ async function ensureI18n() {
     await i18n.use(initReactI18next).init({
       lng: "en",
       fallbackLng: "en",
-      resources: { en: { auth: enAuth, common: {} } },
+      resources: { en: { auth: enAuth, common: enCommon } },
       defaultNS: "auth",
       interpolation: { escapeValue: false },
     });
+  } else {
+    i18n.addResourceBundle("en", "common", enCommon, true, true);
   }
 }
 
@@ -167,6 +170,9 @@ test("LoginPage links to forgot-password", async () => {
   assert.match(html, /Forgot your password\?/);
   assert.match(html, /href="\/forgot-password"/);
   assert.match(html, /Sign in/);
+  assert.match(html, /Skip to main content/);
+  assert.match(html, /href="#main-content"/);
+  assert.match(html, /id="main-content"/);
   assert.match(html, /type="email"/);
   assert.match(html, /type="password"/);
   assert.match(html, /type="button"/);
