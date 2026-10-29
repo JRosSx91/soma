@@ -129,10 +129,44 @@
     "title": "Cómo se lee el modelo.",
     "subtitle": "Cada forma describe un patrón de interpolación. La confianza habla de las fuentes. Los límites recuerdan lo que el modelo no puede afirmar."
   },
+  "origin": {
+    "title": "¿Por qué Soma?",
+    "word": "σῶμα",
+    "etymology": "Del griego antiguo: cuerpo.",
+    "p1": "Nuestro organismo está en constante transformación. Incluso cuando no somos conscientes de ello, en su interior tienen lugar procesos extraordinarios.",
+    "p2": "Soma nace de la voluntad de hacer visibles y comprensibles esos cambios, acercando la ciencia de la recuperación a quienes desean entender qué sucede en su cuerpo.",
+    "p3": "Porque comprender lo que ocurre en nuestro interior también puede ayudarnos a dar sentido al camino que estamos recorriendo."
+  },
+  "path": {
+    "eyebrow": "Herramientas para tu camino",
+    "title": "Cada paso cuenta. Cada historia importa.",
+    "missions": {
+      "title": "Misiones",
+      "subtitle": "Pequeños retos, grandes avances",
+      "body": "Pon a prueba lo que has aprendido. Las misiones te invitan a explorar cómo funciona tu organismo mediante pequeños desafíos educativos. Completa las respuestas correctamente y consigue experiencia mientras amplías tus conocimientos.",
+      "note": "Ejemplos ilustrativos con misiones reales del catálogo. No son tu progreso.",
+      "demo": "Ver misiones en la demo"
+    },
+    "journal": {
+      "title": "Bitácora",
+      "subtitle": "Tu historia también importa",
+      "body": "La recuperación también está hecha de experiencias, pensamientos y pequeños descubrimientos. La Bitácora es un espacio personal para registrar y recordar tu recorrido.",
+      "sampleLabel": "Entrada de ejemplo",
+      "sampleTitle": "Un tramo más claro",
+      "sampleMeta": "12 oct 2026 · Ánimo 4/5",
+      "sampleBody": "Hoy pude nombrar lo que sentía sin convertirlo en un diagnóstico. Solo una nota para no perder el hilo.",
+      "historyOneTitle": "Paseo al atardecer",
+      "historyOneMeta": "11 oct 2026 · Aprendizaje",
+      "historyTwoTitle": "Por la mañana",
+      "historyTwoMeta": "10 oct 2026",
+      "note": "Notas ficticias. No pertenecen a ninguna cuenta.",
+      "demo": "Ver la bitácora en la demo"
+    }
+  },
   "achievements": {
     "eyebrow": "Hitos de tu recorrido",
     "title": "Cada paso merece ser reconocido.",
-    "intro": "Soma reconoce {{count}} logros ligados a umbrales de sus modelos educativos. Esta vitrina muestra piezas reales del catálogo, no un progreso personal.",
+    "intro": "Soma reconoce hitos ligados a umbrales de sus modelos educativos. Esta vitrina muestra piezas reales del catálogo, no un progreso personal.",
     "galleryLabel": "Vitrina de logros",
     "selectedLabel": "Hito seleccionado",
     "substance": "Sustancia",
@@ -155,7 +189,7 @@
     "ctaPrimary": "Crear una cuenta",
     "ctaSecondary": "Explorar la demo",
     "note": "Modelos educativos orientativos. No sustituyen una evaluación médica.",
-    "tagline": "Understanding recovery, one day at a time."
+    "tagline": "Comprender la recuperación, un día a la vez."
   },
   "notFound": {
     "eyebrow": "Señal interrumpida",

@@ -31,12 +31,26 @@ export function LandingV2Methodology() {
   return (
     <section
       id={LANDING_METHODOLOGY_ID}
-      className="relative overflow-x-hidden bg-[#07141f] px-4 py-8 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-6 xl:px-16"
+      className="relative isolate overflow-x-hidden bg-[#07141f] px-4 py-8 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-6 xl:px-16"
       aria-labelledby="landing-v2-methodology-title"
     >
+      <img
+        src="/images/landing-v2/soma-methodology-bg.png"
+        alt=""
+        width={1920}
+        height={800}
+        decoding="async"
+        draggable={false}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-center opacity-35"
+      />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_88%_8%,rgba(104,216,192,0.14),transparent_40%),radial-gradient(ellipse_at_8%_88%,rgba(134,183,232,0.12),transparent_46%)]"
+        className="pointer-events-none absolute inset-0 bg-[#07141f]/70 md:bg-[#07141f]/58"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(7,20,31,0.55),transparent_52%)]"
       />
       <div
         aria-hidden="true"
@@ -79,7 +93,7 @@ export function LandingV2Methodology() {
                 return (
                   <motion.li
                     key={key}
-                    className="relative grid grid-cols-[3.3rem_minmax(0,1fr)] items-center gap-3 rounded-2xl border border-soma-line/60 bg-[#081018]/55 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3"
+                    className="relative grid grid-cols-[3.3rem_minmax(0,1fr)] items-center gap-3 rounded-2xl border border-soma-line/60 bg-[#081018]/82 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3"
                     initial={fadeUp}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.35 }}
@@ -134,7 +148,7 @@ export function LandingV2Methodology() {
           </div>
 
           <motion.div
-            className="flex min-w-0 flex-col rounded-3xl border border-soma-physiology/25 bg-soma-canvas/40 p-4 shadow-[inset_0_1px_0_rgba(134,183,232,0.08)] sm:p-6"
+            className="flex min-w-0 flex-col rounded-3xl border border-soma-physiology/25 bg-[#081018]/82 p-4 shadow-[inset_0_1px_0_rgba(134,183,232,0.08)] sm:p-6"
             initial={fadeUp}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}

@@ -89,12 +89,26 @@ export function LandingV2Science() {
 
   return (
     <section
-      className="relative overflow-x-hidden bg-[#081018] px-4 py-8 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-5 xl:px-16"
+      className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-8 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-5 xl:px-16"
       aria-labelledby="landing-v2-science-title"
     >
+      <img
+        src="/images/landing-v2/soma-science-bg.png"
+        alt=""
+        width={1920}
+        height={800}
+        decoding="async"
+        draggable={false}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-center opacity-80"
+      />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_12%_0%,rgba(134,183,232,0.12),transparent_42%),radial-gradient(ellipse_at_90%_70%,rgba(104,216,192,0.08),transparent_40%)]"
+        className="pointer-events-none absolute inset-0 bg-[#081018]/22 md:bg-[#081018]/10"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(8,16,24,0.18)_0%,rgba(8,16,24,0.62)_16%,rgba(8,16,24,0.68)_84%,rgba(8,16,24,0.2)_100%),linear-gradient(180deg,rgba(8,16,24,0.5)_0%,rgba(8,16,24,0.18)_22%,rgba(8,16,24,0.22)_72%,rgba(8,16,24,0.45)_100%)]"
       />
       <div
         aria-hidden="true"
@@ -103,7 +117,7 @@ export function LandingV2Science() {
 
       <div className="relative mx-auto flex w-full max-w-[88rem] flex-col gap-3 lg:min-h-0 lg:flex-1 lg:justify-center lg:gap-3">
         <motion.header
-          className="max-w-3xl shrink-0"
+          className="mx-auto w-full max-w-[850px] shrink-0 text-center"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -118,7 +132,7 @@ export function LandingV2Science() {
           >
             {t("science.title")}
           </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-soma-ink-secondary sm:text-base">
+          <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary sm:text-base">
             {t("science.subtitle")}
           </p>
         </motion.header>
@@ -127,7 +141,7 @@ export function LandingV2Science() {
           {STAGE_KEYS.map((key, index) => (
             <motion.li
               key={key}
-              className="relative rounded-2xl border border-soma-line/80 bg-soma-canvas/70 p-3 shadow-[0_18px_48px_rgba(8,16,24,0.35)] sm:rounded-3xl sm:p-5"
+              className="relative rounded-2xl border border-soma-line/80 bg-[#081018]/95 p-3 shadow-[0_18px_48px_rgba(8,16,24,0.45)] sm:rounded-3xl sm:p-5"
               initial={fadeUp}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -149,7 +163,7 @@ export function LandingV2Science() {
           ))}
         </ol>
 
-        <div className="shrink-0 rounded-2xl border border-soma-line/80 bg-[#081018]/40 px-3 py-2.5 sm:rounded-3xl sm:px-5 sm:py-4">
+        <div className="shrink-0 rounded-2xl border border-soma-line/80 bg-[#081018]/90 px-3 py-2.5 sm:rounded-3xl sm:px-5 sm:py-4">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-soma-ink-muted">
             {t("science.shapesLabel")}
           </p>

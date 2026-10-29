@@ -6,6 +6,8 @@ import { LandingV2Journey } from "./LandingV2Journey.js";
 import { LandingV2Atlas } from "./LandingV2Atlas.js";
 import { LandingV2Science } from "./LandingV2Science.js";
 import { LandingV2Methodology } from "./LandingV2Methodology.js";
+import { LandingV2Origin } from "./LandingV2Origin.js";
+import { LandingV2MissionsJournal } from "./LandingV2MissionsJournal.js";
 import { LandingV2Achievements } from "./LandingV2Achievements.js";
 import { LandingV2Closing } from "./LandingV2Closing.js";
 import { LandingV2IntroProvider, SomaIntro } from "./SomaIntro.js";
@@ -64,6 +66,8 @@ export function LandingV2Page() {
           <LandingV2Atlas />
           <LandingV2Science />
           <LandingV2Methodology />
+          <LandingV2Origin />
+          <LandingV2MissionsJournal />
           <LandingV2Achievements />
           <LandingV2Closing />
         </main>

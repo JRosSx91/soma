@@ -209,16 +209,30 @@ export function LandingV2Atlas() {
 
   return (
     <section
-      className={`relative overflow-x-hidden bg-[#081018] px-4 py-8 sm:px-6 lg:px-12 lg:py-5 xl:px-16 ${
+      className={`relative isolate overflow-x-hidden bg-[#081018] px-4 py-8 sm:px-6 lg:px-12 lg:py-5 xl:px-16 ${
         showAll
           ? "lg:min-h-svh"
           : "lg:flex lg:h-svh lg:max-h-svh lg:flex-col lg:overflow-hidden"
       }`}
       aria-labelledby="landing-v2-atlas-title"
     >
+      <img
+        src="/images/landing-v2/soma-atlas-bg.png"
+        alt=""
+        width={1920}
+        height={800}
+        decoding="async"
+        draggable={false}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-center opacity-45"
+      />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_18%_12%,rgba(134,183,232,0.14),transparent_44%),radial-gradient(ellipse_at_88%_80%,rgba(104,216,192,0.1),transparent_40%)]"
+        className="pointer-events-none absolute inset-0 bg-[#081018]/50 md:bg-[#081018]/38"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(8,16,24,0.55),transparent_58%),radial-gradient(ellipse_at_88%_50%,rgba(8,16,24,0.5),transparent_42%)]"
       />
       <div
         aria-hidden="true"
