@@ -515,13 +515,16 @@ function RelatedContentBlock({
   const base = useShellBase();
   const available = relatedTabs.filter((item) => related[item].length > 0);
   const availableKey = available.join(",");
-  const [tab, setTab] = useState<RelatedTab>(available[0] ?? "articles");
-  const selected = available.includes(tab) ? tab : (available[0] ?? "articles");
-
-  useEffect(() => {
-    const next = availableKey.split(",").filter(Boolean) as RelatedTab[];
-    setTab((current) => (next.includes(current) ? current : (next[0] ?? "articles")));
-  }, [availableKey]);
+  const fallback = available[0] ?? "articles";
+  const [tab, setTab] = useState<RelatedTab>(fallback);
+  const [seenAvailableKey, setSeenAvailableKey] = useState(availableKey);
+  if (seenAvailableKey !== availableKey) {
+    setSeenAvailableKey(availableKey);
+    if (!available.includes(tab)) {
+      setTab(fallback);
+    }
+  }
+  const selected = available.includes(tab) ? tab : fallback;
 
   if (available.length === 0) return null;
 
