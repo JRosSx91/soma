@@ -19,7 +19,7 @@ const sharedPackage = JSON.parse(
   readFileSync(new URL("../../../../packages/shared-types/package.json", import.meta.url), "utf8"),
 ) as { exports?: Record<string, unknown> };
 
-test("correct option keys cover the six catalog missions and valid options", () => {
+test("correct option keys cover every catalog mission and valid options", () => {
   assert.deepEqual(Object.keys(MISSION_CORRECT_OPTION_ID).sort(), [...MISSION_IDS].sort());
   for (const id of MISSION_IDS) {
     const mission = getMissionById(id);

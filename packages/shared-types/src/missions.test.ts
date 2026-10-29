@@ -52,10 +52,12 @@ test("shared-types has no answers subpath or answer-key module", () => {
 });
 
 test("pilot catalog has six unique published reading-check missions", () => {
-  assert.equal(MISSION_CATALOG.length, 6);
+  const published = listPublishedMissions();
+  assert.equal(published.length, 6);
   assert.deepEqual(MISSION_CATALOG.map((row) => row.id), [...MISSION_IDS]);
-  assert.deepEqual(new Set(MISSION_CATALOG.map((row) => row.id)).size, 6);
-  for (const row of MISSION_CATALOG) {
+  assert.deepEqual(new Set(MISSION_CATALOG.map((row) => row.id)).size, MISSION_IDS.length);
+  assert.equal(getMissionById("edu-unpublished-01")?.status, "draft");
+  for (const row of published) {
     assert.equal(row.type, "reading_check");
     assert.equal(row.status, "published");
     assert.equal(row.contentVersion, 1);
@@ -84,13 +86,20 @@ test("categories, types and user states stay minimal", () => {
 });
 
 test("sort order is stable and unique", () => {
-  const orders = MISSION_CATALOG.map((row) => row.sortOrder);
+  const listed = listPublishedMissions();
+  const orders = listed.map((row) => row.sortOrder);
   assert.deepEqual(orders, [10, 20, 30, 40, 50, 60]);
   assert.deepEqual(new Set(orders).size, orders.length);
-  const listed = listPublishedMissions();
   assert.deepEqual(
     listed.map((row) => row.id),
-    [...MISSION_IDS],
+    [
+      "edu-dopamine-01",
+      "edu-serotonin-01",
+      "edu-gaba-01",
+      "edu-receptors-01",
+      "edu-tolerance-01",
+      "edu-neuroadaptation-01",
+    ],
   );
 });
 
@@ -104,7 +113,7 @@ test("pilot missions use published explore sheets and split categories", () => {
     "edu-neuroadaptation-01": { categoryId: "processes", sheetId: "neuroadaptation" },
   } as const;
 
-  for (const row of MISSION_CATALOG) {
+  for (const row of listPublishedMissions()) {
     assert.equal(row.categoryId, expected[row.id].categoryId);
     assert.equal(row.sheetId, expected[row.id].sheetId);
     assert.equal(isMissionExploreSheetId(row.sheetId), true);

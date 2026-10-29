@@ -13,6 +13,7 @@ import { OrganNarrativeStateModule } from "./organ-narrative-state/organ-narrati
 import { AchievementsModule } from "./achievements/achievements.module.js";
 import { JournalModule } from "./journal/journal.module.js";
 import { ProgressModule } from "./progress/progress.module.js";
+import { MissionsModule } from "./missions/missions.module.js";
 
 /**
  * Throttler is registered globally as infrastructure, but ThrottlerGuard
@@ -44,6 +45,7 @@ import { ProgressModule } from "./progress/progress.module.js";
     AchievementsModule,
     JournalModule,
     ProgressModule,
+    MissionsModule,
   ],
 })
 export class AppModule {}

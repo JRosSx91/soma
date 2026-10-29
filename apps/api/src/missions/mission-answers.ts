@@ -12,4 +12,5 @@ export const MISSION_CORRECT_OPTION_ID = {
   "edu-receptors-01": "occupancy",
   "edu-tolerance-01": "sensitivity",
   "edu-neuroadaptation-01": "plasticity",
+  "edu-unpublished-01": "wanting",
 } as const satisfies Record<MissionId, string>;

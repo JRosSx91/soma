@@ -64,6 +64,7 @@ export const MISSION_IDS = [
   "edu-receptors-01",
   "edu-tolerance-01",
   "edu-neuroadaptation-01",
+  "edu-unpublished-01",
 ] as const;
 
 export type MissionId = (typeof MISSION_IDS)[number];
@@ -135,6 +136,33 @@ export interface MissionAnswerResult {
   readonly completed: boolean;
   readonly alreadyCompleted: boolean;
   readonly xpGranted: number;
+}
+
+/** Authenticated catalog item: published mission plus this user's state. */
+export interface MissionCatalogItem {
+  readonly id: MissionId;
+  readonly categoryId: MissionCategoryId;
+  readonly type: MissionType;
+  readonly sortOrder: number;
+  readonly contentVersion: number;
+  readonly sheetId: MissionExploreSheetId;
+  readonly options: readonly MissionOption[];
+  readonly titleKey: string;
+  readonly summaryKey: string;
+  readonly goalKey: string;
+  readonly promptKey: string;
+  readonly explainKey: string;
+  readonly state: MissionUserState;
+  readonly completedAt: string | null;
+}
+
+export interface MissionCatalogResponse {
+  readonly missions: readonly MissionCatalogItem[];
+}
+
+/** Answer outcome for the client, including the public explanation key. */
+export interface MissionAnswerResponse extends MissionAnswerResult {
+  readonly explainKey: string;
 }
 
 function option(id: string): MissionOption {
@@ -218,6 +246,17 @@ export const MISSION_CATALOG: readonly MissionDefinition[] = [
     sheetId: "neuroadaptation",
     options: [option("plasticity"), option("cell_death"), option("fixed_calendar")],
     ...keys("edu-neuroadaptation-01"),
+  },
+  {
+    id: "edu-unpublished-01",
+    categoryId: "neurotransmitters",
+    type: "reading_check",
+    sortOrder: 999,
+    status: "draft",
+    contentVersion: 1,
+    sheetId: "dopamine",
+    options: [option("wanting"), option("pleasure"), option("meter")],
+    ...keys("edu-unpublished-01"),
   },
 ];
 

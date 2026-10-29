@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
-  MISSION_CATALOG,
   MISSION_CATEGORY_IDS,
   MISSION_EXPLORE_SHEET_IDS,
+  listPublishedMissions,
   optionLabelKey,
 } from "@soma/shared-types";
 import { publishedExploreEduSheets } from "../recovery-dashboard/explore/explore-edu.ts";
@@ -43,7 +43,7 @@ test("ES and EN mission catalogs share the same keys and cover the pilot", () =>
   assert.deepEqual(Object.keys(esMissions.categories).sort(), [...MISSION_CATEGORY_IDS].sort());
   assert.deepEqual(Object.keys(enMissions.categories).sort(), [...MISSION_CATEGORY_IDS].sort());
 
-  for (const row of MISSION_CATALOG) {
+  for (const row of listPublishedMissions()) {
     for (const key of [row.titleKey, row.summaryKey, row.goalKey, row.promptKey, row.explainKey]) {
       const path = key.replace(/^missions\./, "");
       const es = lookup(esMissions, path);
@@ -63,7 +63,7 @@ test("ES and EN mission catalogs share the same keys and cover the pilot", () =>
 
 test("mission sheet ids match published Explore educational sheets", () => {
   assert.deepEqual([...MISSION_EXPLORE_SHEET_IDS], [...publishedExploreEduSheets]);
-  for (const row of MISSION_CATALOG) {
+  for (const row of listPublishedMissions()) {
     assert.ok((publishedExploreEduSheets as readonly string[]).includes(row.sheetId));
   }
 });

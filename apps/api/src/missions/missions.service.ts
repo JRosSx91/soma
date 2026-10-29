@@ -16,8 +16,10 @@ import {
   MISSION_XP_AMOUNT,
   MISSION_XP_SOURCE,
   getMissionById,
+  listPublishedMissions,
   missionUserState,
   type MissionAnswerResult,
+  type MissionCatalogResponse,
   type MissionDefinition,
   type MissionSubmitRejection,
   type MissionUserProgress,
@@ -62,6 +64,36 @@ export class MissionsService {
       select: { id: true },
     });
     return row !== null;
+  }
+
+  async listMine(userId: string): Promise<MissionCatalogResponse> {
+    const published = listPublishedMissions();
+    const rows = await this.prisma.missionCompletion.findMany({
+      where: { userId },
+      select: { missionId: true, completedAt: true },
+    });
+    const done = new Map(rows.map((row) => [row.missionId, row.completedAt] as const));
+    return {
+      missions: published.map((mission) => {
+        const completedAt = done.get(mission.id) ?? null;
+        return {
+          id: mission.id,
+          categoryId: mission.categoryId,
+          type: mission.type,
+          sortOrder: mission.sortOrder,
+          contentVersion: mission.contentVersion,
+          sheetId: mission.sheetId,
+          options: mission.options,
+          titleKey: mission.titleKey,
+          summaryKey: mission.summaryKey,
+          goalKey: mission.goalKey,
+          promptKey: mission.promptKey,
+          explainKey: mission.explainKey,
+          state: missionUserState(completedAt !== null),
+          completedAt: completedAt ? completedAt.toISOString() : null,
+        };
+      }),
+    };
   }
 
   async listCompleted(userId: string): Promise<MissionUserProgress[]> {
