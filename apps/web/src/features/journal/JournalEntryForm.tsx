@@ -117,17 +117,34 @@ export function JournalEntryForm({
     onSubmit(draft);
   }
 
+  const fieldErrorId = "journal-field-error";
+  const formErrorId = "journal-form-error";
+  const dateInvalid = issue === "invalidDate";
+  const titleInvalid = issue === "titleTooLong";
+  const bodyInvalid = issue === "bodyTooLong";
+  const wellbeingInvalid = issue === "invalidWellbeing";
+  const tagsInvalid = issue === "tooManyTags";
+  const fieldIssue =
+    dateInvalid ||
+    titleInvalid ||
+    bodyInvalid ||
+    wellbeingInvalid ||
+    tagsInvalid;
+
   return (
-    <form className="flex flex-col gap-6 pr-1" onSubmit={handleSubmit}>
-      <label className="flex min-w-0 flex-col gap-1 text-sm">
+    <form className="flex flex-col gap-6 pr-1" onSubmit={handleSubmit} noValidate>
+      <label htmlFor="journal-occurred-on" className="flex min-w-0 flex-col gap-1 text-sm">
         <span className="text-soma-ink-secondary">{t("form.occurredOn")}</span>
         <input
+          id="journal-occurred-on"
           type="date"
           required
           min="1970-01-01"
           max={maxDate}
           value={occurredOn}
           onChange={(event) => setOccurredOn(event.target.value)}
+          aria-invalid={dateInvalid ? true : undefined}
+          aria-describedby={dateInvalid ? fieldErrorId : undefined}
           className={`${previewFocus} w-full min-w-0 rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-soma-ink`}
         />
       </label>
@@ -143,6 +160,8 @@ export function JournalEntryForm({
           max={JOURNAL_WELLBEING_SCALE_MAX}
           onChange={setWellbeingRating}
           clearLabel={t("form.clearScale")}
+          describedBy={wellbeingInvalid ? fieldErrorId : undefined}
+          invalid={wellbeingInvalid}
         />
         {FEELING_SCALES.map((scale) => (
           <ScaleRow
@@ -166,9 +185,10 @@ export function JournalEntryForm({
           onChange={setCravingIntensity}
           clearLabel={t("form.clearScale")}
         />
-        <label className="flex min-w-0 flex-col gap-1 text-sm">
+        <label htmlFor="journal-substance" className="flex min-w-0 flex-col gap-1 text-sm">
           <span className="text-soma-ink-secondary">{t("form.substance")}</span>
           <select
+            id="journal-substance"
             value={cravingSubstanceId ?? ""}
             onChange={(event) =>
               setCravingSubstanceId(event.target.value === "" ? null : event.target.value)
@@ -183,7 +203,7 @@ export function JournalEntryForm({
             ))}
           </select>
         </label>
-        <fieldset>
+        <fieldset aria-describedby={tagsInvalid ? fieldErrorId : undefined}>
           <legend className="text-sm text-soma-ink-secondary">{t("form.emotions")}</legend>
           <p className="mt-1 text-xs text-soma-ink-muted">{t("form.emotionsHint")}</p>
           <ChipList
@@ -193,7 +213,7 @@ export function JournalEntryForm({
             onToggle={(id) => toggleTag(emotionIds, setEmotionIds, id)}
           />
         </fieldset>
-        <fieldset>
+        <fieldset aria-describedby={tagsInvalid ? fieldErrorId : undefined}>
           <legend className="text-sm text-soma-ink-secondary">{t("form.triggers")}</legend>
           <p className="mt-1 text-xs text-soma-ink-muted">{t("form.triggersHint")}</p>
           <ChipList
@@ -206,23 +226,29 @@ export function JournalEntryForm({
       </FormSection>
 
       <FormSection title={t("form.sectionReflection")}>
-        <label className="flex min-w-0 flex-col gap-1 text-sm">
+        <label htmlFor="journal-title" className="flex min-w-0 flex-col gap-1 text-sm">
           <span className="text-soma-ink-secondary">{t("form.title")}</span>
           <input
+            id="journal-title"
             type="text"
             maxLength={JOURNAL_TITLE_MAX}
             value={title}
             onChange={(event) => setTitle(event.target.value)}
+            aria-invalid={titleInvalid ? true : undefined}
+            aria-describedby={titleInvalid ? fieldErrorId : undefined}
             className={`${previewFocus} w-full min-w-0 rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-soma-ink`}
           />
         </label>
-        <label className="flex min-w-0 flex-col gap-1 text-sm">
+        <label htmlFor="journal-body" className="flex min-w-0 flex-col gap-1 text-sm">
           <span className="text-soma-ink-secondary">{t("form.body")}</span>
           <textarea
+            id="journal-body"
             rows={6}
             maxLength={JOURNAL_BODY_MAX}
             value={body}
             onChange={(event) => setBody(event.target.value)}
+            aria-invalid={bodyInvalid ? true : undefined}
+            aria-describedby={bodyInvalid ? fieldErrorId : undefined}
             className={`${previewFocus} w-full min-w-0 resize-y rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-soma-ink`}
           />
         </label>
@@ -245,12 +271,16 @@ export function JournalEntryForm({
       </FormSection>
 
       {issue ? (
-        <p role="alert" className="text-sm text-soma-ink">
+        <p
+          id={fieldIssue ? fieldErrorId : formErrorId}
+          role="alert"
+          className="text-sm text-soma-ink"
+        >
           {t(`form.${issue}`)}
         </p>
       ) : null}
       {error ? (
-        <p role="alert" className="text-sm text-soma-ink">
+        <p id="journal-save-error" role="alert" className="text-sm text-soma-ink">
           {error}
         </p>
       ) : null}
@@ -259,6 +289,7 @@ export function JournalEntryForm({
         <button
           type="submit"
           disabled={saving}
+          aria-busy={saving || undefined}
           className={`${previewFocus} min-h-11 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018] disabled:opacity-60`}
         >
           {t("form.save")}
@@ -291,6 +322,8 @@ function ScaleRow({
   max,
   onChange,
   clearLabel,
+  describedBy,
+  invalid,
 }: {
   legend: string;
   value: number | null;
@@ -298,13 +331,20 @@ function ScaleRow({
   max: number;
   onChange: (next: number | null) => void;
   clearLabel: string;
+  describedBy?: string;
+  invalid?: boolean;
 }) {
   return (
-    <fieldset className="min-w-0">
+    <fieldset
+      className="min-w-0"
+      aria-describedby={describedBy}
+      aria-invalid={invalid ? true : undefined}
+    >
       <legend className="text-sm text-soma-ink-secondary">{legend}</legend>
       <div className="mt-2 flex flex-wrap gap-2">
         <button
           type="button"
+          aria-pressed={value == null}
           className={`${previewFocus} min-h-11 rounded-full px-3 text-sm ${
             value == null
               ? "bg-soma-action text-[#081018]"

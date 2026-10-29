@@ -28,6 +28,9 @@ export function RegisterPage() {
   const [biologicalSex, setBiologicalSex] = useState<BiologicalSex>("male");
   const [birthYear, setBirthYear] = useState<number>(1990);
   const [error, setError] = useState<string | null>(null);
+  const [errorField, setErrorField] = useState<"password" | "confirm" | null>(
+    null,
+  );
   const [submitting, setSubmitting] = useState(false);
   /** Prevents guest→/app redirect from winning over post-register onboarding. */
   const completingRegistration = useRef(false);
@@ -40,7 +43,10 @@ export function RegisterPage() {
   if (loading) {
     return (
       <AuthShell>
-        <p className="text-sm text-soma-ink-secondary">
+        <p
+          className="text-sm text-soma-ink-secondary"
+          role="status"
+        >
           {t("common:loading", { defaultValue: "Loading…" })}
         </p>
       </AuthShell>
@@ -57,6 +63,7 @@ export function RegisterPage() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
+    setErrorField(null);
     const prepared = prepareRegisterCredentials({
       email,
       password,
@@ -68,6 +75,13 @@ export function RegisterPage() {
     });
     if (!prepared.ok) {
       setError(t(prepared.messageKey));
+      if (prepared.messageKey === "register.passwordTooShort") {
+        setErrorField("password");
+      } else if (prepared.messageKey === "register.passwordMismatch") {
+        setErrorField("confirm");
+      } else {
+        setErrorField(null);
+      }
       return;
     }
     setSubmitting(true);
@@ -78,6 +92,7 @@ export function RegisterPage() {
     } catch (err) {
       completingRegistration.current = false;
       setError(translateAuthError(err, t, "errors.registrationFailed"));
+      setErrorField(null);
     } finally {
       setSubmitting(false);
     }
@@ -94,23 +109,32 @@ export function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="register-display-name"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("register.displayName")}
             </label>
             <input
+              id="register-display-name"
               type="text"
               required
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               className={authFieldClass}
+              autoComplete="nickname"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="register-email"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("register.email")}
             </label>
             <input
+              id="register-email"
               type="email"
               required
               value={email}
@@ -135,10 +159,17 @@ export function RegisterPage() {
               onChange={(e) => {
                 setPassword(e.target.value);
                 setError(null);
+                setErrorField(null);
               }}
               autoComplete="new-password"
+              aria-invalid={errorField === "password" ? true : undefined}
+              aria-describedby={
+                errorField === "password"
+                  ? "register-password-hint register-field-error"
+                  : "register-password-hint"
+              }
             />
-            <p className="mt-1 text-xs text-soma-ink-muted">
+            <p id="register-password-hint" className="mt-1 text-xs text-soma-ink-muted">
               {t("register.passwordHint")}
             </p>
           </div>
@@ -158,18 +189,25 @@ export function RegisterPage() {
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
                 setError(null);
+                setErrorField(null);
               }}
               autoComplete="new-password"
-              aria-invalid={error ? true : undefined}
-              aria-describedby={error ? "register-password-error" : undefined}
+              aria-invalid={errorField === "confirm" ? true : undefined}
+              aria-describedby={
+                errorField === "confirm" ? "register-field-error" : undefined
+              }
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="register-biological-sex"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("register.biologicalSex")}
             </label>
             <select
+              id="register-biological-sex"
               value={biologicalSex}
               onChange={(e) =>
                 setBiologicalSex(e.target.value as BiologicalSex)
@@ -184,10 +222,14 @@ export function RegisterPage() {
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="register-birth-year"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("register.birthYear")}
             </label>
             <input
+              id="register-birth-year"
               type="number"
               required
               min={1900}
@@ -200,7 +242,7 @@ export function RegisterPage() {
 
           {error && (
             <p
-              id="register-password-error"
+              id={errorField ? "register-field-error" : "register-form-error"}
               className="text-sm text-soma-organ-damaged"
               role="alert"
             >
@@ -211,6 +253,7 @@ export function RegisterPage() {
           <button
             type="submit"
             disabled={submitting}
+            aria-busy={submitting || undefined}
             className={authPrimaryButtonClass}
           >
             {submitting ? t("register.submitting") : t("register.submit")}

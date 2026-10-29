@@ -91,7 +91,7 @@ test("open dialog requires checkbox and password before the final button enables
       createElement(DeleteAccountDialog, {
         acknowledged: false,
         password: "",
-        error: null,
+        errorKind: null,
         submitting: false,
         canSubmit: false,
         onAcknowledgeChange: () => undefined,
@@ -113,7 +113,7 @@ test("open dialog requires checkbox and password before the final button enables
       createElement(DeleteAccountDialog, {
         acknowledged: true,
         password: "secret12",
-        error: null,
+        errorKind: null,
         submitting: false,
         canSubmit: true,
         onAcknowledgeChange: () => undefined,
@@ -139,7 +139,7 @@ test("cancel control is present and dialog copy is translated in ES", async () =
       createElement(DeleteAccountDialog, {
         acknowledged: false,
         password: "",
-        error: null,
+        errorKind: null,
         submitting: false,
         canSubmit: false,
         onAcknowledgeChange: () => undefined,

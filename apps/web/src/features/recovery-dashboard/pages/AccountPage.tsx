@@ -15,6 +15,24 @@ import { PageHeading } from "../components/PageHeading.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 
+function accountFieldFromErrorKey(
+  key: string | null,
+): "displayName" | "birthYear" | "biologicalSex" | "weightKg" | null {
+  switch (key) {
+    case "errors.displayNameRequired":
+      return "displayName";
+    case "errors.birthYearInvalid":
+      return "birthYear";
+    case "errors.biologicalSexInvalid":
+      return "biologicalSex";
+    case "errors.weightOutOfRange":
+    case "errors.weightInvalid":
+      return "weightKg";
+    default:
+      return null;
+  }
+}
+
 function fieldsFromProfile(user: ProfileDetailsFields): ProfileDetailsFields {
   return {
     displayName: user.displayName,
@@ -38,7 +56,7 @@ export function AccountPage() {
 
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState<ProfileDetailsDraft | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formErrorKey, setFormErrorKey] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [saving, setSaving] = useState(false);
   const inFlight = useRef(false);
@@ -53,7 +71,7 @@ export function AccountPage() {
 
   const startEdit = () => {
     if (!personal) return;
-    setFormError(null);
+    setFormErrorKey(null);
     setSuccess(false);
     setDraft(draftFromProfile(fieldsFromProfile(personal)));
     setEditing(true);
@@ -64,7 +82,7 @@ export function AccountPage() {
     if (personal) {
       setDraft(draftFromProfile(fieldsFromProfile(personal)));
     }
-    setFormError(null);
+    setFormErrorKey(null);
     setEditing(false);
   };
 
@@ -72,7 +90,7 @@ export function AccountPage() {
     event.preventDefault();
     if (inFlight.current || !personal || !draft || loading) return;
 
-    setFormError(null);
+    setFormErrorKey(null);
     setSuccess(false);
 
     const built = buildProfileDetailsPatch(
@@ -80,7 +98,7 @@ export function AccountPage() {
       draft,
     );
     if (!built.ok) {
-      setFormError(t(built.errorKey));
+      setFormErrorKey(built.errorKey);
       return;
     }
 
@@ -97,9 +115,9 @@ export function AccountPage() {
       // Do not call applyProfileUser on failure.
       // Never surface raw server/network messages to the UI.
       if (err instanceof ApiError && err.status === 400) {
-        setFormError(t("errors.validationFailed"));
+        setFormErrorKey("errors.validationFailed");
       } else {
-        setFormError(t("errors.saveFailed"));
+        setFormErrorKey("errors.saveFailed");
       }
     } finally {
       setSaving(false);
@@ -132,7 +150,9 @@ export function AccountPage() {
           description={t("description")}
           demo={false}
         />
-        <p className="text-sm text-soma-ink-secondary">{t("loading")}</p>
+        <p className="text-sm text-soma-ink-secondary" role="status">
+          {t("loading")}
+        </p>
       </div>
     );
   }
@@ -162,6 +182,10 @@ export function AccountPage() {
 
   const email = personal.email || authUser?.email || "";
   const showDraft = editing && draft;
+  const formError = formErrorKey ? t(formErrorKey) : null;
+  const errorField = accountFieldFromErrorKey(formErrorKey);
+  const fieldErrorId = "account-field-error";
+  const formErrorId = "account-form-error";
 
   return (
     <div className="flex flex-col gap-6 pb-6">
@@ -210,6 +234,10 @@ export function AccountPage() {
                 }
                 className={`${previewFocus} mt-1 w-full rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-sm text-soma-ink`}
                 autoComplete="nickname"
+                aria-invalid={errorField === "displayName" ? true : undefined}
+                aria-describedby={
+                  errorField === "displayName" ? fieldErrorId : undefined
+                }
               />
             </div>
 
@@ -232,6 +260,10 @@ export function AccountPage() {
                   setDraft({ ...draft, birthYear: e.target.value })
                 }
                 className={`${previewFocus} mt-1 w-full rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-sm text-soma-ink`}
+                aria-invalid={errorField === "birthYear" ? true : undefined}
+                aria-describedby={
+                  errorField === "birthYear" ? fieldErrorId : undefined
+                }
               />
             </div>
 
@@ -253,6 +285,10 @@ export function AccountPage() {
                   })
                 }
                 className={`${previewFocus} mt-1 w-full rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-sm text-soma-ink`}
+                aria-invalid={errorField === "biologicalSex" ? true : undefined}
+                aria-describedby={
+                  errorField === "biologicalSex" ? fieldErrorId : undefined
+                }
               >
                 <option value="male">{t("biologicalSexMale")}</option>
                 <option value="female">{t("biologicalSexFemale")}</option>
@@ -276,12 +312,27 @@ export function AccountPage() {
                 }
                 placeholder="68.5"
                 className={`${previewFocus} mt-1 w-full rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-sm text-soma-ink placeholder:text-soma-ink-muted`}
+                aria-invalid={errorField === "weightKg" ? true : undefined}
+                aria-describedby={
+                  errorField === "weightKg"
+                    ? "account-weight-hint account-field-error"
+                    : "account-weight-hint"
+                }
               />
-              <p className="mt-1 text-xs text-soma-ink-muted">{t("weightHint")}</p>
+              <p
+                id="account-weight-hint"
+                className="mt-1 text-xs text-soma-ink-muted"
+              >
+                {t("weightHint")}
+              </p>
             </div>
 
             {formError ? (
-              <p className="text-sm text-soma-organ-damaged" role="alert">
+              <p
+                id={errorField ? fieldErrorId : formErrorId}
+                className="text-sm text-soma-organ-damaged"
+                role="alert"
+              >
                 {formError}
               </p>
             ) : null}
@@ -290,6 +341,7 @@ export function AccountPage() {
               <button
                 type="submit"
                 disabled={saving}
+                aria-busy={saving || undefined}
                 className={`${previewFocus} rounded-xl bg-soma-action px-4 py-2 text-sm font-medium text-[#081018] disabled:opacity-50`}
               >
                 {saving ? t("saving") : t("save")}

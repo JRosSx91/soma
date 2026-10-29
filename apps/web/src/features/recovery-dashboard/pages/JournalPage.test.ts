@@ -113,6 +113,15 @@ test("journal form covers required fields and catalogs", () => {
   assert.match(form, /highlighted/);
   assert.match(form, /learning/);
   assert.match(form, /form.sectionFeeling/);
+  assert.match(form, /htmlFor="journal-occurred-on"/);
+  assert.match(form, /id="journal-occurred-on"/);
+  assert.match(form, /htmlFor="journal-title"/);
+  assert.match(form, /htmlFor="journal-body"/);
+  assert.match(form, /aria-invalid/);
+  assert.match(form, /aria-describedby/);
+  assert.match(form, /journal-field-error/);
+  assert.match(form, /journal-form-error/);
+  assert.match(form, /journal-save-error/);
 });
 
 test("journal patterns and emotions tabs stay descriptive and local for DEMO", () => {
