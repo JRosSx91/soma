@@ -1,0 +1,83 @@
+{
+  "disclaimer": "Estas misiones usan las fichas educativas de Soma. Describen mecanismos generales. No describen tu cerebro y no son una valoración clínica.",
+  "categories": {
+    "neurotransmitters": "Neurotransmisores",
+    "processes": "Procesos clave",
+    "substances": "Sustancias y efectos",
+    "orientation": "Orientación"
+  },
+  "items": {
+    "edu-dopamine-01": {
+      "title": "Querer no es lo mismo que disfrutar",
+      "summary": "Una comprobación breve tras la ficha de dopamina: a qué se asocia realmente el mensajero.",
+      "goal": "Distinguir el papel de la dopamina en el querer y el aprendizaje de la idea de que es «la molécula del placer».",
+      "prompt": "Según la ficha educativa, ¿con cuál de estas ideas se asocia más la dopamina?",
+      "explain": "La ficha relaciona la dopamina más con el querer, el aprendizaje por error de predicción y decidir qué merece la pena intentar que con el placer en sí. Disfrutar depende de varios sistemas. Una subida brusca no es lo mismo que estar más feliz.",
+      "options": {
+        "wanting": "Querer, aprender y decidir qué merece la pena intentar",
+        "pleasure": "El placer en sí: es «la molécula del placer»",
+        "meter": "Un medidor personal de días sin consumo"
+      }
+    },
+    "edu-serotonin-01": {
+      "title": "No es un depósito de felicidad",
+      "summary": "Una comprobación tras la ficha de serotonina: qué hace el 5-HT y qué no mide.",
+      "goal": "Ver por qué llamar a la serotonina «la molécula de la felicidad» comprime demasiado, incluida la diferencia entre sangre y cerebro.",
+      "prompt": "¿Por qué es engañoso tratar la serotonina como «la molécula de la felicidad»?",
+      "explain": "El 5-HT modula muchos sistemas a la vez. Una subida brusca no es más felicidad. La mayor parte de la serotonina del cuerpo no está en el cerebro, y la molécula no cruza libremente la barrera hematoencefálica: un cambio en sangre no es una lectura de la serotonina cerebral.",
+      "options": {
+        "many_systems": "Modula muchos sistemas; una subida no es más felicidad, y la serotonina en sangre no es la del cerebro",
+        "blood_equals_brain": "Un análisis de sangre lee directamente la serotonina cerebral y el ánimo",
+        "happiness_tank": "La serotonina existe solo en el cerebro, donde llena un depósito de felicidad"
+      }
+    },
+    "edu-gaba-01": {
+      "title": "Inhibir no es apagar el cerebro",
+      "summary": "Una comprobación tras la ficha de GABA: qué significa «inhibitorio» en una red.",
+      "goal": "Entender el GABA como una forma de que algunas neuronas disparen menos o con otro ritmo — no como un interruptor universal ni como el alcohol mismo.",
+      "prompt": "¿Qué significa que el GABA sea el principal mensajero inhibitorio del cerebro adulto?",
+      "explain": "Inhibir es hacer que algunas neuronas disparen menos, o con otro ritmo. No es «apagar el cerebro». El alcohol no es GABA: entre otras acciones, puede potenciar algunos receptores GABA-A para que respondan más al GABA que ya está ahí.",
+      "options": {
+        "network_brake": "Hace que algunas neuronas disparen menos, o cambia su ritmo; no apaga el cerebro",
+        "brain_off": "Apaga el cerebro entero, que es lo mismo que dormir",
+        "alcohol_is_gaba": "El alcohol es GABA, así que una copa sustituye al mensajero"
+      }
+    },
+    "edu-receptors-01": {
+      "title": "Ocupar un receptor no es lo mismo que activarlo",
+      "summary": "Una comprobación tras la ficha de receptores: agonistas, antagonistas y el contraste de la cocaína.",
+      "goal": "Separar activación de ocupación, y la acción sobre un receptor del bloqueo de un transportador.",
+      "prompt": "En la ficha educativa, ¿en qué se diferencian un agonista y un antagonista?",
+      "explain": "Un agonista activa el receptor, o una parte sustancial de su actividad. Un antagonista ocupa el sitio sin imitar esa activación. El gesto dopaminérgico más conocido de la cocaína no es abrir un receptor de dopamina: bloquea el DAT, así que la dopamina ya liberada se retira más despacio.",
+      "options": {
+        "occupancy": "Un agonista activa (o una gran parte de esa actividad); un antagonista ocupa sin imitar esa activación",
+        "same_name": "Son dos nombres para el mismo ligando en la misma puerta",
+        "cocaine_is_key": "La cocaína es una llave que abre los receptores D1 y D2 como la nicotina abre los nicotínicos"
+      }
+    },
+    "edu-tolerance-01": {
+      "title": "La tolerancia no es adicción",
+      "summary": "Una comprobación tras la ficha de tolerancia: un cambio de sensibilidad, no un diagnóstico.",
+      "goal": "Definir la tolerancia farmacológica sin igualarla a la adicción ni a un depósito que se vacía.",
+      "prompt": "¿Qué significa tolerancia farmacológica en esta ficha educativa?",
+      "explain": "La tolerancia es una bajada de la respuesta a la misma dosis cuando la exposición se repite. No es un juicio moral ni, por sí sola, adicción o un trastorno por uso de sustancias. No es que el cerebro se quede sin mensajero, y Soma no puede asignarte una curva universal.",
+      "options": {
+        "sensitivity": "Una bajada de respuesta a la misma dosis con la exposición repetida; no es lo mismo que adicción",
+        "equals_addiction": "Prueba de adicción: un café más flojo basta para diagnosticar un trastorno",
+        "empty_tank": "El cerebro se queda sin el mensajero, en una curva que Soma puede leerte"
+      }
+    },
+    "edu-neuroadaptation-01": {
+      "title": "Adaptarse no es lo mismo que dañarse",
+      "summary": "Una comprobación tras la ficha de neuroadaptación: plasticidad frente a pérdida de células.",
+      "goal": "Distinguir el cambio funcional de los circuitos de la neurodegeneración, y de un calendario fijo de recuperación.",
+      "prompt": "¿Cómo distingue la ficha la neuroadaptación de la neurodegeneración?",
+      "explain": "La neuroadaptación es sobre todo un cambio de función —plasticidad— y a veces de la arquitectura de las sinapsis. La neurodegeneración es pérdida o lesión de células nerviosas. No son lo mismo, y dejar de consumir no restablece el sistema nervioso en un calendario universal que esta app pueda aplicar.",
+      "options": {
+        "plasticity": "La neuroadaptación es sobre todo un cambio funcional; la neurodegeneración es pérdida o lesión de células nerviosas",
+        "cell_death": "Toda adaptación a la cafeína o la nicotina es lo mismo que perder neuronas",
+        "fixed_calendar": "Son el mismo proceso, y el cerebro vuelve a una foto fija en un número de días"
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "disclaimer": "These missions use Soma’s educational sheets. They describe general mechanisms. They do not describe your brain, and they are not a clinical assessment.",
+  "categories": {
+    "neurotransmitters": "Neurotransmitters",
+    "processes": "Key processes",
+    "substances": "Substances and effects",
+    "orientation": "Orientation"
+  },
+  "items": {
+    "edu-dopamine-01": {
+      "title": "Wanting is not the same as liking",
+      "summary": "A short check after the dopamine sheet: what the messenger is actually tied to.",
+      "goal": "Distinguish dopamine’s role in wanting and learning from the idea that it is “the pleasure molecule”.",
+      "prompt": "According to the educational sheet, dopamine is most closely tied to which of these?",
+      "explain": "The sheet links dopamine more to wanting, learning from prediction error, and deciding what is worth trying than to pleasure itself. Liking depends on several systems. A sudden rise is not the same as being happier.",
+      "options": {
+        "wanting": "Wanting, learning, and deciding what is worth trying",
+        "pleasure": "Pleasure itself — it is “the pleasure molecule”",
+        "meter": "A personal meter of days without use"
+      }
+    },
+    "edu-serotonin-01": {
+      "title": "Not a happiness tank",
+      "summary": "A check after the serotonin sheet: what 5-HT does and does not measure.",
+      "goal": "See why calling serotonin “the happiness molecule” compresses too much, including the split between blood and brain.",
+      "prompt": "Why is it misleading to treat serotonin as “the happiness molecule”?",
+      "explain": "5-HT modulates many systems at once. A sudden rise is not more happiness. Most of the body’s serotonin is not in the brain, and the molecule does not freely cross the blood–brain barrier, so a change in blood serotonin is not a reading of brain serotonin.",
+      "options": {
+        "many_systems": "It modulates many systems; a rise is not more happiness, and blood serotonin is not brain serotonin",
+        "blood_equals_brain": "A blood test is a direct reading of brain serotonin and mood",
+        "happiness_tank": "Serotonin exists only in the brain, where it fills a happiness tank"
+      }
+    },
+    "edu-gaba-01": {
+      "title": "Inhibition is not switching the brain off",
+      "summary": "A check after the GABA sheet: what “inhibitory” means in a network.",
+      "goal": "Understand GABA as a way some neurons fire less or with a different rhythm — not as a universal off switch or as alcohol itself.",
+      "prompt": "What does it mean that GABA is the main inhibitory messenger in the adult brain?",
+      "explain": "To inhibit is to make some neurons less likely to fire, or to fire with a different rhythm. It is not “switching the brain off.” Alcohol is not GABA: among other actions, it can potentiate some GABA-A receptors so they answer more strongly to GABA already there.",
+      "options": {
+        "network_brake": "It makes some neurons less likely to fire, or changes their rhythm — it does not switch the brain off",
+        "brain_off": "It switches the whole brain off, which is the same as sleep",
+        "alcohol_is_gaba": "Alcohol is GABA, so a drink replaces the messenger"
+      }
+    },
+    "edu-receptors-01": {
+      "title": "Occupying a receptor is not the same as activating it",
+      "summary": "A check after the receptors sheet: agonists, antagonists, and cocaine’s contrast.",
+      "goal": "Separate activation from occupancy, and receptor action from blocking a transporter.",
+      "prompt": "On the educational sheet, how do an agonist and an antagonist differ?",
+      "explain": "An agonist activates the receptor, or a substantial fraction of its activity. An antagonist occupies the site without mimicking that activation. Cocaine’s best-known dopaminergic move is not opening a dopamine receptor: it blocks DAT, so dopamine already released is cleared more slowly.",
+      "options": {
+        "occupancy": "An agonist activates (or a large fraction of that activity); an antagonist occupies without mimicking that activation",
+        "same_name": "They are two names for the same ligand at the same door",
+        "cocaine_is_key": "Cocaine is a key that opens D1 and D2 receptors the way nicotine opens nicotinic ones"
+      }
+    },
+    "edu-tolerance-01": {
+      "title": "Tolerance is not addiction",
+      "summary": "A check after the tolerance sheet: a change of sensitivity, not a diagnosis.",
+      "goal": "Define pharmacological tolerance without equating it with addiction or with a tank running dry.",
+      "prompt": "What does pharmacological tolerance mean in this educational sheet?",
+      "explain": "Tolerance is a drop in the response to the same dose when exposure is repeated. It is not a moral judgement and not, by itself, addiction or a substance use disorder. It is not the brain simply running out of a messenger, and Soma cannot assign you a universal curve.",
+      "options": {
+        "sensitivity": "A drop in response to the same dose with repeated exposure — not the same as addiction",
+        "equals_addiction": "Proof of addiction; one weaker coffee is enough to diagnose a disorder",
+        "empty_tank": "The brain running out of the messenger, on a curve Soma can read in you"
+      }
+    },
+    "edu-neuroadaptation-01": {
+      "title": "Adaptation is not the same as damage",
+      "summary": "A check after the neuroadaptation sheet: plasticity versus loss of cells.",
+      "goal": "Distinguish functional change in circuits from neurodegeneration, and from a fixed recovery calendar.",
+      "prompt": "How does the sheet distinguish neuroadaptation from neurodegeneration?",
+      "explain": "Neuroadaptation is mainly a change of function — plasticity — and sometimes of synapse architecture. Neurodegeneration is loss or injury of nerve cells. They are not the same thing, and stopping use does not reset the nervous system on a universal calendar this app can apply.",
+      "options": {
+        "plasticity": "Neuroadaptation is mainly functional change; neurodegeneration is loss or injury of nerve cells",
+        "cell_death": "Every adaptation to caffeine or nicotine is the same as losing neurons",
+        "fixed_calendar": "They are the same process, and the brain returns to a snapshot on a fixed number of days"
+      }
+    }
+  }
+}
