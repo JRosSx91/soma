@@ -107,6 +107,11 @@ export interface MissionUserProgress {
  */
 export type MissionReadingCheckRejection = "unknown_mission" | "unknown_option";
 
+/** Submit-layer rejections, including draft catalog rows. Future HTTP 400. */
+export type MissionSubmitRejection =
+  | MissionReadingCheckRejection
+  | "unpublished_mission";
+
 export type MissionReadingCheckEvaluation =
   | {
       readonly ok: true;
