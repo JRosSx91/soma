@@ -3,10 +3,9 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-29 (prioridad: cerrar FBK-01; objetivo: beta pública de Soma 2.0; secuencia post-beta GAM-03 → CHR-01 → ONB-01 → MKT-01; MOB-01 pospuesto).
-Rama de trabajo: `feature/fbk-01` (sobre `develop`). **No** es un PR abierto.
-HEAD de `origin/develop` al actualizar: `cdf038c4a80487da11e5258d07a58a6d9d875105` (squash PR #75, SEO-01A).
-`origin/main`: `8155554ccb4f0d7799aebc1af6d342fb7ce39334` (squash PR #76, REL-01). Expeditions, Explorador, JRN-01, GAM-01 y GAM-02 **sí** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación.
+Última actualización editorial: 2026-10-29 (ROADMAP-SYNC-01). Prioridad inmediata: **CLEAN-01**. Objetivo: beta pública de Soma 2.0. Secuencia post-beta: GAM-03 → CHR-01 → ONB-01 → MKT-01. MOB-01 pospuesto.
+HEAD de `origin/develop` al actualizar: `db6385bb41fc7c4b81117b1d158d41b4dbca64cd` (squash PR #79, UX-GLO-01). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77) y R-JXP (`a26585e`, PR #78).
+`origin/main`: `8155554ccb4f0d7799aebc1af6d342fb7ce39334` (squash PR #76, REL-01). Expeditions, Explorador, JRN-01, GAM-01 y GAM-02 **sí** están en `main`. SEO-01A, FBK-01, R-JXP y UX-GLO-01 están en `develop` **y no** en ese squash de `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -14,7 +13,7 @@ Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso
 
 ## Objetivo y alcance
 
-Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `develop` (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas). Somi, tutorial y landing renovada **siguen pendientes**. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
+Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `main` git (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas) y el atlas 2.0 consolidado está en `develop` (UX-GLO-01). Somi, tutorial completo y landing renovada **siguen pendientes**. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
 
 No es un dispositivo médico. Las curvas son modelos ilustrativos (`curveProgress` / avance de curva), **no** un porcentaje de salud recuperada ni una medición clínica. No se miden neurotransmisores. Las estimaciones de recuperación **no** se presentan como mediciones fisiológicas individuales. Las fases educativas se eligen para comparar; no se calculan a partir de los días de abstinencia salvo que un hito futuro lo autorice con evidencia.
 
@@ -28,19 +27,19 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 ## Prioridad inmediata y apertura de beta
 
-**Prioridad inmediata:** finalizar **FBK-01** (rama `feature/fbk-01`; A–E en commits locales; verificación F y fusión pendientes de autorización).
+**Prioridad inmediata:** **CLEAN-01** (legado Soma 1.0). FBK-01, R-JXP y UX-GLO-01 están **integrados en `develop`**. No están en `main` ni se dan por desplegados.
 
 **Objetivo principal de producto:** abrir una **beta pública de Soma 2.0** cuando la aplicación alcance un nivel adecuado de estabilidad, seguridad, coherencia visual y usabilidad. No hay fecha fijada. El merge de REL-01 a `main` **no** abre registros.
 
-Hitos que deben quedar resueltos **antes** de autorizar la apertura (no se implementan en esta actualización documental):
+Hitos **antes** de autorizar la apertura (los tres primeros están cubiertos en git de `develop`; no se implementan en esta actualización documental):
 
 | Orden | ID | Papel respecto a la beta |
 | --- | --- | --- |
-| 1 | FBK-01 | Completar el centro de feedback privado. **Ahora.** |
-| 2 | R-JXP | Carrera de `UserProgression.upsert`; estabilidad LIVE |
-| 3 | UX-GLO-01 | Consolidación funcional, visual y responsive (confort, no solo overflow) |
-| 4 | CLEAN-01 | Retirar rutas y componentes heredados de Soma 1.0 que sigan accesibles sin necesidad |
-| 5 | WEB-01 | Nueva landing de Soma 2.0 (funciones reales, registro, SEO, responsive) |
+| 1 | FBK-01 | Centro de feedback privado. **Integrado** en `develop` (`f1b447f`, PR #77). **No** `main`. **No** desplegado |
+| 2 | R-JXP | Carrera de `UserProgression.upsert`. **Corregido e integrado** en `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado |
+| 3 | UX-GLO-01 | Consolidación funcional, visual y responsive. **Integrado** en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado |
+| 4 | CLEAN-01 | Retirar rutas y componentes heredados de Soma 1.0 que sigan accesibles sin necesidad. **Siguiente** |
+| 5 | WEB-01 | Nueva landing de Soma 2.0 (funciones reales, registro, SEO, responsive). Coordinar **SEO-01B** |
 | 6 | BETA-01 preparación | Registro controlado, RGPD, seguridad, abuso, copias, recuperación de acceso, onboarding mínimo |
 | 7 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación |
 
@@ -72,7 +71,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 
 | Superficie | Estado |
 | --- | --- |
-| Producto Soma 2.0 en `develop` / `main` | `main` incluye REL-01 (`8155554`, PR #76) y el árbol 2.0 hasta GAM-02 + SEO-01A en `develop` (`cdf038c`, PR #75). **Deploy de producción no verificado aquí.** Registro por invitación |
+| Producto Soma 2.0 en `develop` / `main` | `main` = REL-01 (`8155554`, PR #76). `develop` = `db6385b` (PR #79) con SEO-01A, FBK-01, R-JXP y UX-GLO-01 **además** del árbol REL-01. **Deploy de producción no verificado aquí.** Registro por invitación |
 | UX-01 orientación corporal | Completado (PR #45). Orientación exacta en prod no reauditada el 2026-10-25 |
 | UX-02 mensajes diarios × 60 | Completado y validado (tests) |
 | UX-03 figura móvil | Completado y validado DEMO 320/375/430 |
@@ -88,23 +87,25 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
-| Soma Expeditions (GAME-*) | GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A, GAME-03B y GAME-03C fusionados en `develop` (PR #53–#59). Sin deploy a producción |
-| I18N-2.0 dashboards ES/EN | Fusionado en `develop` (`5a451bd`, PR #60). Cubre Inicio, Recuperación y Logros. Atlas: ANAT-I18N-01 (PR #68). LIVE autenticado: falta comprobación de navegador antes del despliegue |
-| Explorador 2.0 | Fusionado en `develop` (`559df95`, PR #61). Cabecera, búsqueda ES/EN, filtros, 5 sustancias, 12 sistemas con ilustraciones, 9 NT educativos, selector de fase |
-| EXP-EDU fichas educativas | Fusionado en `develop` (PR #62–#67: EXP-EDU-01c, 02a, 02b, 03, 04). Enlaces atlas ↔ artículos. GAME-05 educativa cubierta por **GAM-02** en `develop` (**no** producción) |
-| REC-VIS-01 visualización de recuperación | Fusionado en `develop` (`f346709`, PR #69). Curvas educativas + NT cualitativos. **No** medición fisiológica individual |
-| ACH-01 sistema de logros y medallas | Fusionado en `develop` (`c28b31e`, PR #70). Galería 2.0; 156 IDs; 149 alcanzables; 7 no disponibles; historial permanente; recaídas no revocan |
-| HOME-UI-01 layout | Fusionado en `develop` (PR #66). No reabre UX-03 |
-| JRN-01 Bitácora | Fusionado en `develop` (PR #72). **No** producción |
-| GAM-01 XP, niveles, títulos | Fusionado en `develop` (`751c6aa`). Ledger `XpGrant` / `UserProgression`. **No** producción |
-| GAM-02 Misiones educativas | Fusionado en `develop` (PR #74, `6d73877`). Seis misiones, API, LIVE/DEMO, dashboard. **No** producción |
-| GAM-03 / CHR-01 / ONB-01 / WEB-02 | **Pendientes.** Posteriores a la beta. No anunciables como disponibles |
-| UX-GLO-01 consolidación UX | Pendiente. **Antes** de abrir la beta. Distinto de UX-01 (orientación anatómica) |
-| CLEAN-01 legado Soma 1.0 | Pendiente. **Antes** de abrir la beta |
-| WEB-01 landing Soma 2.0 | Pendiente. **Antes** de abrir la beta. WEB-02 puede empaquetarse |
-| SEO-01 visibilidad de búsqueda | SEO-01A fusionado en `develop` (PR #75). SEO-01B con WEB-01/WEB-02 |
+| Soma Expeditions (GAME-*) | GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A–C en `main` git vía REL-01 (PR #53–#59, #76). Sin deploy de producción verificado |
+| I18N-2.0 dashboards ES/EN | En `main` git (PR #60, REL-01). Atlas: ANAT-I18N-01 (PR #68). LIVE autenticado: falta comprobación de navegador antes del despliegue |
+| Explorador 2.0 | En `main` git (`559df95`, PR #61, REL-01). Cabecera, búsqueda ES/EN, filtros, 5 sustancias, 12 sistemas, 9 NT educativos |
+| EXP-EDU fichas educativas | En `main` git (PR #62–#67, REL-01). GAME-05 educativa cubierta por **GAM-02**. **No** se da por desplegado |
+| REC-VIS-01 visualización de recuperación | En `main` git (`f346709`, PR #69, REL-01). Curvas educativas + NT cualitativos. **No** medición fisiológica individual |
+| ACH-01 sistema de logros y medallas | En `main` git (`c28b31e`, PR #70, REL-01). Galería 2.0; 156 IDs; 149 alcanzables; 7 no disponibles; recaídas no revocan |
+| HOME-UI-01 layout | En `main` git (PR #66, REL-01). No reabre UX-03 |
+| JRN-01 Bitácora | En `main` git (PR #72, REL-01). **No** se da por desplegado |
+| GAM-01 XP, niveles, títulos | En `main` git (`751c6aa`, REL-01). Ledger `XpGrant` / `UserProgression`. **No** se da por desplegado |
+| GAM-02 Misiones educativas | En `main` git (PR #74, REL-01). Seis misiones, API, LIVE/DEMO. **No** se da por desplegado |
+| GAM-03 / CHR-01 / ONB-01 | **Pendientes.** Posteriores a la apertura de beta. No anunciables como disponibles |
+| WEB-02 identidad y filosofía | Pendiente. Puede empaquetarse con WEB-01; no es prerrequisito de apertura por sí solo |
+| UX-GLO-01 consolidación UX | Completado e integrado en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado. Distinto de UX-01 |
+| CLEAN-01 legado Soma 1.0 | Pendiente. **Siguiente** antes de abrir la beta |
+| WEB-01 landing Soma 2.0 | Pendiente. **Antes** de abrir la beta. Coordinar SEO-01B. WEB-02 puede empaquetarse |
+| SEO-01 visibilidad de búsqueda | SEO-01A fusionado en `develop` (PR #75). **No** `main`. SEO-01B con WEB-01/WEB-02 |
 | REL-01 release de producción | Completado en git (`main` `8155554`, PR #76). **Deploy y migraciones de producción:** no autorizados en este documento |
-| FBK-01 centro de feedback | **Prioridad inmediata.** A–E en `feature/fbk-01` (rutas, Más/Cuenta, DEMO, dock móvil). Fusión a `develop` no autorizada aquí |
+| FBK-01 centro de feedback | Completado e integrado en `develop` (`f1b447f`, PR #77). **No** `main`. **No** desplegado |
+| R-JXP carrera XP | Corregido e integrado en `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado |
 | BETA-01 beta pública | Pendiente. Preparación ≠ autorización de apertura. `AUTH_REGISTRATION_MODE=invite` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** implementar. **Pospuesto.** |
@@ -196,7 +197,7 @@ Numeración e intención originales conservadas. Lo no verificado en LIVE no se 
 #### REC-VIS-01 — Visualización de recuperación
 
 - **Objetivo:** Representar la recuperación como modelo educativo (curvas, hitos, señales neuroquímicas cualitativas) sin presentarla como medición fisiológica individual.
-- **Estado:** Fusionado en `develop` (`f346709`, PR #69). **No** en `main`. **No** desplegado.
+- **Estado:** Fusionado en `develop` (`f346709`, PR #69) y en `main` vía REL-01 (`8155554`, PR #76). **Deploy de producción no verificado aquí.**
 - **Prioridad:** P3 residual (regresiones; copy clínico).
 - **Decisiones confirmadas:** Las curvas siguen siendo `curveProgress` / avance de trayectoria. El panel de neurotransmisores en Recuperación es **cualitativo** y **no** se acopla a los días de abstinencia como si fueran concentraciones medidas. No se prometen predicciones clínicas individuales.
 - **Pendiente de diseño:** Ninguno de implementación de este ID. Pulido editorial futuro no reabre el modelo.
@@ -431,7 +432,7 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
 #### ACH-01 — Sistema de logros y medallas
 
 - **Objetivo:** Galería 2.0 como experiencia principal de medallas: catálogo claro, progreso honesto, historial permanente.
-- **Estado:** Fusionado en `develop` (`c28b31e`, PR #70). **No** en `main`. **No** desplegado. Última validación conocida de la rama: 665 tests web, TypeScript y build correctos.
+- **Estado:** Fusionado en `develop` (`c28b31e`, PR #70) y en `main` vía REL-01 (`8155554`, PR #76). **Deploy de producción no verificado aquí.** Última validación conocida de la rama ACH-01: 665 tests web, TypeScript y build correctos.
 - **Prioridad:** P3 residual (regresiones; no reabrir reglas de las 149 medallas alcanzables)
 - **Decisiones confirmadas:**
   - 156 identificadores en el catálogo; 149 alcanzables; 7 sin regla válida, mostradas como no disponibles y **excluidas** del progreso de colección.
@@ -447,7 +448,7 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
 
 ## Soma Expeditions — Gamificación de la recuperación
 
-Línea de producto **parcialmente implementada** en `develop` (GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01). Bitácora, XP, misiones jugables, mapa de expedición, Somi y tutorial **siguen pendientes**. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**.
+Línea de producto **parcialmente implementada** en `main` git (GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02). Atlas 2.0 (UX-GLO-01) está en `develop`. Mapa de expedición (GAME-07), Somi y tutorial completo **siguen pendientes**. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**.
 
 Principios (no negociables hasta que un hito los reabra por escrito):
 
@@ -474,7 +475,7 @@ Inventario real de `docs/design/` (2026-10-26):
 | `explorador-anatomico-2.0.png` | Explorador anatómico 2.0 |
 | `logros-2.0.png` | Logros 2.0 |
 | `expedicion-2.0.png` | Expedición 2.0 (única versión en disco; dos familias de rutas) |
-| `bitacora-2.0.png` | Bitácora 2.0 (dirección visual; **no** es JRN-01 implementado) |
+| `bitacora-2.0.png` | Bitácora 2.0 (dirección visual; JRN-01 **sí** está en `main` git, **no** producción) |
 | `misiones-2.0.png` | Presente en disco **sin seguimiento** (2026-10-28). Dirección local; **no** autoriza GAM-02 ni se afirma como mockup aprobado en Git |
 | `soma-2-reference.png` | Referencia del producto **actual** (Inicio), no 2.0 |
 | `soma-mi-recuperacion-reference.png` | Referencia actual |
@@ -585,7 +586,7 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
   - Panel de misiones educativas: teaser hacia `/missions` (GAM-02 en `develop`; **no** producción).
   - Diseño responsive (sin overflow horizontal a 1440, 390 y 320 px).
   - Reutilización de los contratos existentes.
-- **No entregado en producción:** GAM-02 (misiones jugables, sí en `develop` PR #74), GAM-01 (XP, sí en `develop`), Atlas 2.0 como rediseño, síntomas no publicados.
+- **No entregado en producción:** GAM-02 y GAM-01 están en `main` git (REL-01) **sin** deploy verificado aquí. Atlas 2.0 está en `develop` (UX-GLO-01, PR #79), **no** en `main`. Síntomas no publicados.
 - **Dependencias:** UX-05–07. I18N-2.0 (chrome de dashboards 2.0). No GAME-01/02.
 - **Criterio:** Explorar usable en DEMO y LIVE local; NT educativos no se presentan como medición; procesos y misiones no fingen catálogo publicado.
 
@@ -645,9 +646,16 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 
 ## Siguiente bloque de producto (ROADMAP-02)
 
-Hitos del siguiente bloque. JRN-01, GAM-01 y GAM-02 están **en `develop` y no en producción**. El resto permanece planificado. No anuncian funcionalidades como disponibles en `somarecovery.app`. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. El identificador **UX-01** sigue siendo orientación anatómica; la revisión global de experiencia es **UX-GLO-01**.
+Hitos del siguiente bloque. JRN-01, GAM-01 y GAM-02 están **en `main` git y no se dan por desplegados**. FBK-01, R-JXP y UX-GLO-01 están **en `develop` y no en `main`**. El resto permanece planificado. No anuncian funcionalidades como disponibles en `somarecovery.app`. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. El identificador **UX-01** sigue siendo orientación anatómica; la revisión global de experiencia es **UX-GLO-01**.
 
-Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 → GAM-01 → GAM-02 → **REL-01** (+ **SEO-01A**) → **release a producción** → **FBK-01** → **BETA-01** → GAM-03 → CHR-01 → ONB-01 → WEB-01 / WEB-02 (+ **SEO-01B**) → **FBK-02** y mejoras posteriores (UX-GLO-01, GAME-07, Atlas 2.0). La beta pública exige una **incorporación inicial suficiente**; el tutorial completo (**ONB-01**) puede llegar después.
+Orden vigente (no usar el orden histórico que colocaba WEB-01 después de la beta ni UX-GLO-01 como mejora posterior):
+
+- **Hecho en git de `develop`:** FBK-01 → R-JXP → UX-GLO-01.
+- **Antes de la beta:** **CLEAN-01** → **WEB-01** (coordinado con **SEO-01B**) → **BETA-01 preparación** → **BETA-01 autorización**.
+- **Después de abrir la beta:** **GAM-03** → **CHR-01** → **ONB-01** → **MKT-01**.
+- **Residual / posterior:** WEB-02 si no va con WEB-01; FBK-02; GAME-07; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto.
+
+La beta pública exige una **incorporación inicial suficiente**; el tutorial completo (**ONB-01**) puede llegar después. **MKT-01 no bloquea BETA-01.**
 
 #### JRN-01 — Bitácora personal
 
@@ -824,7 +832,8 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 - **Objetivo:** Preparar el paso de `develop` a `main` y desplegar los avances acumulados **después** de PR #52, sin poner en riesgo datos existentes.
 - **Prioridad:** P2 residual (deploy de producción y migraciones, cuando se autoricen)
 - **Estado:** Squash-merge en `main` (`8155554`, PR #76). **No** hay deploy autorizado aquí. **No** hay migraciones en Supabase autorizadas. El registro sigue por invitación.
-- **Incluye (ahora en `main` git, no necesariamente desplegado):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02. SEO-01A quedó en `develop` (PR #75) y entra en el siguiente corte si aún no está en ese squash.
+- **Incluye (ahora en `main` git, no necesariamente desplegado):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02.
+- **En `develop` y aún no en ese squash de `main`:** SEO-01A (PR #75), FBK-01 (PR #77), R-JXP (PR #78), UX-GLO-01 (PR #79).
 - **Dependencias:** Inventario de migraciones Prisma vs producción (estado de `_prisma_migrations` en Supabase **desconocido** sin consulta autorizada). Variables de producción (`DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`, `APP_PUBLIC_URL`, mailer). Backup antes de migrar.
 - **Convención del PR de producción (cuando se autorice):** título y descripción **íntegramente en inglés** (summary, features, migrations, testing, deployment, known issues, rollback).
 - **Criterio:** `main` avanza un squash/merge acordado; migraciones aplicadas con backup; DEMO y un humo LIVE de staging o producción autorizado; rollback documentado (revertir deploy; **no** asumir `migrate down`). El registro sigue **por invitación** hasta **BETA-01**.
@@ -832,8 +841,8 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 #### FBK-01 — Feedback Center
 
 - **Objetivo:** Espacio **integrado** en Soma para sugerir funciones, proponer mejoras y comunicar errores.
-- **Prioridad:** P1 (**inmediata**; **antes** de BETA-01)
-- **Estado:** En curso en `feature/fbk-01` (HEAD de contratos/API/LIVE: `1282fbd`). A–D committed. E (rutas, Más/Cuenta, DEMO, inset del dock móvil) **sin commit** hasta autorización. No formaba parte del squash REL-01.
+- **Prioridad:** P3 residual (regresiones). Ya no es la prioridad inmediata de producto.
+- **Estado:** Completado e integrado en `develop` (`f1b447f`, PR #77). **No** en `main`. **No** desplegado. No formaba parte del squash REL-01.
 - **Primera versión:** Formularios **privados** y gestión **interna**.
 - **Decisiones confirmadas:**
   - No publicar automáticamente lo que envíen los usuarios.
@@ -846,7 +855,7 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 #### BETA-01 — Public Beta Launch
 
 - **Objetivo:** Permitir registros **públicos** y abrir Soma a usuarios reales, identificada como **beta pública**, cuando estabilidad, seguridad, coherencia visual y usabilidad sean suficientes.
-- **Prioridad:** P1 (después de FBK-01, R-JXP, UX-GLO-01, CLEAN-01 y WEB-01)
+- **Prioridad:** P1 (después de CLEAN-01 y WEB-01; FBK-01, R-JXP y UX-GLO-01 ya están en `develop`)
 - **Estado:** Pendiente. **No** activar registros públicos. `AUTH_REGISTRATION_MODE=invite`.
 
 Preparación y autorización son **fases distintas** del mismo ID. Completar la lista de preparación **no** abre la beta.
@@ -858,9 +867,9 @@ Preparación y autorización son **fases distintas** del mismo ID. Completar la 
 - Seguridad y prevención de abuso (auth, throttle, superficies privadas).
 - Recuperación de acceso (reset existente; humo autorizado).
 - Estrategia de copias de seguridad (antes de cualquier migrate de producción).
-- Corrección de **R-JXP**.
+- Corrección de **R-JXP** (**hecha** en `develop`, PR #78; no en `main`; no desplegada).
 - Onboarding **mínimo** (orientación comprensible; **no** exige ONB-01 ni Somi).
-- **FBK-01** operativo.
+- **FBK-01** operativo en `develop` (PR #77; no en `main`; no desplegado).
 - Validación final de producto (recorrido DEMO + humo LIVE autorizado).
 
 ##### Autorización de apertura (decisión humana)
@@ -870,7 +879,7 @@ Preparación y autorización son **fases distintas** del mismo ID. Completar la 
 - Deploy de producción de los cortes acordados, **cuando se autorice**.
 - Esta subfase no se ejecuta por el hecho de marcar ítems de preparación.
 
-- **Dependencias:** FBK-01, R-JXP, UX-GLO-01 (críticos), CLEAN-01, WEB-01, REL-01 desplegable. **No** espera CHR-01, ONB-01 completo, GAM-03, FBK-02 ni MOB-01.
+- **Dependencias:** FBK-01, R-JXP y UX-GLO-01 **cubiertos en `develop`**. Siguen CLEAN-01, WEB-01 y REL-01 desplegable. **No** espera CHR-01, ONB-01 completo, GAM-03, FBK-02 ni MOB-01.
 - **Criterio:** Una persona nueva puede crear cuenta sin invitación **solo después** de la autorización; entiende que está en beta; el diario/misiones/XP de usuarios existentes no se ponen en riesgo. Sin promesas clínicas.
 
 #### FBK-02 — Community Feedback
@@ -887,8 +896,8 @@ Preparación y autorización son **fases distintas** del mismo ID. Completar la 
 Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **UX-01** (orientación anatómica).
 
 - **Objetivo:** Revisar coherencia de Inicio, Recuperación, Explorar, Logros, Bitácora, Misiones, XP, Configuración y Feedback. Evitar navegación duplicada y pantallas innecesarias. Comprobar que la experiencia es **cómoda** en cada formato, no solo que «no desborda».
-- **Prioridad:** P1 (**antes** de abrir BETA-01; corregir problemas críticos)
-- **Estado:** Pendiente. Las superficies a revisar ya existen en `develop`/`main` salvo el cierre de FBK-01. No implementar el barrido completo durante FBK-01E.
+- **Prioridad:** P3 residual (regresiones; no reabrir el barrido). Ya no es la prioridad inmediata.
+- **Estado:** Completado e integrado en `develop` (`db6385b`, squash PR #79). **No** en `main`. **No** desplegado. Incluye atlas 2.0 (NATURE-8), a11y de autenticación/onboarding/cuenta/bitácora, idioma del documento ES/EN, skip-link, dock móvil, calendario semántico de bitácora y corrección de `set-state-in-effect` en pestañas relacionadas. GLO-04 (XP en Cuenta) se cerró **sin cambios** por decisión de producto. LIVE autenticado, teclado real y lector de pantalla **no** se recorrieron de punta a punta. ESLint: cero errores nuevos pendientes respecto a la base.
 - **Formatos a comprobar:**
   - Móvil vertical
   - Móvil horizontal
@@ -905,7 +914,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 - **Objetivo:** Inventariar y retirar rutas y componentes de Soma 1.0 que ya no deban ser accesibles, sin romper las funcionalidades vigentes de Soma 2.0.
 - **Prioridad:** P1 (**antes** de abrir BETA-01)
-- **Estado:** Pendiente. No iniciar el barrido en FBK-01. LEG-01 (`/achievements` → `/app/achievements`) ya cubre un redirección puntual; este ID es el inventario completo.
+- **Estado:** Pendiente. **Siguiente hito** antes de WEB-01 / BETA-01. LEG-01 (`/achievements` → `/app/achievements`) ya cubre una redirección puntual; este ID es el inventario completo.
 - **Alcance:**
   - Inventariar rutas y componentes antiguos.
   - Identificar dependencias reales (imports, deep links, SEO, tests).
@@ -1001,7 +1010,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 - **Estado:** Parcialmente implementado (deuda, no P0)
 - **Prioridad:** P3
-- **Evidencia (preexistente, no introducida por UX-04):** `react-hooks/set-state-in-effect` en `RecoveryPage.tsx`, `TrophyToastStack.tsx`, `AuthContext.tsx`; avisos `exhaustive-deps` en `usePreviewDashboard.ts`. API sin ESLint.
+- **Evidencia (preexistente, no introducida por UX-04 ni por UX-GLO-01):** en `@soma/web`, 46 errores y 11 avisos al comparar con la base de UX-GLO-01. El único error nuevo de la rama (`AnatomyExplorerPage` `set-state-in-effect`) se corrigió antes del squash PR #79. API sin ESLint.
 - **Criterio:** No se exigen limpiezas hasta un hito de calidad autorizado. Los hitos nuevos no deben añadir errores en archivos tocados.
 
 ---
@@ -1052,7 +1061,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 5. Platinos: conjunto de logros vs umbral 0,99 (UX-11) — requiere diseño y autorización de catálogo.
 6. Fichas de anatomía EN (I18N-03): entregadas en PR #68; residual de validación LIVE.
 7. Destino de `/achievements` legacy (LEG-01): **redirige** a `/app/achievements` (ACH-01).
-8. Soma Expeditions: Expedición propia (GAME-07) y capítulos (GAME-08) pendientes. XP (**GAM-01**), bitácora (**JRN-01**) y misiones educativas (**GAM-02**) están en `develop` (no producción). Integración (**GAM-03**) pendiente.
+8. Soma Expeditions: Expedición propia (GAME-07) y capítulos (GAME-08) pendientes. XP (**GAM-01**), bitácora (**JRN-01**) y misiones educativas (**GAM-02**) están en `main` git (no se dan por desplegados). Atlas 2.0 (**UX-GLO-01**) está en `develop`. Integración (**GAM-03**) pendiente, **después** de BETA-01.
 9. Naming de GAME-01: la tabla de este roadmap y los nombres frikis de los PNG son **propuestas históricas**, no catálogo a renombrar. Los 106 fisiológicos **no** se renombran.
 10. Arte Horizonte / mapa / Somi: los PNG no otorgan licencia; hace falta arte propio o autorizado antes de producción (CHR-01).
 11. **GAM-01 residual:** copy público de niveles; fuentes de XP adicionales (exploración). Fórmulas del ledger **cerradas** en `develop`.
@@ -1078,7 +1087,7 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 | R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación, Logros 2.0 (PR #60), Explorar (PR #61) y atlas (PR #68). LEG-01 redirige |
 | R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en código GAM-01 (`develop`); vigilar copy de landing en REL-01 |
 | R-LOG | Bitácora (JRN-01) en `develop` sin nota de privacidad pública / retención detallada. | Residual de release; no bloquea el merge si el copy LIVE ya avisa que el diario es privado |
-| R-JXP | Posible carrera en `UserProgression.upsert` (primer XP del usuario). Test `pg xp: concurrent journal creates` observó HTTP 500 en lugar de 201 (GAM-02H). No es regresión GAM-02. | **Incidencia técnica.** No bloquea REL-01 (UX secuencial). **Investigar y resolver antes de BETA-01.** Sin cambio de código en esta actualización documental |
+| R-JXP | Posible carrera en `UserProgression.upsert` (primer XP del usuario). Test `pg xp: concurrent journal creates` observó HTTP 500 en lugar de 201 (GAM-02H). | **Corregido en `develop`** (`a26585e`, PR #78). **No** en `main`. **No** desplegado. Residual: incluir el corte en el siguiente release a `main` |
 | R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
 | R-MIX | Mezclar % temporal con % de curva, o conocimiento con perseverancia. | Mitigado en copy UX-04 + GAME-02/07; vigilar implementación |
 | R-ART | Sustituir visor anatómico o medallas reales por arte generado de mockup. | Prohibido; visor y catálogo 106 se conservan |
@@ -1094,12 +1103,13 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 3. **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo). UX-10 cubierto en ACH-01.
 4. **ACH-REV residual:** recaída ya no revoca (ACH-01). Queda corrección de fecha errónea. Bloquea GAME-08.
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**.
-6. **En `main` (git; deploy no verificado aquí):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**. SEO-01A en `develop` (`cdf038c`).
-7. **Siguiente (autorización humana, por bloqueo real de beta):** **FBK-01** (cerrar E y fusionar) → **R-JXP** → **UX-GLO-01** (críticos) + **CLEAN-01** + **WEB-01** (SEO-01B) → **BETA-01 preparación** → **BETA-01 autorización** (registros). Después: **GAM-03 → CHR-01 → ONB-01 → MKT-01**. WEB-02 residual → **FBK-02**, GAME-07, Atlas 2.0. **MKT-01 no bloquea BETA-01** y no empieza antes de ONB-01. **MOB-01** permanece pospuesto, sin fecha. **No** abrir registro público sin la autorización de BETA-01.
-8. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
-9. **UX-08 / UX-09:** editorial; no inventar.
-10. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
-11. Revisión clínica de síntomas/consejos: hito humano **posterior**, no el paso 1 de lanzamiento.
+6. **En `main` (git; deploy no verificado aquí):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**.
+7. **En `develop` y no en `main`:** SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79).
+8. **Siguiente (autorización humana, por bloqueo real de beta):** **CLEAN-01** → **WEB-01** (coordinado con **SEO-01B**) → **BETA-01 preparación** → **BETA-01 autorización** (registros). Después de abrir: **GAM-03 → CHR-01 → ONB-01 → MKT-01**. Residual: WEB-02 si no va con WEB-01, **FBK-02**, GAME-07. **MKT-01 no bloquea BETA-01** y no empieza antes de ONB-01. **MOB-01** permanece pospuesto, sin fecha. **No** abrir registro público sin la autorización de BETA-01.
+9. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
+10. **UX-08 / UX-09:** editorial; no inventar.
+11. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
+12. Revisión clínica de síntomas/consejos: hito humano **posterior**, no el paso 1 de lanzamiento.
 
 ---
 
@@ -1143,8 +1153,11 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 | #72 | JRN-01 Bitácora | Fusionado en `develop` (`9b5bb63`). No producción |
 | — | GAM-01 XP | `751c6aa` en `develop`. No producción |
 | #74 | GAM-02 Misiones | Squash en `develop` (`6d73877`). En `main` vía REL-01 |
-| #75 | SEO-01A fundamentos | Squash en `develop` (`cdf038c`) |
+| #75 | SEO-01A fundamentos | Squash en `develop` (`cdf038c`). **No** `main` |
 | #76 | REL-01 develop→main | Squash en `main` (`8155554`). Deploy no verificado aquí |
+| #77 | FBK-01 centro de feedback | Squash en `develop` (`f1b447f`). **No** `main`. **No** desplegado |
+| #78 | R-JXP carrera XP | Squash en `develop` (`a26585e`). **No** `main`. **No** desplegado |
+| #79 | UX-GLO-01 atlas 2.0 y a11y | Squash en `develop` (`db6385b`). **No** `main`. **No** desplegado |
 
 ---
 
@@ -1164,20 +1177,21 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
   → ACH-NOTIF-01 / ACH-CELEB-01 / SHELL-01 (main + validado LIVE producción)
   → I18N-04 (selector banderas; no implementar aún; no nuevos idiomas)
 
-Soma Expeditions (dirección visual OK; parcialmente en develop)
-  Fase A  GAME-01 y GAME-02 (en develop)
-  Fase A2 NAV-01 y NAV-02 → GAME-03A / 03B / 03C → I18N-2.0 (en develop)
+Soma Expeditions (dirección visual OK; parcialmente en main git; atlas 2.0 en develop)
+  Fase A  GAME-01 y GAME-02 (en `main` git vía REL-01)
+  Fase A2 NAV-01 y NAV-02 → GAME-03A / 03B / 03C → I18N-2.0 (en `main` git)
   Fase B  Explorador 2.0 (PR #61) → EXP-EDU (PR #62–#67) → REC-VIS-01 (PR #69) → ACH-01 (PR #70)
-  Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
-  Fase D  Atlas 2.0 (pendiente de rediseño)
-  Fase E  JRN-01 (PR #72) → GAM-01 (`751c6aa`) → GAM-02 (PR #74)
-  Fase E2 REL-01 squash `main` (`8155554`, PR #76) + SEO-01A (`cdf038c`, PR #75)
+  Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01 — **pendiente**
+  Fase D  Atlas 2.0 — **en `develop`** vía UX-GLO-01 (PR #79). **No** `main`. **No** desplegado
+  Fase E  JRN-01 (PR #72) → GAM-01 (`751c6aa`) → GAM-02 (PR #74) — en `main` git
+  Fase E2 REL-01 squash `main` (`8155554`, PR #76)
+          SEO-01A (`cdf038c`, PR #75) permanece en `develop`
           → deploy producción (invite; no beta pública) [cuando se autorice]
-  Fase E3 FBK-01 (prioridad inmediata) → R-JXP
-          → UX-GLO-01 (críticos) + CLEAN-01 + WEB-01
+  Fase E3 FBK-01 (PR #77) → R-JXP (PR #78) → UX-GLO-01 (PR #79) — **en `develop`**
+          → CLEAN-01 → WEB-01 (coordinado con SEO-01B)
           → BETA-01 preparación ≠ BETA-01 autorización de apertura
   Fase F  GAM-03 integración → CHR-01 Somi → ONB-01 tutorial completo → MKT-01
-  Fase G  WEB-02 residual + SEO-01B → FBK-02 comunidad
+  Fase G  WEB-02 residual (si no va con WEB-01) → FBK-02 comunidad
   MOB-01  Android / Play (pospuesto, sin fecha; Capacitor preliminar; no beta; no implementar)
   GAME-08 capítulos (tras ACH-REV residual)
 
@@ -1253,3 +1267,4 @@ VIS-01 (no reabre UX-03)
 | 2026-10-28 | JRN-01 fusionado en `develop` (PR #72). GAM-01 (`751c6aa`) en `develop`. Sin producción. |
 | 2026-10-29 | GAM-02 fusionado en `develop` (PR #74, `6d73877`). REL-01 documentado. SEO-01A/B, FBK-01, BETA-01 y FBK-02 añadidos. R-JXP: incidencia antes de BETA-01. Sin PR a `main`, sin deploy, sin registros públicos, sin migraciones de producción. |
 | 2026-10-29 | SEO-01A squash `develop` (`cdf038c`, PR #75). REL-01 squash `main` (`8155554`, PR #76). FBK-01 en `feature/fbk-01`. Prioridad inmediata: cerrar FBK-01. Objetivo: beta pública cuando haya estabilidad, seguridad, coherencia visual y usabilidad. BETA-01 se parte en preparación vs autorización. UX-GLO-01 absorbe la consolidación responsive (no se duplica UX-01). WEB-01 y CLEAN-01 pasan a prerrequisitos de apertura. WEB-01 incluye identidad visual (favicon, iconos web/PWA, Apple Touch Icon, Open Graph) **sin implementar ahora**. MOB-01 Android/Play **pospuesto**, sin fecha. Secuencia post-beta: GAM-03 → CHR-01 (Somi) → ONB-01 (tutorial completo) → MKT-01 (X, Ko-fi, LinkedIn, README de repo y perfil). MKT-01 **no** bloquea BETA-01; sin campañas ni publicaciones todavía. |
+| 2026-10-29 | ROADMAP-SYNC-01: FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78) y UX-GLO-01 (`db6385b`, PR #79) integrados en `origin/develop`. **No** en `main`. **No** desplegados. Prioridad inmediata: CLEAN-01. Antes de beta: CLEAN-01 → WEB-01 (+ SEO-01B) → BETA-01 preparación → BETA-01 autorización. Después de abrir: GAM-03 → CHR-01 → ONB-01 → MKT-01. |
