@@ -89,6 +89,31 @@ function requireSourceKey(sourceKey: unknown): string {
   return key;
 }
 
+type ProgressionWriter = Prisma.TransactionClient | PrismaClientLike;
+
+type PrismaClientLike = {
+  $executeRaw: Prisma.TransactionClient["$executeRaw"];
+  userProgression: Prisma.TransactionClient["userProgression"];
+};
+
+/**
+ * Prisma 5.22 compiles `upsert({ update: {} })` to SELECT + INSERT, which
+ * races on UserProgression.userId. Insert with ON CONFLICT is atomic.
+ * `updatedAt` has no database default; it must be set on insert.
+ */
+async function ensureProgressionRow(
+  db: ProgressionWriter,
+  userId: string,
+): Promise<void> {
+  await db.$executeRaw(
+    Prisma.sql`
+      INSERT INTO "UserProgression" ("userId", "totalXp", "equippedTitleId", "createdAt", "updatedAt")
+      VALUES (${userId}, 0, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+      ON CONFLICT ("userId") DO NOTHING
+    `,
+  );
+}
+
 @Injectable()
 export class ProgressService {
   constructor(
@@ -100,10 +125,9 @@ export class ProgressService {
    * Does not insert grants and does not award XP.
    */
   async getMine(userId: string): Promise<ProgressResponse> {
-    const row = await this.prisma.userProgression.upsert({
+    await ensureProgressionRow(this.prisma, userId);
+    const row = await this.prisma.userProgression.findUniqueOrThrow({
       where: { userId },
-      create: { userId, totalXp: 0n, equippedTitleId: null },
-      update: {},
     });
     return toResponse(bigintToXp(row.totalXp), row.equippedTitleId);
   }
@@ -120,10 +144,9 @@ export class ProgressService {
       throw new BadRequestException("Invalid equippedTitleId");
     }
 
-    const row = await this.prisma.userProgression.upsert({
+    await ensureProgressionRow(this.prisma, userId);
+    const row = await this.prisma.userProgression.findUniqueOrThrow({
       where: { userId },
-      create: { userId, totalXp: 0n, equippedTitleId: null },
-      update: {},
     });
     const totalXp = bigintToXp(row.totalXp);
     const level = levelFromTotalXp(totalXp);
@@ -182,11 +205,7 @@ export class ProgressService {
     const amountBig = BigInt(amount);
     const cap = BigInt(PROGRESS_XP_MAX);
 
-    await tx.userProgression.upsert({
-      where: { userId },
-      create: { userId, totalXp: 0n, equippedTitleId: null },
-      update: {},
-    });
+    await ensureProgressionRow(tx, userId);
     await tx.$queryRaw(
       Prisma.sql`SELECT "userId" FROM "UserProgression" WHERE "userId" = ${userId} FOR UPDATE`,
     );

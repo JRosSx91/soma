@@ -33,8 +33,29 @@ export type MissionSubmitOutcome =
   | { ok: true; result: MissionAnswerResult }
   | { ok: false; reason: MissionSubmitRejection };
 
-function isUniqueViolation(err: unknown): boolean {
-  return err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002";
+function isMissionCompletionUniqueViolation(err: unknown): boolean {
+  if (
+    !(err instanceof Prisma.PrismaClientKnownRequestError) ||
+    err.code !== "P2002"
+  ) {
+    return false;
+  }
+  const modelName = err.meta?.modelName;
+  if (typeof modelName === "string" && modelName !== "MissionCompletion") {
+    return false;
+  }
+  const target = err.meta?.target;
+  if (Array.isArray(target)) {
+    return (
+      target.length === 2 &&
+      target.includes("userId") &&
+      target.includes("missionId")
+    );
+  }
+  if (typeof target === "string") {
+    return target === "MissionCompletion_userId_missionId_key";
+  }
+  return false;
 }
 
 function xpGrantedFromAward(status: AwardXpStatus): number {
@@ -175,7 +196,7 @@ export class MissionsService {
         },
       };
     } catch (err) {
-      if (isUniqueViolation(err)) {
+      if (isMissionCompletionUniqueViolation(err)) {
         return { ok: true, result: alreadyCompletedResult() };
       }
       throw err;
