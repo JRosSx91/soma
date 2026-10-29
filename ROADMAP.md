@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-29 (prioridad: cerrar FBK-01; objetivo: beta pública de Soma 2.0; BETA-01, UX-GLO-01, WEB-01, CLEAN-01, MKT-01; MOB-01 pospuesto).
+Última actualización editorial: 2026-10-29 (prioridad: cerrar FBK-01; objetivo: beta pública de Soma 2.0; secuencia post-beta GAM-03 → CHR-01 → ONB-01 → MKT-01; MOB-01 pospuesto).
 Rama de trabajo: `feature/fbk-01` (sobre `develop`). **No** es un PR abierto.
 HEAD de `origin/develop` al actualizar: `cdf038c4a80487da11e5258d07a58a6d9d875105` (squash PR #75, SEO-01A).
 `origin/main`: `8155554ccb4f0d7799aebc1af6d342fb7ce39334` (squash PR #76, REL-01). Expeditions, Explorador, JRN-01, GAM-01 y GAM-02 **sí** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación.
@@ -44,7 +44,7 @@ Hitos que deben quedar resueltos **antes** de autorizar la apertura (no se imple
 | 6 | BETA-01 preparación | Registro controlado, RGPD, seguridad, abuso, copias, recuperación de acceso, onboarding mínimo |
 | 7 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación |
 
-**GAM-03**, **CHR-01**, **ONB-01** (tutorial completo), **FBK-02**, **GAME-07/08** y **MOB-01** se conservan **después** de la apertura. No bloquean la beta. **MOB-01** (Android / Google Play) no tiene fecha, no se implementa ahora y no es requisito de la beta. **MKT-01** (presencia digital) es paralelo y de prioridad alta, **sin** bloquear BETA-01.
+**GAM-03**, **CHR-01**, **ONB-01** (tutorial completo) y **MKT-01** se conservan **después** de la apertura, en ese orden. **FBK-02**, **GAME-07/08** y **MOB-01** también son posteriores. **MKT-01 no bloquea BETA-01** y **no** se inicia antes de ONB-01. **MOB-01** (Android / Google Play) no tiene fecha, no se implementa ahora y no es requisito de la beta.
 
 ---
 
@@ -108,7 +108,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | BETA-01 beta pública | Pendiente. Preparación ≠ autorización de apertura. `AUTH_REGISTRATION_MODE=invite` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** implementar. **Pospuesto.** |
-| MKT-01 presencia digital | Pendiente. Prioridad alta, **paralelo** a los hitos técnicos. **No** bloquea BETA-01. Primera fase: auditoría y estrategia; no publicar ni editar perfiles automáticamente |
+| MKT-01 presencia digital | Pendiente. **Después** de ONB-01. Secuencia: BETA-01 → GAM-03 → CHR-01 → ONB-01 → MKT-01. **No** bloquea BETA-01. Sin campañas ni publicaciones todavía |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -764,8 +764,15 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
   - Facilitar el registro (invite hasta BETA-01; CTA público cuando se autorice).
   - Mantener SEO y responsive.
   - Identidad visual Soma 2.0. Preparar hueco para Somi (CHR-01) sin presentarlo como disponible.
-- **Pendiente de diseño:** Arquitectura de secciones, capturas 2.0, CTAs, i18n ES/EN, motion.
-- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0, qué puede hacer hoy, y no cree que hay mascota, app Android u otras funciones planificadas si aún no están en producción.
+- **Identidad visual y recursos de marca (no implementar en FBK-01):**
+  - Favicon definitivo.
+  - Iconos web y PWA.
+  - Apple Touch Icon.
+  - Imagen Open Graph.
+  - Comprobación de visualización en navegadores y dispositivos.
+  - Coherencia con la identidad de Soma y el futuro Somi (CHR-01).
+- **Pendiente de diseño:** Arquitectura de secciones, capturas 2.0, CTAs, i18n ES/EN, motion. Los recursos de marca anteriores se diseñan e implementan **en este ID**, no ahora.
+- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0, qué puede hacer hoy, y no cree que hay mascota, app Android u otras funciones planificadas si aún no están en producción. Favicon, iconos y OG coinciden con la identidad acordada cuando este apartado se implemente.
 
 #### WEB-02 — Identidad y filosofía
 
@@ -918,10 +925,15 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 #### MKT-01 — Presencia digital, comunicación y comunidad
 
-- **Objetivo:** Preparar la visibilidad de Soma **antes** de la apertura pública y construir una comunidad inicial, sin adelantar la autorización de BETA-01.
-- **Prioridad:** P1 de comunicación. Trabajo **paralelo** a los hitos técnicos. **No** bloquea BETA-01. No desplaza FBK-01, R-JXP, UX-GLO-01, CLEAN-01 ni WEB-01.
-- **Estado:** Pendiente. Primera fase: **auditoría** de la presencia actual y **propuesta de estrategia**. Este documento **no** autoriza publicaciones ni cambios automáticos de perfiles.
-- **Áreas:**
+- **Objetivo:** Preparar la visibilidad de Soma y construir una comunidad inicial **después** del tutorial completo de bienvenida.
+- **Prioridad:** P2 de producto (comunicación). **No** bloquea BETA-01. No desplaza FBK-01, R-JXP, UX-GLO-01, CLEAN-01 ni WEB-01.
+- **Estado:** Pendiente. **No** iniciar campañas ni publicaciones. Primera fase, cuando se autorice: auditoría de la presencia actual y propuesta de estrategia. Este documento **no** autoriza publicaciones ni cambios automáticos de perfiles.
+- **Secuencia vigente:** **BETA-01 → GAM-03 → CHR-01 → ONB-01 → MKT-01**.
+  - BETA-01 solo se abre tras completar sus requisitos de seguridad, UX, landing y limpieza necesaria.
+  - CHR-01 desarrolla a Somi como acompañante.
+  - ONB-01 desarrolla el tutorial completo de bienvenida protagonizado por Somi.
+  - MKT-01 comienza **después** de ONB-01.
+- **Áreas (se conservan):**
   1. Cuenta de Soma en X: perfil, publicaciones existentes, identidad editorial y frecuencia.
   2. Ko-fi: presentación, descripción, imágenes y comunicación del proyecto.
   3. LinkedIn personal: Soma como proyecto de desarrollo; publicaciones profesionales.
@@ -933,7 +945,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
   - No iniciar publicaciones ni modificar perfiles de forma automática.
   - Priorizar recursos existentes y crecimiento orgánico.
   - Mantener una frecuencia de publicación sostenible.
-- **Dependencias:** Ninguna técnica para la auditoría. El copy público debe alinearse con funciones **reales** (WEB-01 / REL-01 desplegado cuando exista). No espera MOB-01.
+- **Dependencias:** ONB-01 (tutorial completo con Somi). CHR-01 (Somi). GAM-03 y BETA-01 en la secuencia. El copy público debe alinearse con funciones **reales**. No espera MOB-01.
 - **Criterio:** Hay un inventario de canales y una estrategia acordada. Nada publicado desde este hito afirma que la beta está abierta, que Soma es un dispositivo médico, o que hay funciones que aún no existen.
 
 ---
@@ -1083,7 +1095,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 4. **ACH-REV residual:** recaída ya no revoca (ACH-01). Queda corrección de fecha errónea. Bloquea GAME-08.
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**.
 6. **En `main` (git; deploy no verificado aquí):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**. SEO-01A en `develop` (`cdf038c`).
-7. **Siguiente (autorización humana, por bloqueo real de beta):** **FBK-01** (cerrar E y fusionar) → **R-JXP** → **UX-GLO-01** (críticos) + **CLEAN-01** + **WEB-01** (SEO-01B) → **BETA-01 preparación** → **BETA-01 autorización** (registros). **MKT-01** en paralelo (auditoría/estrategia; no bloquea). Después: GAM-03 → CHR-01 → ONB-01 completo → WEB-02 residual → **FBK-02**, GAME-07, Atlas 2.0. **MOB-01** permanece pospuesto. **No** abrir registro público sin la autorización de BETA-01.
+7. **Siguiente (autorización humana, por bloqueo real de beta):** **FBK-01** (cerrar E y fusionar) → **R-JXP** → **UX-GLO-01** (críticos) + **CLEAN-01** + **WEB-01** (SEO-01B) → **BETA-01 preparación** → **BETA-01 autorización** (registros). Después: **GAM-03 → CHR-01 → ONB-01 → MKT-01**. WEB-02 residual → **FBK-02**, GAME-07, Atlas 2.0. **MKT-01 no bloquea BETA-01** y no empieza antes de ONB-01. **MOB-01** permanece pospuesto, sin fecha. **No** abrir registro público sin la autorización de BETA-01.
 8. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 9. **UX-08 / UX-09:** editorial; no inventar.
 10. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
@@ -1164,10 +1176,9 @@ Soma Expeditions (dirección visual OK; parcialmente en develop)
   Fase E3 FBK-01 (prioridad inmediata) → R-JXP
           → UX-GLO-01 (críticos) + CLEAN-01 + WEB-01
           → BETA-01 preparación ≠ BETA-01 autorización de apertura
-  MKT-01  presencia digital (paralelo; no bloquea BETA-01; auditoría primero)
-  Fase F  GAM-03 integración → CHR-01 Somi → ONB-01 tutorial completo
+  Fase F  GAM-03 integración → CHR-01 Somi → ONB-01 tutorial completo → MKT-01
   Fase G  WEB-02 residual + SEO-01B → FBK-02 comunidad
-  MOB-01  Android / Play (pospuesto; Capacitor preliminar; no beta; no implementar)
+  MOB-01  Android / Play (pospuesto, sin fecha; Capacitor preliminar; no beta; no implementar)
   GAME-08 capítulos (tras ACH-REV residual)
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar
@@ -1241,4 +1252,4 @@ VIS-01 (no reabre UX-03)
 | 2026-10-28 | ROADMAP-02: se documentan JRN-01, GAM-01, GAM-02, GAM-03, CHR-01, ONB-01, WEB-01, WEB-02, UX-GLO-01 como **planificados**. GAME-04/05/06 no se borran: apuntan a JRN-01 / GAM-02 / GAM-01. Sin implementación. |
 | 2026-10-28 | JRN-01 fusionado en `develop` (PR #72). GAM-01 (`751c6aa`) en `develop`. Sin producción. |
 | 2026-10-29 | GAM-02 fusionado en `develop` (PR #74, `6d73877`). REL-01 documentado. SEO-01A/B, FBK-01, BETA-01 y FBK-02 añadidos. R-JXP: incidencia antes de BETA-01. Sin PR a `main`, sin deploy, sin registros públicos, sin migraciones de producción. |
-| 2026-10-29 | SEO-01A squash `develop` (`cdf038c`, PR #75). REL-01 squash `main` (`8155554`, PR #76). FBK-01 en `feature/fbk-01`. Prioridad inmediata: cerrar FBK-01. Objetivo: beta pública cuando haya estabilidad, seguridad, coherencia visual y usabilidad. BETA-01 se parte en preparación vs autorización. UX-GLO-01 absorbe la consolidación responsive (no se duplica UX-01). WEB-01 y CLEAN-01 pasan a prerrequisitos de apertura. MOB-01 Android/Play **pospuesto**; Capacitor preliminar; no beta; no implementar. MKT-01 presencia digital (X, Ko-fi, LinkedIn, GitHub) paralelo y P1 de comunicación; **no** bloquea BETA-01; auditoría primero; sin publicaciones automáticas. |
+| 2026-10-29 | SEO-01A squash `develop` (`cdf038c`, PR #75). REL-01 squash `main` (`8155554`, PR #76). FBK-01 en `feature/fbk-01`. Prioridad inmediata: cerrar FBK-01. Objetivo: beta pública cuando haya estabilidad, seguridad, coherencia visual y usabilidad. BETA-01 se parte en preparación vs autorización. UX-GLO-01 absorbe la consolidación responsive (no se duplica UX-01). WEB-01 y CLEAN-01 pasan a prerrequisitos de apertura. WEB-01 incluye identidad visual (favicon, iconos web/PWA, Apple Touch Icon, Open Graph) **sin implementar ahora**. MOB-01 Android/Play **pospuesto**, sin fecha. Secuencia post-beta: GAM-03 → CHR-01 (Somi) → ONB-01 (tutorial completo) → MKT-01 (X, Ko-fi, LinkedIn, README de repo y perfil). MKT-01 **no** bloquea BETA-01; sin campañas ni publicaciones todavía. |
