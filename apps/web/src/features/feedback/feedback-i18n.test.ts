@@ -38,6 +38,13 @@ test("ES and EN feedback catalogs share the same keys", () => {
 test("feedback copy covers the approved form, history and notices", () => {
   assert.equal(esFeedback.pageTitle, "Ayuda y sugerencias");
   assert.equal(enFeedback.pageTitle, "Help and suggestions");
+  assert.equal(esFeedback.headline, "Tu voz también forma parte de Soma");
+  assert.equal(enFeedback.headline, "Your voice is part of Soma too");
+  assert.equal(esFeedback.categories.bug, "Error");
+  assert.equal(esFeedback.categories.suggestion, "Sugerencia");
+  assert.equal(esFeedback.categories.general, "Comentario general");
+  assert.equal(esFeedback.historyTitle, "Tus mensajes");
+  assert.equal(enFeedback.historyTitle, "Your messages");
   assert.deepEqual(Object.keys(esFeedback.categories).sort(), [...FEEDBACK_CATEGORY_IDS].sort());
   assert.deepEqual(Object.keys(enFeedback.categories).sort(), [...FEEDBACK_CATEGORY_IDS].sort());
   assert.deepEqual(Object.keys(esFeedback.statuses).sort(), [...FEEDBACK_STATUS_IDS].sort());

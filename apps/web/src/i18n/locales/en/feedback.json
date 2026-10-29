@@ -1,14 +1,15 @@
 {
   "pageTitle": "Help and suggestions",
+  "headline": "Your voice is part of Soma too",
   "eyebrow": "Feedback",
-  "intro": "Tell us what broke, what could work better, or what you would like Soma to include. We read every note. This is not a medical channel and we cannot promise when we will reply.",
+  "intro": "Your notes help us improve Soma: what broke, what could work better, or what you would like to see. We read every note. This is not a medical channel and we cannot promise when we will reply.",
   "privacy": "Your message stays in your account. We do not publish it, and it is not a clinical record. Avoid passwords, personal health details, or anything you would not want stored.",
   "demoNotice": "Demo mode: this form shows how Help and suggestions will look. Nothing is saved to an account.",
   "categoriesLabel": "What would you like to share?",
   "categories": {
-    "bug": "Something is not working",
-    "suggestion": "An idea or improvement",
-    "general": "A general comment"
+    "bug": "Error",
+    "suggestion": "Suggestion",
+    "general": "General comment"
   },
   "titleLabel": "Title",
   "titlePlaceholder": "A short headline",
@@ -18,7 +19,7 @@
   "submitting": "Sending…",
   "confirmation": "Thank you. We have received your note. You can see it below with its status.",
   "duplicate": "This looks the same as a note you sent in the last 24 hours. We kept the earlier one instead of adding a copy.",
-  "historyTitle": "Your notes",
+  "historyTitle": "Your messages",
   "historyHint": "Only you see this list in Soma. Status is updated by the team when they look at a note.",
   "empty": "You have not sent any notes yet. When you do, they will appear here.",
   "statusLabel": "Status",
@@ -28,6 +29,11 @@
     "resolved": "Resolved",
     "closed": "Closed"
   },
+  "loading": "Loading your messages…",
+  "loadMore": "Show earlier messages",
+  "loadingMore": "Loading…",
+  "expandBody": "Read description",
+  "collapseBody": "Hide description",
   "errors": {
     "category": "Choose a category.",
     "title": "Write a short title (at least 3 characters, up to 80).",
