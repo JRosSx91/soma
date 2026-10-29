@@ -11,6 +11,7 @@ import { LandingV2Closing } from "./LandingV2Closing.js";
 import { LandingV2IntroProvider, SomaIntro } from "./SomaIntro.js";
 import { shouldPlayLandingV2Intro } from "./soma-intro-session.js";
 import { useAuth } from "../auth/index.js";
+import { SkipToContent } from "../../components/SkipToContent.js";
 
 /**
  * Public Soma 2.0 landing. Mounted at `/` for anonymous visitors.
@@ -47,6 +48,7 @@ export function LandingV2Page() {
         aria-hidden={introVisible}
         inert={introVisible}
       >
+        <SkipToContent targetId="landing-v2-main" />
         <LandingV2Header />
         <main id="landing-v2-main" tabIndex={-1}>
           {accountDeleted ? (

@@ -104,6 +104,8 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /mt-auto/);
   assert.match(sidebar, /translate-x-1\/2/);
   assert.match(shell, /PreviewMobileNav/);
+  assert.equal((shell.match(/<SkipToContent/g) ?? []).length, 1);
+  assert.match(shell, /id=\{MAIN_CONTENT_ID\}/);
   assert.match(shell, /SHELL_SURFACE/);
   assert.equal(shell.includes("bg-[#081018]"), false);
   assert.match(shell, /#081018/);

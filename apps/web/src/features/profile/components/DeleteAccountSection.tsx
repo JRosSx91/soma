@@ -15,7 +15,9 @@ export function DeleteAccountSection() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [errorKind, setErrorKind] = useState<"wrongPassword" | "failed" | null>(
+    null,
+  );
   const [submitting, setSubmitting] = useState(false);
   const inFlight = useRef(false);
 
@@ -24,7 +26,7 @@ export function DeleteAccountSection() {
     setDialogOpen(false);
     setAcknowledged(false);
     setPassword("");
-    setError(null);
+    setErrorKind(null);
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -52,10 +54,10 @@ export function DeleteAccountSection() {
       },
       onWrongPassword: () => {
         setPassword("");
-        setError(t("delete.wrongPassword"));
+        setErrorKind("wrongPassword");
       },
       onKeepSessionFailure: () => {
-        setError(t("delete.failed"));
+        setErrorKind("failed");
       },
     }).finally(() => {
       setSubmitting(false);
@@ -82,7 +84,7 @@ export function DeleteAccountSection() {
       <button
         type="button"
         onClick={() => {
-          setError(null);
+          setErrorKind(null);
           setDialogOpen(true);
         }}
         className={`${previewFocus} mt-4 rounded-xl border border-soma-organ-damaged/50 px-4 py-2 text-sm text-soma-ink hover:bg-soma-raised`}
@@ -94,7 +96,7 @@ export function DeleteAccountSection() {
         <DeleteAccountDialog
           acknowledged={acknowledged}
           password={password}
-          error={error}
+          errorKind={errorKind}
           submitting={submitting}
           canSubmit={canSubmit}
           onAcknowledgeChange={setAcknowledged}
@@ -110,7 +112,7 @@ export function DeleteAccountSection() {
 export function DeleteAccountDialog({
   acknowledged,
   password,
-  error,
+  errorKind,
   submitting,
   canSubmit,
   onAcknowledgeChange,
@@ -120,7 +122,7 @@ export function DeleteAccountDialog({
 }: {
   acknowledged: boolean;
   password: string;
-  error: string | null;
+  errorKind: "wrongPassword" | "failed" | null;
   submitting: boolean;
   canSubmit: boolean;
   onAcknowledgeChange: (value: boolean) => void;
@@ -129,6 +131,13 @@ export function DeleteAccountDialog({
   onSubmit: (event: FormEvent) => void;
 }) {
   const { t } = useTranslation("account");
+  const error =
+    errorKind === "wrongPassword"
+      ? t("delete.wrongPassword")
+      : errorKind === "failed"
+        ? t("delete.failed")
+        : null;
+  const passwordInvalid = errorKind === "wrongPassword";
 
   return (
     <div
@@ -176,11 +185,19 @@ export function DeleteAccountDialog({
               disabled={submitting}
               onChange={(event) => onPasswordChange(event.target.value)}
               autoComplete="current-password"
+              aria-invalid={passwordInvalid ? true : undefined}
+              aria-describedby={
+                passwordInvalid ? "delete-account-error" : undefined
+              }
               className={`${previewFocus} mt-1 w-full rounded-xl border border-soma-line bg-soma-raised px-3 py-2 text-sm text-soma-ink`}
             />
           </div>
           {error ? (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="delete-account-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           ) : null}
@@ -188,6 +205,7 @@ export function DeleteAccountDialog({
             <button
               type="submit"
               disabled={!canSubmit}
+              aria-busy={submitting || undefined}
               className={`${previewFocus} rounded-xl bg-soma-organ-damaged px-4 py-2 text-sm font-medium text-[#081018] disabled:opacity-50`}
             >
               {submitting ? t("delete.submitting") : t("delete.confirm")}

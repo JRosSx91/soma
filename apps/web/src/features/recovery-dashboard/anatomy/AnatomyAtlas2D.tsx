@@ -112,32 +112,7 @@ export function AnatomyAtlas2D({
   const plateLabel = `${label}, ${t("viewAnterior")}`;
 
   return (
-    <div className="flex min-w-0 flex-col gap-3">
-      <div className="flex flex-wrap items-center justify-end gap-2">
-        <div role="group" aria-label={t("zoomGroup")} className="flex gap-1.5">
-          <ToolButton
-            label={t("zoomOut")}
-            disabled={zoomIndex === 0}
-            onClick={() => setZoomIndex((index) => Math.max(0, index - 1))}
-          >
-            −
-          </ToolButton>
-          <ToolButton
-            label={t("zoomIn")}
-            disabled={zoomIndex === zoomSteps.length - 1}
-            onClick={() =>
-              setZoomIndex((index) => Math.min(zoomSteps.length - 1, index + 1))
-            }
-          >
-            +
-          </ToolButton>
-          <ToolButton label={t("reset")} disabled={zoomIndex === 0} onClick={() => setZoomIndex(0)}>
-            {t("reset")}
-          </ToolButton>
-        </div>
-      </div>
-
-      <div className="relative overflow-hidden rounded-3xl border border-soma-line bg-[#101820]">
+    <div className="relative min-w-0 overflow-hidden rounded-3xl border border-soma-line bg-[#101820]">
         {/*
           Continuous stage fill. Organ plates render as CSS images so SVG
           letterboxing cannot leave a darker central band over the glow.
@@ -232,7 +207,31 @@ export function AnatomyAtlas2D({
           </div>
         ) : null}
         </div>
-      </div>
+        <div
+          role="group"
+          aria-label={t("zoomGroup")}
+          className="absolute right-3 top-3 z-10 flex gap-1.5"
+        >
+          <ToolButton
+            label={t("zoomOut")}
+            disabled={zoomIndex === 0}
+            onClick={() => setZoomIndex((index) => Math.max(0, index - 1))}
+          >
+            −
+          </ToolButton>
+          <ToolButton
+            label={t("zoomIn")}
+            disabled={zoomIndex === zoomSteps.length - 1}
+            onClick={() =>
+              setZoomIndex((index) => Math.min(zoomSteps.length - 1, index + 1))
+            }
+          >
+            +
+          </ToolButton>
+          <ToolButton label={t("reset")} disabled={zoomIndex === 0} onClick={() => setZoomIndex(0)}>
+            {t("reset")}
+          </ToolButton>
+        </div>
     </div>
   );
 }
@@ -254,7 +253,7 @@ function ToolButton({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={`${previewFocus} rounded-full border border-soma-line bg-soma-surface px-3 py-1.5 text-xs text-soma-ink disabled:opacity-40`}
+      className={`${previewFocus} rounded-full border border-soma-line bg-[rgb(8_16_24_/_0.82)] px-3 py-1.5 text-xs text-soma-ink backdrop-blur-sm disabled:opacity-40`}
     >
       {children}
     </button>

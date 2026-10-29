@@ -16,6 +16,10 @@ import { AchievementCelebrationHost } from "../../achievements/components/Achiev
 import { PreviewMobileHeader } from "./PreviewMobileHeader.js";
 import { PreviewMobileNav } from "./PreviewMobileNav.js";
 import { PreviewSidebar } from "./PreviewSidebar.js";
+import {
+  MAIN_CONTENT_ID,
+  SkipToContent,
+} from "../../../components/SkipToContent.js";
 
 interface PreviewShellProps {
   /** `/app` for the authenticated product; `/preview` for the public DEMO. */
@@ -62,10 +66,13 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
       }`}
       style={SHELL_SURFACE}
     >
+      <SkipToContent />
       <PreviewSidebar />
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto lg:overflow-visible">
         <PreviewMobileHeader />
         <main
+          id={MAIN_CONTENT_ID}
+          tabIndex={-1}
           className={`relative px-4 pb-8 pt-2 lg:pb-2 lg:pt-3 motion-reduce:transition-none lg:transition-[padding] lg:duration-200 lg:ease-out ${
             collapsed
               ? SHELL_CONTENT_COLLAPSED_PAD_CLASS

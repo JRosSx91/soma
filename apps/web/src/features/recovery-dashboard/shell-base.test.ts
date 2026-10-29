@@ -210,16 +210,20 @@ test("desktop, mobile and more menus split one section table", () => {
     "bitacora",
   ]);
   assert.equal(desktop.includes("ayuda"), false);
-  assert.deepEqual(mobile, ["inicio", "recuperacion", "explorar"]);
+  assert.deepEqual(mobile, ["inicio", "recuperacion", "misiones", "bitacora"]);
   assert.equal(mobile.includes("ayuda"), false);
+  assert.equal(mobile.includes("explorar"), false);
   assert.deepEqual(more, [
-    "misiones",
+    "explorar",
     "anatomia",
     "logros",
-    "bitacora",
     "ayuda",
     "cuenta",
   ]);
+  assert.deepEqual(
+    mobileShellSections("/app").map((item) => item.id),
+    mobile,
+  );
   assert.deepEqual(
     railMoreShellSections("/app").map((item) => item.id),
     ["ayuda"],

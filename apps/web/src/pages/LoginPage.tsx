@@ -135,7 +135,7 @@ export function LoginPage() {
   if (loading || gate.mode === "resolving") {
     return (
       <AuthShell>
-        <p className="text-sm text-soma-ink-secondary">
+        <p className="text-sm text-soma-ink-secondary" role="status">
           {t("login.pendingLoading")}
         </p>
       </AuthShell>
@@ -162,7 +162,11 @@ export function LoginPage() {
             </p>
           </div>
           {error && (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="login-pending-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           )}
@@ -177,6 +181,7 @@ export function LoginPage() {
           <button
             type="button"
             disabled={skipping}
+            aria-busy={skipping || undefined}
             onClick={() => void handleEnterWithoutTracking()}
             className={authSecondaryButtonClass}
           >
@@ -233,10 +238,14 @@ export function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="login-email"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("login.email")}
             </label>
             <input
+              id="login-email"
               type="email"
               required
               value={email}
@@ -247,10 +256,14 @@ export function LoginPage() {
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="login-password"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("login.password")}
             </label>
             <AuthPasswordField
+              id="login-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -264,12 +277,20 @@ export function LoginPage() {
           </div>
 
           {sessionNotice === "session_expired" && !error ? (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="login-session-notice"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {t("errors.sessionExpired")}
             </p>
           ) : null}
           {error && (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="login-form-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           )}
@@ -277,6 +298,7 @@ export function LoginPage() {
           <button
             type="submit"
             disabled={submitting}
+            aria-busy={submitting || undefined}
             className={authPrimaryButtonClass}
           >
             {submitting ? t("login.submitting") : t("login.submit")}

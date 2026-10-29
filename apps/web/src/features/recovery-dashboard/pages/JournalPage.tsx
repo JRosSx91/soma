@@ -770,7 +770,7 @@ export function JournalPage() {
                       );
                     }}
                   >
-                    <ChevronLeft className="h-4 w-4" />
+                    <ChevronLeft className="h-4 w-4" aria-hidden="true" />
                   </button>
                   <button
                     type="button"
@@ -798,7 +798,7 @@ export function JournalPage() {
                       );
                     }}
                   >
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="h-4 w-4" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -1948,11 +1948,19 @@ function MonthGrid({
     year: "numeric",
     timeZone: "UTC",
   }).format(first);
-  const weekdays = Array.from({ length: 7 }, (_, index) =>
-    new Intl.DateTimeFormat(locale, { weekday: "short", timeZone: "UTC" }).format(
-      new Date(Date.UTC(2026, 0, 5 + index)),
-    ),
-  );
+  const weekdays = Array.from({ length: 7 }, (_, index) => {
+    const utc = new Date(Date.UTC(2026, 0, 5 + index));
+    return {
+      short: new Intl.DateTimeFormat(locale, {
+        weekday: "short",
+        timeZone: "UTC",
+      }).format(utc),
+      long: new Intl.DateTimeFormat(locale, {
+        weekday: "long",
+        timeZone: "UTC",
+      }).format(utc),
+    };
+  });
   const cells: Array<string | null> = [
     ...Array.from({ length: startWeekday }, () => null),
     ...Array.from({ length: daysInMonth }, (_, index) => {
@@ -1961,61 +1969,87 @@ function MonthGrid({
       return `${year}-${month}-${day}`;
     }),
   ];
+  const weeks: Array<Array<string | null>> = [];
+  for (let index = 0; index < cells.length; index += 7) {
+    const row = cells.slice(index, index + 7);
+    while (row.length < 7) row.push(null);
+    weeks.push(row);
+  }
   return (
     <div className="mt-4 w-full min-w-0 max-w-[22rem]">
-      <p className="text-sm font-medium capitalize text-soma-ink">
-        {monthLabel}
-      </p>
-      <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs">
-        {weekdays.map((label, index) => (
-          <span key={`w-${index}`} className="pb-1 font-medium text-soma-ink-muted">
-            {label}
-          </span>
-        ))}
-        {cells.map((iso, index) => {
-          if (!iso) return <span key={`e-${index}`} className="min-h-11" />;
-          const hasEntry = marked.has(iso);
-          const selected = selectedIso === iso;
-          const isToday = iso === todayIso;
-          const day = Number(iso.slice(8));
-          const status = hasEntry
-            ? t("overview.calendarHasEntry")
-            : t("overview.calendarNoEntry");
-          return (
-            <button
-              key={iso}
-              type="button"
-              onClick={() => onSelect(iso)}
-              aria-pressed={selected}
-              aria-current={isToday ? "date" : undefined}
-              aria-label={`${formatCivil(iso)}. ${status}${
-                selected ? `. ${t("overview.calendarSelected")}` : ""
-              }`}
-              className={`${previewFocus} flex min-h-11 flex-col items-center justify-center rounded-xl ${
-                selected
-                  ? "bg-soma-action font-semibold text-[#081018]"
-                  : isToday
-                    ? "ring-1 ring-soma-action text-soma-ink"
-                    : hasEntry
-                      ? "font-semibold text-soma-ink"
-                      : "text-soma-ink-muted"
-              }`}
-            >
-              <span>{day}</span>
-              {hasEntry ? (
-                <span
-                  className={`mt-0.5 h-1 w-1 rounded-full ${
-                    selected ? "bg-[#081018]" : "bg-soma-action"
-                  }`}
-                  aria-hidden="true"
-                />
-              ) : (
-                <span className="mt-0.5 h-1 w-1" aria-hidden="true" />
-              )}
-            </button>
-          );
-        })}
-      </div>
+      <table className="w-full table-fixed border-collapse text-center text-xs">
+        <caption className="mb-3 caption-top text-left text-sm font-medium capitalize text-soma-ink">
+          {monthLabel}
+        </caption>
+        <thead>
+          <tr>
+            {weekdays.map((day) => (
+              <th
+                key={day.long}
+                scope="col"
+                className="pb-1 font-medium text-soma-ink-muted"
+              >
+                <span aria-hidden="true">{day.short}</span>
+                <span className="sr-only">{day.long}</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {weeks.map((week, weekIndex) => (
+            <tr key={`week-${weekIndex}`}>
+              {week.map((iso, dayIndex) => {
+                if (!iso) {
+                  return <td key={`e-${weekIndex}-${dayIndex}`} className="p-0.5" />;
+                }
+                const hasEntry = marked.has(iso);
+                const selected = selectedIso === iso;
+                const isToday = iso === todayIso;
+                const day = Number(iso.slice(8));
+                const status = hasEntry
+                  ? t("overview.calendarHasEntry")
+                  : t("overview.calendarNoEntry");
+                const todayMark = isToday ? `. ${t("overview.calendarIsToday")}` : "";
+                const selectedMark = selected
+                  ? `. ${t("overview.calendarSelected")}`
+                  : "";
+                return (
+                  <td key={iso} className="p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => onSelect(iso)}
+                      aria-pressed={selected}
+                      aria-current={isToday ? "date" : undefined}
+                      aria-label={`${formatCivil(iso)}. ${status}${todayMark}${selectedMark}`}
+                      className={`${previewFocus} flex min-h-11 w-full flex-col items-center justify-center rounded-xl ${
+                        selected
+                          ? "bg-soma-action font-semibold text-[#081018]"
+                          : isToday
+                            ? "ring-1 ring-soma-action text-soma-ink"
+                            : hasEntry
+                              ? "font-semibold text-soma-ink"
+                              : "text-soma-ink-muted"
+                      }`}
+                    >
+                      <span>{day}</span>
+                      {hasEntry ? (
+                        <span
+                          className={`mt-0.5 h-1 w-1 rounded-full ${
+                            selected ? "bg-[#081018]" : "bg-soma-action"
+                          }`}
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <span className="mt-0.5 h-1 w-1" aria-hidden="true" />
+                      )}
+                    </button>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

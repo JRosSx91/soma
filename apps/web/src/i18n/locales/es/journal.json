@@ -45,6 +45,7 @@
     "calendarHasEntry": "Hay notas este día",
     "calendarNoEntry": "Sin notas este día",
     "calendarSelected": "Día seleccionado",
+    "calendarIsToday": "Hoy",
     "evolutionTitle": "Tu bienestar a lo largo del tiempo",
     "evolutionHint": "Así ha ido tu bienestar, según lo que tú has anotado.",
     "evolutionHelp": "Últimos 28 días. Cada punto es la media de las valoraciones de ese día. Los huecos no se rellenan. No es una medida clínica.",
