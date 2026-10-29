@@ -1,5 +1,9 @@
 {
   "disclaimer": "These missions use Soma’s educational sheets. They describe general mechanisms. They do not describe your brain, and they are not a clinical assessment.",
+  "loadError": "Could not load missions.",
+  "retry": "Try again",
+  "submitError": "Could not send the answer.",
+  "previewXpNote": "XP rewards are recorded in the live experience.",
   "categories": {
     "neurotransmitters": "Neurotransmitters",
     "processes": "Key processes",

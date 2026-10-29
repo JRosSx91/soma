@@ -1,5 +1,9 @@
 {
   "disclaimer": "Estas misiones usan las fichas educativas de Soma. Describen mecanismos generales. No describen tu cerebro y no son una valoración clínica.",
+  "loadError": "No se han podido cargar las misiones.",
+  "retry": "Reintentar",
+  "submitError": "No se ha podido enviar la respuesta.",
+  "previewXpNote": "Las recompensas de XP se registran en la experiencia LIVE.",
   "categories": {
     "neurotransmitters": "Neurotransmisores",
     "processes": "Procesos clave",

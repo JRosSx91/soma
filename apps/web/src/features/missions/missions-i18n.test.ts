@@ -38,6 +38,16 @@ test("ES and EN mission catalogs share the same keys and cover the pilot", () =>
   assert.deepEqual(flattenKeys(esMissions).sort(), flattenKeys(enMissions).sort());
   assert.equal(typeof esMissions.disclaimer, "string");
   assert.equal(typeof enMissions.disclaimer, "string");
+  assert.equal(typeof esMissions.loadError, "string");
+  assert.equal(typeof enMissions.loadError, "string");
+  assert.equal(typeof esMissions.retry, "string");
+  assert.equal(typeof enMissions.retry, "string");
+  assert.equal(typeof esMissions.submitError, "string");
+  assert.equal(typeof enMissions.submitError, "string");
+  assert.equal(typeof esMissions.previewXpNote, "string");
+  assert.equal(typeof enMissions.previewXpNote, "string");
+  assert.match(esMissions.previewXpNote, /LIVE/);
+  assert.match(enMissions.previewXpNote, /live experience/i);
   assert.match(esMissions.disclaimer, /no son una valoración clínica/i);
   assert.match(enMissions.disclaimer, /not a clinical assessment/i);
   assert.deepEqual(Object.keys(esMissions.categories).sort(), [...MISSION_CATEGORY_IDS].sort());
