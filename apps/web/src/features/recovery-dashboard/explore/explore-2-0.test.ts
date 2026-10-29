@@ -55,7 +55,8 @@ test("explorer 2.0 does not ship mockup-only missions, xp or invented systems", 
   );
   assert.equal(page.includes("Sistema endocannabinoide"), false);
   assert.match(page, /systemsSeeAll/);
-  assert.match(page, /missionsPreparing/);
+  assert.match(page, /missionsOpen/);
+  assert.match(page, /\$\{base\}\/missions/);
   assert.match(page, /processesPreparing/);
   assert.match(page, /exploreMissionsArt/);
   assert.match(page, /lg:h-44/);
@@ -64,8 +65,8 @@ test("explorer 2.0 does not ship mockup-only missions, xp or invented systems", 
   assert.equal(index.includes("grid-cols-5"), false);
   assert.equal(index.includes("truncate"), false);
   assert.equal(index.includes("line-clamp"), false);
-  assert.equal(esExplore.missionsBlurb.includes("Próximamente"), true);
-  assert.equal(enExplore.missionsPreparing.toLowerCase().includes("preparation"), true);
+  assert.equal(esExplore.missionsOpen.includes("misiones"), true);
+  assert.equal(enExplore.missionsOpen.toLowerCase().includes("missions"), true);
 });
 
 test("explorer 2.0 lists nine educational transmitters without soma 1.0 bars", () => {

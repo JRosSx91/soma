@@ -6,10 +6,10 @@
  * Visible labels live in `common.shell` (ES/EN). This module only
  * stores ids, i18n keys, routes, icons, and which chrome shows each item.
  *
- * Pending destinations (Expedition, Missions) are omitted until they
- * have real pages. Add a def with desktop/mobile/more flags; menus filter.
- * Journal is on the desktop rail and in mobile «Más». Account stays in
- * AccountMenu, not in the desktop overflow.
+ * Pending destinations (Expedition) are omitted until they have real
+ * pages. Add a def with desktop/mobile/more flags; menus filter.
+ * Journal and Missions are on the desktop rail and in mobile «Más».
+ * Account stays in AccountMenu, not in the desktop overflow.
  */
 export type ShellBase = "/app" | "/preview";
 
@@ -20,6 +20,7 @@ export type ShellIconId =
   | "personStanding"
   | "trophy"
   | "book"
+  | "flag"
   | "user";
 
 export const shellSectionDefs = [
@@ -52,6 +53,16 @@ export const shellSectionDefs = [
     desktop: true,
     mobile: true,
     more: false,
+  },
+  {
+    id: "misiones",
+    labelKey: "missions",
+    mobileLabelKey: "missions",
+    path: "/missions",
+    icon: "flag",
+    desktop: true,
+    mobile: false,
+    more: true,
   },
   {
     id: "anatomia",

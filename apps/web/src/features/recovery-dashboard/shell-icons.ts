@@ -2,6 +2,7 @@ import {
   Activity,
   BookOpen,
   Compass,
+  Flag,
   Home,
   PersonStanding,
   Trophy,
@@ -17,5 +18,6 @@ export const shellIcons: Record<ShellIconId, LucideIcon> = {
   personStanding: PersonStanding,
   trophy: Trophy,
   book: BookOpen,
+  flag: Flag,
   user: User,
 };

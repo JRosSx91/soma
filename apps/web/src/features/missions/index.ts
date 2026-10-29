@@ -11,6 +11,15 @@ export {
   evaluateDemoAnswer,
 } from "./missions-demo.js";
 export {
+  missionCopyPath,
+  sortMissions,
+  filterMissionsByCategory,
+  groupMissionsByCategory,
+  countCompletedMissions,
+  FUTURE_MISSION_CATEGORY_IDS,
+  type MissionCategoryFilter,
+} from "./missions-view.js";
+export {
   useMissions,
   type MissionsHookState,
   type MissionsLoadState,

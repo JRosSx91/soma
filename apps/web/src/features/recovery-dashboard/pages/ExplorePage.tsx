@@ -494,7 +494,10 @@ export function ExplorePage() {
             </ul>
           </ExploreIndexPanel>
           <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface p-3">
-            <div className="flex min-h-0 flex-1 flex-col justify-center gap-2.5">
+            <Link
+              to={`${base}/missions`}
+              className={`${previewFocus} flex min-h-0 flex-1 flex-col justify-center gap-2.5 rounded-xl text-left`}
+            >
               <span className="flex h-36 w-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#101820] sm:h-40 lg:h-44">
                 <img
                   src={exploreMissionsArt}
@@ -510,9 +513,9 @@ export function ExplorePage() {
               <div className="flex min-w-0 flex-col gap-1 text-left">
                 <h2 className="text-base font-semibold text-soma-ink">{t("missionsTitle")}</h2>
                 <p className="text-xs leading-relaxed text-soma-ink-muted">{t("missionsBlurb")}</p>
-                <p className="text-[11px] font-medium text-soma-action">{t("missionsPreparing")}</p>
+                <p className="text-[11px] font-medium text-soma-action">{t("missionsOpen")}</p>
               </div>
-            </div>
+            </Link>
           </section>
         </div>
       ) : listedNeurotransmitters.length > 0 ? (
