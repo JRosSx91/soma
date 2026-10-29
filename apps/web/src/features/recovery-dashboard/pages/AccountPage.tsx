@@ -364,6 +364,21 @@ export function AccountPage() {
 
       <section className="rounded-2xl border border-soma-line bg-soma-surface/60 p-4 sm:p-5">
         <h2 className="text-sm font-semibold text-soma-ink">
+          {t("menuFeedback")}
+        </h2>
+        <p className="mt-1 text-sm text-soma-ink-secondary">
+          {t("menuFeedbackHint")}
+        </p>
+        <Link
+          to={`${base}/feedback`}
+          className={`${previewFocus} mt-3 inline-flex text-sm text-soma-action hover:underline`}
+        >
+          {t("menuFeedback")}
+        </Link>
+      </section>
+
+      <section className="rounded-2xl border border-soma-line bg-soma-surface/60 p-4 sm:p-5">
+        <h2 className="text-sm font-semibold text-soma-ink">
           {t("substancesTitle")}
         </h2>
         <p className="mt-1 text-sm text-soma-ink-secondary">

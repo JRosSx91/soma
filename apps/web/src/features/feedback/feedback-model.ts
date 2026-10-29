@@ -1,4 +1,6 @@
 import {
+  FEEDBACK_DUPLICATE_WINDOW_MS,
+  feedbackDuplicateKey,
   isFeedbackBodyLength,
   isFeedbackCategoryId,
   isFeedbackStatusId,
@@ -111,4 +113,39 @@ export function prependFeedbackItem(
 
 export function publicFeedbackKeys(item: FeedbackItem): string[] {
   return Object.keys(item);
+}
+
+/** In-memory DEMO duplicate window. Same 24h rule as LIVE, no HTTP. */
+export function findRecentFeedbackDuplicate(
+  items: readonly FeedbackItem[],
+  request: CreateFeedbackRequest,
+  nowMs = Date.now(),
+): FeedbackItem | null {
+  const key = feedbackDuplicateKey(request.category, request.title, request.body);
+  const since = nowMs - FEEDBACK_DUPLICATE_WINDOW_MS;
+  for (const row of items) {
+    if (Date.parse(row.createdAt) < since) continue;
+    if (
+      feedbackDuplicateKey(row.category, row.title, row.body) === key
+    ) {
+      return row;
+    }
+  }
+  return null;
+}
+
+export function buildDemoFeedbackItem(
+  request: CreateFeedbackRequest,
+  now = new Date(),
+): FeedbackItem {
+  const stamp = now.toISOString();
+  return {
+    id: `demo-${now.getTime().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+    category: request.category,
+    title: request.title,
+    body: request.body,
+    status: "open",
+    createdAt: stamp,
+    updatedAt: stamp,
+  };
 }

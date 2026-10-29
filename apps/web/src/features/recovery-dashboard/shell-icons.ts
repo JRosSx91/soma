@@ -4,6 +4,7 @@ import {
   Compass,
   Flag,
   Home,
+  MessageCircle,
   PersonStanding,
   Trophy,
   User,
@@ -19,5 +20,6 @@ export const shellIcons: Record<ShellIconId, LucideIcon> = {
   trophy: Trophy,
   book: BookOpen,
   flag: Flag,
+  messageCircle: MessageCircle,
   user: User,
 };

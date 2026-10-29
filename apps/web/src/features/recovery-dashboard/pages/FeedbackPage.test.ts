@@ -7,19 +7,36 @@ import esFeedback from "../../../i18n/locales/es/feedback.json" with { type: "js
 const page = readFileSync(new URL("./FeedbackPage.tsx", import.meta.url), "utf8");
 const app = readFileSync(new URL("../../../App.tsx", import.meta.url), "utf8");
 const account = readFileSync(new URL("./AccountPage.tsx", import.meta.url), "utf8");
+const menu = readFileSync(new URL("../components/AccountMenu.tsx", import.meta.url), "utf8");
 const shell = readFileSync(new URL("../shell-base.ts", import.meta.url), "utf8");
+const mobile = readFileSync(
+  new URL("../components/PreviewMobileNav.tsx", import.meta.url),
+  "utf8",
+);
 
-test("feedback page is prepared for LIVE but not routed or linked yet", () => {
-  assert.match(page, /useFeedback/);
-  assert.match(page, /base === "\/preview"/);
-  assert.match(page, /base === "\/app" && Boolean\(user\)/);
-  assert.equal(app.includes("FeedbackPage"), false);
-  assert.equal(app.includes('path="feedback"'), false);
-  assert.equal(shell.includes("/feedback"), false);
-  assert.equal(account.includes("feedback"), false);
+test("LIVE and DEMO share the feedback route under both shells", () => {
+  assert.match(app, /path="feedback"/);
+  assert.match(app, /FeedbackPage/);
+  assert.match(app, /soma2Pages/);
+  assert.match(shell, /path: "\/feedback"/);
+  assert.match(shell, /id: "ayuda"/);
+  assert.match(shell, /desktop: false/);
+  assert.match(shell, /mobile: false/);
+  assert.match(shell, /more: true/);
+});
+
+test("navigation exposes Más and Account links without a bottom-nav slot", () => {
+  assert.match(menu, /\$\{base\}\/feedback/);
+  assert.match(menu, /menuFeedback/);
+  assert.match(account, /\$\{base\}\/feedback/);
+  assert.match(mobile, /mobileShellSections/);
+  assert.equal(mobile.includes("grid-cols-5"), false);
+  assert.equal(mobile.includes("fixed inset-x-0"), false);
+  assert.match(mobile, /safe-area-inset-bottom/);
 });
 
 test("form renders categories, title, body, submit and history chrome", () => {
+  assert.match(page, /useFeedback/);
   assert.match(page, /radiogroup/);
   assert.match(page, /type="radio"/);
   assert.match(page, /FEEDBACK_CATEGORY_IDS/);
@@ -33,7 +50,7 @@ test("form renders categories, title, body, submit and history chrome", () => {
 
 test("validation, submit, duplicate and network errors are accessible", () => {
   assert.match(page, /catalog.submit/);
-  assert.match(page, /if \(catalog.submitting || demo || !live\) return/);
+  assert.match(page, /if \(catalog.submitting\) return/);
   assert.match(page, /errors.category/);
   assert.match(page, /errors.title/);
   assert.match(page, /errors.body/);
@@ -57,9 +74,11 @@ test("history covers empty, load error, retry, pagination and description", () =
   assert.match(page, /statuses\./);
 });
 
-test("DEMO writes are blocked; LIVE never mentions XP", () => {
+test("DEMO can submit locally; LIVE never mentions XP", () => {
   assert.match(page, /demoNotice/);
-  assert.match(page, /disabled=\{catalog.submitting || demo || !live\}/);
+  assert.match(page, /disabled=\{catalog.submitting\}/);
+  assert.equal(page.includes("localStorage"), false);
+  assert.equal(page.includes("sessionStorage"), false);
   assert.equal(page.includes("awardXp"), false);
   assert.equal(page.includes("totalXp"), false);
   assert.equal(page.includes("/me/progress"), false);

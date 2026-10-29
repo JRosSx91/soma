@@ -3,6 +3,8 @@ import { test } from "node:test";
 import type { FeedbackItem } from "@soma/shared-types";
 import {
   appendFeedbackPage,
+  buildDemoFeedbackItem,
+  findRecentFeedbackDuplicate,
   parseFeedbackItem,
   parseFeedbackList,
   prependFeedbackItem,
@@ -89,4 +91,26 @@ test("list parsing, prepend and pagination append keep unique ids", () => {
     "fb-1",
     "fb-2",
   ]);
+});
+
+test("DEMO duplicate window reuses the earlier open item without HTTP", () => {
+  const request = {
+    category: "bug" as const,
+    title: "Save fails",
+    body: BODY,
+  };
+  const now = new Date("2026-10-29T12:00:00.000Z");
+  const created = buildDemoFeedbackItem(request, now);
+  assert.equal(created.status, "open");
+  assert.match(created.id, /^demo-/);
+  const hit = findRecentFeedbackDuplicate([created], request, now.getTime() + 60_000);
+  assert.equal(hit?.id, created.id);
+  const aged = {
+    ...created,
+    createdAt: new Date(now.getTime() - 25 * 60 * 60 * 1000).toISOString(),
+  };
+  assert.equal(
+    findRecentFeedbackDuplicate([aged], request, now.getTime()),
+    null,
+  );
 });

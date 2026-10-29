@@ -49,7 +49,7 @@ export function FeedbackPage() {
   const dateLocale = i18n.resolvedLanguage ?? i18n.language ?? "en";
 
   async function handleSubmit() {
-    if (catalog.submitting || demo || !live) return;
+    if (catalog.submitting) return;
     const result = await catalog.submit(draft);
     if (result) {
       setTitle("");
@@ -85,7 +85,7 @@ export function FeedbackPage() {
         }}
         noValidate
       >
-        <fieldset disabled={catalog.submitting || demo} className="min-w-0">
+        <fieldset disabled={catalog.submitting} className="min-w-0">
           <legend className="text-sm font-semibold text-soma-ink">
             {t("categoriesLabel")}
           </legend>
@@ -171,7 +171,7 @@ export function FeedbackPage() {
 
         <button
           type="submit"
-          disabled={catalog.submitting || demo || !live}
+          disabled={catalog.submitting}
           className={`${previewFocus} mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018] disabled:opacity-60`}
         >
           {catalog.submitting ? t("submitting") : t("submit")}

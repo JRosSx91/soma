@@ -3,6 +3,8 @@ import type { FeedbackItem } from "@soma/shared-types";
 import { createMyFeedback, fetchMyFeedback } from "./feedback-api.js";
 import {
   appendFeedbackPage,
+  buildDemoFeedbackItem,
+  findRecentFeedbackDuplicate,
   prependFeedbackItem,
   toCreateFeedbackRequest,
   validateFeedbackDraft,
@@ -36,7 +38,8 @@ export interface FeedbackHookState {
 
 /**
  * LIVE (`live: true`) uses GET/POST /me/feedback. DEMO never calls those
- * endpoints, never writes, and never touches XP.
+ * endpoints, never touches XP, and keeps items only in React memory.
+ * Reloading the view clears DEMO. Do not persist the in-memory list.
  */
 export function useFeedback(options: {
   live: boolean;
@@ -54,11 +57,19 @@ export function useFeedback(options: {
   const [lastSubmit, setLastSubmit] = useState<FeedbackSubmitRecord | null>(null);
   const [reloadToken, setReloadToken] = useState(0);
   const pendingRef = useRef(false);
+  const itemsRef = useRef<FeedbackItem[]>([]);
   const nextCursorRef = useRef<string | null>(null);
+  itemsRef.current = items;
   nextCursorRef.current = nextCursor;
 
   useEffect(() => {
-    if (!live || !userId) {
+    if (!live) {
+      setState("ready");
+      setNextCursor(null);
+      setError(null);
+      return;
+    }
+    if (!userId) {
       setState("ready");
       setItems([]);
       setNextCursor(null);
@@ -116,13 +127,25 @@ export function useFeedback(options: {
         setFieldErrors(validateFeedbackDraft(draft));
         return null;
       }
-      if (!live) return null;
       if (pendingRef.current) return null;
       pendingRef.current = true;
       setSubmitting(true);
       setSubmitError(null);
       setFieldErrors([]);
       try {
+        if (!live) {
+          const existing = findRecentFeedbackDuplicate(itemsRef.current, payload);
+          const item = existing ?? buildDemoFeedbackItem(payload);
+          const record: FeedbackSubmitRecord = {
+            kind: existing ? "duplicate" : "created",
+            item,
+          };
+          setLastSubmit(record);
+          if (!existing) {
+            setItems((rows) => prependFeedbackItem(rows, item));
+          }
+          return record;
+        }
         const result = await createMyFeedback(payload);
         const record: FeedbackSubmitRecord = {
           kind: result.duplicate ? "duplicate" : "created",
