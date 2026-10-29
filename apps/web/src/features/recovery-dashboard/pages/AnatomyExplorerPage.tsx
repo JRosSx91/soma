@@ -1,14 +1,26 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { TFunction } from "i18next";
-import { useSearchParams } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import { localizedCatalogLabel } from "../explore/explore-search.js";
+import {
+  exploreSystemCardSources,
+  firstEducationalSentence,
+} from "../explore/explore-systems.js";
+import {
+  exploreNeurotransmitterArt,
+  exploreProcessArt,
+} from "../explore/explore-art.js";
+import { exploreEduHref } from "../explore/explore-edu-query.js";
 import { AnatomyAtlas2D } from "../anatomy/AnatomyAtlas2D.js";
 import {
+  anatomyExplorerHrefForOrgan,
   anatomySearchParams,
   resolveAnatomyExplorerSelection,
 } from "../anatomy/anatomy-explorer-query.js";
+import { relatedContentForSystem } from "../anatomy/atlas-related-content.js";
 import { atlasSystems, bodyAtlasView } from "../anatomy/atlas-config.js";
 import type { AtlasSystem } from "../anatomy/atlas-types.js";
 import {
@@ -26,24 +38,36 @@ import {
   resolveEducationalRecovery,
   selectRecoverySubstance,
 } from "../anatomy/recovery-catalog.js";
+import { anatomyOrganEducationCopy } from "../anatomy/present-anatomy-education.js";
 import { resolveOrganSheet } from "../anatomy/organ-sheet.js";
 import { resolveSystemSheet } from "../anatomy/system-sheet.js";
+import { missionCopyPath, missionIllustrationSrc } from "../../missions/missions-view.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
-import { PageHeading } from "../components/PageHeading.js";
+import {
+  pickDailyMessage,
+  readDailyMessages,
+} from "../dashboard/home-daily-message.js";
 import { CatalogEvidenceNote } from "../components/CatalogEvidenceNote.js";
 import {
   OrganSheetSummary,
   SystemSheetSummary,
 } from "../components/OrganSheetSummary.js";
+import { RecoveryHero } from "../components/RecoveryHero.js";
 import { SubstanceIllustration } from "../components/SubstanceIllustration.js";
 import { EducationalSignalingCard } from "../components/EducationalSignalingCard.js";
 import { AdvicePanel } from "../components/AdvicePanel.js";
 
+const ATLAS_HERO_IMAGE = "/images/decoration/nature-8.png";
+const ATLAS_HERO_OVERLAY =
+  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.72) 0%, rgb(var(--soma-shell-rail) / 0.28) 40%, transparent 72%)";
+
 const tabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;
 type AnatomyTab = (typeof tabs)[number];
+const relatedTabs = ["articles", "substances", "missions"] as const;
+type RelatedTab = (typeof relatedTabs)[number];
 
 export function AnatomyExplorerPage() {
-  const { t } = useTranslation(["anatomy", "organs", "explore"]);
+  const { t } = useTranslation(["anatomy", "organs", "explore", "explore-edu", "missions", "substances"]);
   const base = useShellBase();
   const [searchParams, setSearchParams] = useSearchParams();
   const { systemId, organId } = resolveAnatomyExplorerSelection(
@@ -53,6 +77,7 @@ export function AnatomyExplorerPage() {
   const [tab, setTab] = useState<AnatomyTab>("resumen");
   const [substanceId, setSubstanceId] = useState<string | null>(null);
   const [phase, setPhase] = useState<NarrativePhase>("during_use");
+  const quote = pickDailyMessage(readDailyMessages(t("quotes", { returnObjects: true })));
 
   function setSystemId(id: string | null) {
     const next = resolveAnatomyExplorerSelection(id, null);
@@ -85,17 +110,31 @@ export function AnatomyExplorerPage() {
     : organ && !organ.plate
       ? t("organNoPlate", { name: organLabel })
       : t("systemNoPlate", { name: systemLabel });
+  const related = system ? relatedContentForSystem(system) : null;
+  const hasRelated = Boolean(
+    related &&
+      (related.articles.length > 0 || related.substances.length > 0 || related.missions.length > 0),
+  );
+
+  function scrollToOrgans() {
+    document.getElementById("atlas-organs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   return (
-    <div className="flex flex-col gap-3 pb-2">
-      <PageHeading
+    <div className="flex min-w-0 flex-col gap-4 pb-6">
+      <RecoveryHero
         eyebrow={t("eyebrow")}
         title={t("title")}
-        description={t("description")}
+        description={`${t("description")} ${t("generalDisclaimer")}`}
+        quote={quote}
         demo={base === "/preview"}
+        imageSrc={ATLAS_HERO_IMAGE}
+        objectPosition="center 48%"
+        overlay={ATLAS_HERO_OVERLAY}
+        compactBand
       />
 
-      <nav aria-label={t("crumbAria")} className="flex flex-wrap items-center gap-1.5 text-sm">
+      <nav aria-label={t("crumbAria")} className="flex min-w-0 flex-wrap items-center gap-1.5 text-sm">
         <Crumb
           current={system === null}
           onClick={() => {
@@ -131,55 +170,65 @@ export function AnatomyExplorerPage() {
         ) : null}
       </nav>
 
-      <div className="grid min-w-0 items-start gap-3 lg:grid-cols-[10.75rem_minmax(0,1fr)_21.5rem] xl:grid-cols-[11.5rem_minmax(0,1fr)_23rem]">
+      <div className="grid min-w-0 items-start gap-3 lg:grid-cols-[12.25rem_minmax(0,1fr)_20.5rem] xl:grid-cols-[13rem_minmax(0,1fr)_22rem]">
         <ul
           aria-label={t("systemsAria")}
-          className="flex max-w-full min-w-0 gap-2 overflow-x-auto overscroll-x-contain pb-1 touch-pan-x [-webkit-overflow-scrolling:touch] lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain lg:pr-1 lg:touch-auto"
+          className="flex max-w-full min-w-0 gap-2 overflow-x-auto overscroll-x-contain pb-1 touch-pan-x [-webkit-overflow-scrolling:touch] lg:max-h-[min(48rem,calc(100svh-11rem))] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain lg:pr-1 lg:touch-auto"
         >
           {atlasSystems.map((item) => {
             const selected = item.id === system?.id;
-            const thumb = item.plates.anterior?.src;
+            const thumb = systemIconSrc(item);
             return (
-              <li key={item.id} className="shrink-0 lg:shrink">
+              <li key={item.id} className="w-[8.75rem] shrink-0 lg:w-full lg:shrink">
                 <button
                   type="button"
                   aria-pressed={selected}
+                  aria-current={selected ? "true" : undefined}
                   onClick={() => {
                     setSystemId(item.id);
                     setTab("resumen");
                   }}
-                  className={`${previewFocus} flex min-h-11 w-full items-center gap-2 rounded-xl border px-2.5 py-2 text-left text-xs leading-tight lg:min-h-0 lg:py-1.5 ${
+                  className={`${previewFocus} flex min-h-11 w-full items-center gap-2 rounded-xl border px-2 py-1.5 text-left text-xs leading-tight lg:min-h-11 ${
                     selected
-                      ? "border-soma-action/80 bg-soma-raised/50 text-soma-ink"
+                      ? "border-soma-action bg-soma-raised/60 text-soma-ink shadow-[inset_0_0_0_1px_rgb(var(--soma-action)/0.35)]"
                       : "border-soma-line bg-soma-surface text-soma-ink-secondary hover:border-soma-line-strong"
                   }`}
                 >
                   {thumb ? (
-                    <img src={thumb} alt="" className="h-7 w-7 shrink-0 object-contain" />
+                    <img src={thumb} alt="" className="h-8 w-8 shrink-0 object-contain" />
                   ) : (
                     <span
                       aria-hidden="true"
-                      className="h-7 w-7 shrink-0 rounded-lg border border-dashed border-soma-line bg-soma-canvas"
+                      className="h-8 w-8 shrink-0 rounded-lg border border-dashed border-soma-line bg-soma-canvas"
                     />
                   )}
-                  <span className="min-w-0 whitespace-nowrap lg:whitespace-normal">
+                  <span className="min-w-0 truncate lg:whitespace-normal lg:break-words">
                     {atlasSystemName(t, item.id, item.name)}
                   </span>
+                  <ChevronRight
+                    aria-hidden="true"
+                    className="ml-auto hidden h-3.5 w-3.5 shrink-0 text-soma-ink-muted lg:block"
+                  />
                 </button>
               </li>
             );
           })}
         </ul>
 
-        <AnatomyAtlas2D
-          label={organLabel ?? systemLabel}
-          plate={plate}
-          unavailableMessage={unavailableMessage}
-          regions={regions}
-          selectedOrganId={organId}
-          fillView={fullBodyPlate}
-          onSelectOrgan={setOrganId}
-        />
+        <div className="min-w-0">
+          {regions.length === 0 ? (
+            <p className="sr-only">{t("figureNotInteractive")}</p>
+          ) : null}
+          <AnatomyAtlas2D
+            label={organLabel ?? systemLabel}
+            plate={plate}
+            unavailableMessage={unavailableMessage}
+            regions={regions}
+            selectedOrganId={organId}
+            fillView={fullBodyPlate}
+            onSelectOrgan={setOrganId}
+          />
+        </div>
 
         <SystemPanel
           system={system}
@@ -187,16 +236,34 @@ export function AnatomyExplorerPage() {
           tab={tab}
           substanceId={substanceId}
           phase={phase}
+          related={related}
           onTab={setTab}
           onSubstance={setSubstanceId}
           onPhase={setPhase}
-          onSystem={(id) => {
-            setSystemId(id);
-            setTab("resumen");
-          }}
-          onOrgan={(id) => setOrganId(id === organId ? null : id)}
+          onExploreOrgans={scrollToOrgans}
         />
       </div>
+
+      {system ? (
+        <div
+          id="atlas-lower"
+          className="grid min-w-0 items-start gap-4 lg:grid-cols-[minmax(0,7fr)_minmax(16.5rem,3fr)]"
+        >
+          <OrganRail
+            system={system}
+            organId={organId}
+            onOrgan={(id) => {
+              setOrganId(id === organId ? null : id);
+              setTab("resumen");
+            }}
+          />
+          {hasRelated && related ? (
+            <RelatedContentBlock related={related} />
+          ) : (
+            <div className="hidden min-w-0 lg:block" aria-hidden="true" />
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -207,26 +274,25 @@ function SystemPanel({
   tab,
   substanceId,
   phase,
+  related,
   onTab,
   onSubstance,
   onPhase,
-  onSystem,
-  onOrgan,
+  onExploreOrgans,
 }: {
   system: AtlasSystem | null;
   organId: string | null;
   tab: AnatomyTab;
   substanceId: string | null;
   phase: NarrativePhase;
+  related: ReturnType<typeof relatedContentForSystem> | null;
   onTab: (tab: AnatomyTab) => void;
   onSubstance: (id: string) => void;
   onPhase: (phase: NarrativePhase) => void;
-  onSystem: (id: string) => void;
-  onOrgan: (id: string) => void;
+  onExploreOrgans: () => void;
 }) {
   const { t } = useTranslation(["anatomy", "organs", "explore"]);
   const organ = system?.organs.find((item) => item.id === organId) ?? null;
-  const illustrated = atlasSystems.filter((item) => item.plates.anterior);
   const scrollRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
@@ -239,36 +305,45 @@ function SystemPanel({
     }
   }, [system?.id, organId, tab]);
 
-  return (
-    <aside className="flex min-w-0 flex-col overflow-x-hidden rounded-2xl border border-soma-line bg-soma-surface lg:max-h-[min(48rem,calc(100svh-13.5rem))] lg:overflow-hidden">
-      <header ref={headerRef} className="shrink-0 px-4 pb-3 pt-4">
-        <h2 className="text-lg font-semibold leading-snug text-soma-ink">
-          {organ
-            ? atlasOrganName(t, organ.id, organ.name)
-            : system
-              ? atlasSystemName(t, system.id, system.name)
-              : t("humanBody")}
-        </h2>
+  const showDetailTabs = Boolean(system && organ);
 
+  return (
+    <aside className="flex min-w-0 flex-col overflow-x-hidden rounded-2xl border border-soma-line bg-soma-surface lg:max-h-[min(48rem,calc(100svh-11rem))] lg:overflow-hidden">
+      <header ref={headerRef} className="shrink-0 px-4 pb-3 pt-4">
         {system ? (
-          <div role="tablist" aria-label={t("tablistAria")} className="mt-4 flex flex-wrap gap-1.5">
-            {tabs.map((item) => (
-              <button
-                key={item}
-                type="button"
-                role="tab"
-                id={`anatomy-tab-${item}`}
-                aria-selected={tab === item}
-                aria-controls="anatomy-tab-panel"
-                onClick={() => onTab(item)}
-                className={`${previewFocus} rounded-full px-2.5 py-1 text-xs ${
-                  tab === item ? "bg-soma-action text-[#081018]" : "bg-soma-canvas text-soma-ink-secondary"
-                }`}
-              >
-                {t(`tabs.${item}`)}
-              </button>
-            ))}
-          </div>
+          <SystemContextHeader
+            system={system}
+            related={related}
+            onExploreOrgans={onExploreOrgans}
+          />
+        ) : (
+          <h2 className="text-lg font-semibold leading-snug text-soma-ink">{t("humanBody")}</h2>
+        )}
+
+        {showDetailTabs && organ ? (
+          <>
+            <h3 className="mt-4 text-base font-semibold text-soma-ink">
+              {atlasOrganName(t, organ.id, organ.name)}
+            </h3>
+            <div role="tablist" aria-label={t("tablistAria")} className="mt-3 flex flex-wrap gap-1.5">
+              {tabs.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  role="tab"
+                  id={`anatomy-tab-${item}`}
+                  aria-selected={tab === item}
+                  aria-controls="anatomy-tab-panel"
+                  onClick={() => onTab(item)}
+                  className={`${previewFocus} rounded-full px-2.5 py-1 text-xs ${
+                    tab === item ? "bg-soma-action text-[#081018]" : "bg-soma-canvas text-soma-ink-secondary"
+                  }`}
+                >
+                  {t(`tabs.${item}`)}
+                </button>
+              ))}
+            </div>
+          </>
         ) : null}
       </header>
 
@@ -276,91 +351,292 @@ function SystemPanel({
         ref={scrollRef}
         className="min-w-0 lg:min-h-0 lg:flex-1 lg:overflow-x-hidden lg:overflow-y-auto lg:overscroll-contain"
       >
-      <div className="px-4 pb-4">
-      <div
-        id="anatomy-tab-panel"
-        role={system ? "tabpanel" : undefined}
-        aria-labelledby={system ? `anatomy-tab-${tab}` : undefined}
-        className="text-sm leading-relaxed text-soma-ink-secondary"
-      >
-        <PanelBody
-          system={system}
-          organ={organ}
-          tab={tab}
-          substanceId={substanceId}
-          phase={phase}
-          onSubstance={onSubstance}
-          onPhase={onPhase}
-          onEffects={() => onTab("efectos")}
-          onRecovery={() => onTab("recuperacion")}
-        />
+        <div className="px-4 pb-4">
+          <div
+            id="anatomy-tab-panel"
+            role={showDetailTabs ? "tabpanel" : undefined}
+            aria-labelledby={showDetailTabs ? `anatomy-tab-${tab}` : undefined}
+            className="text-sm leading-relaxed text-soma-ink-secondary"
+          >
+            <PanelBody
+              system={system}
+              organ={organ}
+              tab={showDetailTabs ? tab : "resumen"}
+              substanceId={substanceId}
+              phase={phase}
+              onSubstance={onSubstance}
+              onPhase={onPhase}
+              onEffects={() => onTab("efectos")}
+              onRecovery={() => onTab("recuperacion")}
+            />
+          </div>
+        </div>
       </div>
+    </aside>
+  );
+}
 
-      {!system ? (
-        <>
-          <h3 className="mt-5 text-sm font-semibold text-soma-ink">{t("illustratedSystems")}</h3>
-          <ul className="mt-2 grid grid-cols-2 gap-2">
-            {illustrated.map((item) => (
-              <li key={item.id}>
+function SystemContextHeader({
+  system,
+  related,
+  onExploreOrgans,
+}: {
+  system: AtlasSystem;
+  related: ReturnType<typeof relatedContentForSystem> | null;
+  onExploreOrgans: () => void;
+}) {
+  const { t } = useTranslation(["anatomy", "explore"]);
+  const sheet = resolveSystemSheet(system);
+  const thumb = systemIconSrc(system);
+  const name = atlasSystemName(t, system.id, system.name);
+
+  return (
+    <div className="min-w-0 space-y-3">
+      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-soma-action">
+        {t("selectedSystem")}
+      </p>
+      {thumb ? (
+        <img src={thumb} alt="" className="mx-auto h-28 w-full max-w-[11rem] object-contain" />
+      ) : null}
+      <h2 className="min-w-0 text-lg font-semibold leading-snug text-soma-ink">{name}</h2>
+      <p className="text-sm leading-relaxed text-soma-ink-secondary">{t(`systemIntro.${system.id}`)}</p>
+      <div className="flex min-w-0 flex-wrap gap-1.5">
+        {sheet.organCount > 0 ? (
+          <span className="rounded-full border border-soma-line bg-soma-canvas px-2.5 py-0.5 text-[11px] text-soma-ink-secondary">
+            {t("organCount", { count: sheet.organCount })}
+          </span>
+        ) : null}
+        {related && related.articles.length > 0 ? (
+          <span className="rounded-full border border-soma-line bg-soma-canvas px-2.5 py-0.5 text-[11px] text-soma-ink-secondary">
+            {t("relatedArticleCount", { count: related.articles.length })}
+          </span>
+        ) : null}
+        {related && related.substances.length > 0 ? (
+          <span className="rounded-full border border-soma-line bg-soma-canvas px-2.5 py-0.5 text-[11px] text-soma-ink-secondary">
+            {t("relatedSubstanceCount", { count: related.substances.length })}
+          </span>
+        ) : null}
+      </div>
+      <button
+        type="button"
+        onClick={onExploreOrgans}
+        className={`${previewFocus} inline-flex min-h-11 w-full items-center justify-center gap-1 rounded-xl bg-soma-action px-3 py-2 text-sm font-medium text-[#081018] hover:bg-soma-action-hover`}
+      >
+        {t("exploreThisSystem")}
+        <ChevronRight aria-hidden="true" className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+function OrganRail({
+  system,
+  organId,
+  onOrgan,
+}: {
+  system: AtlasSystem;
+  organId: string | null;
+  onOrgan: (id: string) => void;
+}) {
+  const { t } = useTranslation(["anatomy", "organs"]);
+  return (
+    <section id="atlas-organs" className="min-w-0 self-start" aria-labelledby="atlas-organs-heading">
+      <header>
+        <h2 id="atlas-organs-heading" className="text-lg font-semibold leading-snug text-soma-ink">
+          {t("mainOrgans")}
+        </h2>
+        <p className="mt-1 text-sm leading-snug text-soma-ink-secondary">{t("organSectionLead")}</p>
+      </header>
+      {system.organs.length === 0 ? (
+        <p className="mt-4 text-sm leading-relaxed text-soma-ink-muted">{t("emptySystemOrgans")}</p>
+      ) : (
+        <ul className="mt-4 grid min-w-0 grid-cols-1 justify-items-start gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(11.5rem,13rem))]">
+          {system.organs.map((item) => {
+            const selected = item.id === organId;
+            const name = atlasOrganName(t, item.id, item.name);
+            const copy = anatomyOrganEducationCopy(t, item.id);
+            const blurb = copy?.physiology
+              ? firstEducationalSentence(copy.physiology)
+              : copy?.location
+                ? firstEducationalSentence(copy.location)
+                : null;
+            return (
+              <li key={item.id} className="w-full min-w-0 max-w-[20rem] sm:max-w-[18rem] lg:max-w-[13rem]">
                 <button
                   type="button"
-                  onClick={() => onSystem(item.id)}
-                  className={`${previewFocus} flex w-full flex-col items-center gap-2 rounded-2xl border border-soma-line bg-soma-canvas/50 px-2 py-3 text-center text-xs text-soma-ink-secondary hover:border-soma-line-strong hover:text-soma-ink`}
+                  aria-pressed={selected}
+                  aria-label={t("openOrganDetail", { name })}
+                  onClick={() => onOrgan(item.id)}
+                  className={`${previewFocus} flex h-full w-full min-w-0 flex-col rounded-2xl border text-left ${
+                    selected
+                      ? "border-soma-action bg-soma-raised/40"
+                      : "border-soma-line bg-soma-surface hover:border-soma-line-strong"
+                  }`}
                 >
-                  <span className="flex h-14 w-full items-center justify-center">
-                    <img src={item.plates.anterior?.src} alt="" className="h-14 w-full object-contain" />
+                  <span className="flex h-32 w-full items-center justify-center rounded-t-2xl bg-[#101820] px-3 pt-3 sm:h-36">
+                    {item.plate ? (
+                      <img src={item.plate.src} alt="" className="h-full w-full object-contain" />
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="grid h-12 w-12 place-items-center rounded-full bg-soma-surface text-sm text-soma-ink-muted"
+                      >
+                        {name.slice(0, 1)}
+                      </span>
+                    )}
                   </span>
-                  <span className="leading-tight">{atlasSystemName(t, item.id, item.name)}</span>
+                  <span className="flex min-w-0 flex-col p-3">
+                    <span className="flex items-start justify-between gap-2">
+                      <span className="text-sm font-semibold leading-snug text-soma-ink">{name}</span>
+                      <ChevronRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-soma-ink-muted" />
+                    </span>
+                    {blurb ? (
+                      <span className="mt-1 text-pretty text-xs leading-snug text-soma-ink-secondary [overflow-wrap:break-word]">
+                        {blurb}
+                      </span>
+                    ) : null}
+                  </span>
                 </button>
               </li>
-            ))}
-          </ul>
-        </>
-      ) : system.organs.length === 0 ? (
-        <p className="mt-4 text-xs leading-relaxed text-soma-ink-muted">
-          {t("emptySystemOrgans")}
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function RelatedContentBlock({
+  related,
+}: {
+  related: ReturnType<typeof relatedContentForSystem>;
+}) {
+  const { t } = useTranslation(["anatomy", "explore-edu", "missions", "substances"]);
+  const base = useShellBase();
+  const available = relatedTabs.filter((item) => related[item].length > 0);
+  const availableKey = available.join(",");
+  const [tab, setTab] = useState<RelatedTab>(available[0] ?? "articles");
+  const selected = available.includes(tab) ? tab : (available[0] ?? "articles");
+
+  useEffect(() => {
+    const next = availableKey.split(",").filter(Boolean) as RelatedTab[];
+    setTab((current) => (next.includes(current) ? current : (next[0] ?? "articles")));
+  }, [availableKey]);
+
+  if (available.length === 0) return null;
+
+  return (
+    <section className="min-w-0 self-start" aria-labelledby="atlas-related-heading">
+      <header>
+        <h2 id="atlas-related-heading" className="text-lg font-semibold leading-snug text-soma-ink">
+          {t("relatedTitle")}
+        </h2>
+        <p className="mt-1 hidden text-sm leading-snug lg:block lg:invisible" aria-hidden="true">
+          {t("organSectionLead")}
         </p>
-      ) : (
-        <>
-          <h3 className="mt-5 text-sm font-semibold text-soma-ink">{t("mainOrgans")}</h3>
-          <ul className="mt-2 grid grid-cols-3 gap-2">
-            {system.organs.map((item) => {
-              const selected = item.id === organId;
+      </header>
+      <div className="mt-4 rounded-2xl border border-soma-line bg-soma-surface p-3">
+      <div role="tablist" aria-label={t("relatedTablistAria")} className="flex min-w-0 flex-wrap gap-1.5">
+        {available.map((item) => (
+          <button
+            key={item}
+            type="button"
+            role="tab"
+            id={`atlas-related-tab-${item}`}
+            aria-selected={selected === item}
+            aria-controls="atlas-related-panel"
+            onClick={() => setTab(item)}
+            className={`${previewFocus} rounded-full px-2.5 py-1 text-xs ${
+              selected === item ? "bg-soma-action text-[#081018]" : "bg-soma-canvas text-soma-ink-secondary"
+            }`}
+          >
+            {t(relatedTabLabelKey(item))}
+          </button>
+        ))}
+      </div>
+      <div
+        id="atlas-related-panel"
+        role="tabpanel"
+        aria-labelledby={`atlas-related-tab-${selected}`}
+        className="mt-3 min-w-0"
+      >
+        {selected === "articles" ? (
+          <ul className="space-y-2">
+            {related.articles.map((article) => {
+              const href = exploreEduHref(base, article.sheetId);
+              if (!href) return null;
+              const art = relatedArticleArt(article.sheetId);
               return (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    aria-pressed={selected}
-                    onClick={() => onOrgan(item.id)}
-                    className={`${previewFocus} flex w-full flex-col items-center gap-2 rounded-2xl border px-1.5 py-2 text-center ${
-                      selected ? "border-soma-action/80 bg-soma-raised/40" : "border-soma-line bg-soma-canvas/40"
-                    }`}
+                <li key={article.sheetId}>
+                  <Link
+                    to={href}
+                    className={`${previewFocus} flex items-center gap-2 rounded-xl border border-soma-line px-2.5 py-2 text-sm text-soma-ink hover:border-soma-line-strong`}
                   >
-                    <span className="flex h-16 w-full items-center justify-center rounded-xl bg-[#101820]">
-                      {item.plate ? (
-                        <img src={item.plate.src} alt="" className="h-14 w-full object-contain" />
-                      ) : (
-                        <span
-                          aria-hidden="true"
-                          className="grid h-10 w-10 place-items-center rounded-full bg-soma-surface text-sm text-soma-ink-muted"
-                        >
-                          {atlasOrganName(t, item.id, item.name).slice(0, 1)}
-                        </span>
-                      )}
+                    {art ? <img src={art} alt="" className="h-8 w-8 shrink-0 object-contain" /> : null}
+                    <span className="min-w-0 flex-1">
+                      {t(`explore-edu:anatomyToArticle.${article.sheetId}`, {
+                        defaultValue: article.sheetId,
+                      })}
                     </span>
-                    <span className="text-[11px] leading-tight text-soma-ink-secondary">
-                      {atlasOrganName(t, item.id, item.name)}
-                    </span>
-                  </button>
+                    <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-soma-ink-muted" />
+                    <span className="sr-only">{t("relatedOpenArticle")}</span>
+                  </Link>
                 </li>
               );
             })}
           </ul>
-        </>
-      )}
+        ) : null}
+        {selected === "substances" ? (
+          <ul className="space-y-2">
+            {related.substances.map((substance) => {
+              const href = anatomyExplorerHrefForOrgan(base, substance.organId);
+              if (!href) return null;
+              return (
+                <li key={substance.id}>
+                  <Link
+                    to={href}
+                    className={`${previewFocus} flex items-center gap-2 rounded-xl border border-soma-line px-2.5 py-2 text-sm text-soma-ink hover:border-soma-line-strong`}
+                  >
+                    <SubstanceIllustration
+                      name={substance.id}
+                      className="h-8 w-8 shrink-0"
+                      iconClassName="h-4 w-4"
+                    />
+                    <span className="min-w-0 flex-1 truncate">
+                      {t(`substances:${substance.id}.name`, { defaultValue: substance.id })}
+                    </span>
+                    <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-soma-ink-muted" />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
+        {selected === "missions" ? (
+          <ul className="space-y-2">
+            {related.missions.map((mission) => {
+              const art = missionIllustrationSrc(mission.sheetId);
+              return (
+                <li key={mission.id}>
+                  <Link
+                    to={`${base}/missions`}
+                    className={`${previewFocus} flex items-center gap-2 rounded-xl border border-soma-line px-2.5 py-2 text-sm text-soma-ink hover:border-soma-line-strong`}
+                  >
+                    {art ? <img src={art} alt="" className="h-8 w-8 shrink-0 object-contain" /> : null}
+                    <span className="min-w-0 flex-1">
+                      {t(missionCopyPath(mission.titleKey), { ns: "missions" })}
+                    </span>
+                    <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-soma-ink-muted" />
+                    <span className="sr-only">{t("relatedOpenMission")}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
       </div>
       </div>
-    </aside>
+    </section>
   );
 }
 
@@ -438,7 +714,7 @@ function SummaryCopy({
 
   if (!organ) {
     const sheet = resolveSystemSheet(system);
-    return <SystemSheetSummary intro={intro} sheet={sheet} />;
+    return <SystemSheetSummary intro="" sheet={sheet} />;
   }
 
   const sheet = resolveOrganSheet(system, organ);
@@ -773,6 +1049,26 @@ function atlasSystemName(t: TFunction, id: string, fallback: string): string {
     fallback,
     id,
   );
+}
+
+function systemIconSrc(system: AtlasSystem): string | undefined {
+  return exploreSystemCardSources(system.id, system.plates.anterior?.src)[0];
+}
+
+function relatedTabLabelKey(tab: RelatedTab): "relatedArticles" | "relatedSubstances" | "relatedMissions" {
+  if (tab === "articles") return "relatedArticles";
+  if (tab === "substances") return "relatedSubstances";
+  return "relatedMissions";
+}
+
+function relatedArticleArt(sheetId: string): string | null {
+  if (sheetId in exploreNeurotransmitterArt) {
+    return exploreNeurotransmitterArt[sheetId as keyof typeof exploreNeurotransmitterArt];
+  }
+  if (sheetId in exploreProcessArt) {
+    return exploreProcessArt[sheetId as keyof typeof exploreProcessArt];
+  }
+  return null;
 }
 
 function Crumb({

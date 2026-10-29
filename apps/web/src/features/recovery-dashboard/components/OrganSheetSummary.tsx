@@ -111,7 +111,7 @@ export function SystemSheetSummary({
 
   return (
     <div className="space-y-3">
-      <p>{intro}</p>
+      {intro ? <p>{intro}</p> : null}
       {emptySystem ? (
         <p className="rounded-xl border border-dashed border-soma-line px-3 py-2 text-xs text-soma-ink-muted">
           {t("emptySystemCatalog")}
