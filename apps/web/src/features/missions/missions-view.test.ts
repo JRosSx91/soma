@@ -3,11 +3,18 @@ import { test } from "node:test";
 import { MISSION_CATEGORY_IDS } from "@soma/shared-types";
 import { buildDemoMissions } from "./missions-demo.ts";
 import {
+  categoryProgress,
   countCompletedMissions,
+  filterMissionCatalog,
   filterMissionsByCategory,
   FUTURE_MISSION_CATEGORY_IDS,
   groupMissionsByCategory,
   missionCopyPath,
+  missionArtNeedsFrame,
+  missionIllustrationSrc,
+  pickFeaturedMissions,
+  searchMissions,
+  sortMissionCatalog,
   sortMissions,
 } from "./missions-view.ts";
 
@@ -35,8 +42,39 @@ test("category groups keep future areas empty without treating them as available
 
 test("completed counts and i18n paths stay public", () => {
   const rows = buildDemoMissions(new Set(["edu-dopamine-01"]));
-  assert.deepEqual(countCompletedMissions(rows), { completed: 1, total: 6 });
+  const summary = countCompletedMissions(rows);
+  assert.equal(summary.completed, 1);
+  assert.equal(summary.total, 6);
+  assert.equal(summary.available, 5);
+  assert.equal(summary.percent, 17);
+  assert.equal(summary.discoverable, 2);
   assert.equal(rows.find((row) => row.id === "edu-dopamine-01")?.state, "completed");
   assert.equal(rows.find((row) => row.id === "edu-gaba-01")?.state, "available");
   assert.equal(missionCopyPath("missions.items.edu-dopamine-01.title"), "items.edu-dopamine-01.title");
+});
+
+test("featured missions prefer available rows in catalog order", () => {
+  const rows = buildDemoMissions(new Set(["edu-dopamine-01", "edu-serotonin-01"]));
+  const featured = pickFeaturedMissions(rows);
+  assert.equal(featured.length, 4);
+  assert.equal(featured[0]?.id, "edu-gaba-01");
+  assert.equal(featured.some((row) => row.id === "edu-dopamine-01"), false);
+});
+
+test("search, completed filter and title sort stay local", () => {
+  const rows = buildDemoMissions(new Set(["edu-tolerance-01"]));
+  const haystack = (row: (typeof rows)[number]) => row.id;
+  assert.equal(searchMissions(rows, "gaba", haystack)[0]?.id, "edu-gaba-01");
+  assert.equal(filterMissionCatalog(rows, "completed").length, 1);
+  const titled = sortMissionCatalog(rows, "title", (row) => row.id);
+  assert.equal(titled[0]?.id, "edu-dopamine-01");
+  assert.equal(categoryProgress(rows, "substances").upcoming, true);
+  assert.equal(categoryProgress(rows, "neurotransmitters").total, 3);
+  assert.ok(missionIllustrationSrc("dopamine")?.includes("neurotransmitter-dopamine"));
+  assert.ok(missionIllustrationSrc("tolerance")?.includes("process-tolerance"));
+  assert.equal(missionArtNeedsFrame("dopamine"), false);
+  assert.equal(missionArtNeedsFrame("gaba"), false);
+  assert.equal(missionArtNeedsFrame("receptors"), true);
+  assert.equal(missionArtNeedsFrame("tolerance"), true);
+  assert.equal(missionArtNeedsFrame("neuroadaptation"), true);
 });

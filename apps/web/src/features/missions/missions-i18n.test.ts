@@ -48,6 +48,8 @@ test("ES and EN mission catalogs share the same keys and cover the pilot", () =>
   assert.equal(typeof enMissions.previewXpNote, "string");
   assert.equal(typeof esMissions.pageTitle, "string");
   assert.equal(typeof enMissions.pageTitle, "string");
+  assert.equal(typeof esMissions.pageQuote, "string");
+  assert.equal(typeof enMissions.pageQuote, "string");
   assert.equal(typeof esMissions.openMission, "string");
   assert.equal(typeof enMissions.openMission, "string");
   assert.match(esMissions.previewXpNote, /LIVE/);

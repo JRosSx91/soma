@@ -1,5 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { Check, ChevronRight } from "lucide-react";
+import {
+  BookOpen,
+  Brain,
+  Check,
+  ChevronRight,
+  CircleDot,
+  Compass,
+  FlaskConical,
+  Map,
+  Search,
+  Waypoints,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -15,12 +26,18 @@ import {
   type MissionAnswerRecord,
 } from "../../missions/useMissions.js";
 import {
+  categoryProgress,
   countCompletedMissions,
-  filterMissionsByCategory,
+  filterMissionCatalog,
   FUTURE_MISSION_CATEGORY_IDS,
-  groupMissionsByCategory,
+  missionArtNeedsFrame,
   missionCopyPath,
-  type MissionCategoryFilter,
+  missionIllustrationSrc,
+  pickFeaturedMissions,
+  searchMissions,
+  sortMissionCatalog,
+  type MissionCatalogFilter,
+  type MissionSortMode,
 } from "../../missions/missions-view.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
@@ -29,13 +46,22 @@ import { RecoveryHero } from "../components/RecoveryHero.js";
 import { SegmentedControl } from "../components/SegmentedControl.js";
 import { exploreEduHref } from "../explore/explore-edu-query.js";
 
-const MISSIONS_HERO_IMAGE = "/images/decoration/nature-2.png";
+const MISSIONS_HERO_IMAGE = "/images/decoration/nature-7.png";
+const MISSIONS_HERO_IMAGE_CLASS =
+  "object-[16%_40%] sm:object-[center_42%] motion-reduce:transition-none";
 const MISSIONS_HERO_OVERLAY =
-  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.78) 0%, rgb(var(--soma-shell-rail) / 0.32) 38%, transparent 72%)";
+  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.42) 34%, rgb(var(--soma-shell-rail) / 0.12) 58%, transparent 78%)";
 
-const cardClass =
-  "min-w-0 rounded-2xl border border-soma-line bg-soma-surface p-4 sm:p-5";
+const panelClass =
+  "min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 p-4 sm:p-5";
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
+
+const CATEGORY_ICON = {
+  neurotransmitters: Brain,
+  processes: Waypoints,
+  substances: FlaskConical,
+  orientation: Compass,
+} as const;
 
 export function MissionsPage() {
   const { t } = useTranslation("missions");
@@ -47,7 +73,9 @@ export function MissionsPage() {
     live,
     userId: live ? (user?.id ?? null) : null,
   });
-  const [category, setCategory] = useState<MissionCategoryFilter>("all");
+  const [filter, setFilter] = useState<MissionCatalogFilter>("all");
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<MissionSortMode>("catalog");
   const [openId, setOpenId] = useState<string | null>(null);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
 
@@ -58,26 +86,23 @@ export function MissionsPage() {
     setSelectedOptionId(null);
   }, [openId]);
 
-  const summary = useMemo(
-    () => countCompletedMissions(rows ?? []),
-    [rows],
-  );
-  const visible = useMemo(
-    () => filterMissionsByCategory(rows ?? [], category),
-    [rows, category],
-  );
-  const grouped = useMemo(
-    () => groupMissionsByCategory(rows ?? []),
-    [rows],
-  );
+  const summary = useMemo(() => countCompletedMissions(rows ?? []), [rows]);
+  const featured = useMemo(() => pickFeaturedMissions(rows ?? []), [rows]);
+  const titleOf = (row: MissionCatalogItem) => t(missionCopyPath(row.titleKey));
+  const haystack = (row: MissionCatalogItem) =>
+    `${t(missionCopyPath(row.titleKey))} ${t(missionCopyPath(row.summaryKey))}`;
 
-  const categoryOptions = useMemo(
+  const visible = useMemo(() => {
+    const filtered = filterMissionCatalog(rows ?? [], filter);
+    const found = searchMissions(filtered, query, haystack);
+    return sortMissionCatalog(found, sort, titleOf);
+  }, [rows, filter, query, sort, t]);
+
+  const filterOptions = useMemo(
     () => [
       { id: "all" as const, label: t("filterAll") },
-      ...MISSION_CATEGORY_IDS.map((id) => ({
-        id,
-        label: t(`categories.${id}`),
-      })),
+      ...MISSION_CATEGORY_IDS.map((id) => ({ id, label: t(`categories.${id}`) })),
+      { id: "completed" as const, label: t("filterCompleted") },
     ],
     [t],
   );
@@ -100,29 +125,28 @@ export function MissionsPage() {
   const loadFailed = catalog.state === "error";
 
   return (
-    <div className="flex min-w-0 flex-col gap-5 pb-6">
+    <div className="flex min-w-0 flex-col gap-6 pb-8">
       <RecoveryHero
         eyebrow={t("pageEyebrow")}
         title={t("pageTitle")}
         description={t("pageDescription")}
-        quote={t("disclaimer")}
+        quote={t("pageQuote")}
         demo={demo}
         imageSrc={MISSIONS_HERO_IMAGE}
+        imageClassName={MISSIONS_HERO_IMAGE_CLASS}
         overlay={MISSIONS_HERO_OVERLAY}
+        panorama
+        fetchPriority="high"
+        imageWidth={2142}
+        imageHeight={734}
       />
 
-      {demo ? (
-        <p className={`${cardClass} text-sm text-soma-ink-secondary`} role="note">
-          {t("previewXpNote")}
-        </p>
-      ) : null}
-
       {loading ? (
-        <p className={`${cardClass} text-sm text-soma-ink-secondary`}>{t("loading")}</p>
+        <p className={`${panelClass} text-sm text-soma-ink-secondary`}>{t("loading")}</p>
       ) : null}
 
       {loadFailed ? (
-        <div className={cardClass}>
+        <div className={panelClass}>
           <p className="text-sm text-soma-ink-secondary">{t("loadError")}</p>
           <button
             type="button"
@@ -136,44 +160,96 @@ export function MissionsPage() {
 
       {!loading && !loadFailed ? (
         <>
-          <p className="text-sm text-soma-ink-secondary">
-            {t("completedSummary", {
-              completed: summary.completed,
-              total: summary.total,
-            })}
-          </p>
+          <ProgressBoard summary={summary} demo={demo} />
 
-          <SegmentedControl
-            label={t("filterLabel")}
-            value={category}
-            options={categoryOptions}
-            onChange={setCategory}
-          />
+          <p className="text-xs leading-relaxed text-soma-ink-muted">{t("disclaimer")}</p>
 
-          {rows == null || rows.length === 0 ? (
-            <p className={`${cardClass} text-sm text-soma-ink-secondary`}>{t("emptyCatalog")}</p>
-          ) : category === "all" ? (
-            <div className="flex min-w-0 flex-col gap-6">
-              {grouped.map((group) => (
-                <CategoryBlock
-                  key={group.categoryId}
-                  categoryId={group.categoryId}
-                  missions={group.missions}
-                  onOpen={setOpenId}
+          <div className="flex min-w-0 flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <SegmentedControl
+              label={t("filterLabel")}
+              value={filter}
+              options={filterOptions}
+              onChange={setFilter}
+            />
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
+              <label className="relative min-w-0 flex-1">
+                <span className="sr-only">{t("searchLabel")}</span>
+                <Search
+                  className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-soma-ink-muted"
+                  aria-hidden="true"
                 />
-              ))}
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder={t("searchPlaceholder")}
+                  className={`${previewFocus} min-h-11 w-full rounded-full border border-soma-line bg-soma-surface py-2 pr-3 pl-9 text-sm text-soma-ink placeholder:text-soma-ink-muted`}
+                />
+              </label>
+              <label className="shrink-0">
+                <span className="sr-only">{t("sortLabel")}</span>
+                <select
+                  value={sort}
+                  onChange={(event) => setSort(event.target.value as MissionSortMode)}
+                  className={`${previewFocus} min-h-11 rounded-full border border-soma-line bg-soma-surface px-3 text-sm text-soma-ink`}
+                >
+                  <option value="catalog">{t("sortCatalog")}</option>
+                  <option value="title">{t("sortTitle")}</option>
+                  <option value="completed">{t("sortCompleted")}</option>
+                </select>
+              </label>
             </div>
-          ) : visible.length === 0 ? (
-            <FutureCategoryNote categoryId={category} />
-          ) : (
-            <ul className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
-              {visible.map((mission) => (
+          </div>
+
+          <section className="min-w-0" aria-labelledby="missions-featured">
+            <h2 id="missions-featured" className="text-lg font-semibold text-soma-ink">
+              {t("featuredTitle")}
+            </h2>
+            <p className="mt-1 text-sm text-soma-ink-secondary">{t("featuredSubtitle")}</p>
+            <ul className="mt-4 grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {featured.map((mission) => (
                 <li key={mission.id} className="min-w-0">
-                  <MissionCard mission={mission} onOpen={setOpenId} />
+                  <FeaturedCard mission={mission} onOpen={setOpenId} />
                 </li>
               ))}
             </ul>
-          )}
+          </section>
+
+          <section className="min-w-0" aria-labelledby="missions-categories">
+            <h2 id="missions-categories" className="text-lg font-semibold text-soma-ink">
+              {t("categoryProgressTitle")}
+            </h2>
+            <p className="mt-1 text-sm text-soma-ink-secondary">{t("categoryProgressSubtitle")}</p>
+            <ul className="mt-4 grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {MISSION_CATEGORY_IDS.map((categoryId) => (
+                <li key={categoryId} className="min-w-0">
+                  <CategoryProgressCard
+                    categoryId={categoryId}
+                    stats={categoryProgress(rows ?? [], categoryId)}
+                    onExplore={() => setFilter(categoryId)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="min-w-0" aria-labelledby="missions-all">
+            <h2 id="missions-all" className="text-lg font-semibold text-soma-ink">
+              {t("allTitle")}
+            </h2>
+            <p className="mt-1 text-sm text-soma-ink-secondary">{t("allSubtitle")}</p>
+            {visible.length === 0 ? (
+              <p className={`${panelClass} mt-4 text-sm text-soma-ink-secondary`}>{t("emptyCatalog")}</p>
+            ) : (
+              <ul className="mt-4 grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                {visible.map((mission) => (
+                  <li key={mission.id} className="min-w-0">
+                    <CatalogCard mission={mission} onOpen={setOpenId} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
         </>
       ) : null}
 
@@ -194,50 +270,100 @@ export function MissionsPage() {
   );
 }
 
-function CategoryBlock({
-  categoryId,
-  missions,
-  onOpen,
+function ProgressBoard({
+  summary,
+  demo,
 }: {
-  categoryId: MissionCategoryId;
-  missions: MissionCatalogItem[];
-  onOpen: (id: string) => void;
+  summary: ReturnType<typeof countCompletedMissions>;
+  demo: boolean;
 }) {
   const { t } = useTranslation("missions");
+  const items = [
+    {
+      id: "progress",
+      icon: Compass,
+      label: t("statProgress"),
+      value: `${summary.completed} / ${summary.total}`,
+      hint: `${summary.percent}%`,
+      bar: summary.percent,
+    },
+    {
+      id: "completed",
+      icon: BookOpen,
+      label: t("statCompleted"),
+      value: String(summary.completed),
+      hint: null,
+      bar: null,
+    },
+    {
+      id: "available",
+      icon: CircleDot,
+      label: t("statAvailable"),
+      value: String(summary.available),
+      hint: null,
+      bar: null,
+    },
+    {
+      id: "discover",
+      icon: Map,
+      label: t("statDiscover"),
+      value: String(summary.discoverable),
+      hint: t("statDiscoverHint"),
+      bar: null,
+    },
+  ] as const;
+
   return (
-    <section className="min-w-0">
-      <h2 className="mb-3 text-sm font-semibold tracking-wide text-soma-ink">
-        {t(`categories.${categoryId}`)}
-      </h2>
-      {missions.length === 0 ? (
-        <FutureCategoryNote categoryId={categoryId} />
-      ) : (
-        <ul className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
-          {missions.map((mission) => (
-            <li key={mission.id} className="min-w-0">
-              <MissionCard mission={mission} onOpen={onOpen} />
+    <section
+      className="min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 px-4 py-3 sm:px-5 sm:py-3.5"
+      aria-label={t("statProgress")}
+    >
+      <ul className="grid min-w-0 grid-cols-2 gap-3 xl:grid-cols-4 xl:divide-x xl:divide-soma-line">
+        {items.map((item) => {
+          const Icon = item.icon;
+          return (
+            <li key={item.id} className="min-w-0 xl:px-3 first:xl:pl-0 last:xl:pr-0">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-soma-line bg-soma-raised">
+                  <Icon className="h-3.5 w-3.5" style={accentColor} aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[11px] leading-tight text-soma-ink-muted">{item.label}</p>
+                  <p className="text-base font-semibold leading-tight text-soma-ink">
+                    {item.value}
+                    {item.hint ? (
+                      <span className="ml-1.5 text-xs font-medium text-soma-ink-secondary">
+                        {item.hint}
+                      </span>
+                    ) : null}
+                  </p>
+                </div>
+              </div>
+              {item.bar != null ? (
+                <div
+                  className="mt-2 h-1 overflow-hidden rounded-full bg-soma-raised"
+                  aria-hidden="true"
+                >
+                  <div
+                    className="h-full rounded-full bg-soma-action motion-reduce:transition-none"
+                    style={{ width: `${item.bar}%` }}
+                  />
+                </div>
+              ) : null}
             </li>
-          ))}
-        </ul>
-      )}
+          );
+        })}
+      </ul>
+      {demo ? (
+        <p className="mt-2 text-[11px] leading-snug text-soma-ink-muted" role="note">
+          {t("previewXpNote")}
+        </p>
+      ) : null}
     </section>
   );
 }
 
-function FutureCategoryNote({ categoryId }: { categoryId: MissionCategoryId }) {
-  const { t } = useTranslation("missions");
-  const future = FUTURE_MISSION_CATEGORY_IDS.includes(categoryId);
-  return (
-    <p
-      className={`${cardClass} text-sm text-soma-ink-muted`}
-      role="note"
-    >
-      {future ? t("futureCategory") : t("emptyCategory")}
-    </p>
-  );
-}
-
-function MissionCard({
+function FeaturedCard({
   mission,
   onOpen,
 }: {
@@ -245,44 +371,209 @@ function MissionCard({
   onOpen: (id: string) => void;
 }) {
   const { t } = useTranslation("missions");
+  const art = missionIllustrationSrc(mission.sheetId);
   const completed = mission.state === "completed";
   return (
-    <article
-      className={`${cardClass} flex h-full min-w-0 flex-col gap-3 motion-reduce:transition-none`}
-    >
-      <div className="flex min-w-0 items-start justify-between gap-2">
-        <p
-          className="text-[11px] font-medium uppercase tracking-[0.14em] text-soma-ink-muted"
-          style={accentColor}
-        >
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface motion-safe:transition-colors motion-safe:duration-200 motion-reduce:transition-none hover:border-soma-line-strong">
+      <MissionArt
+        src={art}
+        title={t(missionCopyPath(mission.titleKey))}
+        tall
+        framed={missionArtNeedsFrame(mission.sheetId)}
+      />
+      <div className="flex min-w-0 flex-1 flex-col gap-2 p-4">
+        <p className="text-[11px] font-medium uppercase tracking-[0.14em]" style={accentColor}>
           {t(`categories.${mission.categoryId}`)}
         </p>
+        <h3 className="text-base font-semibold leading-snug text-soma-ink">
+          {t(missionCopyPath(mission.titleKey))}
+        </h3>
+        <p className="text-sm leading-relaxed text-soma-ink-secondary">
+          {t(missionCopyPath(mission.summaryKey))}
+        </p>
+        <button
+          type="button"
+          onClick={() => onOpen(mission.id)}
+          className={`${previewFocus} mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018]`}
+        >
+          {completed ? t("openMission") : t("startMission")}
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function CategoryProgressCard({
+  categoryId,
+  stats,
+  onExplore,
+}: {
+  categoryId: MissionCategoryId;
+  stats: ReturnType<typeof categoryProgress>;
+  onExplore: () => void;
+}) {
+  const { t } = useTranslation("missions");
+  const Icon = CATEGORY_ICON[categoryId];
+  const upcoming = stats.upcoming || FUTURE_MISSION_CATEGORY_IDS.includes(categoryId);
+  const body = (
+    <>
+      <span
+        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${
+          upcoming
+            ? "border border-dashed border-soma-line bg-soma-raised/40"
+            : "border border-soma-line-strong bg-soma-raised"
+        }`}
+      >
+        <Icon
+          className={upcoming ? "h-5 w-5 text-soma-ink-muted" : "h-5 w-5"}
+          style={upcoming ? undefined : accentColor}
+          aria-hidden="true"
+        />
+      </span>
+      <span className="min-w-0 flex-1 text-left">
+        <span className={`block text-sm font-semibold ${upcoming ? "text-soma-ink-secondary" : "text-soma-ink"}`}>
+          {t(`categories.${categoryId}`)}
+        </span>
+        {upcoming ? (
+          <span className="mt-1 block text-xs text-soma-ink-muted">{t("comingSoon")}</span>
+        ) : (
+          <>
+            <span className="mt-1 block text-xs text-soma-ink-secondary">
+              {stats.completed} / {stats.total}
+            </span>
+            <span className="mt-2 block h-1.5 overflow-hidden rounded-full bg-soma-raised" aria-hidden="true">
+              <span
+                className="block h-full rounded-full bg-soma-action"
+                style={{ width: `${stats.percent}%` }}
+              />
+            </span>
+          </>
+        )}
+      </span>
+      {upcoming ? null : <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />}
+    </>
+  );
+
+  if (upcoming) {
+    return (
+      <div className="flex min-h-11 min-w-0 items-center gap-3.5 rounded-2xl border border-dashed border-soma-line bg-soma-surface/50 px-4 py-3.5">
+        {body}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onExplore}
+      className={`${previewFocus} flex min-h-11 w-full min-w-0 items-center gap-3.5 rounded-2xl border border-soma-line bg-soma-surface px-4 py-3.5 text-left hover:border-soma-line-strong`}
+    >
+      {body}
+    </button>
+  );
+}
+
+function CatalogCard({
+  mission,
+  onOpen,
+}: {
+  mission: MissionCatalogItem;
+  onOpen: (id: string) => void;
+}) {
+  const { t } = useTranslation("missions");
+  const art = missionIllustrationSrc(mission.sheetId);
+  const completed = mission.state === "completed";
+  return (
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface">
+      <div className="relative">
+        <MissionArt
+          src={art}
+          title={t(missionCopyPath(mission.titleKey))}
+          framed={missionArtNeedsFrame(mission.sheetId)}
+        />
         <span
-          className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+          className={`absolute top-3 left-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${
             completed
               ? "bg-soma-raised text-soma-ink"
-              : "border border-soma-line text-soma-ink-secondary"
+              : "border border-soma-line bg-soma-surface/90 text-soma-ink-secondary"
           }`}
         >
           {completed ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : null}
           {completed ? t("statusCompleted") : t("statusAvailable")}
         </span>
       </div>
-      <h3 className="text-base font-semibold leading-snug text-soma-ink">
-        {t(missionCopyPath(mission.titleKey))}
-      </h3>
-      <p className="text-sm leading-relaxed text-soma-ink-secondary">
-        {t(missionCopyPath(mission.summaryKey))}
-      </p>
-      <button
-        type="button"
-        onClick={() => onOpen(mission.id)}
-        className={`${previewFocus} mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018]`}
-      >
-        {t("openMission")}
-        <ChevronRight className="h-4 w-4" aria-hidden="true" />
-      </button>
+      <div className="flex min-w-0 flex-1 flex-col gap-2 p-4">
+        <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-soma-ink-muted">
+          {t(`categories.${mission.categoryId}`)}
+        </p>
+        <h3 className="text-base font-semibold leading-snug text-soma-ink">
+          {t(missionCopyPath(mission.titleKey))}
+        </h3>
+        <p className="text-sm leading-relaxed text-soma-ink-secondary">
+          {t(missionCopyPath(mission.summaryKey))}
+        </p>
+        <button
+          type="button"
+          onClick={() => onOpen(mission.id)}
+          className={`${previewFocus} mt-auto inline-flex min-h-11 items-center justify-center gap-1 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018]`}
+        >
+          {t("openMission")}
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </div>
     </article>
+  );
+}
+
+function MissionArt({
+  src,
+  title,
+  tall = false,
+  framed = false,
+}: {
+  src: string | null;
+  title: string;
+  tall?: boolean;
+  framed?: boolean;
+}) {
+  return (
+    <div
+      className={`relative flex w-full items-center justify-center overflow-hidden bg-[#101820] ${
+        tall ? "h-40 sm:h-44" : "h-32 sm:h-36"
+      }`}
+    >
+      {src && framed ? (
+        <>
+          <img
+            src={src}
+            alt=""
+            aria-hidden="true"
+            width={640}
+            height={360}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-40"
+          />
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-[#101820]/25" aria-hidden="true" />
+        </>
+      ) : null}
+      {src ? (
+        <img
+          src={src}
+          alt=""
+          width={framed ? 499 : 640}
+          height={framed ? 660 : 360}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          className={`relative z-10 h-full object-contain ${framed ? "w-auto max-w-[46%]" : "w-full"}`}
+        />
+      ) : (
+        <span className="sr-only">{title}</span>
+      )}
+    </div>
   );
 }
 
@@ -324,8 +615,9 @@ function MissionSheet({
         {sheetHref ? (
           <Link
             to={sheetHref}
-            className={`${previewFocus} inline-flex min-h-11 items-center text-sm text-soma-action hover:text-soma-action-hover`}
+            className={`${previewFocus} inline-flex min-h-11 items-center gap-2 text-sm text-soma-action hover:text-soma-action-hover`}
           >
+            <BookOpen className="h-4 w-4 shrink-0" aria-hidden="true" />
             {t("readSheet")}
           </Link>
         ) : (
@@ -335,8 +627,11 @@ function MissionSheet({
         )}
 
         {completed ? (
-          <p className="flex items-center gap-2 text-sm font-medium text-soma-ink" role="status">
-            <Check className="h-4 w-4" aria-hidden="true" />
+          <p
+            className="flex items-center gap-2 rounded-xl border border-soma-action/35 bg-soma-raised/50 px-3 py-2 text-sm font-medium text-soma-ink motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none"
+            role="status"
+          >
+            <Check className="h-4 w-4 shrink-0" aria-hidden="true" />
             {t("alreadyCompleted")}
           </p>
         ) : null}
@@ -354,7 +649,7 @@ function MissionSheet({
               return (
                 <label
                   key={option.id}
-                  className={`flex min-w-0 cursor-pointer items-start gap-3 rounded-xl border px-3 py-3 text-sm leading-snug ${
+                  className={`flex min-w-0 cursor-pointer items-start gap-3 rounded-xl border px-3 py-3 text-sm leading-snug motion-safe:transition-colors motion-safe:duration-150 motion-reduce:transition-none ${
                     selected
                       ? "border-soma-action bg-soma-raised text-soma-ink"
                       : "border-soma-line text-soma-ink-secondary hover:bg-soma-raised/60"
@@ -387,15 +682,26 @@ function MissionSheet({
         ) : null}
 
         {result && lastAnswer ? (
-          <div className="rounded-xl border border-soma-line bg-soma-raised/40 p-3" aria-live="polite" role="status">
-            <p className="text-sm font-medium text-soma-ink">
+          <div
+            className={`rounded-xl border p-3 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none ${
+              result.correct
+                ? "border-soma-action/35 bg-soma-raised/50"
+                : "border-soma-line bg-soma-raised/30"
+            }`}
+            aria-live="polite"
+            role="status"
+          >
+            <p className="flex items-center gap-2 text-sm font-medium text-soma-ink">
+              {result.correct ? <Check className="h-4 w-4 shrink-0" aria-hidden="true" /> : null}
               {result.correct ? t("answerCorrect") : t("answerIncorrect")}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
               {t(missionCopyPath(result.explainKey))}
             </p>
             {showXp ? (
-              <p className="mt-2 text-sm text-soma-ink">{t("xpGranted", { count: result.xpGranted })}</p>
+              <p className="mt-2 text-sm font-medium text-soma-ink">
+                {t("xpGranted", { count: result.xpGranted })}
+              </p>
             ) : null}
           </div>
         ) : null}
