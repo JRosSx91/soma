@@ -48,6 +48,20 @@ test("form renders categories, title, body, submit and history chrome", () => {
   assert.match(page, /privacy/);
 });
 
+test("form controls stay in the native tab order and announce status", () => {
+  assert.equal(page.includes('tabindex="-1"'), false);
+  assert.match(page, /role="radiogroup"/);
+  assert.match(page, /type="radio"/);
+  assert.match(page, /name="feedback-category"/);
+  assert.match(page, /<input[\s\S]*type="text"/);
+  assert.match(page, /<textarea/);
+  assert.match(page, /type="submit"/);
+  assert.match(page, /role="status"/);
+  assert.match(page, /role="alert"/);
+  assert.match(page, /aria-invalid/);
+  assert.match(page, /aria-describedby/);
+});
+
 test("validation, submit, duplicate and network errors are accessible", () => {
   assert.match(page, /catalog.submit/);
   assert.match(page, /if \(catalog.submitting\) return/);
