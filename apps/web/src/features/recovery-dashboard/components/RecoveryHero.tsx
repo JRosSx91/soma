@@ -27,6 +27,13 @@ interface RecoveryHeroProps {
   imageSrc?: string;
   objectPosition?: string;
   overlay?: string;
+  /** Optional LCP hint. Other pages omit it. */
+  fetchPriority?: "high" | "low" | "auto";
+  imageWidth?: number;
+  imageHeight?: number;
+  imageClassName?: string;
+  /** Taller frame for ultra-wide panoramas. */
+  panorama?: boolean;
   /** Recovery page: sit the heading against the content top without moving other heroes. */
   compactHeader?: boolean;
   children?: ReactNode;
@@ -41,6 +48,11 @@ export function RecoveryHero({
   imageSrc = DEFAULT_IMAGE,
   objectPosition = DEFAULT_OBJECT_POSITION,
   overlay = DEFAULT_OVERLAY,
+  fetchPriority,
+  imageWidth = 1920,
+  imageHeight = 800,
+  imageClassName,
+  panorama = false,
   compactHeader = false,
   children,
 }: RecoveryHeroProps) {
@@ -56,12 +68,17 @@ export function RecoveryHero({
         <img
           src={imageSrc}
           alt=""
-          width={1920}
-          height={800}
+          width={imageWidth}
+          height={imageHeight}
           decoding="async"
           draggable={false}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ ...photoMask, objectPosition }}
+          fetchPriority={fetchPriority}
+          sizes="100vw"
+          className={`absolute inset-0 h-full w-full object-cover ${imageClassName ?? ""}`}
+          style={{
+            ...photoMask,
+            ...(imageClassName ? {} : { objectPosition }),
+          }}
         />
         <div
           aria-hidden="true"
@@ -75,7 +92,9 @@ export function RecoveryHero({
           className={
             compactHeader
               ? "relative z-10 grid items-start gap-5 px-4 pb-6 pt-7 sm:pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:px-6 lg:pb-10 lg:pt-7"
-              : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
+              : panorama
+                ? "relative z-10 grid items-start gap-5 px-4 pb-16 pt-7 min-h-[14.5rem] sm:min-h-[18rem] sm:pb-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,18rem)] lg:min-h-[20rem] lg:px-6 lg:pb-24 lg:pt-8"
+                : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
           }
         >
           <header className="max-w-2xl">
@@ -96,11 +115,21 @@ export function RecoveryHero({
             </p>
           </header>
           {quote ? (
-            <aside className="justify-self-start rounded-2xl border border-soma-line-strong/70 bg-[rgb(3_12_20_/_0.58)] px-4 py-4 backdrop-blur-md lg:justify-self-end">
-              <span aria-hidden="true" className="font-serif text-4xl leading-none" style={accentColor}>
-                “
-              </span>
-              <p className="mt-1 text-sm font-medium leading-relaxed text-soma-ink">{quote}</p>
+            <aside
+              className={
+                panorama
+                  ? "mt-8 mr-1 justify-self-start max-w-xs rounded-xl border border-soma-line-strong/50 bg-[rgb(3_12_20_/_0.55)] px-3 py-2.5 backdrop-blur-md sm:mt-10 lg:mt-12 lg:mr-4 lg:justify-self-end"
+                  : "justify-self-start rounded-2xl border border-soma-line-strong/70 bg-[rgb(3_12_20_/_0.58)] px-4 py-4 backdrop-blur-md lg:justify-self-end"
+              }
+            >
+              {panorama ? null : (
+                <span aria-hidden="true" className="font-serif text-4xl leading-none" style={accentColor}>
+                  “
+                </span>
+              )}
+              <p className={`text-sm font-medium leading-relaxed text-soma-ink ${panorama ? "" : "mt-1"}`}>
+                {panorama ? `“${quote}”` : quote}
+              </p>
               <span className="sr-only">{t("homeDailyTitle")}</span>
             </aside>
           ) : null}

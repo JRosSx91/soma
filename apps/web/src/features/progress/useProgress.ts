@@ -81,6 +81,22 @@ export function useProgress(options: {
     setReloadToken((value) => value + 1);
   }, []);
 
+  useEffect(() => {
+    if (!live || !userId) return;
+    const onFocus = () => {
+      if (typeof document !== "undefined" && document.visibilityState === "hidden") {
+        return;
+      }
+      setReloadToken((value) => value + 1);
+    };
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onFocus);
+    return () => {
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onFocus);
+    };
+  }, [live, userId]);
+
   const equipTitle = useCallback(
     async (titleId: ProgressTitleId) => {
       const current = progressRef.current;
