@@ -150,8 +150,27 @@ export function adaptServerProfile(response: UserProfileResponse): UserProfile {
   };
 }
 
-export function substanceDisplayName(id: string): string {
-  return SUBSTANCE_NAME_ES[id] ?? id;
+export function substanceDisplayName(
+  id: string,
+  label?: (id: string, fallback: string) => string,
+): string {
+  const fallback = SUBSTANCE_NAME_ES[id] ?? id;
+  const translated = label?.(id, fallback);
+  if (translated == null || translated === "" || translated === id) return fallback;
+  return translated;
+}
+
+function systemDisplayName(
+  system: BodySystem,
+  label?: (id: string, fallback: string) => string,
+): string {
+  const meta = SYSTEM_META[system];
+  const fallback =
+    meta?.name ?? ATLAS_CARD_SYSTEM_LABEL[system] ?? system;
+  const id = meta?.id ?? system;
+  const translated = label?.(id, fallback);
+  if (translated == null || translated === "" || translated === id) return fallback;
+  return translated;
 }
 
 export function formatDaysAbstinent(
@@ -329,6 +348,8 @@ export function buildLiveChart(input: {
   substanceId: string | null;
   now: number;
   copy?: RecoveryDashboardCopy;
+  substanceLabel?: (id: string, fallback: string) => string;
+  systemLabel?: (id: string, fallback: string) => string;
 }): LiveChartModel {
   const copy = input.copy ?? SPANISH_RECOVERY_COPY;
   const substancesById = new Map(input.substances.map((item) => [item.id, item]));
@@ -370,7 +391,7 @@ export function buildLiveChart(input: {
     plottedSubstanceIds.add(usage.substanceId);
     if (progress.daysAbstinent >= referenceDays) {
       referenceDays = progress.daysAbstinent;
-      referenceName = substanceDisplayName(usage.substanceId);
+      referenceName = substanceDisplayName(usage.substanceId, input.substanceLabel);
     }
     for (const item of plotted) {
       const list = curvesBySystem.get(item.system) ?? [];
@@ -399,7 +420,7 @@ export function buildLiveChart(input: {
 
     series.push({
       id: meta.id,
-      label: meta.name,
+      label: systemDisplayName(system, input.systemLabel),
       samples,
       endLabel:
         todayProgress != null
@@ -461,6 +482,8 @@ export function buildLiveDashboard(input: {
   copy?: RecoveryDashboardCopy;
   /** Display name for an organ id. Catalog `organName` remains the fallback. */
   organLabel?: (organId: string, fallback: string) => string;
+  substanceLabel?: (id: string, fallback: string) => string;
+  systemLabel?: (id: string, fallback: string) => string;
 }): LiveDashboardModel {
   const now = input.now ?? Date.now();
   const copy = input.copy ?? SPANISH_RECOVERY_COPY;
@@ -480,7 +503,7 @@ export function buildLiveDashboard(input: {
 
   const substances: DemoSubstance[] = input.usages.map((usage) => {
     const substance = substancesById.get(usage.substanceId);
-    const name = substanceDisplayName(usage.substanceId);
+    const name = substanceDisplayName(usage.substanceId, input.substanceLabel);
     const progress = substanceProgress(usage, substance, now);
 
     if (progress.availability === "active") {
@@ -494,6 +517,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseActive,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -506,6 +530,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseMissingDate,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -522,6 +547,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseNoCurves,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -537,6 +563,7 @@ export function buildLiveDashboard(input: {
         phase: copy.phaseMissingDate,
         bar: 0,
         lastUseDate: usage.lastUseDate ?? null,
+        usageStatus: usage.status,
       };
     }
 
@@ -577,6 +604,7 @@ export function buildLiveDashboard(input: {
       phase,
       bar: progress.progressFraction,
       lastUseDate: usage.lastUseDate ?? null,
+      usageStatus: usage.status,
     };
   });
 
@@ -702,7 +730,7 @@ export function buildLiveDashboard(input: {
     if (agg.hideCombined) {
       systems.push({
         id: meta.id,
-        name: meta.name,
+        name: systemDisplayName(system, input.systemLabel),
         endLabel: "",
         statusLabel: copy.statusMixed,
         icon: meta.icon,
@@ -712,7 +740,7 @@ export function buildLiveDashboard(input: {
     if (agg.worstDisplay != null) {
       systems.push({
         id: meta.id,
-        name: meta.name,
+        name: systemDisplayName(system, input.systemLabel),
         endLabel: formatTrajectoryPercent(agg.worstDisplay),
         hint: agg.partial ? copy.organEstimatePartial : undefined,
         icon: meta.icon,
@@ -721,7 +749,7 @@ export function buildLiveDashboard(input: {
     }
     systems.push({
       id: meta.id,
-      name: meta.name,
+      name: systemDisplayName(system, input.systemLabel),
       endLabel: "",
       statusLabel: copy.statusActive,
       icon: meta.icon,
@@ -749,7 +777,6 @@ export function buildLiveDashboard(input: {
 
   const changes: DemoChange[] = organEntries.map(({ state, contrib, kind }) => {
     const system = organSystemById.get(state.organId);
-    const meta = system ? SYSTEM_META[system] : null;
     const organName = localizedOrganName(
       state.organId,
       state.organName,
@@ -776,15 +803,17 @@ export function buildLiveDashboard(input: {
               organ: organName,
               percent: pct,
               days: formatDaysAbstinent(contrib.daysAbstinent, copy),
-              substance: substanceDisplayName(contrib.substanceId).toLowerCase(),
+              substance: substanceDisplayName(
+                contrib.substanceId,
+                input.substanceLabel,
+              ).toLowerCase(),
             });
 
     return {
       id: state.organId,
-      system:
-        meta?.name ??
-        (system ? ATLAS_CARD_SYSTEM_LABEL[system] : undefined) ??
-        copy.organFallback,
+      system: system
+        ? systemDisplayName(system, input.systemLabel)
+        : copy.organFallback,
       title: organName,
       status,
       body,
@@ -803,6 +832,8 @@ export function buildLiveDashboard(input: {
       substanceId: input.substanceId,
       now,
       copy,
+      substanceLabel: input.substanceLabel,
+      systemLabel: input.systemLabel,
     }),
     organSystemById,
     organsBySubstance,

@@ -51,6 +51,6 @@ test("AchievementIdsDto rejects oversized batches", () => {
 });
 
 test("AchievementIdsDto accepts a catalog-sized batch", () => {
-  const ids = Array.from({ length: 106 }, (_, i) => `id-${i}`);
+  const ids = Array.from({ length: 156 }, (_, i) => `id-${i}`);
   assert.equal(validate({ achievementIds: ids }).length, 0);
 });

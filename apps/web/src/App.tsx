@@ -5,7 +5,6 @@ import { RegisterPage } from "./pages/RegisterPage.js";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage.js";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage.js";
 import { OnboardingPage } from "./pages/OnboardingPage.js";
-import { AchievementsPage } from "./pages/AchievementsPage.js";
 import { LandingV2Page } from "./features/landing-v2/LandingV2Page.js";
 import { NotFoundPage } from "./pages/NotFoundPage.js";
 import { PreviewShell } from "./features/recovery-dashboard/components/PreviewShell.js";
@@ -14,11 +13,14 @@ import { RecoveryPage } from "./features/recovery-dashboard/pages/RecoveryPage.j
 import { ExplorePage } from "./features/recovery-dashboard/pages/ExplorePage.js";
 import { AnatomyExplorerPage } from "./features/recovery-dashboard/pages/AnatomyExplorerPage.js";
 import { AchievementsPage as Soma2AchievementsPage } from "./features/recovery-dashboard/pages/AchievementsPage.js";
+import { JournalPage } from "./features/recovery-dashboard/pages/JournalPage.js";
+import { MissionsPage } from "./features/recovery-dashboard/pages/MissionsPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
 import { useTranslation } from "react-i18next";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
 import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
+import { DocumentSeo } from "./seo/DocumentSeo.js";
 
 // The anatomical viewer preloads its model at module scope. Keep that
 // module out of the initial graph so Soma 2.0 (/app, /preview) does not
@@ -64,8 +66,10 @@ const soma2Pages = (
     <Route index element={<PreviewHome />} />
     <Route path="recovery" element={<RecoveryPage />} />
     <Route path="explore" element={<ExplorePage />} />
+    <Route path="missions" element={<MissionsPage />} />
     <Route path="anatomy" element={<AnatomyExplorerPage />} />
     <Route path="achievements" element={<Soma2AchievementsPage />} />
+    <Route path="journal" element={<JournalPage />} />
     <Route path="account" element={<AccountPage />} />
   </>
 );
@@ -73,6 +77,7 @@ const soma2Pages = (
 function App() {
   return (
     <BrowserRouter>
+      <DocumentSeo />
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<RootRoute />} />
@@ -105,8 +110,11 @@ function App() {
             }
           />
           <Route path="/onboarding" element={<OnboardingPage />} />
-          {/* Legacy Soma 1.0 achievements + toast-driven unlock surface */}
-          <Route path="/achievements" element={<AchievementsPage />} />
+          {/* Compatible entry: Soma 1.0 URL, same auth gate, Logros 2.0 destination. */}
+          <Route
+            path="/achievements"
+            element={<Navigate to="/app/achievements" replace />}
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

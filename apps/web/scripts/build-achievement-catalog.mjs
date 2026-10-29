@@ -21,6 +21,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const seedPath = path.join(root, "apps/api/prisma/seed/achievements.ts");
+const temporalPath = path.join(root, "apps/api/prisma/seed/temporal-achievements.ts");
 const curvesPath = path.join(root, "apps/api/prisma/seed/recovery-curves.ts");
 const copyPath = path.join(root, "apps/web/src/i18n/locales/es/achievements.json");
 const organsPath = path.join(root, "apps/web/src/i18n/locales/es/organs.json");
@@ -85,6 +86,52 @@ function parseAchievements(source) {
   return items;
 }
 
+const TEMPORAL_TIER = {
+  1: "bronze",
+  3: "bronze",
+  7: "bronze",
+  14: "silver",
+  21: "silver",
+  30: "silver",
+  60: "gold",
+  90: "gold",
+  180: "gold",
+  365: "gold",
+};
+
+function parseTemporal(source) {
+  const start = source.indexOf("export const TEMPORAL_TITLES:");
+  const titlesEn = source.indexOf("export const TEMPORAL_TITLES_EN");
+  const descriptions = source.indexOf("export const TEMPORAL_DESCRIPTIONS_ES");
+  const end = titlesEn !== -1 ? titlesEn : descriptions;
+  if (start === -1 || end === -1) throw new Error("Could not find TEMPORAL_TITLES.");
+  const slice = source.slice(start, end);
+  const items = [];
+  for (const match of slice.matchAll(
+    /"(cannabis|nicotine|cocaine|caffeine|alcohol)-temporal-(\d+)":/g,
+  )) {
+    const substanceId = match[1];
+    const days = Number(match[2]);
+    const id = `${substanceId}-temporal-${days}`;
+    const tier = TEMPORAL_TIER[days];
+    if (!tier) throw new Error(`Unknown temporal threshold ${days} for ${id}`);
+    items.push({
+      id,
+      tier,
+      organId: null,
+      substanceId,
+      threshold: null,
+      abstinenceDays: days,
+      family: "temporal",
+      hidden: false,
+    });
+  }
+  if (items.length !== 50) {
+    throw new Error(`Expected 50 temporal medals, parsed ${items.length}.`);
+  }
+  return items;
+}
+
 function parseCurves(source) {
   const body = arrayBody(source);
   const pairs = new Set();
@@ -105,7 +152,10 @@ function parseCurves(source) {
   return pairs;
 }
 
-const achievements = parseAchievements(read(seedPath));
+const achievements = [
+  ...parseAchievements(read(seedPath)).map((item) => ({ ...item, family: "curve", abstinenceDays: null })),
+  ...parseTemporal(read(temporalPath)),
+];
 const curves = parseCurves(read(curvesPath));
 const copy = JSON.parse(read(copyPath));
 const organs = JSON.parse(read(organsPath));
@@ -122,23 +172,26 @@ const catalog = achievements.map((item) => {
     throw new Error(`Missing Spanish copy for ${item.id}`);
   }
   const substanceName = substances[item.substanceId]?.name;
-  const organName = organs[item.organId];
   if (typeof substanceName !== "string") {
     throw new Error(`Missing Spanish substance name for ${item.substanceId}`);
   }
-  if (typeof organName !== "string") {
+  const temporal = item.family === "temporal";
+  const organName = temporal ? "" : organs[item.organId];
+  if (!temporal && typeof organName !== "string") {
     throw new Error(`Missing Spanish organ name for ${item.organId} (${item.id})`);
   }
   return {
     id: item.id,
+    family: item.family,
     tier: item.tier,
     substanceId: item.substanceId,
     substanceName,
     organId: item.organId,
     organName,
     threshold: item.threshold,
+    abstinenceDays: item.abstinenceDays,
     hidden: item.hidden,
-    ruleReview: !curves.has(`${item.organId}|${item.substanceId}`),
+    ruleReview: temporal ? false : !curves.has(`${item.organId}|${item.substanceId}`),
     title: entry.title,
     description: entry.description,
   };
@@ -163,6 +216,10 @@ export const achievementCatalog = ${JSON.stringify(catalog, null, 2)} as const;
 fs.writeFileSync(outPath, file);
 const hidden = catalog.filter((item) => item.hidden).length;
 const review = catalog.filter((item) => item.ruleReview).length;
+const temporalCount = catalog.filter((item) => item.family === "temporal").length;
+if (catalog.length !== 156 || temporalCount !== 50) {
+  throw new Error(`Expected 156 catalog rows (50 temporal); got ${catalog.length} (${temporalCount} temporal).`);
+}
 console.log(
-  `achievement catalog: ${catalog.length} items, ${hidden} hidden, ${review} pending rule review`,
+  `achievement catalog: ${catalog.length} items, ${hidden} hidden, ${review} pending rule review, ${temporalCount} temporal`,
 );

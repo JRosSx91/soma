@@ -35,7 +35,7 @@ export function SubstanceTrophyGroup({
   const sorted = [...achievements].sort((a, b) => {
     const tierDiff = TIER_ORDER[a.tier] - TIER_ORDER[b.tier];
     if (tierDiff !== 0) return tierDiff;
-    return a.triggerRecoveryThreshold - b.triggerRecoveryThreshold;
+    return (a.triggerRecoveryThreshold ?? 0) - (b.triggerRecoveryThreshold ?? 0);
   });
 
   const unlockedCount = achievements.filter((a) => a.unlocked).length;

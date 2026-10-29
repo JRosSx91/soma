@@ -1,9 +1,22 @@
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import type { AnatomySource } from "../anatomy/anatomy-education.js";
+import {
+  anatomyOrganEducationCopy,
+  anatomySystemEducationCopy,
+  localizeAnatomyCitation,
+} from "../anatomy/present-anatomy-education.js";
 import { presentAnatomySource } from "../anatomy/present-catalog-reference.js";
 import type { OrganAnatomicalSheet } from "../anatomy/organ-sheet.js";
 import type { SystemAnatomicalSheet } from "../anatomy/system-sheet.js";
+import { useShellBase } from "../context/ShellBaseContext.js";
+import {
+  exploreEduSheetForOrgan,
+  exploreEduSheetForSystem,
+} from "../explore/explore-edu-anatomy.js";
+import { exploreEduHref } from "../explore/explore-edu-query.js";
+import type { ExploreEduSheetId } from "../explore/explore-edu.js";
 
 /**
  * Resumen tab content for an atlas organ sheet.
@@ -24,6 +37,7 @@ export function OrganSheetSummary({
 }) {
   const { t } = useTranslation("anatomy");
   const { availability, education } = sheet;
+  const copy = education ? anatomyOrganEducationCopy(t, sheet.organId) : null;
   const hasEffectsContent = availability.hasNarratives || availability.hasEducationalSignaling;
 
   return (
@@ -38,10 +52,10 @@ export function OrganSheetSummary({
 
       {education ? (
         <div className="space-y-3">
-          {sheet.location ? <AnatomyNote title={t("location")} text={sheet.location} /> : null}
-          <AnatomyNote title={t("anatomy")} text={education.anatomy} />
-          <AnatomyNote title={t("function")} text={education.physiology} />
-          <AnatomyNote title={t("relations")} text={education.relations} />
+          {copy?.location ? <AnatomyNote title={t("location")} text={copy.location} /> : null}
+          {copy?.anatomy ? <AnatomyNote title={t("anatomy")} text={copy.anatomy} /> : null}
+          {copy?.physiology ? <AnatomyNote title={t("function")} text={copy.physiology} /> : null}
+          {copy?.relations ? <AnatomyNote title={t("relations")} text={copy.relations} /> : null}
           {education.sources.length > 0 ? <AnatomySourceList sources={education.sources} /> : null}
         </div>
       ) : (
@@ -49,6 +63,8 @@ export function OrganSheetSummary({
           {t("noAnatomyEducation")}
         </p>
       )}
+
+      <EducationalArticleLink sheetId={exploreEduSheetForOrgan(sheet.organId)} />
 
       <AvailabilityNotes sheet={sheet} />
 
@@ -91,6 +107,7 @@ export function SystemSheetSummary({
 }) {
   const { t } = useTranslation("anatomy");
   const { education, emptySystem, availability } = sheet;
+  const copy = education ? anatomySystemEducationCopy(t, sheet.systemId) : null;
 
   return (
     <div className="space-y-3">
@@ -103,10 +120,10 @@ export function SystemSheetSummary({
 
       {education ? (
         <div className="space-y-3">
-          {sheet.location ? <AnatomyNote title={t("location")} text={sheet.location} /> : null}
-          <AnatomyNote title={t("anatomy")} text={education.anatomy} />
-          <AnatomyNote title={t("function")} text={education.physiology} />
-          <AnatomyNote title={t("relations")} text={education.relations} />
+          {copy?.location ? <AnatomyNote title={t("location")} text={copy.location} /> : null}
+          {copy?.anatomy ? <AnatomyNote title={t("anatomy")} text={copy.anatomy} /> : null}
+          {copy?.physiology ? <AnatomyNote title={t("function")} text={copy.physiology} /> : null}
+          {copy?.relations ? <AnatomyNote title={t("relations")} text={copy.relations} /> : null}
           {education.sources.length > 0 ? <AnatomySourceList sources={education.sources} /> : null}
         </div>
       ) : emptySystem ? (
@@ -121,7 +138,29 @@ export function SystemSheetSummary({
           {!availability.hasRecoveryCurves ? <li>{t("systemNoCurves")}</li> : null}
         </ul>
       ) : null}
+
+      <EducationalArticleLink sheetId={exploreEduSheetForSystem(sheet.systemId)} />
     </div>
+  );
+}
+
+function EducationalArticleLink({ sheetId }: { sheetId: ExploreEduSheetId | null }) {
+  const { t } = useTranslation("explore-edu");
+  const base = useShellBase();
+  if (!sheetId) return null;
+  const href = exploreEduHref(base, sheetId);
+  const label = t(`anatomyToArticle.${sheetId}`, { defaultValue: "" });
+  if (!href || !label || label === `anatomyToArticle.${sheetId}`) return null;
+  return (
+    <p className="min-w-0 max-w-full">
+      <Link
+        to={href}
+        data-edu-from-anatomy={sheetId}
+        className={`${previewFocus} inline-block max-w-full break-words text-xs text-soma-action hover:text-soma-action-hover`}
+      >
+        {label}
+      </Link>
+    </p>
   );
 }
 
@@ -166,8 +205,11 @@ function AnatomySourceList({ sources }: { sources: readonly AnatomySource[] }) {
     <div>
       <h3 className="text-xs font-semibold text-soma-ink">{t("sources")}</h3>
       <ul className="mt-1 space-y-1">
-        {sources.map((source) => {
-          const presented = presentAnatomySource(source);
+        {        sources.map((source) => {
+          const presented = presentAnatomySource({
+            ...source,
+            citation: localizeAnatomyCitation(source.citation, t),
+          });
           return (
             <li key={source.href} className="text-[11px] leading-relaxed text-soma-ink-muted">
               {presented.useVerifiedLinkStyle ? (

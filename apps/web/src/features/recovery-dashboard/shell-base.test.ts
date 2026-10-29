@@ -4,9 +4,15 @@ import { test } from "node:test";
 import enCommon from "../../i18n/locales/en/common.json" with { type: "json" };
 import esCommon from "../../i18n/locales/es/common.json" with { type: "json" };
 import {
+  desktopShellSections,
   isAppShellPath,
+  isSectionPathActive,
+  mobileShellSections,
+  moreShellSections,
+  railMoreShellSections,
   shellBaseFromPath,
   shellSectionDefs,
+  shellSectionForPathname,
   shellSections,
 } from "./shell-base.ts";
 
@@ -104,6 +110,11 @@ test("shell navigation labels live in spanish and english common copy", () => {
     "anatomy",
     "anatomyShort",
     "achievements",
+    "journal",
+    "missions",
+    "account",
+    "more",
+    "moreMenuAria",
   ] as const;
   for (const key of keys) {
     assert.equal(typeof esCommon.shell[key], "string");
@@ -118,6 +129,10 @@ test("shell navigation labels live in spanish and english common copy", () => {
   assert.equal(esCommon.shell.anatomy, "Explorador anatómico");
   assert.equal(esCommon.shell.anatomyShort, "Anatomía");
   assert.equal(esCommon.shell.achievements, "Logros");
+  assert.equal(esCommon.shell.journal, "Bitácora");
+  assert.equal(esCommon.shell.missions, "Misiones");
+  assert.equal(esCommon.shell.account, "Cuenta");
+  assert.equal(esCommon.shell.more, "Más");
   assert.equal(enCommon.shell.home, "Home");
   assert.equal(enCommon.shell.recovery, "My recovery");
   assert.equal(enCommon.shell.recoveryShort, "Recovery");
@@ -125,6 +140,10 @@ test("shell navigation labels live in spanish and english common copy", () => {
   assert.equal(enCommon.shell.anatomy, "Anatomical explorer");
   assert.equal(enCommon.shell.anatomyShort, "Anatomy");
   assert.equal(enCommon.shell.achievements, "Achievements");
+  assert.equal(enCommon.shell.journal, "Journal");
+  assert.equal(enCommon.shell.missions, "Missions");
+  assert.equal(enCommon.shell.account, "Account");
+  assert.equal(enCommon.shell.more, "More");
 
   const source = readFileSync(new URL("./shell-base.ts", import.meta.url), "utf8");
   assert.equal(source.includes("Inicio"), false);
@@ -155,6 +174,14 @@ test("sidebar and mobile nav read shell labels from i18n", () => {
   assert.match(shell, /t\(`shell\.\$\{current\.labelKey\}`\)/);
   assert.match(sidebar, /t\("shell\.navAria"\)/);
   assert.match(mobile, /t\("shell\.navAria"\)/);
+  assert.match(mobile, /PreviewMoreMenu/);
+  assert.match(sidebar, /PreviewMoreMenu variant="rail"/);
+  assert.match(sidebar, /desktopShellSections/);
+  assert.match(mobile, /mobileShellSections/);
+  assert.match(sidebar, /SomaMark compact=\{collapsed\}/);
+  assert.equal(sidebar.includes("expeditions"), false);
+  const mark = readFileSync(new URL("./components/SomaMark.tsx", import.meta.url), "utf8");
+  assert.match(mark, /Expeditions/);
 });
 
 test("app shell path detection does not swallow app-legacy", () => {
@@ -164,4 +191,54 @@ test("app shell path detection does not swallow app-legacy", () => {
   assert.equal(isAppShellPath("/preview"), false);
   assert.equal(shellBaseFromPath("/app/anatomy"), "/app");
   assert.equal(shellBaseFromPath("/preview/explore"), "/preview");
+});
+
+test("desktop, mobile and more menus split one section table", () => {
+  const desktop = desktopShellSections("/app").map((item) => item.id);
+  const mobile = mobileShellSections("/preview").map((item) => item.id);
+  const more = moreShellSections("/app").map((item) => item.id);
+  assert.deepEqual(desktop, [
+    "inicio",
+    "recuperacion",
+    "explorar",
+    "misiones",
+    "anatomia",
+    "logros",
+    "bitacora",
+  ]);
+  assert.deepEqual(mobile, ["inicio", "recuperacion", "explorar"]);
+  assert.deepEqual(more, ["misiones", "anatomia", "logros", "bitacora", "cuenta"]);
+  assert.deepEqual(
+    railMoreShellSections("/app").map((item) => item.id),
+    [],
+  );
+  assert.equal(
+    shellSectionDefs.some((item) => item.id === "expedicion" || item.path === "/expedition"),
+    false,
+  );
+});
+
+test("account is a real shell section and titles it instead of home", () => {
+  assert.equal(shellSectionForPathname("/app", "/app")?.id, "inicio");
+  assert.equal(shellSectionForPathname("/app", "/app/journal")?.id, "bitacora");
+  assert.equal(shellSectionForPathname("/preview", "/preview/journal")?.id, "bitacora");
+  assert.equal(shellSectionForPathname("/app", "/app/missions")?.id, "misiones");
+  assert.equal(shellSectionForPathname("/preview", "/preview/missions")?.id, "misiones");
+  assert.equal(shellSectionForPathname("/app", "/app/account")?.id, "cuenta");
+  assert.equal(shellSectionForPathname("/preview", "/preview/account")?.id, "cuenta");
+  assert.equal(shellSectionForPathname("/app", "/app/recovery")?.id, "recuperacion");
+  assert.equal(isSectionPathActive("/app", "/app/recovery", { end: true }), false);
+  assert.equal(isSectionPathActive("/app/recovery", "/app/recovery", { end: false }), true);
+});
+
+test("shell keeps the existing app and preview destinations", () => {
+  const app = shellSections("/app");
+  assert.equal(app.find((item) => item.id === "inicio")?.to, "/app");
+  assert.equal(app.find((item) => item.id === "recuperacion")?.to, "/app/recovery");
+  assert.equal(app.find((item) => item.id === "explorar")?.to, "/app/explore");
+  assert.equal(app.find((item) => item.id === "misiones")?.to, "/app/missions");
+  assert.equal(app.find((item) => item.id === "anatomia")?.to, "/app/anatomy");
+  assert.equal(app.find((item) => item.id === "logros")?.to, "/app/achievements");
+  assert.equal(app.find((item) => item.id === "bitacora")?.to, "/app/journal");
+  assert.equal(app.find((item) => item.id === "cuenta")?.to, "/app/account");
 });

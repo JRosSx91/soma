@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { Lock } from "lucide-react";
+import { medalFrameClass, type MedalDisplaySize } from "./medal-frame.js";
 import { SubstanceIllustration } from "./SubstanceIllustration.js";
 
 export type MedalTier = "bronze" | "silver" | "gold" | "platinum";
@@ -16,7 +17,7 @@ interface MedalMarkProps {
   substanceId: string;
   /** Hides the substance plate. The tier silhouette and its name stay visible. */
   sealed?: boolean;
-  size?: "card" | "detail" | "compact";
+  size?: MedalDisplaySize;
   /** Defaults to the Spanish tier caption used on the achievements pages. */
   showTierLabel?: boolean;
 }
@@ -33,9 +34,7 @@ export function MedalMark({
   showTierLabel = true,
 }: MedalMarkProps) {
   const uid = useId().replace(/:/g, "");
-  const compact = size === "compact";
-  const frame =
-    size === "detail" ? "h-52 sm:h-60" : compact ? "h-12 w-12" : "h-36 sm:h-40";
+  const { frame, compactLike: compact } = medalFrameClass(size);
   return (
     <span className={compact ? "inline-flex flex-col items-center" : "flex w-full flex-col items-center gap-1"}>
       <span className={`relative flex items-center justify-center ${compact ? frame : `w-full ${frame}`}`}>

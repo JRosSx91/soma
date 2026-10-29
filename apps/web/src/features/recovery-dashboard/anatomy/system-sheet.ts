@@ -18,10 +18,6 @@ export interface SystemAnatomicalSheet {
   /** True when the catalog lists no organs for this system. */
   emptySystem: boolean;
   organCount: number;
-  location: string | null;
-  anatomy: string | null;
-  physiology: string | null;
-  relations: string | null;
   /** System-level plate (full-body highlight), not an organ plate. */
   plate: AtlasPlate | null;
   sources: readonly AnatomySource[];
@@ -47,10 +43,6 @@ export function resolveSystemSheet(system: AtlasSystem): SystemAnatomicalSheet {
     systemName: system.name,
     emptySystem: system.organs.length === 0,
     organCount: system.organs.length,
-    location: education?.location ?? null,
-    anatomy: education?.anatomy ?? null,
-    physiology: education?.physiology ?? null,
-    relations: education?.relations ?? null,
     plate,
     sources: education?.sources ?? [],
     availability: {

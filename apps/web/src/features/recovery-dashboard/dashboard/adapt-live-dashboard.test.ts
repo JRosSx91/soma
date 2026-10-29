@@ -152,6 +152,7 @@ test("single abstinent substance drives cards, systems and chart from computeRec
 
   assert.equal(model.substances.length, 1);
   assert.equal(model.substances[0]?.id, "nicotine");
+  assert.equal(model.substances[0]?.usageStatus, "abstinent");
   assert.match(model.substances[0]?.abstinence ?? "", /días/);
   assert.equal(model.substances[0]?.bar, progressFraction);
   assert.ok(model.systems.some((item) => item.id === "respiratory"));
@@ -299,7 +300,7 @@ test("multi-substance overlay hides Today and keeps checkpoint axis", () => {
   for (const series of overlay.series) {
     assert.equal(series.endLabel, "");
     assert.doesNotMatch(series.endLabel, /Hoy/);
-    assert.match(series.referenceAtYearLabel ?? "", /^día 365 · /);
+    assert.match(series.referenceAtYearLabel ?? "", /^Modelo: día 365 · /);
     assert.equal(series.samples.length, LIVE_AXIS_DAYS.length);
     assert.deepEqual([...LIVE_AXIS_DAYS], [0, 30, 90, 180, 365]);
   }
@@ -710,7 +711,7 @@ test("demo and live stay separated in the preview pages", () => {
   assert.equal(recovery.includes("demoSubstances"), false);
   assert.match(home, /showDemoBadge/);
   assert.match(recovery, /demo=\{dashboard\.showDemoBadge\}/);
-  assert.match(hook, /buildDemoChart/);
+  assert.match(hook, /presentDemoChart/);
   assert.equal(hook.includes("showToday: true"), false);
   const chart = readFileSync(
     new URL("../components/EvolutionChart.tsx", import.meta.url),
@@ -740,21 +741,26 @@ test("home daily summary does not repeat recovery analysis widgets", () => {
   assert.equal(hero.includes("-scale-x-100"), false);
   assert.match(home, /HeroFilaments/);
   assert.match(hero, /fadeEdges/);
-  assert.match(home, /lg:grid-cols-\[minmax\(0,3fr\)_minmax\(14rem,2fr\)\]/);
+  assert.match(home, /lg:grid-cols-3/);
+  assert.match(home, /AnatomyColumn/);
   assert.equal(home.includes("h-24 w-[4.75rem]"), false);
   assert.equal(home.includes("sm:h-28 sm:w-20 lg:hidden"), false);
-  assert.match(
-    home,
-    /h-\[min\(17\.5rem,calc\(\(100vw-2rem\)\*0\.932\),calc\(100dvh-16rem\)\)\].*lg:hidden/,
-  );
-  assert.match(home, /absolute inset-0 z-\[1\]/);
-  assert.match(home, /hidden min-h-\[22rem\] overflow-hidden lg:block/);
+  assert.equal(home.includes("lg:hidden"), false);
+  assert.match(home, /w-\[min\(28rem,34%\)\]/);
+  assert.match(home, /absolute right-0 top-0/);
+  assert.equal(home.includes("100vw - 15rem"), false);
+  assert.match(home, /lg:block/);
   assert.equal(home.includes("publishedAdvice"), false);
   assert.match(home, /showTierLabel=\{false\}/);
-  assert.equal((home.match(/showTierLabel/g) ?? []).length, 1);
   assert.match(home, /pickNextLockedAchievement/);
-  assert.match(home, /quantifiableAchievementProgress/);
-  assert.match(home, /pickFeaturedUnlockedAchievement/);
+  assert.match(home, /pickRecentUnlockedAchievements/);
+  assert.match(home, /NextTemporalMedalCard/);
+  assert.match(home, /homeDiscoveryTitle/);
+  assert.match(home, /RecommendedExploration/);
+  assert.equal(home.includes("homeDiscoveryEmpty"), false);
+  assert.match(home, /homeRecentEmptyDemo/);
+  assert.equal(home.includes("quantifiableAchievementProgress"), false);
+  assert.equal(home.includes("pickFeaturedUnlockedAchievement"), false);
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(recovery, /EvolutionChart/);
   assert.match(recovery, /SubstanceCard/);
@@ -919,11 +925,11 @@ test("chart endLabel is today trajectory, not day-365 sample", () => {
     recoveryCeiling: 0.9,
   }).curveProgress;
   assert.match(cardio.endLabel, /^Hoy · \d+ % de la curva$/);
-  assert.match(cardio.referenceAtYearLabel ?? "", /^día 365 · \d+%/);
+  assert.match(cardio.referenceAtYearLabel ?? "", /^Modelo: día 365 · \d+%/);
   assert.equal(cardio.endLabel, `Hoy · ${Math.round(today * 100)} % de la curva`);
   assert.equal(
     cardio.referenceAtYearLabel,
-    `día 365 · ${Math.round(atYear * 100)}%`,
+    `Modelo: día 365 · ${Math.round(atYear * 100)}%`,
   );
   assert.notEqual(cardio.endLabel, cardio.referenceAtYearLabel);
   assert.equal(cardio.samples.length, LIVE_AXIS_DAYS.length);
@@ -968,7 +974,7 @@ test("day 0 and >365 keep distinct today vs year labels", () => {
   const cardioFar = far.series.find((item) => item.id === "cardiovascular");
   assert.ok(cardioFar);
   assert.match(cardioFar.endLabel, /^Hoy · /);
-  assert.match(cardioFar.referenceAtYearLabel ?? "", /^día 365 · /);
+  assert.match(cardioFar.referenceAtYearLabel ?? "", /^Modelo: día 365 · /);
 });
 
 test("ceiling 0.6 keeps progressFraction as primary bar; absoluteRecovery lower", () => {
@@ -1735,8 +1741,8 @@ test("live API error path never imports demo series (source)", () => {
   assert.match(hook, /error: error \?\?/);
   assert.match(hook, /showDemoBadge: false/);
   assert.equal(hook.includes("demoSubstances"), true);
-  assert.equal(hook.includes("buildDemoChart"), true);
+  assert.equal(hook.includes("presentDemoChart"), true);
   const errorBlock = hook.slice(hook.indexOf("if (error || !liveModel)"));
   assert.equal(errorBlock.includes("demoSubstances"), false);
-  assert.equal(errorBlock.includes("buildDemoChart"), false);
+  assert.equal(errorBlock.includes("presentDemoChart"), false);
 });

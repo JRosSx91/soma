@@ -1,46 +1,34 @@
-import {
-  Compass,
-  Home,
-  PersonStanding,
-  Activity,
-  Trophy,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../../../components/LanguageSelector.js";
 import { AchievementInboxBell } from "../../achievements/components/AchievementInboxBell.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { useShellLayout } from "../hooks/useShellLayout.js";
-import { shellSections } from "../shell-base.js";
+import { desktopShellSections, railMoreShellSections } from "../shell-base.js";
+import { shellNavActiveClass, shellNavIdleClass } from "../shell-chrome.js";
+import { shellIcons } from "../shell-icons.js";
 import { previewFocus } from "../focus.js";
 import { AccountMenu } from "./AccountMenu.js";
+import { PreviewMoreMenu } from "./PreviewMoreMenu.js";
 import { SomaMark } from "./SomaMark.js";
-
-const icons = {
-  inicio: Home,
-  recuperacion: Activity,
-  explorar: Compass,
-  anatomia: PersonStanding,
-  logros: Trophy,
-} as const;
 
 export function PreviewSidebar() {
   const { t } = useTranslation("common");
   const base = useShellBase();
   const { collapsed, toggleCollapsed } = useShellLayout();
-  const sections = shellSections(base);
+  const sections = desktopShellSections(base);
   const collapseLabel = collapsed ? t("shell.expandNav") : t("shell.collapseNav");
 
   return (
     <aside
       id="soma-shell-sidebar"
-      className={`fixed inset-y-0 left-0 z-50 hidden flex-col overflow-visible border-r border-soma-line/40 bg-[#081018]/95 py-4 backdrop-blur-sm transition-[width] duration-200 ease-out motion-reduce:transition-none lg:flex ${
+      className={`fixed inset-y-0 left-0 z-50 hidden flex-col overflow-visible border-r border-soma-line/30 py-4 backdrop-blur-sm transition-[width] duration-200 ease-out motion-reduce:transition-none lg:flex ${
         collapsed ? "lg:w-[4.5rem]" : "lg:w-60"
       }`}
+      style={{ backgroundColor: "rgb(var(--soma-shell-rail) / 0.95)" }}
     >
-      <div className="relative h-10 shrink-0">
+      <div className="relative h-12 shrink-0">
         <div
           className={`flex h-full items-center ${
             collapsed ? "w-full justify-center" : "justify-between px-4"
@@ -63,7 +51,7 @@ export function PreviewSidebar() {
         {collapsed ? (
           <button
             type="button"
-            className={`${previewFocus} absolute top-1/2 right-0 z-10 flex h-6 w-6 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border border-soma-line/50 bg-[#081018] text-soma-ink-muted shadow-sm hover:bg-soma-surface hover:text-soma-ink`}
+            className={`${previewFocus} absolute top-1/2 right-0 z-10 flex h-6 w-6 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border border-soma-line/50 bg-soma-shell-rail text-soma-ink-muted hover:bg-soma-surface hover:text-soma-ink`}
             aria-pressed={collapsed}
             aria-label={collapseLabel}
             title={collapseLabel}
@@ -74,26 +62,24 @@ export function PreviewSidebar() {
         ) : null}
       </div>
 
-      <nav className="mt-6 px-3" aria-label={t("shell.navAria")}>
+      <div className="mx-3 mt-4 h-px bg-gradient-to-r from-transparent via-soma-shell-accent/25 to-transparent" />
+
+      <nav className="mt-4 px-3" aria-label={t("shell.navAria")}>
         <ul className="flex flex-col gap-1">
           {sections.map((item) => {
-            const Icon = icons[item.id];
+            const Icon = shellIcons[item.icon];
             const label = t(`shell.${item.labelKey}`);
             return (
               <li key={item.id}>
                 <NavLink
                   to={item.to}
-                  end={item.id === "inicio"}
+                  end={item.path === ""}
                   title={collapsed ? label : undefined}
                   aria-label={collapsed ? label : undefined}
                   className={({ isActive }) =>
-                    `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
+                    `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-200 motion-reduce:transition-none ${
                       collapsed ? "justify-center px-0" : ""
-                    } ${
-                      isActive
-                        ? "bg-soma-raised text-soma-ink"
-                        : "text-soma-ink-secondary hover:bg-soma-surface hover:text-soma-ink"
-                    }`
+                    } ${isActive ? shellNavActiveClass : shellNavIdleClass}`
                   }
                 >
                   <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -102,11 +88,16 @@ export function PreviewSidebar() {
               </li>
             );
           })}
+          {railMoreShellSections(base).length > 0 ? (
+            <li>
+              <PreviewMoreMenu variant="rail" collapsed={collapsed} />
+            </li>
+          ) : null}
         </ul>
       </nav>
 
       <div
-        className={`mt-auto flex flex-col gap-1 border-t border-soma-line/40 px-3 pt-3 ${
+        className={`mt-auto flex flex-col gap-1 border-t border-soma-line/30 px-3 pt-3 ${
           collapsed ? "items-center" : ""
         }`}
       >

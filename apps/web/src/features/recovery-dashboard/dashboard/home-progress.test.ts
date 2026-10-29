@@ -5,6 +5,7 @@ import type { AchievementWithUnlockState } from "../../achievements/types.js";
 import {
   pickFeaturedUnlockedAchievement,
   pickNextLockedAchievement,
+  pickRecentUnlockedAchievements,
   percentTowardThreshold,
   quantifiableAchievementProgress,
 } from "./home-progress.ts";
@@ -41,6 +42,29 @@ test("next locked achievement is the closest calculable one among tracked substa
     ["alcohol"],
   );
   assert.equal(next?.id, "b");
+});
+
+test("next locked achievement ignores temporal medals", () => {
+  const next = pickNextLockedAchievement(
+    [
+      row({
+        id: "cannabis-temporal-1",
+        family: "temporal",
+        triggerOrganId: null,
+        triggerRecoveryThreshold: null,
+        triggerAbstinenceDays: 1,
+        triggerSubstanceId: "cannabis",
+        achievementProgress: 0.99,
+      }),
+      row({
+        id: "curve-liver",
+        triggerSubstanceId: "cannabis",
+        achievementProgress: 0.4,
+      }),
+    ],
+    ["cannabis"],
+  );
+  assert.equal(next?.id, "curve-liver");
 });
 
 test("next locked achievement stays empty without rows, tracking, or ready progress", () => {
@@ -87,6 +111,52 @@ test("featured unlocked achievement prefers the highest tier over a newer lower 
     }),
   ]);
   assert.equal(featured?.id, "platinum-old");
+});
+
+test("recent unlocked achievements sort by real date and stop at four", () => {
+  const recent = pickRecentUnlockedAchievements(
+    [
+      row({ id: "locked" }),
+      row({ id: "old", unlocked: true, unlockedAt: "2026-01-01T00:00:00.000Z" }),
+      row({ id: "mid", unlocked: true, unlockedAt: "2026-03-01T00:00:00.000Z" }),
+      row({ id: "undated", unlocked: true, unlockedAt: null }),
+      row({ id: "new", unlocked: true, unlockedAt: "2026-06-01T00:00:00.000Z" }),
+      row({ id: "newer", unlocked: true, unlockedAt: "2026-08-01T00:00:00.000Z" }),
+      row({ id: "newest", unlocked: true, unlockedAt: "2026-09-01T00:00:00.000Z" }),
+    ],
+    4,
+  );
+  assert.deepEqual(
+    recent.map((item) => item.id),
+    ["newest", "newer", "new", "mid"],
+  );
+  assert.equal(pickRecentUnlockedAchievements(null).length, 0);
+  assert.equal(pickRecentUnlockedAchievements([row({ id: "locked" })]).length, 0);
+});
+
+test("recent unlocked achievements keep catalog order on equal dates and do not mutate input", () => {
+  const same = "2026-04-01T12:00:00.000Z";
+  const rows = [
+    row({ id: "beta", unlocked: true, unlockedAt: same }),
+    row({ id: "alpha", unlocked: true, unlockedAt: same }),
+    row({ id: "invalid", unlocked: true, unlockedAt: "not-a-date" }),
+    row({
+      id: "missing",
+      unlocked: true,
+      unlockedAt: undefined as unknown as string | null,
+    }),
+  ];
+  const snapshot = rows.map((item) => item.id);
+  const recent = pickRecentUnlockedAchievements(rows, 4);
+  assert.deepEqual(
+    recent.map((item) => item.id),
+    ["beta", "alpha", "invalid", "missing"],
+  );
+  assert.deepEqual(
+    rows.map((item) => item.id),
+    snapshot,
+  );
+  assert.equal(recent[0], rows[0]);
 });
 
 test("featured unlocked achievement breaks same-tier ties on unlockedAt", () => {
@@ -153,11 +223,21 @@ test("home summary helpers do not estimate curves or abstinence", () => {
 
 test("achievements page reuses the shared quantifiable progress helper", () => {
   const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
-  assert.match(page, /quantifiableAchievementProgress/);
+  const view = readFileSync(new URL("./achievements-view.ts", import.meta.url), "utf8");
+  assert.match(view, /quantifiableAchievementProgress/);
+  assert.match(page, /describeAchievement/);
   assert.equal(page.includes("daysToReachCurveProgress"), false);
+  assert.equal(view.includes("daysToReachCurveProgress"), false);
 });
 
-test("home next-milestone fixture shows a locked calculable bar without preview invention", () => {
+test("achievements page localizes catalog titles through i18n keys", () => {
+  const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /useTranslation\("achievements"\)/);
+  assert.match(page, /\$\{item\.id\}\.title/);
+  assert.match(page, /\$\{item\.id\}\.description/);
+});
+
+test("home next-milestone fixture stays calculable without a competing progress bar", () => {
   const fixture = row({
     id: "alcohol-liver-bronze-1",
     titleKey: "alcohol-liver-bronze-1.title",
@@ -189,11 +269,14 @@ test("home next-milestone fixture shows a locked calculable bar without preview 
   );
 
   const home = readFileSync(new URL("../components/PreviewHome.tsx", import.meta.url), "utf8");
-  assert.match(home, /nextProgress\.towardPercent/);
-  assert.match(home, /percent: nextProgress\.towardPercent/);
-  assert.equal(home.includes("nextProgress.currentPercent"), false);
-  assert.match(home, /homeNextMilestoneHint/);
-  assert.match(home, /homeNextMilestoneProgress/);
+  assert.equal(home.includes("nextProgress"), false);
+  assert.equal(home.includes("homeNextMilestoneProgress"), false);
+  assert.equal(home.includes("towardPercent"), false);
+  assert.match(home, /homeDiscoveryHint/);
+  assert.match(home, /homeDiscoveryTitle/);
+  assert.match(home, /NextTemporalMedalCard/);
+  assert.match(home, /pickNextLockedAchievement/);
+  assert.match(home, /pickRecentUnlockedAchievements/);
   assert.match(home, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.equal(home.includes("demoAchievements"), false);
   assert.match(home, /lg:grid-cols-3/);

@@ -31,6 +31,7 @@ test("daily message is stable for the same local day", () => {
   const morning = new Date(2026, 9, 21, 8, 15);
   const night = new Date(2026, 9, 21, 23, 50);
   assert.equal(pickDailyMessage(messages, morning), pickDailyMessage(messages, night));
+  assert.notEqual(pickDailyMessage(messages, morning, 0), pickDailyMessage(messages, morning, 1));
 });
 
 test("spanish and english daily collections share length and index", () => {

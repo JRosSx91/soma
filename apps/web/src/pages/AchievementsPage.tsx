@@ -33,6 +33,7 @@ export function AchievementsPage() {
   const groupedBySubstance = useMemo(() => {
     const groups = new Map<string, typeof achievements>();
     for (const a of achievements) {
+      if (a.family === "temporal") continue;
       const existing = groups.get(a.triggerSubstanceId) ?? [];
       existing.push(a);
       groups.set(a.triggerSubstanceId, existing);

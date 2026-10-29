@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
@@ -8,6 +8,8 @@ interface DetailSheetProps {
   /** Accessible name when the visible title must stay generic. */
   accessibleTitle?: string;
   panelClassName?: string;
+  /** Wider, taller panel for long educational articles. */
+  size?: "default" | "article";
   onClose: () => void;
   children: ReactNode;
 }
@@ -27,6 +29,25 @@ function focusableElements(root: HTMLElement): HTMLElement[] {
   });
 }
 
+function readOpener(panel: HTMLElement | null): HTMLElement | null {
+  const active = document.activeElement;
+  if (!(active instanceof HTMLElement)) return null;
+  if (active === document.body) return null;
+  if (panel && (active === panel || panel.contains(active))) return null;
+  return active;
+}
+
+function restoreOpener(opener: HTMLElement | null): void {
+  if (opener?.isConnected) {
+    opener.focus();
+    return;
+  }
+  const main = document.querySelector("main");
+  if (!(main instanceof HTMLElement)) return;
+  if (!main.hasAttribute("tabindex")) main.tabIndex = -1;
+  main.focus();
+}
+
 /**
  * Shared catalog dialog. Header stays put; only the body scrolls.
  * Traps tab focus inside the panel and restores the opener on close.
@@ -35,6 +56,7 @@ export function DetailSheet({
   title,
   accessibleTitle,
   panelClassName,
+  size = "default",
   onClose,
   children,
 }: DetailSheetProps) {
@@ -48,8 +70,8 @@ export function DetailSheet({
     onCloseRef.current = onClose;
   }, [onClose]);
 
-  useEffect(() => {
-    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  useLayoutEffect(() => {
+    openerRef.current = readOpener(panelRef.current);
     panelRef.current?.focus();
 
     function onFocusIn(event: FocusEvent) {
@@ -63,7 +85,7 @@ export function DetailSheet({
     document.addEventListener("focusin", onFocusIn);
     return () => {
       document.removeEventListener("focusin", onFocusIn);
-      openerRef.current?.focus();
+      restoreOpener(openerRef.current);
     };
   }, []);
 
@@ -110,7 +132,11 @@ export function DetailSheet({
         aria-labelledby={titleId}
         tabIndex={-1}
         onKeyDown={onPanelKeyDown}
-        className={`flex max-h-[min(85vh,46rem)] w-full max-w-md flex-col rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${panelClassName ?? ""}`}
+        className={`flex w-full flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${
+          size === "article"
+            ? "max-h-[min(90vh,52rem)] max-w-lg sm:max-w-2xl"
+            : "max-h-[min(85vh,46rem)] max-w-md"
+        } ${panelClassName ?? ""}`}
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex shrink-0 items-start justify-between gap-3">
@@ -132,7 +158,7 @@ export function DetailSheet({
             {t("close")}
           </button>
         </div>
-        <div className="mt-3 min-h-0 flex-1 overflow-y-auto text-sm leading-relaxed text-soma-ink-secondary">
+        <div className="mt-3 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-4 [scrollbar-gutter:stable] text-sm leading-relaxed text-soma-ink-secondary">
           {children}
         </div>
       </div>

@@ -3,6 +3,9 @@ import type { AchievementSyncKind } from "../sync/achievement-sync.js";
 
 export type CelebrationMode = "none" | "solo" | "group";
 
+/** Live inserts at or above this count are bulk recognition, not a party. */
+export const BULK_RECOGNITION_MIN = 8;
+
 export interface CelebrationPlan {
   mode: CelebrationMode;
   candidateIds: string[];
@@ -39,6 +42,9 @@ export function planCelebration(input: {
   }
   const candidateIds = eligibleCelebrationIds(input.rows, input.insertedIds);
   if (candidateIds.length === 0) return { mode: "none", candidateIds };
+  if (candidateIds.length >= BULK_RECOGNITION_MIN) {
+    return { mode: "none", candidateIds: [] };
+  }
   return {
     mode: candidateIds.length === 1 ? "solo" : "group",
     candidateIds,

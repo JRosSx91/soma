@@ -3,7 +3,12 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import enExplore from "../../../i18n/locales/en/explore.json" with { type: "json" };
 import esExplore from "../../../i18n/locales/es/explore.json" with { type: "json" };
-import { exploreNtPhases, isExploreNtPhase } from "./explore-neurotransmitters.ts";
+import {
+  exploreNeurotransmitters,
+  exploreNtPhases,
+  isExploreNtPhase,
+  substancesForEducationalNeurotransmitter,
+} from "./explore-neurotransmitters.ts";
 
 test("explore neurotransmitter copy stays paired in spanish and english", () => {
   const es = esExplore as Record<string, unknown>;
@@ -47,6 +52,13 @@ test("explore phase helper only accepts catalog phases", () => {
   ]);
   assert.equal(isExploreNtPhase("during_use"), true);
   assert.equal(isExploreNtPhase("paws"), false);
+});
+
+test("explore index covers nine transmitters and keeps missing profiles empty", () => {
+  assert.equal(exploreNeurotransmitters.length, 9);
+  assert.deepEqual(substancesForEducationalNeurotransmitter("endorphin"), []);
+  assert.deepEqual(substancesForEducationalNeurotransmitter("adenosine"), ["caffeine"]);
+  assert.ok(substancesForEducationalNeurotransmitter("dopamine").length >= 2);
 });
 
 test("explore page reuses educational resolvers and not soma 1.0 bars", () => {

@@ -29,6 +29,41 @@ test("detail sheet close label is localized in spanish and english", () => {
   assert.match(sheet, /openerRef/);
 });
 
+test("opening a sheet captures the focused opener before children move focus into the dialog", () => {
+  const sheet = readFileSync(new URL("./DetailSheet.tsx", import.meta.url), "utf8");
+  assert.match(sheet, /useLayoutEffect/);
+  assert.match(sheet, /openerRef\.current = readOpener\(panelRef\.current\)/);
+  assert.match(sheet, /active === document\.body/);
+  assert.match(sheet, /panel\.contains\(active\)/);
+  assert.match(sheet, /useLayoutEffect\(\(\) => \{[\s\S]*openerRef\.current = readOpener[\s\S]*\}, \[\]\)/);
+});
+
+test("escape and the close button share the same close path that restores the opener", () => {
+  const sheet = readFileSync(new URL("./DetailSheet.tsx", import.meta.url), "utf8");
+  assert.match(sheet, /if \(event\.key === "Escape"\) \{\s*event\.stopPropagation\(\);\s*onCloseRef\.current\(\);/);
+  assert.match(sheet, /<button[\s\S]*onClick=\{onClose\}[\s\S]*\{t\("close"\)\}/);
+  assert.match(sheet, /restoreOpener\(openerRef\.current\)/);
+  assert.equal(sheet.includes("openerRef.current?.focus()"), false);
+});
+
+test("related navigation keeps focus in the dialog without recapturing the opener", () => {
+  const sheet = readFileSync(new URL("./DetailSheet.tsx", import.meta.url), "utf8");
+  const article = readFileSync(new URL("./ExploreEducationalArticle.tsx", import.meta.url), "utf8");
+  assert.match(article, /\[sheetId\]/);
+  assert.match(article, /closest\("\[role='dialog'\]"\)/);
+  assert.match(article, /panel\.focus\(\)/);
+  assert.match(sheet, /useLayoutEffect\(\(\) => \{[\s\S]*openerRef\.current = readOpener[\s\S]*\}, \[\]\)/);
+});
+
+test("closing restores a disconnected opener to main instead of the document body", () => {
+  const sheet = readFileSync(new URL("./DetailSheet.tsx", import.meta.url), "utf8");
+  assert.match(sheet, /opener\?\.isConnected/);
+  assert.match(sheet, /querySelector\("main"\)/);
+  assert.match(sheet, /main\.tabIndex = -1/);
+  assert.match(sheet, /main\.focus\(\)/);
+  assert.equal(sheet.includes("document.body.focus"), false);
+});
+
 test("inactive locale common bundles fall back to english close instead of the key", async () => {
   assert.equal("close" in esCommon, true);
   assert.equal("close" in enCommon, true);

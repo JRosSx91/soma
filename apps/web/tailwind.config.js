@@ -40,6 +40,9 @@ export default {
           reward: channel("--soma-reward"),
           danger: channel("--soma-danger"),
           warning: channel("--soma-warning"),
+          shell: channel("--soma-shell-canvas"),
+          "shell-rail": channel("--soma-shell-rail"),
+          "shell-accent": channel("--soma-shell-accent"),
         },
       },
       keyframes: {

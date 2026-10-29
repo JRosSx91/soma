@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ShellBaseProvider } from "../context/ShellBaseContext.js";
 import { ShellLayoutProvider } from "../context/ShellLayoutProvider.js";
 import { useShellLayout } from "../hooks/useShellLayout.js";
-import { shellSections, type ShellBase } from "../shell-base.js";
+import { shellSectionForPathname, type ShellBase } from "../shell-base.js";
 import {
   SHELL_CONTENT_COLLAPSED_ALIGN_CLASS,
   SHELL_CONTENT_COLLAPSED_PAD_CLASS,
@@ -25,8 +25,7 @@ interface PreviewShellProps {
 export function PreviewShell({ base }: PreviewShellProps) {
   const { t } = useTranslation("common");
   const { pathname } = useLocation();
-  const sections = shellSections(base);
-  const current = sections.find((item) => item.to === pathname) ?? sections[0];
+  const current = shellSectionForPathname(base, pathname);
   const titleLabel = current ? t(`shell.${current.labelKey}`) : "";
 
   useEffect(() => {
@@ -46,19 +45,23 @@ export function PreviewShell({ base }: PreviewShellProps) {
   );
 }
 
+/** Exact canvas from `origin/main` PreviewShell. Shared layout, not a page override. */
+const SHELL_SURFACE = {
+  backgroundColor: "#081018",
+  backgroundImage:
+    "radial-gradient(ellipse at 80% 0%, rgba(78,132,172,0.18), transparent 46%), radial-gradient(ellipse at 8% 100%, rgba(26,74,98,0.16), transparent 42%), linear-gradient(180deg, #12283a 0%, #0c1824 52%, #071018 100%)",
+} as const;
+
 function PreviewShellFrame({ base }: { base: ShellBase }) {
   const { collapsed } = useShellLayout();
 
   return (
     <div
-      className={`relative min-h-screen overflow-x-hidden bg-[#081018] text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
+      className={`relative min-h-screen overflow-x-hidden text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
         collapsed ? SHELL_SIDEBAR_COLLAPSED_CLASS : SHELL_SIDEBAR_EXPANDED_CLASS
       }`}
+      style={SHELL_SURFACE}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(78,132,172,0.18),transparent_46%),radial-gradient(ellipse_at_8%_100%,rgba(26,74,98,0.16),transparent_42%),linear-gradient(180deg,#12283a_0%,#0c1824_52%,#071018_100%)]"
-      />
       <PreviewSidebar />
       <PreviewMobileHeader />
       <main
@@ -69,7 +72,7 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
         }`}
       >
         <div
-          className={`mx-auto flex max-w-6xl flex-col gap-6 lg:max-w-[1120px] lg:gap-2 ${
+          className={`mx-auto flex w-full min-w-0 flex-col gap-6 lg:gap-2 ${
             collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
           }`}
         >

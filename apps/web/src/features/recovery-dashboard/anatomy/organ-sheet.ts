@@ -13,7 +13,8 @@ import type { AtlasOrgan, AtlasPlate, AtlasSystem } from "./atlas-types.ts";
  * Typed anatomical sheet for the Soma 2.0 explorer.
  *
  * Identity and plates come from `atlas-config` (canonical organ ids).
- * Prose comes from `anatomy-education` when a ficha exists.
+ * Bibliography comes from `anatomy-education` when a ficha exists;
+ * visible copy is resolved from the `anatomy` i18n namespace.
  * Substance narratives and recovery curves stay in their own catalogs;
  * this model only reports whether they are available.
  *
@@ -46,11 +47,6 @@ export interface OrganAnatomicalSheet {
   systemId: string;
   catalogSystem: BodySystem;
   systemName: string;
-  /** Anatomical site when the education entry provides it. */
-  location: string | null;
-  anatomy: string | null;
-  physiology: string | null;
-  relations: string | null;
   plate: AtlasPlate | null;
   sources: readonly AnatomySource[];
   availability: OrganSheetAvailability;
@@ -101,10 +97,6 @@ export function resolveOrganSheet(
     systemId: system.id,
     catalogSystem: system.catalogSystem,
     systemName: system.name,
-    location: education?.location ?? null,
-    anatomy: education?.anatomy ?? null,
-    physiology: education?.physiology ?? null,
-    relations: education?.relations ?? null,
     plate: organ.plate,
     sources: education?.sources ?? [],
     availability: availabilityFor(organ.id, organ.plate),

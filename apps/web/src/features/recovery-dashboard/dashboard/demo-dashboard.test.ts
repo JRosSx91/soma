@@ -8,7 +8,12 @@ import {
   buildDemoChart,
   demoDashboardChanges,
   demoDashboardSystems,
+  presentDemoChart,
+  presentDemoSubstances,
+  presentDemoSystems,
 } from "./demo-dashboard.ts";
+import { demoSubstances } from "../demo-data.ts";
+import enSubstances from "../../../i18n/locales/en/substances.json" with { type: "json" };
 import { recoveryCopyFromSource, SPANISH_RECOVERY_COPY } from "./recovery-copy.ts";
 import { formatLabeledPercent, formatTrajectoryPercent } from "./recovery-semantics.ts";
 import enRecovery from "../../../i18n/locales/en/recovery.json" with { type: "json" };
@@ -29,11 +34,11 @@ test("demo legend percents are the last sample of each series", () => {
   }
   assert.equal(
     chart.series.find((item) => item.id === "nervous")?.referenceAtYearLabel,
-    "día 365 · 68%",
+    "Modelo: día 365 · 68%",
   );
   assert.equal(
     chart.series.find((item) => item.id === "cardiovascular")?.referenceAtYearLabel,
-    "día 365 · 72%",
+    "Modelo: día 365 · 72%",
   );
 });
 
@@ -94,8 +99,8 @@ test("demo ES/EN copy names curve progress and overlay, not an average", () => {
   assert.equal(enRecoveryOverview().toLowerCase().includes("average"), false);
   assert.match(esRecoveryOverview(), /Mostrar todas las curvas/);
   assert.match(enRecoveryOverview(), /Show all curves/);
-  assert.match(esRecoveryYAxis(), /Avance de cada curva/);
-  assert.match(enRecoveryYAxis(), /Progress along each curve/);
+  assert.match(esRecoveryYAxis(), /Avance de la curva educativa/);
+  assert.match(enRecoveryYAxis(), /Educational curve progress/);
 });
 
 test("live overlay and mixed-organ rules stay in the adapter", () => {
@@ -115,11 +120,48 @@ test("preview hook wires demo builders and does not hardcode a shared Today", ()
     new URL("../hooks/usePreviewDashboard.ts", import.meta.url),
     "utf8",
   );
-  assert.match(hook, /buildDemoChart/);
-  assert.match(hook, /demoDashboardSystems/);
-  assert.match(hook, /demoDashboardChanges/);
+  assert.match(hook, /presentDemoChart/);
+  assert.match(hook, /presentDemoSystems/);
+  assert.match(hook, /presentDemoChanges/);
+  assert.match(hook, /presentDemoSubstances/);
   assert.equal(hook.includes("showToday: true"), false);
   assert.equal(hook.includes("demoTodayPosition"), false);
+});
+
+test("demo presentation uses UI language without changing elapsed days", () => {
+  const en = recoveryCopyFromSource(
+    (key) => (enRecovery as Record<string, string>)[key] ?? key,
+  );
+  const presented = presentDemoSubstances(demoSubstances, en, {
+    name: (id) =>
+      (enSubstances as Record<string, { name: string }>)[id]?.name ?? id,
+    phase: (id) =>
+      ((enRecovery as { demoPhases: Record<string, string> }).demoPhases[id] ??
+        id),
+  });
+  const cannabis = presented.find((item) => item.id === "cannabis");
+  const cocaine = presented.find((item) => item.id === "cocaine");
+  assert.equal(cannabis?.elapsedDays, 42);
+  assert.equal(cannabis?.abstinence, "42 days");
+  assert.equal(cannabis?.name, "Cannabis");
+  assert.match(cannabis?.pillDetail ?? "", /42 days without Cannabis/);
+  assert.doesNotMatch(cannabis?.abstinence ?? "", /días/);
+  assert.equal(cocaine?.elapsedDays, 120);
+  assert.equal(cocaine?.abstinence, "120 days");
+  assert.equal(cocaine?.name, "Cocaine");
+  const systems = presentDemoSystems(
+    (id) => (enRecovery as { demoSystems: Record<string, string> }).demoSystems[id] ?? id,
+  );
+  assert.equal(systems.find((item) => item.id === "nervous")?.name, "Nervous system");
+  const chart = presentDemoChart(
+    en,
+    (id) => (enRecovery as { demoSeries: Record<string, string> }).demoSeries[id] ?? id,
+  );
+  assert.equal(
+    chart.series.find((item) => item.id === "nervous")?.label,
+    "Nervous system",
+  );
+  assert.equal(chart.series.find((item) => item.id === "nervous")?.samples[4], 0.68);
 });
 
 function esRecoveryOverview(): string {

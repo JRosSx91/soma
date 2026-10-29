@@ -1,0 +1,1068 @@
+{
+  "analogyHeading": "💡 To picture this more clearly",
+  "bibliographyTitle": "Bibliography",
+  "anatomyLinksTitle": "View in the anatomical explorer",
+  "anatomyToArticle": {
+    "dopamine": "Understand dopamine",
+    "glutamate": "Understand glutamate",
+    "metabolism": "Understand metabolism",
+    "neuroadaptation": "Understand neuroadaptation"
+  },
+  "related": {
+    "toReceptors": "Understand how receptors work",
+    "toDopamine": "Discover how dopamine acts",
+    "toSerotonin": "Understand how serotonin acts",
+    "toGaba": "Understand how GABA acts",
+    "toGlutamate": "Understand how glutamate acts",
+    "toNorepinephrine": "Understand how noradrenaline acts",
+    "toAcetylcholine": "Understand how acetylcholine acts",
+    "toEndocannabinoid": "Understand the endocannabinoid system",
+    "toEndorphin": "Understand how endorphins act",
+    "toAdenosine": "Understand how adenosine acts",
+    "toTolerance": "Understand pharmacological tolerance",
+    "toDependence": "Understand physical dependence",
+    "toNeuroadaptation": "Understand neuroadaptation",
+    "toMetabolism": "Understand how substances are processed"
+  },
+  "sheets": {
+    "dopamine": {
+      "sections": {
+        "what": {
+          "title": "What is dopamine?",
+          "paragraphs": [
+            "A neurotransmitter is a molecule neurons use to send messages. It does not wash through the brain the way a hormone travels in blood. It is released at tiny contact points and, within milliseconds, changes what the neighbouring neuron does.",
+            "Dopamine is one of those messengers. Chemically it is a catecholamine, the same family as noradrenaline (norepinephrine) and adrenaline. All three are built from the amino acid tyrosine; dopamine is an intermediate on the way to noradrenaline. That relatedness explains why some enzymes and some drugs affect them together. It does not make them the same signal.",
+            "Dopamine is involved in several jobs: the drive to start an action, learning when an outcome does not match what was expected, movement control, aspects of attention, and — on one specific route — regulation of the hormone prolactin. Calling it “the pleasure molecule” is therefore misleading. The pleasure of an experience — liking — depends on several systems. Dopamine is more closely tied to wanting, learning, and deciding what is worth trying. A sudden rise is not the same thing as being happier."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "Neurons are cells specialised for signalling. Many do not quite touch: a narrow gap, the synapse, sits between them. At a chemical synapse, the sending cell stores dopamine in small packets (vesicles). When an electrical impulse arrives, those packets fuse with the membrane and spill their contents into the space between the two cells.",
+            "Dopamine does not enter the next neuron like a nutrient. It binds receptors: proteins in the membrane of the cell that receives the message. That binding changes the cell’s interior — sometimes making it easier to fire, sometimes harder — depending on the receptor type, the cell type and the moment. Then the signal has to be switched off. Dopamine’s most characteristic off-switch is reuptake: a transporter called DAT (the dopamine transporter) pulls the molecule back into the neuron that released it. Enzymes such as MAO and COMT also break it down. Recycling and destruction are different jobs: one reuses the messenger; the other eliminates it."
+          ],
+          "analogies": [
+            [
+              "Think of a messenger service between two neighbouring offices. When there is something to say, messengers are sent out (dopamine release). Each one knocks on a particular door (binding to a receptor). Depending on which door opens and how that department is running, the note speeds the work up or slows it down (signal transmission). Once the note is delivered, a collection service — DAT — retrieves the messengers for the next round.",
+              "In this picture, cocaine does not hire extra messengers and does not open the doors itself: it jams collection. Messages already sent linger in the corridor, and the signal lasts longer. The analogy helps you see the sequence. It does not mean there is only one note or only one door. The same messenger can have different effects depending on the receptor and the circuit."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "There is no single job called “dopamine.” The same messenger means different things according to where it acts.",
+            "In motivation and reward circuits it does more than celebrate pleasant events. Many dopamine neurons respond most strongly when the outcome does not match the prediction. If you expect the vending machine to drop one snack and, against habit, two fall out, the brain registers that pleasant surprise and tends to repeat what you just did. If nothing falls, the signal runs the other way: that action deserved less trust. That prediction error — the gap between what was expected and what happened — is how habits get updated. It is not a pleasure score; it is information for learning.",
+            "Motivation (approaching, persisting, exploring) overlaps with that mechanism, but it is not the same as pleasure. You can want something intensely and like it little, or enjoy a meal you did not chase. In movement, a different dopamine population helps initiate and scale actions; its severe failure is linked to movement disorders, a reminder that dopamine is not “only psychology.” In prefrontal cortex it contributes to attention, flexibility and impulse control, in ways research is still refining. At the pituitary it holds back prolactin release: here it behaves more like a local hormonal signal than a prize.",
+            "These roles do not hang off a single circuit. To see why, it helps to look at the routes taken by the neurons that make dopamine."
+          ]
+        },
+        "pathways": {
+          "title": "Main dopaminergic pathways",
+          "paragraphs": [
+            "A pathway is a habitual route: cell bodies in one nucleus, axons — the fibres that carry the message — arriving in another. It is not a single wire. The four most often mentioned coexist in the same person and do not collapse into a pleasure switch.",
+            "The mesolimbic pathway runs from the ventral tegmental area (VTA) to the nucleus accumbens and nearby regions. It is the one most often mentioned with reinforcement and with drugs, and the easiest to mythologise. The mesocortical pathway also starts near the VTA and reaches prefrontal cortex: more about planning and control than a “rush.” The nigrostriatal pathway links substantia nigra to dorsal striatum and sits at the centre of motor control. The tuberoinfundibular pathway runs from hypothalamus to pituitary and regulates prolactin.",
+            "A drug may lean on one route more than another. None of them is a single function."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect dopamine?",
+          "paragraphs": [
+            "The five substances Soma covers do not push dopamine in the same way or to the same degree. Activating a receptor, blocking a transporter and modulating another system are different operations, even when they sometimes meet in the same circuits.",
+            "Cocaine. Its main dopaminergic mechanism is DAT blockade. Dopamine that has already been released stays in the synapse longer because it is not cleared as usual. That prolongs the signal: it is not making more dopamine, and it is not fitting a key into a D1 or D2 receptor. Cocaine also blocks the noradrenaline and serotonin transporters; dopamine’s starring role in this sheet does not erase that.",
+            "Nicotine. It does not block DAT. It binds nicotinic acetylcholine receptors, proteins that acetylcholine normally recognises. Some sit on VTA dopamine neurons or on terminals that modulate them, so nicotine can raise dopamine release indirectly. Stimulating an acetylcholine receptor and jamming dopamine collection are not the same gesture.",
+            "Alcohol. It acts on several systems at once. Among the best studied are potentiation of GABA-A receptors and inhibition of NMDA receptors. Those effects are not identical in every region or at every concentration: they depend on place, dose and cellular context. Dopamine appears mainly as indirect mesolimbic modulation. Alcohol has no single dopaminergic switch, and giving it cocaine’s mechanism would be a mistake.",
+            "Cannabis. THC acts mainly at CB1 receptors, often on presynaptic terminals — the end that releases the messenger — where they modulate the release of other transmitters. In some circuits that can indirectly influence dopamine neurons. One described route is reducing the GABAergic inhibition that normally holds them back; it is not the only route, and it does not happen the same way throughout the brain. The effect depends on circuit, dose and person. It is not a DAT-style flood.",
+            "Caffeine. It blocks adenosine receptors. Adenosine is a messenger that often pushes toward rest and sleep pressure. Adenosine and dopamine influence each other in striatum — often described as a conversation between A2A and D2 receptors — but that is not flooding the synapse with dopamine, and it is not a copy of cocaine. Soma’s educational copy already avoids presenting caffeine as increased striatal dopamine release.",
+            "There are no universal percentages for “how much dopamine goes up.” Stray figures usually mix species, doses, brain regions and methods."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "The nervous system learns. If a chemical stimulus repeats, synapses and circuits can change their sensitivity: that is plasticity, not a tank running dry. Depending on the substance and the pattern of use, receptors, transporters, neuronal excitability and associative learning — places, routines, expectations — may all shift.",
+            "Tolerance — needing more to notice the same effect — rests in part on those adaptations. It is not the same as substance-related learning, and it does not unfold the same way for cocaine, nicotine, alcohol, cannabis or caffeine. The brain does not simply run out of dopamine. In some studied contexts, the response to everyday rewards or to the drug itself can feel different: the usual coffee “hits” less, or what used to motivate takes more effort. That is an account of adaptation, not a reading of someone’s brain dopamine."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When exposure stops, the drug’s acute action stops. Some adaptations unwind sooner; others take longer; some learned traces can remain after the acute pharmacology has gone. Sleep, motivation and movement do not share one timetable, and neither do the substances.",
+            "There is no universal clock, and no personal “baseline” Soma can read. Abstinence days and educational phase profiles are models for comparison, not a dopamine meter. Recovery, in general terms, is not a straight line back to a starting point."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Dopamine is not pleasure in pure form, and more dopamine is not more happiness. Soma’s five substances touch this system by different routes: some at DAT, others at acetylcholine, cannabinoid or adenosine receptors, and alcohol especially indirectly and in a context-dependent way. No one can infer brain dopamine concentration from days without use. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Synaptic transmission and modulatory systems.",
+        "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology: A Foundation for Clinical Neuroscience. McGraw-Hill.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021."
+      ]
+    },
+    "serotonin": {
+      "sections": {
+        "what": {
+          "title": "What is serotonin?",
+          "paragraphs": [
+            "Serotonin — also called 5-hydroxytryptamine or 5-HT — is a small molecule neurons use to send messages. Chemically it is an indolamine: it is built from the amino acid tryptophan, which arrives mainly with the diet. A pair of enzymes first make 5-hydroxytryptophan and then serotonin. The name 5-HT marks that hydroxyl on position 5 of the ring; it is not a different substance.",
+            "Most of the body’s serotonin is not in the brain. Much of the peripheral serotonin is made in intestinal enterochromaffin cells; platelets do not synthesise it: they take it up via SERT and store it. Peripheral serotonin takes part in gut motility and platelet aggregation; brain serotonin takes part in circuits of mood, sleep, appetite and perception. The molecule itself does not freely cross the blood–brain barrier: platelet SERT and synaptic SERT recycle the same kind of messenger in different compartments. A change in blood serotonin is therefore not a measurable change in brain serotonin, and Soma cannot infer one from the other.",
+            "Calling it “the happiness molecule” compresses too much. 5-HT modulates many systems at once. It may favour rest or alertness according to receptor, region and moment. A sudden rise is not more happiness; a reading in a test tube is not a reading of your mood."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "The neurons that make brain serotonin sit mainly in the raphe nuclei, cell groups in the brainstem. From there they send axons — the fibres that carry the message — toward cortex, limbic system, hypothalamus and spinal cord. There is no single “serotonin centre”: there is a relatively compact source and a wide fan of destinations.",
+            "At the synapse, 5-HT is released and binds serotonergic receptors. Several families are usually numbered 5-HT1, 5-HT2, 5-HT3 and others. Some quiet the receiving cell; others push it to respond; 5-HT3 is also a fast ion channel, not only a protein coupled to slow cascades. The same messenger does not mean the same thing at every door.",
+            "Then the signal has to be switched off. The most characteristic off-switch is reuptake: the SERT transporter pulls serotonin back into the neuron that released it. Enzymes such as MAO also break it down. Recycling and destruction are different jobs: one reuses the messenger; the other eliminates it."
+          ],
+          "analogies": [
+            [
+              "Think of a building-wide regulation system, not a tank of happiness. From a relatively small control room (the raphe) notices go out to many floors. Each floor has different panels (receptors): on one the notice turns the heating down, on another it brightens the lights, on another it changes when the doors unlock. A collection service (SERT) retrieves used notices for the next round.",
+              "The analogy helps you see spread and diversity of effects. It fails if you take it as a tank that fills or empties of “mood.” 5-HT is not a single switch, and the building is not your personal emotional state."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "In the brain, serotonin takes part in emotional tone, impulsivity, pain perception and how sensory information is filtered. It also takes part in the sleep–wake cycle and in appetite: not as a single clock or a single thermostat, but as a modulator that crosses other systems.",
+            "In the gut it helps coordinate local movement and signalling. That peripheral job is why some drugs that touch 5-HT have digestive effects: not everything that “is serotonin” happens between two mood neurons.",
+            "These roles do not hang off one receptor. To see why, it helps to look at where raphe neurons travel and which doors they find."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "Ascending serotonergic pathways cover much of the forebrain. Descending ones reach the spinal cord and take part, among other things, in pain control. The raphe is not a single wire: it is a neighbourhood of nuclei with different shades.",
+            "At each destination 5-HT meets a different menu of receptors. That is why the same drug, or the same substance, can feel like a change in sleep, appetite or perception according to dose, route and person. No honest sheet compresses that map into one function."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect serotonin?",
+          "paragraphs": [
+            "Soma’s five substances do not push 5-HT in the same way. Blocking SERT, modulating other systems indirectly, or barely touching this circuit are different operations.",
+            "Cocaine. As well as blocking the dopamine transporter, it blocks SERT. Serotonin already released stays longer at some synapses because it is not cleared as usual. That is not “making more serotonin,” and it is not cocaine’s only mechanism; dopamine’s starring role in other sheets does not erase this.",
+            "Alcohol. Modulation of serotonergic signalling has been described, less sharp and less central than its action at GABA-A and NMDA. Alcohol has no single 5-HT switch, and cocaine’s mechanism should not be copied onto it.",
+            "Nicotine, cannabis and caffeine. They do not block SERT as their main move. Nicotine acts at nicotinic acetylcholine receptors; THC at CB1; caffeine at adenosine receptors. Any influence on serotonergic circuits is, in this educational frame, indirect or secondary. There are no universal percentages for “how much serotonin goes up.”"
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "If a chemical stimulus repeats, serotonergic synapses can change their sensitivity: receptors, transporters and learning tied to context. That is plasticity, not a tank running dry.",
+            "Tolerance does not unfold the same way for cocaine, alcohol or nicotine, and it is not “the brain runs out of serotonin.” In some studied contexts the response to the drug or to everyday rewards can feel different. That is an account of adaptation, not a reading of someone’s brain 5-HT."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When exposure stops, the drug’s acute action stops. Some adaptations unwind sooner; others take longer; some learned traces can remain. Sleep, appetite and emotional tone do not share one timetable, and neither do the five substances.",
+            "There is no universal clock, and no serotonin “baseline” Soma can read. Abstinence days and educational phase profiles are models for comparison, not a 5-HT meter."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Serotonin is not happiness in pure form, and platelet 5-HT is not a mirror of the brain. Of Soma’s five substances, cocaine touches SERT directly; alcohol more non-specifically; nicotine, cannabis and caffeine, if at all, from a distance. No one can infer brain serotonin from days without use. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, Hyman SE, Holtzman DM, Malenka RC. Molecular Neuropharmacology. McGraw-Hill. Monoamine systems and SERT.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021. 5-HT receptors.",
+        "Berger M, Gray JA, Roth BL. The expanded biology of serotonin. Annu Rev Med. 2009;60:355–366.",
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Raphe nuclei and neuromodulation."
+      ]
+    },
+    "gaba": {
+      "sections": {
+        "what": {
+          "title": "What is GABA?",
+          "paragraphs": [
+            "GABA — gamma-aminobutyric acid — is the main inhibitory messenger in the adult brain. Chemically it is a small amino acid, made from glutamate by glutamic acid decarboxylase (GAD). That closeness to glutamate matters: excitation and inhibition are not separate worlds; they are built in conversation.",
+            "To inhibit is not to “switch the brain off.” It is to make some neurons less likely to fire, or to fire with a different rhythm. Without that restraint, networks become noisy. GABA is, in large part, the language with which the nervous system says “not now” or “more slowly,” in milliseconds or in seconds, according to the receptor."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At an inhibitory synapse the sending cell spills GABA into the gap. The GABA-A receptor is receptor and channel in one: GABA binding opens a pore through which chloride ions can flow. The effect is fast, on the order of milliseconds. GABA-B is not the channel itself: it couples to G proteins and, more slowly, changes potassium or calcium channels. Fast inhibition and slow inhibition are not the same gesture.",
+            "Chloride does not “always flow in.” The direction of flow — into or out of the cell — depends on the electrochemical gradient: how much chloride sits on each side of the membrane, and what the voltage is. In a typical adult neuron, opening GABA-A usually moves the potential toward a value that makes firing harder. At other developmental stages, or if the gradient has shifted, the same channel may not inhibit in the same way. The receptor is the gate; the gradient decides the traffic.",
+            "Then GABA has to be cleared. Transporters on neurons and glial cells take it up. Recycling and breakdown remain different jobs, as in other systems."
+          ],
+          "analogies": [
+            [
+              "Think of the braking system on a traffic network. Some brakes act in fractions of a second at a particular junction (GABA-A). Others, more slowly, change the rhythm of a whole neighbourhood (GABA-B). Without brakes the traffic is not “livelier”: it jams and becomes unpredictable.",
+              "The analogy clarifies the inhibitory job. It fails if it is translated as universal sedation. Not every brake is the same, not every junction uses the same pedal, and braking is not sleep. Alcohol, in this picture, does not install a new brake: it makes some GABA-A receptors answer more strongly to GABA that was already there."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "GABA regulates excitability: how readily a network fires in a chain. That matters for movement coordination, for filtering sensory noise, for the tone of anxiety and for sleep. There is no single “GABA of calm.” There are different circuits using the same messenger.",
+            "The balance with glutamate — the main excitatory messenger — is not a numerical draw. It is an ongoing conversation. If it shifts too far one way, the network becomes hyperexcitable or overly quiet. That is a description of networks, not a diagnosis."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "GABAergic interneurons are spread through cortex, hippocampus, basal ganglia and many other regions. There are also nuclei with longer projections. The map does not collapse into “a relaxation centre.”",
+            "GABA-A receptors are not all alike: subunits differ, and with them the sensitivity to modulators. That is why the same drug does not feel the same everywhere or at every dose."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect GABA?",
+          "paragraphs": [
+            "Alcohol. Among the best-studied effects is potentiation of GABA-A receptors: alcohol is not GABA, but it favours the response of some subtypes of those channels to GABA already present; it does not act equally at all of them. It also inhibits NMDA, on the glutamate side. Those effects depend on concentration, region and cellular context. Alcohol has no single GABAergic switch.",
+            "Cannabis. CB1 receptors are common on presynaptic terminals, including many that release GABA. THC can reduce GABA release in some circuits: a local disinhibition, not “switching off the brain’s brake.” The effect depends on circuit and dose.",
+            "Nicotine, cocaine and caffeine. Their main move is not to open GABA-A. Nicotine acts at nicotinic receptors; cocaine at monoamine transporters; caffeine at adenosine receptors. Any GABAergic influence is, here, indirect. There are no universal percentages for inhibition."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated alcohol, networks can adapt: less sensitivity of some GABA-A receptors, changes in glutamate, plasticity. The system “counts on” the drug to hold a balance that, without it, sits elsewhere. That is not a GABA tank running dry; it is a change of set point.",
+            "Other substances do not write the same script. Cannabis modulates terminals; nicotine and caffeine enter by other doors. Alcohol’s GABAergic tolerance is not copied onto a cup of coffee."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When alcohol stops, the modulator that was boosting GABA-A and damping NMDA is gone. If physical dependence has developed, the network can be temporarily hyperexcitable: anxiety, tremor, insomnia; in severe pictures, seizures or delirium tremens. That is not a “character rebound.” It is withdrawal physiology.",
+            "Alcohol withdrawal in people with physical dependence can be dangerous. It is not a home experiment, and Soma cannot calibrate a timetable. Anyone who drinks heavily and regularly and plans to stop suddenly needs medical assessment; in some cases withdrawal is supervised and treated. This sheet does not replace that assessment and does not give a personal schedule.",
+            "Nicotine, cannabis, cocaine and caffeine do not share that same GABA-A-linked seizure risk in withdrawal. Each substance has its own profile. Soma does not read your seizure threshold or treat your days as a GABA measurement."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "GABA is not a universal sedative, and chloride does not always flow in. Of the five substances, alcohol is the one that most clearly potentiates GABA-A; cannabis can modulate GABA release at CB1 terminals; the others enter more indirectly. Abrupt alcohol withdrawal in physical dependence is a medical risk, not an educational anecdote. This sheet describes general mechanisms. It does not describe your brain or tell you how to detox."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. GABA-A, GABA-B and the chloride gradient.",
+        "Rang HP, et al. Rang & Dale’s Pharmacology. Elsevier. Inhibitory amino acids and alcohol.",
+        "Olsen RW, Sieghart W. GABA-A receptors: subtypes provide diversity of function and pharmacology. Pharmacol Rev. 2008;60(3):243–260.",
+        "Hall W, Zador D. The alcohol withdrawal syndrome. Lancet. 1997;349(9069):1897–1900."
+      ]
+    },
+    "glutamate": {
+      "sections": {
+        "what": {
+          "title": "What is glutamate?",
+          "paragraphs": [
+            "Glutamate is the main excitatory messenger in the central nervous system. Chemically it is an amino acid: the same one that goes into proteins and energy metabolism. At the synapse, though, it does not act as a nutrient. It is released at contact points and, within milliseconds, pushes the neighbouring neuron toward firing threshold.",
+            "Excitatory does not mean “dangerous” or “toxic by nature.” It means it favours transmission. Most of the brain’s fast synapses use glutamate. Without it there is, strictly speaking, no electrical conversation on which perceiving, deciding and remembering depend. The problem is not that it exists; it is that dose, timing and reuptake become unregulated — a different scene from everyday neurotransmission."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At an excitatory synapse, vesicles spill glutamate into the cleft. AMPA receptors are fast channels: they let ions through and generate the classic excitatory potential, in milliseconds. NMDA receptors are channels too, but with extra conditions: they often need prior depolarisation so that magnesium unblocks the pore, and they let calcium in, among other ions. That coincidence — “the messenger is here and the cell was already active” — makes them coincidence detectors, useful for learning.",
+            "Metabotropic glutamate receptors are not the channel themselves. They modulate excitability and release more slowly. AMPA, NMDA and metabotropic receptors are not three names for the same thing.",
+            "Glia — mainly astrocytes — take up much of the cleft glutamate through transporters. Fast reuptake stops the messenger from overflowing. If reuptake fails badly and for long enough, sustained excitation can damage neurons: that is the idea of excitotoxicity. It is a pathological path studied in ischaemia and other injury; it is not the description of a cup of coffee or a single drink."
+          ],
+          "analogies": [
+            [
+              "Think of a communications network that not only passes messages but strengthens the lines that are used together (plasticity, long-term potentiation). AMPA is the call that goes through; NMDA is the one that logs that two posts coincided. Astrocytes collect the notices so the switchboard does not saturate.",
+              "The analogy shows transmission and learning. It fails if it is translated as “glutamate is an excitatory poison.” The network needs regulation; it does not need to be switched off. Alcohol, in this picture, does not cut every cable: it makes it harder, among other things, for some NMDA receptors to open as usual."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "Glutamate underpins the excitatory transmission on which perception, movement and thought depend. In hippocampus and cortex, synaptic plasticity — lasting changes in the strength of a synapse — rests in large part on NMDA and on the calcium that enters when activity and glutamate coincide. Long-term potentiation (LTP) is the most cited example of that strengthening; it is not the only memory mechanism, and it does not happen the same way at every synapse.",
+            "The conversation with GABA stops excitation from running away. Learning is not firing more: it is firing with more precision. Glutamate is not an accelerator to be feared; it is the language of “now,” which without a brake would lose meaning."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "Glutamatergic projections run through almost the whole brain: thalamus to cortex, cortex to cortex, paths into basal ganglia and hippocampus. There is no single “glutamate centre.”",
+            "The density of AMPA and NMDA varies by region and synapse type. A drug may lean on one NMDA population more than another. No honest sheet compresses that into one switch."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect glutamate?",
+          "paragraphs": [
+            "Alcohol. It inhibits NMDA receptors, among other effects. At relevant concentrations those channels are less ready to open as usual. That does not cancel glutamate; it shifts the balance toward less NMDA excitation while alcohol is present. At the same time it potentiates GABA-A. The two gestures are not the same, and they are not identical in every region or at every dose.",
+            "Nicotine, cocaine, cannabis and caffeine. Their main mechanism is not NMDA blockade. Nicotine acts at nicotinic receptors, some on terminals that release glutamate; THC at presynaptic CB1 that can reduce release of several transmitters, glutamate included in some circuits; cocaine at monoamine transporters; caffeine at adenosine receptors. Those influences are indirect or local. There is no universal “glutamate rush,” and no comparable percentages across substances."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated alcohol, networks can adapt NMDA and GABA-A in the opposite direction to acute intoxication: more excitatory sensitivity when the drug is gone. That is one substrate of withdrawal hyperexcitability, not a headcount of glutamate molecules in blood.",
+            "Other substances can leave plasticity traces at glutamatergic synapses in reinforcement circuits; research describes that with caveats of region, dose and species. It is not a single script of “glutamate goes up.”"
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When alcohol stops, NMDA inhibition and GABA-A potentiation lift. If adaptation has occurred, the network can be temporarily more excitable. That shift is discussed with withdrawal; it is not a personal glutamate meter.",
+            "There is no universal clock. Soma does not read your NMDA or turn days without drinking into a concentration. Recovery, in general terms, is not a straight line back to catalogue glutamate."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Glutamate is not harmful because it is excitatory, and excitotoxicity is not the everyday name of a drink. Of the five substances, alcohol is the one that most clearly inhibits NMDA; the others influence more indirectly. Plasticity and LTP explain learning, not a marker Soma can read in your hippocampus. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Glutamatergic transmission and plasticity.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. AMPA, NMDA and metabotropic receptors.",
+        "Bliss TVP, Collingridge GL. A synaptic model of memory: long-term potentiation in the hippocampus. Nature. 1993;361:31–39.",
+        "Tsai G, Coyle JT. The role of glutamatergic neurotransmission in the pathophysiology of alcoholism. Annu Rev Med. 1998;49:173–184."
+      ]
+    },
+    "norepinephrine": {
+      "sections": {
+        "what": {
+          "title": "What is noradrenaline?",
+          "paragraphs": [
+            "Noradrenaline — norepinephrine in US naming — is a catecholamine, the same family as dopamine and adrenaline. It is built from dopamine: an enzyme, dopamine β-hydroxylase, adds a hydroxyl. That relatedness explains why some enzymes and some drugs affect them together. It does not make them the same signal.",
+            "In the central nervous system it acts as a neurotransmitter. In the periphery two gestures should be kept apart: sympathetic terminals release noradrenaline next to the organs they innervate; the adrenal medulla pours mainly adrenaline — and some noradrenaline — into the blood. Noradrenaline at a locus coeruleus synapse is not the same thing as those circulating catecholamines, even if the name matches. A urine or plasma assay is not a map of your attention circuits."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "Most brain noradrenaline neurons sit in the locus coeruleus, a small brainstem nucleus, and in neighbouring groups. From there they project widely to cortex, hippocampus, amygdala, thalamus and cerebellum. Like the raphe for serotonin or the VTA for dopamine, the source is compact and the fan is wide.",
+            "At the synapse, noradrenaline binds alpha and beta adrenergic receptors, membrane proteins coupled to different cascades. Some hold back further release or turn excitability down; others favour the response. The same messenger does not mean the same thing at an α2 receptor as at a β1 receptor.",
+            "Reuptake is mainly the job of the NET transporter, which returns the molecule to the neuron. MAO and COMT also break it down. Recycling and destruction remain different jobs."
+          ],
+          "analogies": [
+            [
+              "Think of a system that sets the alertness of different departments, not an alarm that is always on. From a small room (the locus coeruleus) notices go out: on one floor the lighting is raised a little so detail can be read; on another a faster response to noise is prepared. Alpha and beta receptors are the different panels on each floor; NET collects used notices.",
+              "The analogy shows modulated vigilance. It fails if it is translated as continuous panic or as “more noradrenaline = more stress measurable in blood.” The adjustment can be fine; it is not a single siren, and Soma does not read the volume of your alarm."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "In the brain, noradrenaline takes part in attention, wakefulness and the response to relevant or stressful stimuli. It helps some signals stand out from noise. It is not only “getting nervous”: it is also holding focus when the task asks for it.",
+            "In the periphery, the sympathetic system uses noradrenaline locally and the adrenal medulla supplies a mix of catecholamines to the blood. Speeding the heart or redistributing flow is not the effect of one molecule, nor the same gesture as signalling in the locus coeruleus. Mixing that autonomic and hormonal role with cortical neurotransmission is a common error. This sheet is about signalling; it is not a Holter monitor or an anxiety meter."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "The locus coeruleus is the path most often cited toward the forebrain. Other brainstem noradrenergic groups innervate, among other regions, hypothalamus and spinal cord. The map does not collapse into a single alertness nucleus.",
+            "The density of alpha and beta receptors varies by tissue. The same substance may feel more like a peripheral thud than a change of focus, or the reverse, according to dose and route."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect noradrenaline?",
+          "paragraphs": [
+            "Cocaine. As well as DAT and SERT, it blocks NET. Noradrenaline already released stays longer at some synapses. That is not making more catecholamine, and it is not only “the dopamine effect”; NET blockade is part of cocaine’s profile, including in the periphery.",
+            "Nicotine. It acts at nicotinic receptors. Some sit on neurons that release noradrenaline or that modulate them, so it can raise release indirectly. It does not block NET as its main move.",
+            "Caffeine. It blocks adenosine receptors and pushes toward more alertness. It crosses arousal circuits; it is not a NET blockade comparable to cocaine.",
+            "Alcohol and cannabis. Their main mechanism is not NET. Alcohol acts at GABA-A and NMDA, among others; THC at CB1. Any noradrenergic influence is, in this frame, more indirect and context-dependent. There are no universal percentages for “how much noradrenaline goes up.”"
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated cocaine, catecholamine transporters and receptors can adapt, and learning ties places and routines. With nicotine, alertness and peripheral signals also shift with use. It is not a single script of “noradrenaline runs out.”",
+            "Tolerance to caffeine’s alertness is not the same phenomenon as NET blockade. Folding them into one curve would be a mistake."
+          ]
+        },
+        "stopping": {
+          "title": "What happens after stopping?",
+          "paragraphs": [
+            "When cocaine stops, NET blockade (and DAT and SERT blockade) lifts. Fatigue, a dip in mood or odd sleep can appear in some patterns; they are not a meter of brain noradrenaline. Nicotine and caffeine have their own alertness withdrawals, different from each other.",
+            "There is no universal clock. Soma does not read your locus coeruleus or turn days without use into a concentration. Recovery is not a straight line back to catalogue sympathetic tone."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Noradrenaline is not a permanent alarm, and blood noradrenaline is not a mirror of the locus coeruleus. Of the five substances, cocaine touches NET directly; nicotine can raise release indirectly; caffeine, alcohol and cannabis enter by other doors. No one can infer brain noradrenaline from days without use. This sheet describes general mechanisms. It does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. Catecholamines, NET and adrenergic receptors.",
+        "Stahl SM. Stahl’s Essential Psychopharmacology. 5th ed. Cambridge University Press; 2021. Noradrenaline and arousal.",
+        "Berridge CW, Waterhouse BD. The locus coeruleus–noradrenergic system: modulation of behavioral state and state-dependent cognitive processes. Brain Res Rev. 2003;42(1):33–84.",
+        "Sara SJ. The locus coeruleus and noradrenergic modulation of cognition. Nat Rev Neurosci. 2009;10(3):211–223."
+      ]
+    },
+    "receptors": {
+      "sections": {
+        "what": {
+          "title": "What is a receptor?",
+          "paragraphs": [
+            "In this setting a receptor is a protein — usually sitting in the cell membrane — that recognises certain molecules and, on binding them, changes what the cell does. The binding partner is a ligand: a native neurotransmitter, a hormone or a drug.",
+            "Recognition is not magic. It depends on shape, charge and chemical contacts between the ligand and a pocket on the protein. When the fit is good enough, the receptor changes shape. That change is the message: a pore opens, a partner protein is switched on, or internal machinery is recruited. Without it, the ligand would only be a visitor."
+          ],
+          "analogies": [
+            [
+              "The usual picture is a lock and a key. It captures selectivity: not every molecule opens every receptor. It fails as soon as it is taken literally. Real locks are rigid; receptors are flexible, may have more than one binding site, and the same “key” can work only partly, or differently, in another tissue."
+            ]
+          ]
+        },
+        "how": {
+          "title": "How do they work?",
+          "paragraphs": [
+            "First comes binding. If that binding favours the receptor’s active shape, signal transduction begins: turning a meeting between two molecules into an electrical or chemical change inside the cell. It is the step from “something has docked” to “the neuron responds.”",
+            "In the nervous system the important players are mostly membrane receptors. Two styles cover a lot of ground without exhausting the map.",
+            "Ionotropic receptors are receptor and channel in one. Ligand binding opens — or modulates — a pore, and charged particles (ions) can flow. The effect is fast, on the order of milliseconds. GABA-A and nicotinic acetylcholine receptors are classic examples.",
+            "Metabotropic receptors are not the channel themselves. They often couple to other proteins (G proteins) and start a cascade inside the cell: slower, often longer lasting. Dopamine receptors, CB1 and many adenosine receptors belong here.",
+            "Whether a transmitter feels “fast” or “slow” is, in large part, which kind of receptor it finds."
+          ]
+        },
+        "agonists": {
+          "title": "Agonists and antagonists",
+          "paragraphs": [
+            "An agonist is a ligand that activates the receptor, or a substantial fraction of its activity. An antagonist binds and occupies the site without mimicking that activation: it stops the agonist from doing its job. A partial agonist does activate, but less than a full agonist: it takes the seat and produces a more modest signal. THC at CB1 receptors is often described that way, including in Soma’s educational catalogue.",
+            "There is also modulation: molecules that do not sit in the transmitter’s pocket and still change how strongly, or how, the receptor responds. Alcohol at GABA-A is better understood as a modulator — and as an actor on other systems — than as “the dopamine key.”",
+            "None of this is merely on or off. How strongly the ligand activates, how many receptors it occupies, and the cell’s prior state all matter. Two agonists at the same receptor need not feel the same."
+          ],
+          "analogies": [
+            [
+              "Think of an automatic door that opens with an access card. A full staff card (agonist) brings the panel all the way up and the door opens fully. A guest card (partial agonist) is also read, but the panel only moves halfway: there is a response, a smaller one. An expired card, or one from another building (antagonist), fits the reader and blocks the slot: it does not open the door, and while it sits there a valid card cannot get in.",
+              "The analogy shows occupancy versus activation. It does not mean the receptor has only one slot or only one possible intensity."
+            ]
+          ]
+        },
+        "transmitters": {
+          "title": "How do they relate to neurotransmitters?",
+          "paragraphs": [
+            "The transmitter is the message; the receptor decides how it is read. That is why dopamine does more than one thing. It acts at receptor families — the best known are D1-like and D2-like — with different signalling mechanisms. The end result is not a universal switch between “activate” and “dampen”: it depends on the cell type and the circuit that receptor sits in.",
+            "At GABA-A receptors, GABA opens or modulates a channel through which chloride ions can flow. The direction of that flow — into or out of the cell — and the effect on the neuron depend on the electrochemical chloride gradient and the cellular context. In many adult neurons the result is often inhibitory, but it is not automatic or universal. It is not abstract “calm”; it is an electrical change at those synapses. Acetylcholine at a nicotinic receptor can excite quickly. Adenosine, via its receptors, tends to reduce alertness; blocking them does the reverse. CB1 receptors, abundant on presynaptic terminals, often turn down whatever transmitter that terminal was about to release.",
+            "One molecule, several receptors, several tissues: several effects. You do not need every family by heart to see the rule."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect receptors?",
+          "paragraphs": [
+            "Nicotine is an agonist at nicotinic acetylcholine receptors. It roughly mimics acetylcholine at those receptors, not at every acetylcholine receptor. Repeated use can change how many nicotinic receptors are available and how they respond; Soma’s educational copy already says that is not quantified here.",
+            "THC (cannabis) is an agonist — often partial — at CB1. The first move is not “switch on dopamine”: it is to modulate the terminal that bears CB1. If that terminal was inhibitory, the downstream picture may look like activation; if it was not, it may not. As in the dopamine sheet, any influence on certain dopaminergic circuits is indirect and is not one universal mechanism.",
+            "Caffeine is an antagonist at adenosine receptors: it occupies the site and lifts an adenosinergic brake. It does not switch on a dopamine receptor and it does not block DAT. Adenosine–dopamine interactions are neighbours talking, not cocaine in disguise.",
+            "Alcohol will not sit in one receptor. It potentiates GABA-A and inhibits NMDA, among other targets, and those effects vary with concentration, region and context. Dopamine, when it appears, arrives after that ensemble, not as the main key.",
+            "Cocaine is the useful contrast: its main dopaminergic mechanism is not activating a dopamine receptor. It blocks DAT, the transporter. D1 or D2 receptors “see” more dopamine because the messenger is cleared more slowly, not because cocaine is a key to those receptors. Distinguishing activating the receptor from blocking reuptake is why drugs do not all “raise dopamine” in the same way. If DAT is the messenger collection service, cocaine jams collection; it does not print new cards for the D1 or D2 doors."
+          ]
+        },
+        "change": {
+          "title": "Can receptors change?",
+          "paragraphs": [
+            "Yes, and in more than one way. After strong activation many desensitise: they stay in the membrane but respond less well, like a doorbell pressed so often it barely rings. Some are internalised: the cell pulls them off the surface. Over a longer period expression can change — the mechanisms by which the cell regulates how many receptors it produces — or the trafficking that delivers them to the membrane. Net results in imaging or tissue studies are sometimes called “density,” a word that mixes several processes.",
+            "Not every substance pushes the same button. Nicotine and nicotinic receptors, THC and CB1, caffeine and adenosine receptors, alcohol and GABA-A or NMDA, do not share one script of “receptors go down.” A universal rise or fall would be the wall switch again."
+          ]
+        },
+        "tolerance": {
+          "title": "How do they relate to tolerance?",
+          "paragraphs": [
+            "Part of pharmacological tolerance — the usual coffee waking you less, or more nicotine for the same effect — is a receptor, or the cascade behind it, answering less to the same stimulus. Part is not: drug-metabolising enzymes, compensating circuits, learning.",
+            "That is why tolerance is not the same as dependence. One can feel less of an effect without the cluster of adaptations that make withdrawal hard, and the reverse, depending on the substance and the effect in view. This sheet does not turn tolerance into a receptor count or a calendar."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "A receptor is not a rigid lock. One molecule can act at several receptors; one receptor can serve several physiological effects. Repeated use is not only “more receptors” or “fewer receptors.” And cocaine’s best-known dopaminergic move is not opening a dopamine receptor at all. Soma’s models do not measure your receptors."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Receptors and transduction.",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Agonism, antagonism and substance chapters.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Ionotropic and G-protein-coupled receptors.",
+        "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133."
+      ]
+    },
+    "acetylcholine": {
+      "sections": {
+        "what": {
+          "title": "What is acetylcholine?",
+          "paragraphs": [
+            "Acetylcholine is a chemical messenger used by neurons. Chemically it is an ester: it is made by joining choline and acetyl-CoA through the enzyme choline acetyltransferase. It is not a catecholamine and not an amino-acid transmitter. The name recalls the acetyl group and choline; it is not nicotine, and it is not a prescription drug.",
+            "It is used in both the central and the peripheral nervous system. In the brain it takes part in attention, learning and some aspects of memory. In the periphery it is the messenger at the neuromuscular junction — the point where a motor nerve talks to skeletal muscle — and of much of the parasympathetic autonomic nervous system. The same kind of molecule, different contexts: there is no single “acetylcholine of focus.”",
+            "Nicotine, which arrives from outside, is not acetylcholine. It is a plant alkaloid that roughly mimics acetylcholine at some nicotinic receptors, not at muscarinic ones and not at every synapse. Confusing the endogenous messenger with the exogenous substance is this sheet’s most common error."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At the synapse, vesicles pour acetylcholine into the space between cells. There it binds two large receptor families. Nicotinic receptors are ion channels: when acetylcholine binds, a pore opens and the effect is fast, on the order of milliseconds. Muscarinic receptors are not the channel themselves: they couple to G proteins and change excitability or organ function more slowly. Nicotinic and muscarinic are not two names for the same thing.",
+            "At the neuromuscular junction, nicotinic receptors on the motor end-plate turn a nerve impulse into contraction. In the autonomic system, acetylcholine talks to ganglia (nicotinic) and to many parasympathetic target organs (muscarinic). In the brain both families coexist, with different densities by region.",
+            "Then the signal must be switched off. Acetylcholinesterase hydrolyses acetylcholine into choline and acetate, very rapidly. Recycling choline is not the same as leaving the messenger in the cleft. There is no reuptake transporter comparable to DAT or SERT as the main gesture: the enzyme is the classic brake."
+          ],
+          "analogies": [
+            [
+              "Picture a messenger service with two kinds of door. Some open at once, like an electric latch (nicotinic). Others change, more slowly, the office’s internal rules (muscarinic). An enzymatic clean-up service (acetylcholinesterase) removes the note as soon as it has been read.",
+              "The analogy helps you see speed versus modulation, and not to mix the doors. It fails if it becomes “acetylcholine is focus” or “nicotine is the official note.” Nicotine, in this picture, forces some nicotinic doors; it does not replace the messenger or open the muscarinic ones."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "In the brain, cholinergic pathways from the basal forebrain to cortex and hippocampus take part in attentional tone and in forms of learning and memory that depend on those networks. It is not “memory in a molecule.” It is a modulator that crosses glutamate, GABA and the monoamines.",
+            "In the periphery, without acetylcholine at the end-plate there is no useful voluntary contraction. In the parasympathetic system it contributes to rhythms such as heart rate, secretion and gut motility, always in dialogue with the sympathetic side. Mixing cortical focus with saliva or heartbeat is a map error, not a naming error."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "In the brain the basal forebrain (including the nucleus basalis of Meynert) projects to cortex and hippocampus, and brainstem groups — pedunculopontine and laterodorsal tegmental — project to thalamus and other stations. There is no single “acetylcholine centre.”",
+            "In the periphery the map is different: motor neurons to skeletal muscle; autonomic preganglionic fibres; parasympathetic postganglionic fibres. One word covers territories that are not measured together. Soma does not read your end-plate or your cholinergic cortex."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect acetylcholine?",
+          "paragraphs": [
+            "Nicotine is an agonist at nicotinic receptors. It is not acetylcholine and it does not act equally at every nicotinic subtype or at muscarinic receptors. Some nicotinic receptors sit on neurons that release dopamine or other messengers, so effects on reinforcement circuits are largely indirect. Stimulating a nicotinic receptor is not “raising brain acetylcholine” and it is not copying DAT.",
+            "Alcohol, cannabis, cocaine and caffeine do not mainly mimic acetylcholine at nicotinic receptors. Alcohol acts at GABA-A and NMDA, among others; THC at CB1; cocaine at monoamine transporters; caffeine at adenosine receptors. Any cholinergic influence is, in this frame, more indirect and circuit-dependent. There are no universal percentages of “how much acetylcholine changes.”"
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With chronic nicotine, depending on subtype and context, some nicotinic receptors desensitise — they respond less to the same stimulus — while in studied tissues the availability or expression of those receptors can increase. More receptors does not mean more sensitivity: number and functional response are not the same thing. The system adapts to an agonist that was not the endogenous messenger. That is not an acetylcholine store running dry.",
+            "Nicotine tolerance is not copied onto caffeine or alcohol. Each substance writes a different receptor script. Associative learning — cigarette, place, routine — sits beside pharmacology; it is not an acetylcholine count."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When nicotine stops, the agonist that occupied nicotinic receptors is gone. Irritability, trouble concentrating or increased appetite can appear in some patterns; they are not a meter of brain acetylcholine. Recovery is not a straight line back to a catalogue cholinergic tone.",
+            "There is no universal clock. Soma does not read your nicotinic receptors or turn smoke-free days into a concentration. Endogenous acetylcholine keeps being made; what changes is exposure to the alkaloid, not a single “focus” switch."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Acetylcholine is not nicotine, and nicotine is not a stand-in for the endogenous messenger. Nicotinic and muscarinic receptors are not the same door; the end-plate is not the cortex. Of the five substances, nicotine is the one that speaks directly to nicotinic receptors; the others enter more indirectly. This sheet describes general mechanisms; it does not describe your attention or your withdrawal."
+          ]
+        }
+      },
+      "bibliography": [
+        "Purves D, et al. Neuroscience. Oxford / Sinauer. Cholinergic transmission, nicotinic and muscarinic receptors.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Acetylcholine, acetylcholinesterase and nAChRs.",
+        "Dani JA, Bertrand D. Nicotinic acetylcholine receptors and nicotinic cholinergic mechanisms of the central nervous system. Annu Rev Pharmacol Toxicol. 2007;47:699–729.",
+        "Changeux JP. Nicotine addiction and nicotinic receptors: lessons from genetically modified mice. Nat Rev Neurosci. 2010;11(6):389–401."
+      ]
+    },
+    "endocannabinoid": {
+      "sections": {
+        "what": {
+          "title": "What is the endocannabinoid system?",
+          "paragraphs": [
+            "The endocannabinoid system is not a single messenger but a set of signals, enzymes and receptors that cells use to regulate themselves. The best-known ligands are anandamide (AEA) and 2-arachidonoylglycerol (2-AG): lipids made on demand, not stored in classic vesicles like dopamine. Calling it “the body’s cannabis” compresses too much: the system existed before any plant.",
+            "The main receptors are CB1 — abundant in the central nervous system, often on presynaptic terminals — and CB2, more tied to immune cells and peripheral territories, with more limited and still-debated presence in the brain. CB1 and CB2 are not two names for the same thing.",
+            "Cannabis THC is not anandamide or 2-AG. It is a phytocannabinoid that binds CB1 (and, with less educational weight here, CB2), with an agonist profile that does not copy the endogenous ligands. Equating THC with endocannabinoids is the error this sheet tries to avoid."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "At many synapses the dialogue is retrograde: the cell that received the classic messenger (glutamate, GABA or another) makes an endocannabinoid that travels “backwards” and binds CB1 on the terminal that just released. That binding usually reduces further release. It is not an outbound note; it is a local adjustment requested by the postsynaptic cell once it has been activated, not only when the volley was excessive.",
+            "Anandamide and 2-AG are not recycled like dopamine. Enzymes such as FAAH (anandamide) and MAGL (2-AG) break them down. Making on demand and degrading quickly is a different trade from storing in vesicles. The two ligands are not interchangeable: 2-AG is usually more abundant; anandamide has a different affinity and enzyme profile.",
+            "By modulating release of other transmitters, the system is not “dopamine” or “GABA”: it changes how much of them is dropped at a given point. That is why it influences memory, appetite, pain and stress without being the sole explanation of any of them."
+          ],
+          "analogies": [
+            [
+              "Think of a reply note between two offices. After a message arrives, the office that received it can send a slip backwards (endocannabinoid) so the sender adjusts the flow (presynaptic CB1). A flood of paper is not required: transmission is enough. It does not install a new boss; it regulates the volume.",
+              "The analogy shows retrograde signalling. It fails if it becomes “the brain makes cannabis” or “THC is the body’s own messenger.” THC, in this picture, occupies some of those CB1 doors from outside, with a time course and circuit pattern that copies neither anandamide nor 2-AG."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "By adjusting synaptic release, the system takes part in plasticity, in the extinction of some memories, in appetite, in pain perception and in the stress response. None of those jobs is a single CB1 switch. Hippocampus is not hypothalamus; pain is not hunger.",
+            "CB2 and immune territory are a reminder that not all of the map is “psychoactive.” This sheet is mostly about signalling; it is not an inflammation count or an appetite menu."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "CB1 receptors are among the most abundant G-protein-coupled receptors in the brain: cortex, hippocampus, basal ganglia, cerebellum, among other regions. Density is not uniform. A substance may feel more like a memory change than a coordination change, or the reverse, depending on dose, route and person.",
+            "There is no single “endocannabinoid centre.” The map is the terminals that bear CB1 and the cells that make AEA or 2-AG when they should."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect the endocannabinoid system?",
+          "paragraphs": [
+            "Cannabis (THC) is an agonist — often partial — at CB1. The first move is not to flood the brain with anandamide: it is to occupy receptors that already had their own ligands, with different kinetics and selectivity. From there, release of GABA or glutamate can fall at particular terminals; any dopaminergic influence is indirect. CBD and other components are not “the same as THC”; this sheet does not treat them as a second switch.",
+            "Alcohol, nicotine, cocaine and caffeine do not bind CB1 the way THC does as their main action. They may cross circuits that the endocannabinoid system also modulates; that does not make them cannabinoids. There are no universal percentages of CB1 occupancy."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated THC, imaging and tissue studies have described changes in CB1 binding availability: often less radioligand signal while regular exposure lasts. That does not measure anandamide or 2-AG concentration, the whole system’s function, or anyone’s clinical recovery. The system adapts to an agonist that was not the local lipid. That is not “running out of inner cannabis.”",
+            "Tolerance to some cannabis effects — less euphoria, less memory impact in daily users — is not one density script. Associative learning sits beside pharmacology. Other substances do not copy that CB1 map."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When cannabis stops, the THC that occupied CB1 is gone. Irritability, odd sleep, more intense dreams or appetite changes can appear in some patterns; they are not a reading of anandamide. In group PET studies, radioligand binding availability at CB1 can recover over days to weeks; that is not endocannabinoid concentration, not the whole system, and not your clinical recovery. Those intervals are not your personal calendar and not a reading Soma can take.",
+            "There is no universal clock. Recovery is not a straight line back to a catalogue endocannabinoid tone. Equating substance-free days with a 2-AG concentration would be a mistake."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "The endocannabinoid system is not THC, and THC is not anandamide. Retrograde signalling, two main ligands and two receptor families do not fit in “the body’s cannabis.” Of the five substances, cannabis is the one that speaks directly to CB1; the others enter more indirectly. This sheet describes general mechanisms; it does not describe your memory or your days."
+          ]
+        }
+      },
+      "bibliography": [
+        "Piomelli D. The molecular logic of endocannabinoid signalling. Nat Rev Neurosci. 2003;4(11):873–884.",
+        "Mechoulam R, Parker LA. The endocannabinoid system and the brain. Annu Rev Psychol. 2013;64:21–47.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. CB1, CB2 and endogenous ligands.",
+        "Hirvonen J, et al. Reversible and regionally selective downregulation of brain cannabinoid CB1 receptors in chronic daily cannabis smokers. Mol Psychiatry. 2012;17(6):642–649."
+      ]
+    },
+    "endorphin": {
+      "sections": {
+        "what": {
+          "title": "What are endorphins?",
+          "paragraphs": [
+            "Endorphins are opioid peptides the body makes itself. The name blends “endogenous” and “morphine,” but they are not morphine or heroin. They are produced from protein precursors: β-endorphin comes from POMC, the same family that yields ACTH. It is not a free amino acid and not a catecholamine.",
+            "It helps not to lump every endogenous opioid together. Enkephalins are different pentapeptides; dynorphins are another family, with a different receptor preference. Endorphin, enkephalin and dynorphin are not three names for pleasure.",
+            "Opioid receptors — mu, delta and kappa among the most cited — are membrane proteins coupled to cascades that often reduce excitability or the release of other messengers. β-endorphin is associated mainly with mu receptors; dynorphins with kappa. The same word “opioid” does not describe one door or one effect."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "In pain, endogenous opioid pathways — for example in the periaqueductal grey and the dorsal horn — can turn down nociceptive transmission. They do not switch the world off: they change the gain on a channel of information. In parallel the same receptors take part in stress, in some aspects of reward and in autonomic and pituitary functions.",
+            "Unlike classic vesicular dopamine, these peptides are released on slower patterns and broken down by peptidases. There is no single “endorphin SERT.” Recapturing monoamines and clipping a peptide are different trades.",
+            "The so-called runner’s high has been linked to endogenous opioids and, in more recent research, to endocannabinoids as well. Turning exercise into a dispenser of measurable endorphins is a simplification: the experience is real for some people; a single molecule is not established as a universal explanation."
+          ],
+          "analogies": [
+            [
+              "Picture a system that turns down the volume of a damage alarm, not a tap of euphoria. There are several knobs (mu, delta, kappa) and several peptide notices (endorphins, enkephalins, dynorphins). Turning down pain volume is not putting on party music.",
+              "The analogy shows modulation, not pure pleasure. It fails if it becomes “more endorphins = more happiness” or “a blood test reads your reward.” Soma does not measure opioid peptides, and exercise is not a syringe of β-endorphin."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "The most cited job is endogenous analgesia: limiting the pain signal when the context — stress, injury, effort — makes that adaptive. They also cross motivation circuits: mu receptors influence the value of some stimuli, in dialogue with dopamine, not in its place.",
+            "Dynorphins and kappa receptors, in many models, push more toward aversion or dysphoria than toward “reward.” That is why endorphins are not a universal account of pleasure. The opioid map has more than one direction."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "There are opioid neurons and terminals in the brainstem, spinal cord, hypothalamus, limbic system and pituitary. Pituitary β-endorphin travelling in blood is not the same gesture as a peptide released at a brain synapse.",
+            "The density of mu, delta and kappa varies by region. The same substance may feel more like pain relief than a mood shift, or the reverse. No honest sheet compresses that into a pleasure switch."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect endorphins?",
+          "paragraphs": [
+            "Soma’s five substances are not prescription opioids or heroin. Alcohol, in some studied circuits, crosses endogenous opioid signalling — and naltrexone, a μ-opioid antagonist, is used clinically in some people with alcohol use disorder. That is not a treatment schedule or personal advice; alcohol is not morphine and it does not “release endorphins” as a single mechanism. Cannabis, nicotine, cocaine and caffeine may influence networks that also hold opioid peptides, indirectly; that does not make them endorphins.",
+            "There are no universal percentages of “how much endorphins rise” with a drink, a cigarette or a run. Loose figures mix species, tissues (plasma versus brain) and methods."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated alcohol, research describes adaptations in which endogenous opioid tone and mu receptors can shift; it is not one script and not a personal measurement. Other substances do not copy that chapter.",
+            "Tolerance to an exogenous opioid — outside Soma’s five-substance catalogue — should not be read as “the body runs out of endorphins.” It is a shift in sensitivity and circuits, not an empty tank."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When alcohol or other catalogue substances stop, early discomfort is not a meter of brain β-endorphin. Claiming that “endorphins are missing” in withdrawal mixes plasma, brain and metaphor. Soma does not read your opioid peptides or turn substance-free days into a concentration.",
+            "There is no universal clock. Recovery is not a straight line back to a catalogue endorphin tone. Pain, mood and sleep have more than one system behind them."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Endorphins are not pleasure, and not every opioid family pushes in the same direction. β-endorphin, enkephalins and dynorphins are not interchangeable; mu is not kappa. Of the five substances, alcohol is the one most often discussed alongside endogenous opioids, and still indirectly. A blood test is not your reward circuit. This sheet describes general mechanisms; it does not describe your withdrawal."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ, et al. Molecular Neuropharmacology. Opioid peptides and mu, delta and kappa receptors.",
+        "Akil H, et al. Endogenous opioids: overview and current issues. Drug Alcohol Depend. 1998;51(1-2):127–140.",
+        "Kieffer BL, Evans CJ. Opioid receptors: from binding sites to visible molecules in vivo. Neuropharmacology. 2009;56 Suppl 1:205–212.",
+        "Boecker H, et al. The runner’s high: opioidergic mechanisms in the human brain. Cereb Cortex. 2008;18(11):2523–2531."
+      ]
+    },
+    "adenosine": {
+      "sections": {
+        "what": {
+          "title": "What is adenosine?",
+          "paragraphs": [
+            "Adenosine is a nucleoside: a piece of energy metabolism, related to ATP but not identical to it. When cells work, ATP is spent and, by several routes, adenosine in the medium rises. It is not a classic neurotransmitter stored in vesicles like dopamine; it is usually described as a neuromodulator, a tone that changes the excitability of many synapses at once.",
+            "Confusing adenosine with ATP is the first stumble. ATP can also act as a messenger at some synapses; adenosine is the product of its breakdown and a different metabolic brake. It is not caffeine either. Caffeine arrives from outside and blocks receptors that adenosine would use.",
+            "In the brain it takes part in homeostatic sleep pressure: the longer one has been awake, in many models, the higher the adenosinergic tone in regions such as the basal forebrain. That is not a tank that fills in a straight line and not a clock Soma can read."
+          ]
+        },
+        "how": {
+          "title": "How does it work?",
+          "paragraphs": [
+            "A1 receptors usually reduce excitability: they cut transmitter release or hyperpolarise the cell. A2A receptors, abundant in the striatum, couple differently and talk, among others, with dopamine D2 receptors. A1 and A2A are not two names for the same brake. There are also A2B and A3, less central to this educational sheet.",
+            "Adenosine can leave the cell through equilibrative transporters or form outside from ATP via ectoenzymes. There is no single tap. Tone depends on local metabolism, not on one brain-wide store.",
+            "Caffeine is a competitive antagonist at adenosine receptors — mainly A1 and A2A at usual cup doses: it occupies the site and lifts part of the brake. It does not manufacture alertness from a dopamine receptor and it does not block DAT."
+          ],
+          "analogies": [
+            [
+              "Think of a system that marks how tired an electrical grid is, not a vat of sleep. The longer the grid has been running, the more a metabolic brake is felt (adenosine at A1). In some neighbourhoods (striatum, A2A) that brake talks to dopamine’s traffic lights.",
+              "The analogy shows rest pressure and dialogue with other systems. It fails if it becomes “adenosine is liquid sleep” or “coffee empties a tank.” Caffeine, in this picture, occupies some of the brake’s sites; it does not erase the work the grid has already done, and ATP is not the brake."
+            ]
+          ]
+        },
+        "purpose": {
+          "title": "What is it for?",
+          "paragraphs": [
+            "As a neuromodulator, adenosine tilts many networks toward less firing when energy spend has been high. That fits sleep pressure and the idea of a metabolic safety brake, not a single “off” switch.",
+            "In the striatum, A2A–D2 dialogue is a reminder that alertness and movement do not reduce to caffeine or dopamine alone. Lifting the adenosinergic brake is not “raising dopamine” the way cocaine does."
+          ]
+        },
+        "pathways": {
+          "title": "Where it acts in the nervous system",
+          "paragraphs": [
+            "Adenosinergic tone is broad: cortex, thalamus, basal forebrain, striatum. A2A receptors concentrate strikingly in the basal ganglia. There is no single “adenosine centre.”",
+            "A1 and A2A density varies. That is why the same cup may feel more like less sleepiness than a motor change, or the reverse, depending on person, hour and habit."
+          ]
+        },
+        "drugs": {
+          "title": "How do drugs affect adenosine?",
+          "paragraphs": [
+            "Caffeine is an antagonist at A1 and A2A. The main move is occupying the receptor, not raising adenosine or copying cocaine. The cross-talk with dopamine in the striatum is neighbouring receptors talking, not DAT blockade.",
+            "Alcohol, nicotine, cannabis and cocaine do not mainly antagonise A1 or A2A. They can change sleep or alertness through other doors (GABA-A, nicotinic receptors, CB1, monoamine transporters). Any adenosinergic influence is, here, more indirect. There are no universal percentages of adenosine occupancy."
+          ]
+        },
+        "repeated": {
+          "title": "What happens with repeated use?",
+          "paragraphs": [
+            "With repeated caffeine, the brain adapts to the antagonist. Compensatory changes in adenosine signalling and receptors have been proposed to explain part of tolerance — the usual coffee waking you less — with evidence that depends on the experimental setting. That is not a uniform receptor adjustment in everyone, nor an adenosine tank that measurably enlarges.",
+            "That tolerance is not alcohol’s or nicotine’s. Mixing them on one curve would be a mistake. The habit of the cup is also place-and-hour learning, not only A2A pharmacology."
+          ]
+        },
+        "stopping": {
+          "title": "What happens on stopping?",
+          "paragraphs": [
+            "When caffeine stops, the antagonist is gone. The adenosinergic brake, if it had compensated, can feel like too much: headache, fatigue, fog, low mood in some patterns. That is caffeine withdrawal, not a reading of brain adenosine. It lasts days in many described cases; it is not your personal calendar.",
+            "There is no universal clock. Soma does not read your A2A receptors or turn coffee-free days into a concentration. Sleeping more at the weekend does not prove that “adenosine fell” in a way this app can measure."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Adenosine is not ATP, and it is not a sleep liquid that pools like a household tank. A1 is not A2A. Of the five substances, caffeine is the one that directly antagonises those receptors; the others enter more indirectly. This sheet describes general mechanisms; it does not describe your insomnia or your coffee withdrawal."
+          ]
+        }
+      },
+      "bibliography": [
+        "Dunwiddie TV, Masino SA. The role and regulation of adenosine in the central nervous system. Annu Rev Neurosci. 2001;24:31–55.",
+        "Porkka-Heiskanen T, Kalinchuk AV. Adenosine, energy metabolism and sleep homeostasis. Sleep Med Rev. 2011;15(2):123–135.",
+        "Fredholm BB, Bättig K, Holmén J, Nehlig A, Zvartau EE. Actions of caffeine in the brain with special reference to factors that contribute to its widespread use. Pharmacol Rev. 1999;51(1):83–133.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Adenosine receptors and neuromodulation."
+      ]
+    },
+    "tolerance": {
+      "sections": {
+        "what": {
+          "title": "What is pharmacological tolerance?",
+          "paragraphs": [
+            "Pharmacological tolerance is a drop in the response to the same dose when exposure is repeated. It is not a moral judgement and not a count of days. It is a change of sensitivity: more of the substance is needed, or the same hit feels weaker, for a given effect.",
+            "Not every effect of the same substance develops tolerance at the same pace. One effect may fade while another holds. That is why there is no universal tolerance curve and no percentage Soma can assign to you.",
+            "Tolerance does not necessarily mean addiction or a substance use disorder. You can feel less of an effect — the usual coffee, a pattern of drinking — without meeting clinical criteria for a disorder. Addiction involves a broader set of behaviours and consequences; it is not inferred from a single change of sensitivity."
+          ]
+        },
+        "how": {
+          "title": "How does it develop?",
+          "paragraphs": [
+            "The body is not static. Faced with a repeated chemical stimulus, it can adapt: receptors that answer less, circuits that compensate, enzymes that transform the molecule faster. The net result is that the same dose no longer produces the same effect.",
+            "That adaptation is not a tank running dry. It is plasticity and, sometimes, a change in how the drug is processed. The adaptive climate-control analogy helps you see a moving equilibrium; it does not replace pharmacology."
+          ],
+          "analogies": [
+            [
+              "Think of an adaptive climate-control system that, if you leave the window open with the cooling on full, ends up working against a new equilibrium. The room no longer cools the same way with the same control.",
+              "The analogy shows a system adjustment, not a conventional thermostat that “learns” on its own, and not a moral failure. It fails if it is translated as a single device for every effect, or as one curve for alcohol, nicotine and caffeine. Each effect and each substance has its own room to adapt."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Pharmacodynamic and pharmacokinetic",
+          "paragraphs": [
+            "Two mechanisms are often mixed up. Pharmacodynamic tolerance happens at the target: receptors, cells and circuits respond less to the same stimulus, or the network compensates. Pharmacokinetic tolerance happens on the way: the body absorbs, transforms or eliminates the substance differently — for example with more liver enzymes — so less drug reaches the site of action, or it stays for less time.",
+            "The two can coexist. They are not synonyms. An enzyme change does not by itself explain receptor desensitisation, and the reverse is also true."
+          ]
+        },
+        "where": {
+          "title": "Receptors, circuits and time",
+          "paragraphs": [
+            "In the brain, part of tolerance is written in receptors and in circuit excitability: desensitisation, changes in availability, synaptic plasticity. That crosses the receptor and neuroadaptation sheets without being the same thing.",
+            "Time also matters. Acute tolerance can appear in minutes or hours, such as the rapid desensitisation of some nicotinic receptors. Tachyphylaxis is a very rapid loss of effect, often within the same session; it is sometimes used alongside “acute tolerance”, but they are not universal synonyms and they do not cover every mechanism. Chronic tolerance builds with repeated exposure over days or weeks. They are not the same clock, and Soma does not assign you one."
+          ]
+        },
+        "substances": {
+          "title": "Different substances, different effects",
+          "paragraphs": [
+            "Among Soma’s five substances, the scripts are not copied. Nicotine can desensitise nicotinic receptors quickly. Caffeine, as an adenosine antagonist, is linked to tolerance of the alerting effect in many patterns, with mechanisms still debated. Alcohol combines changes at GABA-A and NMDA and, with chronic use, metabolic routes such as CYP2E1 as well (CYP names a family of cytochrome P450 enzymes). THC at CB1 can lose effect with repeated use. Cocaine does not write a single curve: some effects diminish and others, in some models, sensitise.",
+            "Cross-tolerance exists when two substances share enough of a mechanism that adaptation to one reduces the response to the other. It has been described, for example, between alcohol and other depressants that potentiate GABA-A; it is not a law among Soma’s five substances. Caffeine and nicotine do not cover for each other as if they were the same key.",
+            "Even within one substance, sedation, coordination, alertness or reinforcement need not tolerate in step. There is no single conversion table."
+          ]
+        },
+        "connections": {
+          "title": "Links with dependence and neuroadaptation",
+          "paragraphs": [
+            "Neuroadaptation — functional change in the nervous system — can contribute to pharmacodynamic tolerance. Not all neuroadaptation is felt as tolerance, and not all tolerance is born only at the synapse: pharmacokinetics counts too.",
+            "Physical dependence is another possible face of adaptation: the system “counts on” the substance to hold a balance. Tolerance and dependence often coexist, but they are not equivalent. You can develop tolerance to one effect without another substance’s withdrawal syndrome, and the reverse, depending on what you look at."
+          ]
+        },
+        "stopping": {
+          "title": "When use is reduced or stopped",
+          "paragraphs": [
+            "If use is cut down or stopped, some of the tolerance can be lost. The pace is not universal. The delicate point is this: a dose that “no longer did much” can become excessive again if tolerance has fallen. Returning to a previously usual amount raises the risk of intoxication. Alcohol is a relevant example, not the only one.",
+            "That is not a Soma timetable and not a dosing tip. It is a general safety warning. Anyone who drinks heavily and regularly and plans to stop suddenly needs medical assessment; the GABA and dependence sheets make the same point."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Tolerance is not addiction. Not every effect tolerates equally. There are no universal curves or percentages this app can read in your brain. Losing tolerance is not “being clean”; it can raise risk if an old dose is resumed. This sheet describes general mechanisms; it does not describe your use."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Tolerance and variation of response.",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Tolerance and tachyphylaxis.",
+        "Nestler EJ, et al. Molecular Neuropharmacology. Plasticity and adaptation to drugs.",
+        "Pietrzykowski AZ, Treistman SN. The molecular basis of tolerance. Alcohol Res Health. 2008;31(4):298–309."
+      ]
+    },
+    "dependence": {
+      "sections": {
+        "what": {
+          "title": "What is physical dependence?",
+          "paragraphs": [
+            "Physical dependence is an adaptation of the body to the repeated presence of a substance. When it is cut down or withdrawn, withdrawal symptoms may appear — often in the opposite direction of some of the drug’s effects — with variable intensity. It is not an inevitable syndrome, not identical in every person, and not a synonym for “lack of willpower”.",
+            "It is a pharmacological concept. It describes a body that has grown used to a balance that includes the substance. It does not, by itself, say whether a substance use disorder is present."
+          ]
+        },
+        "how": {
+          "title": "How can it appear?",
+          "paragraphs": [
+            "After repeated exposure, receptors, circuits and sometimes peripheral organs adjust how they work. While the substance is there, that new balance can feel “normal” to the person. When the drug is missing, the adjustment is out of time: hyperexcitability, malaise, anxiety or autonomic changes, depending on the substance.",
+            "Learning and environmental cues — places, times, routines — can trigger discomfort or urges to use even after the acute pharmacology has shifted. That does not cancel physiology; it travels with it."
+          ],
+          "analogies": [
+            [
+              "Imagine a team that has hired a full-time extra pair of hands. While they are there, everyone else carries less. The day the extra help does not show up, the team is not “weak-willed”: it is out of balance with the pace it had learned.",
+              "The analogy shows a borrowed equilibrium. It fails if it is translated as addiction, as a diagnosis, or as if every substance left the same gap. A coffee is not a pattern of drinking, and an office rota is not a withdrawal syndrome."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Physical dependence and substance use disorder",
+          "paragraphs": [
+            "Physical dependence is not automatically addiction or a substance use disorder. In current diagnostic systems, a substance use disorder requires a broader set of criteria: loss of control, continued use despite harm, neglected activities, craving, among others, assessed clinically. The presence of withdrawal alone does not determine a diagnosis.",
+            "You can have physical dependence — for example during a prescribed treatment in another clinical setting — without the behavioural pattern of the disorder. And you can have a substance use disorder with little classic withdrawal, depending on the substance. They are not the same question."
+          ]
+        },
+        "where": {
+          "title": "Withdrawal, body and learning",
+          "paragraphs": [
+            "Withdrawal mixes physical signs (tremor, sweating, nausea, insomnia), emotional ones (anxiety, irritability, low mood) and behavioural ones (seeking the substance, avoiding discomfort). Separating them helps you not reduce everything to “nerves” or to a single organ.",
+            "Environmental cues and associative learning take part: a smell, a time of day or a place can fire a conditioned response. That is memory and context, not a meter of “how much dependence” in Soma."
+          ]
+        },
+        "substances": {
+          "title": "How substances differ",
+          "paragraphs": [
+            "Alcohol, in people with substantial physical dependence, can produce severe withdrawal: anxiety and tremor and, in serious pictures, seizures, marked confusion or delirium tremens. Seizures, marked confusion or delirium tremens need urgent medical care. Stopping suddenly is not a home experiment; it needs medical assessment. This sheet does not say how to detox or which medicines to use.",
+            "Nicotine produces a common withdrawal syndrome (irritability, trouble concentrating, increased appetite) that does not look like alcohol’s. Cannabis can bring irritability, disrupted sleep and appetite change. Caffeine, headache and fatigue in some patterns. Cocaine is associated more with a mood crash and fatigue than with an alcohol-like autonomic syndrome; that does not mean “nothing happens” when it stops. There is no single portrait of dependence for the five substances."
+          ]
+        },
+        "connections": {
+          "title": "Links with neuroadaptation and tolerance",
+          "paragraphs": [
+            "Neuroadaptation can contribute to physical dependence: the nervous system shifts its set point. Tolerance can live alongside that adaptation, but feeling less of an effect is not the same as going through withdrawal.",
+            "Metabolism influences how long the substance remains and therefore when its absence starts to be felt. It does not by itself explain dependence or the recovery of circuits."
+          ]
+        },
+        "stopping": {
+          "title": "Recovery and the limits of time estimates",
+          "paragraphs": [
+            "When use stops, withdrawal — if it appears — is often stronger at first and then eases in many patterns, on a timetable that depends on the substance, the dose, the duration and the person. There is no universal clock Soma can apply.",
+            "Some of the later discomfort is not only acute pharmacology: habits, sleep, stress and learned cues remain. Time estimates from research groups are study averages, not an individual prediction. This app does not diagnose you or date your withdrawal."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Physical dependence is not addiction. Withdrawal is not enough for a substance use disorder diagnosis. Abrupt alcohol withdrawal in people with substantial physical dependence can be dangerous and needs medical assessment. There are no individual pharmacological recommendations here. This sheet does not describe your clinical history."
+          ]
+        }
+      },
+      "bibliography": [
+        "American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders. 5th ed., text rev. (DSM-5-TR). 2022. Substance use disorders.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Schuckit MA. Alcohol-use disorders. Lancet. 2009;373(9662):492–501.",
+        "Benowitz NL. Nicotine addiction. N Engl J Med. 2010;362(24):2295–2303."
+      ]
+    },
+    "neuroadaptation": {
+      "sections": {
+        "what": {
+          "title": "What is neuroadaptation?",
+          "paragraphs": [
+            "Neuroadaptation is the set of changes in the nervous system after repeated stimulation — including a substance. It can include functional changes and structural modifications of synaptic connections. It is not, by definition, the death of neurons or neurodegeneration.",
+            "It is plasticity: the same hardware can run a different programme. That idea connects with tolerance and physical dependence without making them synonyms or turning them into brain damage Soma can measure."
+          ]
+        },
+        "how": {
+          "title": "How does the nervous system change?",
+          "paragraphs": [
+            "At the synapse, the amount of receptor in the membrane, its desensitisation, transmitter release or the strength of the connection (synaptic plasticity) can change. At the network scale, the tone of reward, stress and control circuits shifts.",
+            "None of that is a single switch of “more dopamine” or “less dopamine”. Reducing recovery to one messenger concentration is the error this sheet tries to avoid."
+          ],
+          "analogies": [
+            [
+              "Think of a city that, faced with a new volume of traffic, changes traffic lights, diversions and drivers’ habits. That is network adaptation. It is not the same as demolishing buildings (neurodegeneration).",
+              "The analogy shows functional change versus loss of structure. It fails if it is translated as “the brain fully rewires in X days”, or as if every diversion undid itself at once when the extra traffic stopped."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Plasticity versus neurodegeneration",
+          "paragraphs": [
+            "Neuroadaptation does not necessarily mean neuronal damage. Neurodegeneration is loss or injury of nerve cells. Neuroadaptation is mainly a change of function and, sometimes, of synapse architecture — how many there are, how they are organised — not the loss of neurons. Heavy chronic alcohol can, in some contexts, be associated with toxicity; that does not licence calling every adaptation to caffeine or nicotine “damage”.",
+            "The two ideas can coexist in the same person and still not be the same thing. Soma does not do neuroimaging or count neurons."
+          ]
+        },
+        "where": {
+          "title": "Reward, stress and control",
+          "paragraphs": [
+            "Reward circuits (including the mesolimbic pathway) can become less sensitive to everyday rewards or more sensitive to cues for the substance. Stress circuits — amygdala, corticotropin-releasing factor systems, hormonal axis — can gain weight when the drug is missing. Control circuits — prefrontal cortex and its connections — take part in regulating impulses and habits.",
+            "This is a working map from the neurobiology of addiction, not a diagnosis by brain region. Not every change happens in every person or with every Soma substance."
+          ]
+        },
+        "substances": {
+          "title": "How it crosses Soma’s substances",
+          "paragraphs": [
+            "Each substance pushes different doors — DAT, nicotinic receptors, CB1, GABA-A and NMDA, adenosine — and therefore writes different adaptations. Each messenger sheet already covers those mechanisms; the rule here is: there is no single “substance brain”.",
+            "Caffeine does not copy alcohol. Nicotine does not copy cocaine. Mixing them into one neuroadaptation story would be a map error."
+          ]
+        },
+        "connections": {
+          "title": "Links with tolerance, dependence and withdrawal",
+          "paragraphs": [
+            "Neuroadaptation can contribute to tolerance (the target answers less, or the network compensates) and to physical dependence (the balance counts on the substance). Withdrawal is, in part, that adaptation without the drug.",
+            "Metabolism determines how much substance is there and for how long; it is not neuroadaptation. Emptying the plasma does not by itself reset the network’s traffic lights."
+          ]
+        },
+        "stopping": {
+          "title": "Reversible and persistent change",
+          "paragraphs": [
+            "When use stops, some changes start to reverse; others may last longer. The pace is not uniform across regions, effects or people. There are no universal calendars of brain recovery this app can apply.",
+            "“The substance is gone” does not equal “the brain has returned to a catalogue snapshot”. Soma does not measure your plasticity."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Neuroadaptation is not neurodegeneration by default. Not all changes reverse at the same pace. There is no universal calendar and no single neurotransmitter concentration that summarises recovery. This sheet describes general mechanisms; it does not describe your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Nestler EJ. Molecular basis of long-term plasticity underlying addiction. Nat Rev Neurosci. 2001;2(2):119–128.",
+        "Kauer JA, Malenka RC. Synaptic plasticity and addiction. Nat Rev Neurosci. 2007;8(11):844–858.",
+        "Koob GF, Volkow ND. Neurobiology of addiction: a neurocircuitry analysis. Lancet Psychiatry. 2016;3(8):760–773.",
+        "Lüscher C, Malenka RC. Drug-evoked synaptic plasticity in addiction: from molecular changes to circuit remodeling. Neuron. 2011;69(4):650–663."
+      ]
+    },
+    "metabolism": {
+      "sections": {
+        "what": {
+          "title": "What is the metabolism of a substance?",
+          "paragraphs": [
+            "In pharmacology, metabolism — or biotransformation — is the set of reactions with which the body modifies a substance, often in the liver, to make elimination easier. It does not mean only “clearing” or “eliminating”: sometimes the metabolite is still active, or even more active than the original molecule.",
+            "Confusing metabolism with neuronal recovery is this sheet’s map error. Processing a molecule does not by itself undo nervous-system adaptations."
+          ]
+        },
+        "how": {
+          "title": "Absorption, distribution, transformation and elimination",
+          "paragraphs": [
+            "The classic route is four steps (ADME). Absorption: the substance enters the bloodstream from the gut, the lung, a mucosa or another route. Distribution: it spreads through tissues, including the brain if it crosses barriers. Metabolism: enzymes transform it. Elimination: it is excreted, mainly in urine or, in some cases, in air or faeces.",
+            "Half-life — the time in which plasma concentration falls by half, when the model allows it — is not the same as duration of effect. Effect also depends on which receptors remain occupied, on active metabolites, and on the lag between concentration and response."
+          ],
+          "analogies": [
+            [
+              "Think of a warehouse that receives a parcel (absorption), places it on different shelves (distribution), takes it apart or relabels it (metabolism) and ships it out (elimination). A relabel can leave an object that is still useful (active metabolite).",
+              "The analogy shows a procedure, not a cure. It fails if it is translated as “when the warehouse is empty, the city has already undone every diversion”, or as a calculator for toxicology tests."
+            ]
+          ]
+        },
+        "kinds": {
+          "title": "Pharmacokinetics and pharmacodynamics",
+          "paragraphs": [
+            "Pharmacokinetics describes what the body does with the substance (ADME). Pharmacodynamics describes what the substance does at its targets (receptors, enzymes, channels). Tolerance and dependence live mainly in pharmacodynamics and neuroadaptation, although an enzyme change (pharmacokinetics) can contribute to tolerance.",
+            "Mixing the two is saying that “it has already been cleared” equals “there is no residual effect and no adaptation”. It does not."
+          ]
+        },
+        "where": {
+          "title": "Liver, kidneys and other tissues",
+          "paragraphs": [
+            "The liver holds many cytochrome P450 enzymes — CYP names that enzyme family — and other routes (alcohol dehydrogenase, esterases). The kidneys filter and excrete metabolites. There is also metabolism in gut, lung and plasma, depending on the molecule.",
+            "Genetics, age, other drugs, smoking or liver disease change those routes. That is why there is no individual clock Soma can calculate."
+          ]
+        },
+        "substances": {
+          "title": "Soma’s five substances",
+          "paragraphs": [
+            "Alcohol. It is oxidised mainly by alcohol dehydrogenase and aldehyde dehydrogenase; with chronic use the CYP2E1 route can gain weight. It is not cleared like a catecholamine. In certain concentration ranges some metabolic routes saturate and kinetics can look closer to a steadier rate; that is not a universal pattern and not a personal clock. That does not licence calculating “how many hours you have left” in this app.",
+            "Nicotine. It is largely transformed into cotinine, with a prominent role for CYP2A6. Caffeine. CYP1A2 is the classic route; smoking can induce it and speed clearance in many people. Cocaine. It has several metabolic routes: hydrolytic pathways — plasma and liver esterases that generate metabolites such as benzoylecgonine — and other enzymatic transformations. That is not Soma’s verdict on a test. Cannabis (THC). It is hydroxylated to an 11-OH metabolite that is also active, then to carboxylic acids that can be detectable longer than the felt effect.",
+            "Five doors in, five procedures. There is no single “drug half-life”."
+          ]
+        },
+        "connections": {
+          "title": "Metabolism, exposure and recovery",
+          "paragraphs": [
+            "Metabolism determines part of exposure: how much substance arrives, how long it lasts in plasma, whether there is an active metabolite. It does not by itself explain tolerance, dependence or circuit recovery.",
+            "Clearing a substance does not mean every physiological adaptation has gone. Neuroadaptation keeps its own time."
+          ]
+        },
+        "stopping": {
+          "title": "When the substance is no longer there",
+          "paragraphs": [
+            "When concentration falls, acute effects fade before many adaptations. Detectable metabolites, disrupted sleep or withdrawal can remain, depending on the substance, without proving a catalogue number of “clean” days.",
+            "This sheet does not offer individual clearance calculations or guarantees of absence on toxicology tests. A test depends on thresholds, matrices (urine, blood, hair) and the pattern of use; Soma does not interpret your labs."
+          ]
+        },
+        "caveats": {
+          "title": "What we know — and what to keep in perspective",
+          "paragraphs": [
+            "Metabolism is not only elimination. Half-life is not duration of effect. Emptying the plasma does not reset the nervous system. There is no detox calculator and no test guarantee here. This sheet describes general procedures; it does not describe your liver or your brain."
+          ]
+        }
+      },
+      "bibliography": [
+        "Rang HP, Ritter JM, Flower RJ, Henderson G. Rang & Dale’s Pharmacology. Elsevier. Pharmacokinetics (ADME).",
+        "Goodman & Gilman. The Pharmacological Basis of Therapeutics. 14th ed. 2022. Absorption, distribution, metabolism and excretion.",
+        "Cederbaum AI. Alcohol metabolism. Clin Liver Dis. 2012;16(4):667–685.",
+        "Huestis MA. Human cannabinoid pharmacokinetics. Chem Biodivers. 2007;4(8):1770–1804."
+      ]
+    }
+  }
+}

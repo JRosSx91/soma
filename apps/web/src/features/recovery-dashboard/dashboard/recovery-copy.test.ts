@@ -18,29 +18,29 @@ test("spanish and english recovery bundles expose the same keys", () => {
   const en = enRecovery as Record<string, string>;
   assert.equal(es.emptyTitle, "Tu recorrido de recuperación");
   assert.equal(en.emptyTitle, "Your recovery journey");
-  assert.equal(es.chartTitle, "Cómo podría evolucionar tu recuperación");
-  assert.equal(en.chartTitle, "How your recovery may unfold");
-  assert.equal(es.chartYAxis, "Avance de cada curva (%)");
-  assert.equal(en.chartYAxis, "Progress along each curve (%)");
+  assert.equal(es.chartTitle, "Avance de las curvas educativas");
+  assert.equal(en.chartTitle, "Educational curve progress");
+  assert.equal(es.chartYAxis, "Avance de la curva educativa (%)");
+  assert.equal(en.chartYAxis, "Educational curve progress (%)");
   assert.equal(es.chartOverview, "Mostrar todas las curvas");
   assert.equal(en.chartOverview, "Show all curves");
   assert.equal(es.axis1Year, "365 días");
   assert.equal(en.axis1Year, "365 days");
   assert.equal(
     es.chartCurveNote,
-    "Los porcentajes indican el avance de cada curva orientativa, no cuánto se ha recuperado tu organismo.",
+    "Los porcentajes indican el avance de cada curva matemática educativa, no cuánto se ha recuperado tu organismo ni una concentración de neurotransmisores.",
   );
   assert.equal(
     en.chartCurveNote,
-    "Percentages show progress along each illustrative curve, not how much your body has recovered.",
+    "Percentages show progress along each educational mathematical curve, not how much your body has recovered and not a neurotransmitter concentration.",
   );
   assert.equal(
     es.chartSubtitle,
-    "Este gráfico muestra cómo podría avanzar tu recuperación con el tiempo. Es orientativo, no una medición de tu salud.",
+    "Cada porcentaje es el avance de una curva matemática educativa del catálogo. No es una recuperación individual, ni un estado clínico, ni una medición fisiológica.",
   );
   assert.equal(
     en.chartSubtitle,
-    "This chart shows how your recovery might progress over time. It is illustrative, not a measurement of your health.",
+    "Each percentage is progress along an educational mathematical curve from the catalog. It is not individual recovery, a clinical status, or a physiological measurement.",
   );
   assert.equal(
     fillRecoveryTemplate(es.todayCurveLegend, { today: "Hoy", percent: 46 }),
@@ -50,6 +50,15 @@ test("spanish and english recovery bundles expose the same keys", () => {
     fillRecoveryTemplate(en.todayCurveLegend, { today: "Today", percent: 46 }),
     "Today · 46% of the curve",
   );
+  assert.equal(
+    fillRecoveryTemplate(es.recoveryNextMilestoneDays, { current: 42, target: 60 }),
+    "42 de 60 días hacia el próximo hito",
+  );
+  assert.equal(
+    fillRecoveryTemplate(en.recoveryNextMilestoneDays, { current: 42, target: 60 }),
+    "42 of 60 days toward the next milestone",
+  );
+  assert.equal(SPANISH_RECOVERY_COPY.day365, es.day365);
 });
 
 test("recovery tabs keep internal ids and localize ES/EN labels", () => {
@@ -152,6 +161,8 @@ test("copy contract follows the active language without mixing fragments", () =>
   assert.equal(enRecovery.demoChartNoSeries.includes("{{percent}}"), false);
   assert.match(es.liveFootnote, /días reales/);
   assert.match(en.liveFootnote, /real days/);
+  assert.match(es.demoFootnote, /Modelo: día 365/);
+  assert.match(en.demoFootnote, /Model: day 365/);
   assert.doesNotMatch(es.demoFootnote, /medición clínica/);
   assert.doesNotMatch(en.demoFootnote, /clinical measurement/);
   assert.doesNotMatch(es.liveFootnoteOverlay, /medición clínica/);

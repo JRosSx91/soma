@@ -32,7 +32,7 @@ export function EducationalPhaseTrack({
       role="radiogroup"
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
-      className="grid grid-cols-2 gap-1.5 sm:grid-cols-4"
+      className="grid grid-cols-2 gap-1.5"
     >
       {exploreNtPhases.map((item) => {
         const selected = item === phase;

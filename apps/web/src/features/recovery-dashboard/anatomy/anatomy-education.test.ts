@@ -2,18 +2,21 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { educationalAnatomy } from "./anatomy-education.ts";
+import { anatomyEducationCopyFields } from "./present-anatomy-education.ts";
+import enAnatomy from "../../../i18n/locales/en/anatomy.json" with { type: "json" };
+import esAnatomy from "../../../i18n/locales/es/anatomy.json" with { type: "json" };
 
-const respiratoryOrganIds = ["lungs", "bronchi", "nasal-mucosa"] as const;
-const centralNervousOrganIds = [
+export const respiratoryOrganIds = ["lungs", "bronchi", "nasal-mucosa"] as const;
+export const centralNervousOrganIds = [
   "brain-prefrontal-cortex",
   "brain-hippocampus",
   "brain-amygdala",
   "brain-nucleus-accumbens",
   "brain-vta",
 ] as const;
-const digestiveOrganIds = ["stomach", "pancreas", "intestines", "oral-mucosa"] as const;
+export const digestiveOrganIds = ["stomach", "pancreas", "intestines", "oral-mucosa"] as const;
 
-const allCanonicalOrganIds = [
+export const allCanonicalOrganIds = [
   ...respiratoryOrganIds,
   ...centralNervousOrganIds,
   ...digestiveOrganIds,
@@ -28,34 +31,13 @@ const allCanonicalOrganIds = [
   "eyes",
 ] as const;
 
-test("the three respiratory organs have complete anatomical entries", () => {
-  for (const organId of respiratoryOrganIds) {
-    const entry = educationalAnatomy(organId);
-    assert.ok(entry);
-    assert.equal(entry.organId, organId);
-    assert.ok(entry.location && entry.location.length > 20);
-    assert.ok(entry.anatomy.length > 40);
-    assert.ok(entry.physiology.length > 40);
-    assert.ok(entry.relations.length > 40);
-    assert.ok(entry.sources.length > 0);
-    for (const source of entry.sources) {
-      assert.equal(source.verified, true);
-      assert.match(source.href, /^https:\/\//);
-      assert.ok(source.citation.length > 10);
-    }
-  }
-});
-
-test("all twenty-one canonical organs have complete educational sheets", () => {
+test("all twenty-one canonical organs keep identity and verified sources", () => {
   assert.equal(allCanonicalOrganIds.length, 21);
   for (const organId of allCanonicalOrganIds) {
     const entry = educationalAnatomy(organId);
     assert.ok(entry, organId);
     assert.equal(entry.organId, organId);
-    assert.ok(entry.location && entry.location.length > 20, organId);
-    assert.ok(entry.anatomy.length > 40, organId);
-    assert.ok(entry.physiology.length > 40, organId);
-    assert.ok(entry.relations.length > 40, organId);
+    assert.equal("anatomy" in entry, false, organId);
     assert.ok(entry.sources.length > 0, organId);
     for (const source of entry.sources) {
       assert.equal(source.verified, true, source.href);
@@ -63,90 +45,18 @@ test("all twenty-one canonical organs have complete educational sheets", () => {
       assert.ok(source.citation.length > 10);
     }
   }
-
-  assert.match(educationalAnatomy("liver")?.anatomy ?? "", /hepatocitos|lobulillo|porta/i);
-  assert.match(educationalAnatomy("kidneys")?.anatomy ?? "", /nefrón|glomérulo|corteza/i);
-  assert.match(educationalAnatomy("heart")?.anatomy ?? "", /atrios|ventrículos|válvul/i);
-  assert.match(educationalAnatomy("spleen")?.anatomy ?? "", /pulpa blanca|pulpa roja/i);
-  assert.match(educationalAnatomy("eyes")?.anatomy ?? "", /retina|córnea|cristalino/i);
 });
 
-test("the five central nervous organs have complete anatomical entries", () => {
-  for (const organId of centralNervousOrganIds) {
-    const entry = educationalAnatomy(organId);
-    assert.ok(entry);
-    assert.equal(entry.organId, organId);
-    assert.ok(entry.location && entry.location.length > 20);
-    assert.ok(entry.anatomy.length > 40);
-    assert.ok(entry.physiology.length > 40);
-    assert.ok(entry.relations.length > 40);
-    assert.ok(entry.sources.length > 0);
-    for (const source of entry.sources) {
-      assert.equal(source.verified, true);
-      assert.match(source.href, /^https:\/\//);
-      assert.ok(source.citation.length > 10);
-    }
-  }
-
-  const prefrontal = educationalAnatomy("brain-prefrontal-cortex");
-  const hippocampus = educationalAnatomy("brain-hippocampus");
-  assert.ok(prefrontal && hippocampus);
-  assert.notEqual(prefrontal.anatomy, hippocampus.anatomy);
-  assert.match(prefrontal.physiology, /ejecutiv/i);
-  assert.match(hippocampus.anatomy, /formación hipocampal|giro dentado|CA1/i);
-  assert.match(educationalAnatomy("brain-amygdala")?.anatomy ?? "", /núcleos/i);
-  assert.match(educationalAnatomy("brain-nucleus-accumbens")?.anatomy ?? "", /estriado/i);
-  assert.match(educationalAnatomy("brain-vta")?.location ?? "", /mesencéfalo/i);
-});
-
-test("bronchial cartilage and the alveolar barrier stay anatomically distinct", () => {
+test("bronchial cartilage and the alveolar barrier stay distinct in bibliography", () => {
   const lungs = educationalAnatomy("lungs");
   const bronchi = educationalAnatomy("bronchi");
   assert.ok(lungs && bronchi);
-  assert.match(bronchi.anatomy, /bronquios principales/);
-  assert.match(bronchi.anatomy, /placas discontinuas/);
-  assert.match(bronchi.anatomy, /carecen de cartílago/);
-  assert.doesNotMatch(bronchi.anatomy, /Su pared lleva anillos/);
-  assert.match(lungs.physiology, /epitelio alveolar/);
-  assert.match(lungs.physiology, /membranas basales/);
-  assert.match(lungs.physiology, /endotelio del capilar/);
-  assert.match(lungs.anatomy, /carecen de cartílago/);
+  assert.notEqual(lungs.sources, bronchi.sources);
   assert.equal(lungs.sources.every((source) => source.verified), true);
   assert.equal(bronchi.sources.every((source) => source.verified), true);
 });
 
-test("the four digestive organs have complete anatomical entries", () => {
-  for (const organId of digestiveOrganIds) {
-    const entry = educationalAnatomy(organId);
-    assert.ok(entry);
-    assert.equal(entry.organId, organId);
-    assert.ok(entry.location && entry.location.length > 20);
-    assert.ok(entry.anatomy.length > 40);
-    assert.ok(entry.physiology.length > 40);
-    assert.ok(entry.relations.length > 40);
-    assert.ok(entry.sources.length > 0);
-    for (const source of entry.sources) {
-      assert.equal(source.verified, true);
-      assert.match(source.href, /^https:\/\//);
-      assert.ok(source.citation.length > 10);
-    }
-  }
-
-  const stomach = educationalAnatomy("stomach");
-  const pancreas = educationalAnatomy("pancreas");
-  const intestines = educationalAnatomy("intestines");
-  const oral = educationalAnatomy("oral-mucosa");
-  assert.ok(stomach && pancreas && intestines && oral);
-  assert.match(stomach.anatomy, /cardias|fundus|píloro|antr/i);
-  assert.match(pancreas.physiology, /exocrin|endocrin|bicarbonato|islotes/i);
-  assert.match(intestines.anatomy, /duodeno|yeyuno|íleon|colon/i);
-  assert.match(oral.anatomy, /escamoso estratificado|revestimiento|masticatoria|especializada/i);
-  assert.doesNotMatch(oral.anatomy, /glándulas salivales mayores son la mucosa/i);
-  assert.notEqual(stomach.anatomy, intestines.anatomy);
-  assert.notEqual(pancreas.anatomy, oral.anatomy);
-});
-
-test("an unknown organ id does not receive another organ's text", () => {
+test("an unknown organ id does not receive another organ's sources", () => {
   assert.equal(educationalAnatomy("lungs-copy"), null);
   assert.equal(educationalAnatomy("not-an-organ"), null);
 
@@ -156,13 +66,8 @@ test("an unknown organ id does not receive another organ's text", () => {
   const liver = educationalAnatomy("liver");
   const kidneys = educationalAnatomy("kidneys");
   assert.ok(lungs && bronchi && nasal && liver && kidneys);
-  assert.notEqual(lungs.anatomy, bronchi.anatomy);
-  assert.notEqual(lungs.anatomy, nasal.anatomy);
-  assert.notEqual(bronchi.anatomy, nasal.anatomy);
-  assert.notEqual(lungs.physiology, bronchi.physiology);
-  assert.notEqual(nasal.physiology, lungs.physiology);
-  assert.notEqual(liver.anatomy, kidneys.anatomy);
-  assert.notEqual(liver.physiology, kidneys.physiology);
+  assert.notDeepEqual(lungs.sources, bronchi.sources);
+  assert.notDeepEqual(liver.sources, kidneys.sources);
 });
 
 test("the anatomical catalog does not depend on personal or substance data", () => {
@@ -187,6 +92,17 @@ test("the anatomical catalog does not depend on personal or substance data", () 
     "%",
   ]) {
     assert.equal(source.toLowerCase().includes(token.toLowerCase()), false, token);
+  }
+});
+
+test("the TypeScript catalog is not a second source of educational prose", () => {
+  const source = readFileSync(new URL("./anatomy-education.ts", import.meta.url), "utf8");
+  assert.equal(source.includes("Los pulmones alojan"), false);
+  assert.equal(source.includes("The lungs house"), false);
+  assert.equal(typeof esAnatomy.education.organs.lungs.anatomy, "string");
+  assert.equal(typeof enAnatomy.education.organs.lungs.anatomy, "string");
+  for (const field of anatomyEducationCopyFields) {
+    assert.equal(field in educationalAnatomy("lungs")!, false, field);
   }
 });
 

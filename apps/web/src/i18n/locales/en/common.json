@@ -18,6 +18,11 @@
     "anatomy": "Anatomical explorer",
     "anatomyShort": "Anatomy",
     "achievements": "Achievements",
+    "journal": "Journal",
+    "missions": "Missions",
+    "account": "Account",
+    "more": "More",
+    "moreMenuAria": "More sections",
     "collapseNav": "Collapse menu",
     "expandNav": "Expand menu"
   },
