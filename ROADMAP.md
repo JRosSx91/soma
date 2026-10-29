@@ -3,10 +3,10 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-28 (ROADMAP-02: siguiente bloque de producto; REC-VIS-01 y ACH-01 fusionados en `develop`).
-Rama de trabajo: `docs/roadmap-02` (base `develop`).
-HEAD de `origin/develop` al actualizar: `c28b31e7fafe015a86f6e0291d711aab1a82a780` (merge PR #70, Logros 2.0 / ACH-01).
-`origin/main`: termina en PR #52 (`0a91e34`). SHELL-01, GAME-*, REC-VIS-01 y ACH-01 **no** están en `origin/main`. Sin deploy a producción de este bloque.
+Última actualización editorial: 2026-10-29 (REL-01: release, SEO, FBK-01, BETA-01, FBK-02; JRN-01, GAM-01 y GAM-02 en `develop`).
+Rama de trabajo: `develop` (documentación REL-01; no es el PR de `main`).
+HEAD de `origin/develop` al actualizar: `6d73877d2222ae333fa02d7a69d0e08bb71d8ccd` (squash PR #74, GAM-02).
+`origin/main`: termina en PR #52 (`0a91e3486c37d127e331d2efd1aed58e05466bb4`). Soma Expeditions 2.0, Explorador, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01 y GAM-02 **no** están en `origin/main`. **No** desplegados.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -14,7 +14,7 @@ Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso
 
 ## Objetivo y alcance
 
-Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** (gamificación de la recuperación) está **parcialmente implementada** en `develop` (shell, Inicio/Recuperación/Logros 2.0, hitos temporales). Bitácora, XP, misiones, Somi y tutorial **no** están implementados; se planifican más abajo. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario.
+Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `develop` (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas). Somi, tutorial y landing renovada **siguen pendientes**. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
 
 No es un dispositivo médico. Las curvas son modelos ilustrativos (`curveProgress` / avance de curva), **no** un porcentaje de salud recuperada ni una medición clínica. No se miden neurotransmisores. Las estimaciones de recuperación **no** se presentan como mediciones fisiológicas individuales. Las fases educativas se eligen para comparar; no se calculan a partir de los días de abstinencia salvo que un hito futuro lo autorice con evidencia.
 
@@ -50,7 +50,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 
 | Superficie | Estado |
 | --- | --- |
-| Producto Soma 2.0 en `develop` / `main` | En desarrollo; `main` incluye PR #49–#52 |
+| Producto Soma 2.0 en `develop` / `main` | En desarrollo; `main` incluye PR #49–#52. `develop` llega hasta PR #74 (`6d73877`). **Sin** release a `main` posterior a #52 |
 | UX-01 orientación corporal | Completado (PR #45). Orientación exacta en prod no reauditada el 2026-10-25 |
 | UX-02 mensajes diarios × 60 | Completado y validado (tests) |
 | UX-03 figura móvil | Completado y validado DEMO 320/375/430 |
@@ -69,11 +69,19 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | Soma Expeditions (GAME-*) | GAME-01, GAME-02, NAV-01, NAV-02, GAME-03A, GAME-03B y GAME-03C fusionados en `develop` (PR #53–#59). Sin deploy a producción |
 | I18N-2.0 dashboards ES/EN | Fusionado en `develop` (`5a451bd`, PR #60). Cubre Inicio, Recuperación y Logros. Atlas: ANAT-I18N-01 (PR #68). LIVE autenticado: falta comprobación de navegador antes del despliegue |
 | Explorador 2.0 | Fusionado en `develop` (`559df95`, PR #61). Cabecera, búsqueda ES/EN, filtros, 5 sustancias, 12 sistemas con ilustraciones, 9 NT educativos, selector de fase |
-| EXP-EDU fichas educativas | Fusionado en `develop` (PR #62–#67: EXP-EDU-01c, 02a, 02b, 03, 04). Enlaces atlas ↔ artículos. GAME-05 (misiones) **no** implementado |
+| EXP-EDU fichas educativas | Fusionado en `develop` (PR #62–#67: EXP-EDU-01c, 02a, 02b, 03, 04). Enlaces atlas ↔ artículos. GAME-05 educativa cubierta por **GAM-02** en `develop` (**no** producción) |
 | REC-VIS-01 visualización de recuperación | Fusionado en `develop` (`f346709`, PR #69). Curvas educativas + NT cualitativos. **No** medición fisiológica individual |
 | ACH-01 sistema de logros y medallas | Fusionado en `develop` (`c28b31e`, PR #70). Galería 2.0; 156 IDs; 149 alcanzables; 7 no disponibles; historial permanente; recaídas no revocan |
 | HOME-UI-01 layout | Fusionado en `develop` (PR #66). No reabre UX-03 |
-| JRN / GAM / CHR / ONB / WEB / UX-GLO | **Planificados** (ROADMAP-02). No implementados. No anunciables como disponibles |
+| JRN-01 Bitácora | Fusionado en `develop` (PR #72). **No** producción |
+| GAM-01 XP, niveles, títulos | Fusionado en `develop` (`751c6aa`). Ledger `XpGrant` / `UserProgression`. **No** producción |
+| GAM-02 Misiones educativas | Fusionado en `develop` (PR #74, `6d73877`). Seis misiones, API, LIVE/DEMO, dashboard. **No** producción |
+| GAM-03 / CHR-01 / ONB-01 / WEB-01 / WEB-02 / UX-GLO-01 | **Pendientes** (ROADMAP-02). No anunciables como disponibles |
+| SEO-01 visibilidad de búsqueda | Documentado. SEO-01A con REL-01; SEO-01B con WEB-01/WEB-02 |
+| REL-01 release de producción | **Prioritario.** Preparar `develop` → `main`. **No** autorizado aún el PR ni el deploy |
+| FBK-01 centro de feedback | Pendiente. **Antes** de BETA-01. Formularios privados; sin XP; sin publicación automática |
+| BETA-01 beta pública | Pendiente. **No** abrir registros públicos todavía (`AUTH_REGISTRATION_MODE=invite`) |
+| FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en REL-01 |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
 
@@ -523,7 +531,7 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 #### GAME-04 — Bitácora de recuperación
 
 - **Descripción:** Registros **voluntarios** de ánimo, sueño, energía y notas. No son diagnósticos. **No** atribuir automáticamente sus variaciones a la abstinencia. **JRN-01 amplia este ID** (emoción opcional, intensidad de deseo, desencadenantes, consulta de evolución); no lo sustituye ni crea un segundo diario.
-- **Estado:** Pendiente de implementación. Dirección visual: `bitacora-2.0.png`. **Estudiar privacidad, almacenamiento y exportación antes de implementar.** Prisma/API nuevos **después** de la nota de privacidad.
+- **Estado:** Implementado en `develop` vía **JRN-01** (PR #72). **No** producción. Dirección visual: `bitacora-2.0.png`. Residual: política de retención/exportación pública y copy de privacidad en landing.
 - **Prioridad:** P1 (implementación vía JRN-01)
 - **Dependencias:** GAME-DESIGN-01. Decisión de retención/exportación (cuenta, dispositivo, GDPR). AUTH-01. No mezclar con síntomas clínicos publicados. JRN-01 (campos adicionales).
 - **Criterio (histórico, vigente):**
@@ -547,10 +555,10 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
   - Nueve neurotransmisores educativos (cinco destacados + expansión).
   - Selector manual de fases conservado.
   - Procesos clave y neurotransmisores con fichas EXP-EDU (PR #62–#67).
-  - Panel de misiones educativas **en preparación** (sin GAME-05 / GAM-02).
+  - Panel de misiones educativas: teaser hacia `/missions` (GAM-02 en `develop`; **no** producción).
   - Diseño responsive (sin overflow horizontal a 1440, 390 y 320 px).
   - Reutilización de los contratos existentes.
-- **No entregado:** GAME-05 / GAM-02 (misiones jugables), GAM-01 (XP), Atlas 2.0 como rediseño, síntomas no publicados.
+- **No entregado en producción:** GAM-02 (misiones jugables, sí en `develop` PR #74), GAM-01 (XP, sí en `develop`), Atlas 2.0 como rediseño, síntomas no publicados.
 - **Dependencias:** UX-05–07. I18N-2.0 (chrome de dashboards 2.0). No GAME-01/02.
 - **Criterio:** Explorar usable en DEMO y LIVE local; NT educativos no se presentan como medición; procesos y misiones no fingen catálogo publicado.
 
@@ -574,7 +582,7 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 #### GAME-05 — Misiones educativas
 
 - **Descripción:** Misiones cortas ligadas al atlas, sustancias y neurotransmisores. Recompensan **aprendizaje y exploración**, no abstinencia. **GAM-02 amplia este ID** con una clasificación general de misiones; no lo sustituye ni crea un segundo catálogo.
-- **Estado:** Pendiente. Dirección: tarjetas en `inicio-2.0.png`, `explorador-2.0.png`, `expedicion-2.0.png`. `misiones-2.0.png` existe **en disco sin seguimiento**; no está versionado ni valida por sí solo el catálogo.
+- **Estado:** Capa educativa piloto **implementada en `develop`** vía **GAM-02** (PR #74; seis `reading_check`). **No** producción. Bienestar y objetivos personales **siguen pendientes**. Dirección: `inicio-2.0.png`, `explorador-2.0.png`; mockup `misiones-2.0.png` local sin seguimiento.
 - **Prioridad:** P1 (implementación vía GAM-02, categoría de descubrimiento y aprendizaje)
 - **Dependencias:** GAME-DESIGN-01. GAM-01 **después** (no puntuar hasta reglas de XP). Atlas / Explorar / NT **publicados**. No inventar ventanas UX-08 ni medición de NT. No contenido `pending_clinical_review`.
 - **Criterio (histórico, vigente):**
@@ -585,7 +593,7 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 #### GAME-06 — XP y niveles
 
 - **Descripción:** Intención original: estudiar experiencia a partir de logros (fisiológicos y temporales) y de aprendizaje. El «Nivel 12 / Explorador neuronal» de `inicio-2.0.png` es **ilustrativo**.
-- **Estado:** Pendiente. El hito de producto **vigente** es **GAM-01**. No implementar economía aquí con otro ID.
+- **Estado:** Economía **implementada en `develop`** vía **GAM-01** (`751c6aa`). **No** producción. Este ID no se reabre como segunda economía.
 - **Prioridad:** P1 (vía GAM-01)
 - **Dependencias:** ACH-01 (qué medallas existen). GAM-02 (aprendizaje). ACH-REV: el XP histórico **no** se borra en recaída.
 - **Criterio:** Los de GAM-01. Nada de recompensas repetibles ilimitadas ni mecánicas de uso compulsivo (racha diaria obligatoria, FOMO de login).
@@ -610,15 +618,15 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 
 ## Siguiente bloque de producto (ROADMAP-02)
 
-Hitos **planificados**. Ninguno de esta sección está implementado. No anuncian funcionalidades como disponibles. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08` (logros temporales, próximo hito, dashboards 2.0, etc.). El identificador **UX-01** sigue siendo orientación anatómica; la revisión global de experiencia es **UX-GLO-01**.
+Hitos del siguiente bloque. JRN-01, GAM-01 y GAM-02 están **en `develop` y no en producción**. El resto permanece planificado. No anuncian funcionalidades como disponibles en `somarecovery.app`. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. El identificador **UX-01** sigue siendo orientación anatómica; la revisión global de experiencia es **UX-GLO-01**.
 
-Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 → GAM-01 → GAM-02 → GAM-03 → CHR-01 → ONB-01 → WEB-01 / WEB-02 → UX-GLO-01.
+Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 → GAM-01 → GAM-02 → **REL-01** (+ **SEO-01A**) → **release a producción** → **FBK-01** → **BETA-01** → GAM-03 → CHR-01 → ONB-01 → WEB-01 / WEB-02 (+ **SEO-01B**) → **FBK-02** y mejoras posteriores (UX-GLO-01, GAME-07, Atlas 2.0). La beta pública exige una **incorporación inicial suficiente**; el tutorial completo (**ONB-01**) puede llegar después.
 
 #### JRN-01 — Bitácora personal
 
 - **Objetivo:** Ampliar GAME-04: diario privado y voluntario que conserva los campos históricos y añade registro emocional opcional, intensidad del deseo de consumir, desencadenantes y consulta de la evolución personal.
 - **Prioridad:** P1
-- **Estado:** Pendiente. Dirección visual: `bitacora-2.0.png`. **No** es un segundo diario: implementa GAME-04 más los campos nuevos.
+- **Estado:** Completado e integrado en `develop` (PR #72, merge `9b5bb63`). **No** producción. No es un segundo diario: implementa GAME-04 más los campos nuevos. Residual: nota de privacidad pública / retención GDPR.
 - **Dependencias:** AUTH-01 (cuenta LIVE). GAME-DESIGN-01 (navegación; Bitácora en secundario / «Más», no 8 pestañas). Nota de privacidad **antes** de Prisma/API (criterio GAME-04). No depende de GAM-01 ni de CHR-01.
 - **Criterios acordados (GAME-04, vigentes):** ánimo, sueño, energía, ansiedad/estrés, notas, calendario, tendencias, reflexiones destacadas por el usuario; sin racha; sin «bienestar medio» clínico; sin causalidad automática con la abstinencia; no diagnóstico.
 - **Decisiones confirmadas (ampliación):**
@@ -632,7 +640,13 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
 
 - **Objetivo:** XP por acciones significativas y niveles **permanentes**, con recompensas educativas y de participación.
 - **Prioridad:** P1
-- **Estado:** Pendiente (estudio de economía **antes** de código). GAME-06 es la intención previa; **no** hay una segunda economía. Las cifras de los PNG (nivel 12, 320/500 XP) son **ilustrativas**.
+- **Estado:** Completado e integrado en `develop` (`751c6aa`, 2026-10-28). **No** producción. GAME-06 es la intención previa; **no** hay una segunda economía. Las cifras de los PNG (nivel 12, 320/500 XP) siguen siendo **ilustrativas** respecto a la curva real (`T(L)`, techo `PROGRESS_XP_MAX`).
+- **Entregado en `develop`:**
+  - XP por fuentes catalogadas (`mission_complete` 12, `journal_create_day` 12, hito personal 10, etc.).
+  - Niveles permanentes y títulos equipables.
+  - Ledger `XpGrant` con unicidad `(userId, source, sourceKey)`.
+  - Idempotencia y techo; recaída no borra XP.
+  - LIVE vía `GET/PATCH /me/progress`; DEMO no escribe el ledger.
 - **Dependencias:** ACH-01 (medallas existentes conservan reglas; no se rediseña el catálogo 156 aquí). JRN-01 no es requisito para el documento de economía, pero el orden acordado la antepone. GAM-02 puede puntuar **después** de cerrar fuentes y techos. ACH-REV: recaída no borra XP.
 - **Decisiones confirmadas:**
   - XP por acciones significativas, no por login compulsivo.
@@ -640,15 +654,24 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
   - Protección frente a acumulación abusiva.
   - Sin pérdida de XP por recaídas.
   - Sin pérdida de XP por inactividad en la app.
-- **Pendiente de diseño:** Cantidades, reglas, fórmulas, techos, qué acciones puntúan (logros vs bitácora vs misiones vs exploración), nombres de nivel.
-- **Criterio:** Documento de economía aprobado **antes** de persistir XP. No hay granja ilimitada ni FOMO de racha diaria.
+- **Pendiente de diseño (residual):** Copy de nombres de nivel en landing; si exploración pura puntúa; presentación pública de la curva. Las cantidades de las fuentes ya catalogadas **no** se reabren aquí.
+- **Criterio:** Fuentes y techos viven en `@soma/shared-types` (`PROGRESS_XP_AMOUNT`, `T(L)`). No hay granja ilimitada ni FOMO de racha diaria. Recaída no borra XP.
 
 #### GAM-02 — Misiones
 
 - **Objetivo:** Ampliar GAME-05 con una **clasificación general** de misiones. No sustituye las áreas temáticas educativas.
 - **Prioridad:** P1
-- **Estado:** Pendiente. **No** hay catálogo publicado. `misiones-2.0.png` local y sin seguimiento **no** autoriza implementación. Dirección embebida: `inicio-2.0.png`, `explorador-2.0.png`, `expedicion-2.0.png`.
-- **Dependencias:** EXP-EDU / Explorador 2.0 para aprendizaje. GAME-05 (estructura y temas educativos). JRN-01 si los objetivos personales se anotan en bitácora (decidir en diseño). GAM-01 **después** para XP. No dependen **exclusivamente** de abstinencia.
+- **Estado:** Completado e integrado en `develop` (PR #74, squash `6d73877`). **No** producción. El piloto cubre la capa **descubrimiento y aprendizaje** (GAME-05 educativa). Bienestar/habilidades y objetivos personales **siguen pendientes**. El PNG `misiones-2.0.png` local no forma parte del commit.
+- **Entregado en `develop`:**
+  - Seis misiones `reading_check` publicadas (dopamina, serotonina, GABA, receptores, tolerancia, neuroadaptación).
+  - Catálogo editorial en `@soma/shared-types` (sin claves de respuesta).
+  - Evaluación privada en API (`mission-answers.ts`).
+  - Persistencia `MissionCompletion` (única por usuario y misión).
+  - 12 XP en la primera finalización LIVE (`mission_complete`); repetición 0; DEMO `xpGranted: 0`.
+  - Endpoints autenticados `GET/POST /me/missions`.
+  - `useMissions` LIVE/DEMO.
+  - Página de Misiones (seis secciones), `nature-7.png`, navegación e i18n ES/EN.
+- **Dependencias (históricas, cubiertas para el piloto):** EXP-EDU / Explorador 2.0. GAME-05 (temas educativos). GAM-01 (XP) integrado en el mismo `develop`. Objetivos personales / bienestar: hito futuro, no reabrir este ID.
 - **Dos capas (no son alternativas incompatibles):**
   1. **Clasificación general (GAM-02):** descubrimiento y aprendizaje; bienestar y habilidades; objetivos personales.
   2. **Áreas temáticas de las misiones educativas (GAME-05):** neurociencia, anatomía, sustancias, fisiología/procesos. Viven dentro de «descubrimiento y aprendizaje».
@@ -657,15 +680,15 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
   - Las tres categorías generales citadas arriba.
   - No introducir objetivos potencialmente perjudiciales.
   - No recompensar solo «no consumir».
-- **Pendiente de diseño:** Catálogo concreto de bienestar y objetivos personales; tono; frecuencia; relación con GAME-07; si hay pantalla propia además de las tarjetas embebidas.
+- **Pendiente de diseño:** Catálogo de bienestar y objetivos personales (no forma parte del piloto PR #74); tono; frecuencia; relación con GAME-07. La pantalla propia de Misiones **ya existe** en `develop`.
 - **Criterio:** Hay misiones útiles con o sin abstinencia. Ninguna misión pide privación peligrosa ni sustituye consejo clínico. La capa educativa conserva GAME-05.
 
 #### GAM-03 — Integración de gamificación
 
 - **Objetivo:** Conectar Bitácora, Misiones, XP y Logros sin duplicar eventos ni recompensas.
-- **Prioridad:** P1 (después de JRN-01, GAM-01 y GAM-02)
-- **Estado:** Pendiente. **No** implementar atajos de integración antes de los tres hitos anteriores.
-- **Dependencias:** JRN-01, GAM-01, GAM-02, ACH-01. Reutilizar ACH-NOTIF-01 y ACH-CELEB-01. GAME-07 puede leer el mismo progreso; no crea un segundo motor.
+- **Prioridad:** P1 (después de **BETA-01**; no adelantar atajos de integración)
+- **Estado:** Pendiente. **No** implementar atajos de integración antes de JRN-01, GAM-01, GAM-02 **y** la beta pública planificada.
+- **Dependencias:** JRN-01, GAM-01, GAM-02, ACH-01, **BETA-01** (secuencia de planificación). Reutilizar ACH-NOTIF-01 y ACH-CELEB-01. GAME-07 puede leer el mismo progreso; no crea un segundo motor.
 - **Decisiones confirmadas:**
   - Las medallas existentes conservan sus reglas.
   - Un mismo hecho no genera dos recompensas no declaradas.
@@ -691,9 +714,9 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
 #### ONB-01 — Tutorial interactivo
 
 - **Objetivo:** Tutorial de primer acceso guiado por Somi, al estilo de un videojuego: diálogo, pasos, resaltes de UI, anterior/siguiente, saltar, repetir desde Configuración.
-- **Prioridad:** P2 (no implementar el tutorial **completo** hasta que existan las funciones que explica)
-- **Estado:** Pendiente. Distinto de AUTH-01 (registro, perfil, sustancias). El onboarding de cuenta **ya existe**.
-- **Dependencias:** CHR-01 (presencia de Somi). REC-VIS-01, Explorador, ACH-01 ya en `develop`. JRN-01 y GAM-01 / GAM-02 **antes** de explicar Bitácora, Misiones y XP como disponibles. Persistencia de «tutorial hecho».
+- **Prioridad:** P2 (no implementar el tutorial **completo** hasta que existan las funciones que explica; **después** de CHR-01 en el orden de planificación)
+- **Estado:** Pendiente. Distinto de AUTH-01 (registro, perfil, sustancias). El onboarding de cuenta **ya existe**. **BETA-01** no espera este ID completo: exige una incorporación inicial comprensible (orientación mínima, sin Somi obligatorio).
+- **Dependencias:** CHR-01 (presencia de Somi en el tutorial completo). REC-VIS-01, Explorador, ACH-01 ya en `develop`. JRN-01 y GAM-01 / GAM-02 **antes** de explicar Bitácora, Misiones y XP como disponibles. Persistencia de «tutorial hecho».
 - **Decisiones confirmadas:**
   - Panel de diálogo con personaje; secuencia; elementos de UI destacados.
   - Explica Recuperación, Explorar, Logros, Bitácora y Misiones/XP **cuando existan**.
@@ -706,11 +729,11 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
 
 - **Objetivo:** Actualizar la presentación pública de Soma: funcionalidades **reales** y propuesta de valor.
 - **Prioridad:** P2
-- **Estado:** Pendiente. Existe landing histórica (PRs de producto 1.x); este ID no la da por renovada. **No** anunciar Bitácora, Misiones, XP ni Somi como disponibles.
+- **Estado:** Pendiente. Existe landing histórica (PRs de producto 1.x); este ID no la da por renovada. Tras REL-01, el copy público **sí** podrá describir Bitácora, Misiones y XP **si** están en `main` y desplegados; **no** anunciar Somi ni GAM-03.
 - **Dependencias:** Puede reservar espacio (copy futuro / «en preparación») sin mentir. WEB-02 puede ir en el mismo trabajo visual. No espera a UX-GLO-01.
-- **Decisiones confirmadas:** Explicar lo que el producto hace hoy (educación, seguimiento, logros, recuperación como modelo). Preparar hueco para Bitácora, Misiones, XP y Somi. Sin promesas médicas.
-- **Pendiente de diseño:** Arquitectura de secciones, captura de pantallas 2.0, CTAs, i18n ES/EN de la landing renovada.
-- **Criterio:** Un visitante de `somarecovery.app` no cree que hay mascota, diario o misiones en producción si aún no están.
+- **Decisiones confirmadas:** Explicar funcionalidades **reales** y beneficios educativos. Identidad visual Soma 2.0. Animaciones y transiciones de calidad. Sin promesas clínicas. Preparar hueco para Somi (CHR-01) sin presentarlo como disponible.
+- **Pendiente de diseño:** Arquitectura de secciones, capturas 2.0, CTAs, i18n ES/EN, motion. Coordinar con **SEO-01B**.
+- **Criterio:** Un visitante de `somarecovery.app` no cree que hay mascota u otras funciones planificadas si aún no están en producción.
 
 #### WEB-02 — Identidad y filosofía
 
@@ -720,10 +743,93 @@ Orden de implementación propuesto (ajustable por dependencias reales): JRN-01 �
 - **Dependencias:** WEB-01 (superficie). No depende de JRN/GAM.
 - **Decisiones confirmadas:**
   - Soma procede del griego antiguo σῶμα, «cuerpo».
-  - Explicar por qué se eligió el nombre y cómo se relaciona con el propósito educativo.
+  - Etimología de σῶμα y por qué se eligió el nombre.
+  - Filosofía: conocimiento, recuperación y autonomía personal.
   - No diagnóstico, no predicción clínica individual.
-- **Pendiente de diseño:** Longitud del texto, tono (accesible, no académico opaco), si hay página propia o bloque en landing.
+- **Pendiente de diseño:** Longitud del texto, tono (accesible, no académico opaco), si hay página propia o bloque en landing. Coordinar con **SEO-01B**.
 - **Criterio:** La historia del nombre está publicada en ES/EN y no contradice UX-04 / REC-VIS-01.
+
+#### SEO-01 — Search Visibility & Indexing
+
+Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/preview` autenticado, ni APIs. No publicar contenido `pending_clinical_review`.
+
+##### SEO-01A — Fundamentos técnicos
+
+- **Objetivo:** Base técnica de indexación junto con **REL-01**.
+- **Prioridad:** P1 (empaquetar con la release; no bloquea el merge a `main` si se documenta como residual inmediato post-deploy).
+- **Estado:** Pendiente de implementación. Auditoría REL-01 (2026-10-29): `apps/web/index.html` usa `<title>web</title>` sin description, canonical, Open Graph ni `hreflang`. No hay `robots.txt` ni `sitemap.xml` en el repo. La landing fija `document.title` en cliente (`metaTitle` ES/EN). Las rutas `/app` y `/preview` no declaran `noindex`. Core Web Vitals y Search Console **no** medidos aquí.
+- **Alcance:**
+  - Títulos y metadescripciones de páginas públicas.
+  - Canonical.
+  - Open Graph.
+  - `robots.txt` y `sitemap.xml`.
+  - Indexabilidad de la landing; renderizado público (SPA: crawlers que no ejecutan JS pueden ver solo `web`).
+  - Evitar indexación de páginas privadas (`/app`, reset/invite con secretos).
+  - Revisar Core Web Vitals / rendimiento.
+  - Preparar Google Search Console.
+  - `hreflang` solo si hay URLs públicas distintas por idioma (hoy el idioma es cliente, no path).
+- **Dependencias:** REL-01 (misma ventana). No espera WEB-01.
+- **Criterio:** Un crawler recibe metadatos coherentes de la landing y no indexa el diario ni las misiones autenticadas.
+
+##### SEO-01B — Posicionamiento orgánico
+
+- **Objetivo:** Contenido y autoridad, junto con **WEB-01** y **WEB-02**.
+- **Prioridad:** P2
+- **Estado:** Pendiente. No iniciar copy de posicionamiento clínico.
+- **Alcance:** Investigación de palabras clave; arquitectura de contenidos públicos; educación sobre recuperación; enlaces internos; datos estructurados cuando correspondan; calidad científica y referencias verificables; autoridad y confianza.
+- **Dependencias:** WEB-01 / WEB-02. SEO-01A. Revisión clínica para cualquier síntoma/consejo.
+- **Criterio:** Contenido público alineado con UX-04; sin promesas individuales de curación.
+
+#### REL-01 — Release de producción
+
+- **Objetivo:** Preparar el paso de `develop` a `main` y desplegar los avances acumulados **después** de PR #52, sin poner en riesgo datos existentes.
+- **Prioridad:** P1 (hito actual)
+- **Estado:** En preparación documental (2026-10-29). **No** hay PR `develop` → `main`. **No** hay merge a `main`. **No** hay deploy. **No** hay migraciones en Supabase autorizadas.
+- **Incluye (en `develop`, no en `main`):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02.
+- **Dependencias:** Inventario de migraciones Prisma vs producción (estado de `_prisma_migrations` en Supabase **desconocido** sin consulta autorizada). Variables de producción (`DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`, `APP_PUBLIC_URL`, mailer). Backup antes de migrar.
+- **Convención del PR de producción (cuando se autorice):** título y descripción **íntegramente en inglés** (summary, features, migrations, testing, deployment, known issues, rollback).
+- **Criterio:** `main` avanza un squash/merge acordado; migraciones aplicadas con backup; DEMO y un humo LIVE de staging o producción autorizado; rollback documentado (revertir deploy; **no** asumir `migrate down`). El registro sigue **por invitación** hasta **BETA-01**.
+
+#### FBK-01 — Feedback Center
+
+- **Objetivo:** Espacio **integrado** en Soma para sugerir funciones, proponer mejoras y comunicar errores.
+- **Prioridad:** P1 (**antes** de BETA-01)
+- **Estado:** Pendiente. No implementar en el PR de REL-01.
+- **Primera versión:** Formularios **privados** y gestión **interna**.
+- **Decisiones confirmadas:**
+  - No publicar automáticamente lo que envíen los usuarios.
+  - No conceder XP por enviar feedback.
+  - No es un foro ni un tablero público (eso es **FBK-02**).
+- **Dependencias:** REL-01 (release estable). AUTH-01 (identidad LIVE). No espera GAM-03 ni Somi.
+- **Criterio:** Un usuario autenticado puede enviar sugerencia, mejora o error sin que el contenido salga a la vista pública ni sume XP.
+
+#### BETA-01 — Public Beta Launch
+
+- **Objetivo:** Permitir registros **públicos** y abrir Soma a usuarios reales, identificada como **beta pública**.
+- **Prioridad:** P1 (después de REL-01 en producción y **FBK-01**)
+- **Estado:** Pendiente. **No** activar registros públicos todavía. Producción actual y REL-01 mantienen `AUTH_REGISTRATION_MODE=invite`.
+- **Requisitos previos:**
+  - Release estable en producción (REL-01 desplegado).
+  - Verificación del registro y de la recuperación de cuenta.
+  - Seguridad y privacidad de los datos.
+  - Revisión de obligaciones RGPD.
+  - Copias de seguridad y recuperación.
+  - Protección frente a abusos.
+  - Incorporación inicial comprensible (no exige ONB-01 completo).
+  - Identificación visible de la aplicación como beta pública.
+  - **FBK-01** operativo.
+  - Incidencia **R-JXP** (`UserProgression.upsert`) investigada y resuelta.
+- **Dependencias:** REL-01, FBK-01, R-JXP. No espera CHR-01, ONB-01, WEB-01 ni GAM-03.
+- **Criterio:** Una persona nueva puede crear cuenta sin invitación, entiende que está en beta, y el diario/misiones/XP de usuarios existentes no se ponen en riesgo. Sin promesas clínicas.
+
+#### FBK-02 — Community Feedback
+
+- **Objetivo:** Superficie **pública moderada** de propuestas (futuro).
+- **Prioridad:** P3 (después de WEB-01 / WEB-02 / SEO-01B)
+- **Estado:** Futuro. **No** implementar durante REL-01 ni como parte de FBK-01.
+- **Posibles funcionalidades (no son requisitos cerrados de esta fase):** propuestas públicas moderadas; votaciones; estados de desarrollo; seguimiento de propuestas.
+- **Dependencias:** FBK-01, BETA-01, WEB-01. Moderación y privacidad **antes** de cualquier muro público.
+- **Criterio:** Nada enviado en FBK-01 se vuelve público sin moderación y consentimiento explícitos. Sigue sin XP por feedback.
 
 #### UX-GLO-01 — Experiencia global
 
@@ -839,12 +945,12 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 5. Platinos: conjunto de logros vs umbral 0,99 (UX-11) — requiere diseño y autorización de catálogo.
 6. Fichas de anatomía EN (I18N-03): entregadas en PR #68; residual de validación LIVE.
 7. Destino de `/achievements` legacy (LEG-01): **redirige** a `/app/achievements` (ACH-01).
-8. Soma Expeditions pendiente: Expedición propia (GAME-07); economía XP (**GAM-01**); privacidad de bitácora (**JRN-01**); misiones (**GAM-02**); integración (**GAM-03**); capítulos (GAME-08).
+8. Soma Expeditions: Expedición propia (GAME-07) y capítulos (GAME-08) pendientes. XP (**GAM-01**), bitácora (**JRN-01**) y misiones educativas (**GAM-02**) están en `develop` (no producción). Integración (**GAM-03**) pendiente.
 9. Naming de GAME-01: la tabla de este roadmap y los nombres frikis de los PNG son **propuestas históricas**, no catálogo a renombrar. Los 106 fisiológicos **no** se renombran.
 10. Arte Horizonte / mapa / Somi: los PNG no otorgan licencia; hace falta arte propio o autorizado antes de producción (CHR-01).
-11. **GAM-01:** cantidades, fórmulas y techos de XP.
-12. **JRN-01:** UI conjunta de campos GAME-04 + emoción/deseo/desencadenantes; retención/exportación/borrado.
-13. **GAM-02:** catálogo de bienestar y objetivos personales (la capa educativa sigue GAME-05); exclusión de objetivos perjudiciales.
+11. **GAM-01 residual:** copy público de niveles; fuentes de XP adicionales (exploración). Fórmulas del ledger **cerradas** en `develop`.
+12. **JRN-01 residual:** retención/exportación/borrado (detalle GDPR) y nota pública de privacidad.
+13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (el piloto educativo está en `develop`).
 14. **CHR-01:** diseño visual definitivo de Somi.
 15. **ONB-01:** guion del tutorial; no implementarlo completo hasta que Bitácora y Misiones/XP existan si se van a explicar.
 
@@ -863,8 +969,9 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 | R-NT | SHA Render no verificado; NT no son medición. | Requiere investigación (R-SHA); producto educativo OK |
 | R-DUP | Duplicar párrafos NT como lista de síntomas. | Mitigado en catálogo; falta UI de síntomas |
 | R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación, Logros 2.0 (PR #60), Explorar (PR #61) y atlas (PR #68). LEG-01 redirige |
-| R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en principios + GAM-01/JRN-01; vigente hasta implementar economía |
-| R-LOG | Bitácora (JRN-01 / GAME-04) sin política de privacidad/exportación. | Pendiente de estudio; **no** implementar UI antes |
+| R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en código GAM-01 (`develop`); vigilar copy de landing en REL-01 |
+| R-LOG | Bitácora (JRN-01) en `develop` sin nota de privacidad pública / retención detallada. | Residual de release; no bloquea el merge si el copy LIVE ya avisa que el diario es privado |
+| R-JXP | Posible carrera en `UserProgression.upsert` (primer XP del usuario). Test `pg xp: concurrent journal creates` observó HTTP 500 en lugar de 201 (GAM-02H). No es regresión GAM-02. | **Incidencia técnica.** No bloquea REL-01 (UX secuencial). **Investigar y resolver antes de BETA-01.** Sin cambio de código en esta actualización documental |
 | R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
 | R-MIX | Mezclar % temporal con % de curva, o conocimiento con perseverancia. | Mitigado en copy UX-04 + GAME-02/07; vigilar implementación |
 | R-ART | Sustituir visor anatómico o medallas reales por arte generado de mockup. | Prohibido; visor y catálogo 106 se conservan |
@@ -880,8 +987,8 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 3. **UX-12** (secretos/platinos) → **UX-11** (regla platino, con autorización de catálogo). UX-10 cubierto en ACH-01.
 4. **ACH-REV residual:** recaída ya no revoca (ACH-01). Queda corrección de fecha errónea. Bloquea GAME-08.
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**.
-6. **En `develop` (sin producción):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01.
-7. **Siguiente bloque (no iniciado):** **JRN-01** → GAM-01 → GAM-02 → GAM-03 → CHR-01 → ONB-01 → WEB-01/WEB-02 → UX-GLO-01. GAME-07 (mapa) y Atlas 2.0 siguen pendientes.
+6. **En `develop` (sin producción):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**.
+7. **Siguiente (autorización humana):** **REL-01** (PR `develop` → `main` en inglés; migraciones Prisma con backup; deploy Render) + residual **SEO-01A**. Luego: **FBK-01** → **BETA-01** (registros públicos; R-JXP resuelto) → GAM-03 → CHR-01 → ONB-01 → WEB-01/WEB-02 + SEO-01B → **FBK-02** y mejoras (UX-GLO-01, GAME-07, Atlas 2.0). **No** abrir registro público en REL-01.
 8. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 9. **UX-08 / UX-09:** editorial; no inventar.
 10. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
@@ -925,6 +1032,10 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 | #68 | ANAT-I18N-01 fichas atlas EN | Fusionado en `develop`. No producción |
 | #69 | REC-VIS-01 | Fusionado en `develop`. No producción |
 | #70 | ACH-01 Logros 2.0 | Fusionado en `develop` (`c28b31e`). No producción |
+| #71 | ROADMAP-02 docs | Fusionado en `develop`. No producción |
+| #72 | JRN-01 Bitácora | Fusionado en `develop` (`9b5bb63`). No producción |
+| — | GAM-01 XP | `751c6aa` en `develop`. No producción |
+| #74 | GAM-02 Misiones | Squash en `develop` (`6d73877`). No producción |
 
 ---
 
@@ -950,9 +1061,13 @@ Soma Expeditions (dirección visual OK; parcialmente en develop)
   Fase B  Explorador 2.0 (PR #61) → EXP-EDU (PR #62–#67) → REC-VIS-01 (PR #69) → ACH-01 (PR #70)
   Fase C  GAME-07 Expedición (mapa + nav Más) sobre SHELL-01
   Fase D  Atlas 2.0 (pendiente de rediseño)
-  Fase E  JRN-01 bitácora (privacidad primero) → GAM-01 XP → GAM-02 misiones → GAM-03 integración
-  Fase F  CHR-01 Somi → ONB-01 tutorial (cuando las superficies explicadas existan)
-  Fase G  WEB-01 / WEB-02 landing e identidad → UX-GLO-01 coherencia
+  Fase E  JRN-01 (PR #72) → GAM-01 (`751c6aa`) → GAM-02 (PR #74)  [en develop; no producción]
+  Fase E2 REL-01 release develop→main + SEO-01A (fundamentos)     [en preparación]
+          → deploy producción (invite; no beta pública)
+  Fase E3 FBK-01 centro de feedback (privado, sin XP) → R-JXP resuelto
+          → BETA-01 beta pública (registros abiertos; incorporación inicial)
+  Fase F  GAM-03 integración → CHR-01 Somi → ONB-01 tutorial completo
+  Fase G  WEB-01 / WEB-02 + SEO-01B → FBK-02 comunidad → UX-GLO-01 coherencia
   GAME-08 capítulos (tras ACH-REV residual)
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar
@@ -974,7 +1089,7 @@ VIS-01 (no reabre UX-03)
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, EXP-EDU-01, JRN-01, GAM-01–03, CHR-01, ONB-01, WEB-01–02, UX-GLO-01, Q-*, VIS, LEG, R-SHA) no los sustituyen. `GAM-*` ≠ `GAME-*`. `UX-GLO-01` ≠ `UX-01`.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, EXP-EDU-01, JRN-01, GAM-01–03, CHR-01, ONB-01, WEB-01–02, SEO-01, REL-01, FBK-01–02, BETA-01, UX-GLO-01, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. `UX-GLO-01` ≠ `UX-01`.
 
 ---
 
@@ -1024,3 +1139,5 @@ VIS-01 (no reabre UX-03)
 | 2026-10-28 | REC-VIS-01 fusionado en `develop` (`f346709`, PR #69). Curvas educativas y NT cualitativos; no medición individual. |
 | 2026-10-28 | ACH-01 fusionado en `develop` (`c28b31e`, PR #70). Galería 2.0; 156 IDs; 149 alcanzables; 7 no disponibles; historial permanente; recaídas no revocan; `/achievements` → `/app/achievements`. |
 | 2026-10-28 | ROADMAP-02: se documentan JRN-01, GAM-01, GAM-02, GAM-03, CHR-01, ONB-01, WEB-01, WEB-02, UX-GLO-01 como **planificados**. GAME-04/05/06 no se borran: apuntan a JRN-01 / GAM-02 / GAM-01. Sin implementación. |
+| 2026-10-28 | JRN-01 fusionado en `develop` (PR #72). GAM-01 (`751c6aa`) en `develop`. Sin producción. |
+| 2026-10-29 | GAM-02 fusionado en `develop` (PR #74, `6d73877`). REL-01 documentado. SEO-01A/B, FBK-01, BETA-01 y FBK-02 añadidos. R-JXP: incidencia antes de BETA-01. Sin PR a `main`, sin deploy, sin registros públicos, sin migraciones de producción. |
