@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Ayuda y sugerencias",
+  "eyebrow": "Comentarios",
+  "intro": "Cuéntanos qué ha fallado, qué se podría mejorar o qué te gustaría que Soma incluyera. Leemos cada nota. Esto no es un canal médico y no podemos prometer cuándo responderemos.",
+  "privacy": "Tu mensaje queda en tu cuenta. No lo publicamos y no es una ficha clínica. Evita contraseñas, datos de salud muy personales o cualquier cosa que no quieras que se conserve.",
+  "demoNotice": "Modo demostración: este formulario muestra cómo será Ayuda y sugerencias. No se guarda nada en una cuenta.",
+  "categoriesLabel": "¿Qué quieres compartir?",
+  "categories": {
+    "bug": "Algo no funciona",
+    "suggestion": "Una idea o mejora",
+    "general": "Un comentario general"
+  },
+  "titleLabel": "Título",
+  "titlePlaceholder": "Un titular breve",
+  "bodyLabel": "Descripción",
+  "bodyPlaceholder": "Qué ha pasado, o qué te gustaría ver. Unas frases honestas bastan.",
+  "submit": "Enviar",
+  "submitting": "Enviando…",
+  "confirmation": "Gracias. Hemos recibido tu nota. Puedes verla abajo con su estado.",
+  "duplicate": "Esto se parece a una nota que enviaste en las últimas 24 horas. Hemos conservado la anterior en lugar de duplicarla.",
+  "historyTitle": "Tus notas",
+  "historyHint": "Solo tú ves esta lista en Soma. El equipo actualiza el estado cuando revisa una nota.",
+  "empty": "Aún no has enviado notas. Cuando lo hagas, aparecerán aquí.",
+  "statusLabel": "Estado",
+  "statuses": {
+    "open": "Recibida",
+    "in_review": "En revisión",
+    "resolved": "Resuelta",
+    "closed": "Cerrada"
+  },
+  "errors": {
+    "category": "Elige una categoría.",
+    "title": "Escribe un título breve (al menos 3 caracteres, hasta 80).",
+    "body": "Añade un poco más de detalle (al menos 20 caracteres, hasta 4.000).",
+    "network": "No hemos podido enviar tu nota. Revisa la conexión e inténtalo de nuevo.",
+    "load": "No hemos podido cargar tus notas. Prueba otra vez en un momento."
+  },
+  "retry": "Reintentar"
+}

@@ -28,6 +28,7 @@ import enAnatomy from "./locales/en/anatomy.json";
 import enJournal from "./locales/en/journal.json";
 import enProgress from "./locales/en/progress.json";
 import enMissions from "./locales/en/missions.json";
+import enFeedback from "./locales/en/feedback.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -51,6 +52,7 @@ import esAccount from "./locales/es/account.json";
 import esJournal from "./locales/es/journal.json";
 import esProgress from "./locales/es/progress.json";
 import esMissions from "./locales/es/missions.json";
+import esFeedback from "./locales/es/feedback.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -138,9 +140,9 @@ import deAchievements from "./locales/de/achievements.json";
  * - When a key is missing in the active language, fall back to
  *   English. If still missing, the key string itself is shown
  *   (helpful during development).
- * - Recovery, Explore, Anatomy, Journal, Progress and Missions namespaces: complete for English (base) and Spanish.
+ * - Recovery, Explore, Anatomy, Journal, Progress, Missions and Feedback namespaces: complete for English (base) and Spanish.
  *   ca, gl, eu, fr, it and de reuse the English bundle as an explicit
- *   interim fallback — not a complete Recovery, Explore or Anatomy translation.
+ *   interim fallback — not a complete Recovery, Explore, Anatomy or Feedback translation.
  * - Neurotransmitter phases and mechanisms: reviewed English and Spanish only (8N.6B).
  *   ca, gl and eu reuse the Spanish bundle; fr, it and de reuse English.
  *   Locale JSON files for those six languages remain on disk for editorial
@@ -212,6 +214,7 @@ i18n
       "journal",
       "progress",
       "missions",
+      "feedback",
     ],
     defaultNS: "common",
     interpolation: {
@@ -250,6 +253,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
       es: {
         common: esCommon,
@@ -273,6 +277,7 @@ i18n
         journal: esJournal,
         progress: esProgress,
         missions: esMissions,
+        feedback: esFeedback,
       },
       ca: {
         common: caCommon,
@@ -296,6 +301,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
       gl: {
         common: glCommon,
@@ -319,6 +325,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
       eu: {
         common: euCommon,
@@ -342,6 +349,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
       fr: {
         common: frCommon,
@@ -365,6 +373,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
       it: {
         common: itCommon,
@@ -388,6 +397,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
       de: {
         common: deCommon,
@@ -411,6 +421,7 @@ i18n
         journal: enJournal,
         progress: enProgress,
         missions: enMissions,
+        feedback: enFeedback,
       },
     },
   }, () => {
