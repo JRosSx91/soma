@@ -45,6 +45,7 @@
     "calendarHasEntry": "Notes on this day",
     "calendarNoEntry": "No notes on this day",
     "calendarSelected": "Selected day",
+    "calendarIsToday": "Today",
     "evolutionTitle": "Your wellbeing over time",
     "evolutionHint": "How your wellbeing has moved, from what you wrote down.",
     "evolutionHelp": "Last 28 days. Each point is the mean of that day's ratings. Gaps are not filled. It is not a clinical score.",
