@@ -11,22 +11,31 @@ import { authLinkClass } from "../auth/components/AuthShell.js";
 const PRIVACY_SECTIONS = [
   "known",
   "identity",
+  "purpose",
   "data",
-  "bases",
   "special",
-  "retention",
   "processors",
   "transfers",
+  "retention",
+  "cookies",
+  "advertising",
+  "age",
   "rights",
   "deletion",
+  "bases",
 ] as const;
 
 const TERMS_SECTIONS = [
   "nature",
   "limits",
   "medical",
-  "use",
+  "access",
+  "age",
   "accounts",
+  "advertising",
+  "changes",
+  "deletion",
+  "use",
   "contact",
 ] as const;
 
