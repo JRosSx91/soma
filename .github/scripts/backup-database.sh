@@ -7,6 +7,7 @@ set -euo pipefail
 set +x
 
 BUCKET="soma-db-backups"
+PG_DUMP="/usr/lib/postgresql/17/bin/pg_dump"
 WORKDIR=""
 PLAIN=""
 CIPHER=""
@@ -51,7 +52,7 @@ trap 'exit 143' TERM
 
 [[ "${AGE_PUBLIC_KEY}" == age1* ]] || die "AGE_PUBLIC_KEY does not look like an age recipient"
 
-require_cmd pg_dump
+[[ -x "${PG_DUMP}" ]] || die "PostgreSQL 17 client not found at ${PG_DUMP}"
 require_cmd age
 require_cmd aws
 require_cmd mktemp
@@ -65,7 +66,7 @@ OBJECT_NAME="soma-${STAMP}.dump.age"
 CIPHER="${WORKDIR}/${OBJECT_NAME}"
 
 log "Starting encrypted backup ${STAMP}"
-log "pg_dump: $(pg_dump --version | head -n 1)"
+log "pg_dump: $("${PG_DUMP}" --version | head -n 1)"
 log "age: $(age --version 2>&1 | head -n 1)"
 
 # Prefer TLS when the URI does not already set sslmode. Do not echo the URL.
@@ -73,7 +74,7 @@ export PGSSLMODE="${PGSSLMODE:-require}"
 export PGCONNECT_TIMEOUT="${PGCONNECT_TIMEOUT:-15}"
 
 set +e
-pg_dump \
+"${PG_DUMP}" \
   --format=custom \
   --file="${PLAIN}" \
   --no-password \
