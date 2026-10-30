@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { SomaMark } from "../recovery-dashboard/components/SomaMark.js";
-import { previewFocus } from "../recovery-dashboard/focus.js";
 import { LandingPulseWave } from "./LandingPulseWave.js";
+import { LandingRegistrationActions } from "./LandingRegistrationActions.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -95,24 +94,15 @@ export function LandingV2Closing() {
               {t("closing.subtitle")}
             </motion.p>
             <motion.div
-              className="mt-10 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center"
               initial={reduceMotion ? false : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ ...enter, delay: reduceMotion ? 0 : 0.2 }}
             >
-              <Link
-                to="/register"
-                className={`${previewFocus} inline-flex items-center justify-center rounded-xl bg-soma-action px-6 py-3 text-sm font-semibold text-[#081018] transition-colors hover:bg-soma-action-hover`}
-              >
-                {t("closing.ctaPrimary")}
-              </Link>
-              <Link
-                to="/preview"
-                className={`${previewFocus} inline-flex items-center justify-center rounded-xl border border-soma-line-strong bg-[#081018]/40 px-6 py-3 text-sm font-medium text-soma-ink-secondary transition-colors hover:border-soma-physiology hover:text-soma-ink`}
-              >
-                {t("closing.ctaSecondary")}
-              </Link>
+              <LandingRegistrationActions
+                copyPrefix="closing"
+                layoutClassName="mt-10 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center"
+              />
             </motion.div>
             <p className="mt-6 max-w-xl text-xs leading-relaxed text-soma-ink-muted">
               {t("closing.note")}

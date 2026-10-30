@@ -13,6 +13,8 @@ import { ResetPasswordPage } from "../../../pages/ResetPasswordPage.js";
 import { LoginPage } from "../../../pages/LoginPage.js";
 import { RegisterPage } from "../../../pages/RegisterPage.js";
 import { AuthContext } from "../context/AuthContext.js";
+import { RegistrationModeProvider } from "../context/RegistrationModeContext.js";
+import type { RegistrationModeState } from "../client/registration-mode.js";
 import { resetHeldPasswordResetTokenForTests } from "./password-reset-validation.js";
 import { resetHeldRegistrationInviteTokenForTests } from "./registration-invite.js";
 
@@ -34,11 +36,18 @@ async function ensureI18n() {
   }
 }
 
-function wrap(node: ReactNode, initialEntries: string[] = ["/"]) {
+function wrap(
+  node: ReactNode,
+  initialEntries: string[] = ["/"],
+  registration?: RegistrationModeState,
+) {
+  const inner = registration
+    ? createElement(RegistrationModeProvider, { value: registration }, node)
+    : node;
   return createElement(
     I18nextProvider,
     { i18n },
-    createElement(MemoryRouter, { initialEntries }, node),
+    createElement(MemoryRouter, { initialEntries }, inner),
   );
 }
 
@@ -220,6 +229,7 @@ test("RegisterPage still renders core fields (no regression)", async () => {
         createElement(RegisterPage),
       ),
       ["/register"],
+      { status: "ready", mode: "open" },
     ),
   );
   assert.match(html, /Create your Soma account/);
@@ -246,6 +256,10 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.match(html, /autocomplete="nickname"/i);
   assert.match(html, /autocomplete="email"/i);
   assert.equal(html.includes("aria-invalid"), false);
+  assert.match(html, /href="\/privacy"/);
+  assert.match(html, /href="\/terms"/);
+  assert.equal((html.match(/type="checkbox"/g) ?? []).length, 3);
+  assert.doesNotMatch(html, /type="checkbox"[^>]*checked/);
 });
 
 test("RegisterPage source clears password errors when the confirmation is edited", () => {
@@ -291,10 +305,12 @@ test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async 
         createElement(RegisterPage),
       ),
       ["/register?invite=abc_invite_from_query&lang=es"],
+      { status: "ready", mode: "invite" },
     ),
   );
 
-  assert.match(html, /Create your Soma account/);
+  assert.match(html, /Start your journey/);
+  assert.match(html, /closed beta/i);
   assert.match(html, /name="referrer"/);
   assert.match(html, /content="no-referrer"/);
   assert.equal(html.includes("abc_invite_from_query"), false);
@@ -302,3 +318,43 @@ test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async 
   assert.ok(replaced.every((u) => !u.includes("invite=")));
   assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
 });
+
+test("RegisterPage invite mode without token does not render a form", async () => {
+  await ensureI18n();
+  resetHeldRegistrationInviteTokenForTests();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: guestAuth },
+        createElement(RegisterPage),
+      ),
+      ["/register"],
+      { status: "ready", mode: "invite" },
+    ),
+  );
+  assert.match(html, /Invitation required/);
+  assert.equal(html.includes('type="email"'), false);
+  assert.match(html, /href="\/"/);
+  assert.match(html, /href="\/login"/);
+});
+
+test("RegisterPage does not assume invite when the mode request fails", async () => {
+  await ensureI18n();
+  resetHeldRegistrationInviteTokenForTests();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: guestAuth },
+        createElement(RegisterPage),
+      ),
+      ["/register"],
+      { status: "error", mode: null },
+    ),
+  );
+  assert.match(html, /temporarily unavailable/i);
+  assert.equal(html.includes("Invitation required"), false);
+  assert.equal(html.includes('type="email"'), false);
+});
+

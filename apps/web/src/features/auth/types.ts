@@ -42,6 +42,12 @@ export interface RegisterCredentials {
   weightKg?: number;
   /** Closed-beta invite; omitted in open registration mode. */
   inviteToken?: string;
+  acceptedTerms: boolean;
+  termsVersion: string;
+  acceptedPrivacyNotice: boolean;
+  privacyNoticeVersion: string;
+  acceptedSpecialCategoryProcessing: boolean;
+  specialCategoryProcessingVersion: string;
 }
 
 /** Bootstrap / session lifecycle for the SPA. */

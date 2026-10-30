@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
+import { useRegistrationMode } from "../features/auth/context/RegistrationModeContext.js";
 import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
 import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
@@ -29,6 +30,7 @@ type Gate =
 export function LoginPage() {
   const { t } = useTranslation(["auth", "common"]);
   const { login, user, loading, sessionNotice } = useAuth();
+  const registrationMode = useRegistrationMode();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -306,10 +308,22 @@ export function LoginPage() {
         </form>
 
         <p className="mt-6 text-center text-sm text-soma-ink-muted">
-          {t("login.noAccount")}{" "}
-          <Link to="/register" className={authLinkClass}>
-            {t("login.createOne")}
-          </Link>
+          {registrationMode.status === "ready" &&
+          registrationMode.mode === "open" ? (
+            <>
+              {t("login.noAccount")}{" "}
+              <Link to="/register" className={authLinkClass}>
+                {t("login.createOne")}
+              </Link>
+            </>
+          ) : null}
+          {registrationMode.status === "ready" &&
+          registrationMode.mode === "invite"
+            ? t("login.inviteOnly")
+            : null}
+          {registrationMode.status === "error"
+            ? t("login.registrationUnavailable")
+            : null}
         </p>
       </div>
     </AuthShell>

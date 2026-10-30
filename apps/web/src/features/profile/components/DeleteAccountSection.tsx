@@ -77,6 +77,7 @@ export function DeleteAccountSection() {
       <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-soma-ink-secondary">
         <li>{t("delete.bulletPermanent")}</li>
         <li>{t("delete.bulletData")}</li>
+        <li>{t("delete.bulletBackups")}</li>
         <li>{t("delete.bulletSessions")}</li>
         <li>{t("delete.bulletIrreversible")}</li>
         <li>{t("delete.bulletInvite")}</li>

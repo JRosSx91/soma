@@ -21,6 +21,11 @@ import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
 import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
 import { DocumentSeo } from "./seo/DocumentSeo.js";
+import { RegistrationModeProvider } from "./features/auth/context/RegistrationModeContext.js";
+import {
+  PrivacyPage,
+  TermsPage,
+} from "./features/legal/LegalDocumentPage.js";
 
 function RootRoute() {
   const { user, loading, sessionNotice } = useAuth();
@@ -63,6 +68,7 @@ const soma2Pages = (
 function App() {
   return (
     <BrowserRouter>
+      <RegistrationModeProvider>
       <DocumentSeo />
       <Routes>
         {/* Public routes */}
@@ -70,6 +76,8 @@ function App() {
         <Route path="/landing-2" element={<Navigate to="/" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/preview">
@@ -97,6 +105,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </RegistrationModeProvider>
     </BrowserRouter>
   );
 }

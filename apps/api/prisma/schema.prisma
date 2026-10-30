@@ -145,9 +145,25 @@ model User {
   feedbackReports     FeedbackReport[]
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
-  registrationInvite  RegistrationInvite?
+  registrationInvite       RegistrationInvite?
+  registrationAcceptances  RegistrationAcceptance[]
 
   @@index([email])
+}
+
+/// Affirmative registration actions (draft document versions). No IP.
+/// PENDING LEGAL: purposes and versions are placeholders until review.
+model RegistrationAcceptance {
+  id               String   @id @default(cuid())
+  userId           String
+  purpose          String
+  documentVersion  String
+  acceptedAt       DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, purpose])
+  @@index([userId])
 }
 
 /// One-time closed-beta registration invites. Plaintext is shown once to an

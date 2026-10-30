@@ -6,12 +6,14 @@ import type { BiologicalSex } from "@soma/shared-types";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 import { takeRegistrationInviteToken } from "../features/auth/lib/registration-invite.js";
 import { prepareRegisterCredentials } from "../features/auth/lib/registration-passwords.js";
+import { useRegistrationMode } from "../features/auth/context/RegistrationModeContext.js";
 import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
   AuthShell,
   authFieldClass,
   authLinkClass,
   authPrimaryButtonClass,
+  authSecondaryButtonClass,
   authSubtitleClass,
   authTitleClass,
 } from "../features/auth/components/AuthShell.js";
@@ -19,6 +21,7 @@ import {
 export function RegisterPage() {
   const { t } = useTranslation(["auth", "common"]);
   const { register, user, loading } = useAuth();
+  const registrationMode = useRegistrationMode();
   const navigate = useNavigate();
   const location = useLocation();
   const [email, setEmail] = useState("");
@@ -27,6 +30,10 @@ export function RegisterPage() {
   const [displayName, setDisplayName] = useState("");
   const [biologicalSex, setBiologicalSex] = useState<BiologicalSex>("male");
   const [birthYear, setBirthYear] = useState<number>(1990);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedPrivacyNotice, setAcceptedPrivacyNotice] = useState(false);
+  const [acceptedSpecialCategoryProcessing, setAcceptedSpecialCategoryProcessing] =
+    useState(false);
   const [error, setError] = useState<string | null>(null);
   const [errorField, setErrorField] = useState<"password" | "confirm" | null>(
     null,
@@ -40,7 +47,7 @@ export function RegisterPage() {
     inviteRef.current = takeRegistrationInviteToken(location.search);
   }
 
-  if (loading) {
+  if (loading || registrationMode.status === "loading") {
     return (
       <AuthShell>
         <p
@@ -60,6 +67,50 @@ export function RegisterPage() {
     return <Navigate to="/login" replace />;
   }
 
+  if (registrationMode.status === "error") {
+    return (
+      <AuthShell>
+        <div>
+          <h1 className={authTitleClass}>{t("register.unavailableTitle")}</h1>
+          <p className={authSubtitleClass}>{t("register.unavailableBody")}</p>
+          <div className="mt-8 space-y-3">
+            <Link to="/" className={`${authSecondaryButtonClass} block text-center`}>
+              {t("register.goHome")}
+            </Link>
+            <p className="text-center text-sm text-soma-ink-muted">
+              <Link to="/login" className={authLinkClass}>
+                {t("register.signIn")}
+              </Link>
+            </p>
+          </div>
+        </div>
+      </AuthShell>
+    );
+  }
+
+  const inviteToken = inviteRef.current;
+  const inviteMode = registrationMode.mode === "invite";
+  if (inviteMode && !inviteToken) {
+    return (
+      <AuthShell>
+        <div>
+          <h1 className={authTitleClass}>{t("register.inviteRequiredTitle")}</h1>
+          <p className={authSubtitleClass}>{t("register.inviteRequiredBody")}</p>
+          <div className="mt-8 space-y-3">
+            <Link to="/" className={`${authSecondaryButtonClass} block text-center`}>
+              {t("register.goHome")}
+            </Link>
+            <p className="text-center text-sm text-soma-ink-muted">
+              <Link to="/login" className={authLinkClass}>
+                {t("register.signIn")}
+              </Link>
+            </p>
+          </div>
+        </div>
+      </AuthShell>
+    );
+  }
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
@@ -71,7 +122,13 @@ export function RegisterPage() {
       displayName,
       biologicalSex,
       birthYear,
-      ...(inviteRef.current ? { inviteToken: inviteRef.current } : {}),
+      acceptedTerms,
+      acceptedPrivacyNotice,
+      acceptedSpecialCategoryProcessing,
+      termsVersion: "",
+      privacyNoticeVersion: "",
+      specialCategoryProcessingVersion: "",
+      ...(inviteToken ? { inviteToken } : {}),
     });
     if (!prepared.ok) {
       setError(t(prepared.messageKey));
@@ -104,7 +161,9 @@ export function RegisterPage() {
       <div>
         <div className="mb-8">
           <h1 className={authTitleClass}>{t("register.title")}</h1>
-          <p className={authSubtitleClass}>{t("register.subtitle")}</p>
+          <p className={authSubtitleClass}>
+            {inviteMode ? t("register.closedBeta") : t("register.subtitle")}
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -239,6 +298,54 @@ export function RegisterPage() {
               className={authFieldClass}
             />
           </div>
+
+          <fieldset className="space-y-3 rounded-xl border border-white/10 p-3">
+            <legend className="px-1 text-xs uppercase tracking-wider text-soma-ink-secondary">
+              {t("register.draftNotice")}
+            </legend>
+            <label className="flex items-start gap-2 text-sm text-soma-ink-secondary">
+              <input
+                id="register-accept-terms"
+                type="checkbox"
+                className="mt-1"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+              />
+              <span>
+                {t("register.acceptTerms")}{" "}
+                <Link to="/terms" className={authLinkClass}>
+                  {t("register.termsLink")}
+                </Link>
+              </span>
+            </label>
+            <label className="flex items-start gap-2 text-sm text-soma-ink-secondary">
+              <input
+                id="register-accept-privacy"
+                type="checkbox"
+                className="mt-1"
+                checked={acceptedPrivacyNotice}
+                onChange={(e) => setAcceptedPrivacyNotice(e.target.checked)}
+              />
+              <span>
+                {t("register.acceptPrivacy")}{" "}
+                <Link to="/privacy" className={authLinkClass}>
+                  {t("register.privacyLink")}
+                </Link>
+              </span>
+            </label>
+            <label className="flex items-start gap-2 text-sm text-soma-ink-secondary">
+              <input
+                id="register-accept-special"
+                type="checkbox"
+                className="mt-1"
+                checked={acceptedSpecialCategoryProcessing}
+                onChange={(e) =>
+                  setAcceptedSpecialCategoryProcessing(e.target.checked)
+                }
+              />
+              <span>{t("register.acceptSpecialCategory")}</span>
+            </label>
+          </fieldset>
 
           {error && (
             <p

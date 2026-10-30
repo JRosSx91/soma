@@ -14,6 +14,11 @@ import {
   CodedConflictException,
   CodedForbiddenException,
 } from "../common/exceptions/coded-exception.js";
+import {
+  assertProductionAllowsRegistration,
+  assertRegistrationAcceptance,
+  persistRegistrationAcceptances,
+} from "./registration-acceptance.js";
 import { normalizeEmail } from "./normalize-email.js";
 import {
   RefreshSessionService,
@@ -74,6 +79,8 @@ export class AuthService {
     dto: RegisterDto,
     meta: SessionMeta = {},
   ): Promise<AuthenticatedSessionResult> {
+    assertRegistrationAcceptance(dto);
+    assertProductionAllowsRegistration();
     const mode = resolveRegistrationMode();
     if (mode === "invite") {
       return this.registerWithInvite(dto, meta);
@@ -122,6 +129,7 @@ export class AuthService {
       birthYear: dto.birthYear,
       weightKg: dto.weightKg,
     });
+    await persistRegistrationAcceptances(this.prisma, user.id);
 
     return this.buildSession(user.id, user.email, user.displayName, meta);
   }
@@ -165,6 +173,7 @@ export class AuthService {
           },
           tx,
         );
+        await persistRegistrationAcceptances(tx, created.id);
         await this.invites.attachUser(tx, claimed.id, created.id);
         return created;
       });

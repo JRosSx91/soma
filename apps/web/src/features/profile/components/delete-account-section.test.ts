@@ -77,7 +77,8 @@ test("section explains deletion and does not show an immediate delete submit", a
     wrap(createElement(DeleteAccountSection), i18n),
   );
   assert.match(html, /Delete my account/);
-  assert.match(html, /Registered substances/);
+  assert.match(html, /journal, missions, achievements, progress, feedback/);
+  assert.match(html, /backups and operational logs/);
   assert.match(html, /new invitation/);
   assert.match(html, /Review account deletion/);
   assert.equal(html.includes('role="dialog"'), false);

@@ -30,6 +30,7 @@ import {
   hashRegistrationInviteToken,
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
+import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
 
 const ORIGIN = "http://localhost:5173";
 const PASSWORD_A = "iso-pass-A-9f3k2m";
@@ -241,6 +242,7 @@ async function registerUser(input: {
     biologicalSex: input.biologicalSex,
     birthYear: input.birthYear,
     inviteToken: input.inviteToken,
+    ...currentRegistrationAcceptanceFields(),
   });
   assert.equal(res.status, 201, "register must succeed with a live invite");
   const refresh = cookieValue(res, REFRESH_COOKIE_NAME);

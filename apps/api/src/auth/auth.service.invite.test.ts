@@ -10,6 +10,7 @@ import {
 import type { UsersService } from "../users/users.service.js";
 import type { RefreshSessionService } from "./refresh-session.service.js";
 import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
+import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
 
 type InviteRow = {
   id: string;
@@ -36,6 +37,7 @@ const dto = {
   displayName: "Beta",
   biologicalSex: "male" as const,
   birthYear: 1992,
+  ...currentRegistrationAcceptanceFields(),
 };
 
 function cloneInvites(rows: Map<string, InviteRow>): Map<string, InviteRow> {
@@ -97,6 +99,9 @@ function createInviteAuth(options: {
         if (row) row.usedByUserId = data.usedByUserId;
         return row;
       },
+    },
+    registrationAcceptance: {
+      createMany: async () => ({ count: 3 }),
     },
     user: {
       findMany: async ({
