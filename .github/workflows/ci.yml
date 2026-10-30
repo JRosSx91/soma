@@ -43,6 +43,10 @@ jobs:
         run: pnpm --filter @soma/api exec prisma generate
 
       - name: Validate Prisma schema
+        env:
+          # Dummy URL so prisma validate can resolve env("DATABASE_URL").
+          # Not a live database and not production.
+          DATABASE_URL: postgresql://soma:soma@localhost:5432/soma_ci
         run: pnpm --filter @soma/api exec prisma validate
 
       - name: Typecheck API
