@@ -136,6 +136,7 @@ export function MissionsPage() {
         imageClassName={MISSIONS_HERO_IMAGE_CLASS}
         overlay={MISSIONS_HERO_OVERLAY}
         panorama
+        onbAnchor="missions-title"
         fetchPriority="high"
         imageWidth={2142}
         imageHeight={734}

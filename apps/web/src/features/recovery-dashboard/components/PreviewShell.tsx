@@ -13,6 +13,10 @@ import {
   SHELL_SIDEBAR_EXPANDED_CLASS,
 } from "../shell-sidebar.js";
 import { AchievementCelebrationHost } from "../../achievements/components/AchievementCelebrationHost.js";
+import {
+  OnboardingTourHost,
+  OnboardingTourProvider,
+} from "../../onboarding-tour/index.js";
 import { PreviewMobileHeader } from "./PreviewMobileHeader.js";
 import { PreviewMobileNav } from "./PreviewMobileNav.js";
 import { PreviewSidebar } from "./PreviewSidebar.js";
@@ -43,7 +47,9 @@ export function PreviewShell({ base }: PreviewShellProps) {
   return (
     <ShellBaseProvider base={base}>
       <ShellLayoutProvider>
-        <PreviewShellFrame base={base} />
+        <OnboardingTourProvider>
+          <PreviewShellFrame base={base} />
+        </OnboardingTourProvider>
       </ShellLayoutProvider>
     </ShellBaseProvider>
   );
@@ -89,6 +95,7 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
         </main>
       </div>
       <PreviewMobileNav />
+      <OnboardingTourHost />
       {base === "/app" ? <AchievementCelebrationHost /> : null}
     </div>
   );

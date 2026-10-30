@@ -15,6 +15,7 @@ import { WithdrawConsentSection } from "../../profile/components/WithdrawConsent
 import { PageHeading } from "../components/PageHeading.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
+import { TourRestartControl } from "../../onboarding-tour/index.js";
 
 function accountFieldFromErrorKey(
   key: string | null,
@@ -134,7 +135,9 @@ export function AccountPage() {
           title={t("title")}
           description={t("description")}
           demo
+          onbAnchor="account-title"
         />
+        <TourRestartControl />
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
           {t("emailReadonly")}
         </p>
@@ -150,6 +153,7 @@ export function AccountPage() {
           title={t("title")}
           description={t("description")}
           demo={false}
+          onbAnchor="account-title"
         />
         <p className="text-sm text-soma-ink-secondary" role="status">
           {t("loading")}
@@ -166,6 +170,7 @@ export function AccountPage() {
           title={t("title")}
           description={t("description")}
           demo={false}
+          onbAnchor="account-title"
         />
         <p className="text-sm text-soma-organ-damaged" role="alert">
           {t("loadError")}
@@ -195,7 +200,9 @@ export function AccountPage() {
         title={t("title")}
         description={t("description")}
         demo={false}
+        onbAnchor="account-title"
       />
+      <TourRestartControl />
 
       {success && !editing ? (
         <p

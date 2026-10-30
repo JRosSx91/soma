@@ -132,6 +132,7 @@ export function AnatomyExplorerPage() {
         objectPosition="center 48%"
         overlay={ATLAS_HERO_OVERLAY}
         compactBand
+        onbAnchor="anatomy-title"
       />
 
       <nav aria-label={t("crumbAria")} className="flex min-w-0 flex-wrap items-center gap-1.5 text-sm">

@@ -1,0 +1,55 @@
+{
+  "inviteTitle": "A short tour of Soma",
+  "inviteBody": "Somi can show you the main screens. You can skip it and open it later from Account. This tour does not change your data.",
+  "start": "Start tour",
+  "continueTitle": "Continue the Soma tour?",
+  "continueBody": "You left the guide unfinished. You can continue from where you stopped, or skip it and open it later from Account. This does not change your data.",
+  "continueAction": "Continue",
+  "later": "Not now",
+  "next": "Next",
+  "back": "Back",
+  "skip": "Skip tour",
+  "finish": "Finish",
+  "restart": "Replay Soma tour",
+  "restartHint": "Opens the nine-step guide. It does not edit your profile or substances.",
+  "stepStatus": "Step {{current}} of {{total}}",
+  "engineNote": "Temporary tour controls. Visual design comes in a later step.",
+  "steps": {
+    "home": {
+      "title": "This is your home",
+      "body": "Inicio is the hub of your personal expedition. Figures here are educational, not clinical measurements."
+    },
+    "nav": {
+      "title": "Move around Soma",
+      "body": "Use the side menu on a large screen, or the bar at the bottom on a phone. More hides Explore, the atlas, achievements, and Account."
+    },
+    "recovery": {
+      "title": "Recovery is educational",
+      "body": "These curves illustrate typical patterns. They are not a personal health score and they do not measure organs."
+    },
+    "explore": {
+      "title": "Explore the catalogue",
+      "body": "Here you can browse systems, substances, and processes Soma already teaches. Nothing here starts a medical plan."
+    },
+    "anatomy": {
+      "title": "The atlas is a map",
+      "body": "The anatomical explorer is an illustrated map. It does not scan your body."
+    },
+    "missions": {
+      "title": "Missions teach",
+      "body": "Missions are short educational challenges. This tour will not answer them for you."
+    },
+    "journal": {
+      "title": "The journal is optional",
+      "body": "The logbook is voluntary. You do not have to write every day, and this tour will not save an entry."
+    },
+    "achievements": {
+      "title": "Achievements mark learning",
+      "body": "Medals follow time and learning in Soma. They are not a recovery percentage."
+    },
+    "account": {
+      "title": "You can replay this later",
+      "body": "Account holds your details. Substance tracking stays in the separate onboarding flow. Replay this tour whenever you want."
+    }
+  }
+}

@@ -38,6 +38,8 @@ interface RecoveryHeroProps {
   compactHeader?: boolean;
   /** Atlas: shorter band so the visor can sit with the system list. Other pages omit it. */
   compactBand?: boolean;
+  /** Stable ONB-01 tour hook. Omit on surfaces the tour does not highlight. */
+  onbAnchor?: string;
   children?: ReactNode;
 }
 
@@ -57,6 +59,7 @@ export function RecoveryHero({
   panorama = false,
   compactHeader = false,
   compactBand = false,
+  onbAnchor,
   children,
 }: RecoveryHeroProps) {
   const { t } = useTranslation("recovery");
@@ -118,6 +121,7 @@ export function RecoveryHero({
                   ? "mt-2 text-2xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-3xl"
                   : "mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl"
               }
+              data-onb={onbAnchor}
             >
               {title}
             </h1>

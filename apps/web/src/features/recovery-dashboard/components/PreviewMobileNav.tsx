@@ -16,6 +16,7 @@ export function PreviewMobileNav() {
     <nav
       className="z-30 shrink-0 border-t border-soma-line/30 bg-soma-shell-rail/95 backdrop-blur lg:hidden"
       aria-label={t("shell.navAria")}
+      data-onb="nav-mobile"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       <ul

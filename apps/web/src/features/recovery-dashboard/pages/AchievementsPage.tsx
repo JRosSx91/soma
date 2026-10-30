@@ -217,6 +217,7 @@ export function AchievementsPage() {
         imageSrc={ACHIEVEMENTS_HERO_IMAGE}
         objectPosition="center 58%"
         overlay={ACHIEVEMENTS_HERO_OVERLAY}
+        onbAnchor="achievements-title"
       />
 
       <p className="max-w-xl text-sm leading-relaxed text-soma-ink-secondary">

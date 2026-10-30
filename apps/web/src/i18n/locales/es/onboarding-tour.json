@@ -1,0 +1,55 @@
+{
+  "inviteTitle": "Un recorrido breve por Soma",
+  "inviteBody": "Somi puede mostrarte las pantallas principales. Puedes omitirlo y abrirlo más tarde desde Cuenta. Este recorrido no cambia tus datos.",
+  "start": "Empezar recorrido",
+  "continueTitle": "¿Seguimos el recorrido de Soma?",
+  "continueBody": "Dejaste la guía a medias. Puedes continuar desde el paso guardado u omitirla y abrirla más tarde desde Cuenta. Esto no cambia tus datos.",
+  "continueAction": "Continuar",
+  "later": "Ahora no",
+  "next": "Siguiente",
+  "back": "Atrás",
+  "skip": "Omitir recorrido",
+  "finish": "Terminar",
+  "restart": "Repetir el recorrido de Soma",
+  "restartHint": "Abre la guía de nueve pasos. No edita tu perfil ni las sustancias.",
+  "stepStatus": "Paso {{current}} de {{total}}",
+  "engineNote": "Controles temporales del recorrido. El diseño visual llega en un paso posterior.",
+  "steps": {
+    "home": {
+      "title": "Esta es tu portada",
+      "body": "Inicio es el centro de tu expedición personal. Las cifras son educativas, no mediciones clínicas."
+    },
+    "nav": {
+      "title": "Moverse por Soma",
+      "body": "En pantalla grande usas el menú lateral; en el teléfono, la barra inferior. Más oculta Explorar, el atlas, los logros y Cuenta."
+    },
+    "recovery": {
+      "title": "La recuperación es educativa",
+      "body": "Estas curvas ilustran patrones típicos. No son un índice de salud personal y no miden órganos."
+    },
+    "explore": {
+      "title": "Explora el catálogo",
+      "body": "Aquí recorres sistemas, sustancias y procesos que Soma ya enseña. Nada de esto inicia un plan médico."
+    },
+    "anatomy": {
+      "title": "El atlas es un mapa",
+      "body": "El explorador anatómico es un mapa ilustrado. No escanea tu cuerpo."
+    },
+    "missions": {
+      "title": "Las misiones enseñan",
+      "body": "Las misiones son retos educativos breves. Este recorrido no las responde por ti."
+    },
+    "journal": {
+      "title": "La bitácora es voluntaria",
+      "body": "El diario es opcional. No hace falta escribir cada día, y este recorrido no guardará una entrada."
+    },
+    "achievements": {
+      "title": "Los logros marcan el aprendizaje",
+      "body": "Las medallas siguen el tiempo y el aprendizaje en Soma. No son un porcentaje de recuperación."
+    },
+    "account": {
+      "title": "Puedes repetirlo más tarde",
+      "body": "Cuenta guarda tus datos. El seguimiento de sustancias sigue en el onboarding aparte. Puedes repetir este recorrido cuando quieras."
+    }
+  }
+}

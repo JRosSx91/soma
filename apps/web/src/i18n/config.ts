@@ -33,6 +33,7 @@ import enJournal from "./locales/en/journal.json";
 import enProgress from "./locales/en/progress.json";
 import enMissions from "./locales/en/missions.json";
 import enFeedback from "./locales/en/feedback.json";
+import enOnboardingTour from "./locales/en/onboarding-tour.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -57,6 +58,7 @@ import esJournal from "./locales/es/journal.json";
 import esProgress from "./locales/es/progress.json";
 import esMissions from "./locales/es/missions.json";
 import esFeedback from "./locales/es/feedback.json";
+import esOnboardingTour from "./locales/es/onboarding-tour.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -216,6 +218,7 @@ i18n
       "progress",
       "missions",
       "feedback",
+      "onboarding-tour",
     ],
     defaultNS: "common",
     interpolation: {
@@ -255,6 +258,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
       es: {
         common: esCommon,
@@ -279,6 +283,7 @@ i18n
         progress: esProgress,
         missions: esMissions,
         feedback: esFeedback,
+        "onboarding-tour": esOnboardingTour,
       },
       ca: {
         common: caCommon,
@@ -302,6 +307,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
       gl: {
         common: glCommon,
@@ -325,6 +331,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
       eu: {
         common: euCommon,
@@ -348,6 +355,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
       fr: {
         common: frCommon,
@@ -371,6 +379,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
       it: {
         common: itCommon,
@@ -394,6 +403,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
       de: {
         common: deCommon,
@@ -417,6 +427,7 @@ i18n
         progress: enProgress,
         missions: enMissions,
         feedback: enFeedback,
+        "onboarding-tour": enOnboardingTour,
       },
     },
   }, () => {

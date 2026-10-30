@@ -310,6 +310,7 @@ function HomeHeader({ demo, message }: { demo: boolean; message: string | null }
           <h1
             className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
             style={{ color: "rgb(var(--soma-shell-accent))" }}
+            data-onb="home-title"
           >
             {t("homeTitleLead")}
           </h1>

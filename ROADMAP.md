@@ -28,7 +28,7 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 ## Prioridad inmediata y apertura de beta
 
-**Prioridad inmediata:** **ONB-01** (tutorial con Somi). **CHR-01** está **técnicamente completado** en local (estático, WebP, fuera de Cuenta); **pendiente de revisión final y commit**. Somi **solo** se mostrará en el tutorial. **No** desplegado.
+**Prioridad inmediata:** **ONB-01** (tutorial con Somi). CHR-01 cerrado técnicamente en local (`79f8360`). **ONB-01A** (motor) en curso local; **ONB-01B/C** pendientes. ONB-01 **abierto**. **No** desplegado.
 
 **Después de CHR-01B:** **ONB-01** (tutorial interactivo con Somi). El diseño exacto del recorrido se acuerda **antes** de implementar. Reutiliza el onboarding de cuenta (AUTH-01); **no** lo duplica.
 
@@ -54,8 +54,8 @@ Hitos **antes** de autorizar la apertura (1–5 y GAM-03 cubiertos en git de `de
 | 4 | CLEAN-01 | Legado Soma 1.0. **Completado** en `develop` (`ca3b456`). **No** `main`. **No** desplegado |
 | 5 | WEB-01 | Landing Soma 2.0. **Completado** en `develop` (`ff5a359`, PR #82). **No** `main`. **No** desplegado. **SEO-01B** sigue pendiente |
 | — | GAM-03 | Integración de economía. **Cerrado técnicamente** (local `19c76a1`). **No** `origin/develop`. **No** `main`. **No** desplegado |
-| 6 | CHR-01 | Somi. **Técnicamente completado** en local (A/B; WebP; fuera de Cuenta). **Pendiente de revisión final y commit.** **No** desplegado |
-| 7 | ONB-01 | Tutorial interactivo con Somi. **Después de CHR-01B.** Pendiente. Diseño del recorrido antes de código |
+| 6 | CHR-01 | Somi. **Cerrado técnicamente** en local (`79f8360`). WebP estáticos; solo ONB-01. **No** `origin/develop`. **No** desplegado |
+| 7 | ONB-01 | Tutorial. **Abierto.** ONB-01A motor local; ONB-01B visual/Somi y ONB-01C a11y pendientes. **No** desplegado |
 | 8 | UX-PRE-BETA | Revisión integral del propietario. **Después de ONB-01.** Pendiente. Aprobación explícita |
 | 9 | BETA-01 preparación | Parcial. Infra/backups verificados; borradores legales **no** publicados; consentimiento y retirada en git local; validación jurídica **pendiente**; registro por invitación implementado **no** habilitado en producción |
 | 10 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación. **Pendiente** |
@@ -118,8 +118,8 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | GAM-01 XP, niveles, títulos | En `main` git (`751c6aa`, REL-01). Ledger `XpGrant` / `UserProgression`. **No** se da por desplegado |
 | GAM-02 Misiones educativas | En `main` git (PR #74, REL-01). Seis misiones, API, LIVE/DEMO. **No** se da por desplegado |
 | GAM-03 integración | **Completado técnicamente** en `develop` local (`19c76a1`; mapa de eventos + aislamiento; unitarias/frontend 64, PG17 32/32). **No** `origin/develop`. **No** segunda economía. **No** `main`. **No** desplegado. Copy educativa vs participación: residual UX, no bloquea el cierre |
-| CHR-01 Somi | **Técnicamente completado, pendiente de revisión final y commit.** Seis WebP estáticos; PNG originales conservados; sin CSS de movimiento; **no** en Cuenta. Somi solo en ONB-01. **No** `origin/develop`. **No** `main`. **No** desplegado |
-| ONB-01 tutorial | **Pendiente.** Después de CHR-01B. Distinto de AUTH-01. Reutilizar onboarding de cuenta. BETA-01 **espera** este ID |
+| CHR-01 Somi | **Cerrado técnicamente** en local (`79f8360`). Seis WebP; PNG conservados; **no** en Cuenta. **No** `origin/develop`. **No** `main`. **No** desplegado |
+| ONB-01 tutorial | **Abierto.** ONB-01A motor/persistencia local. ONB-01B (Somi/visual) y ONB-01C (a11y/responsive) pendientes. Distinto de AUTH-01. **No** desplegado |
 | UX-PRE-BETA revisión | **Pendiente.** Después de ONB-01 y **antes** de abrir BETA-01. Revisión del propietario (pública / DEMO / LIVE). No reabre UX-GLO-01 |
 | WEB-02 identidad y filosofía | Pendiente. Puede empaquetarse con WEB-01; no es prerrequisito de apertura por sí solo |
 | UX-GLO-01 consolidación UX | Completado e integrado en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado. Distinto de UX-01 |
@@ -795,7 +795,7 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
 
 - **Objetivo:** Presentar Soma 2.0 a usuarios nuevos, explicar las funcionalidades **principales que existan de verdad**, y usar a Somi como guía visual. Distinto de AUTH-01 (registro, perfil, sustancias).
 - **Prioridad:** P1 (después de **CHR-01B**; antes de UX-PRE-BETA y de abrir BETA-01)
-- **Estado:** Pendiente. El onboarding de cuenta **ya existe** y **se reutiliza**; este ID **no** duplica registro ni PUT de sustancias.
+- **Estado:** **Abierto.** AUTH-01 se reutiliza y **no** se modifica. **ONB-01A** (motor, persistencia LIVE `localStorage`, anclajes `data-onb`, 9 pasos) implementado técnicamente en local. **ONB-01B** (presentación y Somi) y **ONB-01C** (a11y, responsive, validación) pendientes. **No** cerrado. **No** desplegado.
 - **Dependencias:** **CHR-01B** (componente `Somi` + seis WebP estáticos). REC-VIS-01, Explorador, ACH-01, JRN-01, GAM-01 y GAM-02 ya en git (`develop`/`main` según ID) para explicar solo lo real. Persistencia de «tutorial hecho».
 - **Decisiones confirmadas:**
   - Somi como guía visual (ilustraciones estáticas de CHR-01B).
@@ -804,7 +804,14 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
   - Se puede **retomar** después (p. ej. desde Configuración / Cuenta).
   - ES/EN; responsive; accesible.
   - El **diseño exacto del recorrido y sus pantallas se acuerda antes de implementar**.
-- **Pendiente de diseño:** Guion, número de pasos, qué se resalta, copy ES/EN, comportamiento si se salta a mitad, relación con el onboarding de sustancias, qué ilustración de Somi va en cada paso.
+- **Pendiente:** ONB-01B (Somi junto al diálogo, spotlight, pulido visual). ONB-01C (foco, teclado completo, scroll, viewports 320–1440, no chocar con hojas). Copy de motor ES/EN ya existe; se puede ajustar en B.
+##### ONB-01A — Motor
+- **Estado:** **Implementado técnicamente** (local, sin commit de este paso). Nueve pasos; avance/atrás/omitir; persistencia LIVE por `userId`; DEMO solo manual; sin Prisma/API.
+##### ONB-01B — Presentación y Somi
+- **Estado:** Pendiente.
+##### ONB-01C — Accesibilidad, responsive y validación
+- **Estado:** Pendiente.
+
 - **Criterio:** Un usuario nuevo entiende las superficies reales. Nada del tutorial afirma que una función planificada ya está viva. Omitir y repetir funcionan.
 
 #### UX-PRE-BETA — Revisión integral previa a la beta
@@ -1271,8 +1278,8 @@ Soma Expeditions (dirección visual OK; parcialmente en main git; atlas 2.0 en d
             ≠ BETA-01D.3 jurídica, publicación de avisos, invite en producción
             ≠ BETA-01 autorización de apertura  [carril paralelo; no cierra el hito]
   Fase F  GAM-03 cerrado técnicamente (local `19c76a1`; mapa de eventos; 64 + 32 tests; sin 2.ª economía)
-          → CHR-01A/B técnico local [WebP; fuera de Cuenta; pendiente commit]
-          → ONB-01 tutorial
+          → CHR-01 cerrado técnicamente (`79f8360`)
+          → ONB-01A motor local; ONB-01 abierto (B/C pendientes)
           → UX-PRE-BETA (aprobación del propietario)
           → BETA-01 (D.3, avisos, deploy, autorización)
           → MKT-01 (después de abrir)
@@ -1364,3 +1371,4 @@ VIS-01 (no reabre UX-03)
 | 2026-10-30 | **ROADMAP-REORG-01:** secuencia **CHR-01A/B → ONB-01 → UX-PRE-BETA → BETA-01 → MKT-01**. Somi pasa a ilustraciones estáticas; animación avanzada pospuesta. Tutorial y revisión del propietario **antes** de abrir. MKT-01 **después** de BETA-01 (LinkedIn, X, Ko-fi, Instagram evaluación). BETA-01 **no** cerrado; `LEGAL_NOTICE_STATUS=draft`. HEAD local `97ef60d` (ahead 7). Q-CI: workflows `ci.yml` y `database-backups.yml` existen. Sin commit de esta reorganización. Sin implementar CHR-01A. |
 | 2026-10-30 | CHR-01A/B técnico local: seis PNG estáticos; CSS de movimiento retirado; Cuenta `idle`. **No** cierre de CHR-01 (aprobación visual pendiente). `somi-idle.png` copiado del maestro. Sin commit de esta implementación. |
 | 2026-10-30 | CHR-01 ajuste final: propietario aprueba ilustraciones y decide **Somi solo en ONB-01**. Preview de Cuenta retirada. Seis WebP ≤512 px con alfa; PNG sin alterar. **Técnicamente completado; pendiente de revisión final y commit.** Sin push. **No** desplegado. |
+| 2026-10-30 | CHR-01 commit local `79f8360`. ONB-01A motor contextual (9 pasos, `localStorage` LIVE, anclajes `data-onb`). ONB-01 **abierto**; B/C pendientes. Sin commit de ONB-01A. **No** desplegado. |

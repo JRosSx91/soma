@@ -285,6 +285,7 @@ export function ExplorePage() {
         imageSrc={EXPLORE_HERO_IMAGE}
         objectPosition="center 48%"
         overlay={EXPLORE_HERO_OVERLAY}
+        onbAnchor="explore-title"
       />
 
       <div className="flex min-w-0 flex-col gap-3">

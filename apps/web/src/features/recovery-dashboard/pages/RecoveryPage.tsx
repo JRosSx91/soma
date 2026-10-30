@@ -248,6 +248,7 @@ export function RecoveryPage() {
         quote={quote}
         demo={dashboard.showDemoBadge}
         compactHeader
+        onbAnchor="recovery-title"
       >
         <ul className={substanceGridClass(dashboard.substances.length)}>
           {dashboard.substances.map((item) => (

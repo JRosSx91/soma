@@ -615,6 +615,7 @@ export function JournalPage() {
         imageSrc={JOURNAL_HERO_IMAGE}
         objectPosition={JOURNAL_HERO_POSITION}
         overlay={JOURNAL_HERO_OVERLAY}
+        onbAnchor="journal-title"
       />
 
       <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
