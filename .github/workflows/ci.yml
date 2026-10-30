@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+concurrency:
+  group: ci-pr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Typecheck and unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # No production secrets. Prisma validate/generate do not need a live database.
+      # Unit tests must not depend on DATABASE_URL.
+      CI: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build @soma/shared-types
+        run: pnpm --filter @soma/shared-types build
+
+      - name: Generate Prisma Client
+        run: pnpm --filter @soma/api exec prisma generate
+
+      - name: Validate Prisma schema
+        env:
+          # Dummy URL so prisma validate can resolve env("DATABASE_URL").
+          # Not a live database and not production.
+          DATABASE_URL: postgresql://soma:soma@localhost:5432/soma_ci
+        run: pnpm --filter @soma/api exec prisma validate
+
+      - name: Typecheck API
+        run: pnpm --filter @soma/api exec tsc -b --pretty false
+
+      - name: Typecheck web
+        run: pnpm --filter @soma/web exec tsc -b --pretty false
+
+      - name: API unit tests
+        run: pnpm --filter @soma/api test:unit
+
+      - name: Web tests
+        run: pnpm --filter @soma/web test
