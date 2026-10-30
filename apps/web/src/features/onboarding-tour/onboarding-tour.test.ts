@@ -3,24 +3,29 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
   ONB_ENGINE_IDLE,
-  ONB_TOUR_STEPS,
-  ONB_TOUR_STEP_IDS,
-  ONB_TOUR_STORAGE_PREFIX,
   currentStep,
   isLastStep,
-  liveStorageKey,
   persistStatusFor,
-  queryTourAnchor,
-  readLiveTour,
   reduceTour,
-  resolveAnchorId,
+} from "./tour-engine.ts";
+import {
+  ONB_TOUR_STORAGE_PREFIX,
+  liveStorageKey,
+  readLiveTour,
   shouldOfferLiveContinue,
   shouldOfferLiveInvite,
   shouldResumeLiveTour,
-  tourHref,
   writeLiveTour,
   writesLiveTourStorage,
-} from "./index.ts";
+} from "./tour-persist.ts";
+import {
+  ONB_TOUR_STEPS,
+  ONB_TOUR_STEP_IDS,
+  queryTourAnchor,
+  resolveAnchorId,
+  tourHref,
+} from "./tour-steps.ts";
+import { boxFromElement, inflateBox, placeTourCard } from "./tour-layout.ts";
 
 const engineSrc = readFileSync(new URL("./tour-engine.ts", import.meta.url), "utf8");
 const persistSrc = readFileSync(new URL("./tour-persist.ts", import.meta.url), "utf8");
@@ -226,5 +231,78 @@ test("in_progress offers a continue prompt without auto-navigating", () => {
   assert.equal(persistStatusFor(offered, declined, { type: "dismiss-invite" }), "dismissed");
   assert.match(contextSrc, /offer-continue/);
   assert.equal(contextSrc.includes("run({ type: \"resume\", stepId: stored.stepId })"), false);
-  assert.match(hostSrc, /aria-modal="false"/);
+  assert.match(hostSrc, /chrome=\{continueMode \? "continue" : "invite"\}/);
+});
+
+test("card placement prefers a non-overlapping desktop slot and a compact mobile bottom", () => {
+  const hole = { top: 80, left: 80, width: 200, height: 80 };
+  const desktop = placeTourCard({
+    viewport: { width: 1280, height: 800 },
+    card: { width: 360, height: 240 },
+    hole,
+    desktop: true,
+    bottomReserve: 16,
+  });
+  const cardBox = { ...desktop, width: 360, height: 240 };
+  assert.equal(
+    cardBox.left < hole.left + hole.width &&
+      cardBox.left + cardBox.width > hole.left &&
+      cardBox.top < hole.top + hole.height &&
+      cardBox.top + cardBox.height > hole.top,
+    false,
+  );
+  const mobile = placeTourCard({
+    viewport: { width: 390, height: 844 },
+    card: { width: 358, height: 220 },
+    hole,
+    desktop: false,
+    bottomReserve: 72,
+  });
+  assert.ok(mobile.top > 500);
+  assert.equal(boxFromElement(null), null);
+  const ring = inflateBox(hole, 10);
+  assert.equal(ring.width, 220);
+});
+
+test("desktop placement keeps a 16px bottom margin even when the peek would overflow", () => {
+  const hole = { top: 40, left: 80, width: 280, height: 48 };
+  const viewport = { width: 1280, height: 520 };
+  const card = { width: 360, height: 420 };
+  const pos = placeTourCard({
+    viewport,
+    card,
+    hole,
+    desktop: true,
+    bottomReserve: 16,
+  });
+  assert.ok(pos.top + card.height <= viewport.height - 16);
+  assert.ok(pos.top >= 12);
+});
+
+test("visual chrome reuses Somi, exit, and a non-blocking invite", () => {
+  const chromeSrc = readFileSync(new URL("./TourChrome.tsx", import.meta.url), "utf8");
+  const en = readFileSync(new URL("../../i18n/locales/en/onboarding-tour.json", import.meta.url), "utf8");
+  const es = readFileSync(new URL("../../i18n/locales/es/onboarding-tour.json", import.meta.url), "utf8");
+  assert.match(chromeSrc, /<Somi /);
+  assert.match(chromeSrc, /size=\{compact \? "small" : "medium"\}/);
+  assert.match(chromeSrc, /onb-somi-peek/);
+  assert.match(chromeSrc, /onb-step-status/);
+  assert.match(chromeSrc, /onb-progress-bar/);
+  assert.match(chromeSrc, /data-onb-spotlight/);
+  const chromeCss = readFileSync(new URL("./tour-chrome.css", import.meta.url), "utf8");
+  assert.match(chromeCss, /right:\s*0;/);
+  assert.match(chromeCss, /padding-top:\s*2rem;/);
+  assert.match(hostSrc, /t\("exit"\)/);
+  assert.equal(hostSrc.includes("engineNote"), false);
+  assert.match(hostSrc, /dismissInvite/);
+  assert.match(es, /"start": "Empezar"/);
+  assert.match(es, /"later": "Ahora no"/);
+  assert.match(es, /"continueAction": "Continuar"/);
+  assert.match(es, /"exit": "Salir"/);
+  assert.match(en, /"start": "Start"/);
+  assert.equal(en.toLowerCase().includes("clinical measurement"), false);
+  assert.equal(es.includes("mediciones clínicas"), false);
+  assert.match(es, /¡Bienvenido a Soma!/);
+  assert.match(en, /Welcome to Soma!/);
+  assert.match(chromeSrc, /getBoundingClientRect/);
 });

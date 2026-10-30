@@ -1,55 +1,55 @@
 {
   "inviteTitle": "Un recorrido breve por Soma",
-  "inviteBody": "Somi puede mostrarte las pantallas principales. Puedes omitirlo y abrirlo más tarde desde Cuenta. Este recorrido no cambia tus datos.",
-  "start": "Empezar recorrido",
+  "inviteBody": "Somi puede mostrarte las pantallas principales. Puedes salir cuando quieras y abrirlo más tarde desde Cuenta.",
+  "start": "Empezar",
   "continueTitle": "¿Seguimos el recorrido de Soma?",
-  "continueBody": "Dejaste la guía a medias. Puedes continuar desde el paso guardado u omitirla y abrirla más tarde desde Cuenta. Esto no cambia tus datos.",
+  "continueBody": "Dejaste la guía a medias. Continúa desde el paso guardado o ábrela más tarde desde Cuenta.",
   "continueAction": "Continuar",
   "later": "Ahora no",
   "next": "Siguiente",
   "back": "Atrás",
   "skip": "Omitir recorrido",
-  "finish": "Terminar",
+  "exit": "Salir",
+  "finish": "Finalizar",
   "restart": "Repetir el recorrido de Soma",
   "restartHint": "Abre la guía de nueve pasos. No edita tu perfil ni las sustancias.",
   "stepStatus": "Paso {{current}} de {{total}}",
-  "engineNote": "Controles temporales del recorrido. El diseño visual llega en un paso posterior.",
   "steps": {
     "home": {
-      "title": "Esta es tu portada",
-      "body": "Inicio es el centro de tu expedición personal. Las cifras son educativas, no mediciones clínicas."
+      "title": "¡Bienvenido a Soma!",
+      "body": "¡Hola! Soy Somi y voy a acompañarte en esta aventura. Aquí podrás descubrir cómo funciona el organismo, seguir tus avances y encontrar motivación para continuar tu camino."
     },
     "nav": {
-      "title": "Moverse por Soma",
-      "body": "En pantalla grande usas el menú lateral; en el teléfono, la barra inferior. Más oculta Explorar, el atlas, los logros y Cuenta."
+      "title": "¡Vamos a explorar!",
+      "body": "Desde aquí puedes moverte entre las distintas secciones de Soma. Cada una te ofrece una forma diferente de aprender, descubrir y seguir avanzando."
     },
     "recovery": {
-      "title": "La recuperación es educativa",
-      "body": "Estas curvas ilustran patrones típicos. No son un índice de salud personal y no miden órganos."
+      "title": "Descubre tu evolución",
+      "body": "Explora cómo pueden evolucionar distintos procesos del organismo con el paso del tiempo. Las estimaciones educativas te ayudan a comprender mejor los cambios asociados al abandono de sustancias."
     },
     "explore": {
-      "title": "Explora el catálogo",
-      "body": "Aquí recorres sistemas, sustancias y procesos que Soma ya enseña. Nada de esto inicia un plan médico."
+      "title": "El conocimiento está a tu alcance",
+      "body": "Descubre información sobre sustancias, sistemas del organismo y procesos biológicos. Cuanto más comprendas lo que sucede en el cuerpo, más herramientas tendrás para entender tu recuperación."
     },
     "anatomy": {
-      "title": "El atlas es un mapa",
-      "body": "El explorador anatómico es un mapa ilustrado. No escanea tu cuerpo."
+      "title": "¡Explora tu organismo!",
+      "body": "Descubre órganos y sistemas, aprende cómo funcionan y comprende cómo las distintas sustancias pueden interactuar con ellos."
     },
     "missions": {
-      "title": "Las misiones enseñan",
-      "body": "Las misiones son retos educativos breves. Este recorrido no las responde por ti."
+      "title": "¡Acepta el desafío!",
+      "body": "Pon a prueba tus conocimientos con actividades y desafíos educativos. Cada misión es una oportunidad para aprender algo nuevo y seguir avanzando."
     },
     "journal": {
-      "title": "La bitácora es voluntaria",
-      "body": "El diario es opcional. No hace falta escribir cada día, y este recorrido no guardará una entrada."
+      "title": "Tu historia también importa",
+      "body": "Este es tu espacio para escribir cómo te sientes, registrar experiencias y reflexionar sobre tu camino. A veces, mirar atrás nos ayuda a descubrir cuánto hemos avanzado."
     },
     "achievements": {
-      "title": "Los logros marcan el aprendizaje",
-      "body": "Las medallas siguen el tiempo y el aprendizaje en Soma. No son un porcentaje de recuperación."
+      "title": "¡Cada paso cuenta!",
+      "body": "Desbloquea medallas mientras exploras, aprendes y alcanzas nuevos hitos. Porque los pequeños avances también merecen ser reconocidos."
     },
     "account": {
-      "title": "Puedes repetirlo más tarde",
-      "body": "Cuenta guarda tus datos. El seguimiento de sustancias sigue en el onboarding aparte. Puedes repetir este recorrido cuando quieras."
+      "title": "¡Tu aventura comienza!",
+      "body": "¡Ya conoces Soma! Ahora puedes explorar a tu ritmo. Y si alguna vez necesitas que vuelva a enseñarte el camino, podrás repetir este recorrido desde tu cuenta."
     }
   }
 }

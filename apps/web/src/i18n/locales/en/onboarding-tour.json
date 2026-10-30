@@ -1,55 +1,55 @@
 {
   "inviteTitle": "A short tour of Soma",
-  "inviteBody": "Somi can show you the main screens. You can skip it and open it later from Account. This tour does not change your data.",
-  "start": "Start tour",
+  "inviteBody": "Somi can show you the main screens. You can leave at any time and open it later from Account.",
+  "start": "Start",
   "continueTitle": "Continue the Soma tour?",
-  "continueBody": "You left the guide unfinished. You can continue from where you stopped, or skip it and open it later from Account. This does not change your data.",
+  "continueBody": "You left the guide unfinished. Continue from where you stopped, or open it later from Account.",
   "continueAction": "Continue",
   "later": "Not now",
   "next": "Next",
   "back": "Back",
   "skip": "Skip tour",
+  "exit": "Exit",
   "finish": "Finish",
   "restart": "Replay Soma tour",
   "restartHint": "Opens the nine-step guide. It does not edit your profile or substances.",
   "stepStatus": "Step {{current}} of {{total}}",
-  "engineNote": "Temporary tour controls. Visual design comes in a later step.",
   "steps": {
     "home": {
-      "title": "This is your home",
-      "body": "Inicio is the hub of your personal expedition. Figures here are educational, not clinical measurements."
+      "title": "Welcome to Soma!",
+      "body": "Hi! I'm Somi, and I'll be with you on this adventure. Here you can learn how the body works, follow your progress, and find motivation to keep going."
     },
     "nav": {
-      "title": "Move around Soma",
-      "body": "Use the side menu on a large screen, or the bar at the bottom on a phone. More hides Explore, the atlas, achievements, and Account."
+      "title": "Let's explore!",
+      "body": "From here you can move between Soma's sections. Each one is a different way to learn, discover, and keep moving forward."
     },
     "recovery": {
-      "title": "Recovery is educational",
-      "body": "These curves illustrate typical patterns. They are not a personal health score and they do not measure organs."
+      "title": "See how things can change",
+      "body": "Explore how different processes in the body can change over time. Educational estimates help you understand typical changes linked to leaving substances behind."
     },
     "explore": {
-      "title": "Explore the catalogue",
-      "body": "Here you can browse systems, substances, and processes Soma already teaches. Nothing here starts a medical plan."
+      "title": "Knowledge is within reach",
+      "body": "Find information on substances, body systems, and biological processes. The more you understand what happens in the body, the better equipped you are to make sense of recovery."
     },
     "anatomy": {
-      "title": "The atlas is a map",
-      "body": "The anatomical explorer is an illustrated map. It does not scan your body."
+      "title": "Explore the body!",
+      "body": "Discover organs and systems, learn how they work, and see how different substances can interact with them."
     },
     "missions": {
-      "title": "Missions teach",
-      "body": "Missions are short educational challenges. This tour will not answer them for you."
+      "title": "Take the challenge!",
+      "body": "Test what you know with educational activities and challenges. Each mission is a chance to learn something new and keep going."
     },
     "journal": {
-      "title": "The journal is optional",
-      "body": "The logbook is voluntary. You do not have to write every day, and this tour will not save an entry."
+      "title": "Your story matters too",
+      "body": "This is your space to write how you feel, note experiences, and reflect on your path. Looking back can show how far you have already come."
     },
     "achievements": {
-      "title": "Achievements mark learning",
-      "body": "Medals follow time and learning in Soma. They are not a recovery percentage."
+      "title": "Every step counts!",
+      "body": "Unlock medals as you explore, learn, and reach new milestones. Small steps deserve to be noticed too."
     },
     "account": {
-      "title": "You can replay this later",
-      "body": "Account holds your details. Substance tracking stays in the separate onboarding flow. Replay this tour whenever you want."
+      "title": "Your adventure starts here!",
+      "body": "You now know Soma. Explore at your own pace. If you ever want the tour again, you can replay it from Account."
     }
   }
 }
