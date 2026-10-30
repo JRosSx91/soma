@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { Somi } from "../somi/SomiView.js";
 import type { SomiState } from "../somi/somi-model.js";
@@ -11,7 +11,10 @@ import {
   tourCardWidth,
   type TourBox,
 } from "./tour-layout.js";
+import { useTourActiveLock } from "./useTourActiveLock.js";
 import "./tour-chrome.css";
+
+function noop(): void {}
 
 function isDesktopViewport(): boolean {
   return window.matchMedia(ONB_TOUR_LG_QUERY).matches;
@@ -47,19 +50,29 @@ export function TourSpotlight({ hole }: { hole: TourBox | null }) {
 export function TourTalkCard({
   somi,
   labelledBy,
+  describedBy,
   chrome,
   children,
   hole,
   compactBottom,
+  lock,
 }: {
   somi: SomiState;
   labelledBy: string;
+  describedBy?: string;
   chrome: string;
   children: ReactNode;
   hole: TourBox | null;
   compactBottom: boolean;
+  lock?: { active: boolean; stepId: string | null; onExit: () => void };
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  useTourActiveLock({
+    active: Boolean(lock?.active),
+    stepId: lock?.stepId ?? null,
+    cardRef: cardRef as RefObject<HTMLElement | null>,
+    onExit: lock?.onExit ?? noop,
+  });
   const [cardHeight, setCardHeight] = useState(220);
   const [viewport, setViewport] = useState(() => {
     if (typeof window === "undefined") return { width: 1280, height: 800 };
@@ -118,8 +131,10 @@ export function TourTalkCard({
       role="dialog"
       aria-modal={chrome === "engine"}
       aria-labelledby={labelledBy}
+      aria-describedby={describedBy}
+      tabIndex={-1}
       data-onb-compact={compact ? "true" : "false"}
-      className="onb-card rounded-2xl px-4 pb-4 pt-3"
+      className="onb-card rounded-2xl px-4 pb-4 pt-3 outline-none"
       style={{ top: pos.top, left: pos.left, width }}
     >
       <div className="onb-somi-peek">

@@ -3,9 +3,9 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-30 (**ONB-01B** composición visual aprobada; pendiente de cierre y commit). Prioridad inmediata de código: **ONB-01C**. Secuencia hasta la beta: **ONB-01 → UX-PRE-BETA → BETA-01**. Tras la apertura: **MKT-01**. MOB-01 pospuesto.
+Última actualización editorial: 2026-10-30 (**ONB-01** cerrado en desarrollo local). Prioridad inmediata: **UX-PRE-BETA**. Secuencia hasta la beta: **UX-PRE-BETA → BETA-01**. Tras la apertura: **MKT-01**. MOB-01 pospuesto.
 HEAD de `origin/develop` al actualizar: `2152424058bfa6b24f17fc9be1e87a3189a35d32` (CI PR #84). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82) y registro/privacidad (`65866c2`, PR #83).
-HEAD local de `develop` (sin push): `97ef60de382ebd41441632c27f89762f6b0980ec` — **siete** commits por delante de `origin/develop`: backups `78e3b1d`, legales `ed33f6b`, consentimiento `ba65a7c`, roadmap FBK-01 `2dada4a`, cierre R-JXP `48d7d87`, GAM-03 `19c76a1`, Somi `97ef60d`.
+HEAD local de `develop` (sin push): cierre **ONB-01C** (este commit) — **doce** commits por delante de `origin/develop` (backups `78e3b1d` … ONB-01B `0132676` + este cierre). **No** en `origin/develop`.
 `origin/main`: `7f78c3268e46795a0ad42e443eacd1b188a69b63` (pin `pg_dump` PG17, PR #86). Encima de REL-01 (`8155554`, PR #76) y backups cifrados R2 (`21e5897`, PR #85). SEO-01A, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, registro #83, CI #84, GAM-03, Somi y los commits legales locales **no** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación; `LEGAL_NOTICE_STATUS=draft`.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
@@ -14,7 +14,7 @@ Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso
 
 ## Objetivo y alcance
 
-Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `main` git (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas) y el atlas 2.0 consolidado está en `develop` (UX-GLO-01). La landing renovada está en `develop` (WEB-01, PR #82); **no** en `main` ni se da por desplegada. Somi está cerrado técnicamente en local (`79f8360`; CHR-01). El tutorial (**ONB-01**) sigue **abierto**: A motor (`aca59c6`), B presentación visual local pendiente de validación, C pendiente. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
+Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `main` git (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas) y el atlas 2.0 consolidado está en `develop` (UX-GLO-01). La landing renovada está en `develop` (WEB-01, PR #82); **no** en `main` ni se da por desplegada. Somi está cerrado técnicamente en local (`79f8360`; CHR-01). El tutorial (**ONB-01**) está **cerrado en desarrollo local** (A `aca59c6`, B `0132676`, C este commit); **no** publicado ni desplegado. Pendiente de comprobación LIVE autenticada antes de la beta. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
 
 No es un dispositivo médico. Las curvas son modelos ilustrativos (`curveProgress` / avance de curva), **no** un porcentaje de salud recuperada ni una medición clínica. No se miden neurotransmisores. Las estimaciones de recuperación **no** se presentan como mediciones fisiológicas individuales. Las fases educativas se eligen para comparar; no se calculan a partir de los días de abstinencia salvo que un hito futuro lo autorice con evidencia.
 
@@ -28,7 +28,7 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 ## Prioridad inmediata y apertura de beta
 
-**Prioridad inmediata:** **ONB-01C** (a11y / validación). CHR-01 cerrado técnicamente (`79f8360`). **ONB-01A** completado (`aca59c6`). **ONB-01B** implementado técnicamente en local, composición visual aprobada, **pendiente de cierre y commit**. ONB-01 **abierto**. **No** desplegado.
+**Prioridad inmediata:** **UX-PRE-BETA**. CHR-01 `79f8360`. **ONB-01A** `aca59c6`. **ONB-01B** `0132676`. **ONB-01C** cerrado técnicamente en este commit. ONB-01 **cerrado en desarrollo local**. Pendiente de comprobación LIVE autenticada antes de la beta. **No** desplegado. **No** publicado.
 
 **Después de CHR-01B:** **ONB-01** (tutorial interactivo con Somi). El diseño exacto del recorrido se acuerda **antes** de implementar. Reutiliza el onboarding de cuenta (AUTH-01); **no** lo duplica.
 
@@ -55,7 +55,7 @@ Hitos **antes** de autorizar la apertura (1–5 y GAM-03 cubiertos en git de `de
 | 5 | WEB-01 | Landing Soma 2.0. **Completado** en `develop` (`ff5a359`, PR #82). **No** `main`. **No** desplegado. **SEO-01B** sigue pendiente |
 | — | GAM-03 | Integración de economía. **Cerrado técnicamente** (local `19c76a1`). **No** `origin/develop`. **No** `main`. **No** desplegado |
 | 6 | CHR-01 | Somi. **Cerrado técnicamente** en local (`79f8360`). WebP estáticos; solo ONB-01. **No** `origin/develop`. **No** desplegado |
-| 7 | ONB-01 | Tutorial. **Abierto.** ONB-01A hecho (`aca59c6`). ONB-01B visual aprobado, pendiente de cierre y commit. ONB-01C pendiente. **No** desplegado |
+| 7 | ONB-01 | Tutorial. **Cerrado en desarrollo local** (A `aca59c6`, B `0132676`, C este commit). Pendiente LIVE autenticada. **No** desplegado. **No** publicado |
 | 8 | UX-PRE-BETA | Revisión integral del propietario. **Después de ONB-01.** Pendiente. Aprobación explícita |
 | 9 | BETA-01 preparación | Parcial. Infra/backups verificados; borradores legales **no** publicados; consentimiento y retirada en git local; validación jurídica **pendiente**; registro por invitación implementado **no** habilitado en producción |
 | 10 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación. **Pendiente** |
@@ -91,7 +91,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 
 | Superficie | Estado |
 | --- | --- |
-| Producto Soma 2.0 en `develop` / `main` | `main` = backups PG17 (`7f78c32`, PR #86) sobre REL-01 (`8155554`, PR #76) y R2 (`21e5897`, PR #85). `origin/develop` = `2152424` (CI #84). Local `develop` = `97ef60d` (ahead 7). **Deploy de producción no verificado aquí.** Registro por invitación; avisos en `draft` |
+| Producto Soma 2.0 en `develop` / `main` | `main` = backups PG17 (`7f78c32`, PR #86) sobre REL-01 (`8155554`, PR #76) y R2 (`21e5897`, PR #85). `origin/develop` = `2152424` (CI #84). Local `develop` = cierre ONB-01 (ahead 12). **Deploy de producción no verificado aquí.** Registro por invitación; avisos en `draft` |
 | UX-01 orientación corporal | Completado (PR #45). Orientación exacta en prod no reauditada el 2026-10-25 |
 | UX-02 mensajes diarios × 60 | Completado y validado (tests) |
 | UX-03 figura móvil | Completado y validado DEMO 320/375/430 |
@@ -119,7 +119,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | GAM-02 Misiones educativas | En `main` git (PR #74, REL-01). Seis misiones, API, LIVE/DEMO. **No** se da por desplegado |
 | GAM-03 integración | **Completado técnicamente** en `develop` local (`19c76a1`; mapa de eventos + aislamiento; unitarias/frontend 64, PG17 32/32). **No** `origin/develop`. **No** segunda economía. **No** `main`. **No** desplegado. Copy educativa vs participación: residual UX, no bloquea el cierre |
 | CHR-01 Somi | **Cerrado técnicamente** en local (`79f8360`). Seis WebP; PNG conservados; **no** en Cuenta. **No** `origin/develop`. **No** `main`. **No** desplegado |
-| ONB-01 tutorial | **Abierto.** ONB-01A hecho. ONB-01B visual aprobado, pendiente de cierre y commit. ONB-01C pendiente. Distinto de AUTH-01. **No** desplegado |
+| ONB-01 tutorial | **Cerrado en desarrollo local** (A `aca59c6`, B `0132676`, C este commit). Distinto de AUTH-01. Pendiente de comprobación LIVE autenticada antes de la beta. **No** desplegado. **No** publicado |
 | UX-PRE-BETA revisión | **Pendiente.** Después de ONB-01 y **antes** de abrir BETA-01. Revisión del propietario (pública / DEMO / LIVE). No reabre UX-GLO-01 |
 | WEB-02 identidad y filosofía | Pendiente. Puede empaquetarse con WEB-01; no es prerrequisito de apertura por sí solo |
 | UX-GLO-01 consolidación UX | Completado e integrado en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado. Distinto de UX-01 |
@@ -471,7 +471,7 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
 
 ## Soma Expeditions — Gamificación de la recuperación
 
-Línea de producto **parcialmente implementada** en `main` git (GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02). Atlas 2.0 (UX-GLO-01) está en `develop`. Mapa de expedición (GAME-07) **sigue pendiente**. Somi: primera fase técnica **local** (`97ef60d`; CHR-01 **abierto**). Tutorial completo (ONB-01) **pendiente**. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**.
+Línea de producto **parcialmente implementada** en `main` git (GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02). Atlas 2.0 (UX-GLO-01) está en `develop`. Mapa de expedición (GAME-07) **sigue pendiente**. Somi: primera fase técnica **local** (`97ef60d`; CHR-01 **abierto**). Tutorial (ONB-01) **cerrado en desarrollo local**; **no** publicado. Pendiente LIVE autenticada y despliegue. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**.
 
 Principios (no negociables hasta que un hito los reabra por escrito):
 
@@ -795,7 +795,7 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
 
 - **Objetivo:** Presentar Soma 2.0 a usuarios nuevos, explicar las funcionalidades **principales que existan de verdad**, y usar a Somi como guía visual. Distinto de AUTH-01 (registro, perfil, sustancias).
 - **Prioridad:** P1 (después de **CHR-01B**; antes de UX-PRE-BETA y de abrir BETA-01)
-- **Estado:** **Abierto.** AUTH-01 se reutiliza y **no** se modifica. **ONB-01A** completado (`aca59c6`). **ONB-01B** implementado técnicamente en local (tarjeta Soma, Somi asomado, spotlight); composición visual aprobada, **pendiente de cierre y commit**. **ONB-01C** pendiente. **No** cerrado. **No** desplegado.
+- **Estado:** **Cerrado en desarrollo local.** AUTH-01 se reutiliza y **no** se modifica. **ONB-01A** `aca59c6`. **ONB-01B** `0132676`. **ONB-01C** cerrado técnicamente en este commit (foco, Escape, `inert`/`aria-hidden`, bloqueo de fondo, restauración). Pendiente de comprobación LIVE autenticada antes de la beta. **No** desplegado. **No** publicado.
 - **Dependencias:** **CHR-01B** (componente `Somi` + seis WebP estáticos). REC-VIS-01, Explorador, ACH-01, JRN-01, GAM-01 y GAM-02 ya en git (`develop`/`main` según ID) para explicar solo lo real. Persistencia de «tutorial hecho».
 - **Decisiones confirmadas:**
   - Somi como guía visual (ilustraciones estáticas de CHR-01B).
@@ -804,13 +804,13 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
   - Se puede **retomar** después (p. ej. desde Configuración / Cuenta).
   - ES/EN; responsive; accesible.
   - El **diseño exacto del recorrido y sus pantallas se acuerda antes de implementar**.
-- **Pendiente:** cierre y commit de ONB-01B. ONB-01C (foco, teclado completo, scroll fino, viewports 320–1440, no chocar con hojas).
+- **Pendiente:** comprobación LIVE autenticada antes de la beta; despliegue. El tutorial **no** está publicado.
 ##### ONB-01A — Motor
 - **Estado:** **Completado** (`aca59c6`). Nueve pasos; avance/atrás/omitir; persistencia LIVE por `userId`; DEMO solo manual; sin Prisma/API.
 ##### ONB-01B — Presentación y Somi
-- **Estado:** **Implementado técnicamente**, composición visual aprobada, **pendiente de cierre y commit**. Tarjeta Soma, Somi asomado arriba-izquierda, spotlight `getBoundingClientRect`, invitaciones no bloqueantes con el mismo chrome. Sin commit de este paso.
+- **Estado:** **Completado** (`0132676`). Tarjeta Soma, Somi asomado, spotlight, invitaciones no bloqueantes.
 ##### ONB-01C — Accesibilidad, responsive y validación
-- **Estado:** Pendiente.
+- **Estado:** **Completado técnicamente** (este commit). Foco en el diálogo antes del lock; Tab/Escape; snapshot de `inert`/`aria-hidden`; restauración del shell antes de devolver el foco; invitaciones no modales.
 
 - **Criterio:** Un usuario nuevo entiende las superficies reales. Nada del tutorial afirma que una función planificada ya está viva. Omitir y repetir funcionan.
 
@@ -1083,7 +1083,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 - **Estado:** Parcialmente implementado (deuda, no P0)
 - **Prioridad:** P3
-- **Evidencia (preexistente, no introducida por UX-04 ni por UX-GLO-01):** en `@soma/web`, 46 errores y 11 avisos al comparar con la base de UX-GLO-01. El único error nuevo de la rama (`AnatomyExplorerPage` `set-state-in-effect`) se corrigió antes del squash PR #79. API sin ESLint.
+- **Evidencia (preexistente, no introducida por UX-04, UX-GLO-01 ni ONB-01):** en `@soma/web`, 47 errores y 11 avisos (recuento 2026-10-30). Los archivos tocados por ONB-01C quedan limpios. El único error nuevo de la rama UX-GLO-01 (`AnatomyExplorerPage` `set-state-in-effect`) se corrigió antes del squash PR #79. API sin ESLint.
 - **Criterio:** No se exigen limpiezas hasta un hito de calidad autorizado. Los hitos nuevos no deben añadir errores en archivos tocados.
 
 ---
@@ -1141,7 +1141,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 12. **JRN-01 residual:** retención/exportación/borrado (detalle GDPR) y nota pública de privacidad.
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (el piloto educativo está en `develop`).
 14. **CHR-01:** técnicamente completado en local (WebP, fuera de Cuenta); **pendiente de revisión final y commit**. Animación avanzada pospuesta. Somi solo en ONB-01.
-15. **ONB-01:** abierto. A completado; B visual local pendiente de validación; C pendiente.
+15. **ONB-01:** cerrado en desarrollo local (A `aca59c6`, B `0132676`, C este commit). Pendiente LIVE autenticada y despliegue. **No** publicado.
 16. **UX-PRE-BETA:** lista de incidencias del propietario y aprobación explícita.
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
@@ -1178,8 +1178,8 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 4. **ACH-REV residual:** recaída ya no revoca (ACH-01). Queda corrección de fecha errónea. Bloquea GAME-08.
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**.
 6. **En `main` (git; deploy no verificado aquí):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**.
-7. **En `develop` y no en `main`:** SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82), registro (`65866c2`, PR #83), CI (`2152424`, PR #84). Local sin push: backups `78e3b1d`, legales `ed33f6b`, consentimiento `ba65a7c`, GAM-03 `19c76a1`, Somi `97ef60d`. **En `main` encima de REL-01:** backups R2 (`21e5897`) y PG17 (`7f78c32`).
-8. **Secuencia de producto (ROADMAP-REORG-01):** **CHR-01A/B → ONB-01 → UX-PRE-BETA → BETA-01 → MKT-01**. GAM-03 cerrado técnicamente (local). **BETA-01D.3** jurídica puede **prepararse en paralelo**; no cierra ni abre la beta. **SEO-01B** pendiente; no reabre WEB-01. Residual: WEB-02, **FBK-02**, GAME-07/08, copy GAM-03, Q-CI residual. **MOB-01** pospuesto. **No** abrir registro público sin la autorización de BETA-01. **No** cambiar `LEGAL_NOTICE_STATUS` aquí.
+7. **En `develop` y no en `main`:** SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82), registro (`65866c2`, PR #83), CI (`2152424`, PR #84). Local sin push: backups `78e3b1d` … ONB-01 (A/B/C; ahead 12). **En `main` encima de REL-01:** backups R2 (`21e5897`) y PG17 (`7f78c32`).
+8. **Secuencia de producto (ROADMAP-REORG-01):** **CHR-01A/B → ONB-01 → UX-PRE-BETA → BETA-01 → MKT-01**. GAM-03, CHR-01 y ONB-01 cerrados técnicamente en local. Siguiente: **UX-PRE-BETA**. **BETA-01D.3** jurídica puede **prepararse en paralelo**; no cierra ni abre la beta. **SEO-01B** pendiente; no reabre WEB-01. Residual: WEB-02, **FBK-02**, GAME-07/08, copy GAM-03, Q-CI residual. **MOB-01** pospuesto. **No** abrir registro público sin la autorización de BETA-01. **No** cambiar `LEGAL_NOTICE_STATUS` aquí.
 9. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 10. **UX-08 / UX-09:** editorial; no inventar.
 11. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
@@ -1279,7 +1279,7 @@ Soma Expeditions (dirección visual OK; parcialmente en main git; atlas 2.0 en d
             ≠ BETA-01 autorización de apertura  [carril paralelo; no cierra el hito]
   Fase F  GAM-03 cerrado técnicamente (local `19c76a1`; mapa de eventos; 64 + 32 tests; sin 2.ª economía)
           → CHR-01 cerrado técnicamente (`79f8360`)
-          → ONB-01A completado (`aca59c6`); ONB-01B visual aprobado, pendiente de cierre y commit; ONB-01C pendiente; ONB-01 abierto
+          → ONB-01 cerrado en desarrollo local (A `aca59c6`, B `0132676`, C este commit; pendiente LIVE autenticada; no publicado)
           → UX-PRE-BETA (aprobación del propietario)
           → BETA-01 (D.3, avisos, deploy, autorización)
           → MKT-01 (después de abrir)
@@ -1372,4 +1372,6 @@ VIS-01 (no reabre UX-03)
 | 2026-10-30 | CHR-01A/B técnico local: seis PNG estáticos; CSS de movimiento retirado; Cuenta `idle`. **No** cierre de CHR-01 (aprobación visual pendiente). `somi-idle.png` copiado del maestro. Sin commit de esta implementación. |
 | 2026-10-30 | CHR-01 ajuste final: propietario aprueba ilustraciones y decide **Somi solo en ONB-01**. Preview de Cuenta retirada. Seis WebP ≤512 px con alfa; PNG sin alterar. **Técnicamente completado; pendiente de revisión final y commit.** Sin push. **No** desplegado. |
 | 2026-10-30 | CHR-01 commit local `79f8360`. ONB-01A motor contextual commit `aca59c6`. ONB-01 **abierto**. **No** desplegado. |
-| 2026-10-30 | ONB-01B presentación visual local: tarjeta Soma, Somi asomado, spotlight, invitaciones. Composición visual aprobada; **pendiente de cierre y commit.** ONB-01C pendiente. ONB-01 **abierto**. Sin commit. **No** desplegado. |
+| 2026-10-30 | ONB-01B commit local `0132676`. Composición visual aprobada. |
+| 2026-10-30 | ONB-01C a11y/robustez local: `inert`, guardia de clics, foco, Escape. ONB-01 **abierto**, pendiente de revisión final y commit. Sin commit. **No** desplegado. |
+| 2026-10-30 | ONB-01C commit local (este cierre): lock ordenado (foco → `inert`/`aria-hidden`; unlock → foco), tests 870, a11y puntual en DEMO. ONB-01 **cerrado en desarrollo local**. Pendiente LIVE autenticada y despliegue. **No** publicado. Sin push. |

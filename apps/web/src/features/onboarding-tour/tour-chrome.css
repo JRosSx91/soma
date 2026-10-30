@@ -1,7 +1,12 @@
-.onb-scrim {
+.onb-guard {
   position: fixed;
   inset: 0;
-  z-index: 55;
+  z-index: 70;
+}
+
+.onb-scrim {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
 }
 
@@ -15,7 +20,7 @@
 
 .onb-card {
   position: fixed;
-  z-index: 60;
+  z-index: 71;
   max-width: calc(100vw - 2rem);
   overflow: visible;
   border: 1px solid rgb(var(--soma-line) / 0.85);
@@ -83,6 +88,21 @@
     left: 1rem !important;
     right: 1rem !important;
     width: auto !important;
-    bottom: 5.75rem;
+    bottom: max(5.75rem, calc(4.5rem + env(safe-area-inset-bottom, 0px)));
+  }
+}
+
+@media (max-width: 320px) {
+  .onb-card {
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onb-card,
+  .onb-hole,
+  .onb-somi-peek {
+    transition: none;
   }
 }

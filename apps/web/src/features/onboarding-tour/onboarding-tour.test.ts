@@ -26,6 +26,13 @@ import {
   tourHref,
 } from "./tour-steps.ts";
 import { boxFromElement, inflateBox, placeTourCard } from "./tour-layout.ts";
+import {
+  captureTourLockSnapshot,
+  lockTourBackground,
+  tourScrollIntoViewOptions,
+  unlockTourBackground,
+  wrapFocusIndex,
+} from "./tour-a11y.ts";
 
 const engineSrc = readFileSync(new URL("./tour-engine.ts", import.meta.url), "utf8");
 const persistSrc = readFileSync(new URL("./tour-persist.ts", import.meta.url), "utf8");
@@ -305,4 +312,132 @@ test("visual chrome reuses Somi, exit, and a non-blocking invite", () => {
   assert.match(es, /¡Bienvenido a Soma!/);
   assert.match(en, /Welcome to Soma!/);
   assert.match(chromeSrc, /getBoundingClientRect/);
+});
+
+test("active tour blocks the app while invites stay non-modal", () => {
+  const chromeSrc = readFileSync(new URL("./TourChrome.tsx", import.meta.url), "utf8");
+  const lockSrc = readFileSync(new URL("./useTourActiveLock.ts", import.meta.url), "utf8");
+  const inviteSrc = readFileSync(new URL("./useInviteEscape.ts", import.meta.url), "utf8");
+  const a11ySrc = readFileSync(new URL("./tour-a11y.ts", import.meta.url), "utf8");
+  const shellSrc = readFileSync(
+    new URL("../recovery-dashboard/components/PreviewShell.tsx", import.meta.url),
+    "utf8",
+  );
+  const chromeCss = readFileSync(new URL("./tour-chrome.css", import.meta.url), "utf8");
+  assert.match(hostSrc, /data-onb-guard/);
+  assert.match(hostSrc, /swallowBackground/);
+  assert.match(hostSrc, /onPointerDown=\{swallowBackground\}/);
+  assert.match(shellSrc, /data-onb-app-root/);
+  assert.equal(shellSrc.includes("inert={lockApp"), false);
+  assert.equal(shellSrc.includes("aria-hidden={lockApp"), false);
+  assert.match(shellSrc, /<\/div>\s*<OnboardingTourHost \/>/);
+  assert.match(lockSrc, /TOUR_APP_ROOT/);
+  assert.match(chromeSrc, /aria-modal=\{chrome === "engine"\}/);
+  assert.match(hostSrc, /useInviteEscape\(inviting/);
+  assert.equal(hostSrc.includes("lock={{ active: true"), true);
+  assert.match(lockSrc, /keydown/);
+  assert.match(lockSrc, /focusin/);
+  assert.match(lockSrc, /Escape/);
+  assert.match(lockSrc, /trapTourTab/);
+  assert.match(lockSrc, /restoreTourOpener/);
+  assert.match(lockSrc, /removeEventListener/);
+  assert.match(lockSrc, /focusTourCard\(card\);[\s\S]*lockTourBackground\(root\)/);
+  assert.match(lockSrc, /unlockTourBackground\(root, snapshot\);[\s\S]*restoreTourOpener\(openerRef\.current\)/);
+  assert.match(inviteSrc, /removeEventListener/);
+  assert.match(a11ySrc, /restoreTourOpener/);
+  assert.match(a11ySrc, /TOUR_MAIN_FALLBACK_ID/);
+  assert.match(chromeSrc, /aria-describedby=\{describedBy\}/);
+  assert.match(hostSrc, /describedBy="onb-step-body"/);
+  assert.match(hostSrc, /describedBy="onb-invite-body"/);
+  assert.match(chromeCss, /prefers-reduced-motion/);
+  assert.equal(tourScrollIntoViewOptions().behavior, "auto");
+  assert.equal(wrapFocusIndex(3, 2, false), 0);
+  assert.equal(wrapFocusIndex(3, 0, true), 2);
+  assert.equal(wrapFocusIndex(1, 0, false), 0);
+  const started = reduceTour(ONB_ENGINE_IDLE, { type: "start" });
+  const skipped = reduceTour(started, { type: "skip" });
+  assert.equal(skipped.phase, "idle");
+  assert.equal(persistStatusFor(started, skipped, { type: "skip" }), "dismissed");
+});
+
+test("narrow viewports keep the compact card above the reserved dock", () => {
+  for (const width of [320, 375, 390, 768]) {
+    const card = { width: Math.min(360, width - 16), height: 240 };
+    const pos = placeTourCard({
+      viewport: { width, height: 640 },
+      card,
+      hole: { top: 40, left: 16, width: 200, height: 40 },
+      desktop: false,
+      bottomReserve: 72,
+    });
+    assert.ok(pos.top + card.height <= 640 - 72);
+    assert.ok(pos.left >= 0);
+  }
+  const wide = placeTourCard({
+    viewport: { width: 1440, height: 900 },
+    card: { width: 360, height: 260 },
+    hole: { top: 80, left: 80, width: 180, height: 48 },
+    desktop: true,
+    bottomReserve: 16,
+  });
+  assert.ok(wide.top + 260 <= 900 - 16);
+});
+
+test("background lock restores prior inert and aria-hidden values", () => {
+  function fakeRoot(init: { inert?: boolean; ariaHidden?: string }) {
+    const attrs = new Map<string, string>();
+    if (init.inert) attrs.set("inert", "");
+    if (init.ariaHidden != null) attrs.set("aria-hidden", init.ariaHidden);
+    const el = {
+      get inert() {
+        return attrs.has("inert");
+      },
+      set inert(value: boolean) {
+        if (value) attrs.set("inert", "");
+        else attrs.delete("inert");
+      },
+      hasAttribute(name: string) {
+        return attrs.has(name);
+      },
+      getAttribute(name: string) {
+        return attrs.get(name) ?? null;
+      },
+      setAttribute(name: string, value: string) {
+        attrs.set(name, value);
+      },
+      removeAttribute(name: string) {
+        attrs.delete(name);
+      },
+    };
+    return el;
+  }
+  const fresh = fakeRoot({});
+  const snap = captureTourLockSnapshot(fresh);
+  lockTourBackground(fresh);
+  assert.equal(fresh.inert, true);
+  assert.equal(fresh.getAttribute("aria-hidden"), "true");
+  unlockTourBackground(fresh, snap);
+  assert.equal(fresh.hasAttribute("inert"), false);
+  assert.equal(fresh.hasAttribute("aria-hidden"), false);
+
+  const preset = fakeRoot({ ariaHidden: "false" });
+  const presetSnap = captureTourLockSnapshot(preset);
+  lockTourBackground(preset);
+  unlockTourBackground(preset, presetSnap);
+  assert.equal(preset.getAttribute("aria-hidden"), "false");
+  assert.equal(preset.hasAttribute("inert"), false);
+
+  const alreadyInert = fakeRoot({ inert: true, ariaHidden: "true" });
+  const alreadySnap = captureTourLockSnapshot(alreadyInert);
+  lockTourBackground(alreadyInert);
+  unlockTourBackground(alreadyInert, alreadySnap);
+  assert.equal(alreadyInert.inert, true);
+  assert.equal(alreadyInert.getAttribute("aria-hidden"), "true");
+
+  lockTourBackground(fresh);
+  lockTourBackground(fresh);
+  unlockTourBackground(fresh, snap);
+  unlockTourBackground(fresh, snap);
+  assert.equal(fresh.hasAttribute("inert"), false);
+  assert.equal(fresh.hasAttribute("aria-hidden"), false);
 });

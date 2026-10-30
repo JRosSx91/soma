@@ -72,31 +72,33 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
       }`}
       style={SHELL_SURFACE}
     >
-      <SkipToContent />
-      <PreviewSidebar />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto lg:overflow-visible">
-        <PreviewMobileHeader />
-        <main
-          id={MAIN_CONTENT_ID}
-          tabIndex={-1}
-          className={`relative px-4 pb-8 pt-2 lg:pb-2 lg:pt-3 motion-reduce:transition-none lg:transition-[padding] lg:duration-200 lg:ease-out ${
-            collapsed
-              ? SHELL_CONTENT_COLLAPSED_PAD_CLASS
-              : SHELL_CONTENT_EXPANDED_PAD_CLASS
-          }`}
-        >
-          <div
-            className={`mx-auto flex w-full min-w-0 flex-col gap-6 lg:gap-2 ${
-              collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
+      <div data-onb-app-root="" className="flex min-h-0 flex-1 flex-col lg:block">
+        <SkipToContent />
+        <PreviewSidebar />
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto lg:overflow-visible">
+          <PreviewMobileHeader />
+          <main
+            id={MAIN_CONTENT_ID}
+            tabIndex={-1}
+            className={`relative px-4 pb-8 pt-2 lg:pb-2 lg:pt-3 motion-reduce:transition-none lg:transition-[padding] lg:duration-200 lg:ease-out ${
+              collapsed
+                ? SHELL_CONTENT_COLLAPSED_PAD_CLASS
+                : SHELL_CONTENT_EXPANDED_PAD_CLASS
             }`}
           >
-            <Outlet />
-          </div>
-        </main>
+            <div
+              className={`mx-auto flex w-full min-w-0 flex-col gap-6 lg:gap-2 ${
+                collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
+              }`}
+            >
+              <Outlet />
+            </div>
+          </main>
+        </div>
+        <PreviewMobileNav />
+        {base === "/app" ? <AchievementCelebrationHost /> : null}
       </div>
-      <PreviewMobileNav />
       <OnboardingTourHost />
-      {base === "/app" ? <AchievementCelebrationHost /> : null}
     </div>
   );
 }

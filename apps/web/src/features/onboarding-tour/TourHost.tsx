@@ -10,23 +10,30 @@ import {
 } from "./TourChrome.js";
 import { tourGhostBtn, tourPrimaryBtn } from "./tour-buttons.js";
 import { useLiveAnchorBox } from "./useLiveAnchorBox.js";
+import { useInviteEscape } from "./useInviteEscape.js";
+
+function swallowBackground(event: { preventDefault: () => void; stopPropagation: () => void }) {
+  event.preventDefault();
+  event.stopPropagation();
+}
 
 export function OnboardingTourHost() {
   const { t } = useTranslation("onboarding-tour");
   const tour = useOnboardingTour();
   const { pathname } = useLocation();
-  const anchorEl =
-    tour.phase === "active" && tour.activeAnchor && pathname
-      ? queryTourAnchor(tour.activeAnchor)
-      : null;
+  const inviting = tour.phase === "invite" || tour.phase === "continue";
+  const active = tour.phase === "active";
+  const anchorEl = active && tour.activeAnchor && pathname ? queryTourAnchor(tour.activeAnchor) : null;
   const hole = useLiveAnchorBox(anchorEl);
+  useInviteEscape(inviting, tour.dismissInvite);
 
-  if (tour.phase === "invite" || tour.phase === "continue") {
+  if (inviting) {
     const continueMode = tour.phase === "continue";
     return (
       <TourTalkCard
         somi="waving"
         labelledBy="onb-invite-title"
+        describedBy="onb-invite-body"
         chrome={continueMode ? "continue" : "invite"}
         hole={null}
         compactBottom
@@ -34,7 +41,7 @@ export function OnboardingTourHost() {
         <h2 id="onb-invite-title" className="text-base font-semibold text-soma-ink">
           {t(continueMode ? "continueTitle" : "inviteTitle")}
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
+        <p id="onb-invite-body" className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
           {t(continueMode ? "continueBody" : "inviteBody")}
         </p>
         <TourActions
@@ -47,24 +54,38 @@ export function OnboardingTourHost() {
     );
   }
 
-  if (tour.phase !== "active" || !tour.step) return null;
+  if (!active || !tour.step) return null;
 
   return (
     <>
-      <TourSpotlight hole={tour.missingAnchor ? null : hole} />
+      <div
+        className="onb-guard"
+        data-onb-guard="true"
+        aria-hidden="true"
+        onPointerDown={swallowBackground}
+        onMouseDown={swallowBackground}
+        onClick={swallowBackground}
+        onTouchStart={swallowBackground}
+      >
+        <TourSpotlight hole={tour.missingAnchor ? null : hole} />
+      </div>
       <TourTalkCard
         somi={tour.step.somi}
         labelledBy="onb-step-title"
+        describedBy="onb-step-body"
         chrome="engine"
         hole={tour.missingAnchor ? null : hole}
         compactBottom={false}
+        lock={{ active: true, stepId: tour.step.id, onExit: tour.skip }}
       >
         <div data-onb-step={tour.step.id} data-onb-missing-anchor={tour.missingAnchor ? "true" : "false"}>
           <TourProgress current={tour.stepIndex + 1} total={tour.stepCount} />
           <h2 id="onb-step-title" className="text-base font-semibold text-soma-ink">
             {t(tour.step.titleKey)}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">{t(tour.step.bodyKey)}</p>
+          <p id="onb-step-body" className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
+            {t(tour.step.bodyKey)}
+          </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {tour.stepIndex > 0 ? (
               <button type="button" className={tourGhostBtn} onClick={tour.back}>

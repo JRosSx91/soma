@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { tourScrollIntoViewOptions } from "./tour-a11y.js";
 import { boxFromElement, type TourBox } from "./tour-layout.js";
 
 function attachBoxListeners(el: Element, update: () => void): () => void {
@@ -31,7 +32,7 @@ export function useLiveAnchorBox(el: Element | null): TourBox | null {
 
   useLayoutEffect(() => {
     if (!el) return;
-    el.scrollIntoView({ block: "nearest", inline: "nearest" });
+    el.scrollIntoView(tourScrollIntoViewOptions());
     function update() {
       setVersion((current) => current + 1);
     }
