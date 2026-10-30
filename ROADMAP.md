@@ -3,9 +3,10 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-29 (ROADMAP-SYNC-01). Prioridad inmediata: **CLEAN-01**. Objetivo: beta pública de Soma 2.0. Secuencia post-beta: GAM-03 → CHR-01 → ONB-01 → MKT-01. MOB-01 pospuesto.
-HEAD de `origin/develop` al actualizar: `db6385bb41fc7c4b81117b1d158d41b4dbca64cd` (squash PR #79, UX-GLO-01). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77) y R-JXP (`a26585e`, PR #78).
-`origin/main`: `8155554ccb4f0d7799aebc1af6d342fb7ce39334` (squash PR #76, REL-01). Expeditions, Explorador, JRN-01, GAM-01 y GAM-02 **sí** están en `main`. SEO-01A, FBK-01, R-JXP y UX-GLO-01 están en `develop` **y no** en ese squash de `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación.
+Última actualización editorial: 2026-10-30 (FBK-01 cierre / BETA-01D). Prioridad inmediata: **BETA-01D.3** (validación jurídica). Objetivo: beta pública de Soma 2.0. Secuencia post-beta: GAM-03 → CHR-01 → ONB-01 → MKT-01. MOB-01 pospuesto.
+HEAD de `origin/develop` al actualizar: `2152424058bfa6b24f17fc9be1e87a3189a35d32` (CI PR #84). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82) y registro/privacidad (`65866c2`, PR #83).
+HEAD local de `develop` (sin push): `ba65a7ceceeb4bb41e6f38fc3a71e4122035f85a` — backups cifrados `78e3b1d`, borradores legales `ed33f6b`, consentimiento/retirada `ba65a7c`.
+`origin/main`: `7f78c3268e46795a0ad42e443eacd1b188a69b63` (pin `pg_dump` PG17, PR #86). Encima de REL-01 (`8155554`, PR #76) y backups cifrados R2 (`21e5897`, PR #85). SEO-01A, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, registro #83, CI #84 y los commits legales locales **no** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación; `LEGAL_NOTICE_STATUS=draft`.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -13,7 +14,7 @@ Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso
 
 ## Objetivo y alcance
 
-Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `main` git (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas) y el atlas 2.0 consolidado está en `develop` (UX-GLO-01). Somi, tutorial completo y landing renovada **siguen pendientes**. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
+Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. **Soma Expeditions** está **parcialmente implementada** en `main` git (shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, misiones educativas) y el atlas 2.0 consolidado está en `develop` (UX-GLO-01). La landing renovada está en `develop` (WEB-01, PR #82); **no** en `main` ni se da por desplegada. Somi y el tutorial completo **siguen pendientes**. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. Integrado en `develop` **no** equivale a desplegado en producción.
 
 No es un dispositivo médico. Las curvas son modelos ilustrativos (`curveProgress` / avance de curva), **no** un porcentaje de salud recuperada ni una medición clínica. No se miden neurotransmisores. Las estimaciones de recuperación **no** se presentan como mediciones fisiológicas individuales. Las fases educativas se eligen para comparar; no se calculan a partir de los días de abstinencia salvo que un hito futuro lo autorice con evidencia.
 
@@ -27,21 +28,21 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 ## Prioridad inmediata y apertura de beta
 
-**Prioridad inmediata:** **CLEAN-01** (legado Soma 1.0). FBK-01, R-JXP y UX-GLO-01 están **integrados en `develop`**. No están en `main` ni se dan por desplegados.
+**Prioridad inmediata:** **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias). FBK-01, R-JXP, UX-GLO-01, CLEAN-01 y WEB-01 están **integrados en `develop`**. No están en `main` ni se dan por desplegados. **BETA-01 no está cerrado.**
 
-**Objetivo principal de producto:** abrir una **beta pública de Soma 2.0** cuando la aplicación alcance un nivel adecuado de estabilidad, seguridad, coherencia visual y usabilidad. No hay fecha fijada. El merge de REL-01 a `main` **no** abre registros.
+**Objetivo principal de producto:** abrir una **beta pública de Soma 2.0** cuando la aplicación alcance un nivel adecuado de estabilidad, seguridad, coherencia visual y usabilidad. No hay fecha fijada. El merge de REL-01 a `main` **no** abre registros. `LEGAL_NOTICE_STATUS` permanece en `draft`.
 
-Hitos **antes** de autorizar la apertura (los tres primeros están cubiertos en git de `develop`; no se implementan en esta actualización documental):
+Hitos **antes** de autorizar la apertura (los cinco primeros están cubiertos en git de `develop`; no se implementan en esta actualización documental):
 
 | Orden | ID | Papel respecto a la beta |
 | --- | --- | --- |
-| 1 | FBK-01 | Centro de feedback privado. **Integrado** en `develop` (`f1b447f`, PR #77). **No** `main`. **No** desplegado |
+| 1 | FBK-01 | Centro de feedback privado. **Cerrado** frente a sus criterios de aceptación. En `develop` (`f1b447f`, PR #77). **No** `main`. **No** desplegado |
 | 2 | R-JXP | Carrera de `UserProgression.upsert`. **Corregido e integrado** en `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado |
 | 3 | UX-GLO-01 | Consolidación funcional, visual y responsive. **Integrado** en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado |
-| 4 | CLEAN-01 | Retirar rutas y componentes heredados de Soma 1.0 que sigan accesibles sin necesidad. **Siguiente** |
-| 5 | WEB-01 | Nueva landing de Soma 2.0 (funciones reales, registro, SEO, responsive). Coordinar **SEO-01B** |
-| 6 | BETA-01 preparación | Registro controlado, RGPD, seguridad, abuso, copias, recuperación de acceso, onboarding mínimo |
-| 7 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación |
+| 4 | CLEAN-01 | Retirar rutas y componentes heredados de Soma 1.0. **Hecho** en `develop` (`ca3b456`). **No** `main`. **No** desplegado |
+| 5 | WEB-01 | Nueva landing de Soma 2.0. **Hecho** en `develop` (`ff5a359`, PR #82). **No** `main`. **No** desplegado. **SEO-01B** sigue pendiente |
+| 6 | BETA-01 preparación | Parcial. Infra/backups verificados; borradores legales **no** publicados; consentimiento y retirada en git local; validación jurídica **pendiente**; registro por invitación implementado **no** habilitado en producción |
+| 7 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación. **Pendiente** |
 
 **GAM-03**, **CHR-01**, **ONB-01** (tutorial completo) y **MKT-01** se conservan **después** de la apertura, en ese orden. **FBK-02**, **GAME-07/08** y **MOB-01** también son posteriores. **MKT-01 no bloquea BETA-01** y **no** se inicia antes de ONB-01. **MOB-01** (Android / Google Play) no tiene fecha, no se implementa ahora y no es requisito de la beta.
 
@@ -71,7 +72,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 
 | Superficie | Estado |
 | --- | --- |
-| Producto Soma 2.0 en `develop` / `main` | `main` = REL-01 (`8155554`, PR #76). `develop` = `db6385b` (PR #79) con SEO-01A, FBK-01, R-JXP y UX-GLO-01 **además** del árbol REL-01. **Deploy de producción no verificado aquí.** Registro por invitación |
+| Producto Soma 2.0 en `develop` / `main` | `main` = backups PG17 (`7f78c32`, PR #86) sobre REL-01 (`8155554`, PR #76) y R2 (`21e5897`, PR #85). `origin/develop` = `2152424` (CI #84) con SEO-01A, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01 y registro #83. Local `develop` = `ba65a7c` (legales + consentimiento). **Deploy de producción no verificado aquí.** Registro por invitación; avisos en `draft` |
 | UX-01 orientación corporal | Completado (PR #45). Orientación exacta en prod no reauditada el 2026-10-25 |
 | UX-02 mensajes diarios × 60 | Completado y validado (tests) |
 | UX-03 figura móvil | Completado y validado DEMO 320/375/430 |
@@ -100,13 +101,13 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | GAM-03 / CHR-01 / ONB-01 | **Pendientes.** Posteriores a la apertura de beta. No anunciables como disponibles |
 | WEB-02 identidad y filosofía | Pendiente. Puede empaquetarse con WEB-01; no es prerrequisito de apertura por sí solo |
 | UX-GLO-01 consolidación UX | Completado e integrado en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado. Distinto de UX-01 |
-| CLEAN-01 legado Soma 1.0 | Pendiente. **Siguiente** antes de abrir la beta |
-| WEB-01 landing Soma 2.0 | Pendiente. **Antes** de abrir la beta. Coordinar SEO-01B. WEB-02 puede empaquetarse |
-| SEO-01 visibilidad de búsqueda | SEO-01A fusionado en `develop` (PR #75). **No** `main`. SEO-01B con WEB-01/WEB-02 |
-| REL-01 release de producción | Completado en git (`main` `8155554`, PR #76). **Deploy y migraciones de producción:** no autorizados en este documento |
-| FBK-01 centro de feedback | Completado e integrado en `develop` (`f1b447f`, PR #77). **No** `main`. **No** desplegado |
+| CLEAN-01 legado Soma 1.0 | Completado e integrado en `develop` (`ca3b456`). **No** `main`. **No** desplegado |
+| WEB-01 landing Soma 2.0 | Completado e integrado en `develop` (`ff5a359`, PR #82). **No** `main`. **No** desplegado. WEB-02 y SEO-01B siguen pendientes |
+| SEO-01 visibilidad de búsqueda | SEO-01A fusionado en `develop` (PR #75). **No** `main`. SEO-01B pendiente (contenido orgánico; no reabre WEB-01) |
+| REL-01 release de producción | Completado en git (`main` `8155554`, PR #76). Encima: backups R2/PG17 (`21e5897`/`7f78c32`). **Deploy y migraciones de producción:** no autorizados en este documento |
+| FBK-01 centro de feedback | Completado (criterios de aceptación cubiertos). En `develop` (`f1b447f`, PR #77). Aviso post-retirada de consentimiento en git local (`ba65a7c`). **No** `main`. **No** desplegado |
 | R-JXP carrera XP | Corregido e integrado en `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado |
-| BETA-01 beta pública | Pendiente. Preparación ≠ autorización de apertura. `AUTH_REGISTRATION_MODE=invite` |
+| BETA-01 beta pública | **No cerrado.** Infra/backups: hechos (R2 cifrado; restore verificado; `main` `7f78c32`). Borradores legales ES/EN: preparados, **no** publicados (`ed33f6b` local). Consentimiento y retirada: implementados y probados (`ba65a7c` local). Validación jurídica: **pendiente**. Registro por invitación: implementado (`65866c2`, PR #83), **no** habilitado en producción. Apertura: **pendiente**. `LEGAL_NOTICE_STATUS=draft` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** implementar. **Pospuesto.** |
 | MKT-01 presencia digital | Pendiente. **Después** de ONB-01. Secuencia: BETA-01 → GAM-03 → CHR-01 → ONB-01 → MKT-01. **No** bloquea BETA-01. Sin campañas ni publicaciones todavía |
@@ -646,12 +647,12 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 
 ## Siguiente bloque de producto (ROADMAP-02)
 
-Hitos del siguiente bloque. JRN-01, GAM-01 y GAM-02 están **en `main` git y no se dan por desplegados**. FBK-01, R-JXP y UX-GLO-01 están **en `develop` y no en `main`**. El resto permanece planificado. No anuncian funcionalidades como disponibles en `somarecovery.app`. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. El identificador **UX-01** sigue siendo orientación anatómica; la revisión global de experiencia es **UX-GLO-01**.
+Hitos del siguiente bloque. JRN-01, GAM-01 y GAM-02 están **en `main` git y no se dan por desplegados**. FBK-01, R-JXP, UX-GLO-01, CLEAN-01 y WEB-01 están **en `develop` y no en `main`**. El resto permanece planificado. No anuncian funcionalidades como disponibles en `somarecovery.app`. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. El identificador **UX-01** sigue siendo orientación anatómica; la revisión global de experiencia es **UX-GLO-01**.
 
 Orden vigente (no usar el orden histórico que colocaba WEB-01 después de la beta ni UX-GLO-01 como mejora posterior):
 
-- **Hecho en git de `develop`:** FBK-01 → R-JXP → UX-GLO-01.
-- **Antes de la beta:** **CLEAN-01** → **WEB-01** (coordinado con **SEO-01B**) → **BETA-01 preparación** → **BETA-01 autorización**.
+- **Hecho en git de `develop`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01.
+- **Antes de la beta:** **BETA-01 preparación** (D.3 jurídica, publicar avisos, habilitar invite en producción) → **BETA-01 autorización**. **SEO-01B** no bloquea la preparación jurídica.
 - **Después de abrir la beta:** **GAM-03** → **CHR-01** → **ONB-01** → **MKT-01**.
 - **Residual / posterior:** WEB-02 si no va con WEB-01; FBK-02; GAME-07; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto.
 
@@ -764,7 +765,7 @@ La beta pública exige una **incorporación inicial suficiente**; el tutorial co
 
 - **Objetivo:** Nueva landing de Soma 2.0: funcionalidades **reales**, propuesta educativa y de seguimiento, y un camino claro al registro.
 - **Prioridad:** P1 (**antes** de abrir BETA-01; no adelantar implementación en FBK-01)
-- **Estado:** Pendiente. Existe landing histórica; este ID no la da por renovada. El copy público solo describe lo que esté en producción; **no** anunciar Somi, GAM-03 ni Android.
+- **Estado:** Completado e integrado en `develop` (`ff5a359`, PR #82). **No** en `main`. **No** desplegado. El copy público solo describe lo que esté en producción; **no** anunciar Somi, GAM-03 ni Android.
 - **Dependencias:** REL-01 (funciones ya en `main`). Coordinar SEO-01A residual y **SEO-01B**. WEB-02 puede ir en el mismo trabajo visual. No espera GAM-03 ni MOB-01.
 - **Decisiones confirmadas:**
   - Presentar las funcionalidades reales (Recuperación, Explorador, Logros, Bitácora, Misiones/XP **si** están desplegadas).
@@ -779,8 +780,8 @@ La beta pública exige una **incorporación inicial suficiente**; el tutorial co
   - Imagen Open Graph.
   - Comprobación de visualización en navegadores y dispositivos.
   - Coherencia con la identidad de Soma y el futuro Somi (CHR-01).
-- **Pendiente de diseño:** Arquitectura de secciones, capturas 2.0, CTAs, i18n ES/EN, motion. Los recursos de marca anteriores se diseñan e implementan **en este ID**, no ahora.
-- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0, qué puede hacer hoy, y no cree que hay mascota, app Android u otras funciones planificadas si aún no están en producción. Favicon, iconos y OG coinciden con la identidad acordada cuando este apartado se implemente.
+- **Residual:** WEB-02 (origen del nombre / filosofía) no se empaquetó aquí. SEO-01B (posicionamiento orgánico) sigue pendiente. El copy público **no** describe funciones que no estén en producción.
+- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0, qué puede hacer hoy, y no cree que hay mascota, app Android u otras funciones planificadas si aún no están en producción. Favicon, iconos y OG coinciden con la identidad acordada. **Cumplido en `develop`; no desplegado.**
 
 #### WEB-02 — Identidad y filosofía
 
@@ -833,7 +834,7 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 - **Prioridad:** P2 residual (deploy de producción y migraciones, cuando se autoricen)
 - **Estado:** Squash-merge en `main` (`8155554`, PR #76). **No** hay deploy autorizado aquí. **No** hay migraciones en Supabase autorizadas. El registro sigue por invitación.
 - **Incluye (ahora en `main` git, no necesariamente desplegado):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02.
-- **En `develop` y aún no en ese squash de `main`:** SEO-01A (PR #75), FBK-01 (PR #77), R-JXP (PR #78), UX-GLO-01 (PR #79).
+- **En `develop` y aún no en `main`:** SEO-01A (PR #75), FBK-01 (PR #77), R-JXP (PR #78), UX-GLO-01 (PR #79), CLEAN-01 (`ca3b456`), WEB-01 (PR #82), registro/privacidad (PR #83), CI (PR #84), más commits locales de legales y consentimiento. **En `main` encima de REL-01:** backups R2 (`21e5897`) y pin PG17 (`7f78c32`).
 - **Dependencias:** Inventario de migraciones Prisma vs producción (estado de `_prisma_migrations` en Supabase **desconocido** sin consulta autorizada). Variables de producción (`DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`, `APP_PUBLIC_URL`, mailer). Backup antes de migrar.
 - **Convención del PR de producción (cuando se autorice):** título y descripción **íntegramente en inglés** (summary, features, migrations, testing, deployment, known issues, rollback).
 - **Criterio:** `main` avanza un squash/merge acordado; migraciones aplicadas con backup; DEMO y un humo LIVE de staging o producción autorizado; rollback documentado (revertir deploy; **no** asumir `migrate down`). El registro sigue **por invitación** hasta **BETA-01**.
@@ -841,8 +842,8 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 #### FBK-01 — Feedback Center
 
 - **Objetivo:** Espacio **integrado** en Soma para sugerir funciones, proponer mejoras y comunicar errores.
-- **Prioridad:** P3 residual (regresiones). Ya no es la prioridad inmediata de producto.
-- **Estado:** Completado e integrado en `develop` (`f1b447f`, PR #77). **No** en `main`. **No** desplegado. No formaba parte del squash REL-01.
+- **Prioridad:** P3 residual (regresiones). Ya no es la prioridad inmediata de producto. Cierre revisado el 2026-10-30: **cumple** los criterios de aceptación originales.
+- **Estado:** Completado e integrado en `develop` (`f1b447f`, PR #77). **No** en `main`. **No** desplegado. No formaba parte del squash REL-01. Revisión de cierre: formulario, validación, `GET/POST /me/feedback` con JWT, persistencia PostgreSQL (`FeedbackReport`), asociación al usuario de sesión, errores/carga, ES/EN, throttle 8 POST / 15 min y huella 24 h. Tras retirar consentimiento de categoría especial (`ba65a7c` local): historial LIVE purgado; el envío sigue permitido con aviso. Gestión interna = SQL/estado; **sin** UI de administración (no estaba en el criterio original).
 - **Primera versión:** Formularios **privados** y gestión **interna**.
 - **Decisiones confirmadas:**
   - No publicar automáticamente lo que envíen los usuarios.
@@ -855,21 +856,21 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 #### BETA-01 — Public Beta Launch
 
 - **Objetivo:** Permitir registros **públicos** y abrir Soma a usuarios reales, identificada como **beta pública**, cuando estabilidad, seguridad, coherencia visual y usabilidad sean suficientes.
-- **Prioridad:** P1 (después de CLEAN-01 y WEB-01; FBK-01, R-JXP y UX-GLO-01 ya están en `develop`)
-- **Estado:** Pendiente. **No** activar registros públicos. `AUTH_REGISTRATION_MODE=invite`.
+- **Prioridad:** P1 (CLEAN-01 y WEB-01 ya están en `develop`; FBK-01, R-JXP y UX-GLO-01 también). **Siguiente:** BETA-01D.3.
+- **Estado:** Preparación **parcial**. **No** cerrado. **No** activar registros públicos. `AUTH_REGISTRATION_MODE=invite`. `LEGAL_NOTICE_STATUS=draft`.
 
 Preparación y autorización son **fases distintas** del mismo ID. Completar la lista de preparación **no** abre la beta.
 
 ##### Preparación (trabajo; no abre registros)
 
-- Registro público **controlado** (modo, límites, copy de beta).
-- Privacidad y RGPD (aviso, retención, derechos; residual JRN-01 si aplica).
-- Seguridad y prevención de abuso (auth, throttle, superficies privadas).
+- Registro por invitación **implementado** (`65866c2`, PR #83; `c00b908` y confirmación de contraseña). **No** habilitado en producción. El registro en producción permanece bloqueado mientras los avisos estén en `draft`.
+- Privacidad y RGPD: borradores ES/EN **preparados** (`ed33f6b` local), **no** publicados. Consentimiento explícito de datos sensibles y retirada **implementados y probados** (`ba65a7c` local). **BETA-01D.3 pendiente:** validación jurídica, identificación del responsable, proveedores y transferencias internacionales.
+- Seguridad y prevención de abuso (auth, throttle, superficies privadas; CI/ops PR #84).
 - Recuperación de acceso (reset existente; humo autorizado).
-- Estrategia de copias de seguridad (antes de cualquier migrate de producción).
+- Copias de seguridad cifradas PostgreSQL → Cloudflare R2, con prueba de restauración (**hechas**; `main` `21e5897` / `7f78c32`; local `develop` `78e3b1d`).
 - Corrección de **R-JXP** (**hecha** en `develop`, PR #78; no en `main`; no desplegada).
 - Onboarding **mínimo** (orientación comprensible; **no** exige ONB-01 ni Somi).
-- **FBK-01** operativo en `develop` (PR #77; no en `main`; no desplegado).
+- **FBK-01** operativo en `develop` (PR #77; no en `main`; no desplegado). Criterios originales cubiertos.
 - Validación final de producto (recorrido DEMO + humo LIVE autorizado).
 
 ##### Autorización de apertura (decisión humana)
@@ -879,7 +880,7 @@ Preparación y autorización son **fases distintas** del mismo ID. Completar la 
 - Deploy de producción de los cortes acordados, **cuando se autorice**.
 - Esta subfase no se ejecuta por el hecho de marcar ítems de preparación.
 
-- **Dependencias:** FBK-01, R-JXP y UX-GLO-01 **cubiertos en `develop`**. Siguen CLEAN-01, WEB-01 y REL-01 desplegable. **No** espera CHR-01, ONB-01 completo, GAM-03, FBK-02 ni MOB-01.
+- **Dependencias:** FBK-01, R-JXP, UX-GLO-01, CLEAN-01 y WEB-01 **cubiertos en `develop`**. Siguen BETA-01D.3, publicación de avisos, habilitar invite en producción y REL-01 desplegable. **No** espera CHR-01, ONB-01 completo, GAM-03, FBK-02 ni MOB-01.
 - **Criterio:** Una persona nueva puede crear cuenta sin invitación **solo después** de la autorización; entiende que está en beta; el diario/misiones/XP de usuarios existentes no se ponen en riesgo. Sin promesas clínicas.
 
 #### FBK-02 — Community Feedback
@@ -914,7 +915,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 - **Objetivo:** Inventariar y retirar rutas y componentes de Soma 1.0 que ya no deban ser accesibles, sin romper las funcionalidades vigentes de Soma 2.0.
 - **Prioridad:** P1 (**antes** de abrir BETA-01)
-- **Estado:** Pendiente. **Siguiente hito** antes de WEB-01 / BETA-01. LEG-01 (`/achievements` → `/app/achievements`) ya cubre una redirección puntual; este ID es el inventario completo.
+- **Estado:** Completado e integrado en `develop` (`ca3b456`). **No** en `main`. **No** desplegado. LEG-01 (`/achievements` → `/app/achievements`) ya cubría una redirección puntual.
 - **Alcance:**
   - Inventariar rutas y componentes antiguos.
   - Identificar dependencias reales (imports, deep links, SEO, tests).
@@ -1104,8 +1105,8 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 4. **ACH-REV residual:** recaída ya no revoca (ACH-01). Queda corrección de fecha errónea. Bloquea GAME-08.
 5. **ACH-NOTIF-01, ACH-CELEB-01, SHELL-01:** completados y **validados en producción LIVE**.
 6. **En `main` (git; deploy no verificado aquí):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**.
-7. **En `develop` y no en `main`:** SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79).
-8. **Siguiente (autorización humana, por bloqueo real de beta):** **CLEAN-01** → **WEB-01** (coordinado con **SEO-01B**) → **BETA-01 preparación** → **BETA-01 autorización** (registros). Después de abrir: **GAM-03 → CHR-01 → ONB-01 → MKT-01**. Residual: WEB-02 si no va con WEB-01, **FBK-02**, GAME-07. **MKT-01 no bloquea BETA-01** y no empieza antes de ONB-01. **MOB-01** permanece pospuesto, sin fecha. **No** abrir registro público sin la autorización de BETA-01.
+7. **En `develop` y no en `main`:** SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82), registro (`65866c2`, PR #83), CI (`2152424`, PR #84). Local sin push: backups `78e3b1d`, legales `ed33f6b`, consentimiento `ba65a7c`. **En `main` encima de REL-01:** backups R2 (`21e5897`) y PG17 (`7f78c32`).
+8. **Siguiente (autorización humana, por bloqueo real de beta):** **BETA-01D.3** (validación jurídica) → publicar avisos (sale de `draft`) → habilitar registro por invitación en producción → **BETA-01 autorización** (apertura). **SEO-01B** permanece pendiente y no reabre WEB-01. Después de abrir: **GAM-03 → CHR-01 → ONB-01 → MKT-01**. Residual: WEB-02, **FBK-02**, GAME-07/08. **MKT-01 no bloquea BETA-01** y no empieza antes de ONB-01. **MOB-01** permanece pospuesto, sin fecha. **No** abrir registro público sin la autorización de BETA-01.
 9. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
 10. **UX-08 / UX-09:** editorial; no inventar.
 11. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
@@ -1158,6 +1159,14 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 | #77 | FBK-01 centro de feedback | Squash en `develop` (`f1b447f`). **No** `main`. **No** desplegado |
 | #78 | R-JXP carrera XP | Squash en `develop` (`a26585e`). **No** `main`. **No** desplegado |
 | #79 | UX-GLO-01 atlas 2.0 y a11y | Squash en `develop` (`db6385b`). **No** `main`. **No** desplegado |
+| — | CLEAN-01 legado Soma 1.0 | `ca3b456` en `develop`. **No** `main`. **No** desplegado |
+| #82 | WEB-01 landing Soma 2.0 | Squash en `develop` (`ff5a359`). **No** `main`. **No** desplegado |
+| #83 | Registro y bases de privacidad | Squash en `develop` (`65866c2`). **No** `main`. Invite implementado, **no** habilitado en producción |
+| #84 | CI / guía de operaciones | Squash en `develop` (`2152424`). **No** `main` |
+| #85 | Backups cifrados R2 | En `main` (`21e5897`). Restore verificado. Local `develop` también tiene `78e3b1d` (sin push) |
+| #86 | Pin `pg_dump` PostgreSQL 17 | En `main` (`7f78c32`) |
+| — | BETA-01D.1 borradores legales ES/EN | Local `ed33f6b`. **No** publicados. `LEGAL_NOTICE_STATUS=draft` |
+| — | BETA-01D.2 consentimiento y retirada | Local `ba65a7c`. Tests de aislamiento PG17 hechos. **No** `origin/develop`. **No** `main` |
 
 ---
 
@@ -1188,8 +1197,10 @@ Soma Expeditions (dirección visual OK; parcialmente en main git; atlas 2.0 en d
           SEO-01A (`cdf038c`, PR #75) permanece en `develop`
           → deploy producción (invite; no beta pública) [cuando se autorice]
   Fase E3 FBK-01 (PR #77) → R-JXP (PR #78) → UX-GLO-01 (PR #79) — **en `develop`**
-          → CLEAN-01 → WEB-01 (coordinado con SEO-01B)
-          → BETA-01 preparación ≠ BETA-01 autorización de apertura
+          → CLEAN-01 (`ca3b456`) → WEB-01 (PR #82) — **en `develop`**
+          → BETA-01 preparación (parcial: infra/backups, borradores, consentimiento)
+            ≠ BETA-01D.3 jurídica, publicación de avisos, invite en producción
+            ≠ BETA-01 autorización de apertura
   Fase F  GAM-03 integración → CHR-01 Somi → ONB-01 tutorial completo → MKT-01
   Fase G  WEB-02 residual (si no va con WEB-01) → FBK-02 comunidad
   MOB-01  Android / Play (pospuesto, sin fecha; Capacitor preliminar; no beta; no implementar)
@@ -1268,3 +1279,4 @@ VIS-01 (no reabre UX-03)
 | 2026-10-29 | GAM-02 fusionado en `develop` (PR #74, `6d73877`). REL-01 documentado. SEO-01A/B, FBK-01, BETA-01 y FBK-02 añadidos. R-JXP: incidencia antes de BETA-01. Sin PR a `main`, sin deploy, sin registros públicos, sin migraciones de producción. |
 | 2026-10-29 | SEO-01A squash `develop` (`cdf038c`, PR #75). REL-01 squash `main` (`8155554`, PR #76). FBK-01 en `feature/fbk-01`. Prioridad inmediata: cerrar FBK-01. Objetivo: beta pública cuando haya estabilidad, seguridad, coherencia visual y usabilidad. BETA-01 se parte en preparación vs autorización. UX-GLO-01 absorbe la consolidación responsive (no se duplica UX-01). WEB-01 y CLEAN-01 pasan a prerrequisitos de apertura. WEB-01 incluye identidad visual (favicon, iconos web/PWA, Apple Touch Icon, Open Graph) **sin implementar ahora**. MOB-01 Android/Play **pospuesto**, sin fecha. Secuencia post-beta: GAM-03 → CHR-01 (Somi) → ONB-01 (tutorial completo) → MKT-01 (X, Ko-fi, LinkedIn, README de repo y perfil). MKT-01 **no** bloquea BETA-01; sin campañas ni publicaciones todavía. |
 | 2026-10-29 | ROADMAP-SYNC-01: FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78) y UX-GLO-01 (`db6385b`, PR #79) integrados en `origin/develop`. **No** en `main`. **No** desplegados. Prioridad inmediata: CLEAN-01. Antes de beta: CLEAN-01 → WEB-01 (+ SEO-01B) → BETA-01 preparación → BETA-01 autorización. Después de abrir: GAM-03 → CHR-01 → ONB-01 → MKT-01. |
+| 2026-10-30 | Cierre FBK-01: criterios originales cubiertos (formulario, validación, API JWT, PostgreSQL, usuario, errores, ES/EN, throttle/duplicados, aviso tras retirada). Tests API 20 y web 24 en verde. Sin UI admin (fuera de alcance). BETA-01 **no** cerrado: backups y restore hechos; legales en `draft`; consentimiento local; D.3 jurídica pendiente; invite no en producción; apertura pendiente. CLEAN-01 y WEB-01 hechos en `develop`. Prioridad inmediata: BETA-01D.3. WEB-02, FBK-02, GAME-07/08 y MOB-01 siguen pospuestos. Sin commit de este sync. |
