@@ -9,6 +9,7 @@ import { Prisma as PrismaNs } from "@prisma/client";
 import { civilDateToUtcDate, utcDateToCivilDate } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { ProgressService } from "../progress/progress.service.js";
+import { assertSpecialCategoryProcessingAllowed } from "../auth/special-category-consent.js";
 import type { CreateJournalEntryDto } from "./dto/create-journal-entry.dto.js";
 import type { ListJournalQueryDto } from "./dto/list-journal-query.dto.js";
 import {
@@ -44,6 +45,7 @@ export class JournalService {
     userId: string,
     dto: CreateJournalEntryDto,
   ): Promise<JournalEntryResponse> {
+    await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
     const title = normalizeOptionalText(dto.title) ?? null;
     const body = normalizeOptionalText(dto.body) ?? null;
     if (
@@ -208,6 +210,7 @@ export class JournalService {
     id: string,
     dto: PatchJournalEntryDto,
   ): Promise<JournalEntryResponse> {
+    await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
     const current = await this.findOwned(userId, id);
     const next = this.mergePatch(current, dto);
     if (!hasSignificantJournalContent(next)) {
@@ -266,6 +269,7 @@ export class JournalService {
     userId: string,
     dto: CreateJournalMilestoneDto,
   ): Promise<JournalMilestoneResponse> {
+    await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
     const row = await this.prisma.$transaction(async (tx) => {
       const created = await tx.journalPersonalMilestone.create({
         data: {
@@ -301,6 +305,7 @@ export class JournalService {
     id: string,
     dto: PatchJournalMilestoneDto,
   ): Promise<JournalMilestoneResponse> {
+    await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
     const current = await this.findOwnedMilestone(userId, id);
     const row = await this.prisma.journalPersonalMilestone.update({
       where: { id: current.id },

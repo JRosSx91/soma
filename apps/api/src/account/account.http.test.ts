@@ -49,10 +49,23 @@ class TestJwtGuard implements CanActivate {
 @Injectable()
 class StubAuthService {
   lastDelete: { userId: string; password: string } | null = null;
+  lastWithdraw: { userId: string; password: string } | null = null;
   failNext: Error | null = null;
 
   async deleteOwnAccount(userId: string, password: string): Promise<void> {
     this.lastDelete = { userId, password };
+    if (this.failNext) {
+      const err = this.failNext;
+      this.failNext = null;
+      throw err;
+    }
+  }
+
+  async withdrawSpecialCategoryConsent(
+    userId: string,
+    password: string,
+  ): Promise<void> {
+    this.lastWithdraw = { userId, password };
     if (this.failNext) {
       const err = this.failNext;
       this.failNext = null;
@@ -165,4 +178,44 @@ test("DELETE /me/account with wrong password is 401", async () => {
   assert.equal(res.status, 401);
   assert.equal(res.body?.email, undefined);
   assert.equal(res.body?.id, undefined);
+});
+
+function withdrawReq() {
+  return request(app.getHttpServer()).post(
+    "/me/account/special-category-consent/withdraw",
+  );
+}
+
+test("POST withdraw succeeds with JWT and Origin and keeps the session cookie", async () => {
+  activeUser = USER_A;
+  stub.lastWithdraw = null;
+  const res = await withdrawReq()
+    .set("Origin", ORIGIN)
+    .send({ password: "password123" });
+
+  assert.equal(res.status, 204);
+  assert.deepEqual(stub.lastWithdraw, {
+    userId: USER_A.id,
+    password: "password123",
+  });
+  const raw = res.headers["set-cookie"];
+  assert.equal(raw, undefined);
+});
+
+test("POST withdraw without JWT is 401", async () => {
+  activeUser = null;
+  const res = await withdrawReq()
+    .set("Origin", ORIGIN)
+    .send({ password: "password123" });
+  assert.equal(res.status, 401);
+  activeUser = USER_A;
+});
+
+test("POST withdraw with wrong password is 401", async () => {
+  activeUser = USER_A;
+  stub.failNext = new UnauthorizedException("Invalid credentials");
+  const res = await withdrawReq()
+    .set("Origin", ORIGIN)
+    .send({ password: "nope" });
+  assert.equal(res.status, 401);
 });

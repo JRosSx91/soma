@@ -30,6 +30,8 @@ export interface UserProfileResponse {
   };
   /** Explicit backend intent — independent of usages.length. */
   onboardingStatus: OnboardingStatus;
+  specialCategoryConsentActive?: boolean;
+  specialCategoryConsentWithdrawn?: boolean;
   usages: Array<{
     id: string;
     userId: string;

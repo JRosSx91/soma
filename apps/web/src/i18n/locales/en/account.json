@@ -44,6 +44,28 @@
     "saveFailed": "Could not save your details. Try again.",
     "validationFailed": "Some values were rejected. Check the form and try again."
   },
+  "withdrawConsent": {
+    "title": "Withdraw health-data consent",
+    "lead": "You can withdraw consent for Soma to process substance-use, abstinence, and wellbeing data. This does not close your account.",
+    "bulletData": "Substance tracking, the wellbeing journal, recovery achievements, feedback, and XP derived from those data will be deleted from the live database.",
+    "bulletAccount": "Your account stays open: you can still sign in and use educational features that do not need those data.",
+    "bulletBackups": "Encrypted backups may be kept for 7 days (daily) and 28 days (weekly). This withdrawal does not erase them immediately.",
+    "bulletNoReentry": "You will not be able to enter substance-use or wellbeing data again until a new consent exists. That step is not implemented yet.",
+    "bulletDraft": "This mechanism is a development draft. It does not state a final legal basis.",
+    "openDialog": "Review consent withdrawal",
+    "dialogTitle": "Withdraw health-data consent?",
+    "dialogBody": "Confirm that you understand the consequences, then enter your current password. Soma will withdraw consent only after that confirmation.",
+    "acknowledge": "I understand that my recovery and wellbeing data in the live database will be deleted and that I cannot enter them again until a new consent exists.",
+    "password": "Current password",
+    "confirm": "Withdraw consent",
+    "cancel": "Cancel",
+    "submitting": "Withdrawing consent…",
+    "wrongPassword": "The password is incorrect. Consent was not withdrawn.",
+    "failed": "Could not withdraw consent. Check your connection and try again.",
+    "success": "Consent has been withdrawn. Your account remains open.",
+    "alreadyTitle": "Health-data consent withdrawn",
+    "alreadyBody": "Soma no longer processes substance-use, abstinence, or wellbeing data on your account. Educational features remain available. Entering those data again requires a new consent, which is not implemented yet."
+  },
   "delete": {
     "title": "Delete my account",
     "lead": "This permanently removes your Soma account. It is not an immediate action — review the consequences first.",

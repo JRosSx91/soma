@@ -15,6 +15,7 @@ export {
   patchProfileDetails,
   saveUserUsages,
   deleteOwnAccount,
+  withdrawSpecialCategoryConsent,
 } from "./client/profile-api.js";
 export {
   completeOnboardingWithUsages,

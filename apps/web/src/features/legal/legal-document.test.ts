@@ -63,6 +63,7 @@ test("privacy and terms stay marked as drafts in ES and EN", async () => {
   assert.match(privacyEn, /18 or over/);
   assert.match(privacyEs, /18 años/);
   assert.match(privacyEn, /Article 9/);
+  assert.match(privacyEn, /id="privacy-special"/);
   assert.match(termsEn, /invitation/i);
   assert.match(termsEs, /invitación/);
   assert.match(termsEn, /no advertising/i);

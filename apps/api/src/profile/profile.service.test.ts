@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { CodedForbiddenException } from "../common/exceptions/coded-exception.js";
 import { OnboardingStatus } from "@prisma/client";
 import { ProfileService } from "./profile.service.js";
 
@@ -54,8 +55,30 @@ function makeUsage(userId: string, substanceId = "nicotine"): UsageRow {
 
 function createService(store: {
   users: Map<string, ReturnType<typeof makeUser>>;
+  withdrawn?: Set<string>;
 }) {
   const prisma = {
+    registrationAcceptance: {
+      findMany: async ({
+        where,
+      }: {
+        where: { userId: string };
+      }) => {
+        const withdrawn = store.withdrawn?.has(where.userId) ?? false;
+        const grant = {
+          purpose: "special_category_processing",
+          acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
+        };
+        if (!withdrawn) return [grant];
+        return [
+          grant,
+          {
+            purpose: "special_category_processing_withdrawal",
+            acceptedAt: new Date("2026-10-30T12:00:00.000Z"),
+          },
+        ];
+      },
+    },
     user: {
       findUnique: async ({
         where,
@@ -146,7 +169,20 @@ test("getProfile returns pending for a new user with empty usages", async () => 
   const service = createService({ users: new Map([[user.id, user]]) });
   const profile = await service.getProfile(user.id);
   assert.equal(profile.onboardingStatus, OnboardingStatus.pending);
+  assert.equal(profile.specialCategoryConsentActive, true);
+  assert.equal(profile.specialCategoryConsentWithdrawn, false);
   assert.equal(profile.usages.length, 0);
+});
+
+test("getProfile reports withdrawn special-category consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withdrawn: new Set([user.id]),
+  });
+  const profile = await service.getProfile(user.id);
+  assert.equal(profile.specialCategoryConsentActive, false);
+  assert.equal(profile.specialCategoryConsentWithdrawn, true);
 });
 
 test("getProfile returns stored status even when usages are empty (skipped)", async () => {
@@ -233,6 +269,44 @@ test("upsertProfile does not change onboardingStatus", async () => {
   });
   assert.equal(profile.onboardingStatus, OnboardingStatus.pending);
   assert.equal(profile.usages.length, 1);
+});
+
+test("upsertProfile with usages is forbidden after consent withdrawal", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withdrawn: new Set([user.id]),
+  });
+  await assert.rejects(
+    () =>
+      service.upsertProfile(user.id, {
+        usages: [
+          {
+            substanceId: "nicotine",
+            yearStarted: 2020,
+            frequency: "daily",
+            status: "abstinent",
+            lastUseDate: "2024-01-01",
+          },
+        ],
+      }),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.usages.length, 0);
+});
+
+test("completing onboarding is forbidden after consent withdrawal", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withdrawn: new Set([user.id]),
+  });
+  await assert.rejects(
+    () =>
+      service.updateOnboardingStatus(user.id, OnboardingStatus.completed),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.onboardingStatus, OnboardingStatus.pending);
 });
 
 test("upsertProfile empty array clears usages but keeps skipped status", async () => {

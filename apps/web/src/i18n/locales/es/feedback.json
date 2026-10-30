@@ -5,6 +5,7 @@
   "intro": "Tus aportaciones nos ayudan a mejorar Soma: qué ha fallado, qué se podría afinar o qué te gustaría ver. Leemos cada nota. Esto no es un canal médico y no podemos prometer cuándo responderemos.",
   "privacy": "Tu mensaje queda en tu cuenta. No lo publicamos y no es una ficha clínica. Evita contraseñas, datos de salud muy personales o cualquier cosa que no quieras que se conserve.",
   "demoNotice": "Modo demostración: este formulario muestra cómo será Ayuda y sugerencias. No se guarda nada en una cuenta.",
+  "withdrawnNotice": "Has retirado el consentimiento para datos de consumo, abstinencia y bienestar. Puedes seguir enviando comentarios sobre el producto, pero no introduzcas información personal sobre consumo de sustancias, abstinencia o salud.",
   "categoriesLabel": "¿Qué quieres compartir?",
   "categories": {
     "bug": "Error",

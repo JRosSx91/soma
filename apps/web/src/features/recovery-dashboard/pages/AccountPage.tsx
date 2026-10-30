@@ -11,6 +11,7 @@ import {
   type ProfileDetailsFields,
 } from "../../profile/index.js";
 import { DeleteAccountSection } from "../../profile/components/DeleteAccountSection.js";
+import { WithdrawConsentSection } from "../../profile/components/WithdrawConsentSection.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
@@ -429,20 +430,29 @@ export function AccountPage() {
         </Link>
       </section>
 
-      <section className="rounded-2xl border border-soma-line bg-soma-surface/60 p-4 sm:p-5">
-        <h2 className="text-sm font-semibold text-soma-ink">
-          {t("substancesTitle")}
-        </h2>
-        <p className="mt-1 text-sm text-soma-ink-secondary">
-          {t("substancesBody")}
-        </p>
-        <Link
-          to="/onboarding"
-          className={`${previewFocus} mt-3 inline-flex text-sm text-soma-action hover:underline`}
-        >
-          {t("editSubstances")}
-        </Link>
-      </section>
+      {profile?.specialCategoryConsentWithdrawn ? null : (
+        <section className="rounded-2xl border border-soma-line bg-soma-surface/60 p-4 sm:p-5">
+          <h2 className="text-sm font-semibold text-soma-ink">
+            {t("substancesTitle")}
+          </h2>
+          <p className="mt-1 text-sm text-soma-ink-secondary">
+            {t("substancesBody")}
+          </p>
+          <Link
+            to="/onboarding"
+            className={`${previewFocus} mt-3 inline-flex text-sm text-soma-action hover:underline`}
+          >
+            {t("editSubstances")}
+          </Link>
+        </section>
+      )}
+
+      <WithdrawConsentSection
+        withdrawn={profile?.specialCategoryConsentWithdrawn === true}
+        onWithdrawn={() => {
+          void refresh();
+        }}
+      />
 
       <DeleteAccountSection />
     </div>

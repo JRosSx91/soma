@@ -7,6 +7,7 @@ import type {
 } from "@prisma/client";
 import type { ProgressAvailability } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
+import { loadSpecialCategoryProcessingWithdrawn } from "../auth/special-category-consent.js";
 import { planAchievementUnlocks, readAchievementProgress } from "./recovery-math.js";
 import {
   claimUserAchievementTimestamp,
@@ -69,6 +70,12 @@ export class AchievementsService {
   async detectAndPersistUnlocks(
     userId: string,
   ): Promise<string[]> {
+    const withdrawn = await loadSpecialCategoryProcessingWithdrawn(
+      this.prisma,
+      userId,
+    );
+    if (withdrawn) return [];
+
     const usages = await this.prisma.substanceUsage.findMany({
       where: { userId },
     });

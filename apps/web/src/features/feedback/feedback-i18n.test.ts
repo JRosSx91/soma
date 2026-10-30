@@ -55,6 +55,8 @@ test("feedback copy covers the approved form, history and notices", () => {
   assert.match(enFeedback.privacy, /not a clinical record/i);
   assert.match(esFeedback.demoNotice, /no se guarda/i);
   assert.match(enFeedback.demoNotice, /nothing is saved/i);
+  assert.match(esFeedback.withdrawnNotice, /no introduzcas información personal/i);
+  assert.match(enFeedback.withdrawnNotice, /do not include personal information/i);
   assert.match(esFeedback.duplicate, /24 horas/);
   assert.match(enFeedback.duplicate, /24 hours/);
   assert.match(esFeedback.confirmation, /hemos recibido/i);

@@ -84,7 +84,11 @@ export function LegalDocumentPage({ kind }: { kind: "privacy" | "terms" }) {
           {t(`${ns}.intro`)}
         </p>
         {sections.map((section) => (
-          <section key={section} className="mt-8">
+          <section
+            key={section}
+            id={`${kind}-${section}`}
+            className="mt-8"
+          >
             <h2 className="text-sm font-semibold uppercase tracking-wider text-soma-action">
               {t(`${ns}.${section}Title`)}
             </h2>

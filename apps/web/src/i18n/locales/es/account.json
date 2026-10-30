@@ -44,6 +44,28 @@
     "saveFailed": "No se han podido guardar tus datos. Inténtalo de nuevo.",
     "validationFailed": "Algunos valores no se han aceptado. Revisa el formulario e inténtalo de nuevo."
   },
+  "withdrawConsent": {
+    "title": "Retirar el consentimiento sobre datos de salud",
+    "lead": "Puedes retirar el consentimiento para que Soma trate datos de consumo, abstinencia y bienestar. Esto no cierra tu cuenta.",
+    "bulletData": "Se eliminarán de la base activa el seguimiento de sustancias, la bitácora de bienestar, los logros de recuperación, el feedback y el XP derivado de esos datos.",
+    "bulletAccount": "La cuenta permanecerá abierta: podrás seguir iniciando sesión y usando las funciones educativas que no necesiten esos datos.",
+    "bulletBackups": "Las copias de seguridad cifradas pueden conservarse 7 días (diarias) y 28 días (semanales). Esta retirada no las borra de inmediato.",
+    "bulletNoReentry": "No podrás volver a introducir datos de consumo o bienestar hasta que exista un nuevo consentimiento. Ese paso todavía no está implementado.",
+    "bulletDraft": "Este mecanismo es un borrador de desarrollo. No afirma una base jurídica definitiva.",
+    "openDialog": "Revisar la retirada del consentimiento",
+    "dialogTitle": "¿Retirar el consentimiento sobre datos de salud?",
+    "dialogBody": "Confirma que comprendes las consecuencias e introduce tu contraseña actual. Soma retirará el consentimiento solo después de esa confirmación.",
+    "acknowledge": "Entiendo que se eliminarán mis datos de recuperación y bienestar en la base activa y que no podré volver a introducirlos hasta un nuevo consentimiento.",
+    "password": "Contraseña actual",
+    "confirm": "Retirar el consentimiento",
+    "cancel": "Cancelar",
+    "submitting": "Retirando el consentimiento…",
+    "wrongPassword": "La contraseña no es correcta. El consentimiento no se ha retirado.",
+    "failed": "No se ha podido retirar el consentimiento. Comprueba la conexión e inténtalo de nuevo.",
+    "success": "El consentimiento se ha retirado. Tu cuenta sigue abierta.",
+    "alreadyTitle": "Consentimiento de datos de salud retirado",
+    "alreadyBody": "Soma ya no trata datos de consumo, abstinencia ni bienestar en tu cuenta. Las funciones educativas siguen disponibles. Volver a introducir esos datos requiere un nuevo consentimiento, todavía no implementado."
+  },
   "delete": {
     "title": "Eliminar mi cuenta",
     "lead": "Esto elimina tu cuenta de Soma de forma permanente. No es una acción inmediata: revisa primero las consecuencias.",

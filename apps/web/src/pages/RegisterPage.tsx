@@ -343,7 +343,12 @@ export function RegisterPage() {
                   setAcceptedSpecialCategoryProcessing(e.target.checked)
                 }
               />
-              <span>{t("register.acceptSpecialCategory")}</span>
+              <span>
+                {t("register.acceptSpecialCategory")}{" "}
+                <Link to="/privacy#privacy-special" className={authLinkClass}>
+                  {t("register.privacySpecialLink")}
+                </Link>
+              </span>
             </label>
           </fieldset>
 

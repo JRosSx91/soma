@@ -3,6 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import {
+  assertSpecialCategoryProcessingAllowed,
+  loadSpecialCategoryConsentActive,
+  loadSpecialCategoryProcessingWithdrawn,
+} from "../auth/special-category-consent.js";
 import type {
   BiologicalSex,
   OnboardingStatus,
@@ -25,6 +30,8 @@ export interface ProfileResponse {
   };
   /** Explicit onboarding intent — independent of usages.length. */
   onboardingStatus: OnboardingStatus;
+  specialCategoryConsentActive: boolean;
+  specialCategoryConsentWithdrawn: boolean;
   usages: SubstanceUsage[];
 }
 
@@ -42,7 +49,16 @@ export class ProfileService {
       throw new NotFoundException("User not found");
     }
 
-    return this.toResponse(user);
+    const [specialCategoryConsentActive, specialCategoryConsentWithdrawn] =
+      await Promise.all([
+        loadSpecialCategoryConsentActive(this.prisma, userId),
+        loadSpecialCategoryProcessingWithdrawn(this.prisma, userId),
+      ]);
+    return this.toResponse(
+      user,
+      specialCategoryConsentActive,
+      specialCategoryConsentWithdrawn,
+    );
   }
 
   /**
@@ -68,6 +84,10 @@ export class ProfileService {
       throw new BadRequestException(
         "usages must be an array (omit/null are not allowed; use [] to clear)",
       );
+    }
+
+    if (dto.usages.length > 0) {
+      await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
     }
 
     await this.prisma.$transaction(async (tx) => {
@@ -180,6 +200,10 @@ export class ProfileService {
       );
     }
 
+    if (next === "completed") {
+      await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
+    }
+
     if (user.onboardingStatus !== next) {
       await this.prisma.user.update({
         where: { id: userId },
@@ -192,6 +216,8 @@ export class ProfileService {
 
   private toResponse(
     user: User & { usages: SubstanceUsage[] },
+    specialCategoryConsentActive: boolean,
+    specialCategoryConsentWithdrawn: boolean,
   ): ProfileResponse {
     return {
       user: {
@@ -203,6 +229,8 @@ export class ProfileService {
         weightKg: user.weightKg,
       },
       onboardingStatus: user.onboardingStatus,
+      specialCategoryConsentActive,
+      specialCategoryConsentWithdrawn,
       usages: user.usages,
     };
   }

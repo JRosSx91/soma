@@ -8,12 +8,14 @@ import {
   isProgressTitleUnlocked,
   isProgressXp,
   isProgressXpSource,
+  isSpecialCategoryXpSource,
   levelFromTotalXp,
   progressFromTotalXp,
   type ProgressTitleId,
   type ProgressXpSource,
 } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
+import { assertSpecialCategoryProcessingAllowed } from "../auth/special-category-consent.js";
 import type {
   AwardXpInput,
   AwardXpResult,
@@ -186,6 +188,10 @@ export class ProgressService {
     const source = input.source;
     const sourceKey = requireSourceKey(input.sourceKey);
     const amount = requireCatalogAmount(source);
+
+    if (isSpecialCategoryXpSource(source)) {
+      await assertSpecialCategoryProcessingAllowed(tx ?? this.prisma, userId);
+    }
 
     if (tx) {
       return this.applyAward(tx, userId, source, sourceKey, amount);

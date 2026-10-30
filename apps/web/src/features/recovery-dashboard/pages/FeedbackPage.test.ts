@@ -96,6 +96,9 @@ test("history covers empty, load error, retry, pagination and description", () =
 
 test("DEMO can submit locally; LIVE never mentions XP", () => {
   assert.match(page, /demoNotice/);
+  assert.match(page, /withdrawnNotice/);
+  assert.match(page, /specialCategoryConsentWithdrawn/);
+  assert.match(page, /useUserProfile/);
   assert.match(page, /disabled=\{catalog.submitting\}/);
   assert.equal(page.includes("localStorage"), false);
   assert.equal(page.includes("sessionStorage"), false);
@@ -118,4 +121,6 @@ test("ES and EN copy match the approved LIVE voice", () => {
   assert.match(esFeedback.privacy, /no es una ficha clínica/i);
   assert.match(esFeedback.intro, /no podemos prometer/i);
   assert.equal(esFeedback.submit.includes("médic"), false);
+  assert.match(esFeedback.withdrawnNotice, /consumo de sustancias/i);
+  assert.match(enFeedback.withdrawnNotice, /substance use/i);
 });

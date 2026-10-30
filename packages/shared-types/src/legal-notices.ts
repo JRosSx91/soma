@@ -29,6 +29,65 @@ export const REGISTRATION_ACCEPTANCE_PURPOSES = [
 export type RegistrationAcceptancePurpose =
   (typeof REGISTRATION_ACCEPTANCE_PURPOSES)[number];
 
+/** Grant recorded at registration. Not a withdrawal. */
+export const SPECIAL_CATEGORY_PROCESSING_PURPOSE =
+  "special_category_processing" as const;
+
+/**
+ * Explicit withdrawal evidence. Never treated as a grant.
+ * Distinct purpose so @@unique([userId, purpose]) can hold both rows
+ * without a schema migration.
+ */
+export const SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE =
+  "special_category_processing_withdrawal" as const;
+
+export const LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION = "draft-2026-10-30";
+
+export type SpecialCategoryConsentRecord = {
+  purpose: string;
+  acceptedAt: Date;
+};
+
+/**
+ * Active only when a grant exists and is strictly later than any withdrawal.
+ * A withdrawal row is never interpreted as consent.
+ */
+export function isSpecialCategoryConsentActive(
+  records: readonly SpecialCategoryConsentRecord[] | null | undefined,
+): boolean {
+  if (!records || records.length === 0) return false;
+
+  let grantAt: number | null = null;
+  let withdrawnAt: number | null = null;
+  for (const row of records) {
+    const at = row.acceptedAt.getTime();
+    if (row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE) {
+      if (grantAt === null || at > grantAt) grantAt = at;
+    }
+    if (row.purpose === SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE) {
+      if (withdrawnAt === null || at > withdrawnAt) withdrawnAt = at;
+    }
+  }
+  if (grantAt === null) return false;
+  if (withdrawnAt === null) return true;
+  return grantAt > withdrawnAt;
+}
+
+/**
+ * True only when a withdrawal row is the latest special-category event.
+ * Absence of any row is not a withdrawal (legacy accounts / tests).
+ */
+export function isSpecialCategoryProcessingWithdrawn(
+  records: readonly SpecialCategoryConsentRecord[] | null | undefined,
+): boolean {
+  if (!records || records.length === 0) return false;
+  const hasWithdrawal = records.some(
+    (row) => row.purpose === SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+  );
+  if (!hasWithdrawal) return false;
+  return !isSpecialCategoryConsentActive(records);
+}
+
 export type RegistrationAcceptanceFields = {
   acceptedTerms: boolean;
   termsVersion: string;

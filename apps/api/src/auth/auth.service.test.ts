@@ -317,6 +317,32 @@ function createDeleteService(tx: {
   );
 }
 
+test("withdrawSpecialCategoryConsent rejects a wrong password", async () => {
+  const user = fakeUser();
+  const service = createDeleteService({
+    $queryRaw: async () => [{ id: user.id }],
+    user: {
+      findUnique: async () => user,
+      delete: async () => {
+        throw new Error("must not delete account");
+      },
+    },
+    registrationInvite: {
+      deleteMany: async () => {
+        throw new Error("must not delete invites");
+      },
+    },
+  });
+  await assert.rejects(
+    () => service.withdrawSpecialCategoryConsent(user.id, "wrong-pass"),
+    (err: unknown) => {
+      assert.ok(err instanceof UnauthorizedException);
+      assert.equal(err.message, "Invalid credentials");
+      return true;
+    },
+  );
+});
+
 test("deleteOwnAccount removes the invite then the user", async () => {
   const user = fakeUser();
   const ops: string[] = [];

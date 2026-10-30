@@ -9,6 +9,7 @@ import {
 } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
 import { useFeedback } from "../../feedback/useFeedback.js";
+import { useUserProfile } from "../../profile/index.js";
 import type { FeedbackDraft } from "../../feedback/feedback-model.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
@@ -34,6 +35,8 @@ export function FeedbackPage() {
   const { user, loading: authLoading } = useAuth();
   const demo = base === "/preview";
   const live = base === "/app" && Boolean(user);
+  const { profile } = useUserProfile({ enabled: live });
+  const consentWithdrawn = profile?.specialCategoryConsentWithdrawn === true;
   const catalog = useFeedback({
     live,
     userId: live ? (user?.id ?? null) : null,
@@ -74,6 +77,12 @@ export function FeedbackPage() {
       {demo ? (
         <p className={`${panelClass} text-sm text-soma-ink-secondary`} role="note">
           {t("demoNotice")}
+        </p>
+      ) : null}
+
+      {live && consentWithdrawn ? (
+        <p className={`${panelClass} text-sm text-soma-ink-secondary`} role="note">
+          {t("withdrawnNotice")}
         </p>
       ) : null}
 

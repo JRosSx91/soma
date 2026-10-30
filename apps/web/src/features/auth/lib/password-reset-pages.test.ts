@@ -257,6 +257,7 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.match(html, /autocomplete="email"/i);
   assert.equal(html.includes("aria-invalid"), false);
   assert.match(html, /href="\/privacy"/);
+  assert.match(html, /href="\/privacy#privacy-special"/);
   assert.match(html, /href="\/terms"/);
   assert.equal((html.match(/type="checkbox"/g) ?? []).length, 3);
   assert.doesNotMatch(html, /type="checkbox"[^>]*checked/);

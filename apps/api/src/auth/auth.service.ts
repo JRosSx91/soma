@@ -19,6 +19,10 @@ import {
   assertRegistrationAcceptance,
   persistRegistrationAcceptances,
 } from "./registration-acceptance.js";
+import {
+  persistSpecialCategoryWithdrawal,
+  purgeSpecialCategoryProductData,
+} from "./special-category-consent.js";
 import { normalizeEmail } from "./normalize-email.js";
 import {
   RefreshSessionService,
@@ -248,6 +252,53 @@ export class AuthService {
 
   async logout(plaintext: string | undefined): Promise<void> {
     await this.refreshSessions.revokeByPlaintext(plaintext);
+  }
+
+  /**
+   * Withdraws special-category consent in the live database.
+   * Keeps the account and refresh session. Idempotent.
+   */
+  async withdrawSpecialCategoryConsent(
+    userId: string,
+    password: string,
+  ): Promise<void> {
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const locked = await tx.$queryRaw<{ id: string }[]>`
+          SELECT id FROM "User" WHERE id = ${userId} FOR UPDATE
+        `;
+        if (locked.length === 0) {
+          throw this.invalidCredentials();
+        }
+
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) {
+          throw this.invalidCredentials();
+        }
+
+        const passwordMatches = await bcrypt.compare(
+          password,
+          user.hashedPassword,
+        );
+        if (!passwordMatches) {
+          throw this.invalidCredentials();
+        }
+
+        await persistSpecialCategoryWithdrawal(tx, userId);
+        await purgeSpecialCategoryProductData(tx, userId);
+      });
+    } catch (err) {
+      if (err instanceof UnauthorizedException) {
+        throw err;
+      }
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2025"
+      ) {
+        throw this.invalidCredentials();
+      }
+      throw err;
+    }
   }
 
   /**
