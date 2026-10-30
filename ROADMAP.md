@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-30 (**ROADMAP-REORG-01**). Prioridad inmediata: **CHR-01** (Somi; etapas A/B). Secuencia hasta la beta: **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01**. Tras la apertura: **MKT-01**. MOB-01 pospuesto.
+Última actualización editorial: 2026-10-30 (**CHR-01** técnico local: WebP, fuera de Cuenta). Prioridad inmediata de código: **ONB-01**. Secuencia hasta la beta: **CHR-01 (pendiente commit) → ONB-01 → UX-PRE-BETA → BETA-01**. Tras la apertura: **MKT-01**. MOB-01 pospuesto.
 HEAD de `origin/develop` al actualizar: `2152424058bfa6b24f17fc9be1e87a3189a35d32` (CI PR #84). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82) y registro/privacidad (`65866c2`, PR #83).
 HEAD local de `develop` (sin push): `97ef60de382ebd41441632c27f89762f6b0980ec` — **siete** commits por delante de `origin/develop`: backups `78e3b1d`, legales `ed33f6b`, consentimiento `ba65a7c`, roadmap FBK-01 `2dada4a`, cierre R-JXP `48d7d87`, GAM-03 `19c76a1`, Somi `97ef60d`.
 `origin/main`: `7f78c3268e46795a0ad42e443eacd1b188a69b63` (pin `pg_dump` PG17, PR #86). Encima de REL-01 (`8155554`, PR #76) y backups cifrados R2 (`21e5897`, PR #85). SEO-01A, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, registro #83, CI #84, GAM-03, Somi y los commits legales locales **no** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación; `LEGAL_NOTICE_STATUS=draft`.
@@ -28,7 +28,7 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 ## Prioridad inmediata y apertura de beta
 
-**Prioridad inmediata:** **CHR-01** (Somi). Etapas: **CHR-01A** (retirar la preview animada de Cuenta; solo documentada, **no** implementar en esta reorganización) → **CHR-01B** (ilustraciones estáticas). **No** cerrado hasta validar ilustraciones e integración.
+**Prioridad inmediata:** **ONB-01** (tutorial con Somi). **CHR-01** está **técnicamente completado** en local (estático, WebP, fuera de Cuenta); **pendiente de revisión final y commit**. Somi **solo** se mostrará en el tutorial. **No** desplegado.
 
 **Después de CHR-01B:** **ONB-01** (tutorial interactivo con Somi). El diseño exacto del recorrido se acuerda **antes** de implementar. Reutiliza el onboarding de cuenta (AUTH-01); **no** lo duplica.
 
@@ -54,7 +54,7 @@ Hitos **antes** de autorizar la apertura (1–5 y GAM-03 cubiertos en git de `de
 | 4 | CLEAN-01 | Legado Soma 1.0. **Completado** en `develop` (`ca3b456`). **No** `main`. **No** desplegado |
 | 5 | WEB-01 | Landing Soma 2.0. **Completado** en `develop` (`ff5a359`, PR #82). **No** `main`. **No** desplegado. **SEO-01B** sigue pendiente |
 | — | GAM-03 | Integración de economía. **Cerrado técnicamente** (local `19c76a1`). **No** `origin/develop`. **No** `main`. **No** desplegado |
-| 6 | CHR-01 | Somi. **Prioridad inmediata.** Parcial (SOMI-02/02B local `97ef60d`). Etapas A/B. **No** cerrado |
+| 6 | CHR-01 | Somi. **Técnicamente completado** en local (A/B; WebP; fuera de Cuenta). **Pendiente de revisión final y commit.** **No** desplegado |
 | 7 | ONB-01 | Tutorial interactivo con Somi. **Después de CHR-01B.** Pendiente. Diseño del recorrido antes de código |
 | 8 | UX-PRE-BETA | Revisión integral del propietario. **Después de ONB-01.** Pendiente. Aprobación explícita |
 | 9 | BETA-01 preparación | Parcial. Infra/backups verificados; borradores legales **no** publicados; consentimiento y retirada en git local; validación jurídica **pendiente**; registro por invitación implementado **no** habilitado en producción |
@@ -118,7 +118,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | GAM-01 XP, niveles, títulos | En `main` git (`751c6aa`, REL-01). Ledger `XpGrant` / `UserProgression`. **No** se da por desplegado |
 | GAM-02 Misiones educativas | En `main` git (PR #74, REL-01). Seis misiones, API, LIVE/DEMO. **No** se da por desplegado |
 | GAM-03 integración | **Completado técnicamente** en `develop` local (`19c76a1`; mapa de eventos + aislamiento; unitarias/frontend 64, PG17 32/32). **No** `origin/develop`. **No** segunda economía. **No** `main`. **No** desplegado. Copy educativa vs participación: residual UX, no bloquea el cierre |
-| CHR-01 Somi | **Parcialmente implementado** (local `97ef60d`; preview CSS en Cuenta DEMO/LIVE). **No** cerrado. Siguiente: CHR-01A (retirar preview; documentado, no implementar ahora) → CHR-01B (ilustraciones estáticas). Animación avanzada pospuesta. **No** `origin/develop`. **No** `main`. **No** desplegado |
+| CHR-01 Somi | **Técnicamente completado, pendiente de revisión final y commit.** Seis WebP estáticos; PNG originales conservados; sin CSS de movimiento; **no** en Cuenta. Somi solo en ONB-01. **No** `origin/develop`. **No** `main`. **No** desplegado |
 | ONB-01 tutorial | **Pendiente.** Después de CHR-01B. Distinto de AUTH-01. Reutilizar onboarding de cuenta. BETA-01 **espera** este ID |
 | UX-PRE-BETA revisión | **Pendiente.** Después de ONB-01 y **antes** de abrir BETA-01. Revisión del propietario (pública / DEMO / LIVE). No reabre UX-GLO-01 |
 | WEB-02 identidad y filosofía | Pendiente. Puede empaquetarse con WEB-01; no es prerrequisito de apertura por sí solo |
@@ -764,9 +764,9 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
 #### CHR-01 — Somi, mascota oficial
 
 - **Objetivo:** Personaje original de fantasía que acompaña la experiencia (educación, humor, guía), no un indicador de salud. Para la beta: **ilustraciones estáticas** coherentes, no una máquina de animación CSS.
-- **Prioridad:** **P1 inmediata** (ROADMAP-REORG-01).
-- **Estado:** **Parcialmente implementado. No cerrado.** Dirección artística inicial acordada. Diseño visual **definitivo pendiente** (ilustraciones de producción). Primera fase técnica **SOMI-02 / SOMI-02B** en `develop` local (`97ef60d`): componente `Somi`, CSS de estados, WebP `/assets/somi/somi-idle.webp`, PNG maestro `apps/web/src/features/somi/masters/somi-idle.png`, preview en Cuenta. **No** `origin/develop`. **No** `main`. **No** desplegado. Landing **no** anuncia a Somi como disponible.
-- **Dependencias:** No bloquea JRN-01 ni GAM-01 (ya entregados). Tutorial (**ONB-01**) **después de CHR-01B**. Cosmética ligada a XP, si existe, **después** de un diseño usable; **nunca** como medidor de salud. WEB-01 no presenta a Somi como disponible hasta que CHR-01 esté cerrado y desplegado.
+- **Prioridad:** P1 (técnico local hecho; siguiente código: ONB-01).
+- **Estado:** **Técnicamente completado, pendiente de revisión final y commit.** CHR-01A (sin animación CSS) y CHR-01B (seis ilustraciones estáticas WebP) en local. Decisión del propietario: **Somi solo en ONB-01**; retirada de Cuenta. PNG originales conservados. Animación avanzada pospuesta. **No** `origin/develop` hasta commit autorizado. **No** `main`. **No** desplegado. Landing **no** anuncia a Somi como disponible.
+- **Dependencias:** No bloquea JRN-01 ni GAM-01 (ya entregados). Tutorial (**ONB-01**) reutiliza el componente `Somi` y los seis WebP. Cosmética ligada a XP, si existe, **después** de un diseño usable; **nunca** como medidor de salud. WEB-01 no presenta a Somi como disponible hasta que CHR-01 esté cerrado y desplegado.
 - **Decisiones confirmadas (identidad; se conservan):**
   - Criatura original flotante; ~80 % magia / ~20 % inspiración biológica sutil.
   - Cuerpo pequeño y compacto; silueta reconocible; ojos expresivos; dos orejas o prolongaciones; cola luminosa algo translúcida; azules, turquesas y violetas; marcas bioluminiscentes discretas.
@@ -774,33 +774,29 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
   - Original: no copiar mascotas de videojuegos existentes.
   - Evolución cosmética, si existe, se relaciona con XP y aprendizaje, **nunca** con una supuesta recuperación fisiológica.
   - **Animación avanzada (CSS de respiración/flotación, partículas, deformaciones) queda pospuesta** a una versión futura. La beta usa ilustraciones estáticas.
-- **Pendiente de diseño:** Hoja de personaje definitiva, set de ilustraciones estáticas, paleta de producción, licencia de arte, qué expresiones necesita ONB-01, dónde aparece fuera del tutorial.
-- **Criterio de cierre:** Somi es reconocible y original en las ilustraciones acordadas e integradas. No mide órganos ni neurotransmisores. **No** se cierra hasta validar las ilustraciones y su integración. Esta reorganización **no** implementa CHR-01A ni CHR-01B.
+  - **Somi aparece exclusivamente en el tutorial ONB-01.** No hay presencia permanente en Cuenta ni en otras pantallas.
+- **Pendiente de diseño (ONB-01):** qué ilustración de Somi va en cada paso del tutorial. Hoja de personaje / licencia de arte si se exige un corte de producción.
+- **Criterio de cierre git:** componente reutilizable, seis WebP con alfa, PNG conservados, Cuenta sin Somi, tests verdes. **Cierre de producto / deploy:** no. Pendiente revisión final y commit autorizado.
 
 ##### CHR-01A — Retirada de la preview animada (Cuenta)
 
-- **Objetivo:** Quitar la presentación animada actual de Somi en Cuenta **sin** borrar el trabajo reutilizable.
-- **Estado:** **Documentado. No implementar en ROADMAP-REORG-01.** Esperar autorización de implementación.
-- **Alcance previsto (cuando se autorice código):**
-  - Eliminar la integración visual animada (`SomiAccountPreview` / animaciones CSS) de `/preview/account` y `/app/account`.
-  - Conservar recursos gráficos aprovechables (WebP servido y PNG maestro).
-  - Conservar el módulo técnico reutilizable (`features/somi`) hasta analizar dependencias (tests, i18n de Cuenta, `run-web-tests.cjs`).
-  - **No** eliminar componentes o archivos a ciegas.
-- **Criterio:** Cuenta deja de mostrar la mascota animada por CSS. No hay pérdida no analizada de assets. Landing intacta.
+- **Objetivo:** Quitar la presentación animada de Somi **sin** borrar el trabajo reutilizable.
+- **Estado:** **Hecho.** Keyframes y `animated` retirados. `SomiAccountPreview` eliminado; Cuenta DEMO/LIVE ya no muestra a Somi. Conservados: PNG originales, módulo `features/somi`. Landing intacta.
+- **Criterio:** Cuenta no usa animación CSS de Somi. No hay pérdida no analizada de assets.
 
 ##### CHR-01B — Ilustraciones estáticas
 
 - **Objetivo:** Sustituir el planteamiento de animación CSS por **ilustraciones estáticas** con identidad visual coherente.
-- **Estado:** Pendiente. **Después de CHR-01A.** **No** generar imágenes ni implementar componentes en esta reorganización.
-- **Expresiones a prever** (el set concreto se define con las necesidades de ONB-01): bienvenida, alegría, curiosidad, celebración, apoyo, descanso.
-- **Criterio:** Hay un set estático acordado, coherente con la dirección artística, listo para el tutorial. Sin animación avanzada.
+- **Estado:** **Hecho.** API `Somi` con seis estados; el runtime sirve WebP ≤512 px (lado mayor), con alfa; PNG originales sin alterar. `object-fit: contain`. Tamaños S/M/L. **No** hay animación avanzada. Listo para ONB-01.
+- **Expresiones entregadas:** idle, celebrating, thinking, sleeping, waving, supportive.
+- **Criterio:** Set estático WebP servido por `Somi`, PNG conservados, listo para ONB-01.
 
 #### ONB-01 — Tutorial interactivo
 
 - **Objetivo:** Presentar Soma 2.0 a usuarios nuevos, explicar las funcionalidades **principales que existan de verdad**, y usar a Somi como guía visual. Distinto de AUTH-01 (registro, perfil, sustancias).
 - **Prioridad:** P1 (después de **CHR-01B**; antes de UX-PRE-BETA y de abrir BETA-01)
 - **Estado:** Pendiente. El onboarding de cuenta **ya existe** y **se reutiliza**; este ID **no** duplica registro ni PUT de sustancias.
-- **Dependencias:** **CHR-01B** (ilustraciones estáticas de Somi). REC-VIS-01, Explorador, ACH-01, JRN-01, GAM-01 y GAM-02 ya en git (`develop`/`main` según ID) para explicar solo lo real. Persistencia de «tutorial hecho».
+- **Dependencias:** **CHR-01B** (componente `Somi` + seis WebP estáticos). REC-VIS-01, Explorador, ACH-01, JRN-01, GAM-01 y GAM-02 ya en git (`develop`/`main` según ID) para explicar solo lo real. Persistencia de «tutorial hecho».
 - **Decisiones confirmadas:**
   - Somi como guía visual (ilustraciones estáticas de CHR-01B).
   - Explica las superficies principales reales (Recuperación, Explorar, Logros, Bitácora, Misiones/XP **si** están en el corte desplegado).
@@ -1137,7 +1133,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 11. **GAM-01 residual:** copy público de niveles; fuentes de XP adicionales (exploración). Fórmulas del ledger **cerradas** en `develop`.
 12. **JRN-01 residual:** retención/exportación/borrado (detalle GDPR) y nota pública de privacidad.
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (el piloto educativo está en `develop`).
-14. **CHR-01:** ilustraciones estáticas definitivas (CHR-01B); retirar preview CSS (CHR-01A) cuando se autorice código. Animación avanzada pospuesta.
+14. **CHR-01:** técnicamente completado en local (WebP, fuera de Cuenta); **pendiente de revisión final y commit**. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01:** guion del tutorial (acordar pantallas **antes** de código); depende de CHR-01B.
 16. **UX-PRE-BETA:** lista de incidencias del propietario y aprobación explícita.
 
@@ -1275,8 +1271,8 @@ Soma Expeditions (dirección visual OK; parcialmente en main git; atlas 2.0 en d
             ≠ BETA-01D.3 jurídica, publicación de avisos, invite en producción
             ≠ BETA-01 autorización de apertura  [carril paralelo; no cierra el hito]
   Fase F  GAM-03 cerrado técnicamente (local `19c76a1`; mapa de eventos; 64 + 32 tests; sin 2.ª economía)
-          → CHR-01A retirar preview CSS de Cuenta [documentado; no implementar en REORG]
-          → CHR-01B ilustraciones estáticas → ONB-01 tutorial
+          → CHR-01A/B técnico local [WebP; fuera de Cuenta; pendiente commit]
+          → ONB-01 tutorial
           → UX-PRE-BETA (aprobación del propietario)
           → BETA-01 (D.3, avisos, deploy, autorización)
           → MKT-01 (después de abrir)
@@ -1366,3 +1362,5 @@ VIS-01 (no reabre UX-03)
 | 2026-10-30 | Cierre técnico GAM-03: el copy educativa vs participación era **pendiente de diseño**, no criterio de aceptación. Economía sin duplicar (64 unitarias/frontend + 32 PG17). Sin segunda economía, sin migraciones, sin cambio de fórmulas ni medallas. Residual UX sin ID nuevo. BETA-01 sigue abierto; BETA-01D.3 pendiente. Siguiente funcional: **CHR-01**, luego **ONB-01**. |
 | 2026-10-30 | SOMI-02 / SOMI-02B: componente animado CSS + WebP 512 px. Commit local `97ef60d`. Preview en `/preview/account` y `/app/account`. Landing sin Somi. CHR-01 **no** cerrado. Sin push. |
 | 2026-10-30 | **ROADMAP-REORG-01:** secuencia **CHR-01A/B → ONB-01 → UX-PRE-BETA → BETA-01 → MKT-01**. Somi pasa a ilustraciones estáticas; animación avanzada pospuesta. Tutorial y revisión del propietario **antes** de abrir. MKT-01 **después** de BETA-01 (LinkedIn, X, Ko-fi, Instagram evaluación). BETA-01 **no** cerrado; `LEGAL_NOTICE_STATUS=draft`. HEAD local `97ef60d` (ahead 7). Q-CI: workflows `ci.yml` y `database-backups.yml` existen. Sin commit de esta reorganización. Sin implementar CHR-01A. |
+| 2026-10-30 | CHR-01A/B técnico local: seis PNG estáticos; CSS de movimiento retirado; Cuenta `idle`. **No** cierre de CHR-01 (aprobación visual pendiente). `somi-idle.png` copiado del maestro. Sin commit de esta implementación. |
+| 2026-10-30 | CHR-01 ajuste final: propietario aprueba ilustraciones y decide **Somi solo en ONB-01**. Preview de Cuenta retirada. Seis WebP ≤512 px con alfa; PNG sin alterar. **Técnicamente completado; pendiente de revisión final y commit.** Sin push. **No** desplegado. |

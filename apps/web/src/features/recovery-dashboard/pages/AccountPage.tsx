@@ -15,7 +15,6 @@ import { WithdrawConsentSection } from "../../profile/components/WithdrawConsent
 import { PageHeading } from "../components/PageHeading.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
-import { SomiAccountPreview } from "../../somi/index.js";
 
 function accountFieldFromErrorKey(
   key: string | null,
@@ -136,7 +135,6 @@ export function AccountPage() {
           description={t("description")}
           demo
         />
-        <SomiAccountPreview />
         <p className="rounded-2xl border border-soma-line bg-soma-surface px-4 py-6 text-sm text-soma-ink-secondary">
           {t("emailReadonly")}
         </p>
@@ -198,7 +196,6 @@ export function AccountPage() {
         description={t("description")}
         demo={false}
       />
-      <SomiAccountPreview />
 
       {success && !editing ? (
         <p

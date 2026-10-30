@@ -2,8 +2,6 @@
   "eyebrow": "Cuenta",
   "title": "Tus datos personales",
   "description": "Actualiza cómo te nombra Soma y los datos básicos usados en las estimaciones. El seguimiento de sustancias se edita por separado.",
-  "somiPreviewTitle": "Somi",
-  "somiPreviewHint": "Compañera de Soma. No indica tu salud ni tu recuperación.",
   "email": "Correo electrónico",
   "emailReadonly": "El correo no se puede cambiar aquí.",
   "displayName": "Nombre visible",

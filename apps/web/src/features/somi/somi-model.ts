@@ -1,9 +1,10 @@
 export const SOMI_STATES = [
   "idle",
-  "happy",
   "celebrating",
-  "supportive",
+  "thinking",
   "sleeping",
+  "waving",
+  "supportive",
 ] as const;
 
 export type SomiState = (typeof SOMI_STATES)[number];
@@ -12,8 +13,16 @@ export const SOMI_SIZES = ["small", "medium", "large"] as const;
 
 export type SomiSize = (typeof SOMI_SIZES)[number];
 
-/** First-phase idle sprite. All states share this asset until additional poses exist. */
-export const SOMI_IDLE_SRC = "/assets/somi/somi-idle.webp";
+export const SOMI_SRC_BY_STATE: Record<SomiState, string> = {
+  idle: "/assets/somi/somi-idle.webp",
+  celebrating: "/assets/somi/somi-celebrating.webp",
+  thinking: "/assets/somi/somi-thinking.webp",
+  sleeping: "/assets/somi/somi-sleeping.webp",
+  waving: "/assets/somi/somi-waving.webp",
+  supportive: "/assets/somi/somi-supportive.webp",
+};
+
+export const SOMI_IDLE_SRC = SOMI_SRC_BY_STATE.idle;
 
 export const SOMI_SIZE_PX: Record<SomiSize, number> = {
   small: 72,
@@ -35,4 +44,8 @@ export function resolveSomiState(value: SomiState | undefined): SomiState {
 
 export function resolveSomiSize(value: SomiSize | undefined): SomiSize {
   return value && isSomiSize(value) ? value : "medium";
+}
+
+export function somiSrcFor(state: SomiState | undefined): string {
+  return SOMI_SRC_BY_STATE[resolveSomiState(state)];
 }

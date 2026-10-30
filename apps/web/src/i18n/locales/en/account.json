@@ -2,8 +2,6 @@
   "eyebrow": "Account",
   "title": "Your personal details",
   "description": "Update how Soma addresses you and the basics used for estimates. Substance tracking is edited separately.",
-  "somiPreviewTitle": "Somi",
-  "somiPreviewHint": "Soma's companion. She does not measure your health or recovery.",
   "email": "Email",
   "emailReadonly": "Email cannot be changed here.",
   "displayName": "Display name",
