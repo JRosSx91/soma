@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-30 (FBK-01 cierre / BETA-01D). Prioridad inmediata: **BETA-01D.3** (validación jurídica). Objetivo: beta pública de Soma 2.0. Secuencia post-beta: GAM-03 → CHR-01 → ONB-01 → MKT-01. MOB-01 pospuesto.
+Última actualización editorial: 2026-10-30 (cierre R-JXP / FBK-01 / BETA-01D). Prioridad inmediata: **BETA-01D.3** (validación jurídica). Objetivo: beta pública de Soma 2.0. Secuencia post-beta: GAM-03 → CHR-01 → ONB-01 → MKT-01. MOB-01 pospuesto.
 HEAD de `origin/develop` al actualizar: `2152424058bfa6b24f17fc9be1e87a3189a35d32` (CI PR #84). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82) y registro/privacidad (`65866c2`, PR #83).
 HEAD local de `develop` (sin push): `ba65a7ceceeb4bb41e6f38fc3a71e4122035f85a` — backups cifrados `78e3b1d`, borradores legales `ed33f6b`, consentimiento/retirada `ba65a7c`.
 `origin/main`: `7f78c3268e46795a0ad42e443eacd1b188a69b63` (pin `pg_dump` PG17, PR #86). Encima de REL-01 (`8155554`, PR #76) y backups cifrados R2 (`21e5897`, PR #85). SEO-01A, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, registro #83, CI #84 y los commits legales locales **no** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación; `LEGAL_NOTICE_STATUS=draft`.
@@ -37,7 +37,7 @@ Hitos **antes** de autorizar la apertura (los cinco primeros están cubiertos en
 | Orden | ID | Papel respecto a la beta |
 | --- | --- | --- |
 | 1 | FBK-01 | Centro de feedback privado. **Cerrado** frente a sus criterios de aceptación. En `develop` (`f1b447f`, PR #77). **No** `main`. **No** desplegado |
-| 2 | R-JXP | Carrera de `UserProgression.upsert`. **Corregido e integrado** en `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado |
+| 2 | R-JXP | Carrera de `UserProgression`. **Cerrado** (PG17 local 2026-10-30). En `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado. **GAM-03** sigue independiente |
 | 3 | UX-GLO-01 | Consolidación funcional, visual y responsive. **Integrado** en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado |
 | 4 | CLEAN-01 | Retirar rutas y componentes heredados de Soma 1.0. **Hecho** en `develop` (`ca3b456`). **No** `main`. **No** desplegado |
 | 5 | WEB-01 | Nueva landing de Soma 2.0. **Hecho** en `develop` (`ff5a359`, PR #82). **No** `main`. **No** desplegado. **SEO-01B** sigue pendiente |
@@ -106,7 +106,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | SEO-01 visibilidad de búsqueda | SEO-01A fusionado en `develop` (PR #75). **No** `main`. SEO-01B pendiente (contenido orgánico; no reabre WEB-01) |
 | REL-01 release de producción | Completado en git (`main` `8155554`, PR #76). Encima: backups R2/PG17 (`21e5897`/`7f78c32`). **Deploy y migraciones de producción:** no autorizados en este documento |
 | FBK-01 centro de feedback | Completado (criterios de aceptación cubiertos). En `develop` (`f1b447f`, PR #77). Aviso post-retirada de consentimiento en git local (`ba65a7c`). **No** `main`. **No** desplegado |
-| R-JXP carrera XP | Corregido e integrado en `develop` (`a26585e`, PR #78). **No** `main`. **No** desplegado |
+| R-JXP carrera XP | **Cerrado.** Fix en `develop` (`a26585e`, PR #78): `INSERT ON CONFLICT DO NOTHING` + bloqueo de fila. Revalidado PG17 local (20 tests). **No** `main`. **No** desplegado. No reabre GAM-03 |
 | BETA-01 beta pública | **No cerrado.** Infra/backups: hechos (R2 cifrado; restore verificado; `main` `7f78c32`). Borradores legales ES/EN: preparados, **no** publicados (`ed33f6b` local). Consentimiento y retirada: implementados y probados (`ba65a7c` local). Validación jurídica: **pendiente**. Registro por invitación: implementado (`65866c2`, PR #83), **no** habilitado en producción. Apertura: **pendiente**. `LEGAL_NOTICE_STATUS=draft` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** implementar. **Pospuesto.** |
@@ -868,7 +868,7 @@ Preparación y autorización son **fases distintas** del mismo ID. Completar la 
 - Seguridad y prevención de abuso (auth, throttle, superficies privadas; CI/ops PR #84).
 - Recuperación de acceso (reset existente; humo autorizado).
 - Copias de seguridad cifradas PostgreSQL → Cloudflare R2, con prueba de restauración (**hechas**; `main` `21e5897` / `7f78c32`; local `develop` `78e3b1d`).
-- Corrección de **R-JXP** (**hecha** en `develop`, PR #78; no en `main`; no desplegada).
+- Corrección de **R-JXP** (**cerrada** en `develop`, PR #78; revalidada PG17 local 2026-10-30; no en `main`; no desplegada). **GAM-03** no se adelanta.
 - Onboarding **mínimo** (orientación comprensible; **no** exige ONB-01 ni Somi).
 - **FBK-01** operativo en `develop` (PR #77; no en `main`; no desplegado). Criterios originales cubiertos.
 - Validación final de producto (recorrido DEMO + humo LIVE autorizado).
@@ -1088,7 +1088,7 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 | R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación, Logros 2.0 (PR #60), Explorar (PR #61) y atlas (PR #68). LEG-01 redirige |
 | R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en código GAM-01 (`develop`); vigilar copy de landing en REL-01 |
 | R-LOG | Bitácora (JRN-01) en `develop` sin nota de privacidad pública / retención detallada. | Residual de release; no bloquea el merge si el copy LIVE ya avisa que el diario es privado |
-| R-JXP | Posible carrera en `UserProgression.upsert` (primer XP del usuario). Test `pg xp: concurrent journal creates` observó HTTP 500 en lugar de 201 (GAM-02H). | **Corregido en `develop`** (`a26585e`, PR #78). **No** en `main`. **No** desplegado. Residual: incluir el corte en el siguiente release a `main` |
+| R-JXP | Carrera en `UserProgression.upsert` (primer XP). Concurrent journal create devolvía HTTP 500 (GAM-02H). | **Cerrado en `develop`** (`a26585e`, PR #78). Revalidado 2026-10-30 en PostgreSQL 17 desechable: creates concurrentes 201+201, ambas entradas, un grant, `totalXp` coherente. Residual: promocionar el corte a `main` / producción. **No** es GAM-03 |
 | R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
 | R-MIX | Mezclar % temporal con % de curva, o conocimiento con perseverancia. | Mitigado en copy UX-04 + GAME-02/07; vigilar implementación |
 | R-ART | Sustituir visor anatómico o medallas reales por arte generado de mockup. | Prohibido; visor y catálogo 106 se conservan |
@@ -1157,7 +1157,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 | #75 | SEO-01A fundamentos | Squash en `develop` (`cdf038c`). **No** `main` |
 | #76 | REL-01 develop→main | Squash en `main` (`8155554`). Deploy no verificado aquí |
 | #77 | FBK-01 centro de feedback | Squash en `develop` (`f1b447f`). **No** `main`. **No** desplegado |
-| #78 | R-JXP carrera XP | Squash en `develop` (`a26585e`). **No** `main`. **No** desplegado |
+| #78 | R-JXP carrera XP | Squash en `develop` (`a26585e`). **Cerrado** (PG17 2026-10-30). **No** `main`. **No** desplegado |
 | #79 | UX-GLO-01 atlas 2.0 y a11y | Squash en `develop` (`db6385b`). **No** `main`. **No** desplegado |
 | — | CLEAN-01 legado Soma 1.0 | `ca3b456` en `develop`. **No** `main`. **No** desplegado |
 | #82 | WEB-01 landing Soma 2.0 | Squash en `develop` (`ff5a359`). **No** `main`. **No** desplegado |
@@ -1280,3 +1280,4 @@ VIS-01 (no reabre UX-03)
 | 2026-10-29 | SEO-01A squash `develop` (`cdf038c`, PR #75). REL-01 squash `main` (`8155554`, PR #76). FBK-01 en `feature/fbk-01`. Prioridad inmediata: cerrar FBK-01. Objetivo: beta pública cuando haya estabilidad, seguridad, coherencia visual y usabilidad. BETA-01 se parte en preparación vs autorización. UX-GLO-01 absorbe la consolidación responsive (no se duplica UX-01). WEB-01 y CLEAN-01 pasan a prerrequisitos de apertura. WEB-01 incluye identidad visual (favicon, iconos web/PWA, Apple Touch Icon, Open Graph) **sin implementar ahora**. MOB-01 Android/Play **pospuesto**, sin fecha. Secuencia post-beta: GAM-03 → CHR-01 (Somi) → ONB-01 (tutorial completo) → MKT-01 (X, Ko-fi, LinkedIn, README de repo y perfil). MKT-01 **no** bloquea BETA-01; sin campañas ni publicaciones todavía. |
 | 2026-10-29 | ROADMAP-SYNC-01: FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78) y UX-GLO-01 (`db6385b`, PR #79) integrados en `origin/develop`. **No** en `main`. **No** desplegados. Prioridad inmediata: CLEAN-01. Antes de beta: CLEAN-01 → WEB-01 (+ SEO-01B) → BETA-01 preparación → BETA-01 autorización. Después de abrir: GAM-03 → CHR-01 → ONB-01 → MKT-01. |
 | 2026-10-30 | Cierre FBK-01: criterios originales cubiertos (formulario, validación, API JWT, PostgreSQL, usuario, errores, ES/EN, throttle/duplicados, aviso tras retirada). Tests API 20 y web 24 en verde. Sin UI admin (fuera de alcance). BETA-01 **no** cerrado: backups y restore hechos; legales en `draft`; consentimiento local; D.3 jurídica pendiente; invite no en producción; apertura pendiente. CLEAN-01 y WEB-01 hechos en `develop`. Prioridad inmediata: BETA-01D.3. WEB-02, FBK-02, GAME-07/08 y MOB-01 siguen pospuestos. Sin commit de este sync. |
+| 2026-10-30 | Cierre R-JXP: carrera de `UserProgression` resuelta en `develop` (`a26585e`, PR #78) con `INSERT ON CONFLICT DO NOTHING` y `FOR UPDATE`. Revalidación PG17 local desechable: 20/20 (`r-jxp.concurrency`, `journal.progress`, `progress.pg.http`). Concurrent creates 201+201; ambas entradas; ledger sin duplicar; `totalXp` coherente. **No** `main`. **No** desplegado. **GAM-03** permanece pendiente e independiente. Prioridad inmediata sigue siendo BETA-01D.3. |
