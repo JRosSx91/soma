@@ -12,6 +12,12 @@ const valid = {
   biologicalSex: "female" as const,
   birthYear: 1991,
   inviteToken: "invite_token_value",
+  acceptedTerms: true,
+  acceptedPrivacyNotice: true,
+  acceptedSpecialCategoryProcessing: true,
+  termsVersion: "ignored",
+  privacyNoticeVersion: "ignored",
+  specialCategoryProcessingVersion: "ignored",
 };
 
 test("matching passwords yield a payload without confirmPassword", () => {
@@ -59,6 +65,17 @@ test("short password is rejected before match", () => {
   assert.deepEqual(result, {
     ok: false,
     messageKey: "register.passwordTooShort",
+  });
+});
+
+test("unchecked acceptances do not produce credentials", () => {
+  const result = prepareRegisterCredentials({
+    ...valid,
+    acceptedTerms: false,
+  });
+  assert.deepEqual(result, {
+    ok: false,
+    messageKey: "register.acceptRequired",
   });
 });
 

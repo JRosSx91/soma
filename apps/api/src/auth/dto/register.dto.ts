@@ -1,4 +1,6 @@
 import {
+  Equals,
+  IsBoolean,
   IsEmail,
   IsEnum,
   IsInt,
@@ -10,6 +12,11 @@ import {
   MinLength,
 } from "class-validator";
 import { BiologicalSex } from "@prisma/client";
+import {
+  LEGAL_PRIVACY_VERSION,
+  LEGAL_SPECIAL_CATEGORY_VERSION,
+  LEGAL_TERMS_VERSION,
+} from "@soma/shared-types";
 
 export class RegisterDto {
   @IsEmail()
@@ -45,4 +52,32 @@ export class RegisterDto {
   @IsOptional()
   @IsString()
   inviteToken?: string;
+
+  /**
+   * Affirmative actions on the current draft documents. Required for new
+   * registrations. PENDING LEGAL: versions and purposes are still draft.
+   */
+  @IsBoolean()
+  @Equals(true)
+  acceptedTerms!: boolean;
+
+  @IsString()
+  @Equals(LEGAL_TERMS_VERSION)
+  termsVersion!: string;
+
+  @IsBoolean()
+  @Equals(true)
+  acceptedPrivacyNotice!: boolean;
+
+  @IsString()
+  @Equals(LEGAL_PRIVACY_VERSION)
+  privacyNoticeVersion!: string;
+
+  @IsBoolean()
+  @Equals(true)
+  acceptedSpecialCategoryProcessing!: boolean;
+
+  @IsString()
+  @Equals(LEGAL_SPECIAL_CATEGORY_VERSION)
+  specialCategoryProcessingVersion!: string;
 }

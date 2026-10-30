@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
-import { previewFocus } from "../recovery-dashboard/focus.js";
 import { useLandingV2Intro } from "./SomaIntro.js";
+import { LandingRegistrationActions } from "./LandingRegistrationActions.js";
 import "./landing-v2-hero.css";
 
 const HERO_ART = "/images/landing-v2/hero-holographic-anatomy.png";
@@ -93,23 +92,14 @@ export function LandingV2Hero() {
             {t("hero.subtitle")}
           </motion.p>
           <motion.div
-            className="landing-v2-hero__cta mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.34 }}
           >
-            <Link
-              to="/register"
-              className={`${previewFocus} inline-flex items-center justify-center rounded-xl bg-soma-action px-6 py-3 text-sm font-semibold text-[#081018] transition-colors hover:bg-soma-action-hover`}
-            >
-              {t("hero.ctaPrimary")}
-            </Link>
-            <Link
-              to="/preview"
-              className={`${previewFocus} inline-flex items-center justify-center rounded-xl border border-soma-line-strong bg-[#081018]/40 px-6 py-3 text-sm font-medium text-soma-ink-secondary transition-colors hover:border-soma-physiology hover:text-soma-ink`}
-            >
-              {t("hero.ctaSecondary")}
-            </Link>
+            <LandingRegistrationActions
+              copyPrefix="hero"
+              layoutClassName="landing-v2-hero__cta mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+            />
           </motion.div>
           <p className="landing-v2-hero__disclaimer mt-5 text-xs leading-relaxed text-soma-ink-muted">
             {t("hero.disclaimer")}

@@ -22,6 +22,7 @@ import enOrgans from "./locales/en/organs.json";
 import enOrganNarrative from "./locales/en/organ-narrative.json";
 import enAchievements from "./locales/en/achievements.json";
 import enLandingV2 from "./locales/en/landing-v2.json";
+import enLegal from "./locales/en/legal.json";
 import enMechanisms from "./locales/en/mechanisms.json";
 import enAccount from "./locales/en/account.json";
 import enRecovery from "./locales/en/recovery.json";
@@ -45,6 +46,7 @@ import esOrgans from "./locales/es/organs.json";
 import esOrganNarrative from "./locales/es/organ-narrative.json";
 import esAchievements from "./locales/es/achievements.json";
 import esLandingV2 from "./locales/es/landing-v2.json";
+import esLegal from "./locales/es/legal.json";
 import esMechanisms from "./locales/es/mechanisms.json";
 import esRecovery from "./locales/es/recovery.json";
 import esExplore from "./locales/es/explore.json";
@@ -176,8 +178,11 @@ let esLandingV2Bundle = landingV2FromModule(esLandingV2);
 function syncLandingV2Resources() {
   i18n.addResourceBundle("en", "landing-v2", enLandingV2Bundle, true, true);
   i18n.addResourceBundle("es", "landing-v2", esLandingV2Bundle, true, true);
+  i18n.addResourceBundle("en", "legal", enLegal, true, true);
+  i18n.addResourceBundle("es", "legal", esLegal, true, true);
   for (const lng of LANDING_V2_EN_FALLBACK) {
     i18n.addResourceBundle(lng, "landing-v2", enLandingV2Bundle, true, true);
+    i18n.addResourceBundle(lng, "legal", enLegal, true, true);
   }
 }
 
@@ -200,6 +205,7 @@ i18n
       "organ-narrative",
       "achievements",
       "landing-v2",
+      "legal",
       "mechanisms",
       "account",
       "recovery",
@@ -238,6 +244,7 @@ i18n
         "organ-narrative": enOrganNarrative,
         achievements: enAchievements,
         "landing-v2": enLandingV2,
+        legal: enLegal,
         mechanisms: enMechanisms,
         account: enAccount,
         recovery: enRecovery,
@@ -261,6 +268,7 @@ i18n
         "organ-narrative": esOrganNarrative,
         achievements: esAchievements,
         "landing-v2": esLandingV2,
+        legal: esLegal,
         mechanisms: esMechanisms,
         account: esAccount,
         recovery: esRecovery,

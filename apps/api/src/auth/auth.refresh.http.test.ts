@@ -21,6 +21,7 @@ import {
   FORGOT_PASSWORD_RESPONSE,
   RESET_PASSWORD_RESPONSE,
 } from "./password-reset.service.js";
+import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
 
 const ORIGIN = "http://localhost:5173";
 
@@ -147,6 +148,7 @@ test("register also sets a refresh cookie", async () => {
       displayName: "Fresh",
       biologicalSex: "male",
       birthYear: 1990,
+      ...currentRegistrationAcceptanceFields(),
     });
   assert.equal(res.status, 201);
   assert.ok(cookieValue(res, REFRESH_COOKIE_NAME));

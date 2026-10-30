@@ -8,6 +8,7 @@ import {
   Post,
   Req,
   Res,
+  ServiceUnavailableException,
   UseGuards,
 } from "@nestjs/common";
 import type { User } from "@prisma/client";
@@ -34,6 +35,7 @@ import {
 import { ForgotPasswordDto } from "./dto/forgot-password.dto.js";
 import { ResetPasswordDto } from "./dto/reset-password.dto.js";
 import { PasswordResetService } from "./password-reset.service.js";
+import { resolveRegistrationMode } from "./registration-mode.js";
 
 @Controller("auth")
 export class AuthController {
@@ -42,6 +44,18 @@ export class AuthController {
     @Inject(PasswordResetService)
     private readonly passwordReset: PasswordResetService,
   ) {}
+
+  @Get("registration-mode")
+  registrationMode() {
+    try {
+      return { mode: resolveRegistrationMode() };
+    } catch {
+      throw new ServiceUnavailableException({
+        message: "Registration is temporarily unavailable",
+        code: "AUTH_REGISTRATION_MODE_UNAVAILABLE",
+      });
+    }
+  }
 
   @Post("register")
   @HttpCode(HttpStatus.CREATED)

@@ -41,6 +41,8 @@ export const RENDER_X_ROBOTS_NOINDEX_PATHS = [
   "/preview/*",
   "/login",
   "/register",
+  "/privacy",
+  "/terms",
   "/forgot-password",
   "/reset-password",
   "/onboarding",

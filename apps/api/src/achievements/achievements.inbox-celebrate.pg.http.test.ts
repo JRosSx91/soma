@@ -33,6 +33,7 @@ import {
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
 import { REFRESH_COOKIE_NAME } from "../auth/refresh-cookie.js";
+import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
 import { ACHIEVEMENT_IDS_MAX_BATCH } from "./dto/achievement-ids.dto.js";
 
 const ORIGIN = "http://localhost:5173";
@@ -223,6 +224,7 @@ async function registerUser(input: {
     biologicalSex: input.biologicalSex,
     birthYear: input.birthYear,
     inviteToken: input.inviteToken,
+    ...currentRegistrationAcceptanceFields(),
   });
   const createdId = res.body?.user?.id;
   if (res.status === 201 && typeof createdId === "string" && createdId.length > 0) {

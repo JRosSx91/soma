@@ -38,6 +38,14 @@ export async function register(
     displayName: credentials.displayName,
     biologicalSex: credentials.biologicalSex,
     birthYear: credentials.birthYear,
+    acceptedTerms: credentials.acceptedTerms,
+    termsVersion: credentials.termsVersion,
+    acceptedPrivacyNotice: credentials.acceptedPrivacyNotice,
+    privacyNoticeVersion: credentials.privacyNoticeVersion,
+    acceptedSpecialCategoryProcessing:
+      credentials.acceptedSpecialCategoryProcessing,
+    specialCategoryProcessingVersion:
+      credentials.specialCategoryProcessingVersion,
   };
   if (credentials.weightKg !== undefined) {
     body.weightKg = credentials.weightKg;

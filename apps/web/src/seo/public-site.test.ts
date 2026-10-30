@@ -28,6 +28,8 @@ test("only the site root is indexable", () => {
     "/preview/missions",
     "/login",
     "/register",
+    "/privacy",
+    "/terms",
     "/onboarding",
     "/reset-password",
     "/forgot-password",
