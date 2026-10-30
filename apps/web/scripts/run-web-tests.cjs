@@ -22,6 +22,7 @@ const TEST_ROOTS = [
   "src/features/recovery-dashboard",
   "src/features/landing-v2",
   "src/features/legal",
+  "src/features/somi",
   "src/seo",
   "src/i18n",
 ];
