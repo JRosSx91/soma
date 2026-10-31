@@ -96,7 +96,7 @@ The development catalogs include:
 | Anatomical systems | 12 |
 | Canonical organ and structure entries | 21 |
 | Modeled organ–substance recovery curves | 56 |
-| Achievements | 106 |
+| Achievements | 156 |
 
 These figures describe the project's cataloged content, not medical validation, clinical accuracy, or completeness of scientific coverage.
 
