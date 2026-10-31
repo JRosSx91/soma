@@ -30,7 +30,7 @@ import {
   hashRegistrationInviteToken,
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
-import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
+import { currentRegisterClientFields } from "@soma/shared-types";
 import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
 import { PrismaService } from "../prisma/prisma.service.js";
 
@@ -242,9 +242,9 @@ async function registerUser(input: {
     password: input.password,
     displayName: input.displayName,
     biologicalSex: input.biologicalSex,
-    birthYear: input.birthYear,
     inviteToken: input.inviteToken,
-    ...currentRegistrationAcceptanceFields(),
+    ...currentRegisterClientFields(),
+    birthDate: `${input.birthYear}-06-15`,
   });
   assert.equal(res.status, 201, "register must succeed with a live invite");
   const refresh = cookieValue(res, REFRESH_COOKIE_NAME);

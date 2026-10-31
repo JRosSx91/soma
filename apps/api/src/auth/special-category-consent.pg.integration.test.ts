@@ -13,7 +13,7 @@ import { PrismaClient } from "@prisma/client";
 import {
   SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
-  currentRegistrationAcceptanceFields,
+  currentRegisterClientFields,
   currentSpecialCategoryGrantFields,
 } from "@soma/shared-types";
 import { UsersService } from "../users/users.service.js";
@@ -134,8 +134,7 @@ test("pg: contextual consent, history, isolation, and derived unlocks", async (t
       password,
       displayName: "Consent",
       biologicalSex: "female",
-      birthYear: 1992,
-      ...currentRegistrationAcceptanceFields(),
+      ...currentRegisterClientFields(),
     });
     userId = result.user.id;
     const sessionBefore = result.refresh.plaintext;
@@ -143,7 +142,7 @@ test("pg: contextual consent, history, isolation, and derived unlocks", async (t
     const atRegister = await prisma.registrationAcceptance.findMany({
       where: { userId },
     });
-    assert.equal(atRegister.length, 2);
+    assert.equal(atRegister.length, 3);
     assert.equal(
       atRegister.some((row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE),
       false,
@@ -197,8 +196,7 @@ test("pg: contextual consent, history, isolation, and derived unlocks", async (t
       password,
       displayName: "Peer",
       biologicalSex: "male",
-      birthYear: 1990,
-      ...currentRegistrationAcceptanceFields(),
+      ...currentRegisterClientFields(),
     });
     peerId = peer.user.id;
     await service.grantSpecialCategoryConsent(
@@ -420,8 +418,7 @@ test("pg: concurrent grant/withdraw and journal write vs purge", async (t) => {
       password,
       displayName: "Race",
       biologicalSex: "male",
-      birthYear: 1990,
-      ...currentRegistrationAcceptanceFields(),
+      ...currentRegisterClientFields(),
     });
     userId = result.user.id;
 

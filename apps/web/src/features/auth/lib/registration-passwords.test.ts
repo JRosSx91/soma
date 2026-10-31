@@ -10,12 +10,14 @@ const valid = {
   confirmPassword: "password12",
   displayName: "Ada",
   biologicalSex: "female" as const,
-  birthYear: 1991,
+  birthDate: "1991-04-02",
   inviteToken: "invite_token_value",
   acceptedTerms: true,
   acceptedPrivacyNotice: true,
+  acceptedAdultAge: true,
   termsVersion: "ignored",
   privacyNoticeVersion: "ignored",
+  adultAgeVersion: "ignored",
 };
 
 test("matching passwords yield a payload without confirmPassword", () => {
@@ -38,6 +40,9 @@ test("matching passwords yield a payload without confirmPassword", () => {
     "specialCategoryProcessingVersion" in result.credentials,
     false,
   );
+  assert.equal("birthYear" in result.credentials, false);
+  assert.equal(result.credentials.birthDate, "1991-04-02");
+  assert.equal(result.credentials.acceptedAdultAge, true);
 });
 
 test("mismatched passwords do not produce credentials", () => {
@@ -93,6 +98,29 @@ test("privacy-only uncheck still blocks registration", () => {
   assert.deepEqual(result, {
     ok: false,
     messageKey: "register.acceptRequired",
+  });
+});
+
+test("unchecked adult-age declaration blocks registration", () => {
+  const result = prepareRegisterCredentials({
+    ...valid,
+    acceptedAdultAge: false,
+  });
+  assert.deepEqual(result, {
+    ok: false,
+    messageKey: "register.acceptRequired",
+  });
+});
+
+test("a birth date that cannot yet be 18 is rejected", () => {
+  const year = new Date().getFullYear() - 1;
+  const result = prepareRegisterCredentials({
+    ...valid,
+    birthDate: `${year}-12-31`,
+  });
+  assert.deepEqual(result, {
+    ok: false,
+    messageKey: "register.ageRestricted",
   });
 });
 

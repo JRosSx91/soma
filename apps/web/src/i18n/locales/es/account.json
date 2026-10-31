@@ -37,7 +37,7 @@
   "errors": {
     "displayNameRequired": "Introduce un nombre visible.",
     "biologicalSexInvalid": "Elige un sexo biológico válido.",
-    "birthYearInvalid": "Introduce un año de nacimiento entre 1900 y el año actual.",
+    "birthYearInvalid": "Introduce un año de nacimiento que corresponda a una persona de 18 años o más. No se puede elegir un año en el que todavía no se haya cumplido esa edad.",
     "weightInvalid": "Introduce un peso válido o deja el campo vacío.",
     "weightOutOfRange": "El peso debe estar entre 20 y 400 kg.",
     "noChanges": "No hay cambios que guardar.",

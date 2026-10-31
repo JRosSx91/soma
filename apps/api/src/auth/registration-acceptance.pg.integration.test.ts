@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaClient } from "@prisma/client";
-import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
+import { currentRegisterClientFields } from "@soma/shared-types";
 import { UsersService } from "../users/users.service.js";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { AuthService } from "./auth.service.js";
@@ -115,8 +115,7 @@ test("register persists terms and privacy without a health grant and user delete
       password: "password123",
       displayName: "Accept",
       biologicalSex: "male",
-      birthYear: 1991,
-      ...currentRegistrationAcceptanceFields(),
+      ...currentRegisterClientFields(),
     });
     userId = result.user.id;
     assert.equal(result.user.email, email);
@@ -124,11 +123,11 @@ test("register persists terms and privacy without a health grant and user delete
     const rows = await prisma.registrationAcceptance.findMany({
       where: { userId },
     });
-    assert.equal(rows.length, 2);
+    assert.equal(rows.length, 3);
     const purposes = new Set(rows.map((row) => row.purpose));
     assert.deepEqual(
       [...purposes].sort(),
-      ["privacy_notice", "terms_of_use"],
+      ["adult_age_declaration", "privacy_notice", "terms_of_use"],
     );
     assert.equal(purposes.has("special_category_processing"), false);
     for (const row of rows) {

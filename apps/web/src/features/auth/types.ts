@@ -38,7 +38,7 @@ export interface RegisterCredentials {
   password: string;
   displayName: string;
   biologicalSex: BiologicalSex;
-  birthYear: number;
+  birthDate: string;
   weightKg?: number;
   /** Closed-beta invite; omitted in open registration mode. */
   inviteToken?: string;
@@ -46,6 +46,8 @@ export interface RegisterCredentials {
   termsVersion: string;
   acceptedPrivacyNotice: boolean;
   privacyNoticeVersion: string;
+  acceptedAdultAge: boolean;
+  adultAgeVersion: string;
 }
 
 /** Bootstrap / session lifecycle for the SPA. */

@@ -252,15 +252,18 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.match(html, /for="register-password"/);
   assert.match(html, /for="register-confirm-password"/);
   assert.match(html, /for="register-biological-sex"/);
-  assert.match(html, /for="register-birth-year"/);
+  assert.match(html, /for="register-birth-date"/);
   assert.match(html, /autocomplete="nickname"/i);
   assert.match(html, /autocomplete="email"/i);
   assert.equal(html.includes("aria-invalid"), false);
   assert.match(html, /href="\/privacy"/);
   assert.match(html, /href="\/terms"/);
+  assert.match(html, /href="\/legal"/);
+  assert.match(html, /href="\/cookies"/);
+  assert.match(html, /id="register-accept-adult"/);
   assert.doesNotMatch(html, /register-accept-special/);
   assert.doesNotMatch(html, /privacy#privacy-special/);
-  assert.equal((html.match(/type="checkbox"/g) ?? []).length, 2);
+  assert.equal((html.match(/type="checkbox"/g) ?? []).length, 3);
   assert.doesNotMatch(html, /type="checkbox"[^>]*checked/);
 });
 

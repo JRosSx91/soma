@@ -29,9 +29,10 @@ export function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [biologicalSex, setBiologicalSex] = useState<BiologicalSex>("male");
-  const [birthYear, setBirthYear] = useState<number>(1990);
+  const [birthDate, setBirthDate] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedPrivacyNotice, setAcceptedPrivacyNotice] = useState(false);
+  const [acceptedAdultAge, setAcceptedAdultAge] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [errorField, setErrorField] = useState<"password" | "confirm" | null>(
     null,
@@ -119,11 +120,13 @@ export function RegisterPage() {
       confirmPassword,
       displayName,
       biologicalSex,
-      birthYear,
+      birthDate,
       acceptedTerms,
       acceptedPrivacyNotice,
+      acceptedAdultAge,
       termsVersion: "",
       privacyNoticeVersion: "",
+      adultAgeVersion: "",
       ...(inviteToken ? { inviteToken } : {}),
     });
     if (!prepared.ok) {
@@ -278,21 +281,26 @@ export function RegisterPage() {
 
           <div>
             <label
-              htmlFor="register-birth-year"
+              htmlFor="register-birth-date"
               className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
             >
-              {t("register.birthYear")}
+              {t("register.birthDate")}
             </label>
             <input
-              id="register-birth-year"
-              type="number"
+              id="register-birth-date"
+              type="date"
               required
-              min={1900}
-              max={new Date().getFullYear()}
-              value={birthYear}
-              onChange={(e) => setBirthYear(Number(e.target.value))}
-              className={authFieldClass}
+              min="1900-01-01"
+              max={new Intl.DateTimeFormat("en-CA", {
+                timeZone: "Europe/Madrid",
+              }).format(new Date())}
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+              className={`${authFieldClass} scheme-dark`}
             />
+            <p className="mt-2 text-xs leading-relaxed text-soma-ink-muted">
+              {t("register.birthDateHint")}
+            </p>
           </div>
 
           <fieldset className="space-y-3 rounded-xl border border-white/10 p-3">
@@ -329,6 +337,25 @@ export function RegisterPage() {
                 </Link>
               </span>
             </label>
+            <label className="flex items-start gap-2 text-sm text-soma-ink-secondary">
+              <input
+                id="register-accept-adult"
+                type="checkbox"
+                className="mt-1"
+                checked={acceptedAdultAge}
+                onChange={(e) => setAcceptedAdultAge(e.target.checked)}
+              />
+              <span>{t("register.acceptAdultAge")}</span>
+            </label>
+            <p className="text-xs leading-relaxed text-soma-ink-muted">
+              <Link to="/legal" className={authLinkClass}>
+                {t("register.legalLink")}
+              </Link>
+              {" · "}
+              <Link to="/cookies" className={authLinkClass}>
+                {t("register.cookiesLink")}
+              </Link>
+            </p>
           </fieldset>
 
           {error && (

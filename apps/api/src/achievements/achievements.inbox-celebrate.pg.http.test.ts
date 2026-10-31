@@ -33,7 +33,7 @@ import {
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
 import { REFRESH_COOKIE_NAME } from "../auth/refresh-cookie.js";
-import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
+import { currentRegisterClientFields } from "@soma/shared-types";
 import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { ACHIEVEMENT_IDS_MAX_BATCH } from "./dto/achievement-ids.dto.js";
@@ -224,9 +224,9 @@ async function registerUser(input: {
     password: input.password,
     displayName: input.displayName,
     biologicalSex: input.biologicalSex,
-    birthYear: input.birthYear,
     inviteToken: input.inviteToken,
-    ...currentRegistrationAcceptanceFields(),
+    ...currentRegisterClientFields(),
+    birthDate: `${input.birthYear}-06-15`,
   });
   const createdId = res.body?.user?.id;
   if (res.status === 201 && typeof createdId === "string" && createdId.length > 0) {

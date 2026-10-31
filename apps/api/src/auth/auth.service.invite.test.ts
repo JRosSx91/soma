@@ -10,7 +10,7 @@ import {
 import type { UsersService } from "../users/users.service.js";
 import type { RefreshSessionService } from "./refresh-session.service.js";
 import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
-import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
+import { currentRegisterClientFields } from "@soma/shared-types";
 
 type InviteRow = {
   id: string;
@@ -36,8 +36,7 @@ const dto = {
   password: "password123",
   displayName: "Beta",
   biologicalSex: "male" as const,
-  birthYear: 1992,
-  ...currentRegistrationAcceptanceFields(),
+  ...currentRegisterClientFields(),
 };
 
 function cloneInvites(rows: Map<string, InviteRow>): Map<string, InviteRow> {

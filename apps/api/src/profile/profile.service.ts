@@ -3,6 +3,12 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import { isStoredBirthYearAllowed } from "@soma/shared-types";
+import { CodedBadRequestException } from "../common/exceptions/coded-exception.js";
+import {
+  AUTH_AGE_RESTRICTED_CODE,
+  AUTH_AGE_RESTRICTED_MESSAGE,
+} from "../auth/registration-age.js";
 import {
   requireSpecialCategoryWrite,
   loadSpecialCategoryConsentActive,
@@ -156,10 +162,19 @@ export class ProfileService {
 
     const existing = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true },
+      select: { id: true, birthYear: true },
     });
     if (!existing) {
       throw new NotFoundException("User not found");
+    }
+    if (
+      dto.birthYear !== undefined &&
+      !isStoredBirthYearAllowed(dto.birthYear, existing.birthYear)
+    ) {
+      throw new CodedBadRequestException(
+        AUTH_AGE_RESTRICTED_CODE,
+        AUTH_AGE_RESTRICTED_MESSAGE,
+      );
     }
 
     await this.prisma.user.update({

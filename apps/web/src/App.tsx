@@ -23,6 +23,8 @@ import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-
 import { DocumentSeo } from "./seo/DocumentSeo.js";
 import { RegistrationModeProvider } from "./features/auth/context/RegistrationModeContext.js";
 import {
+  CookiesPage,
+  LegalNoticePage,
   PrivacyPage,
   TermsPage,
 } from "./features/legal/LegalDocumentPage.js";
@@ -76,8 +78,10 @@ function App() {
         <Route path="/landing-2" element={<Navigate to="/" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/legal" element={<LegalNoticePage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/cookies" element={<CookiesPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/preview">

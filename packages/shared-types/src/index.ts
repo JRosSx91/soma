@@ -14,3 +14,4 @@ export * from "./missions.js";
 export * from "./gamification-events.js";
 export * from "./feedback.js";
 export * from "./legal-notices.js";
+export * from "./registration-age.js";

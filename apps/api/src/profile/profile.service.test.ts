@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BadRequestException, NotFoundException } from "@nestjs/common";
-import { CodedForbiddenException } from "../common/exceptions/coded-exception.js";
+import {
+  CodedBadRequestException,
+  CodedForbiddenException,
+} from "../common/exceptions/coded-exception.js";
+import { AUTH_AGE_RESTRICTED_CODE } from "../auth/registration-age.js";
 import { OnboardingStatus } from "@prisma/client";
 import { ProfileService } from "./profile.service.js";
 
@@ -89,12 +93,18 @@ function createService(store: {
       }: {
         where: { id: string };
         include?: { usages: boolean };
-        select?: { id: boolean; onboardingStatus: boolean };
+        select?: { id: boolean; onboardingStatus?: boolean; birthYear?: boolean };
       }) => {
         const user = store.users.get(where.id);
         if (!user) return null;
         if (select) {
-          return { id: user.id, onboardingStatus: user.onboardingStatus };
+          return {
+            id: user.id,
+            ...(select.onboardingStatus
+              ? { onboardingStatus: user.onboardingStatus }
+              : {}),
+            ...(select.birthYear ? { birthYear: user.birthYear } : {}),
+          };
         }
         if (include?.usages) return user;
         return user;
@@ -448,6 +458,23 @@ test("updateProfileDetails omitted fields stay unchanged", async () => {
   assert.equal(profile.user.birthYear, 1990);
   assert.equal(profile.user.weightKg, 80);
   assert.equal(profile.user.email, user.email);
+});
+
+test("updateProfileDetails rejects a birth year that cannot be 18", async () => {
+  const user = makeUser();
+  const service = createService({ users: new Map([[user.id, user]]) });
+  await assert.rejects(
+    () =>
+      service.updateProfileDetails(user.id, {
+        birthYear: new Date().getFullYear() - 1,
+      }),
+    (err: unknown) => {
+      assert.ok(err instanceof CodedBadRequestException);
+      assert.equal(err.code, AUTH_AGE_RESTRICTED_CODE);
+      return true;
+    },
+  );
+  assert.equal(user.birthYear, 1990);
 });
 
 test("updateProfileDetails allows null weightKg and preserves other fields", async () => {

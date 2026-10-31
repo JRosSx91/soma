@@ -22,6 +22,7 @@ import {
   assertRegistrationAcceptance,
   persistRegistrationAcceptances,
 } from "./registration-acceptance.js";
+import { assertEligibleRegistrationAge } from "./registration-age.js";
 import {
   persistSpecialCategoryGrant,
   persistSpecialCategoryWithdrawal,
@@ -90,12 +91,13 @@ export class AuthService {
     meta: SessionMeta = {},
   ): Promise<AuthenticatedSessionResult> {
     assertRegistrationAcceptance(dto);
+    const birthYear = assertEligibleRegistrationAge(dto.birthDate);
     assertProductionAllowsRegistration();
     const mode = resolveRegistrationMode();
     if (mode === "invite") {
-      return this.registerWithInvite(dto, meta);
+      return this.registerWithInvite(dto, meta, birthYear);
     }
-    return this.registerOpen(dto, meta);
+    return this.registerOpen(dto, meta, birthYear);
   }
 
   private registrationUnavailable(): CodedForbiddenException {
@@ -108,6 +110,7 @@ export class AuthService {
   private async registerOpen(
     dto: RegisterDto,
     meta: SessionMeta,
+    birthYear: number,
   ): Promise<AuthenticatedSessionResult> {
     const email = normalizeEmail(dto.email);
     const existing = await this.usersService.findByEmailInsensitive(email);
@@ -136,7 +139,7 @@ export class AuthService {
       hashedPassword,
       displayName: dto.displayName,
       biologicalSex: dto.biologicalSex,
-      birthYear: dto.birthYear,
+      birthYear,
       weightKg: dto.weightKg,
     });
     await persistRegistrationAcceptances(this.prisma, user.id);
@@ -147,6 +150,7 @@ export class AuthService {
   private async registerWithInvite(
     dto: RegisterDto,
     meta: SessionMeta,
+    birthYear: number,
   ): Promise<AuthenticatedSessionResult> {
     const inviteToken = dto.inviteToken ?? "";
     if (!isRegistrationInviteTokenFormat(inviteToken)) {
@@ -178,7 +182,7 @@ export class AuthService {
             hashedPassword,
             displayName: dto.displayName,
             biologicalSex: dto.biologicalSex,
-            birthYear: dto.birthYear,
+            birthYear,
             weightKg: dto.weightKg,
           },
           tx,

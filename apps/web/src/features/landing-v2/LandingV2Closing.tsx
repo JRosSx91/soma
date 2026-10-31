@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { SomaMark } from "../recovery-dashboard/components/SomaMark.js";
@@ -8,7 +9,7 @@ import { LandingRegistrationActions } from "./LandingRegistrationActions.js";
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export function LandingV2Closing() {
-  const { t } = useTranslation("landing-v2", {
+  const { t } = useTranslation(["landing-v2", "legal"], {
     bindI18n: "languageChanged loaded added",
   });
   const reduceMotion = Boolean(useReducedMotion());
@@ -120,6 +121,23 @@ export function LandingV2Closing() {
             <p className="text-xs text-soma-ink-muted">{t("closing.tagline")}</p>
             <p className="text-xs tabular-nums text-soma-ink-muted">© {year}</p>
           </div>
+          <nav
+            aria-label={t("legal:nav.label")}
+            className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-soma-ink-muted"
+          >
+            <Link className="hover:text-soma-action" to="/legal">
+              {t("legal:nav.notice")}
+            </Link>
+            <Link className="hover:text-soma-action" to="/privacy">
+              {t("legal:nav.privacy")}
+            </Link>
+            <Link className="hover:text-soma-action" to="/terms">
+              {t("legal:nav.terms")}
+            </Link>
+            <Link className="hover:text-soma-action" to="/cookies">
+              {t("legal:nav.cookies")}
+            </Link>
+          </nav>
         </footer>
       </div>
     </section>

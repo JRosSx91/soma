@@ -15,13 +15,15 @@
 export const LEGAL_NOTICE_STATUS = "draft" as const;
 export type LegalNoticeStatus = "draft" | "published";
 
-export const LEGAL_TERMS_VERSION = "draft-2026-10-30";
-export const LEGAL_PRIVACY_VERSION = "draft-2026-10-30";
+export const LEGAL_TERMS_VERSION = "draft-2026-10-31.2";
+export const LEGAL_PRIVACY_VERSION = "draft-2026-10-31.2";
+export const LEGAL_ADULT_AGE_VERSION = "draft-2026-10-31";
 export const LEGAL_SPECIAL_CATEGORY_VERSION = "draft-2026-10-30";
 
 export const REGISTRATION_ACCEPTANCE_PURPOSES = [
   "terms_of_use",
   "privacy_notice",
+  "adult_age_declaration",
   "special_category_processing",
 ] as const;
 
@@ -105,7 +107,12 @@ export type RegistrationAcceptanceFields = {
   termsVersion: string;
   acceptedPrivacyNotice: boolean;
   privacyNoticeVersion: string;
+  acceptedAdultAge: boolean;
+  adultAgeVersion: string;
 };
+
+/** Civil date used by register tests. Always 18+ relative to the 2026 beta. */
+export const REGISTER_TEST_BIRTH_DATE = "1990-06-15";
 
 export function currentRegistrationAcceptanceFields(): RegistrationAcceptanceFields {
   return {
@@ -113,6 +120,17 @@ export function currentRegistrationAcceptanceFields(): RegistrationAcceptanceFie
     termsVersion: LEGAL_TERMS_VERSION,
     acceptedPrivacyNotice: true,
     privacyNoticeVersion: LEGAL_PRIVACY_VERSION,
+    acceptedAdultAge: true,
+    adultAgeVersion: LEGAL_ADULT_AGE_VERSION,
+  };
+}
+
+export function currentRegisterClientFields(): RegistrationAcceptanceFields & {
+  birthDate: string;
+} {
+  return {
+    birthDate: REGISTER_TEST_BIRTH_DATE,
+    ...currentRegistrationAcceptanceFields(),
   };
 }
 
@@ -124,7 +142,9 @@ export function isCurrentRegistrationAcceptance(
     input.acceptedTerms === true &&
     input.termsVersion === LEGAL_TERMS_VERSION &&
     input.acceptedPrivacyNotice === true &&
-    input.privacyNoticeVersion === LEGAL_PRIVACY_VERSION
+    input.privacyNoticeVersion === LEGAL_PRIVACY_VERSION &&
+    input.acceptedAdultAge === true &&
+    input.adultAgeVersion === LEGAL_ADULT_AGE_VERSION
   );
 }
 
@@ -170,6 +190,11 @@ export function registrationAcceptanceRecords(acceptedAt: Date): Array<{
     {
       purpose: "privacy_notice",
       documentVersion: LEGAL_PRIVACY_VERSION,
+      acceptedAt,
+    },
+    {
+      purpose: "adult_age_declaration",
+      documentVersion: LEGAL_ADULT_AGE_VERSION,
       acceptedAt,
     },
   ];

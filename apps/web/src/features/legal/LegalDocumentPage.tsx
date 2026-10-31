@@ -8,12 +8,37 @@ import { SomaMark } from "../recovery-dashboard/components/SomaMark.js";
 import { previewFocus } from "../recovery-dashboard/focus.js";
 import { authLinkClass } from "../auth/components/AuthShell.js";
 
+export type LegalDocumentKind = "notice" | "privacy" | "terms" | "cookies";
+
+const LEGAL_DOCUMENTS: ReadonlyArray<{
+  kind: LegalDocumentKind;
+  path: string;
+}> = [
+  { kind: "notice", path: "/legal" },
+  { kind: "privacy", path: "/privacy" },
+  { kind: "terms", path: "/terms" },
+  { kind: "cookies", path: "/cookies" },
+];
+
+const NOTICE_SECTIONS = [
+  "identity",
+  "contact",
+  "site",
+  "nature",
+  "ip",
+  "related",
+] as const;
+
 const PRIVACY_SECTIONS = [
   "known",
   "identity",
   "purpose",
+  "bases",
   "data",
   "special",
+  "derived",
+  "auth",
+  "feedback",
   "processors",
   "transfers",
   "retention",
@@ -22,28 +47,55 @@ const PRIVACY_SECTIONS = [
   "age",
   "rights",
   "deletion",
-  "bases",
 ] as const;
 
 const TERMS_SECTIONS = [
   "nature",
-  "limits",
-  "medical",
-  "access",
+  "beta",
   "age",
   "accounts",
-  "advertising",
+  "use",
+  "education",
+  "modes",
+  "estimates",
+  "medical",
+  "emergency",
+  "availability",
   "changes",
   "deletion",
-  "use",
+  "advertising",
   "contact",
 ] as const;
 
-export function LegalDocumentPage({ kind }: { kind: "privacy" | "terms" }) {
+const COOKIES_SECTIONS = [
+  "scope",
+  "cookie",
+  "local",
+  "session",
+  "memory",
+  "third",
+  "banner",
+] as const;
+
+const SECTIONS: Record<LegalDocumentKind, readonly string[]> = {
+  notice: NOTICE_SECTIONS,
+  privacy: PRIVACY_SECTIONS,
+  terms: TERMS_SECTIONS,
+  cookies: COOKIES_SECTIONS,
+};
+
+function bodyParagraphs(text: string): string[] {
+  return text
+    .split(/\n\n+/)
+    .map((paragraph) => paragraph.trim())
+    .filter((paragraph) => paragraph.length > 0);
+}
+
+export function LegalDocumentPage({ kind }: { kind: LegalDocumentKind }) {
   const { t, i18n } = useTranslation("legal");
   const published = isLegalNoticePublished();
   const ns = kind;
-  const sections = kind === "privacy" ? PRIVACY_SECTIONS : TERMS_SECTIONS;
+  const sections = SECTIONS[kind];
 
   useEffect(() => {
     const previous = document.title;
@@ -77,6 +129,21 @@ export function LegalDocumentPage({ kind }: { kind: "privacy" | "terms" }) {
             {t("draftBanner")}
           </p>
         )}
+        <nav
+          aria-label={t("nav.label")}
+          className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm"
+        >
+          {LEGAL_DOCUMENTS.map((document) => (
+            <Link
+              key={document.kind}
+              to={document.path}
+              className={authLinkClass}
+              aria-current={document.kind === kind ? "page" : undefined}
+            >
+              {t(`nav.${document.kind}`)}
+            </Link>
+          ))}
+        </nav>
         <h1 className="mt-6 text-pretty text-3xl font-light tracking-wide text-[#86B7E8]">
           {t(`${ns}.title`)}
         </h1>
@@ -92,16 +159,18 @@ export function LegalDocumentPage({ kind }: { kind: "privacy" | "terms" }) {
             <h2 className="text-sm font-semibold uppercase tracking-wider text-soma-action">
               {t(`${ns}.${section}Title`)}
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
-              {t(`${ns}.${section}Body`)}
-            </p>
+            {bodyParagraphs(t(`${ns}.${section}Body`)).map((paragraph, index) => (
+              <p
+                key={`${section}-${index}`}
+                className="mt-2 text-sm leading-relaxed text-soma-ink-secondary"
+              >
+                {paragraph}
+              </p>
+            ))}
           </section>
         ))}
         <p className="mt-10 text-sm text-soma-ink-muted">
-          {t("contact")}:{" "}
-          <a className={authLinkClass} href="mailto:soma.recovery.app@gmail.com">
-            soma.recovery.app@gmail.com
-          </a>
+          {t("contact")}: {t("pendingContact")}
         </p>
         <p className="mt-6 text-sm">
           <Link to="/" className={authLinkClass}>
@@ -113,10 +182,18 @@ export function LegalDocumentPage({ kind }: { kind: "privacy" | "terms" }) {
   );
 }
 
+export function LegalNoticePage() {
+  return <LegalDocumentPage kind="notice" />;
+}
+
 export function PrivacyPage() {
   return <LegalDocumentPage kind="privacy" />;
 }
 
 export function TermsPage() {
   return <LegalDocumentPage kind="terms" />;
+}
+
+export function CookiesPage() {
+  return <LegalDocumentPage kind="cookies" />;
 }

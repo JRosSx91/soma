@@ -11,13 +11,13 @@ import {
 import type { EmailLookupResult, UsersService } from "../users/users.service.js";
 import type { RefreshSessionService } from "./refresh-session.service.js";
 import {
-  currentRegistrationAcceptanceFields,
+  currentRegisterClientFields,
   currentSpecialCategoryGrantFields,
 } from "@soma/shared-types";
 import { AUTH_ACCEPTANCE_REQUIRED_CODE } from "./registration-acceptance.js";
 import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
 
-const acceptance = currentRegistrationAcceptanceFields();
+const acceptance = currentRegisterClientFields();
 
 type FakeUser = {
   id: string;
@@ -103,7 +103,6 @@ test("register stores a normalized email and issues a refresh session", async ()
     password: "password123",
     displayName: "New",
     biologicalSex: "male",
-    birthYear: 1991,
     ...acceptance,
   });
 
@@ -132,7 +131,6 @@ test("register with existing email (any casing) throws AUTH_EMAIL_EXISTS", async
         password: "password123",
         displayName: "Dup",
         biologicalSex: "male",
-        birthYear: 1990,
         ...acceptance,
       }),
     (err: unknown) => {
@@ -164,7 +162,6 @@ test("register without current acceptances is rejected before user create", asyn
         password: "password123",
         displayName: "New",
         biologicalSex: "male",
-        birthYear: 1991,
         ...acceptance,
         acceptedTerms: false,
       }),
@@ -200,7 +197,6 @@ test("production register is refused while legal notices stay draft", async () =
         password: "password123",
         displayName: "Prod",
         biologicalSex: "male",
-        birthYear: 1991,
         ...acceptance,
       }),
     (err: unknown) => {

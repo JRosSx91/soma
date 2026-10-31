@@ -37,7 +37,7 @@
   "errors": {
     "displayNameRequired": "Enter a display name.",
     "biologicalSexInvalid": "Choose a valid biological sex.",
-    "birthYearInvalid": "Enter a birth year between 1900 and the current year.",
+    "birthYearInvalid": "Enter a birth year that belongs to someone aged 18 or over. A year in which that age has not yet been reached cannot be chosen.",
     "weightInvalid": "Enter a valid weight, or leave the field empty.",
     "weightOutOfRange": "Weight must be between 20 and 400 kg.",
     "noChanges": "No changes to save.",

@@ -5,6 +5,7 @@ import {
   LEGAL_PRIVACY_VERSION,
   LEGAL_SPECIAL_CATEGORY_VERSION,
   LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION,
+  LEGAL_ADULT_AGE_VERSION,
   LEGAL_TERMS_VERSION,
   SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
@@ -25,6 +26,7 @@ test("legal notices remain draft until explicitly published", () => {
   assert.equal(LEGAL_TERMS_VERSION.startsWith("draft-"), true);
   assert.equal(LEGAL_PRIVACY_VERSION.startsWith("draft-"), true);
   assert.equal(LEGAL_SPECIAL_CATEGORY_VERSION.startsWith("draft-"), true);
+  assert.equal(LEGAL_ADULT_AGE_VERSION.startsWith("draft-"), true);
 });
 
 test("current acceptance fields match draft versions and require true flags", () => {
@@ -32,6 +34,11 @@ test("current acceptance fields match draft versions and require true flags", ()
   assert.equal(isCurrentRegistrationAcceptance(fields), true);
   assert.equal("acceptedSpecialCategoryProcessing" in fields, false);
   assert.equal("specialCategoryProcessingVersion" in fields, false);
+  assert.equal(fields.acceptedAdultAge, true);
+  assert.equal(
+    isCurrentRegistrationAcceptance({ ...fields, acceptedAdultAge: false }),
+    false,
+  );
   assert.equal(
     isCurrentRegistrationAcceptance({ ...fields, acceptedTerms: false }),
     false,
@@ -182,7 +189,11 @@ test("a later grant can reactivate after a withdrawal", () => {
 test("persisted records do not include IP or extra client metadata", () => {
   const at = new Date("2026-10-30T08:00:00.000Z");
   const records = registrationAcceptanceRecords(at);
-  assert.equal(records.length, 2);
+  assert.equal(records.length, 3);
+  assert.deepEqual(
+    records.map((row) => row.purpose).sort(),
+    ["adult_age_declaration", "privacy_notice", "terms_of_use"],
+  );
   assert.equal(
     records.some((row) => row.purpose === "special_category_processing"),
     false,
