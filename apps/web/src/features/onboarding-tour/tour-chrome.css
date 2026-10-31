@@ -33,7 +33,11 @@
   left: 0.35rem;
   top: 0;
   z-index: 2;
-  transform: translateY(-55%);
+  width: max-content;
+  max-width: 42%;
+  line-height: 0;
+  pointer-events: none;
+  transform: translateY(calc(-1 * var(--onb-somi-out, 42px)));
 }
 
 .onb-card-body {
@@ -42,19 +46,24 @@
   min-height: 0;
 }
 
-.onb-progress {
-  position: relative;
-  padding-top: 2rem;
-}
-
+.onb-card-kicker,
 .onb-step-status {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 1;
-  max-width: calc(100% - 5.75rem);
+  max-width: calc(100% - var(--onb-somi-size, 72px) - 0.5rem);
   margin: 0;
   text-align: right;
+}
+
+.onb-invite-title {
+  margin-top: calc(var(--onb-somi-size, 72px) - var(--onb-somi-out, 42px) + 0.35rem);
+}
+
+.onb-progress {
+  position: relative;
+  padding-top: calc(var(--onb-somi-size, 72px) - var(--onb-somi-out, 42px) + 0.85rem);
 }
 
 .onb-progress-bar {
@@ -71,14 +80,6 @@
 
   .onb-card-body {
     overflow-y: auto;
-  }
-
-  .onb-progress {
-    padding-top: 3rem;
-  }
-
-  .onb-step-status {
-    max-width: calc(100% - 8rem);
   }
 }
 

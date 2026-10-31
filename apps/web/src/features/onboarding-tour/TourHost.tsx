@@ -38,7 +38,10 @@ export function OnboardingTourHost() {
         hole={null}
         compactBottom
       >
-        <h2 id="onb-invite-title" className="text-base font-semibold text-soma-ink">
+        <p className="onb-card-kicker text-[11px] font-medium uppercase tracking-[0.14em] text-soma-ink-muted">
+          {t("tourLabel")}
+        </p>
+        <h2 id="onb-invite-title" className="onb-invite-title text-base font-semibold text-soma-ink">
           {t(continueMode ? "continueTitle" : "inviteTitle")}
         </h2>
         <p id="onb-invite-body" className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
