@@ -3,6 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <!--
+      Match html lang to the persisted UI language before React boots.
+      Storage key and ES/EN mapping must stay aligned with
+      apps/web/src/i18n/interface-languages.ts and document-language.ts.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("soma.i18n.lang") || "";
+          var nav =
+            (navigator.languages && navigator.languages[0]) ||
+            navigator.language ||
+            "en";
+          var raw = stored || nav;
+          var code = String(raw).split("-")[0].toLowerCase();
+          var iberian = { es: 1, ca: 1, gl: 1, eu: 1 };
+          document.documentElement.lang = iberian[code] ? "es" : "en";
+        } catch (_) {
+          document.documentElement.lang = "en";
+        }
+      })();
+    </script>
+    <!--
       Password-reset (?token=) and invite-register (?invite=) links arrive as a
       full document load. Apply no-referrer and strip the secret before favicon /
       module requests so it is not leaked via Referer and is handed to the SPA

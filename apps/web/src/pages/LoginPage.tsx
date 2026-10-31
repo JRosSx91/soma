@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
+import { useRegistrationMode } from "../features/auth/context/RegistrationModeContext.js";
 import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
 import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
@@ -29,6 +30,7 @@ type Gate =
 export function LoginPage() {
   const { t } = useTranslation(["auth", "common"]);
   const { login, user, loading, sessionNotice } = useAuth();
+  const registrationMode = useRegistrationMode();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -135,7 +137,7 @@ export function LoginPage() {
   if (loading || gate.mode === "resolving") {
     return (
       <AuthShell>
-        <p className="text-sm text-soma-ink-secondary">
+        <p className="text-sm text-soma-ink-secondary" role="status">
           {t("login.pendingLoading")}
         </p>
       </AuthShell>
@@ -162,7 +164,11 @@ export function LoginPage() {
             </p>
           </div>
           {error && (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="login-pending-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           )}
@@ -177,6 +183,7 @@ export function LoginPage() {
           <button
             type="button"
             disabled={skipping}
+            aria-busy={skipping || undefined}
             onClick={() => void handleEnterWithoutTracking()}
             className={authSecondaryButtonClass}
           >
@@ -233,10 +240,14 @@ export function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="login-email"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("login.email")}
             </label>
             <input
+              id="login-email"
               type="email"
               required
               value={email}
@@ -247,10 +258,14 @@ export function LoginPage() {
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+            <label
+              htmlFor="login-password"
+              className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+            >
               {t("login.password")}
             </label>
             <AuthPasswordField
+              id="login-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -264,12 +279,20 @@ export function LoginPage() {
           </div>
 
           {sessionNotice === "session_expired" && !error ? (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="login-session-notice"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {t("errors.sessionExpired")}
             </p>
           ) : null}
           {error && (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="login-form-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           )}
@@ -277,6 +300,7 @@ export function LoginPage() {
           <button
             type="submit"
             disabled={submitting}
+            aria-busy={submitting || undefined}
             className={authPrimaryButtonClass}
           >
             {submitting ? t("login.submitting") : t("login.submit")}
@@ -284,10 +308,22 @@ export function LoginPage() {
         </form>
 
         <p className="mt-6 text-center text-sm text-soma-ink-muted">
-          {t("login.noAccount")}{" "}
-          <Link to="/register" className={authLinkClass}>
-            {t("login.createOne")}
-          </Link>
+          {registrationMode.status === "ready" &&
+          registrationMode.mode === "open" ? (
+            <>
+              {t("login.noAccount")}{" "}
+              <Link to="/register" className={authLinkClass}>
+                {t("login.createOne")}
+              </Link>
+            </>
+          ) : null}
+          {registrationMode.status === "ready" &&
+          registrationMode.mode === "invite"
+            ? t("login.inviteOnly")
+            : null}
+          {registrationMode.status === "error"
+            ? t("login.registrationUnavailable")
+            : null}
         </p>
       </div>
     </AuthShell>

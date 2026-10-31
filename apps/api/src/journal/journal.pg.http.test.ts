@@ -26,6 +26,8 @@ import bcrypt from "bcrypt";
 import request from "supertest";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { createId } from "../auth/create-id.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 import { JournalModule } from "./journal.module.js";
 
 const PASSWORD = "journal-http-pass-1";
@@ -91,6 +93,7 @@ async function createUser(label: string): Promise<{ id: string }> {
       birthYear: 1990,
     },
   });
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, id);
   return { id };
 }
 

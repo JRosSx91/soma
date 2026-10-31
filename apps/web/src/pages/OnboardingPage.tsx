@@ -6,9 +6,12 @@ import { useSubstances } from "../features/substances/index.js";
 import { useUserProfile } from "../features/profile/index.js";
 import type { UsageInput } from "../features/profile/index.js";
 import {
+  isSpecialCategoryWriteBlocked,
+  needsSpecialCategoryConsent,
   persistOnboardingCompletion,
   shouldConfirmClearUsages,
   skipOnboardingWithoutClearingUsages,
+  SpecialCategoryConsentCard,
 } from "../features/profile/index.js";
 import { achievementSync } from "../features/achievements/sync/achievement-sync.js";
 import {
@@ -80,6 +83,10 @@ export function OnboardingPage() {
     refresh,
   } = useUserProfile();
   const [error, setError] = useState<string | null>(null);
+  const [fieldError, setFieldError] = useState<{
+    substanceId: string;
+    field: "yearStarted" | "lastUseDate";
+  } | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [skipping, setSkipping] = useState(false);
   const [awaitingStatusRetry, setAwaitingStatusRetry] = useState(false);
@@ -124,6 +131,7 @@ export function OnboardingPage() {
     setConfirmClear(false);
     confirmedClearFingerprint.current = null;
     confirmedClearUsages.current = null;
+    setFieldError(null);
     setFormState((prev) => ({
       ...prev,
       [substanceId]: {
@@ -141,11 +149,13 @@ export function OnboardingPage() {
 
       const yearStarted = parseInt(state.yearStarted, 10);
       if (Number.isNaN(yearStarted)) {
+        setFieldError({ substanceId: substance.id, field: "yearStarted" });
         throw new Error(
           t("errors.invalidYear", { substance: substance.name }),
         );
       }
       if (state.mode === "abstinent" && !state.lastUseDate) {
+        setFieldError({ substanceId: substance.id, field: "lastUseDate" });
         throw new Error(
           t("errors.lastUseDateRequired", { substance: substance.name }),
         );
@@ -198,10 +208,16 @@ export function OnboardingPage() {
       if (!result.ok) {
         if (result.phase === "patch" && result.usagesSaved) {
           setAwaitingStatusRetry(true);
+          setFieldError(null);
           setError(t("errors.statusFailed"));
         } else {
           // PUT failed — stay out of status-retry; keep draft + prior snapshot.
-          setError(t("errors.saveFailed"));
+          setFieldError(null);
+          setError(
+            isSpecialCategoryWriteBlocked(result.error)
+              ? t("errors.consentRequired")
+              : t("errors.saveFailed"),
+          );
         }
         return;
       }
@@ -213,6 +229,7 @@ export function OnboardingPage() {
       navigate("/app", { replace: true });
     } catch {
       // Keep draft; do not invent completed.
+      setFieldError(null);
       setError(t("errors.saveFailed"));
     } finally {
       setSubmitting(false);
@@ -224,6 +241,7 @@ export function OnboardingPage() {
     event.preventDefault();
     if (inFlight.current || !profile) return;
     setError(null);
+    setFieldError(null);
 
     try {
       const usages = buildUsagesFromForm();
@@ -256,6 +274,7 @@ export function OnboardingPage() {
   const handleSkip = async () => {
     if (inFlight.current || !profile) return;
     setError(null);
+    setFieldError(null);
     setSkipping(true);
     inFlight.current = true;
     try {
@@ -277,7 +296,9 @@ export function OnboardingPage() {
   if (loadingSubstances || loadingProfile || !substances) {
     return (
       <OnboardingShell>
-        <p className="text-sm text-soma-ink-secondary">{t("common:loading")}</p>
+        <p className="text-sm text-soma-ink-secondary" role="status">
+          {t("common:loading")}
+        </p>
       </OnboardingShell>
     );
   }
@@ -311,6 +332,30 @@ export function OnboardingPage() {
     );
   }
 
+  if (needsSpecialCategoryConsent(profile)) {
+    return (
+      <OnboardingShell>
+        <div className="space-y-4">
+          <SpecialCategoryConsentCard
+            withdrawn={profile.specialCategoryConsentWithdrawn === true}
+            declineBusy={skipping}
+            onGranted={() => {
+              void refresh();
+            }}
+            onDecline={() => {
+              void handleSkip();
+            }}
+          />
+          {error ? (
+            <p className="text-sm text-soma-organ-damaged" role="alert">
+              {error}
+            </p>
+          ) : null}
+        </div>
+      </OnboardingShell>
+    );
+  }
+
   // Lock the form while saving/skipping; during clear-confirm keep fields
   // editable but block skip so it cannot be confused with a delete.
   const busy = submitting || skipping;
@@ -339,6 +384,16 @@ export function OnboardingPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {substances.map((substance) => {
             const state = formState[substance.id] ?? EMPTY_STATE;
+            const yearId = `onboarding-${substance.id}-year-started`;
+            const dateId = `onboarding-${substance.id}-last-use-date`;
+            const frequencyId = `onboarding-${substance.id}-frequency`;
+            const modeLabelId = `onboarding-${substance.id}-mode-label`;
+            const yearInvalid =
+              fieldError?.substanceId === substance.id &&
+              fieldError.field === "yearStarted";
+            const dateInvalid =
+              fieldError?.substanceId === substance.id &&
+              fieldError.field === "lastUseDate";
 
             return (
               <div
@@ -349,8 +404,12 @@ export function OnboardingPage() {
                     : onboardingCardIdleClass
                 }`}
               >
-                <label className="flex cursor-pointer items-start gap-3">
+                <label
+                  htmlFor={`onboarding-${substance.id}-active`}
+                  className="flex cursor-pointer items-start gap-3"
+                >
                   <input
+                    id={`onboarding-${substance.id}-active`}
                     type="checkbox"
                     checked={state.active}
                     onChange={(e) =>
@@ -383,13 +442,21 @@ export function OnboardingPage() {
                   <div className="min-h-0 overflow-hidden">
                     <div className="mt-4 space-y-4 border-t border-white/10 pt-4">
                       <div>
-                        <label className={onboardingLabelClass}>
+                        <p
+                          id={modeLabelId}
+                          className={onboardingLabelClass}
+                        >
                           {t("fields.mode")}
-                        </label>
-                        <div className={onboardingSegmentTrackClass}>
+                        </p>
+                        <div
+                          className={onboardingSegmentTrackClass}
+                          role="group"
+                          aria-labelledby={modeLabelId}
+                        >
                           <button
                             type="button"
                             disabled={busy || !state.active}
+                            aria-pressed={state.mode === "abstinent"}
                             onClick={() =>
                               updateField(substance.id, "mode", "abstinent")
                             }
@@ -404,6 +471,7 @@ export function OnboardingPage() {
                           <button
                             type="button"
                             disabled={busy || !state.active}
+                            aria-pressed={state.mode === "active"}
                             onClick={() =>
                               updateField(substance.id, "mode", "active")
                             }
@@ -425,15 +493,23 @@ export function OnboardingPage() {
 
                       {state.mode === "abstinent" && (
                         <div>
-                          <label className={onboardingLabelClass}>
+                          <label
+                            htmlFor={dateId}
+                            className={onboardingLabelClass}
+                          >
                             {t("fields.lastUseDate")}
                           </label>
                           <input
+                            id={dateId}
                             type="date"
                             required={state.active}
                             max={TODAY}
                             value={state.lastUseDate}
                             disabled={busy || !state.active}
+                            aria-invalid={dateInvalid ? true : undefined}
+                            aria-describedby={
+                              dateInvalid ? "onboarding-form-error" : undefined
+                            }
                             onChange={(e) =>
                               updateField(
                                 substance.id,
@@ -448,16 +524,24 @@ export function OnboardingPage() {
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <label className={onboardingLabelClass}>
+                          <label
+                            htmlFor={yearId}
+                            className={onboardingLabelClass}
+                          >
                             {t("fields.yearStarted")}
                           </label>
                           <input
+                            id={yearId}
                             type="number"
                             required={state.active}
                             min={1900}
                             max={new Date().getFullYear()}
                             value={state.yearStarted}
                             disabled={busy || !state.active}
+                            aria-invalid={yearInvalid ? true : undefined}
+                            aria-describedby={
+                              yearInvalid ? "onboarding-form-error" : undefined
+                            }
                             onChange={(e) =>
                               updateField(
                                 substance.id,
@@ -470,10 +554,14 @@ export function OnboardingPage() {
                         </div>
 
                         <div>
-                          <label className={onboardingLabelClass}>
+                          <label
+                            htmlFor={frequencyId}
+                            className={onboardingLabelClass}
+                          >
                             {t("fields.frequency")}
                           </label>
                           <select
+                            id={frequencyId}
                             value={state.frequency}
                             disabled={busy || !state.active}
                             onChange={(e) =>
@@ -501,7 +589,11 @@ export function OnboardingPage() {
           })}
 
           {error && (
-            <p className="text-sm text-soma-organ-damaged" role="alert">
+            <p
+              id="onboarding-form-error"
+              className="text-sm text-soma-organ-damaged"
+              role="alert"
+            >
               {error}
             </p>
           )}
@@ -511,6 +603,7 @@ export function OnboardingPage() {
               className={`${onboardingCardClass} space-y-3`}
               role="alertdialog"
               aria-labelledby="clear-usages-title"
+              aria-describedby="clear-usages-body"
             >
               <p
                 id="clear-usages-title"
@@ -518,7 +611,7 @@ export function OnboardingPage() {
               >
                 {t("clearConfirmTitle")}
               </p>
-              <p className="text-xs text-soma-ink-muted">
+              <p id="clear-usages-body" className="text-xs text-soma-ink-muted">
                 {t("clearConfirmBody")}
               </p>
               <div className="flex flex-col gap-2 sm:flex-row">
@@ -579,6 +672,7 @@ export function OnboardingPage() {
             <button
               type="submit"
               disabled={busy}
+              aria-busy={submitting || undefined}
               className={authPrimaryButtonClass}
             >
               {submitting
@@ -594,6 +688,7 @@ export function OnboardingPage() {
           <button
             type="button"
             disabled={skipDisabled}
+            aria-busy={skipping || undefined}
             onClick={() => void handleSkip()}
             className={`${authLinkClass} text-sm disabled:opacity-50`}
           >

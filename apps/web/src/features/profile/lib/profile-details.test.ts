@@ -93,6 +93,13 @@ test("buildProfileDetailsPatch validates displayName and birthYear", () => {
     ).ok,
     false,
   );
+  assert.equal(
+    buildProfileDetailsPatch(baseline, {
+      ...draftFromProfile(baseline),
+      birthYear: String(new Date().getFullYear() - 1),
+    }).ok,
+    false,
+  );
 });
 
 test("buildProfileDetailsPatch sends numeric weight not a string", () => {

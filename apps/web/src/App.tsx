@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
@@ -16,20 +15,19 @@ import { AchievementsPage as Soma2AchievementsPage } from "./features/recovery-d
 import { JournalPage } from "./features/recovery-dashboard/pages/JournalPage.js";
 import { MissionsPage } from "./features/recovery-dashboard/pages/MissionsPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
+import { FeedbackPage } from "./features/recovery-dashboard/pages/FeedbackPage.js";
 import { useTranslation } from "react-i18next";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
 import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
 import { DocumentSeo } from "./seo/DocumentSeo.js";
-
-// The anatomical viewer preloads its model at module scope. Keep that
-// module out of the initial graph so Soma 2.0 (/app, /preview) does not
-// download the GLB until /app-legacy is opened.
-const MainPage = lazy(() =>
-  import("./pages/MainPage.js").then((module) => ({
-    default: module.MainPage,
-  })),
-);
+import { RegistrationModeProvider } from "./features/auth/context/RegistrationModeContext.js";
+import {
+  CookiesPage,
+  LegalNoticePage,
+  PrivacyPage,
+  TermsPage,
+} from "./features/legal/LegalDocumentPage.js";
 
 function RootRoute() {
   const { user, loading, sessionNotice } = useAuth();
@@ -54,12 +52,6 @@ function RootRoute() {
   return user ? <Navigate to="/login" replace /> : <LandingV2Page />;
 }
 
-const legacyFallback = (
-  <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-    Loading…
-  </div>
-);
-
 /** Shared Soma 2.0 page tree — same elements under `/app` and `/preview`. */
 const soma2Pages = (
   <>
@@ -70,6 +62,7 @@ const soma2Pages = (
     <Route path="anatomy" element={<AnatomyExplorerPage />} />
     <Route path="achievements" element={<Soma2AchievementsPage />} />
     <Route path="journal" element={<JournalPage />} />
+    <Route path="feedback" element={<FeedbackPage />} />
     <Route path="account" element={<AccountPage />} />
   </>
 );
@@ -77,6 +70,7 @@ const soma2Pages = (
 function App() {
   return (
     <BrowserRouter>
+      <RegistrationModeProvider>
       <DocumentSeo />
       <Routes>
         {/* Public routes */}
@@ -84,6 +78,10 @@ function App() {
         <Route path="/landing-2" element={<Navigate to="/" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/legal" element={<LegalNoticePage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/cookies" element={<CookiesPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/preview">
@@ -101,14 +99,7 @@ function App() {
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Route>
-          <Route
-            path="/app-legacy"
-            element={
-              <Suspense fallback={legacyFallback}>
-                <MainPage />
-              </Suspense>
-            }
-          />
+          <Route path="/app-legacy" element={<Navigate to="/app" replace />} />
           <Route path="/onboarding" element={<OnboardingPage />} />
           {/* Compatible entry: Soma 1.0 URL, same auth gate, Logros 2.0 destination. */}
           <Route
@@ -118,6 +109,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </RegistrationModeProvider>
     </BrowserRouter>
   );
 }

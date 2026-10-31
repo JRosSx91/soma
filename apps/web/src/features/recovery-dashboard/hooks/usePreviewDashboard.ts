@@ -28,6 +28,7 @@ import {
 } from "../dashboard/recovery-copy.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { withSessionLastUseDates } from "../dashboard/temporal-usage.js";
+import { needsSpecialCategoryConsent } from "../../profile/lib/special-category-consent.js";
 import { useLiveProfile } from "./useLiveProfile.js";
 
 export type DashboardMode = "demo" | "live";
@@ -53,6 +54,7 @@ export interface PreviewDashboardView {
   changes: readonly DemoChange[];
   chart: DashboardChartView;
   emptyUsages: boolean;
+  needsSpecialCategoryConsent: boolean;
   showDemoBadge: boolean;
 }
 
@@ -181,6 +183,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       }),
       chart: presentDemoChart(copy, (id) => t(`demoSeries.${id}`)),
       emptyUsages: false,
+      needsSpecialCategoryConsent: false,
       showDemoBadge: true,
     };
   }
@@ -196,6 +199,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       changes: [],
       chart: emptyLiveChart(copy),
       emptyUsages: false,
+      needsSpecialCategoryConsent: false,
       showDemoBadge: false,
     };
   }
@@ -211,6 +215,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
       changes: [],
       chart: emptyLiveChart(copy),
       emptyUsages: false,
+      needsSpecialCategoryConsent: false,
       showDemoBadge: false,
     };
   }
@@ -227,6 +232,7 @@ export function usePreviewDashboard(substanceId: string | null = null): PreviewD
     changes: liveModel.changes,
     chart: liveChartToView(liveModel.chart),
     emptyUsages,
+    needsSpecialCategoryConsent: needsSpecialCategoryConsent(liveProfile.profile),
     showDemoBadge: false,
   };
 }

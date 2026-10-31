@@ -112,6 +112,7 @@ test("shell navigation labels live in spanish and english common copy", () => {
     "achievements",
     "journal",
     "missions",
+    "feedback",
     "account",
     "more",
     "moreMenuAria",
@@ -131,6 +132,7 @@ test("shell navigation labels live in spanish and english common copy", () => {
   assert.equal(esCommon.shell.achievements, "Logros");
   assert.equal(esCommon.shell.journal, "Bitácora");
   assert.equal(esCommon.shell.missions, "Misiones");
+  assert.equal(esCommon.shell.feedback, "Ayuda y sugerencias");
   assert.equal(esCommon.shell.account, "Cuenta");
   assert.equal(esCommon.shell.more, "Más");
   assert.equal(enCommon.shell.home, "Home");
@@ -142,6 +144,7 @@ test("shell navigation labels live in spanish and english common copy", () => {
   assert.equal(enCommon.shell.achievements, "Achievements");
   assert.equal(enCommon.shell.journal, "Journal");
   assert.equal(enCommon.shell.missions, "Missions");
+  assert.equal(enCommon.shell.feedback, "Help and suggestions");
   assert.equal(enCommon.shell.account, "Account");
   assert.equal(enCommon.shell.more, "More");
 
@@ -191,6 +194,8 @@ test("app shell path detection does not swallow app-legacy", () => {
   assert.equal(isAppShellPath("/preview"), false);
   assert.equal(shellBaseFromPath("/app/anatomy"), "/app");
   assert.equal(shellBaseFromPath("/preview/explore"), "/preview");
+  const app = readFileSync(new URL("../../App.tsx", import.meta.url), "utf8");
+  assert.match(app, /path="\/app-legacy" element=\{<Navigate to="\/app" replace/);
 });
 
 test("desktop, mobile and more menus split one section table", () => {
@@ -206,11 +211,24 @@ test("desktop, mobile and more menus split one section table", () => {
     "logros",
     "bitacora",
   ]);
-  assert.deepEqual(mobile, ["inicio", "recuperacion", "explorar"]);
-  assert.deepEqual(more, ["misiones", "anatomia", "logros", "bitacora", "cuenta"]);
+  assert.equal(desktop.includes("ayuda"), false);
+  assert.deepEqual(mobile, ["inicio", "recuperacion", "misiones", "bitacora"]);
+  assert.equal(mobile.includes("ayuda"), false);
+  assert.equal(mobile.includes("explorar"), false);
+  assert.deepEqual(more, [
+    "explorar",
+    "anatomia",
+    "logros",
+    "ayuda",
+    "cuenta",
+  ]);
+  assert.deepEqual(
+    mobileShellSections("/app").map((item) => item.id),
+    mobile,
+  );
   assert.deepEqual(
     railMoreShellSections("/app").map((item) => item.id),
-    [],
+    ["ayuda"],
   );
   assert.equal(
     shellSectionDefs.some((item) => item.id === "expedicion" || item.path === "/expedition"),
@@ -224,6 +242,8 @@ test("account is a real shell section and titles it instead of home", () => {
   assert.equal(shellSectionForPathname("/preview", "/preview/journal")?.id, "bitacora");
   assert.equal(shellSectionForPathname("/app", "/app/missions")?.id, "misiones");
   assert.equal(shellSectionForPathname("/preview", "/preview/missions")?.id, "misiones");
+  assert.equal(shellSectionForPathname("/app", "/app/feedback")?.id, "ayuda");
+  assert.equal(shellSectionForPathname("/preview", "/preview/feedback")?.id, "ayuda");
   assert.equal(shellSectionForPathname("/app", "/app/account")?.id, "cuenta");
   assert.equal(shellSectionForPathname("/preview", "/preview/account")?.id, "cuenta");
   assert.equal(shellSectionForPathname("/app", "/app/recovery")?.id, "recuperacion");
@@ -240,5 +260,10 @@ test("shell keeps the existing app and preview destinations", () => {
   assert.equal(app.find((item) => item.id === "anatomia")?.to, "/app/anatomy");
   assert.equal(app.find((item) => item.id === "logros")?.to, "/app/achievements");
   assert.equal(app.find((item) => item.id === "bitacora")?.to, "/app/journal");
+  assert.equal(app.find((item) => item.id === "ayuda")?.to, "/app/feedback");
   assert.equal(app.find((item) => item.id === "cuenta")?.to, "/app/account");
+  assert.equal(
+    shellSections("/preview").find((item) => item.id === "ayuda")?.to,
+    "/preview/feedback",
+  );
 });

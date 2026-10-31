@@ -13,9 +13,17 @@ import {
   SHELL_SIDEBAR_EXPANDED_CLASS,
 } from "../shell-sidebar.js";
 import { AchievementCelebrationHost } from "../../achievements/components/AchievementCelebrationHost.js";
+import {
+  OnboardingTourHost,
+  OnboardingTourProvider,
+} from "../../onboarding-tour/index.js";
 import { PreviewMobileHeader } from "./PreviewMobileHeader.js";
 import { PreviewMobileNav } from "./PreviewMobileNav.js";
 import { PreviewSidebar } from "./PreviewSidebar.js";
+import {
+  MAIN_CONTENT_ID,
+  SkipToContent,
+} from "../../../components/SkipToContent.js";
 
 interface PreviewShellProps {
   /** `/app` for the authenticated product; `/preview` for the public DEMO. */
@@ -39,7 +47,9 @@ export function PreviewShell({ base }: PreviewShellProps) {
   return (
     <ShellBaseProvider base={base}>
       <ShellLayoutProvider>
-        <PreviewShellFrame base={base} />
+        <OnboardingTourProvider>
+          <PreviewShellFrame base={base} />
+        </OnboardingTourProvider>
       </ShellLayoutProvider>
     </ShellBaseProvider>
   );
@@ -57,30 +67,38 @@ function PreviewShellFrame({ base }: { base: ShellBase }) {
 
   return (
     <div
-      className={`relative min-h-screen overflow-x-hidden text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none ${
+      className={`relative flex h-dvh flex-col overflow-x-hidden text-soma-ink transition-[padding] duration-200 ease-out motion-reduce:transition-none lg:block lg:h-auto lg:min-h-screen ${
         collapsed ? SHELL_SIDEBAR_COLLAPSED_CLASS : SHELL_SIDEBAR_EXPANDED_CLASS
       }`}
       style={SHELL_SURFACE}
     >
-      <PreviewSidebar />
-      <PreviewMobileHeader />
-      <main
-        className={`relative px-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] pt-2 lg:pb-2 lg:pt-3 motion-reduce:transition-none lg:transition-[padding] lg:duration-200 lg:ease-out ${
-          collapsed
-            ? SHELL_CONTENT_COLLAPSED_PAD_CLASS
-            : SHELL_CONTENT_EXPANDED_PAD_CLASS
-        }`}
-      >
-        <div
-          className={`mx-auto flex w-full min-w-0 flex-col gap-6 lg:gap-2 ${
-            collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
-          }`}
-        >
-          <Outlet />
+      <div data-onb-app-root="" className="flex min-h-0 flex-1 flex-col lg:block">
+        <SkipToContent />
+        <PreviewSidebar />
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto lg:overflow-visible">
+          <PreviewMobileHeader />
+          <main
+            id={MAIN_CONTENT_ID}
+            tabIndex={-1}
+            className={`relative px-4 pb-8 pt-2 lg:pb-2 lg:pt-3 motion-reduce:transition-none lg:transition-[padding] lg:duration-200 lg:ease-out ${
+              collapsed
+                ? SHELL_CONTENT_COLLAPSED_PAD_CLASS
+                : SHELL_CONTENT_EXPANDED_PAD_CLASS
+            }`}
+          >
+            <div
+              className={`mx-auto flex w-full min-w-0 flex-col gap-6 lg:gap-2 ${
+                collapsed ? SHELL_CONTENT_COLLAPSED_ALIGN_CLASS : ""
+              }`}
+            >
+              <Outlet />
+            </div>
+          </main>
         </div>
-      </main>
-      <PreviewMobileNav />
-      {base === "/app" ? <AchievementCelebrationHost /> : null}
+        <PreviewMobileNav />
+        {base === "/app" ? <AchievementCelebrationHost /> : null}
+      </div>
+      <OnboardingTourHost />
     </div>
   );
 }

@@ -135,9 +135,15 @@ test("preview and live chrome stay semantically aligned", () => {
   const esUi = (esAchievements as { ui: Record<string, string> }).ui;
   const enUi = (enAchievements as { ui: Record<string, string> }).ui;
   assert.match(esUi.descriptionLive, /medallas de tu cuenta/);
-  assert.match(esUi.descriptionDemo, /no marca una medalla como obtenida/);
+  assert.equal(
+    esUi.descriptionDemo,
+    "Cada día de abstinencia, cada hito y cada descubrimiento te acerca a una vida más libre. Aquí puedes ver tus logros, explorar los que te faltan y descubrir qué puedes conseguir. El avance fisiológico es una estimación del modelo de curvas, no una medición clínica.",
+  );
   assert.match(enUi.descriptionLive, /Medals on your account/);
-  assert.match(enUi.descriptionDemo, /does not mark a medal as earned/);
+  assert.equal(
+    enUi.descriptionDemo,
+    "Each day of abstinence, each milestone and each discovery brings you closer to a freer life. Here you can see your achievements, explore what is still ahead, and find what you can reach. Physiological progress is a curve-model estimate, not a clinical measurement.",
+  );
   assert.equal(
     esUi.historyNote,
     "Las medallas obtenidas permanecen en tu historial, incluso si comienzas una nueva racha.",
@@ -152,8 +158,8 @@ test("preview and live chrome stay semantically aligned", () => {
   assert.equal(enUi.statusUnlocked, "Earned");
   assert.equal(esUi.statusLocked, "Pendiente");
   assert.equal(enUi.statusLocked, "Pending");
-  assert.doesNotMatch(esUi.descriptionLive, /XP/i);
-  assert.doesNotMatch(enUi.descriptionDemo, /XP/i);
+  assert.doesNotMatch(esUi.descriptionLive, /\bXP\b/i);
+  assert.doesNotMatch(enUi.descriptionDemo, /\bXP\b/i);
 });
 
 test("ACH-01B does not change unlock identifiers or shared math", () => {
@@ -187,4 +193,10 @@ test("gallery cards always expose a textual status label", () => {
   assert.match(card, /labels\.family/);
   assert.match(card, /view\.review/);
   assert.match(card, /Ban/);
+  assert.match(card, /view\.sealed \? labels\.hiddenLabel/);
+  assert.equal(card.includes("[labels.hiddenLabel, status]"), false);
+  assert.match(card, /view\.sealed \? "text-center"/);
+  assert.match(card, /self-start/);
+  assert.equal(card.includes('view.sealed ? "items-center text-center"'), false);
+  assert.equal(card.includes("self-center"), false);
 });

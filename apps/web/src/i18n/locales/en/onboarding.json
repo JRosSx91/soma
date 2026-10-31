@@ -43,6 +43,7 @@
     "lastUseDateRequired": "Last use date required for {{substance}}",
     "saveFailed": "Could not save your tracking. Try again.",
     "statusFailed": "Your substances were saved, but we could not update your onboarding status. Retry without losing your data.",
-    "skipFailed": "Could not continue without tracking. Try again."
+    "skipFailed": "Could not continue without tracking. Try again.",
+    "consentRequired": "To save tracking, first allow Soma to keep those data."
   }
 }

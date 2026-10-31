@@ -204,5 +204,5 @@ export const demoSystems: readonly DemoSystem[] = [
   { id: "respiratory", name: "Respiratorio", endLabel: "", icon: "lungs" },
   { id: "digestive", name: "Digestivo", endLabel: "", icon: "digestive" },
   { id: "endocrine", name: "Endocrino", endLabel: "", icon: "endocrine" },
-  { id: "immune", name: "Inmunológico", endLabel: "", icon: "immune" },
+  { id: "immune", name: "Linfático", endLabel: "", icon: "immune" },
 ];

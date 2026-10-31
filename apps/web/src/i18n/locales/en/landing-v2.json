@@ -11,6 +11,8 @@
     "titleAccent": "Discover how it evolves.",
     "subtitle": "Soma visualizes orientative trajectories from scientific literature and a personal timeline. They are educational estimates from catalog curves — not clinical measurements, diagnoses, or a guarantee of individual recovery.",
     "ctaPrimary": "Create an account",
+    "ctaSignIn": "Sign in",
+    "ctaInviteNote": "Soma is in closed beta. Registration is by invitation; if you were invited, use the link you received.",
     "ctaSecondary": "Explore the demo",
     "disclaimer": "Educational models. Soma is not a medical device. Panels in the artwork are visual motifs, not measurements or profile data."
   },
@@ -45,7 +47,7 @@
       "cardiovascular": "Cardiovascular system",
       "respiratory": "Respiratory system",
       "digestive": "Digestive system",
-      "immune": "Immune system",
+      "immune": "Lymphatic system",
       "hepatic": "Hepatic system",
       "renal": "Renal system",
       "reproductive": "Reproductive system",
@@ -59,7 +61,7 @@
       "cardiovascular": "Heart and vessels that drive and distribute blood.",
       "respiratory": "Airways and lungs that allow gas exchange.",
       "digestive": "Digestive tract that processes food. The liver may also appear; the hepatic system has its own plate.",
-      "immune": "Immune structures that take part in defending the body.",
+      "immune": "A network of vessels, nodes and lymphatic organs, including the spleen.",
       "hepatic": "Liver and biliary tract, central to metabolism.",
       "renal": "Kidneys and urinary tract that filter blood and help regulate the internal environment.",
       "reproductive": "Reproductive system. The full-body plate shows male anatomy.",
@@ -129,10 +131,44 @@
     "title": "How to read the model.",
     "subtitle": "Each shape describes an interpolation pattern. Confidence speaks to the sources. The limits recall what the model cannot claim."
   },
+  "origin": {
+    "title": "Why Soma?",
+    "word": "σῶμα",
+    "etymology": "From Ancient Greek: body.",
+    "p1": "Our organism is in constant transformation. Even when we are not aware of it, extraordinary processes take place within.",
+    "p2": "Soma is born of the will to make those changes visible and understandable, bringing the science of recovery closer to those who want to understand what happens in their body.",
+    "p3": "Because understanding what happens inside us can also help us make sense of the path we are walking."
+  },
+  "path": {
+    "eyebrow": "Tools for your path",
+    "title": "Every step counts. Every story matters.",
+    "missions": {
+      "title": "Missions",
+      "subtitle": "Small challenges, real progress",
+      "body": "Put what you have learned to the test. Missions invite you to explore how your organism works through small educational challenges. Answer correctly and gain experience as you broaden your knowledge.",
+      "note": "Illustrative examples from the real catalog. They are not your progress.",
+      "demo": "See missions in the demo"
+    },
+    "journal": {
+      "title": "Journal",
+      "subtitle": "Your story matters too",
+      "body": "Recovery is also made of experiences, thoughts and small discoveries. The Journal is a personal space to record and remember your path.",
+      "sampleLabel": "Sample entry",
+      "sampleTitle": "A clearer stretch",
+      "sampleMeta": "12 Oct 2026 · Mood 4/5",
+      "sampleBody": "Today I could name what I felt without turning it into a diagnosis. Just a note so I do not lose the thread.",
+      "historyOneTitle": "Evening walk",
+      "historyOneMeta": "11 Oct 2026 · Learning",
+      "historyTwoTitle": "In the morning",
+      "historyTwoMeta": "10 Oct 2026",
+      "note": "Fictional notes. They do not belong to any account.",
+      "demo": "See the journal in the demo"
+    }
+  },
   "achievements": {
     "eyebrow": "Milestones along the way",
     "title": "Every step deserves to be recognized.",
-    "intro": "Soma recognizes {{count}} achievements tied to thresholds in its educational models. This showcase displays real catalog pieces, not personal progress.",
+    "intro": "Soma recognizes milestones tied to thresholds in its educational models. This showcase displays real catalog pieces, not personal progress.",
     "galleryLabel": "Achievement showcase",
     "selectedLabel": "Selected milestone",
     "substance": "Substance",
@@ -143,7 +179,8 @@
       "gold": "Gold",
       "platinum": "Platinum"
     },
-    "sealedTitle": "Hidden milestone",
+    "sealedLabel": "Hidden",
+    "sealedTitle": "Hidden",
     "sealedBody": "Some achievements stay sealed until they are reached. This showcase does not reveal the name or the description.",
     "sealedSubstance": "Still to discover",
     "note": "Achievements are granted when a modeled educational trajectory crosses a catalog threshold. They are not clinical measurements, and not proof that an organ has recovered."
@@ -153,6 +190,8 @@
     "title": "Your journey starts today.",
     "subtitle": "Every day is part of a larger story. Discover how to explore your evolution, understand the processes in your body, and recognize the milestones along the way.",
     "ctaPrimary": "Create an account",
+    "ctaSignIn": "Sign in",
+    "ctaInviteNote": "Public registration is not open. During closed beta you need an invitation.",
     "ctaSecondary": "Explore the demo",
     "note": "Orientative educational models. They do not replace a medical evaluation.",
     "tagline": "Understanding recovery, one day at a time."
@@ -165,5 +204,6 @@
     "ctaPrimary": "Back to home",
     "ctaSecondary": "Explore the demo",
     "metaTitle": "Soma — Pulse not found"
-  }
+  },
+  "registrationUnavailable": "Registration is temporarily unavailable."
 }

@@ -11,7 +11,9 @@ import {
   PROGRESS_XP_MAX,
   PROGRESS_XP_MIN,
   PROGRESS_XP_SOURCES,
+  SPECIAL_CATEGORY_XP_SOURCES,
   isProgressLevel,
+  isSpecialCategoryXpSource,
   isProgressTitleId,
   isProgressTitleUnlocked,
   isProgressXp,
@@ -163,6 +165,9 @@ test("XP sources are stable ids and do not implement grants", () => {
   assert.equal(isProgressXpSource("login"), false);
   assert.equal(PROGRESS_XP_AMOUNT.journal_create_day, 12);
   assert.equal(PROGRESS_XP_AMOUNT.mission_complete, 12);
+  assert.equal(isSpecialCategoryXpSource("journal_create_day"), true);
+  assert.equal(isSpecialCategoryXpSource("mission_complete"), false);
+  assert.ok(!SPECIAL_CATEGORY_XP_SOURCES.includes("mission_complete" as never));
   assert.equal(isProgressTitleId("walker"), true);
   assert.equal(isProgressTitleId("jedi"), false);
   assert.equal(source.includes("grantXp"), false);

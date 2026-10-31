@@ -1,0 +1,23 @@
+.landing-v2-origin__word {
+  font-size: 3.25rem;
+  line-height: 1;
+  text-shadow: 0 0 28px rgb(134 183 232 / 0.38);
+}
+
+@media (min-width: 640px) {
+  .landing-v2-origin__word {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .landing-v2-origin__word {
+    font-size: 4.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-v2-origin__word {
+    text-shadow: 0 0 16px rgb(134 183 232 / 0.22);
+  }
+}

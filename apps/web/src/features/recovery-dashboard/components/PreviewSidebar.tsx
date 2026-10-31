@@ -64,7 +64,7 @@ export function PreviewSidebar() {
 
       <div className="mx-3 mt-4 h-px bg-gradient-to-r from-transparent via-soma-shell-accent/25 to-transparent" />
 
-      <nav className="mt-4 px-3" aria-label={t("shell.navAria")}>
+      <nav className="mt-4 px-3" aria-label={t("shell.navAria")} data-onb="nav-desktop">
         <ul className="flex flex-col gap-1">
           {sections.map((item) => {
             const Icon = shellIcons[item.icon];

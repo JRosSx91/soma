@@ -179,4 +179,8 @@ test("account delete copy exists in ES and EN with the same keys", () => {
   assert.match(enAccount.delete.confirm, /Permanently delete my account/);
   assert.equal(enAccount.delete.success.includes("@"), false);
   assert.equal(esAccount.delete.success.includes("@"), false);
+  assert.match(enAccount.withdrawConsent.title, /Withdraw health-data consent/);
+  assert.match(esAccount.withdrawConsent.title, /Retirar el consentimiento/);
+  assert.match(enAccount.withdrawConsent.bulletBackups, /7 days/);
+  assert.match(esAccount.withdrawConsent.bulletBackups, /7 días/);
 });

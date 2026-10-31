@@ -9,6 +9,7 @@ import { Prisma as PrismaNs } from "@prisma/client";
 import { civilDateToUtcDate, utcDateToCivilDate } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { ProgressService } from "../progress/progress.service.js";
+import { requireSpecialCategoryWrite } from "../auth/special-category-consent.js";
 import type { CreateJournalEntryDto } from "./dto/create-journal-entry.dto.js";
 import type { ListJournalQueryDto } from "./dto/list-journal-query.dto.js";
 import {
@@ -67,6 +68,7 @@ export class JournalService {
 
     try {
       const row = await this.prisma.$transaction(async (tx) => {
+        await requireSpecialCategoryWrite(tx, userId);
         const created = await tx.journalEntry.create({
           data: {
             userId,
@@ -217,24 +219,27 @@ export class JournalService {
     }
 
     try {
-      const row = await this.prisma.journalEntry.update({
-        where: { id: current.id },
-        data: {
-          occurredOn: next.occurredOn,
-          mood: next.mood,
-          sleep: next.sleep,
-          energy: next.energy,
-          anxiety: next.anxiety,
-          cravingIntensity: next.cravingIntensity,
-          cravingSubstanceId: next.cravingSubstanceId,
-          wellbeingRating: next.wellbeingRating,
-          title: next.title,
-          body: next.body,
-          highlighted: next.highlighted,
-          learning: next.learning,
-          emotionIds: next.emotionIds,
-          triggerIds: next.triggerIds,
-        },
+      const row = await this.prisma.$transaction(async (tx) => {
+        await requireSpecialCategoryWrite(tx, userId);
+        return tx.journalEntry.update({
+          where: { id: current.id },
+          data: {
+            occurredOn: next.occurredOn,
+            mood: next.mood,
+            sleep: next.sleep,
+            energy: next.energy,
+            anxiety: next.anxiety,
+            cravingIntensity: next.cravingIntensity,
+            cravingSubstanceId: next.cravingSubstanceId,
+            wellbeingRating: next.wellbeingRating,
+            title: next.title,
+            body: next.body,
+            highlighted: next.highlighted,
+            learning: next.learning,
+            emotionIds: next.emotionIds,
+            triggerIds: next.triggerIds,
+          },
+        });
       });
       return toJournalEntryResponse(row);
     } catch (err) {
@@ -267,6 +272,7 @@ export class JournalService {
     dto: CreateJournalMilestoneDto,
   ): Promise<JournalMilestoneResponse> {
     const row = await this.prisma.$transaction(async (tx) => {
+      await requireSpecialCategoryWrite(tx, userId);
       const created = await tx.journalPersonalMilestone.create({
         data: {
           userId,
@@ -302,19 +308,22 @@ export class JournalService {
     dto: PatchJournalMilestoneDto,
   ): Promise<JournalMilestoneResponse> {
     const current = await this.findOwnedMilestone(userId, id);
-    const row = await this.prisma.journalPersonalMilestone.update({
-      where: { id: current.id },
-      data: {
-        kind: dto.kind === undefined ? current.kind : dto.kind,
-        occurredOn:
-          dto.occurredOn === undefined
-            ? current.occurredOn
-            : civilDateToUtcDate(dto.occurredOn),
-        note:
-          dto.note === undefined
-            ? current.note
-            : (normalizeOptionalText(dto.note) ?? null),
-      },
+    const row = await this.prisma.$transaction(async (tx) => {
+      await requireSpecialCategoryWrite(tx, userId);
+      return tx.journalPersonalMilestone.update({
+        where: { id: current.id },
+        data: {
+          kind: dto.kind === undefined ? current.kind : dto.kind,
+          occurredOn:
+            dto.occurredOn === undefined
+              ? current.occurredOn
+              : civilDateToUtcDate(dto.occurredOn),
+          note:
+            dto.note === undefined
+              ? current.note
+              : (normalizeOptionalText(dto.note) ?? null),
+        },
+      });
     });
     return toJournalMilestoneResponse(row);
   }

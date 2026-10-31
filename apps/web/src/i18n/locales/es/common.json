@@ -7,6 +7,11 @@
   "continue": "Continuar",
   "back": "Atrás",
   "signOut": "Cerrar sesión",
+  "skipToContent": "Saltar al contenido principal",
+  "language": {
+    "selector": "Idioma: {{language}}",
+    "list": "Idiomas"
+  },
   "yes": "Sí",
   "no": "No",
   "shell": {
@@ -20,6 +25,7 @@
     "achievements": "Logros",
     "journal": "Bitácora",
     "missions": "Misiones",
+    "feedback": "Ayuda y sugerencias",
     "account": "Cuenta",
     "more": "Más",
     "moreMenuAria": "Más secciones",

@@ -1,4 +1,9 @@
 import assert from "node:assert/strict";
+import {
+  LEGAL_ADULT_AGE_VERSION,
+  LEGAL_PRIVACY_VERSION,
+  LEGAL_TERMS_VERSION,
+} from "@soma/shared-types";
 import { afterEach, beforeEach, test } from "node:test";
 import {
   ApiError,
@@ -117,7 +122,13 @@ test("register stores access only in memory", async () => {
     password: "password12",
     displayName: "N",
     biologicalSex: "male",
-    birthYear: 1990,
+    birthDate: "1990-06-15",
+    acceptedTerms: true,
+    termsVersion: LEGAL_TERMS_VERSION,
+    acceptedPrivacyNotice: true,
+    privacyNoticeVersion: LEGAL_PRIVACY_VERSION,
+    acceptedAdultAge: true,
+    adultAgeVersion: LEGAL_ADULT_AGE_VERSION,
   });
   assert.equal(getAccessToken(), "access-reg");
   assert.equal(localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY), null);
@@ -126,6 +137,8 @@ test("register stores access only in memory", async () => {
     unknown
   >;
   assert.equal("inviteToken" in openBody, false);
+  assert.equal("acceptedSpecialCategoryProcessing" in openBody, false);
+  assert.equal("specialCategoryProcessingVersion" in openBody, false);
 });
 
 test("register sends inviteToken only in JSON body and never persists it", async () => {
@@ -145,8 +158,14 @@ test("register sends inviteToken only in JSON body and never persists it", async
     password: "password12",
     displayName: "I",
     biologicalSex: "female",
-    birthYear: 1988,
+    birthDate: "1988-03-12",
     inviteToken: secret,
+    acceptedTerms: true,
+    termsVersion: LEGAL_TERMS_VERSION,
+    acceptedPrivacyNotice: true,
+    privacyNoticeVersion: LEGAL_PRIVACY_VERSION,
+    acceptedAdultAge: true,
+    adultAgeVersion: LEGAL_ADULT_AGE_VERSION,
   });
 
   const sent = JSON.parse(String(calls[0]!.init?.body ?? "{}")) as Record<

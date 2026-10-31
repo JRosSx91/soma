@@ -1,3 +1,4 @@
+import { currentSpecialCategoryGrantFields } from "@soma/shared-types";
 import {
   apiRequest,
   ApiError,
@@ -51,6 +52,66 @@ export async function patchProfileDetails(
     method: "PATCH",
     body: patch,
   });
+}
+
+/**
+ * Records an explicit special-category grant. 204 including already-active.
+ * Does not restore previously purged data.
+ */
+export async function grantSpecialCategoryConsent(): Promise<void> {
+  await apiRequest<void>("/me/account/special-category-consent", {
+    method: "POST",
+    body: currentSpecialCategoryGrantFields(),
+    credentials: "include",
+  });
+}
+
+/**
+ * Withdraws special-category consent. Wrong-password 401 must not revoke
+ * the session; expired JWT uses the usual refresh / session-revoked path.
+ */
+export async function withdrawSpecialCategoryConsent(
+  password: string,
+): Promise<void> {
+  if (typeof password !== "string" || password.trim().length === 0) {
+    throw new TypeError("password is required");
+  }
+
+  const sendWithdraw = () =>
+    apiRequest<void>("/me/account/special-category-consent/withdraw", {
+      method: "POST",
+      body: { password },
+      credentials: "include",
+      cookieAuth: true,
+      skipRefresh: true,
+    });
+
+  try {
+    await sendWithdraw();
+  } catch (err) {
+    if (isWrongPasswordDeleteError(err)) {
+      throw err;
+    }
+    if (!(err instanceof ApiError) || err.status !== 401) {
+      throw err;
+    }
+
+    let refreshed: Awaited<ReturnType<typeof refreshAccessSession>>;
+    try {
+      refreshed = await refreshAccessSession();
+    } catch (networkErr) {
+      throw networkErr;
+    }
+
+    if (refreshed.ok) {
+      await sendWithdraw();
+      return;
+    }
+    if (refreshed.status === 401 || refreshed.status === 403) {
+      notifySessionRevoked();
+    }
+    throw err;
+  }
 }
 
 /**

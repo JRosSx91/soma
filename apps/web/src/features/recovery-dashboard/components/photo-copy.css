@@ -1,0 +1,45 @@
+/* Letter shadow is only a complement. Contrast comes from a real plate:
+   ::before paints behind the hero photo in Chromium, and mask-composite:
+   intersect collapses the fill to nearly nothing. */
+.soma-photo-copy {
+  text-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
+}
+
+.soma-photo-copy-veil,
+.landing-v2-copy-veil {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.soma-photo-copy-veil > *,
+.landing-v2-copy-veil > * {
+  position: relative;
+  z-index: 1;
+}
+
+.soma-photo-copy-veil > .soma-photo-copy-veil__plate,
+.landing-v2-copy-veil > .soma-photo-copy-veil__plate {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: -3.5rem;
+  right: -5rem;
+  bottom: -4rem;
+  left: -4rem;
+  border-radius: 5rem;
+  background: rgb(8 16 24 / 0.74);
+  filter: blur(44px);
+}
+
+.soma-photo-copy-veil--center > .soma-photo-copy-veil__plate,
+.landing-v2-copy-veil--center > .soma-photo-copy-veil__plate {
+  left: -4.5rem;
+  right: -4.5rem;
+}
+
+.landing-v2-copy-veil h1,
+.landing-v2-copy-veil h2,
+.landing-v2-copy-veil p {
+  text-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
+}

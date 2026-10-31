@@ -40,7 +40,7 @@ export function AuthPasswordField({
         onChange={onChange}
         className={`${authFieldClass} pr-11`}
         autoComplete={autoComplete}
-        aria-invalid={ariaInvalid}
+        aria-invalid={ariaInvalid === true ? true : undefined}
         aria-describedby={ariaDescribedBy}
       />
       <button

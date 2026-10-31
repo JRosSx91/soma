@@ -7,11 +7,14 @@ import i18n from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { test } from "node:test";
 import enAuth from "../../../i18n/locales/en/auth.json" with { type: "json" };
+import enCommon from "../../../i18n/locales/en/common.json" with { type: "json" };
 import { ForgotPasswordPage } from "../../../pages/ForgotPasswordPage.js";
 import { ResetPasswordPage } from "../../../pages/ResetPasswordPage.js";
 import { LoginPage } from "../../../pages/LoginPage.js";
 import { RegisterPage } from "../../../pages/RegisterPage.js";
 import { AuthContext } from "../context/AuthContext.js";
+import { RegistrationModeProvider } from "../context/RegistrationModeContext.js";
+import type { RegistrationModeState } from "../client/registration-mode.js";
 import { resetHeldPasswordResetTokenForTests } from "./password-reset-validation.js";
 import { resetHeldRegistrationInviteTokenForTests } from "./registration-invite.js";
 
@@ -24,18 +27,27 @@ async function ensureI18n() {
     await i18n.use(initReactI18next).init({
       lng: "en",
       fallbackLng: "en",
-      resources: { en: { auth: enAuth, common: {} } },
+      resources: { en: { auth: enAuth, common: enCommon } },
       defaultNS: "auth",
       interpolation: { escapeValue: false },
     });
+  } else {
+    i18n.addResourceBundle("en", "common", enCommon, true, true);
   }
 }
 
-function wrap(node: ReactNode, initialEntries: string[] = ["/"]) {
+function wrap(
+  node: ReactNode,
+  initialEntries: string[] = ["/"],
+  registration?: RegistrationModeState,
+) {
+  const inner = registration
+    ? createElement(RegistrationModeProvider, { value: registration }, node)
+    : node;
   return createElement(
     I18nextProvider,
     { i18n },
-    createElement(MemoryRouter, { initialEntries }, node),
+    createElement(MemoryRouter, { initialEntries }, inner),
   );
 }
 
@@ -62,6 +74,9 @@ test("ForgotPasswordPage renders email field and back link", async () => {
   assert.match(html, /Send reset instructions/);
   assert.match(html, /href="\/login"/);
   assert.match(html, /type="email"/);
+  assert.match(html, /for="forgot-email"/);
+  assert.match(html, /id="forgot-email"/);
+  assert.match(html, /autocomplete="email"/i);
 });
 
 test("ResetPasswordPage renders form when token present and strips query", async () => {
@@ -91,6 +106,11 @@ test("ResetPasswordPage renders form when token present and strips query", async
   assert.equal((html.match(/type="password"/g) ?? []).length, 2);
   assert.equal((html.match(/aria-label="Show password"/g) ?? []).length, 2);
   assert.equal((html.match(/autocomplete="new-password"/gi) ?? []).length, 2);
+  assert.match(html, /for="reset-password"/);
+  assert.match(html, /id="reset-password"/);
+  assert.match(html, /for="reset-confirm-password"/);
+  assert.match(html, /id="reset-confirm-password"/);
+  assert.equal(html.includes("aria-invalid"), false);
   assert.match(html, /name="referrer"/);
   assert.match(html, /content="no-referrer"/);
   assert.equal(html.includes("tok_abcdefghijklmnopqrstuvwxyz0123"), false);
@@ -159,10 +179,43 @@ test("LoginPage links to forgot-password", async () => {
   assert.match(html, /Forgot your password\?/);
   assert.match(html, /href="\/forgot-password"/);
   assert.match(html, /Sign in/);
+  assert.match(html, /Skip to main content/);
+  assert.match(html, /href="#main-content"/);
+  assert.match(html, /id="main-content"/);
   assert.match(html, /type="email"/);
   assert.match(html, /type="password"/);
   assert.match(html, /type="button"/);
   assert.match(html, /aria-label="Show password"/);
+  assert.match(html, /for="login-email"/);
+  assert.match(html, /id="login-email"/);
+  assert.match(html, /for="login-password"/);
+  assert.match(html, /id="login-password"/);
+  assert.match(html, /autocomplete="email"/i);
+  assert.match(html, /autocomplete="current-password"/i);
+  assert.equal(html.includes("aria-invalid"), false);
+});
+
+test("login and forgot keep general errors as form alerts, not field descriptions", () => {
+  const login = readFileSync(
+    new URL("../../../pages/LoginPage.tsx", import.meta.url),
+    "utf8",
+  );
+  const forgot = readFileSync(
+    new URL("../../../pages/ForgotPasswordPage.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(login, /id="login-form-error"/);
+  assert.match(login, /role="alert"/);
+  assert.doesNotMatch(login, /aria-describedby=\{error \? "login-form-error"/);
+  assert.match(forgot, /errorField === "email" \? "forgot-field-error"/);
+  assert.match(
+    forgot,
+    /id=\{errorField === "email" \? "forgot-field-error" : "forgot-form-error"\}/,
+  );
+  assert.match(
+    forgot,
+    /aria-describedby=\{\s*errorField === "email" \? "forgot-field-error" : undefined\s*\}/,
+  );
 });
 
 test("RegisterPage still renders core fields (no regression)", async () => {
@@ -176,6 +229,7 @@ test("RegisterPage still renders core fields (no regression)", async () => {
         createElement(RegisterPage),
       ),
       ["/register"],
+      { status: "ready", mode: "open" },
     ),
   );
   assert.match(html, /Create your Soma account/);
@@ -191,6 +245,26 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.equal((html.match(/type="password"/g) ?? []).length, 2);
   assert.equal((html.match(/aria-label="Show password"/g) ?? []).length, 2);
   assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
+  assert.match(html, /for="register-display-name"/);
+  assert.match(html, /id="register-display-name"/);
+  assert.match(html, /for="register-email"/);
+  assert.match(html, /id="register-email"/);
+  assert.match(html, /for="register-password"/);
+  assert.match(html, /for="register-confirm-password"/);
+  assert.match(html, /for="register-biological-sex"/);
+  assert.match(html, /for="register-birth-date"/);
+  assert.match(html, /autocomplete="nickname"/i);
+  assert.match(html, /autocomplete="email"/i);
+  assert.equal(html.includes("aria-invalid"), false);
+  assert.match(html, /href="\/privacy"/);
+  assert.match(html, /href="\/terms"/);
+  assert.match(html, /href="\/legal"/);
+  assert.match(html, /href="\/cookies"/);
+  assert.match(html, /id="register-accept-adult"/);
+  assert.doesNotMatch(html, /register-accept-special/);
+  assert.doesNotMatch(html, /privacy#privacy-special/);
+  assert.equal((html.match(/type="checkbox"/g) ?? []).length, 3);
+  assert.doesNotMatch(html, /type="checkbox"[^>]*checked/);
 });
 
 test("RegisterPage source clears password errors when the confirmation is edited", () => {
@@ -202,6 +276,10 @@ test("RegisterPage source clears password errors when the confirmation is edited
   assert.match(source, /setPassword\(e\.target\.value\);\s*setError\(null\);/s);
   assert.match(source, /prepareRegisterCredentials/);
   assert.match(source, /role="alert"/);
+  assert.match(source, /errorField === "password"/);
+  assert.match(source, /errorField === "confirm"/);
+  assert.match(source, /register-form-error/);
+  assert.doesNotMatch(source, /aria-invalid=\{error \? true/);
 });
 
 test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async () => {
@@ -232,10 +310,12 @@ test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async 
         createElement(RegisterPage),
       ),
       ["/register?invite=abc_invite_from_query&lang=es"],
+      { status: "ready", mode: "invite" },
     ),
   );
 
-  assert.match(html, /Create your Soma account/);
+  assert.match(html, /Start your journey/);
+  assert.match(html, /closed beta/i);
   assert.match(html, /name="referrer"/);
   assert.match(html, /content="no-referrer"/);
   assert.equal(html.includes("abc_invite_from_query"), false);
@@ -243,3 +323,43 @@ test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async 
   assert.ok(replaced.every((u) => !u.includes("invite=")));
   assert.doesNotMatch(html, /invitation is valid|invitación válida/i);
 });
+
+test("RegisterPage invite mode without token does not render a form", async () => {
+  await ensureI18n();
+  resetHeldRegistrationInviteTokenForTests();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: guestAuth },
+        createElement(RegisterPage),
+      ),
+      ["/register"],
+      { status: "ready", mode: "invite" },
+    ),
+  );
+  assert.match(html, /Invitation required/);
+  assert.equal(html.includes('type="email"'), false);
+  assert.match(html, /href="\/"/);
+  assert.match(html, /href="\/login"/);
+});
+
+test("RegisterPage does not assume invite when the mode request fails", async () => {
+  await ensureI18n();
+  resetHeldRegistrationInviteTokenForTests();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: guestAuth },
+        createElement(RegisterPage),
+      ),
+      ["/register"],
+      { status: "error", mode: null },
+    ),
+  );
+  assert.match(html, /temporarily unavailable/i);
+  assert.equal(html.includes("Invitation required"), false);
+  assert.equal(html.includes('type="email"'), false);
+});
+

@@ -142,11 +142,29 @@ model User {
   xpGrants            XpGrant[]
   progression         UserProgression?
   missionCompletions  MissionCompletion[]
+  feedbackReports     FeedbackReport[]
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
-  registrationInvite  RegistrationInvite?
+  registrationInvite       RegistrationInvite?
+  registrationAcceptances  RegistrationAcceptance[]
 
   @@index([email])
+}
+
+/// Affirmative legal actions (draft document versions). No IP.
+/// Append-only: each grant or withdrawal is a new row so earlier evidence
+/// is never overwritten. Latest acceptedAt per purpose family decides status.
+model RegistrationAcceptance {
+  id               String   @id @default(cuid())
+  userId           String
+  purpose          String
+  documentVersion  String
+  acceptedAt       DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, purpose, acceptedAt])
 }
 
 /// One-time closed-beta registration invites. Plaintext is shown once to an
@@ -555,6 +573,59 @@ model MissionCompletion {
 
   @@unique([userId, missionId])
   @@index([userId])
+}
+
+// -----------------------------------------------------------------------------
+// Private feedback (FBK-01)
+// -----------------------------------------------------------------------------
+//
+// Owner-only reports. No XP, no email, no public board (FBK-02). Status is
+// updated by an operator via SQL until an admin UI exists. Deleting the User
+// row cascades these reports.
+//
+// fingerprint is SHA-256 hex of `feedbackDuplicateKey` in @soma/shared-types.
+// There is intentionally no UNIQUE (userId, fingerprint): the same copy may
+// be filed again after FEEDBACK_DUPLICATE_WINDOW_MS (24h). The composite
+// index only supports the recent-duplicate lookup.
+//
+// FBK-01C (API, not this migration):
+// - POST new report → 201
+// - identical copy inside 24h → 200 with the existing row
+// - list cursor: createdAt + id
+// - throttle: 8 POST / 15 minutes / IP
+// - never log title or body
+// - no XP source
+// - concurrent identical POSTs need not be strictly serialized
+
+enum FeedbackCategory {
+  bug
+  suggestion
+  general
+}
+
+enum FeedbackStatus {
+  open
+  in_review
+  resolved
+  closed
+}
+
+model FeedbackReport {
+  id          String           @id @default(cuid())
+  userId      String
+  category    FeedbackCategory
+  title       String
+  body        String           @db.Text
+  status      FeedbackStatus   @default(open)
+  /// SHA-256 hex (64 chars) of the normalized duplicate key. Not unique.
+  fingerprint String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, fingerprint, createdAt])
 }
 
 // -----------------------------------------------------------------------------

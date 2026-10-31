@@ -6,7 +6,7 @@ const illustrations = {
   heart: "/images/anatomy/heart.png",
   digestive: "/images/anatomy/digestive.png",
   endocrine: "/images/anatomy/thyroid.png",
-  immune: "/images/anatomy/immune.png",
+  immune: "/images/anatomy/spleen.png",
 } as const satisfies Record<DemoOrganIcon, string>;
 
 interface AnatomyIllustrationProps {

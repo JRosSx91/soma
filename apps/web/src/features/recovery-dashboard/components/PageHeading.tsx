@@ -8,6 +8,8 @@ interface PageHeadingProps {
   aside?: ReactNode;
   /** Public preview pages keep the DEMO chip. A signed-in achievements view hides it. */
   demo?: boolean;
+  /** Stable ONB-01 tour hook. Omit on surfaces the tour does not highlight. */
+  onbAnchor?: string;
 }
 
 export function ShellHeadingFrame({
@@ -41,6 +43,7 @@ export function PageHeading({
   description,
   aside,
   demo = true,
+  onbAnchor,
 }: PageHeadingProps) {
   return (
     <ShellHeadingFrame>
@@ -54,7 +57,10 @@ export function PageHeading({
             {aside}
           </span>
         </div>
-        <h1 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
+        <h1
+          className="mt-3 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl"
+          data-onb={onbAnchor}
+        >
           {title}
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-soma-ink-secondary">

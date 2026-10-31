@@ -29,8 +29,9 @@ export const DEFAULT_OG_IMAGE_ALT =
  * Exact Render Header paths for `X-Robots-Tag: noindex, nofollow`.
  * Do not use `/*` — that would also match `/`.
  * `/app/*` is documented by Render as `/app/` and descendants; `/app`
- * without a trailing slash is listed separately. `/app-legacy` is not
- * under `/app/` and needs its own exact path.
+ * without a trailing slash is listed separately. `/app-legacy` redirects
+ * to `/app` inside the auth gate and is not under `/app/`, so it keeps
+ * its own exact noindex path.
  */
 export const RENDER_X_ROBOTS_NOINDEX_PATHS = [
   "/app",
@@ -40,6 +41,10 @@ export const RENDER_X_ROBOTS_NOINDEX_PATHS = [
   "/preview/*",
   "/login",
   "/register",
+  "/legal",
+  "/privacy",
+  "/terms",
+  "/cookies",
   "/forgot-password",
   "/reset-password",
   "/onboarding",

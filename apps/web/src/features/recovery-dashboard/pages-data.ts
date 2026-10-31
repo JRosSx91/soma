@@ -66,7 +66,7 @@ export const exploreCategories: readonly ExploreCategory[] = [
     id: "systems",
     name: "Sistemas del organismo",
     summary: "Agrupa los mismos seis sistemas que muestra Inicio.",
-    topics: ["Sistema nervioso", "Respiratorio", "Cardiovascular", "Digestivo", "Endocrino", "Inmunológico"],
+    topics: ["Sistema nervioso", "Respiratorio", "Cardiovascular", "Digestivo", "Endocrino", "Linfático"],
   },
   {
     id: "processes",
@@ -107,7 +107,7 @@ export const anatomyOrgans: Record<string, readonly AnatomyOrgan[]> = {
     { id: "pancreas", name: "Páncreas", src: "/images/anatomy/pancreas.png" },
   ],
   endocrine: [{ id: "thyroid", name: "Tiroides", src: "/images/anatomy/thyroid.png" }],
-  immune: [{ id: "immune", name: "Sistema inmunitario", src: "/images/anatomy/immune.png" }],
+  immune: [{ id: "immune", name: "Sistema linfático", src: "/images/anatomy/spleen.png" }],
 };
 
 export const anatomyTabs = ["resumen", "efectos", "recuperacion", "consejos"] as const;

@@ -1,6 +1,6 @@
 import { Compass } from "lucide-react";
 import { medalFrameClass, type MedalDisplaySize } from "./medal-frame.js";
-import { MedalMark, type MedalTier } from "./MedalMark.js";
+import { MedalMark, SealedMedalDisk, type MedalTier } from "./MedalMark.js";
 
 const tierLabel: Record<MedalTier, string> = {
   bronze: "Bronce",
@@ -63,14 +63,13 @@ export function AchievementMedal({
   showTierLabel = true,
 }: AchievementMedalProps) {
   if (sealed) {
+    const { frame, compactLike: compact } = medalFrameClass(size);
     return (
-      <MedalMark
-        tier={tier}
-        substanceId={substanceId}
-        sealed
-        size={size}
-        showTierLabel={showTierLabel}
-      />
+      <span className={compact ? "inline-flex flex-col items-center" : "flex w-full flex-col items-center gap-1"}>
+        <span className={compact ? frame : `w-full ${frame}`}>
+          <SealedMedalDisk />
+        </span>
+      </span>
     );
   }
 

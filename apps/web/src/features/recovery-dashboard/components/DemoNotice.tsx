@@ -10,6 +10,7 @@ import { previewFocus } from "../focus.js";
 export function DemoNotice() {
   const { t } = useTranslation("recovery");
   const disclaimer = t("demoDisclaimer");
+  const badge = t("demoBadge");
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLSpanElement>(null);
   const panelId = useId();
@@ -37,10 +38,10 @@ export function DemoNotice() {
         className={`${previewFocus} rounded-full border border-soma-action/40 px-2 py-0.5 text-[10px] font-semibold tracking-[0.14em] text-soma-action`}
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={`DEMO. ${disclaimer}`}
+        aria-label={t("demoAria", { disclaimer })}
         onClick={() => setOpen((value) => !value)}
       >
-        DEMO
+        {badge}
       </button>
       <p
         id={panelId}

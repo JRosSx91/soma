@@ -33,6 +33,9 @@ import {
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
 import { REFRESH_COOKIE_NAME } from "../auth/refresh-cookie.js";
+import { currentRegisterClientFields } from "@soma/shared-types";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 import { ACHIEVEMENT_IDS_MAX_BATCH } from "./dto/achievement-ids.dto.js";
 
 const ORIGIN = "http://localhost:5173";
@@ -221,8 +224,9 @@ async function registerUser(input: {
     password: input.password,
     displayName: input.displayName,
     biologicalSex: input.biologicalSex,
-    birthYear: input.birthYear,
     inviteToken: input.inviteToken,
+    ...currentRegisterClientFields(),
+    birthDate: `${input.birthYear}-06-15`,
   });
   const createdId = res.body?.user?.id;
   if (res.status === 201 && typeof createdId === "string" && createdId.length > 0) {
@@ -238,6 +242,8 @@ async function registerUser(input: {
     email: res.body.user.email,
     accessToken: res.body.accessToken,
   };
+  if (!prisma) throw new Error("prisma is not connected");
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, session.id);
   return session;
 }
 

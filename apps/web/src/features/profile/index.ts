@@ -15,6 +15,8 @@ export {
   patchProfileDetails,
   saveUserUsages,
   deleteOwnAccount,
+  grantSpecialCategoryConsent,
+  withdrawSpecialCategoryConsent,
 } from "./client/profile-api.js";
 export {
   completeOnboardingWithUsages,
@@ -29,6 +31,15 @@ export {
   usagesPayloadEqual,
 } from "./lib/onboarding-persist.js";
 export { shouldConfirmClearUsages } from "./lib/clear-usages-guard.js";
+export {
+  isSpecialCategoryConsentActive,
+  isSpecialCategoryConsentWithdrawn,
+  isSpecialCategoryWriteBlocked,
+  needsSpecialCategoryConsent,
+  specialCategoryClientErrorKind,
+  specialCategoryGrantMessageKey,
+} from "./lib/special-category-consent.js";
+export { SpecialCategoryConsentCard } from "./components/SpecialCategoryConsentCard.js";
 export { outcomeFromProfileFetch } from "./lib/post-auth-profile.js";
 export type { PostAuthProfileOutcome } from "./lib/post-auth-profile.js";
 export {

@@ -6,11 +6,15 @@ import { LandingV2Journey } from "./LandingV2Journey.js";
 import { LandingV2Atlas } from "./LandingV2Atlas.js";
 import { LandingV2Science } from "./LandingV2Science.js";
 import { LandingV2Methodology } from "./LandingV2Methodology.js";
+import { LandingV2Origin } from "./LandingV2Origin.js";
+import { LandingV2MissionsJournal } from "./LandingV2MissionsJournal.js";
 import { LandingV2Achievements } from "./LandingV2Achievements.js";
 import { LandingV2Closing } from "./LandingV2Closing.js";
 import { LandingV2IntroProvider, SomaIntro } from "./SomaIntro.js";
 import { shouldPlayLandingV2Intro } from "./soma-intro-session.js";
+import "./landing-v2-copy-veil.css";
 import { useAuth } from "../auth/index.js";
+import { SkipToContent } from "../../components/SkipToContent.js";
 
 /**
  * Public Soma 2.0 landing. Mounted at `/` for anonymous visitors.
@@ -47,6 +51,7 @@ export function LandingV2Page() {
         aria-hidden={introVisible}
         inert={introVisible}
       >
+        <SkipToContent targetId="landing-v2-main" />
         <LandingV2Header />
         <main id="landing-v2-main" tabIndex={-1}>
           {accountDeleted ? (
@@ -62,6 +67,8 @@ export function LandingV2Page() {
           <LandingV2Atlas />
           <LandingV2Science />
           <LandingV2Methodology />
+          <LandingV2Origin />
+          <LandingV2MissionsJournal />
           <LandingV2Achievements />
           <LandingV2Closing />
         </main>

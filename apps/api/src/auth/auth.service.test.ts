@@ -3,9 +3,21 @@ import { test } from "node:test";
 import { UnauthorizedException } from "@nestjs/common";
 import bcrypt from "bcrypt";
 import { AuthService } from "./auth.service.js";
-import { CodedConflictException } from "../common/exceptions/coded-exception.js";
+import {
+  CodedBadRequestException,
+  CodedConflictException,
+  CodedForbiddenException,
+} from "../common/exceptions/coded-exception.js";
 import type { EmailLookupResult, UsersService } from "../users/users.service.js";
 import type { RefreshSessionService } from "./refresh-session.service.js";
+import {
+  currentRegisterClientFields,
+  currentSpecialCategoryGrantFields,
+} from "@soma/shared-types";
+import { AUTH_ACCEPTANCE_REQUIRED_CODE } from "./registration-acceptance.js";
+import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
+
+const acceptance = currentRegisterClientFields();
 
 type FakeUser = {
   id: string;
@@ -62,9 +74,14 @@ function createService(users: {
     users as unknown as UsersService,
     jwtService as never,
     refreshSessions as unknown as RefreshSessionService,
-    { $transaction: async () => {
-      throw new Error("open-mode register must not open a transaction");
-    } } as never,
+    {
+      $transaction: async () => {
+        throw new Error("open-mode register must not open a transaction");
+      },
+      registrationAcceptance: {
+        createMany: async () => ({ count: 3 }),
+      },
+    } as never,
     { claimUnused: async () => null, attachUser: async () => undefined } as never,
   );
 }
@@ -86,7 +103,7 @@ test("register stores a normalized email and issues a refresh session", async ()
     password: "password123",
     displayName: "New",
     biologicalSex: "male",
-    birthYear: 1991,
+    ...acceptance,
   });
 
   assert.equal(created[0], "new.user@example.com");
@@ -114,7 +131,7 @@ test("register with existing email (any casing) throws AUTH_EMAIL_EXISTS", async
         password: "password123",
         displayName: "Dup",
         biologicalSex: "male",
-        birthYear: 1990,
+        ...acceptance,
       }),
     (err: unknown) => {
       assert.ok(err instanceof CodedConflictException);
@@ -124,6 +141,75 @@ test("register with existing email (any casing) throws AUTH_EMAIL_EXISTS", async
   );
   if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
   else process.env.AUTH_REGISTRATION_MODE = prevMode;
+});
+
+test("register without current acceptances is rejected before user create", async () => {
+  const prevMode = process.env.AUTH_REGISTRATION_MODE;
+  process.env.AUTH_REGISTRATION_MODE = "open";
+  let created = 0;
+  const service = createService({
+    findByEmailInsensitive: async () => ({ status: "none" }),
+    create: async () => {
+      created += 1;
+      return fakeUser();
+    },
+  });
+
+  await assert.rejects(
+    () =>
+      service.register({
+        email: "user@example.com",
+        password: "password123",
+        displayName: "New",
+        biologicalSex: "male",
+        ...acceptance,
+        acceptedTerms: false,
+      }),
+    (err: unknown) => {
+      assert.ok(err instanceof CodedBadRequestException);
+      assert.equal(err.code, AUTH_ACCEPTANCE_REQUIRED_CODE);
+      return true;
+    },
+  );
+  assert.equal(created, 0);
+  if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
+  else process.env.AUTH_REGISTRATION_MODE = prevMode;
+});
+
+test("production register is refused while legal notices stay draft", async () => {
+  const prevMode = process.env.AUTH_REGISTRATION_MODE;
+  const prevNode = process.env.NODE_ENV;
+  process.env.AUTH_REGISTRATION_MODE = "invite";
+  process.env.NODE_ENV = "production";
+  let created = 0;
+  const service = createService({
+    findByEmailInsensitive: async () => ({ status: "none" }),
+    create: async () => {
+      created += 1;
+      return fakeUser();
+    },
+  });
+
+  await assert.rejects(
+    () =>
+      service.register({
+        email: "prod@example.com",
+        password: "password123",
+        displayName: "Prod",
+        biologicalSex: "male",
+        ...acceptance,
+      }),
+    (err: unknown) => {
+      assert.ok(err instanceof CodedForbiddenException);
+      assert.equal(err.code, REGISTRATION_UNAVAILABLE_CODE);
+      return true;
+    },
+  );
+  assert.equal(created, 0);
+  if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
+  else process.env.AUTH_REGISTRATION_MODE = prevMode;
+  if (prevNode === undefined) delete process.env.NODE_ENV;
+  else process.env.NODE_ENV = prevNode;
 });
 
 test("login accepts mixed-case and padded email against a legacy stored address", async () => {
@@ -229,6 +315,79 @@ function createDeleteService(tx: {
     { claimUnused: async () => null, attachUser: async () => undefined } as never,
   );
 }
+
+test("grantSpecialCategoryConsent appends a grant for the JWT user", async () => {
+  const user = fakeUser();
+  const created: Array<Record<string, unknown>> = [];
+  const txExtra = {
+    registrationAcceptance: {
+      findMany: async () => [],
+      create: async ({ data }: { data: Record<string, unknown> }) => {
+        created.push(data);
+        return data;
+      },
+    },
+  };
+  const grantService = new AuthService(
+    {} as unknown as UsersService,
+    { sign: () => "unused" } as never,
+    {
+      issueSession: async () => ({
+        plaintext: "x",
+        familyId: "f",
+        expiresAt: new Date(),
+      }),
+      rotateSession: async () => ({
+        userId: user.id,
+        session: { plaintext: "x", familyId: "f", expiresAt: new Date() },
+      }),
+      revokeByPlaintext: async () => undefined,
+    } as unknown as RefreshSessionService,
+    {
+      $transaction: async (fn: (client: typeof txExtra) => Promise<void>) => {
+        const tx = {
+          $queryRaw: async () => [{ id: user.id }],
+          ...txExtra,
+        };
+        await fn(tx);
+      },
+    } as never,
+    { claimUnused: async () => null, attachUser: async () => undefined } as never,
+  );
+  await grantService.grantSpecialCategoryConsent(
+    user.id,
+    currentSpecialCategoryGrantFields(),
+  );
+  assert.equal(created.length, 1);
+  assert.equal(created[0]?.userId, user.id);
+  assert.equal(created[0]?.purpose, "special_category_processing");
+});
+
+test("withdrawSpecialCategoryConsent rejects a wrong password", async () => {
+  const user = fakeUser();
+  const service = createDeleteService({
+    $queryRaw: async () => [{ id: user.id }],
+    user: {
+      findUnique: async () => user,
+      delete: async () => {
+        throw new Error("must not delete account");
+      },
+    },
+    registrationInvite: {
+      deleteMany: async () => {
+        throw new Error("must not delete invites");
+      },
+    },
+  });
+  await assert.rejects(
+    () => service.withdrawSpecialCategoryConsent(user.id, "wrong-pass"),
+    (err: unknown) => {
+      assert.ok(err instanceof UnauthorizedException);
+      assert.equal(err.message, "Invalid credentials");
+      return true;
+    },
+  );
+});
 
 test("deleteOwnAccount removes the invite then the user", async () => {
   const user = fakeUser();

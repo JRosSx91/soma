@@ -9,6 +9,14 @@ test("achievements 2.0 chrome exists in spanish and english", () => {
   const en = enAchievements as { ui: Record<string, string> };
   assert.equal(es.ui.title, "Pequeños pasos, grandes cambios.");
   assert.equal(en.ui.title, "Small steps, great changes.");
+  assert.equal(
+    es.ui.descriptionDemo,
+    "Cada día de abstinencia, cada hito y cada descubrimiento te acerca a una vida más libre. Aquí puedes ver tus logros, explorar los que te faltan y descubrir qué puedes conseguir. El avance fisiológico es una estimación del modelo de curvas, no una medición clínica.",
+  );
+  assert.equal(
+    en.ui.descriptionDemo,
+    "Each day of abstinence, each milestone and each discovery brings you closer to a freer life. Here you can see your achievements, explore what is still ahead, and find what you can reach. Physiological progress is a curve-model estimate, not a clinical measurement.",
+  );
   assert.equal(es.ui.familyTemporal, "Tiempo");
   assert.equal(en.ui.familyCurve, "Curve");
   assert.equal(es.ui.catalogLabel, "Disponibles");
@@ -27,6 +35,11 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /imageSrc=\{ACHIEVEMENTS_HERO_IMAGE\}/);
   assert.match(hero, /imageSrc = DEFAULT_IMAGE/);
   assert.match(hero, /nature-2\.png/);
+  assert.match(hero, /soma-photo-copy/);
+  assert.match(hero, /soma-photo-copy-veil/);
+  assert.match(hero, /soma-photo-copy-veil__plate/);
+  assert.match(hero, /absolute inset-0 overflow-hidden/);
+  assert.equal(hero.includes("relative overflow-hidden"), false);
   assert.match(page, /AchievementSummaryStrip/);
   assert.match(page, /stats\.availableTotal/);
   assert.match(page, /stats\.collectionPercent/);
@@ -42,6 +55,8 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /familyBadgeCurve/);
   assert.match(page, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(page, /achievements:ui\.historyNote/);
+  assert.match(page, /ui\.hiddenLabel/);
+  assert.doesNotMatch(page, /ui\.hiddenLocked/);
   assert.match(page, /useTranslation\("achievements"\)|useTranslation\(\["achievements"/);
   assert.match(page, /\$\{item\.id\}\.title/);
   assert.doesNotMatch(page, /nature-2\.png/);

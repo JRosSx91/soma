@@ -100,6 +100,27 @@ test("journal calendar and history cover month paging, filters and load more", (
   assert.match(page, /if \(tab === "entries"\)/);
 });
 
+test("journal calendar stays a table of date buttons with named days and states", () => {
+  assert.match(page, /<table className="w-full table-fixed/);
+  assert.match(page, /<caption className="mb-3 caption-top/);
+  assert.match(page, /scope="col"/);
+  assert.match(page, /weekday: "long"/);
+  assert.match(page, /calendarIsToday/);
+  assert.match(page, /calendarSelected/);
+  assert.match(page, /aria-current=\{isToday \? "date" : undefined\}/);
+  assert.match(page, /aria-pressed=\{selected\}/);
+  assert.match(page, /ChevronLeft className="h-4 w-4" aria-hidden="true"/);
+  assert.match(page, /ChevronRight className="h-4 w-4" aria-hidden="true"/);
+  assert.equal(page.includes('role="grid"'), false);
+  assert.equal(page.includes("ArrowLeft"), false);
+  assert.equal(typeof esJournal.overview.calendarIsToday, "string");
+  assert.equal(typeof enJournal.overview.calendarIsToday, "string");
+  assert.equal(esJournal.overview.calendarIsToday, "Hoy");
+  assert.equal(enJournal.overview.calendarIsToday, "Today");
+  assert.equal(esJournal.overview.calendarPrev, "Mes anterior");
+  assert.equal(enJournal.overview.calendarPrev, "Previous month");
+});
+
 test("journal form covers required fields and catalogs", () => {
   assert.match(form, /occurredOn/);
   assert.match(form, /mood/);
@@ -113,6 +134,15 @@ test("journal form covers required fields and catalogs", () => {
   assert.match(form, /highlighted/);
   assert.match(form, /learning/);
   assert.match(form, /form.sectionFeeling/);
+  assert.match(form, /htmlFor="journal-occurred-on"/);
+  assert.match(form, /id="journal-occurred-on"/);
+  assert.match(form, /htmlFor="journal-title"/);
+  assert.match(form, /htmlFor="journal-body"/);
+  assert.match(form, /aria-invalid/);
+  assert.match(form, /aria-describedby/);
+  assert.match(form, /journal-field-error/);
+  assert.match(form, /journal-form-error/);
+  assert.match(form, /journal-save-error/);
 });
 
 test("journal patterns and emotions tabs stay descriptive and local for DEMO", () => {
