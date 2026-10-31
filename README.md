@@ -2,7 +2,7 @@
 
 <div align="center">
   <img
-    src="docs/assets/soma-banner.png"
+    src="apps/web/public/assets/soma-banner.png"
     alt="SOMA — Understanding recovery, one day at a time."
     width="100%"
   />
