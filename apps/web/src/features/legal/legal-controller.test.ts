@@ -150,6 +150,17 @@ test("missing name or email keeps documents unpublishable even if status is publ
   );
   assert.equal(areLegalDocumentsPublishable("published", CONTACT_ONLY), true);
   assert.equal(areLegalDocumentsPublishable("draft", CONTACT_ONLY), false);
+  assert.equal(
+    areLegalDocumentsPublishable("published", {
+      name: "",
+      address: "",
+      email: "",
+      taxId: "",
+      phone: "",
+      dpo: "",
+    }),
+    false,
+  );
 });
 
 test("a published status without required env still renders as draft", async () => {

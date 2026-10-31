@@ -17,6 +17,7 @@ import {
   authSubtitleClass,
   authTitleClass,
 } from "../features/auth/components/AuthShell.js";
+import { areLegalDocumentsPublishable } from "../features/legal/legal-controller.js";
 
 export function RegisterPage() {
   const { t } = useTranslation(["auth", "common"]);
@@ -89,6 +90,7 @@ export function RegisterPage() {
 
   const inviteToken = inviteRef.current;
   const inviteMode = registrationMode.mode === "invite";
+  const legalPublishable = areLegalDocumentsPublishable();
   if (inviteMode && !inviteToken) {
     return (
       <AuthShell>
@@ -305,7 +307,9 @@ export function RegisterPage() {
 
           <fieldset className="space-y-3 rounded-xl border border-white/10 p-3">
             <legend className="px-1 text-xs uppercase tracking-wider text-soma-ink-secondary">
-              {t("register.draftNotice")}
+              {legalPublishable
+                ? t("register.legalNotice")
+                : t("register.draftNotice")}
             </legend>
             <label className="flex items-start gap-2 text-sm text-soma-ink-secondary">
               <input
@@ -316,7 +320,11 @@ export function RegisterPage() {
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
               />
               <span>
-                {t("register.acceptTerms")}{" "}
+                {t(
+                  legalPublishable
+                    ? "register.acceptTerms"
+                    : "register.acceptTermsDraft",
+                )}{" "}
                 <Link to="/terms" className={authLinkClass}>
                   {t("register.termsLink")}
                 </Link>
@@ -331,7 +339,11 @@ export function RegisterPage() {
                 onChange={(e) => setAcceptedPrivacyNotice(e.target.checked)}
               />
               <span>
-                {t("register.acceptPrivacy")}{" "}
+                {t(
+                  legalPublishable
+                    ? "register.acceptPrivacy"
+                    : "register.acceptPrivacyDraft",
+                )}{" "}
                 <Link to="/privacy" className={authLinkClass}>
                   {t("register.privacyLink")}
                 </Link>
