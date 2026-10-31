@@ -96,7 +96,7 @@ const SYSTEM_META: Record<
   },
   immune: {
     id: "immune",
-    name: "Inmunológico",
+    name: "Linfático",
     icon: "immune",
     seriesColor: "rgb(var(--soma-ink-secondary))",
   },

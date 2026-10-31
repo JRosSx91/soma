@@ -59,7 +59,7 @@ export function LandingV2Methodology() {
 
       <div className="relative mx-auto flex w-full max-w-[88rem] flex-col gap-4 lg:min-h-0 lg:flex-1 lg:justify-center lg:gap-5">
         <motion.header
-          className="max-w-3xl shrink-0"
+          className="landing-v2-copy-veil max-w-3xl shrink-0"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}

@@ -58,6 +58,24 @@ test("achievements intro drops the obsolete 106 count", () => {
   assert.match(en.achievements.intro, /milestones tied/);
 });
 
+test("hidden showcase medals show a lock label without a tier", () => {
+  const achievements = source("LandingV2Achievements.tsx");
+  assert.match(achievements, /sealedLabel/);
+  assert.match(achievements, /SealedMedalDisk/);
+  assert.equal(es.achievements.sealedLabel, "Oculto");
+  assert.equal(en.achievements.sealedLabel, "Hidden");
+  assert.match(achievements, /bg-\[rgb\(8_16_24_\/_0\.92\)\]/);
+  assert.match(
+    achievements,
+    /item\.kind === "sealed" \? \(\s*t\("landing-v2:achievements\.sealedLabel"\)/,
+  );
+});
+
+test("journey timeline card uses the same dark panel as missions", () => {
+  const journey = source("LandingV2Journey.tsx");
+  assert.match(journey, /bg-\[rgb\(8_16_24_\/_0\.92\)\]/);
+});
+
 test("science header is centered over the three cards", () => {
   const science = source("LandingV2Science.tsx");
   assert.match(science, /mx-auto w-full max-w-\[850px\] shrink-0 text-center/);

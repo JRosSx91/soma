@@ -39,7 +39,7 @@ test("explore system cards fall back to existing organ plates, not new files", (
     "/images/anatomy/kidneys.png",
   ]);
   assert.deepEqual(exploreSystemCardSources("immune", "/images/anatomy/system-immune.png"), [
-    "/images/anatomy/immune.png",
+    "/images/anatomy/spleen.png",
   ]);
   assert.deepEqual(exploreSystemCardSources("reproductive", "/images/anatomy/system-reproductive.png"), [
     "/images/anatomy/reproductive.png",

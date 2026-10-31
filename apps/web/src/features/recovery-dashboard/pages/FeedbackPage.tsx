@@ -15,9 +15,9 @@ import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
 
-const FEEDBACK_HERO_IMAGE = "/images/decoration/nature-4.png";
+const FEEDBACK_HERO_IMAGE = "/images/decoration/nature-9.png";
 const FEEDBACK_HERO_OVERLAY =
-  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.42) 38%, rgb(var(--soma-shell-rail) / 0.1) 62%, transparent 82%)";
+  "linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.58) 0%, rgb(var(--soma-shell-rail) / 0.24) 40%, transparent 70%), linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.9) 0%, rgb(var(--soma-shell-rail) / 0.46) 38%, rgb(var(--soma-shell-rail) / 0.12) 62%, transparent 82%)";
 
 const panelClass =
   "min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 p-4 sm:p-5";

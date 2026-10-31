@@ -64,6 +64,8 @@ export function LandingV2Hero() {
 
       <div className="landing-v2-hero__copy relative z-10 flex min-h-[calc(100svh-var(--landing-v2-header))] w-full flex-col justify-start px-4 pb-16 pt-10 sm:px-6 md:order-1 md:min-h-0 md:px-8 md:pb-8 md:pt-12 lg:min-h-[calc(100svh-var(--landing-v2-header))] lg:w-[40%] lg:justify-center lg:px-10 lg:pb-16 xl:absolute xl:inset-0 xl:w-full xl:max-w-none xl:justify-center xl:px-16">
         <div className="landing-v2-hero__copy-inner w-full max-w-xl xl:max-w-[27.5rem]">
+          <div className="soma-photo-copy-veil">
+          <span className="soma-photo-copy-veil__plate" aria-hidden="true" />
           <motion.p
             className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
@@ -73,7 +75,7 @@ export function LandingV2Hero() {
             {t("hero.eyebrow")}
           </motion.p>
           <motion.h1
-            className="landing-v2-hero__title mt-3 text-4xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-5xl md:text-[2.65rem] lg:text-[2.75rem] xl:text-[3.15rem]"
+            className="landing-v2-hero__title soma-photo-copy mt-3 text-4xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-5xl md:text-[2.65rem] lg:text-[2.75rem] xl:text-[3.15rem]"
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.14 }}
@@ -84,13 +86,14 @@ export function LandingV2Hero() {
             </span>
           </motion.h1>
           <motion.p
-            className="landing-v2-hero__subtitle mt-5 text-base leading-relaxed text-soma-ink-secondary sm:text-lg"
+            className="landing-v2-hero__subtitle soma-photo-copy mt-5 text-base leading-relaxed text-soma-ink-secondary sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.24 }}
           >
             {t("hero.subtitle")}
           </motion.p>
+          </div>
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}

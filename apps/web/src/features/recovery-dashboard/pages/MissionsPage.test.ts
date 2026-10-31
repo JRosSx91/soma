@@ -95,6 +95,8 @@ test("keyboard, focus and reduced-motion patterns are present", () => {
   assert.match(page, /h-12 w-12/);
   assert.equal(page.includes("nature-2.png"), false);
   assert.match(page, /panorama/);
+  assert.equal(page.includes("absolute top-3 left-3"), false);
+  assert.match(page, /statusAvailable/);
   assert.match(page, /fetchPriority="high"/);
   assert.match(page, /border-dashed/);
   assert.match(page, /BookOpen/);

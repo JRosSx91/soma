@@ -60,7 +60,7 @@ export function LandingV2MissionsJournal() {
       />
 
       <div className="relative mx-auto flex w-full max-w-[88rem] flex-1 flex-col justify-center gap-6 lg:min-h-0 lg:gap-5">
-        <header className="mx-auto max-w-3xl text-center">
+        <header className="landing-v2-copy-veil landing-v2-copy-veil--center mx-auto max-w-3xl text-center">
           <motion.p
             className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action"
             initial={fadeUp}
@@ -152,7 +152,7 @@ export function LandingV2MissionsJournal() {
                 return (
                   <motion.li
                     key={item.id}
-                    className="flex flex-1 items-center rounded-2xl border border-amber-200/15 bg-[#081018]/55 px-3 py-2.5"
+                    className="flex flex-1 items-center rounded-2xl border border-amber-200/15 bg-[#081018]/88 px-3 py-2.5"
                     initial={fadeUp}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
@@ -234,7 +234,7 @@ export function LandingV2MissionsJournal() {
             </p>
 
             <motion.div
-              className="mt-4 rounded-2xl border border-soma-physiology/20 bg-[#081018]/55 p-3.5"
+              className="mt-4 rounded-2xl border border-soma-physiology/20 bg-[#081018]/88 p-3.5"
               initial={fadeUp}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
@@ -269,7 +269,7 @@ export function LandingV2MissionsJournal() {
 
             <ul className="mt-3 flex flex-col gap-2">
               <motion.li
-                className="rounded-2xl border border-soma-line/70 bg-[#081018]/40 px-3 py-2"
+                className="rounded-2xl border border-soma-line/70 bg-[#081018]/88 px-3 py-2"
                 initial={fadeUp}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
@@ -281,7 +281,7 @@ export function LandingV2MissionsJournal() {
                 </p>
               </motion.li>
               <motion.li
-                className="rounded-2xl border border-soma-line/70 bg-[#081018]/40 px-3 py-2"
+                className="rounded-2xl border border-soma-line/70 bg-[#081018]/88 px-3 py-2"
                 initial={fadeUp}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}

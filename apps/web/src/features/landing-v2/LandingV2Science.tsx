@@ -117,7 +117,7 @@ export function LandingV2Science() {
 
       <div className="relative mx-auto flex w-full max-w-[88rem] flex-col gap-3 lg:min-h-0 lg:flex-1 lg:justify-center lg:gap-3">
         <motion.header
-          className="mx-auto w-full max-w-[850px] shrink-0 text-center"
+          className="landing-v2-copy-veil landing-v2-copy-veil--center mx-auto w-full max-w-[850px] shrink-0 text-center"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}

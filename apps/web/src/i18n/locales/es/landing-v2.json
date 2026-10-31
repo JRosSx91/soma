@@ -47,7 +47,7 @@
       "cardiovascular": "Sistema cardiovascular",
       "respiratory": "Sistema respiratorio",
       "digestive": "Sistema digestivo",
-      "immune": "Sistema inmunitario",
+      "immune": "Sistema linfático",
       "hepatic": "Sistema hepático",
       "renal": "Sistema renal",
       "reproductive": "Sistema reproductor",
@@ -61,7 +61,7 @@
       "cardiovascular": "Corazón y vasos que impulsan y distribuyen la sangre.",
       "respiratory": "Vías aéreas y pulmones que permiten el intercambio de gases.",
       "digestive": "Tracto digestivo que procesa el alimento. El hígado puede verse también; el sistema hepático tiene su propia lámina.",
-      "immune": "Estructuras inmunitarias que participan en la defensa del organismo.",
+      "immune": "Red de vasos, ganglios y órganos linfáticos, entre ellos el bazo.",
       "hepatic": "Hígado y vía biliar, centrales en el metabolismo.",
       "renal": "Riñones y vías urinarias que filtran la sangre y regulan el medio interno.",
       "reproductive": "Aparato reproductor. La lámina de cuerpo muestra la anatomía masculina.",
@@ -179,7 +179,8 @@
       "gold": "Oro",
       "platinum": "Platino"
     },
-    "sealedTitle": "Hito oculto",
+    "sealedLabel": "Oculto",
+    "sealedTitle": "Oculto",
     "sealedBody": "Algunos logros permanecen sellados hasta que se alcanzan. Esta vitrina no revela su nombre ni su descripción.",
     "sealedSubstance": "Por descubrir",
     "note": "Los logros se conceden cuando una trayectoria educativa modelada cruza un umbral del catálogo. No son mediciones clínicas ni la prueba de que un órgano se ha recuperado."

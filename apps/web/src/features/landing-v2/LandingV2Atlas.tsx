@@ -244,7 +244,7 @@ export function LandingV2Atlas() {
           showAll ? "" : "lg:min-h-0 lg:flex-1"
         }`}
       >
-        <header className="max-w-3xl shrink-0">
+        <header className="landing-v2-copy-veil max-w-3xl shrink-0">
           <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action">
             {t("atlas.eyebrow")}
           </p>
@@ -373,7 +373,7 @@ export function LandingV2Atlas() {
             </motion.div>
 
             <motion.aside
-              className="rounded-2xl border border-soma-line/80 bg-[#081018]/40 px-4 py-3 sm:px-5"
+              className="rounded-2xl border border-soma-line/80 bg-[#081018]/90 px-4 py-3 sm:px-5"
               aria-live="polite"
               initial={fadeUp}
               whileInView={{ opacity: 1, y: 0 }}

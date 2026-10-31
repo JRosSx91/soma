@@ -47,7 +47,7 @@
       "cardiovascular": "Cardiovascular system",
       "respiratory": "Respiratory system",
       "digestive": "Digestive system",
-      "immune": "Immune system",
+      "immune": "Lymphatic system",
       "hepatic": "Hepatic system",
       "renal": "Renal system",
       "reproductive": "Reproductive system",
@@ -61,7 +61,7 @@
       "cardiovascular": "Heart and vessels that drive and distribute blood.",
       "respiratory": "Airways and lungs that allow gas exchange.",
       "digestive": "Digestive tract that processes food. The liver may also appear; the hepatic system has its own plate.",
-      "immune": "Immune structures that take part in defending the body.",
+      "immune": "A network of vessels, nodes and lymphatic organs, including the spleen.",
       "hepatic": "Liver and biliary tract, central to metabolism.",
       "renal": "Kidneys and urinary tract that filter blood and help regulate the internal environment.",
       "reproductive": "Reproductive system. The full-body plate shows male anatomy.",
@@ -179,7 +179,8 @@
       "gold": "Gold",
       "platinum": "Platinum"
     },
-    "sealedTitle": "Hidden milestone",
+    "sealedLabel": "Hidden",
+    "sealedTitle": "Hidden",
     "sealedBody": "Some achievements stay sealed until they are reached. This showcase does not reveal the name or the description.",
     "sealedSubstance": "Still to discover",
     "note": "Achievements are granted when a modeled educational trajectory crosses a catalog threshold. They are not clinical measurements, and not proof that an organ has recovered."

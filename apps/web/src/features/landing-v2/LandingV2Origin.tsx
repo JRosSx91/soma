@@ -27,7 +27,7 @@ export function LandingV2Origin() {
         decoding="async"
         draggable={false}
         aria-hidden="true"
-        className="landing-v2-origin__bg pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[96%_center] sm:object-[94%_center] md:object-[92%_center] lg:object-right xl:object-right"
+        className="landing-v2-origin__bg pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[96%_center] sm:object-[94%_center] md:object-[92%_center] lg:translate-x-[7%] lg:object-[100%_center] xl:translate-x-0 xl:object-right"
       />
       <div
         aria-hidden="true"
@@ -35,7 +35,7 @@ export function LandingV2Origin() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#081018] from-[18%] via-[#081018]/82 via-[52%] to-transparent md:from-[#081018] md:via-[#081018]/78 md:via-[46%] lg:from-[#081018]/95 lg:via-[#081018]/35 lg:via-[40%] xl:via-[#081018]/12"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#081018] from-[18%] via-[#081018]/82 via-[52%] to-transparent md:from-[#081018] md:via-[#081018]/78 md:via-[46%] lg:from-[#081018]/96 lg:via-[#081018]/68 lg:via-[48%] xl:from-[#081018]/95 xl:via-[#081018]/12 xl:via-[40%]"
       />
       <div
         aria-hidden="true"
@@ -47,7 +47,7 @@ export function LandingV2Origin() {
       />
 
       <div className="relative mx-auto flex w-full max-w-[88rem] flex-1 items-center lg:min-h-0">
-        <div className="w-full max-w-[20.5rem] sm:max-w-md md:max-w-[22rem] lg:max-w-[30rem] xl:max-w-[34rem]">
+        <div className="landing-v2-copy-veil w-full max-w-[20.5rem] sm:max-w-md md:max-w-[22rem] lg:max-w-[30rem] xl:max-w-[34rem]">
           <motion.h2
             id="landing-v2-origin-title"
             className="text-3xl font-semibold tracking-tight text-soma-ink sm:text-4xl lg:text-[2.35rem] lg:leading-[1.1] xl:text-[2.75rem]"

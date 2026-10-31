@@ -14,6 +14,11 @@ const mobile = readFileSync(
   "utf8",
 );
 
+test("suggestions hero uses the panoramic nature-9 plate", () => {
+  assert.match(page, /nature-9\.png/);
+  assert.equal(page.includes("nature-4.png"), false);
+});
+
 test("LIVE and DEMO share the feedback route under both shells", () => {
   assert.match(app, /path="feedback"/);
   assert.match(app, /FeedbackPage/);

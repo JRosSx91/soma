@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-10-30 (**ONB-01** cerrado en desarrollo local). Prioridad inmediata: **UX-PRE-BETA**. Secuencia hasta la beta: **UX-PRE-BETA → BETA-01**. Tras la apertura: **MKT-01**. MOB-01 pospuesto.
+Última actualización editorial: 2026-10-31 (**UX-PRE-BETA** en curso: primera tanda UX-01 a UX-10 completada localmente). Prioridad inmediata: **UX-PRE-BETA**. Secuencia hasta la beta: **UX-PRE-BETA → BETA-01**. Tras la apertura: **MKT-01**. MOB-01 pospuesto. **BETA-01** y **MKT-01** pendientes.
 HEAD de `origin/develop` al actualizar: `2152424058bfa6b24f17fc9be1e87a3189a35d32` (CI PR #84). Incluye SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82) y registro/privacidad (`65866c2`, PR #83).
 HEAD local de `develop` (sin push): cierre **ONB-01C** (este commit) — **doce** commits por delante de `origin/develop` (backups `78e3b1d` … ONB-01B `0132676` + este cierre). **No** en `origin/develop`.
 `origin/main`: `7f78c3268e46795a0ad42e443eacd1b188a69b63` (pin `pg_dump` PG17, PR #86). Encima de REL-01 (`8155554`, PR #76) y backups cifrados R2 (`21e5897`, PR #85). SEO-01A, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, registro #83, CI #84, GAM-03, Somi y los commits legales locales **no** están en `main`. **Deploy de producción no autorizado aquí.** Registro sigue por invitación; `LEGAL_NOTICE_STATUS=draft`.
@@ -28,7 +28,7 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 ## Prioridad inmediata y apertura de beta
 
-**Prioridad inmediata:** **UX-PRE-BETA**. CHR-01 `79f8360`. **ONB-01A** `aca59c6`. **ONB-01B** `0132676`. **ONB-01C** cerrado técnicamente en este commit. ONB-01 **cerrado en desarrollo local**. Pendiente de comprobación LIVE autenticada antes de la beta. **No** desplegado. **No** publicado.
+**Prioridad inmediata:** **UX-PRE-BETA** (en curso). Primera tanda **UX-01 a UX-10** completada localmente, con ajustes visuales posteriores y copy público de Logros. El hito general **sigue abierto**. **BETA-01** y **MKT-01** pendientes. CHR-01 `79f8360`. ONB-01 cerrado en desarrollo local (`ce24eb8`). **No** desplegado. **No** publicado.
 
 **Después de CHR-01B:** **ONB-01** (tutorial interactivo con Somi). El diseño exacto del recorrido se acuerda **antes** de implementar. Reutiliza el onboarding de cuenta (AUTH-01); **no** lo duplica.
 
@@ -56,7 +56,7 @@ Hitos **antes** de autorizar la apertura (1–5 y GAM-03 cubiertos en git de `de
 | — | GAM-03 | Integración de economía. **Cerrado técnicamente** (local `19c76a1`). **No** `origin/develop`. **No** `main`. **No** desplegado |
 | 6 | CHR-01 | Somi. **Cerrado técnicamente** en local (`79f8360`). WebP estáticos; solo ONB-01. **No** `origin/develop`. **No** desplegado |
 | 7 | ONB-01 | Tutorial. **Cerrado en desarrollo local** (A `aca59c6`, B `0132676`, C este commit). Pendiente LIVE autenticada. **No** desplegado. **No** publicado |
-| 8 | UX-PRE-BETA | Revisión integral del propietario. **Después de ONB-01.** Pendiente. Aprobación explícita |
+| 8 | UX-PRE-BETA | Revisión integral del propietario. **En curso.** Primera tanda UX-01 a UX-10 completada localmente. **No** cerrado |
 | 9 | BETA-01 preparación | Parcial. Infra/backups verificados; borradores legales **no** publicados; consentimiento y retirada en git local; validación jurídica **pendiente**; registro por invitación implementado **no** habilitado en producción |
 | 10 | BETA-01 autorización | Decisión humana explícita para abrir registros. Distinta de la preparación. **Pendiente** |
 | 11 | MKT-01 | Identidad profesional y marketing. **Después** de BETA-01. Pendiente. Sin cuentas ni publicaciones ahora |
@@ -120,7 +120,7 @@ Validación **DEMO** (`/preview` en `https://somarecovery.app`) **no** equivale 
 | GAM-03 integración | **Completado técnicamente** en `develop` local (`19c76a1`; mapa de eventos + aislamiento; unitarias/frontend 64, PG17 32/32). **No** `origin/develop`. **No** segunda economía. **No** `main`. **No** desplegado. Copy educativa vs participación: residual UX, no bloquea el cierre |
 | CHR-01 Somi | **Cerrado técnicamente** en local (`79f8360`). Seis WebP; PNG conservados; **no** en Cuenta. **No** `origin/develop`. **No** `main`. **No** desplegado |
 | ONB-01 tutorial | **Cerrado en desarrollo local** (A `aca59c6`, B `0132676`, C este commit). Distinto de AUTH-01. Pendiente de comprobación LIVE autenticada antes de la beta. **No** desplegado. **No** publicado |
-| UX-PRE-BETA revisión | **Pendiente.** Después de ONB-01 y **antes** de abrir BETA-01. Revisión del propietario (pública / DEMO / LIVE). No reabre UX-GLO-01 |
+| UX-PRE-BETA revisión | **En curso.** Primera tanda UX-01 a UX-10 completada localmente. **No** cerrado. No reabre UX-GLO-01 |
 | WEB-02 identidad y filosofía | Pendiente. Puede empaquetarse con WEB-01; no es prerrequisito de apertura por sí solo |
 | UX-GLO-01 consolidación UX | Completado e integrado en `develop` (`db6385b`, PR #79). **No** `main`. **No** desplegado. Distinto de UX-01 |
 | CLEAN-01 legado Soma 1.0 | Completado e integrado en `develop` (`ca3b456`). **No** `main`. **No** desplegado |
@@ -369,9 +369,9 @@ UI selectable: solo ES/EN (`INTERFACE_LANGUAGES`). I18N-2.0 cubre Inicio, Mi rec
 #### I18N-04 — Selector visual de idiomas
 
 - **Descripción:** Sustituir las etiquetas visibles ES/EN del selector actual por **banderas circulares**, manteniendo accesibilidad y facilidad de uso. Solo los idiomas de interfaz ya soportados (ES/EN). **No** añadir idiomas nuevos. Coherencia visual con la campana ACH-NOTIF-01 (ya implementada; no reabrirla aquí).
-- **Estado:** Pendiente. **No implementar todavía.**
+- **Estado:** Pendiente. UX-PRE-BETA usa banderas **circulares** junto al nombre y al código; **no** sustituye las etiquetas ES/EN del disparador.
 - **Prioridad:** P2
-- **Evidencia:** El chrome actual expone `Language: Español` / equivalente EN como texto. Este ID no corrige I18N-01 ni I18N-02 (copy DEMO/logros).
+- **Evidencia:** El selector sigue nombrando el idioma (accesible y visible). Este ID no corrige I18N-01 ni I18N-02 (copy DEMO/logros).
 - **Dependencias:** Ninguna de catálogo. No bloquea AUTH-01/LIVE-01. Alinear estilo con la campana ya existente (ACH-NOTIF-01 / SHELL-01), **sin** reabrir esos hitos aquí.
 - **Criterio:**
   - Español: bandera de España circular.
@@ -818,7 +818,7 @@ La beta pública **espera** Somi usable (**CHR-01** cerrado), tutorial (**ONB-01
 
 - **Objetivo:** El **propietario del producto** recorre las superficies **públicas**, **DEMO** (`/preview`) y **LIVE** (`/app`) y aprueba explícitamente que la experiencia es suficientemente estable, coherente y usable para abrir la beta. **No** es UX-GLO-01 (ya completado). **No** es una refactorización general.
 - **Prioridad:** P1 (después de **ONB-01**; **antes** de autorizar BETA-01)
-- **Estado:** Pendiente. **No** implementar un rediseño en esta reorganización.
+- **Estado:** **En curso.** Primera tanda **UX-01 a UX-10** completada localmente (más ajustes visuales de contraste, medallas ocultas, banderas y copy público de Logros). El hito general **sigue abierto**. **No** cerrado. **No** desplegado.
 - **Tamaños de referencia:**
   - Móvil: 320, 375 y 430 px.
   - Tablet: 768 y 1024 px.
@@ -1142,7 +1142,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (el piloto educativo está en `develop`).
 14. **CHR-01:** técnicamente completado en local (WebP, fuera de Cuenta); **pendiente de revisión final y commit**. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01:** cerrado en desarrollo local (A `aca59c6`, B `0132676`, C este commit). Pendiente LIVE autenticada y despliegue. **No** publicado.
-16. **UX-PRE-BETA:** lista de incidencias del propietario y aprobación explícita.
+16. **UX-PRE-BETA:** en curso. Primera tanda UX-01 a UX-10 completada localmente. **No** cerrado. **BETA-01** y **MKT-01** pendientes.
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
 
@@ -1180,7 +1180,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 6. **En `main` (git; deploy no verificado aquí):** GAME-01–03, NAV-01–02, I18N-2.0, Explorador 2.0, EXP-EDU, HOME-UI-01, REC-VIS-01, ACH-01, **JRN-01**, **GAM-01**, **GAM-02**.
 7. **En `develop` y no en `main`:** SEO-01A (`cdf038c`, PR #75), FBK-01 (`f1b447f`, PR #77), R-JXP (`a26585e`, PR #78), UX-GLO-01 (`db6385b`, PR #79), CLEAN-01 (`ca3b456`), WEB-01 (`ff5a359`, PR #82), registro (`65866c2`, PR #83), CI (`2152424`, PR #84). Local sin push: backups `78e3b1d` … ONB-01 (A/B/C; ahead 12). **En `main` encima de REL-01:** backups R2 (`21e5897`) y PG17 (`7f78c32`).
 8. **Secuencia de producto (ROADMAP-REORG-01):** **CHR-01A/B → ONB-01 → UX-PRE-BETA → BETA-01 → MKT-01**. GAM-03, CHR-01 y ONB-01 cerrados técnicamente en local. Siguiente: **UX-PRE-BETA**. **BETA-01D.3** jurídica puede **prepararse en paralelo**; no cierra ni abre la beta. **SEO-01B** pendiente; no reabre WEB-01. Residual: WEB-02, **FBK-02**, GAME-07/08, copy GAM-03, Q-CI residual. **MOB-01** pospuesto. **No** abrir registro público sin la autorización de BETA-01. **No** cambiar `LEGAL_NOTICE_STATUS` aquí.
-9. **I18N-04:** selector de banderas; **no implementar** todavía. No añade idiomas.
+9. **I18N-04:** el selector muestra una ayuda visual ES/GB junto al nombre del idioma (UX-PRE-BETA). No trata la bandera como único identificador. No añade idiomas.
 10. **UX-08 / UX-09:** editorial; no inventar.
 11. **Q-CI, Q-05, Q-E2E, Q-OBS, R-SHA.** VIS-01, ESLint.
 12. Revisión clínica de síntomas/consejos: hito humano **posterior**, no el paso 1 de lanzamiento.
@@ -1280,7 +1280,7 @@ Soma Expeditions (dirección visual OK; parcialmente en main git; atlas 2.0 en d
   Fase F  GAM-03 cerrado técnicamente (local `19c76a1`; mapa de eventos; 64 + 32 tests; sin 2.ª economía)
           → CHR-01 cerrado técnicamente (`79f8360`)
           → ONB-01 cerrado en desarrollo local (A `aca59c6`, B `0132676`, C este commit; pendiente LIVE autenticada; no publicado)
-          → UX-PRE-BETA (aprobación del propietario)
+          → UX-PRE-BETA en curso (UX-01 a UX-10 local; hito general abierto; no cerrado)
           → BETA-01 (D.3, avisos, deploy, autorización)
           → MKT-01 (después de abrir)
   Fase G  WEB-02 residual → SEO-01B → FBK-02 comunidad
@@ -1375,3 +1375,6 @@ VIS-01 (no reabre UX-03)
 | 2026-10-30 | ONB-01B commit local `0132676`. Composición visual aprobada. |
 | 2026-10-30 | ONB-01C a11y/robustez local: `inert`, guardia de clics, foco, Escape. ONB-01 **abierto**, pendiente de revisión final y commit. Sin commit. **No** desplegado. |
 | 2026-10-30 | ONB-01C commit local (este cierre): lock ordenado (foco → `inert`/`aria-hidden`; unlock → foco), tests 870, a11y puntual en DEMO. ONB-01 **cerrado en desarrollo local**. Pendiente LIVE autenticada y despliegue. **No** publicado. Sin push. |
+| 2026-10-30 | UX-PRE-BETA **en curso**: primera tanda de correcciones (landing, idiomas, Misiones, atlas linfático, medallas ocultas) en local. Pendiente de revisión del propietario. **No** cerrado. Sin commit. **No** desplegado. |
+| 2026-10-31 | UX-PRE-BETA ajustes visuales (sombra de encabezados, medallas ocultas centradas, banderas circulares, opacidad de tarjetas, a11y «Oculto»). **En curso.** Sin commit. **No** desplegado. |
+| 2026-10-31 | UX-PRE-BETA: primera tanda **UX-01 a UX-10** completada localmente; copy público del encabezado de Logros. El hito general **sigue abierto**. **BETA-01** y **MKT-01** pendientes. Sin commit. **No** desplegado. |

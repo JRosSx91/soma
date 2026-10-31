@@ -50,7 +50,7 @@ const MISSIONS_HERO_IMAGE = "/images/decoration/nature-7.png";
 const MISSIONS_HERO_IMAGE_CLASS =
   "object-[16%_40%] sm:object-[center_42%] motion-reduce:transition-none";
 const MISSIONS_HERO_OVERLAY =
-  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.42) 34%, rgb(var(--soma-shell-rail) / 0.12) 58%, transparent 78%)";
+  "linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.58) 0%, rgb(var(--soma-shell-rail) / 0.24) 40%, transparent 70%), linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.9) 0%, rgb(var(--soma-shell-rail) / 0.46) 34%, rgb(var(--soma-shell-rail) / 0.14) 58%, transparent 78%)";
 
 const panelClass =
   "min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 p-4 sm:p-5";
@@ -487,27 +487,27 @@ function CatalogCard({
   const completed = mission.state === "completed";
   return (
     <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface">
-      <div className="relative">
-        <MissionArt
-          src={art}
-          title={t(missionCopyPath(mission.titleKey))}
-          framed={missionArtNeedsFrame(mission.sheetId)}
-        />
-        <span
-          className={`absolute top-3 left-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${
-            completed
-              ? "bg-soma-raised text-soma-ink"
-              : "border border-soma-line bg-soma-surface/90 text-soma-ink-secondary"
-          }`}
-        >
-          {completed ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : null}
-          {completed ? t("statusCompleted") : t("statusAvailable")}
-        </span>
-      </div>
+      <MissionArt
+        src={art}
+        title={t(missionCopyPath(mission.titleKey))}
+        framed={missionArtNeedsFrame(mission.sheetId)}
+      />
       <div className="flex min-w-0 flex-1 flex-col gap-2 p-4">
-        <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-soma-ink-muted">
-          {t(`categories.${mission.categoryId}`)}
-        </p>
+        <div className="flex min-w-0 items-center justify-between gap-2">
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-soma-ink-muted">
+            {t(`categories.${mission.categoryId}`)}
+          </p>
+          <span
+            className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+              completed
+                ? "bg-soma-raised text-soma-ink"
+                : "border border-soma-line bg-soma-surface text-soma-ink-secondary"
+            }`}
+          >
+            {completed ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : null}
+            {completed ? t("statusCompleted") : t("statusAvailable")}
+          </span>
+        </div>
         <h3 className="text-base font-semibold leading-snug text-soma-ink">
           {t(missionCopyPath(mission.titleKey))}
         </h3>

@@ -1,8 +1,8 @@
-import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { previewFocus } from "../recovery-dashboard/focus.js";
-import type { MedalTier } from "../recovery-dashboard/components/MedalMark.js";
+import { SealedMedalDisk, type MedalTier } from "../recovery-dashboard/components/MedalMark.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -65,69 +65,6 @@ const SHOWCASE: readonly ShowcaseItem[] = [
 
 function medalSrc(item: CatalogItem): string {
   return `/images/achievements/${item.substanceId}-${item.tier}.png`;
-}
-
-function SealedMedalDisk() {
-  const uid = useId().replace(/:/g, "");
-  const fill = `${uid}-fill`;
-  const ring = `${uid}-ring`;
-  const glow = `${uid}-glow`;
-
-  return (
-    <svg viewBox="0 0 80 80" className="h-full w-full" aria-hidden="true">
-      <defs>
-        <radialGradient id={fill} cx="38%" cy="32%" r="72%">
-          <stop offset="0%" stopColor="#163048" />
-          <stop offset="55%" stopColor="#0B1824" />
-          <stop offset="100%" stopColor="#061018" />
-        </radialGradient>
-        <linearGradient id={ring} x1="20%" y1="0%" x2="80%" y2="100%">
-          <stop offset="0%" stopColor="#F4F6F8" />
-          <stop offset="42%" stopColor="#C5CCD4" />
-          <stop offset="100%" stopColor="#8B949E" />
-        </linearGradient>
-        <radialGradient id={glow} cx="50%" cy="50%" r="50%">
-          <stop offset="70%" stopColor="rgba(134,183,232,0)" />
-          <stop offset="100%" stopColor="rgba(134,183,232,0.28)" />
-        </radialGradient>
-      </defs>
-      <circle cx="40" cy="40" r="36" fill={`url(#${fill})`} />
-      <circle
-        cx="40"
-        cy="40"
-        r="36"
-        fill="none"
-        stroke={`url(#${ring})`}
-        strokeWidth="3.2"
-      />
-      <circle cx="40" cy="40" r="36" fill={`url(#${glow})`} />
-      <circle
-        cx="40"
-        cy="40"
-        r="29"
-        fill="none"
-        stroke="rgba(134,183,232,0.22)"
-        strokeWidth="1"
-      />
-      <path
-        d="M 33 37 V 32.5 a 7 7 0 0 1 14 0 V 37"
-        fill="none"
-        stroke="#D7DEE6"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-      <rect
-        x="31"
-        y="36.5"
-        width="18"
-        height="14"
-        rx="2.4"
-        fill="#C9D2DC"
-        stroke="#9AA4B0"
-        strokeWidth="1"
-      />
-    </svg>
-  );
 }
 
 function MedalFigure({
@@ -236,7 +173,7 @@ export function LandingV2Achievements() {
 
       <div className="relative mx-auto flex w-full max-w-[88rem] flex-col gap-4 lg:min-h-0 lg:flex-1 lg:justify-center lg:gap-5">
         <motion.header
-          className="max-w-3xl shrink-0"
+          className="landing-v2-copy-veil max-w-3xl shrink-0"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -289,8 +226,8 @@ export function LandingV2Achievements() {
                   }}
                   className={`${previewFocus} box-border grid h-full min-h-[7.25rem] min-w-0 grid-rows-[minmax(0,1fr)_1.35rem] rounded-3xl border px-2 py-2 transition-colors sm:min-h-[9.5rem] sm:px-3 ${
                     selectedItem
-                      ? "border-soma-action bg-[#07141f]/95 shadow-[0_0_18px_rgba(104,216,192,0.16)]"
-                      : "border-soma-line/70 bg-[#07141f]/94 hover:border-soma-physiology/50"
+                      ? "border-soma-action bg-[rgb(8_16_24_/_0.95)] shadow-[0_0_18px_rgba(104,216,192,0.16)]"
+                      : "border-soma-line/70 bg-[rgb(8_16_24_/_0.92)] hover:border-soma-physiology/50"
                   }`}
                 >
                   <span className="flex min-h-0 items-center justify-center">
@@ -299,8 +236,14 @@ export function LandingV2Achievements() {
                     </span>
                   </span>
                   <span className="flex items-center justify-center text-[10px] font-semibold uppercase tracking-[0.14em] text-soma-physiology">
-                    {t(`landing-v2:achievements.tiers.${item.tier}`)}
-                    <span className="sr-only">{` ${name}`}</span>
+                    {item.kind === "sealed" ? (
+                      t("landing-v2:achievements.sealedLabel")
+                    ) : (
+                      <>
+                        {t(`landing-v2:achievements.tiers.${item.tier}`)}
+                        <span className="sr-only">{` ${name}`}</span>
+                      </>
+                    )}
                   </span>
                 </motion.button>
               );
@@ -333,15 +276,14 @@ export function LandingV2Achievements() {
             <p className="text-sm leading-relaxed text-soma-ink-secondary">
               {panelBody}
             </p>
+            {selected.kind === "sealed" ? null : (
             <dl className="grid grid-cols-2 gap-4 pt-1 text-sm">
               <div>
                 <dt className="text-[11px] uppercase tracking-[0.16em] text-soma-ink-muted">
                   {t("landing-v2:achievements.substance")}
                 </dt>
                 <dd className="mt-1 text-soma-ink">
-                  {selected.kind === "sealed"
-                    ? t("landing-v2:achievements.sealedSubstance")
-                    : t(`substances:${selected.substanceId}.name`)}
+                  {t(`substances:${selected.substanceId}.name`)}
                 </dd>
               </div>
               <div>
@@ -353,6 +295,7 @@ export function LandingV2Achievements() {
                 </dd>
               </div>
             </dl>
+            )}
           </motion.aside>
         </div>
 

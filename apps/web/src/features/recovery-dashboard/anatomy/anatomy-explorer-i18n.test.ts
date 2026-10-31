@@ -105,11 +105,10 @@ test("atlas 2.0 chrome uses RecoveryHero, nature-8, and drops the illustrated sy
   assert.match(page, /lg:grid-cols-\[minmax\(0,7fr\)_minmax\(16\.5rem,3fr\)\]/);
   assert.match(page, /repeat\(auto-fill,minmax\(11\.5rem,13rem\)\)/);
   assert.match(page, /self-start/);
-  assert.notEqual(esAnatomy.organCount_one, esAnatomy.organCount_other);
-  assert.notEqual(enAnatomy.organCount_one, enAnatomy.organCount_other);
-  assert.match(esAnatomy.organCount_one, /órgano/);
-  assert.match(enAnatomy.organCount_one, /organ/);
-  assert.match(enAnatomy.organCount_other, /organs/);
+  assert.match(esAnatomy.organCount_one, /Órganos en el atlas/);
+  assert.match(esAnatomy.relatedSubstanceCount_one, /Sustancias analizadas/);
+  assert.match(enAnatomy.organCount_one, /Organs in the atlas/);
+  assert.match(enAnatomy.relatedSubstanceCount_one, /Substances analyzed/);
 });
 
 test("atlas chrome uses the anatomy namespace without forced spanish lookups", () => {

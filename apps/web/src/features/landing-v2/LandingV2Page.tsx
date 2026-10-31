@@ -12,6 +12,7 @@ import { LandingV2Achievements } from "./LandingV2Achievements.js";
 import { LandingV2Closing } from "./LandingV2Closing.js";
 import { LandingV2IntroProvider, SomaIntro } from "./SomaIntro.js";
 import { shouldPlayLandingV2Intro } from "./soma-intro-session.js";
+import "./landing-v2-copy-veil.css";
 import { useAuth } from "../auth/index.js";
 import { SkipToContent } from "../../components/SkipToContent.js";
 

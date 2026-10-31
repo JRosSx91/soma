@@ -53,6 +53,20 @@ test("compact medals are a 48px frame instead of the card height", () => {
   assert.equal(markup.includes("Bronce"), false);
 });
 
+test("sealed medals use the lock disk and never show a tier silhouette", () => {
+  const markup = renderToStaticMarkup(
+    createElement(AchievementMedal, {
+      substanceId: "nicotine",
+      tier: "platinum",
+      sealed: true,
+      locked: true,
+    }),
+  );
+  assert.equal(markup.includes("nicotine-platinum.png"), false);
+  assert.equal(markup.includes("Platino"), false);
+  assert.match(markup, /M 33 37 V 32.5/);
+});
+
 test("temporal medals keep substance art and add a compass stamp", () => {
   const markup = renderToStaticMarkup(
     createElement(AchievementMedal, {

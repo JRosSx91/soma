@@ -163,7 +163,7 @@ const renalSystemPlate = systemPlate(
 
 const immuneSystemPlate = systemPlate(
   "/images/anatomy/system-immune.png",
-  "Cuerpo en vista anterior con órganos y estructuras inmunitarias resaltados. Sin regiones de órganos.",
+  "Cuerpo en vista anterior con órganos y estructuras linfáticas resaltados. Sin regiones de órganos.",
 );
 
 const reproductiveSystemPlate = systemPlate(
@@ -257,7 +257,7 @@ export const atlasSystems: readonly AtlasSystem[] = [
   {
     id: "immune",
     catalogSystem: "immune",
-    name: "Sistema inmunitario",
+    name: "Sistema linfático",
     plates: { anterior: immuneSystemPlate, posterior: null },
     organs: [organ("spleen", "Bazo", spleenPlate)],
   },

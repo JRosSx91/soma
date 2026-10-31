@@ -113,7 +113,7 @@ export function LanguageSelector({
   const listClass = `
             bg-soma-raised border border-soma-line
             rounded-xl shadow-lg
-            min-w-[120px]
+            min-w-[148px]
             py-1
           `;
 
@@ -131,7 +131,7 @@ export function LanguageSelector({
                   ${previewFocus}
                   w-full text-left px-3 py-1.5
                   text-xs transition-colors
-                  flex items-center justify-between gap-4
+                  flex items-center justify-between gap-3
                   ${
                     lang.code === activeLang
                       ? "text-soma-action bg-soma-surface"
@@ -139,7 +139,10 @@ export function LanguageSelector({
                   }
                 `}
       >
-        <span>{lang.native}</span>
+        <span className="flex min-w-0 items-center gap-2">
+          <LanguageFlag code={lang.code} />
+          <span>{lang.native}</span>
+        </span>
         <span className="text-soma-ink-muted">{lang.iso}</span>
       </button>
     );
@@ -175,16 +178,17 @@ export function LanguageSelector({
         className={triggerClass}
       >
         {compact ? (
-          active.iso
+          <LanguageFlag code={active.code} />
         ) : floating ? (
           <>
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soma-surface text-[11px] font-medium text-soma-ink">
-              {active.iso}
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soma-surface">
+              <LanguageFlag code={active.code} />
             </span>
             {active.native}
           </>
         ) : (
           <>
+            <LanguageFlag code={active.code} />
             {active.iso}
             <span className="text-[10px] text-soma-ink-muted" aria-hidden="true">
               {open ? "▴" : "▾"}
@@ -195,5 +199,37 @@ export function LanguageSelector({
 
       {open ? (floating ? createPortal(listbox, document.body) : listbox) : null}
     </div>
+  );
+}
+
+function LanguageFlag({ code }: { code: InterfaceLanguage }) {
+  return (
+    <span
+      className="relative inline-block h-5 w-5 shrink-0 overflow-hidden rounded-full ring-1 ring-white/20"
+      aria-hidden="true"
+    >
+      {code === "es" ? (
+        <svg
+          viewBox="0 0 21 15"
+          preserveAspectRatio="xMidYMid slice"
+          className="absolute inset-0 h-full w-full"
+        >
+          <rect width="21" height="15" fill="#AA151B" />
+          <rect y="3.75" width="21" height="7.5" fill="#F1BF00" />
+        </svg>
+      ) : (
+        <svg
+          viewBox="0 0 60 30"
+          preserveAspectRatio="xMidYMid slice"
+          className="absolute inset-0 h-full w-full"
+        >
+          <rect width="60" height="30" fill="#012169" />
+          <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
+          <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="2" />
+          <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
+          <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
+        </svg>
+      )}
+    </span>
   );
 }

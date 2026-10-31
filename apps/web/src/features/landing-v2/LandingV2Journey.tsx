@@ -86,7 +86,7 @@ export function LandingV2Journey() {
       />
 
       <div className="relative mx-auto grid max-w-[88rem] gap-6 lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:items-center lg:gap-12 xl:gap-16">
-        <header className="max-w-xl lg:max-w-none">
+        <header className="landing-v2-copy-veil max-w-xl lg:max-w-none">
           <motion.p
             className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action"
             initial={fadeUp}
@@ -118,7 +118,7 @@ export function LandingV2Journey() {
         </header>
 
         <motion.div
-          className="overflow-hidden rounded-3xl border border-soma-line/70 bg-[#081018]/82 shadow-[0_24px_80px_rgba(8,16,24,0.45)] backdrop-blur-[2px]"
+          className="overflow-hidden rounded-3xl border border-soma-line/70 bg-[rgb(8_16_24_/_0.92)] shadow-[0_24px_80px_rgba(8,16,24,0.45)]"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}

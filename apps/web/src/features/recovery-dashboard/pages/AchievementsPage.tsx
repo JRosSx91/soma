@@ -563,6 +563,7 @@ function cardLabels(item: CatalogItem, t: ReturnType<typeof useTranslation>[0]) 
     unavailableHint: t("achievements:ui.unavailableHint"),
     substance,
     tier: t(`achievements:ui.${item.tier}`),
+    hiddenLabel: t("achievements:ui.hiddenLabel"),
     family:
       item.family === "temporal"
         ? t("achievements:ui.familyBadgeTemporal")
@@ -636,9 +637,7 @@ function AchievementDetail({
             family={item.family === "temporal" ? "temporal" : "curve"}
           />
         </div>
-        <p>
-          {t("ui.hiddenLocked")} {t(`ui.${item.tier}`)}.
-        </p>
+        <p>{t("ui.hiddenLabel")}.</p>
         <p className="mt-2">{t("hidden.description", { defaultValue: achievementHiddenCopy.description })}</p>
       </DetailSheet>
     );

@@ -5,6 +5,47 @@ import { SubstanceIllustration } from "./SubstanceIllustration.js";
 
 export type MedalTier = "bronze" | "silver" | "gold" | "platinum";
 
+/** Neutral lock disk. Does not reveal medal tier or substance art. */
+export function SealedMedalDisk() {
+  const uid = useId().replace(/:/g, "");
+  const fill = `${uid}-fill`;
+  const ring = `${uid}-ring`;
+  const glow = `${uid}-glow`;
+
+  return (
+    <svg viewBox="0 0 80 80" className="h-full w-full" aria-hidden="true">
+      <defs>
+        <radialGradient id={fill} cx="38%" cy="32%" r="72%">
+          <stop offset="0%" stopColor="#163048" />
+          <stop offset="55%" stopColor="#0B1824" />
+          <stop offset="100%" stopColor="#061018" />
+        </radialGradient>
+        <linearGradient id={ring} x1="20%" y1="0%" x2="80%" y2="100%">
+          <stop offset="0%" stopColor="#F4F6F8" />
+          <stop offset="42%" stopColor="#C5CCD4" />
+          <stop offset="100%" stopColor="#8B949E" />
+        </linearGradient>
+        <radialGradient id={glow} cx="50%" cy="50%" r="50%">
+          <stop offset="70%" stopColor="rgba(134,183,232,0)" />
+          <stop offset="100%" stopColor="rgba(134,183,232,0.28)" />
+        </radialGradient>
+      </defs>
+      <circle cx="40" cy="40" r="36" fill={`url(#${fill})`} />
+      <circle cx="40" cy="40" r="36" fill="none" stroke={`url(#${ring})`} strokeWidth="3.2" />
+      <circle cx="40" cy="40" r="36" fill={`url(#${glow})`} />
+      <circle cx="40" cy="40" r="29" fill="none" stroke="rgba(134,183,232,0.22)" strokeWidth="1" />
+      <path
+        d="M 33 37 V 32.5 a 7 7 0 0 1 14 0 V 37"
+        fill="none"
+        stroke="#D7DEE6"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+      />
+      <rect x="31" y="36.5" width="18" height="14" rx="2.4" fill="#C9D2DC" stroke="#9AA4B0" strokeWidth="1" />
+    </svg>
+  );
+}
+
 const tierLabel: Record<MedalTier, string> = {
   bronze: "Bronce",
   silver: "Plata",

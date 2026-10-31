@@ -6,6 +6,7 @@ import {
   SHELL_HERO_BLEED_EXPANDED_CLASS,
 } from "../shell-sidebar.js";
 import { DemoNotice } from "./DemoNotice.js";
+import "./photo-copy.css";
 
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
 const photoMask = {
@@ -16,7 +17,7 @@ const photoMask = {
 const DEFAULT_IMAGE = "/images/decoration/nature-2.png";
 const DEFAULT_OBJECT_POSITION = "center 42%";
 const DEFAULT_OVERLAY =
-  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.4) 36%, rgb(var(--soma-shell-rail) / 0.06) 68%, transparent 100%)";
+  "linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.62) 0%, rgb(var(--soma-shell-rail) / 0.28) 42%, transparent 72%), linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.9) 0%, rgb(var(--soma-shell-rail) / 0.48) 34%, rgb(var(--soma-shell-rail) / 0.12) 62%, transparent 88%)";
 
 interface RecoveryHeroProps {
   eyebrow: string;
@@ -70,7 +71,8 @@ export function RecoveryHero({
         collapsed ? SHELL_HERO_BLEED_COLLAPSED_CLASS : SHELL_HERO_BLEED_EXPANDED_CLASS
       }`}
     >
-      <div className="relative overflow-hidden">
+        <div className="relative overflow-x-clip">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
           src={imageSrc}
           alt=""
@@ -87,13 +89,13 @@ export function RecoveryHero({
           }}
         />
         <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
+          className="absolute inset-0"
           style={{
             backgroundImage: overlay,
             ...photoMask,
           }}
         />
+        </div>
         <div
           className={
             compactBand
@@ -105,7 +107,8 @@ export function RecoveryHero({
                   : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
           }
         >
-          <header className="max-w-2xl">
+          <header className="soma-photo-copy-veil max-w-2xl">
+            <span className="soma-photo-copy-veil__plate" aria-hidden="true" />
             <div className="flex items-start justify-between gap-3">
               <p
                 className="text-[11px] font-medium uppercase tracking-[0.22em]"
@@ -118,8 +121,8 @@ export function RecoveryHero({
             <h1
               className={
                 compactBand
-                  ? "mt-2 text-2xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-3xl"
-                  : "mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl"
+                  ? "soma-photo-copy mt-2 text-2xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-3xl"
+                  : "soma-photo-copy mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl"
               }
               data-onb={onbAnchor}
             >
@@ -128,8 +131,8 @@ export function RecoveryHero({
             <p
               className={
                 compactBand
-                  ? "mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
-                  : "mt-3 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
+                  ? "soma-photo-copy mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
+                  : "soma-photo-copy mt-3 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
               }
             >
               {description}
@@ -145,17 +148,17 @@ export function RecoveryHero({
                     : "justify-self-start rounded-2xl border border-soma-line-strong/70 bg-[rgb(3_12_20_/_0.58)] px-4 py-4 backdrop-blur-md lg:justify-self-end"
               }
             >
-              {panorama || compactBand ? null : (
+              {compactBand ? null : (
                 <span aria-hidden="true" className="font-serif text-4xl leading-none" style={accentColor}>
                   “
                 </span>
               )}
               <p
                 className={`text-sm font-medium leading-relaxed text-soma-ink ${
-                  panorama || compactBand ? "" : "mt-1"
+                  compactBand ? "" : "mt-1"
                 }`}
               >
-                {panorama || compactBand ? `“${quote}”` : quote}
+                {compactBand ? `“${quote}”` : quote}
               </p>
               <span className="sr-only">{t("homeDailyTitle")}</span>
             </aside>

@@ -308,7 +308,7 @@
     "respiratory": "Respiratory",
     "digestive": "Digestive",
     "endocrine": "Endocrine",
-    "immune": "Immune"
+    "immune": "Lymphatic"
   },
   "demoChanges": {
     "dopamine": {
@@ -340,7 +340,7 @@
     "digestive": "Digestive",
     "hepatic": "Hepatic",
     "endocrine": "Endocrine",
-    "immune": "Immune",
+    "immune": "Lymphatic",
     "integumentary": "Integumentary system",
     "reproductive": "Reproductive system"
   }

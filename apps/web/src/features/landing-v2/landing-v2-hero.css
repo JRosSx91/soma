@@ -82,7 +82,7 @@
   .landing-v2-hero .landing-v2-hero__disclaimer {
     position: relative;
     z-index: 1;
-    margin-top: calc(2.75rem + 55px);
+    margin-top: 1.25rem;
   }
 
   .landing-v2-hero .landing-v2-hero__disclaimer::before {

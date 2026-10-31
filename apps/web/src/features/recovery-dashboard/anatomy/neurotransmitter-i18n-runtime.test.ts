@@ -81,6 +81,10 @@ test("the eight languages stay registered", () => {
 test("the language selector only offers spanish and english", () => {
   assert.match(selector, /code: "es"/);
   assert.match(selector, /code: "en"/);
+  assert.match(selector, /function LanguageFlag/);
+  assert.match(selector, /rounded-full/);
+  assert.match(selector, /#AA151B/);
+  assert.match(selector, /#012169/);
   for (const lang of UNPUBLISHED_LOCALES) {
     assert.equal(selector.includes(`code: "${lang}"`), false, lang);
   }
