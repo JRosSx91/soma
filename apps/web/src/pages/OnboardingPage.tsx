@@ -6,9 +6,12 @@ import { useSubstances } from "../features/substances/index.js";
 import { useUserProfile } from "../features/profile/index.js";
 import type { UsageInput } from "../features/profile/index.js";
 import {
+  isSpecialCategoryWriteBlocked,
+  needsSpecialCategoryConsent,
   persistOnboardingCompletion,
   shouldConfirmClearUsages,
   skipOnboardingWithoutClearingUsages,
+  SpecialCategoryConsentCard,
 } from "../features/profile/index.js";
 import { achievementSync } from "../features/achievements/sync/achievement-sync.js";
 import {
@@ -210,7 +213,11 @@ export function OnboardingPage() {
         } else {
           // PUT failed — stay out of status-retry; keep draft + prior snapshot.
           setFieldError(null);
-          setError(t("errors.saveFailed"));
+          setError(
+            isSpecialCategoryWriteBlocked(result.error)
+              ? t("errors.consentRequired")
+              : t("errors.saveFailed"),
+          );
         }
         return;
       }
@@ -320,6 +327,30 @@ export function OnboardingPage() {
           >
             {t("enterAppWithoutSetup")}
           </button>
+        </div>
+      </OnboardingShell>
+    );
+  }
+
+  if (needsSpecialCategoryConsent(profile)) {
+    return (
+      <OnboardingShell>
+        <div className="space-y-4">
+          <SpecialCategoryConsentCard
+            withdrawn={profile.specialCategoryConsentWithdrawn === true}
+            declineBusy={skipping}
+            onGranted={() => {
+              void refresh();
+            }}
+            onDecline={() => {
+              void handleSkip();
+            }}
+          />
+          {error ? (
+            <p className="text-sm text-soma-organ-damaged" role="alert">
+              {error}
+            </p>
+          ) : null}
         </div>
       </OnboardingShell>
     );

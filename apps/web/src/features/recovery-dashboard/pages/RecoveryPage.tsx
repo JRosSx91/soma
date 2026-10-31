@@ -28,6 +28,7 @@ import { TemporalThresholdRail } from "../components/TemporalThresholdRail.js";
 import { useTemporalMilestones } from "../hooks/useTemporalMilestones.js";
 import { useLiveAchievements } from "../hooks/useLiveAchievements.js";
 import { useAuth } from "../../auth/index.js";
+import { SpecialCategoryConsentCard } from "../../profile/components/SpecialCategoryConsentCard.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { anatomyExplorerHref } from "../anatomy/anatomy-explorer-query.js";
 import { SystemTile } from "../components/SystemTile.js";
@@ -187,15 +188,25 @@ export function RecoveryPage() {
           description={t("emptyBody")}
           demo={false}
         />
-        <p className="rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
-          {t("emptyHint")}
-        </p>
-        <Link
-          to="/onboarding"
-          className={`${previewFocus} text-sm text-soma-action hover:text-soma-action-hover`}
-        >
-          {t("goOnboarding")}
-        </Link>
+        {dashboard.needsSpecialCategoryConsent ? (
+          <SpecialCategoryConsentCard
+            onGranted={() => {
+              dashboard.reload();
+            }}
+          />
+        ) : (
+          <>
+            <p className="rounded-2xl border border-dashed border-soma-line px-4 py-6 text-sm text-soma-ink-muted">
+              {t("emptyHint")}
+            </p>
+            <Link
+              to="/onboarding"
+              className={`${previewFocus} text-sm text-soma-action hover:text-soma-action-hover`}
+            >
+              {t("goOnboarding")}
+            </Link>
+          </>
+        )}
       </div>
     );
   }

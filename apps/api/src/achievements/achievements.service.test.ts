@@ -2,6 +2,41 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { AchievementsService } from "./achievements.service.js";
 
+test("detectAndPersistUnlocks does not insert without an active grant", async () => {
+  let inserted = 0;
+  const prisma = {
+    $queryRaw: async () => [{ id: "user-1" }],
+    $transaction: async (fn: (tx: typeof prisma) => Promise<string[]>) =>
+      fn(prisma),
+    registrationAcceptance: {
+      findMany: async () => [],
+    },
+    substanceUsage: {
+      findMany: async () => [
+        {
+          substanceId: "nicotine",
+          status: "abstinent",
+          lastUseDate: new Date("2026-01-01"),
+        },
+      ],
+    },
+    organRecoveryCurve: { findMany: async () => [] },
+    achievement: { findMany: async () => [] },
+    userAchievement: {
+      findMany: async () => [],
+      createMany: async () => {
+        inserted += 1;
+        return { count: 1 };
+      },
+    },
+  };
+  const service = new AchievementsService(prisma as never);
+  const ids = await service.detectAndPersistUnlocks("user-1");
+  assert.deepEqual(ids, []);
+  assert.equal(inserted, 0);
+});
+
+
 test("getUserAchievements maps detectedAt from createdAt and insertedThisCall from RETURNING", async () => {
   const createdAt = new Date("2026-10-25T12:00:00.000Z");
   const unlockedAt = new Date("2026-10-11T00:00:00.000Z");

@@ -11,7 +11,12 @@ import {
   type ProfileDetailsFields,
 } from "../../profile/index.js";
 import { DeleteAccountSection } from "../../profile/components/DeleteAccountSection.js";
+import { SpecialCategoryConsentCard } from "../../profile/components/SpecialCategoryConsentCard.js";
 import { WithdrawConsentSection } from "../../profile/components/WithdrawConsentSection.js";
+import {
+  isSpecialCategoryConsentActive,
+  isSpecialCategoryConsentWithdrawn,
+} from "../../profile/lib/special-category-consent.js";
 import { PageHeading } from "../components/PageHeading.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
@@ -437,7 +442,7 @@ export function AccountPage() {
         </Link>
       </section>
 
-      {profile?.specialCategoryConsentWithdrawn ? null : (
+      {isSpecialCategoryConsentActive(profile) ? (
         <section className="rounded-2xl border border-soma-line bg-soma-surface/60 p-4 sm:p-5">
           <h2 className="text-sm font-semibold text-soma-ink">
             {t("substancesTitle")}
@@ -452,14 +457,23 @@ export function AccountPage() {
             {t("editSubstances")}
           </Link>
         </section>
+      ) : (
+        <SpecialCategoryConsentCard
+          withdrawn={isSpecialCategoryConsentWithdrawn(profile)}
+          onGranted={() => {
+            void refresh();
+          }}
+        />
       )}
 
-      <WithdrawConsentSection
-        withdrawn={profile?.specialCategoryConsentWithdrawn === true}
-        onWithdrawn={() => {
-          void refresh();
-        }}
-      />
+      {isSpecialCategoryConsentActive(profile) ? (
+        <WithdrawConsentSection
+          withdrawn={false}
+          onWithdrawn={() => {
+            void refresh();
+          }}
+        />
+      ) : null}
 
       <DeleteAccountSection />
     </div>

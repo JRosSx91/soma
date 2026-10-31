@@ -11,6 +11,13 @@ const account = readFileSync(
   "utf8",
 );
 
+test("onboarding gates special-category consent before the substance form", () => {
+  assert.match(page, /needsSpecialCategoryConsent\(profile\)/);
+  assert.match(page, /SpecialCategoryConsentCard/);
+  assert.match(page, /onDecline=\{\(\) => \{\s*void handleSkip\(\);/s);
+  assert.match(page, /errors.consentRequired/);
+});
+
 test("onboarding mode controls expose pressed state and labelled fields", () => {
   assert.match(page, /aria-pressed=\{state\.mode === "abstinent"\}/);
   assert.match(page, /aria-pressed=\{state\.mode === "active"\}/);

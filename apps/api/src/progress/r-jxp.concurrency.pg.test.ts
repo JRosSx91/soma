@@ -27,6 +27,7 @@ import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { createId } from "../auth/create-id.js";
 import { JournalModule } from "../journal/journal.module.js";
 import { MissionsService } from "../missions/missions.service.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { ProgressService } from "./progress.service.js";
 
@@ -110,6 +111,7 @@ async function createUser(label: string): Promise<{ id: string }> {
       birthYear: 1992,
     },
   });
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, id);
   createdUserIds.push(id);
   return { id };
 }

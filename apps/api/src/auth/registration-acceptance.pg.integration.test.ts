@@ -65,7 +65,7 @@ function isLocalPostgresUrl(raw: string): boolean {
   return !blocked.test(raw.toLowerCase());
 }
 
-test("register persists three acceptances and user delete cascades them", async (t) => {
+test("register persists terms and privacy without a health grant and user delete cascades them", async (t) => {
   loadLocalEnvFile();
   const databaseUrl = process.env.DATABASE_URL ?? "";
   if (!databaseUrl) {
@@ -124,16 +124,13 @@ test("register persists three acceptances and user delete cascades them", async 
     const rows = await prisma.registrationAcceptance.findMany({
       where: { userId },
     });
-    assert.equal(rows.length, 3);
+    assert.equal(rows.length, 2);
     const purposes = new Set(rows.map((row) => row.purpose));
     assert.deepEqual(
       [...purposes].sort(),
-      [
-        "privacy_notice",
-        "special_category_processing",
-        "terms_of_use",
-      ].sort(),
+      ["privacy_notice", "terms_of_use"],
     );
+    assert.equal(purposes.has("special_category_processing"), false);
     for (const row of rows) {
       assert.equal(row.userId, userId);
       assert.equal(row.documentVersion.startsWith("draft-"), true);

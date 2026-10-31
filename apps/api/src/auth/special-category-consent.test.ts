@@ -3,25 +3,67 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { MISSION_XP_SOURCE, listMissionsByCategory } from "@soma/shared-types";
 import {
+  LEGAL_SPECIAL_CATEGORY_VERSION,
   SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
 } from "@soma/shared-types";
 import { CodedForbiddenException } from "../common/exceptions/coded-exception.js";
 import {
+  AUTH_SPECIAL_CATEGORY_REQUIRED_CODE,
   AUTH_SPECIAL_CATEGORY_WITHDRAWN_CODE,
   assertSpecialCategoryProcessingAllowed,
+  persistSpecialCategoryGrant,
   persistSpecialCategoryWithdrawal,
   purgeSpecialCategoryProductData,
 } from "./special-category-consent.js";
 
-test("assertSpecialCategoryProcessingAllowed ignores accounts with no rows", async () => {
+function dbWithRows(
+  rows: Array<{
+    purpose: string;
+    acceptedAt: Date;
+    documentVersion?: string;
+  }>,
+) {
+  return {
+    registrationAcceptance: {
+      findMany: async () => rows,
+      create: async ({ data }: { data: Record<string, unknown> }) => {
+        rows.push({
+          purpose: String(data.purpose),
+          acceptedAt: data.acceptedAt as Date,
+          documentVersion: String(data.documentVersion),
+        });
+        return data;
+      },
+    },
+  };
+}
+
+test("assertSpecialCategoryProcessingAllowed blocks accounts with no grant", async () => {
+  await assert.rejects(
+    () =>
+      assertSpecialCategoryProcessingAllowed(
+        dbWithRows([]) as never,
+        "user-1",
+      ),
+    (err: unknown) => {
+      assert.ok(err instanceof CodedForbiddenException);
+      assert.equal(err.code, AUTH_SPECIAL_CATEGORY_REQUIRED_CODE);
+      return true;
+    },
+  );
+});
+
+test("assertSpecialCategoryProcessingAllowed allows an active grant", async () => {
   await assert.doesNotThrow(() =>
     assertSpecialCategoryProcessingAllowed(
-      {
-        registrationAcceptance: {
-          findMany: async () => [],
+      dbWithRows([
+        {
+          purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+          acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
+          documentVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
         },
-      } as never,
+      ]) as never,
       "user-1",
     ),
   );
@@ -31,20 +73,16 @@ test("assertSpecialCategoryProcessingAllowed blocks after a withdrawal", async (
   await assert.rejects(
     () =>
       assertSpecialCategoryProcessingAllowed(
-        {
-          registrationAcceptance: {
-            findMany: async () => [
-              {
-                purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
-                acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
-              },
-              {
-                purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
-                acceptedAt: new Date("2026-10-30T11:00:00.000Z"),
-              },
-            ],
+        dbWithRows([
+          {
+            purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+            acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
           },
-        } as never,
+          {
+            purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+            acceptedAt: new Date("2026-10-30T11:00:00.000Z"),
+          },
+        ]) as never,
         "user-1",
       ),
     (err: unknown) => {
@@ -55,18 +93,42 @@ test("assertSpecialCategoryProcessingAllowed blocks after a withdrawal", async (
   );
 });
 
+test("persistSpecialCategoryGrant is append-only and idempotent while active", async () => {
+  const rows: Array<{
+    purpose: string;
+    acceptedAt: Date;
+    documentVersion?: string;
+  }> = [];
+  const db = dbWithRows(rows);
+  const first = await persistSpecialCategoryGrant(
+    db as never,
+    "user-1",
+    new Date("2026-10-30T10:00:00.000Z"),
+  );
+  const second = await persistSpecialCategoryGrant(
+    db as never,
+    "user-1",
+    new Date("2026-10-30T10:05:00.000Z"),
+  );
+  assert.equal(first.created, true);
+  assert.equal(second.created, false);
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0]?.purpose, SPECIAL_CATEGORY_PROCESSING_PURPOSE);
+});
+
 test("persistSpecialCategoryWithdrawal is idempotent and is not a grant", async () => {
-  const created: Array<Record<string, unknown>> = [];
-  const db = {
-    registrationAcceptance: {
-      findUnique: async () =>
-        created.length > 0 ? { id: "existing" } : null,
-      create: async ({ data }: { data: Record<string, unknown> }) => {
-        created.push(data);
-        return data;
-      },
+  const rows: Array<{
+    purpose: string;
+    acceptedAt: Date;
+    documentVersion?: string;
+  }> = [
+    {
+      purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+      acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
+      documentVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
     },
-  };
+  ];
+  const db = dbWithRows(rows);
   await persistSpecialCategoryWithdrawal(
     db as never,
     "user-1",
@@ -77,9 +139,82 @@ test("persistSpecialCategoryWithdrawal is idempotent and is not a grant", async 
     "user-1",
     new Date("2026-10-30T13:00:00.000Z"),
   );
-  assert.equal(created.length, 1);
-  assert.equal(created[0]?.purpose, SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE);
-  assert.notEqual(created[0]?.purpose, SPECIAL_CATEGORY_PROCESSING_PURPOSE);
+  assert.equal(rows.length, 2);
+  assert.equal(rows[1]?.purpose, SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE);
+  assert.notEqual(rows[1]?.purpose, SPECIAL_CATEGORY_PROCESSING_PURPOSE);
+});
+
+test("a grant after a same-timestamp withdrawal is stored strictly later", async () => {
+  const at = new Date("2026-10-30T12:00:00.000Z");
+  const rows: Array<{
+    purpose: string;
+    acceptedAt: Date;
+    documentVersion?: string;
+  }> = [
+    {
+      purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+      acceptedAt: at,
+      documentVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
+    },
+    {
+      purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+      acceptedAt: at,
+      documentVersion: "draft-2026-10-30",
+    },
+  ];
+  const db = dbWithRows(rows);
+  const result = await persistSpecialCategoryGrant(db as never, "user-1", at);
+  assert.equal(result.created, true);
+  assert.equal(rows[2]?.acceptedAt.getTime(), at.getTime() + 1);
+  await assert.doesNotThrow(() =>
+    assertSpecialCategoryProcessingAllowed(db as never, "user-1"),
+  );
+});
+
+test("a later grant keeps the earlier grant and withdrawal rows", async () => {
+  const rows: Array<{
+    purpose: string;
+    acceptedAt: Date;
+    documentVersion?: string;
+  }> = [
+    {
+      purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+      acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
+      documentVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
+    },
+    {
+      purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+      acceptedAt: new Date("2026-10-30T11:00:00.000Z"),
+      documentVersion: "draft-2026-10-30",
+    },
+  ];
+  const db = dbWithRows(rows);
+  const result = await persistSpecialCategoryGrant(
+    db as never,
+    "user-1",
+    new Date("2026-10-30T12:00:00.000Z"),
+  );
+  assert.equal(result.created, true);
+  assert.equal(rows.length, 3);
+  assert.equal(rows[0]?.acceptedAt.toISOString(), "2026-10-30T10:00:00.000Z");
+  assert.equal(rows[1]?.purpose, SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE);
+  assert.equal(rows[2]?.purpose, SPECIAL_CATEGORY_PROCESSING_PURPOSE);
+  await assert.doesNotThrow(() =>
+    assertSpecialCategoryProcessingAllowed(db as never, "user-1"),
+  );
+});
+
+test("schema allows more than one special-category row per user", () => {
+  const schema = readFileSync(
+    new URL("../../prisma/schema.prisma", import.meta.url),
+    "utf8",
+  );
+  const model = schema.slice(
+    schema.indexOf("model RegistrationAcceptance"),
+    schema.indexOf("model RegistrationInvite"),
+  );
+  assert.equal(model.includes("@@unique([userId, purpose])"), false);
+  assert.match(model, /@@index\(\[userId, purpose, acceptedAt\]\)/);
 });
 
 test("purgeSpecialCategoryProductData removes sensitive rows and keeps mission XP", async () => {

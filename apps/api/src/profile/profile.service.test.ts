@@ -56,6 +56,7 @@ function makeUsage(userId: string, substanceId = "nicotine"): UsageRow {
 function createService(store: {
   users: Map<string, ReturnType<typeof makeUser>>;
   withdrawn?: Set<string>;
+  withoutConsent?: Set<string>;
 }) {
   const prisma = {
     registrationAcceptance: {
@@ -64,6 +65,7 @@ function createService(store: {
       }: {
         where: { userId: string };
       }) => {
+        if (store.withoutConsent?.has(where.userId)) return [];
         const withdrawn = store.withdrawn?.has(where.userId) ?? false;
         const grant = {
           purpose: "special_category_processing",
@@ -158,6 +160,7 @@ function createService(store: {
         return { count: data.length };
       },
     },
+    $queryRaw: async () => [{ id: "locked" }],
     $transaction: async (fn: (tx: unknown) => Promise<unknown>) => fn(prisma),
   };
 
@@ -293,6 +296,57 @@ test("upsertProfile with usages is forbidden after consent withdrawal", async ()
     (err: unknown) => err instanceof CodedForbiddenException,
   );
   assert.equal(user.usages.length, 0);
+});
+
+test("upsertProfile with usages is forbidden without consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withoutConsent: new Set([user.id]),
+  });
+  await assert.rejects(
+    () =>
+      service.upsertProfile(user.id, {
+        usages: [
+          {
+            substanceId: "nicotine",
+            yearStarted: 2020,
+            frequency: "daily",
+            status: "abstinent",
+            lastUseDate: "2024-01-01",
+          },
+        ],
+      }),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.usages.length, 0);
+});
+
+test("completing onboarding is forbidden without consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withoutConsent: new Set([user.id]),
+  });
+  await assert.rejects(
+    () => service.updateOnboardingStatus(user.id, OnboardingStatus.completed),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.onboardingStatus, OnboardingStatus.pending);
+});
+
+test("updateProfileDetails is allowed without special-category consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withoutConsent: new Set([user.id]),
+  });
+  const profile = await service.updateProfileDetails(user.id, {
+    displayName: "Pat",
+    weightKg: 70,
+  });
+  assert.equal(profile.user.displayName, "Pat");
+  assert.equal(profile.user.weightKg, 70);
 });
 
 test("completing onboarding is forbidden after consent withdrawal", async () => {

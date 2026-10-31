@@ -46,8 +46,6 @@ export interface RegisterCredentials {
   termsVersion: string;
   acceptedPrivacyNotice: boolean;
   privacyNoticeVersion: string;
-  acceptedSpecialCategoryProcessing: boolean;
-  specialCategoryProcessingVersion: string;
 }
 
 /** Bootstrap / session lifecycle for the SPA. */

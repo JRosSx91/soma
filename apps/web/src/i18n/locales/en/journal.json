@@ -18,6 +18,7 @@
     "notes": "Notes and learnings"
   },
   "newEntry": "New entry",
+  "consentSaveError": "To save an entry, first allow Soma to keep your wellbeing data.",
   "summary": {
     "entries": "Total entries",
     "entriesHint": "Your story, day by day",

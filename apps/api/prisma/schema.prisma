@@ -151,8 +151,9 @@ model User {
   @@index([email])
 }
 
-/// Affirmative registration actions (draft document versions). No IP.
-/// PENDING LEGAL: purposes and versions are placeholders until review.
+/// Affirmative legal actions (draft document versions). No IP.
+/// Append-only: each grant or withdrawal is a new row so earlier evidence
+/// is never overwritten. Latest acceptedAt per purpose family decides status.
 model RegistrationAcceptance {
   id               String   @id @default(cuid())
   userId           String
@@ -162,8 +163,8 @@ model RegistrationAcceptance {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, purpose])
   @@index([userId])
+  @@index([userId, purpose, acceptedAt])
 }
 
 /// One-time closed-beta registration invites. Plaintext is shown once to an

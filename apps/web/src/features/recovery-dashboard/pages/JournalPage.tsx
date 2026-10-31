@@ -32,6 +32,12 @@ import {
   type JournalTriggerId,
 } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
+import { useUserProfile } from "../../profile/hooks/useUserProfile.js";
+import { SpecialCategoryConsentCard } from "../../profile/components/SpecialCategoryConsentCard.js";
+import {
+  isSpecialCategoryWriteBlocked,
+  needsSpecialCategoryConsent,
+} from "../../profile/lib/special-category-consent.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import {
   pickDailyMessage,
@@ -161,6 +167,12 @@ export function JournalPage() {
   const { data: substances } = useSubstances();
   const demo = base === "/preview";
   const live = base === "/app" && Boolean(user);
+  const liveProfile = useUserProfile({ enabled: live });
+  const needsConsent =
+    live &&
+    !liveProfile.loading &&
+    liveProfile.profile != null &&
+    needsSpecialCategoryConsent(liveProfile.profile);
   const [tab, setTab] = useState<JournalTab>("overview");
   const [entries, setEntries] = useState<JournalEntry[]>(
     demo ? [...JOURNAL_DEMO_ENTRIES] : [],
@@ -488,8 +500,12 @@ export function JournalPage() {
         }
       }
       setSheet(null);
-    } catch {
-      setSaveError(t("form.saveError"));
+    } catch (err) {
+      setSaveError(
+        isSpecialCategoryWriteBlocked(err)
+          ? t("consentSaveError")
+          : t("form.saveError"),
+      );
     } finally {
       setSaving(false);
     }
@@ -529,8 +545,12 @@ export function JournalPage() {
         await loadLive();
       }
       setSheet(null);
-    } catch {
-      setSaveError(t("milestones.saveError"));
+    } catch (err) {
+      setSaveError(
+        isSpecialCategoryWriteBlocked(err)
+          ? t("consentSaveError")
+          : t("milestones.saveError"),
+      );
     } finally {
       setSaving(false);
     }
@@ -618,6 +638,17 @@ export function JournalPage() {
         onbAnchor="journal-title"
       />
 
+      {needsConsent ? (
+        <SpecialCategoryConsentCard
+          withdrawn={
+            liveProfile.profile?.specialCategoryConsentWithdrawn === true
+          }
+          onGranted={() => {
+            void liveProfile.refresh();
+          }}
+        />
+      ) : null}
+
       <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 flex-1">
           <SegmentedControl
@@ -627,17 +658,19 @@ export function JournalPage() {
             onChange={setTab}
           />
         </div>
-        <button
-          type="button"
-          onClick={() => {
-            setSaveError(null);
-            setSheet({ kind: "create" });
-          }}
-          className={`${previewFocus} inline-flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018]`}
-        >
-          <Plus className="h-4 w-4" aria-hidden="true" />
-          {t("newEntry")}
-        </button>
+        {needsConsent ? null : (
+          <button
+            type="button"
+            onClick={() => {
+              setSaveError(null);
+              setSheet({ kind: "create" });
+            }}
+            className={`${previewFocus} inline-flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018]`}
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            {t("newEntry")}
+          </button>
+        )}
       </div>
 
       {loading ? (

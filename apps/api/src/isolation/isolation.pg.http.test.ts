@@ -31,6 +31,8 @@ import {
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
 import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 
 const ORIGIN = "http://localhost:5173";
 const PASSWORD_A = "iso-pass-A-9f3k2m";
@@ -257,6 +259,8 @@ async function registerUser(input: {
   };
   createdUserIds.push(session.id);
   assert.equal(jwtSub(session.accessToken), session.id);
+  if (!prisma) throw new Error("prisma is not connected");
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, session.id);
   return session;
 }
 

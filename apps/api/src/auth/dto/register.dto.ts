@@ -12,11 +12,7 @@ import {
   MinLength,
 } from "class-validator";
 import { BiologicalSex } from "@prisma/client";
-import {
-  LEGAL_PRIVACY_VERSION,
-  LEGAL_SPECIAL_CATEGORY_VERSION,
-  LEGAL_TERMS_VERSION,
-} from "@soma/shared-types";
+import { LEGAL_PRIVACY_VERSION, LEGAL_TERMS_VERSION } from "@soma/shared-types";
 
 export class RegisterDto {
   @IsEmail()
@@ -72,12 +68,4 @@ export class RegisterDto {
   @IsString()
   @Equals(LEGAL_PRIVACY_VERSION)
   privacyNoticeVersion!: string;
-
-  @IsBoolean()
-  @Equals(true)
-  acceptedSpecialCategoryProcessing!: boolean;
-
-  @IsString()
-  @Equals(LEGAL_SPECIAL_CATEGORY_VERSION)
-  specialCategoryProcessingVersion!: string;
 }

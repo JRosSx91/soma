@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import {
-  assertSpecialCategoryProcessingAllowed,
+  requireSpecialCategoryWrite,
   loadSpecialCategoryConsentActive,
   loadSpecialCategoryProcessingWithdrawn,
 } from "../auth/special-category-consent.js";
@@ -86,11 +86,10 @@ export class ProfileService {
       );
     }
 
-    if (dto.usages.length > 0) {
-      await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
-    }
-
     await this.prisma.$transaction(async (tx) => {
+      if (dto.usages.length > 0) {
+        await requireSpecialCategoryWrite(tx, userId);
+      }
       await tx.substanceUsage.deleteMany({ where: { userId } });
 
       if (dto.usages.length > 0) {
@@ -120,6 +119,9 @@ export class ProfileService {
    * Partial update of editable personal fields only.
    * Never mutates email, password, onboardingStatus, or SubstanceUsage rows.
    * Omitted DTO properties are left unchanged; `weightKg: null` clears weight.
+   * Not gated by special-category consent: biologicalSex, birthYear and
+   * weightKg are account demographics. Recovery curves and NT composition
+   * do not use them (BETA-01C.2 inspection).
    */
   async updateProfileDetails(
     userId: string,
@@ -200,14 +202,17 @@ export class ProfileService {
       );
     }
 
-    if (next === "completed") {
-      await assertSpecialCategoryProcessingAllowed(this.prisma, userId);
-    }
-
-    if (user.onboardingStatus !== next) {
-      await this.prisma.user.update({
-        where: { id: userId },
-        data: { onboardingStatus: next },
+    if (next === "completed" || user.onboardingStatus !== next) {
+      await this.prisma.$transaction(async (tx) => {
+        if (next === "completed") {
+          await requireSpecialCategoryWrite(tx, userId);
+        }
+        if (user.onboardingStatus !== next) {
+          await tx.user.update({
+            where: { id: userId },
+            data: { onboardingStatus: next },
+          });
+        }
       });
     }
 

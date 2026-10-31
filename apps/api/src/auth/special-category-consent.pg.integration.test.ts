@@ -1,5 +1,5 @@
 /**
- * Live PostgreSQL: special-category consent withdrawal.
+ * Live PostgreSQL: special-category consent grant, withdrawal, history.
  * Skips when DATABASE_URL is unset or not local.
  */
 import assert from "node:assert/strict";
@@ -11,18 +11,24 @@ import { UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaClient } from "@prisma/client";
 import {
+  SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
   currentRegistrationAcceptanceFields,
+  currentSpecialCategoryGrantFields,
 } from "@soma/shared-types";
 import { UsersService } from "../users/users.service.js";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { ProfileService } from "../profile/profile.service.js";
 import { JournalService } from "../journal/journal.service.js";
 import { ProgressService } from "../progress/progress.service.js";
+import { AchievementsService } from "../achievements/achievements.service.js";
 import { AuthService } from "./auth.service.js";
 import { RefreshSessionService } from "./refresh-session.service.js";
 import { RegistrationInviteService } from "./registration-invite.service.js";
-import { AUTH_SPECIAL_CATEGORY_WITHDRAWN_CODE } from "./special-category-consent.js";
+import {
+  AUTH_SPECIAL_CATEGORY_REQUIRED_CODE,
+  AUTH_SPECIAL_CATEGORY_WITHDRAWN_CODE,
+} from "./special-category-consent.js";
 import { CodedForbiddenException } from "../common/exceptions/coded-exception.js";
 
 function loadLocalEnvFile(): void {
@@ -73,7 +79,7 @@ function isLocalPostgresUrl(raw: string): boolean {
   return !blocked.test(raw.toLowerCase());
 }
 
-test("pg: withdraw consent purges sensitive data, keeps account, blocks writes, is idempotent", async (t) => {
+test("pg: contextual consent, history, isolation, and derived unlocks", async (t) => {
   loadLocalEnvFile();
   const databaseUrl = process.env.DATABASE_URL ?? "";
   if (!databaseUrl) {
@@ -116,15 +122,17 @@ test("pg: withdraw consent purges sensitive data, keeps account, blocks writes, 
   const profile = new ProfileService(prismaAsService);
   const progress = new ProgressService(prismaAsService);
   const journal = new JournalService(prismaAsService, progress);
+  const achievements = new AchievementsService(prismaAsService);
 
   const password = "password123";
   let userId = "";
+  let peerId = "";
 
   try {
     const result = await service.register({
-      email: `withdraw-${Date.now()}@example.test`,
+      email: `consent-${Date.now()}@example.test`,
       password,
-      displayName: "Withdraw",
+      displayName: "Consent",
       biologicalSex: "female",
       birthYear: 1992,
       ...currentRegistrationAcceptanceFields(),
@@ -132,78 +140,115 @@ test("pg: withdraw consent purges sensitive data, keeps account, blocks writes, 
     userId = result.user.id;
     const sessionBefore = result.refresh.plaintext;
 
+    const atRegister = await prisma.registrationAcceptance.findMany({
+      where: { userId },
+    });
+    assert.equal(atRegister.length, 2);
+    assert.equal(
+      atRegister.some((row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE),
+      false,
+    );
+
+    const loaded = await profile.getProfile(userId);
+    assert.equal(loaded.specialCategoryConsentActive, false);
+    assert.equal(loaded.specialCategoryConsentWithdrawn, false);
+
     const substance = await prisma.substance.findFirst();
     if (substance) {
-      await prisma.substanceUsage.create({
-        data: {
-          userId,
-          substanceId: substance.id,
-          yearStarted: 2020,
-          frequency: "daily",
+      await assert.rejects(
+        () =>
+          profile.upsertProfile(userId, {
+            usages: [
+              {
+                substanceId: substance.id,
+                yearStarted: 2021,
+                frequency: "daily",
+                status: "abstinent",
+                lastUseDate: "2026-01-01",
+              },
+            ],
+          }),
+        (err: unknown) => {
+          assert.ok(err instanceof CodedForbiddenException);
+          assert.equal(err.code, AUTH_SPECIAL_CATEGORY_REQUIRED_CODE);
+          return true;
         },
+      );
+    }
+
+    await assert.rejects(
+      () =>
+        journal.create(userId, {
+          occurredOn: "2026-10-03",
+          mood: 3,
+        }),
+      (err: unknown) => {
+        assert.ok(err instanceof CodedForbiddenException);
+        assert.equal(err.code, AUTH_SPECIAL_CATEGORY_REQUIRED_CODE);
+        return true;
+      },
+    );
+
+    const unlocksWithoutGrant = await achievements.detectAndPersistUnlocks(userId);
+    assert.deepEqual(unlocksWithoutGrant, []);
+
+    const peer = await service.register({
+      email: `consent-peer-${Date.now()}@example.test`,
+      password,
+      displayName: "Peer",
+      biologicalSex: "male",
+      birthYear: 1990,
+      ...currentRegistrationAcceptanceFields(),
+    });
+    peerId = peer.user.id;
+    await service.grantSpecialCategoryConsent(
+      peerId,
+      currentSpecialCategoryGrantFields(),
+    );
+    const peerRows = await prisma.registrationAcceptance.findMany({
+      where: { userId: peerId, purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE },
+    });
+    assert.equal(peerRows.length, 1);
+
+    await service.grantSpecialCategoryConsent(
+      userId,
+      currentSpecialCategoryGrantFields(),
+    );
+    await service.grantSpecialCategoryConsent(
+      userId,
+      currentSpecialCategoryGrantFields(),
+    );
+    const afterGrant = await prisma.registrationAcceptance.findMany({
+      where: { userId },
+    });
+    assert.equal(
+      afterGrant.filter((row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE)
+        .length,
+      1,
+    );
+    const afterGrantProfile = await profile.getProfile(userId);
+    assert.equal(afterGrantProfile.specialCategoryConsentActive, true);
+
+    if (substance) {
+      await profile.upsertProfile(userId, {
+        usages: [
+          {
+            substanceId: substance.id,
+            yearStarted: 2020,
+            frequency: "daily",
+            status: "abstinent",
+            lastUseDate: "2026-01-01",
+          },
+        ],
       });
     }
-    await prisma.journalEntry.create({
-      data: {
-        userId,
-        occurredOn: new Date("2026-10-01"),
-        mood: 4,
-        wellbeingRating: 5,
-        body: "sensitive note",
-      },
+    await journal.create(userId, {
+      occurredOn: "2026-10-01",
+      mood: 4,
     });
-    await prisma.journalPersonalMilestone.create({
-      data: {
-        userId,
-        kind: "sleep",
-        occurredOn: new Date("2026-10-02"),
-      },
-    });
-    const achievement = await prisma.achievement.findFirst();
-    if (achievement) {
-      await prisma.userAchievement.create({
-        data: {
-          userId,
-          achievementId: achievement.id,
-          unlockedAt: new Date(),
-        },
-      });
-    }
-    await prisma.feedbackReport.create({
-      data: {
-        userId,
-        category: "general",
-        title: "note",
-        body: "mentions use",
-        fingerprint: "a".repeat(64),
-      },
-    });
-    await prisma.missionCompletion.create({
-      data: {
-        userId,
-        missionId: "gaba-intro",
-        contentVersion: 1,
-      },
-    });
-    await prisma.userProgression.create({
-      data: { userId, totalXp: 24, equippedTitleId: null },
-    });
-    await prisma.xpGrant.createMany({
-      data: [
-        {
-          userId,
-          source: "journal_create_day",
-          sourceKey: "2026-10-01",
-          amount: 12,
-        },
-        {
-          userId,
-          source: "mission_complete",
-          sourceKey: "gaba-intro",
-          amount: 12,
-        },
-      ],
-    });
+
+    const listed = await journal.list(userId, {});
+    assert.ok(listed.items.length >= 1);
 
     await assert.rejects(
       () => service.withdrawSpecialCategoryConsent(userId, "wrong-pass"),
@@ -213,49 +258,33 @@ test("pg: withdraw consent purges sensitive data, keeps account, blocks writes, 
     await service.withdrawSpecialCategoryConsent(userId, password);
     await service.withdrawSpecialCategoryConsent(userId, password);
 
-    const acceptances = await prisma.registrationAcceptance.findMany({
+    const afterWithdraw = await prisma.registrationAcceptance.findMany({
       where: { userId },
+      orderBy: { acceptedAt: "asc" },
     });
-    assert.equal(acceptances.length, 4);
-    assert.ok(
-      acceptances.some(
-        (row) => row.purpose === SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
-      ),
-    );
-    assert.equal(await prisma.user.count({ where: { id: userId } }), 1);
     assert.equal(
-      await prisma.substanceUsage.count({ where: { userId } }),
-      0,
-    );
-    assert.equal(await prisma.journalEntry.count({ where: { userId } }), 0);
-    assert.equal(
-      await prisma.journalPersonalMilestone.count({ where: { userId } }),
-      0,
-    );
-    assert.equal(
-      await prisma.userAchievement.count({ where: { userId } }),
-      0,
-    );
-    assert.equal(
-      await prisma.feedbackReport.count({ where: { userId } }),
-      0,
-    );
-    assert.equal(
-      await prisma.missionCompletion.count({ where: { userId } }),
+      afterWithdraw.filter((row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE)
+        .length,
       1,
     );
-    const xp = await prisma.xpGrant.findMany({ where: { userId } });
-    assert.deepEqual(
-      xp.map((row) => row.source).sort(),
-      ["mission_complete"],
+    assert.equal(
+      afterWithdraw.filter(
+        (row) => row.purpose === SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+      ).length,
+      1,
     );
-    const progression = await prisma.userProgression.findUnique({
-      where: { userId },
-    });
-    assert.equal(progression?.totalXp, 12n);
-    const loaded = await profile.getProfile(userId);
-    assert.equal(loaded.specialCategoryConsentWithdrawn, true);
-    assert.equal(loaded.onboardingStatus, "skipped");
+    const firstGrantAt = afterWithdraw.find(
+      (row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+    )?.acceptedAt;
+    assert.ok(firstGrantAt);
+
+    assert.equal(await prisma.user.count({ where: { id: userId } }), 1);
+    assert.equal(await prisma.substanceUsage.count({ where: { userId } }), 0);
+    assert.equal(await prisma.journalEntry.count({ where: { userId } }), 0);
+
+    const withdrawnProfile = await profile.getProfile(userId);
+    assert.equal(withdrawnProfile.specialCategoryConsentWithdrawn, true);
+    assert.equal(withdrawnProfile.onboardingStatus, "skipped");
 
     if (substance) {
       await assert.rejects(
@@ -279,18 +308,41 @@ test("pg: withdraw consent purges sensitive data, keeps account, blocks writes, 
       );
     }
 
-    await assert.rejects(
-      () =>
-        journal.create(userId, {
-          occurredOn: "2026-10-03",
-          mood: 3,
-        }),
-      (err: unknown) => {
-        assert.ok(err instanceof CodedForbiddenException);
-        assert.equal(err.code, AUTH_SPECIAL_CATEGORY_WITHDRAWN_CODE);
-        return true;
-      },
+    await prisma.journalEntry.deleteMany({ where: { userId } });
+
+    await service.grantSpecialCategoryConsent(
+      userId,
+      currentSpecialCategoryGrantFields(),
     );
+    const afterReconsent = await prisma.registrationAcceptance.findMany({
+      where: { userId },
+      orderBy: { acceptedAt: "asc" },
+    });
+    assert.equal(
+      afterReconsent.filter(
+        (row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+      ).length,
+      2,
+    );
+    assert.equal(
+      afterReconsent.filter(
+        (row) => row.purpose === SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+      ).length,
+      1,
+    );
+    assert.equal(
+      afterReconsent.find((row) => row.purpose === SPECIAL_CATEGORY_PROCESSING_PURPOSE)
+        ?.acceptedAt.toISOString(),
+      firstGrantAt.toISOString(),
+    );
+    const reconsentProfile = await profile.getProfile(userId);
+    assert.equal(reconsentProfile.specialCategoryConsentActive, true);
+    assert.equal(reconsentProfile.specialCategoryConsentWithdrawn, false);
+
+    const peerStill = await prisma.registrationAcceptance.findMany({
+      where: { userId: peerId, purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE },
+    });
+    assert.equal(peerStill.length, 1);
 
     const rotated = await refresh.rotateSession(sessionBefore);
     assert.equal(rotated.userId, userId);
@@ -301,6 +353,143 @@ test("pg: withdraw consent purges sensitive data, keeps account, blocks writes, 
       await prisma.registrationAcceptance.count({ where: { userId } }),
       0,
     );
+    userId = "";
+    await prisma.user.deleteMany({ where: { id: peerId } });
+    peerId = "";
+  } finally {
+    if (userId) {
+      await prisma.user.deleteMany({ where: { id: userId } });
+    }
+    if (peerId) {
+      await prisma.user.deleteMany({ where: { id: peerId } });
+    }
+    await prisma.$disconnect().catch(() => undefined);
+    if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
+    else process.env.AUTH_REGISTRATION_MODE = prevMode;
+  }
+});
+
+test("pg: concurrent grant/withdraw and journal write vs purge", async (t) => {
+  loadLocalEnvFile();
+  const databaseUrl = process.env.DATABASE_URL ?? "";
+  if (!databaseUrl) {
+    t.skip("DATABASE_URL is unset");
+    return;
+  }
+  if (!isLocalPostgresUrl(databaseUrl)) {
+    t.skip("DATABASE_URL is not a local development database");
+    return;
+  }
+
+  const prisma = new PrismaClient();
+  const prevMode = process.env.AUTH_REGISTRATION_MODE;
+  process.env.AUTH_REGISTRATION_MODE = "open";
+
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    await prisma.$queryRaw`SELECT "purpose" FROM "RegistrationAcceptance" LIMIT 0`;
+  } catch {
+    await prisma.$disconnect().catch(() => undefined);
+    if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
+    else process.env.AUTH_REGISTRATION_MODE = prevMode;
+    t.skip("RegistrationAcceptance table is not available");
+    return;
+  }
+
+  const prismaAsService = prisma as unknown as PrismaService;
+  const users = new UsersService(prismaAsService);
+  const refresh = new RefreshSessionService(prismaAsService);
+  const jwt = {
+    sign: (payload: unknown) => `pg-token:${JSON.stringify(payload)}`,
+  };
+  const service = new AuthService(
+    users,
+    jwt as unknown as JwtService,
+    refresh,
+    prismaAsService,
+    new RegistrationInviteService(),
+  );
+  const progress = new ProgressService(prismaAsService);
+  const journal = new JournalService(prismaAsService, progress);
+  const password = "password123";
+  let userId = "";
+
+  try {
+    const result = await service.register({
+      email: `consent-race-${Date.now()}@example.test`,
+      password,
+      displayName: "Race",
+      biologicalSex: "male",
+      birthYear: 1990,
+      ...currentRegistrationAcceptanceFields(),
+    });
+    userId = result.user.id;
+
+    await Promise.all([
+      service.grantSpecialCategoryConsent(
+        userId,
+        currentSpecialCategoryGrantFields(),
+      ),
+      service.grantSpecialCategoryConsent(
+        userId,
+        currentSpecialCategoryGrantFields(),
+      ),
+    ]);
+    assert.equal(
+      await prisma.registrationAcceptance.count({
+        where: { userId, purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE },
+      }),
+      1,
+    );
+
+    await Promise.allSettled([
+      journal.create(userId, { occurredOn: "2026-10-04", mood: 2 }),
+      journal.create(userId, { occurredOn: "2026-10-05", mood: 3 }),
+      service.withdrawSpecialCategoryConsent(userId, password),
+    ]);
+    assert.equal(await prisma.journalEntry.count({ where: { userId } }), 0);
+    const afterWithdraw = await prisma.registrationAcceptance.findMany({
+      where: { userId, purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE },
+    });
+    assert.equal(afterWithdraw.length, 1);
+
+    await Promise.all([
+      service.withdrawSpecialCategoryConsent(userId, password),
+      service.withdrawSpecialCategoryConsent(userId, password),
+    ]);
+    assert.equal(
+      await prisma.registrationAcceptance.count({
+        where: { userId, purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE },
+      }),
+      1,
+    );
+
+    await Promise.all([
+      service.grantSpecialCategoryConsent(
+        userId,
+        currentSpecialCategoryGrantFields(),
+      ),
+      service.withdrawSpecialCategoryConsent(userId, password),
+    ]);
+    const events = await prisma.registrationAcceptance.findMany({
+      where: {
+        userId,
+        purpose: {
+          in: [
+            SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+            SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+          ],
+        },
+      },
+      orderBy: { acceptedAt: "asc" },
+    });
+    const last = events[events.length - 1];
+    assert.ok(last);
+    if (last.purpose === SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE) {
+      assert.equal(await prisma.journalEntry.count({ where: { userId } }), 0);
+    }
+
+    await service.deleteOwnAccount(userId, password);
     userId = "";
   } finally {
     if (userId) {

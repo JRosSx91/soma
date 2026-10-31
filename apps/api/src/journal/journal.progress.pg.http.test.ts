@@ -24,6 +24,8 @@ import request from "supertest";
 import { utcDateToCivilDate } from "@soma/shared-types";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { createId } from "../auth/create-id.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 import { JournalModule } from "./journal.module.js";
 
 const PASSWORD = "journal-xp-pass-1";
@@ -89,6 +91,7 @@ async function createUser(label: string): Promise<{ id: string }> {
       birthYear: 1992,
     },
   });
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, id);
   return { id };
 }
 

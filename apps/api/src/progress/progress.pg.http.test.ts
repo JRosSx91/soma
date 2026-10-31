@@ -27,6 +27,8 @@ import request from "supertest";
 import { PROGRESS_XP_MAX, totalXpToReach } from "@soma/shared-types";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { createId } from "../auth/create-id.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 import { ProgressModule } from "./progress.module.js";
 import { ProgressService } from "./progress.service.js";
 
@@ -94,6 +96,7 @@ async function createUser(label: string): Promise<{ id: string }> {
       birthYear: 1990,
     },
   });
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, id);
   return { id };
 }
 

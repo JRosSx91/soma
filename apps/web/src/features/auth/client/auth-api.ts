@@ -42,10 +42,6 @@ export async function register(
     termsVersion: credentials.termsVersion,
     acceptedPrivacyNotice: credentials.acceptedPrivacyNotice,
     privacyNoticeVersion: credentials.privacyNoticeVersion,
-    acceptedSpecialCategoryProcessing:
-      credentials.acceptedSpecialCategoryProcessing,
-    specialCategoryProcessingVersion:
-      credentials.specialCategoryProcessingVersion,
   };
   if (credentials.weightKg !== undefined) {
     body.weightKg = credentials.weightKg;

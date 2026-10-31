@@ -8,10 +8,9 @@
  * Affirmative registration checkboxes persist evidence of an action on these
  * draft versions. They are not a claim of GDPR (or other) compliance.
  *
- * PENDING LEGAL: whether special-category processing must be accepted at
- * registration or only when the user first records substance/journal data.
- * Required here so the mechanism exists before beta opens; the legal basis
- * is not defined in this module.
+ * Special-category processing is not accepted at registration. A later
+ * explicit grant (purpose special_category_processing) is required before
+ * writing substance, journal or derived health data.
  */
 export const LEGAL_NOTICE_STATUS = "draft" as const;
 export type LegalNoticeStatus = "draft" | "published";
@@ -29,14 +28,13 @@ export const REGISTRATION_ACCEPTANCE_PURPOSES = [
 export type RegistrationAcceptancePurpose =
   (typeof REGISTRATION_ACCEPTANCE_PURPOSES)[number];
 
-/** Grant recorded at registration. Not a withdrawal. */
+/** Grant recorded when the user explicitly consents. Not a withdrawal. */
 export const SPECIAL_CATEGORY_PROCESSING_PURPOSE =
   "special_category_processing" as const;
 
 /**
  * Explicit withdrawal evidence. Never treated as a grant.
- * Distinct purpose so @@unique([userId, purpose]) can hold both rows
- * without a schema migration.
+ * Distinct purpose so grant and withdrawal events can coexist in history.
  */
 export const SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE =
   "special_category_processing_withdrawal" as const;
@@ -46,11 +44,17 @@ export const LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION = "draft-2026-10-30";
 export type SpecialCategoryConsentRecord = {
   purpose: string;
   acceptedAt: Date;
+  documentVersion?: string;
 };
+
+export type SpecialCategoryConsentStatus =
+  | "never_granted"
+  | "active"
+  | "withdrawn";
 
 /**
  * Active only when a grant exists and is strictly later than any withdrawal.
- * A withdrawal row is never interpreted as consent.
+ * Equal timestamps are withdrawn: a withdrawal is never treated as a grant.
  */
 export function isSpecialCategoryConsentActive(
   records: readonly SpecialCategoryConsentRecord[] | null | undefined,
@@ -75,7 +79,7 @@ export function isSpecialCategoryConsentActive(
 
 /**
  * True only when a withdrawal row is the latest special-category event.
- * Absence of any row is not a withdrawal (legacy accounts / tests).
+ * Absence of any row is not a withdrawal.
  */
 export function isSpecialCategoryProcessingWithdrawn(
   records: readonly SpecialCategoryConsentRecord[] | null | undefined,
@@ -88,13 +92,19 @@ export function isSpecialCategoryProcessingWithdrawn(
   return !isSpecialCategoryConsentActive(records);
 }
 
+export function specialCategoryConsentStatus(
+  records: readonly SpecialCategoryConsentRecord[] | null | undefined,
+): SpecialCategoryConsentStatus {
+  if (isSpecialCategoryConsentActive(records)) return "active";
+  if (isSpecialCategoryProcessingWithdrawn(records)) return "withdrawn";
+  return "never_granted";
+}
+
 export type RegistrationAcceptanceFields = {
   acceptedTerms: boolean;
   termsVersion: string;
   acceptedPrivacyNotice: boolean;
   privacyNoticeVersion: string;
-  acceptedSpecialCategoryProcessing: boolean;
-  specialCategoryProcessingVersion: string;
 };
 
 export function currentRegistrationAcceptanceFields(): RegistrationAcceptanceFields {
@@ -103,8 +113,6 @@ export function currentRegistrationAcceptanceFields(): RegistrationAcceptanceFie
     termsVersion: LEGAL_TERMS_VERSION,
     acceptedPrivacyNotice: true,
     privacyNoticeVersion: LEGAL_PRIVACY_VERSION,
-    acceptedSpecialCategoryProcessing: true,
-    specialCategoryProcessingVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
   };
 }
 
@@ -116,7 +124,27 @@ export function isCurrentRegistrationAcceptance(
     input.acceptedTerms === true &&
     input.termsVersion === LEGAL_TERMS_VERSION &&
     input.acceptedPrivacyNotice === true &&
-    input.privacyNoticeVersion === LEGAL_PRIVACY_VERSION &&
+    input.privacyNoticeVersion === LEGAL_PRIVACY_VERSION
+  );
+}
+
+export type SpecialCategoryGrantFields = {
+  acceptedSpecialCategoryProcessing: boolean;
+  specialCategoryProcessingVersion: string;
+};
+
+export function currentSpecialCategoryGrantFields(): SpecialCategoryGrantFields {
+  return {
+    acceptedSpecialCategoryProcessing: true,
+    specialCategoryProcessingVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
+  };
+}
+
+export function isCurrentSpecialCategoryGrant(
+  input: Partial<SpecialCategoryGrantFields> | null | undefined,
+): input is SpecialCategoryGrantFields {
+  if (!input) return false;
+  return (
     input.acceptedSpecialCategoryProcessing === true &&
     input.specialCategoryProcessingVersion === LEGAL_SPECIAL_CATEGORY_VERSION
   );
@@ -142,11 +170,6 @@ export function registrationAcceptanceRecords(acceptedAt: Date): Array<{
     {
       purpose: "privacy_notice",
       documentVersion: LEGAL_PRIVACY_VERSION,
-      acceptedAt,
-    },
-    {
-      purpose: "special_category_processing",
-      documentVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
       acceptedAt,
     },
   ];

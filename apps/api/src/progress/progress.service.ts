@@ -15,7 +15,7 @@ import {
   type ProgressXpSource,
 } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
-import { assertSpecialCategoryProcessingAllowed } from "../auth/special-category-consent.js";
+import { requireSpecialCategoryWrite } from "../auth/special-category-consent.js";
 import type {
   AwardXpInput,
   AwardXpResult,
@@ -189,16 +189,18 @@ export class ProgressService {
     const sourceKey = requireSourceKey(input.sourceKey);
     const amount = requireCatalogAmount(source);
 
-    if (isSpecialCategoryXpSource(source)) {
-      await assertSpecialCategoryProcessingAllowed(tx ?? this.prisma, userId);
-    }
-
     if (tx) {
+      if (isSpecialCategoryXpSource(source)) {
+        await requireSpecialCategoryWrite(tx, userId);
+      }
       return this.applyAward(tx, userId, source, sourceKey, amount);
     }
-    return this.prisma.$transaction((inner) =>
-      this.applyAward(inner, userId, source, sourceKey, amount),
-    );
+    return this.prisma.$transaction(async (inner) => {
+      if (isSpecialCategoryXpSource(source)) {
+        await requireSpecialCategoryWrite(inner, userId);
+      }
+      return this.applyAward(inner, userId, source, sourceKey, amount);
+    });
   }
 
   private async applyAward(

@@ -10,7 +10,10 @@ import {
 } from "../common/exceptions/coded-exception.js";
 import type { EmailLookupResult, UsersService } from "../users/users.service.js";
 import type { RefreshSessionService } from "./refresh-session.service.js";
-import { currentRegistrationAcceptanceFields } from "@soma/shared-types";
+import {
+  currentRegistrationAcceptanceFields,
+  currentSpecialCategoryGrantFields,
+} from "@soma/shared-types";
 import { AUTH_ACCEPTANCE_REQUIRED_CODE } from "./registration-acceptance.js";
 import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
 
@@ -316,6 +319,53 @@ function createDeleteService(tx: {
     { claimUnused: async () => null, attachUser: async () => undefined } as never,
   );
 }
+
+test("grantSpecialCategoryConsent appends a grant for the JWT user", async () => {
+  const user = fakeUser();
+  const created: Array<Record<string, unknown>> = [];
+  const txExtra = {
+    registrationAcceptance: {
+      findMany: async () => [],
+      create: async ({ data }: { data: Record<string, unknown> }) => {
+        created.push(data);
+        return data;
+      },
+    },
+  };
+  const grantService = new AuthService(
+    {} as unknown as UsersService,
+    { sign: () => "unused" } as never,
+    {
+      issueSession: async () => ({
+        plaintext: "x",
+        familyId: "f",
+        expiresAt: new Date(),
+      }),
+      rotateSession: async () => ({
+        userId: user.id,
+        session: { plaintext: "x", familyId: "f", expiresAt: new Date() },
+      }),
+      revokeByPlaintext: async () => undefined,
+    } as unknown as RefreshSessionService,
+    {
+      $transaction: async (fn: (client: typeof txExtra) => Promise<void>) => {
+        const tx = {
+          $queryRaw: async () => [{ id: user.id }],
+          ...txExtra,
+        };
+        await fn(tx);
+      },
+    } as never,
+    { claimUnused: async () => null, attachUser: async () => undefined } as never,
+  );
+  await grantService.grantSpecialCategoryConsent(
+    user.id,
+    currentSpecialCategoryGrantFields(),
+  );
+  assert.equal(created.length, 1);
+  assert.equal(created[0]?.userId, user.id);
+  assert.equal(created[0]?.purpose, "special_category_processing");
+});
 
 test("withdrawSpecialCategoryConsent rejects a wrong password", async () => {
   const user = fakeUser();

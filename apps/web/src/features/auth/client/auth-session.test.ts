@@ -122,8 +122,6 @@ test("register stores access only in memory", async () => {
     termsVersion: "draft-2026-10-30",
     acceptedPrivacyNotice: true,
     privacyNoticeVersion: "draft-2026-10-30",
-    acceptedSpecialCategoryProcessing: true,
-    specialCategoryProcessingVersion: "draft-2026-10-30",
   });
   assert.equal(getAccessToken(), "access-reg");
   assert.equal(localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY), null);
@@ -132,6 +130,8 @@ test("register stores access only in memory", async () => {
     unknown
   >;
   assert.equal("inviteToken" in openBody, false);
+  assert.equal("acceptedSpecialCategoryProcessing" in openBody, false);
+  assert.equal("specialCategoryProcessingVersion" in openBody, false);
 });
 
 test("register sends inviteToken only in JSON body and never persists it", async () => {
@@ -157,8 +157,6 @@ test("register sends inviteToken only in JSON body and never persists it", async
     termsVersion: "draft-2026-10-30",
     acceptedPrivacyNotice: true,
     privacyNoticeVersion: "draft-2026-10-30",
-    acceptedSpecialCategoryProcessing: true,
-    specialCategoryProcessingVersion: "draft-2026-10-30",
   });
 
   const sent = JSON.parse(String(calls[0]!.init?.body ?? "{}")) as Record<

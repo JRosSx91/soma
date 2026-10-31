@@ -32,8 +32,6 @@ export function RegisterPage() {
   const [birthYear, setBirthYear] = useState<number>(1990);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedPrivacyNotice, setAcceptedPrivacyNotice] = useState(false);
-  const [acceptedSpecialCategoryProcessing, setAcceptedSpecialCategoryProcessing] =
-    useState(false);
   const [error, setError] = useState<string | null>(null);
   const [errorField, setErrorField] = useState<"password" | "confirm" | null>(
     null,
@@ -124,10 +122,8 @@ export function RegisterPage() {
       birthYear,
       acceptedTerms,
       acceptedPrivacyNotice,
-      acceptedSpecialCategoryProcessing,
       termsVersion: "",
       privacyNoticeVersion: "",
-      specialCategoryProcessingVersion: "",
       ...(inviteToken ? { inviteToken } : {}),
     });
     if (!prepared.ok) {
@@ -330,23 +326,6 @@ export function RegisterPage() {
                 {t("register.acceptPrivacy")}{" "}
                 <Link to="/privacy" className={authLinkClass}>
                   {t("register.privacyLink")}
-                </Link>
-              </span>
-            </label>
-            <label className="flex items-start gap-2 text-sm text-soma-ink-secondary">
-              <input
-                id="register-accept-special"
-                type="checkbox"
-                className="mt-1"
-                checked={acceptedSpecialCategoryProcessing}
-                onChange={(e) =>
-                  setAcceptedSpecialCategoryProcessing(e.target.checked)
-                }
-              />
-              <span>
-                {t("register.acceptSpecialCategory")}{" "}
-                <Link to="/privacy#privacy-special" className={authLinkClass}>
-                  {t("register.privacySpecialLink")}
                 </Link>
               </span>
             </label>

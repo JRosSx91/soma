@@ -1,3 +1,4 @@
+import { currentSpecialCategoryGrantFields } from "@soma/shared-types";
 import {
   apiRequest,
   ApiError,
@@ -54,9 +55,20 @@ export async function patchProfileDetails(
 }
 
 /**
- * Permanently deletes the authenticated account.
- * Wrong-password 401 must not revoke the session; expired JWT uses the
- * usual refresh / session-revoked path.
+ * Records an explicit special-category grant. 204 including already-active.
+ * Does not restore previously purged data.
+ */
+export async function grantSpecialCategoryConsent(): Promise<void> {
+  await apiRequest<void>("/me/account/special-category-consent", {
+    method: "POST",
+    body: currentSpecialCategoryGrantFields(),
+    credentials: "include",
+  });
+}
+
+/**
+ * Withdraws special-category consent. Wrong-password 401 must not revoke
+ * the session; expired JWT uses the usual refresh / session-revoked path.
  */
 export async function withdrawSpecialCategoryConsent(
   password: string,
@@ -102,6 +114,11 @@ export async function withdrawSpecialCategoryConsent(
   }
 }
 
+/**
+ * Permanently deletes the authenticated account.
+ * Wrong-password 401 must not revoke the session; expired JWT uses the
+ * usual refresh / session-revoked path.
+ */
 export async function deleteOwnAccount(password: string): Promise<void> {
   if (typeof password !== "string" || password.trim().length === 0) {
     throw new TypeError("password is required");

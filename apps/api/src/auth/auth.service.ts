@@ -11,18 +11,24 @@ import { PrismaService } from "../prisma/prisma.service.js";
 import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
 import {
+  CodedBadRequestException,
   CodedConflictException,
   CodedForbiddenException,
 } from "../common/exceptions/coded-exception.js";
 import {
+  AUTH_ACCEPTANCE_REQUIRED_CODE,
+  AUTH_ACCEPTANCE_REQUIRED_MESSAGE,
   assertProductionAllowsRegistration,
   assertRegistrationAcceptance,
   persistRegistrationAcceptances,
 } from "./registration-acceptance.js";
 import {
+  persistSpecialCategoryGrant,
   persistSpecialCategoryWithdrawal,
   purgeSpecialCategoryProductData,
 } from "./special-category-consent.js";
+import { isCurrentSpecialCategoryGrant } from "@soma/shared-types";
+import type { GrantSpecialCategoryDto } from "../account/dto/grant-special-category.dto.js";
 import { normalizeEmail } from "./normalize-email.js";
 import {
   RefreshSessionService,
@@ -252,6 +258,39 @@ export class AuthService {
 
   async logout(plaintext: string | undefined): Promise<void> {
     await this.refreshSessions.revokeByPlaintext(plaintext);
+  }
+
+  /**
+   * Records an explicit special-category grant for the JWT subject.
+   * Append-only. Idempotent while already active on the current version.
+   */
+  async grantSpecialCategoryConsent(
+    userId: string,
+    dto: GrantSpecialCategoryDto,
+  ): Promise<void> {
+    if (!isCurrentSpecialCategoryGrant(dto)) {
+      throw new CodedBadRequestException(
+        AUTH_ACCEPTANCE_REQUIRED_CODE,
+        AUTH_ACCEPTANCE_REQUIRED_MESSAGE,
+      );
+    }
+
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const locked = await tx.$queryRaw<{ id: string }[]>`
+          SELECT id FROM "User" WHERE id = ${userId} FOR UPDATE
+        `;
+        if (locked.length === 0) {
+          throw this.invalidCredentials();
+        }
+        await persistSpecialCategoryGrant(tx, userId);
+      });
+    } catch (err) {
+      if (err instanceof UnauthorizedException) {
+        throw err;
+      }
+      throw err;
+    }
   }
 
   /**

@@ -18,7 +18,6 @@ export function prepareRegisterCredentials(
     confirmPassword: string;
     acceptedTerms: boolean;
     acceptedPrivacyNotice: boolean;
-    acceptedSpecialCategoryProcessing: boolean;
   },
 ): RegisterPasswordCheck {
   if (!isPasswordLongEnough(input.password)) {
@@ -27,21 +26,21 @@ export function prepareRegisterCredentials(
   if (!passwordsMatch(input.password, input.confirmPassword)) {
     return { ok: false, messageKey: "register.passwordMismatch" };
   }
-  if (
-    !input.acceptedTerms ||
-    !input.acceptedPrivacyNotice ||
-    !input.acceptedSpecialCategoryProcessing
-  ) {
+  if (!input.acceptedTerms || !input.acceptedPrivacyNotice) {
     return { ok: false, messageKey: "register.acceptRequired" };
   }
 
+  const acceptance = currentRegistrationAcceptanceFields();
   const credentials: RegisterCredentials = {
     email: input.email,
     password: input.password,
     displayName: input.displayName,
     biologicalSex: input.biologicalSex,
     birthYear: input.birthYear,
-    ...currentRegistrationAcceptanceFields(),
+    acceptedTerms: acceptance.acceptedTerms,
+    termsVersion: acceptance.termsVersion,
+    acceptedPrivacyNotice: acceptance.acceptedPrivacyNotice,
+    privacyNoticeVersion: acceptance.privacyNoticeVersion,
   };
   if (input.weightKg !== undefined) {
     credentials.weightKg = input.weightKg;

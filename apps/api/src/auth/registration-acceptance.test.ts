@@ -75,7 +75,11 @@ test("persistRegistrationAcceptances writes purpose, version, datetime only", as
     "user-1",
     new Date("2026-10-30T09:00:00.000Z"),
   );
-  assert.equal(rows.length, 3);
+  assert.equal(rows.length, 2);
+  assert.deepEqual(
+    (rows as Array<{ purpose: string }>).map((row) => row.purpose).sort(),
+    ["privacy_notice", "terms_of_use"],
+  );
   for (const row of rows) {
     const record = row as Record<string, unknown>;
     assert.equal(record.userId, "user-1");

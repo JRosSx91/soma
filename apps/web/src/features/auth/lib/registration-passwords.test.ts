@@ -14,10 +14,8 @@ const valid = {
   inviteToken: "invite_token_value",
   acceptedTerms: true,
   acceptedPrivacyNotice: true,
-  acceptedSpecialCategoryProcessing: true,
   termsVersion: "ignored",
   privacyNoticeVersion: "ignored",
-  specialCategoryProcessingVersion: "ignored",
 };
 
 test("matching passwords yield a payload without confirmPassword", () => {
@@ -32,6 +30,14 @@ test("matching passwords yield a payload without confirmPassword", () => {
     false,
   );
   assert.equal(JSON.stringify(result.credentials).includes("confirmPassword"), false);
+  assert.equal(
+    "acceptedSpecialCategoryProcessing" in result.credentials,
+    false,
+  );
+  assert.equal(
+    "specialCategoryProcessingVersion" in result.credentials,
+    false,
+  );
 });
 
 test("mismatched passwords do not produce credentials", () => {
@@ -72,6 +78,17 @@ test("unchecked acceptances do not produce credentials", () => {
   const result = prepareRegisterCredentials({
     ...valid,
     acceptedTerms: false,
+  });
+  assert.deepEqual(result, {
+    ok: false,
+    messageKey: "register.acceptRequired",
+  });
+});
+
+test("privacy-only uncheck still blocks registration", () => {
+  const result = prepareRegisterCredentials({
+    ...valid,
+    acceptedPrivacyNotice: false,
   });
   assert.deepEqual(result, {
     ok: false,

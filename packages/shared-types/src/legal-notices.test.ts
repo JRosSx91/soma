@@ -9,11 +9,14 @@ import {
   SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
   currentRegistrationAcceptanceFields,
+  currentSpecialCategoryGrantFields,
   isCurrentRegistrationAcceptance,
+  isCurrentSpecialCategoryGrant,
   isLegalNoticePublished,
   isSpecialCategoryConsentActive,
   isSpecialCategoryProcessingWithdrawn,
   registrationAcceptanceRecords,
+  specialCategoryConsentStatus,
 } from "./legal-notices.js";
 
 test("legal notices remain draft until explicitly published", () => {
@@ -27,6 +30,8 @@ test("legal notices remain draft until explicitly published", () => {
 test("current acceptance fields match draft versions and require true flags", () => {
   const fields = currentRegistrationAcceptanceFields();
   assert.equal(isCurrentRegistrationAcceptance(fields), true);
+  assert.equal("acceptedSpecialCategoryProcessing" in fields, false);
+  assert.equal("specialCategoryProcessingVersion" in fields, false);
   assert.equal(
     isCurrentRegistrationAcceptance({ ...fields, acceptedTerms: false }),
     false,
@@ -36,11 +41,23 @@ test("current acceptance fields match draft versions and require true flags", ()
     false,
   );
   assert.equal(isCurrentRegistrationAcceptance({}), false);
+  assert.equal(
+    isCurrentSpecialCategoryGrant(currentSpecialCategoryGrantFields()),
+    true,
+  );
+  assert.equal(
+    isCurrentSpecialCategoryGrant({
+      acceptedSpecialCategoryProcessing: false,
+      specialCategoryProcessingVersion: LEGAL_SPECIAL_CATEGORY_VERSION,
+    }),
+    false,
+  );
 });
 
 test("special-category consent is inactive without a grant", () => {
   assert.equal(isSpecialCategoryConsentActive([]), false);
   assert.equal(isSpecialCategoryConsentActive(undefined), false);
+  assert.equal(specialCategoryConsentStatus([]), "never_granted");
   assert.equal(isSpecialCategoryProcessingWithdrawn([]), false);
   assert.equal(
     isSpecialCategoryConsentActive([
@@ -113,6 +130,28 @@ test("a withdrawal is never treated as a grant", () => {
     ]),
     true,
   );
+  assert.equal(
+    specialCategoryConsentStatus([
+      {
+        purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+        acceptedAt: grantAt,
+      },
+    ]),
+    "active",
+  );
+  assert.equal(
+    specialCategoryConsentStatus([
+      {
+        purpose: SPECIAL_CATEGORY_PROCESSING_PURPOSE,
+        acceptedAt: grantAt,
+      },
+      {
+        purpose: SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
+        acceptedAt: withdrawnAt,
+      },
+    ]),
+    "withdrawn",
+  );
 });
 
 test("a later grant can reactivate after a withdrawal", () => {
@@ -143,7 +182,11 @@ test("a later grant can reactivate after a withdrawal", () => {
 test("persisted records do not include IP or extra client metadata", () => {
   const at = new Date("2026-10-30T08:00:00.000Z");
   const records = registrationAcceptanceRecords(at);
-  assert.equal(records.length, 3);
+  assert.equal(records.length, 2);
+  assert.equal(
+    records.some((row) => row.purpose === "special_category_processing"),
+    false,
+  );
   for (const row of records) {
     assert.equal("ip" in row, false);
     assert.equal("userAgent" in row, false);

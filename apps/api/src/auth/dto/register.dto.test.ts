@@ -37,11 +37,36 @@ test("RegisterDto rejects invalid weightKg", () => {
 test("RegisterDto requires current draft acceptances", () => {
   assert.ok(validate({ ...base, acceptedTerms: false }).length > 0);
   assert.ok(validate({ ...base, acceptedPrivacyNotice: false }).length > 0);
-  assert.ok(
-    validate({ ...base, acceptedSpecialCategoryProcessing: false }).length > 0,
+  assert.equal(
+    validate({
+      email: "user@example.test",
+      password: "password12",
+      displayName: "User",
+      biologicalSex: "male",
+      birthYear: 1990,
+      acceptedTerms: true,
+      termsVersion: base.termsVersion,
+      acceptedPrivacyNotice: true,
+      privacyNoticeVersion: base.privacyNoticeVersion,
+    }).length,
+    0,
   );
   assert.ok(validate({ ...base, termsVersion: "other" }).length > 0);
   const missing = { ...base };
   delete (missing as { acceptedTerms?: boolean }).acceptedTerms;
   assert.ok(validate(missing).length > 0);
+});
+
+test("RegisterDto rejects leftover special-category registration fields", () => {
+  const extra = {
+    ...base,
+    acceptedSpecialCategoryProcessing: true,
+    specialCategoryProcessingVersion: base.privacyNoticeVersion,
+  };
+  const dto = plainToInstance(RegisterDto, extra);
+  const errors = validateSync(dto, {
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  });
+  assert.ok(errors.length > 0);
 });

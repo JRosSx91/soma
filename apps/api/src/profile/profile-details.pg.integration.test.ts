@@ -7,6 +7,8 @@ import { test } from "node:test";
 import { OnboardingStatus, PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
 import { createId } from "../auth/create-id.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 import { ProfileService } from "./profile.service.js";
 
 async function withLiveDb(
@@ -51,6 +53,7 @@ test("pg: updateProfileDetails persists fields and preserves usages/status", asy
           onboardingStatus: OnboardingStatus.completed,
         },
       });
+      await persistSpecialCategoryGrant(prisma as unknown as PrismaService, userId);
 
       const substances = await prisma.substance.findMany({ take: 1 });
       if (substances.length === 0) {

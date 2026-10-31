@@ -18,6 +18,7 @@
     "notes": "Notas y aprendizajes"
   },
   "newEntry": "Nueva entrada",
+  "consentSaveError": "Para guardar una entrada, permite antes que Soma conserve tus datos de bienestar.",
   "summary": {
     "entries": "Entradas en total",
     "entriesHint": "Tu historia día a día",
