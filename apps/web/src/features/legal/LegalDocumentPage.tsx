@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { isLegalNoticePublished } from "@soma/shared-types";
+import { LEGAL_NOTICE_STATUS } from "@soma/shared-types";
 import { LanguageSelector } from "../../components/LanguageSelector.js";
 import { MAIN_CONTENT_ID, SkipToContent } from "../../components/SkipToContent.js";
 import { SomaMark } from "../recovery-dashboard/components/SomaMark.js";
 import { previewFocus } from "../recovery-dashboard/focus.js";
 import { authLinkClass } from "../auth/components/AuthShell.js";
+import {
+  applyLegalControllerCopy,
+  areLegalDocumentsPublishable,
+  readLegalControllerFromEnv,
+  type LegalControllerFields,
+} from "./legal-controller.js";
 
 export type LegalDocumentKind = "notice" | "privacy" | "terms" | "cookies";
 
@@ -91,11 +97,21 @@ function bodyParagraphs(text: string): string[] {
     .filter((paragraph) => paragraph.length > 0);
 }
 
-export function LegalDocumentPage({ kind }: { kind: LegalDocumentKind }) {
+export function LegalDocumentPage({
+  kind,
+  controller = readLegalControllerFromEnv(),
+  noticeStatus = LEGAL_NOTICE_STATUS,
+}: {
+  kind: LegalDocumentKind;
+  controller?: LegalControllerFields;
+  noticeStatus?: string;
+}) {
   const { t, i18n } = useTranslation("legal");
-  const published = isLegalNoticePublished();
+  const published = areLegalDocumentsPublishable(noticeStatus, controller);
   const ns = kind;
   const sections = SECTIONS[kind];
+  const copy = (key: string) =>
+    applyLegalControllerCopy(t(key), controller, { publishable: published });
 
   useEffect(() => {
     const previous = document.title;
@@ -126,7 +142,7 @@ export function LegalDocumentPage({ kind }: { kind: LegalDocumentKind }) {
             className="rounded-xl border border-soma-line-strong bg-[#0c1a26] px-4 py-3 text-sm leading-relaxed text-soma-ink-secondary"
             role="status"
           >
-            {t("draftBanner")}
+            {copy("draftBanner")}
           </p>
         )}
         <nav
@@ -140,15 +156,15 @@ export function LegalDocumentPage({ kind }: { kind: LegalDocumentKind }) {
               className={authLinkClass}
               aria-current={document.kind === kind ? "page" : undefined}
             >
-              {t(`nav.${document.kind}`)}
+              {copy(`nav.${document.kind}`)}
             </Link>
           ))}
         </nav>
         <h1 className="mt-6 text-pretty text-3xl font-light tracking-wide text-[#86B7E8]">
-          {t(`${ns}.title`)}
+          {copy(`${ns}.title`)}
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-soma-ink-secondary">
-          {t(`${ns}.intro`)}
+          {copy(`${ns}.intro`)}
         </p>
         {sections.map((section) => (
           <section
@@ -157,9 +173,9 @@ export function LegalDocumentPage({ kind }: { kind: LegalDocumentKind }) {
             className="mt-8"
           >
             <h2 className="text-sm font-semibold uppercase tracking-wider text-soma-action">
-              {t(`${ns}.${section}Title`)}
+              {copy(`${ns}.${section}Title`)}
             </h2>
-            {bodyParagraphs(t(`${ns}.${section}Body`)).map((paragraph, index) => (
+            {bodyParagraphs(copy(`${ns}.${section}Body`)).map((paragraph, index) => (
               <p
                 key={`${section}-${index}`}
                 className="mt-2 text-sm leading-relaxed text-soma-ink-secondary"
@@ -170,7 +186,7 @@ export function LegalDocumentPage({ kind }: { kind: LegalDocumentKind }) {
           </section>
         ))}
         <p className="mt-10 text-sm text-soma-ink-muted">
-          {t("contact")}: {t("pendingContact")}
+          {copy("contact")}: {copy("pendingContact")}
         </p>
         <p className="mt-6 text-sm">
           <Link to="/" className={authLinkClass}>
