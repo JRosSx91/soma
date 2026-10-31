@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
@@ -16,6 +17,15 @@ import {
   type LegalControllerFields,
 } from "./legal-controller.js";
 import { LegalDocumentPage } from "./LegalDocumentPage.js";
+
+const STATIC_LEGAL_ENV_KEYS = [
+  "VITE_LEGAL_CONTROLLER_NAME",
+  "VITE_LEGAL_CONTROLLER_EMAIL",
+  "VITE_LEGAL_CONTROLLER_ADDRESS",
+  "VITE_LEGAL_CONTROLLER_TAX_ID",
+  "VITE_LEGAL_CONTROLLER_PHONE",
+  "VITE_LEGAL_CONTROLLER_DPO",
+] as const;
 
 const CONTACT_ONLY: LegalControllerFields = {
   name: "Ada Example",
@@ -63,6 +73,16 @@ async function wrap(
     createElement(MemoryRouter, { initialEntries: ["/"] }, node),
   );
 }
+
+test("legal controller reads Vite env as static identifiers", () => {
+  const source = readFileSync(new URL("./legal-controller.ts", import.meta.url), "utf8");
+  for (const key of STATIC_LEGAL_ENV_KEYS) {
+    assert.match(source, new RegExp(String.raw`import\.meta\.env\.${key}\b`));
+  }
+  assert.doesNotMatch(source, /import\.meta\.env\s*(?:\?\.)?\s*\[/);
+  assert.doesNotMatch(source, /env\s*(?:\?\.)?\s*\[\s*["'`]VITE_LEGAL_/);
+  assert.doesNotMatch(source, /\.env\s*(?:\?\.)?\s*\[\s*key\s*\]/);
+});
 
 test("name and email without a postal address satisfy the technical check", () => {
   assert.equal(hasRequiredLegalController(CONTACT_ONLY), true);

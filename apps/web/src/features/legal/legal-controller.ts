@@ -73,20 +73,19 @@ const EMPTY_CONTROLLER: LegalControllerFields = {
   dpo: "",
 };
 
-function envText(key: string): string {
-  const meta = import.meta as ImportMeta & { env?: Record<string, unknown> };
-  const value = meta.env?.[key];
+function envText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
 export function readLegalControllerFromEnv(): LegalControllerFields {
+  const env = import.meta.env;
   return {
-    name: envText("VITE_LEGAL_CONTROLLER_NAME"),
-    address: envText("VITE_LEGAL_CONTROLLER_ADDRESS"),
-    email: envText("VITE_LEGAL_CONTROLLER_EMAIL"),
-    taxId: envText("VITE_LEGAL_CONTROLLER_TAX_ID"),
-    phone: envText("VITE_LEGAL_CONTROLLER_PHONE"),
-    dpo: envText("VITE_LEGAL_CONTROLLER_DPO"),
+    name: envText(env && import.meta.env.VITE_LEGAL_CONTROLLER_NAME),
+    address: envText(env && import.meta.env.VITE_LEGAL_CONTROLLER_ADDRESS),
+    email: envText(env && import.meta.env.VITE_LEGAL_CONTROLLER_EMAIL),
+    taxId: envText(env && import.meta.env.VITE_LEGAL_CONTROLLER_TAX_ID),
+    phone: envText(env && import.meta.env.VITE_LEGAL_CONTROLLER_PHONE),
+    dpo: envText(env && import.meta.env.VITE_LEGAL_CONTROLLER_DPO),
   };
 }
 
