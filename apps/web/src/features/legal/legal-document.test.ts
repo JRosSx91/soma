@@ -138,8 +138,10 @@ test("legal notices stay marked as drafts in ES and EN", async () => {
   assert.match(privacyEs, /no una exportación completa/i);
   assert.match(privacyEn, /does not instantly erase backups/i);
   assert.match(privacyEs, /no elimina.*copias de seguridad de forma instantánea/s);
-  assert.match(termsEn, /invitation/i);
-  assert.match(termsEs, /invitación/);
+  assert.match(termsEn, /open or limited by invitation/i);
+  assert.match(termsEs, /abierto o limitado por invitación/);
+  assert.match(termsEn, /production registration stays closed/i);
+  assert.match(termsEs, /registro en producción permanece cerrado/);
   assert.match(termsEn, /no advertising/i);
   assert.match(termsEs, /sin publicidad/);
   assert.match(termsEn, /DEMO/);

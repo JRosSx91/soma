@@ -179,7 +179,7 @@ test("register without current acceptances is rejected before user create", asyn
 test("production register is refused while legal notices stay draft", async () => {
   const prevMode = process.env.AUTH_REGISTRATION_MODE;
   const prevNode = process.env.NODE_ENV;
-  process.env.AUTH_REGISTRATION_MODE = "invite";
+  process.env.AUTH_REGISTRATION_MODE = "open";
   process.env.NODE_ENV = "production";
   let created = 0;
   const service = createService({

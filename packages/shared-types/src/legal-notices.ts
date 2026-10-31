@@ -1,9 +1,10 @@
 /**
- * Draft legal-notice contract for closed-beta preparation.
+ * Draft legal-notice contract for public-beta preparation.
  *
  * LEGAL_NOTICE_STATUS stays "draft" until identity, legal bases, retention,
  * processors, transfers and rights procedures are confirmed. Changing this
- * to "published" is a product decision, not a code default.
+ * to "published" is a product decision, not a code default. Production
+ * registration stays blocked while the status is draft.
  *
  * Affirmative registration checkboxes persist evidence of an action on these
  * draft versions. They are not a claim of GDPR (or other) compliance.
@@ -15,10 +16,22 @@
 export const LEGAL_NOTICE_STATUS = "draft" as const;
 export type LegalNoticeStatus = "draft" | "published";
 
+/** Active identifiers persisted on registration. Still draft until publication. */
 export const LEGAL_TERMS_VERSION = "draft-2026-10-31.2";
 export const LEGAL_PRIVACY_VERSION = "draft-2026-10-31.2";
 export const LEGAL_ADULT_AGE_VERSION = "draft-2026-10-31";
 export const LEGAL_SPECIAL_CATEGORY_VERSION = "draft-2026-10-30";
+
+/**
+ * Proposed identifiers without the draft- prefix. Not used for acceptance
+ * until LEGAL_NOTICE_STATUS is published and these constants replace the
+ * active versions above. Keep the current draft strings so existing evidence
+ * stays distinguishable from a later published set.
+ */
+export const LEGAL_TERMS_VERSION_RELEASE = "2026-10-31.2";
+export const LEGAL_PRIVACY_VERSION_RELEASE = "2026-10-31.2";
+export const LEGAL_ADULT_AGE_VERSION_RELEASE = "2026-10-31";
+export const LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE = "2026-10-30";
 
 export const REGISTRATION_ACCEPTANCE_PURPOSES = [
   "terms_of_use",

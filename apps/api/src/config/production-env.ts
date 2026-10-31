@@ -140,12 +140,12 @@ function assertRegistrationMode(env: NodeJS.ProcessEnv): void {
   const raw = (env.AUTH_REGISTRATION_MODE ?? "").trim().toLowerCase();
   if (!raw) {
     throw new ProductionConfigError(
-      "AUTH_REGISTRATION_MODE must be set to \"invite\" in production",
+      "AUTH_REGISTRATION_MODE must be set to \"open\" or \"invite\" in production",
     );
   }
-  if (raw !== "invite") {
+  if (raw !== "open" && raw !== "invite") {
     throw new ProductionConfigError(
-      "AUTH_REGISTRATION_MODE must be \"invite\" in production",
+      "AUTH_REGISTRATION_MODE must be \"open\" or \"invite\" in production",
     );
   }
 }
