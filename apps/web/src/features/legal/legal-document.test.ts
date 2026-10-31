@@ -92,8 +92,8 @@ test("legal notices stay marked as drafts in ES and EN", async () => {
 
   assert.match(privacyEn, /Development draft/);
   assert.match(privacyEs, /Borrador de desarrollo/);
-  assert.match(termsEn, /not a published contract/i);
-  assert.match(termsEs, /no son un contrato publicado/i);
+  assert.match(termsEn, /public beta/i);
+  assert.match(termsEs, /beta pública/);
   assert.match(noticeEn, /natural person/);
   assert.match(noticeEs, /persona física/);
   assert.match(privacyEn, /somarecovery\.app/);
@@ -104,9 +104,10 @@ test("legal notices stay marked as drafts in ES and EN", async () => {
   assert.doesNotMatch(privacyEn, /\[DOMICILIO A EFECTOS LEGALES\]/);
   assert.doesNotMatch(privacyEn, /soma\.recovery\.app@gmail\.com/);
   assert.doesNotMatch(privacyEs, /soma\.recovery\.app@gmail\.com/);
-  assert.match(privacyEn, /has not confirmed those safeguards/);
-  assert.match(privacyEn, /TO BE COMPLETED/);
-  assert.match(privacyEs, /PENDIENTE DE COMPLETAR/);
+  assert.match(privacyEn, /does not invent them/i);
+  assert.match(privacyEs, /no las inventa/);
+  assert.doesNotMatch(privacyEn, /TO BE COMPLETED/);
+  assert.doesNotMatch(privacyEs, /PENDIENTE DE COMPLETAR/);
   assert.match(privacyEn, /Render/);
   assert.match(privacyEn, /Supabase/);
   assert.match(privacyEn, /Resend/);
@@ -139,10 +140,12 @@ test("legal notices stay marked as drafts in ES and EN", async () => {
   assert.match(privacyEs, /no una exportación completa/i);
   assert.match(privacyEn, /does not instantly erase backups/i);
   assert.match(privacyEs, /no elimina.*copias de seguridad de forma instantánea/s);
-  assert.match(termsEn, /open or limited by invitation/i);
-  assert.match(termsEs, /abierto o limitado por invitación/);
-  assert.match(termsEn, /production registration stays closed/i);
-  assert.match(termsEs, /registro en producción permanece cerrado/);
+  assert.match(termsEn, /Registration is open/i);
+  assert.match(termsEs, /registro está abierto/);
+  assert.doesNotMatch(termsEn, /invitation/i);
+  assert.doesNotMatch(termsEs, /invitación/);
+  assert.doesNotMatch(termsEn, /production registration stays closed/i);
+  assert.doesNotMatch(termsEs, /registro en producción permanece cerrado/);
   assert.match(termsEn, /no advertising/i);
   assert.match(termsEs, /sin publicidad/);
   assert.match(termsEn, /DEMO/);
