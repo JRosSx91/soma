@@ -57,7 +57,7 @@ export class RegisterDto {
   inviteToken?: string;
 
   /**
-   * Affirmative actions on the current draft documents. Required for new
+   * Affirmative actions on the current published documents. Required for new
    * registrations.
    */
   @IsBoolean()

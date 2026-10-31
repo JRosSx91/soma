@@ -18,8 +18,17 @@ export const LEGAL_CONTROLLER_MARKERS = {
 const OPTIONAL_CLAUSES: ReadonlyArray<{
   markers: readonly string[];
   labeled: readonly string[];
-  value: keyof Pick<LegalControllerFields, "taxId" | "phone" | "dpo">;
+  value: keyof Pick<LegalControllerFields, "address" | "taxId" | "phone" | "dpo">;
 }> = [
+  {
+    value: "address",
+    markers: [LEGAL_CONTROLLER_MARKERS.address],
+    labeled: [
+      `, ${LEGAL_CONTROLLER_MARKERS.address}`,
+      ` ${LEGAL_CONTROLLER_MARKERS.address}.`,
+      ` ${LEGAL_CONTROLLER_MARKERS.address}`,
+    ],
+  },
   {
     value: "taxId",
     markers: [LEGAL_CONTROLLER_MARKERS.taxIdEs, LEGAL_CONTROLLER_MARKERS.taxIdEn],
@@ -84,7 +93,7 @@ export function readLegalControllerFromEnv(): LegalControllerFields {
 export function hasRequiredLegalController(
   fields: LegalControllerFields,
 ): boolean {
-  return fields.name.length > 0 && fields.address.length > 0 && fields.email.length > 0;
+  return fields.name.length > 0 && fields.email.length > 0;
 }
 
 /**
@@ -107,6 +116,7 @@ function tidyCopy(text: string): string {
   return text
     .replace(/[ \t]{2,}/g, " ")
     .replace(/ +\./g, ".")
+    .replace(/\.\s+\./g, ".")
     .replace(/ +,/g, ",")
     .replace(/\n{3,}/g, "\n\n")
     .trimEnd();
@@ -122,9 +132,6 @@ export function applyLegalControllerCopy(
 
   if (fields.name) {
     out = replaceAll(out, LEGAL_CONTROLLER_MARKERS.name, fields.name);
-  }
-  if (fields.address) {
-    out = replaceAll(out, LEGAL_CONTROLLER_MARKERS.address, fields.address);
   }
   if (fields.email) {
     out = replaceAll(out, LEGAL_CONTROLLER_MARKERS.email, fields.email);

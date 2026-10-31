@@ -3,10 +3,14 @@ import { test } from "node:test";
 import {
   LEGAL_NOTICE_STATUS,
   LEGAL_PRIVACY_VERSION,
+  LEGAL_PRIVACY_VERSION_RELEASE,
   LEGAL_SPECIAL_CATEGORY_VERSION,
+  LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE,
   LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION,
   LEGAL_ADULT_AGE_VERSION,
+  LEGAL_ADULT_AGE_VERSION_RELEASE,
   LEGAL_TERMS_VERSION,
+  LEGAL_TERMS_VERSION_RELEASE,
   SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
   currentRegistrationAcceptanceFields,
@@ -20,16 +24,25 @@ import {
   specialCategoryConsentStatus,
 } from "./legal-notices.js";
 
-test("legal notices remain draft until explicitly published", () => {
-  assert.equal(LEGAL_NOTICE_STATUS, "draft");
-  assert.equal(isLegalNoticePublished(), false);
-  assert.equal(LEGAL_TERMS_VERSION.startsWith("draft-"), true);
-  assert.equal(LEGAL_PRIVACY_VERSION.startsWith("draft-"), true);
-  assert.equal(LEGAL_SPECIAL_CATEGORY_VERSION.startsWith("draft-"), true);
-  assert.equal(LEGAL_ADULT_AGE_VERSION.startsWith("draft-"), true);
+test("legal notices use the published release identifiers", () => {
+  assert.equal(LEGAL_NOTICE_STATUS, "published");
+  assert.equal(isLegalNoticePublished(), true);
+  assert.equal(LEGAL_TERMS_VERSION_RELEASE, "2026-10-31.2");
+  assert.equal(LEGAL_PRIVACY_VERSION_RELEASE, "2026-10-31.2");
+  assert.equal(LEGAL_ADULT_AGE_VERSION_RELEASE, "2026-10-31");
+  assert.equal(LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE, "2026-10-30");
+  assert.equal(LEGAL_TERMS_VERSION, LEGAL_TERMS_VERSION_RELEASE);
+  assert.equal(LEGAL_PRIVACY_VERSION, LEGAL_PRIVACY_VERSION_RELEASE);
+  assert.equal(LEGAL_ADULT_AGE_VERSION, LEGAL_ADULT_AGE_VERSION_RELEASE);
+  assert.equal(
+    LEGAL_SPECIAL_CATEGORY_VERSION,
+    LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE,
+  );
+  assert.equal(LEGAL_TERMS_VERSION.startsWith("draft-"), false);
+  assert.equal(currentRegistrationAcceptanceFields().termsVersion, LEGAL_TERMS_VERSION);
 });
 
-test("current acceptance fields match draft versions and require true flags", () => {
+test("current acceptance fields match published versions and require true flags", () => {
   const fields = currentRegistrationAcceptanceFields();
   assert.equal(isCurrentRegistrationAcceptance(fields), true);
   assert.equal("acceptedSpecialCategoryProcessing" in fields, false);
@@ -179,7 +192,11 @@ test("a later grant can reactivate after a withdrawal", () => {
     ]),
     true,
   );
-  assert.equal(LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION.startsWith("draft-"), true);
+  assert.equal(LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION, "2026-10-30");
+  assert.equal(
+    LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION.startsWith("draft-"),
+    false,
+  );
   assert.notEqual(
     SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
     SPECIAL_CATEGORY_PROCESSING_PURPOSE,
@@ -202,6 +219,11 @@ test("persisted records do not include IP or extra client metadata", () => {
     assert.equal("ip" in row, false);
     assert.equal("userAgent" in row, false);
     assert.equal(row.acceptedAt.toISOString(), at.toISOString());
-    assert.equal(row.documentVersion.startsWith("draft-"), true);
+    assert.equal(row.documentVersion.startsWith("draft-"), false);
+    assert.ok(
+      row.documentVersion === LEGAL_TERMS_VERSION ||
+        row.documentVersion === LEGAL_PRIVACY_VERSION ||
+        row.documentVersion === LEGAL_ADULT_AGE_VERSION,
+    );
   }
 });

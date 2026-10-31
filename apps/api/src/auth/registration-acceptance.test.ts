@@ -46,7 +46,7 @@ test("development still allows registration against draft legal notices", () => 
   );
 });
 
-test("assertRegistrationAcceptance rejects unchecked draft flags", () => {
+test("assertRegistrationAcceptance rejects unchecked published flags", () => {
   assert.throws(
     () =>
       assertRegistrationAcceptance({
@@ -84,7 +84,7 @@ test("persistRegistrationAcceptances writes purpose, version, datetime only", as
     const record = row as Record<string, unknown>;
     assert.equal(record.userId, "user-1");
     assert.equal(typeof record.purpose, "string");
-    assert.equal(String(record.documentVersion).startsWith("draft-"), true);
+    assert.equal(String(record.documentVersion).startsWith("draft-"), false);
     assert.equal(
       (record.acceptedAt as Date).toISOString(),
       "2026-10-30T09:00:00.000Z",

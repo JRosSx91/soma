@@ -33,7 +33,7 @@ test("RegisterDto rejects invalid weightKg", () => {
   assert.ok(validate({ ...base, weightKg: "68.5" }).length > 0);
 });
 
-test("RegisterDto requires current draft acceptances including adult age", () => {
+test("RegisterDto requires current published acceptances including adult age", () => {
   assert.ok(validate({ ...base, acceptedTerms: false }).length > 0);
   assert.ok(validate({ ...base, acceptedPrivacyNotice: false }).length > 0);
   assert.ok(validate({ ...base, acceptedAdultAge: false }).length > 0);

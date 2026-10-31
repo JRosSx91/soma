@@ -11,7 +11,7 @@ function validate(plain: Record<string, unknown>) {
   return validateSync(dto, { whitelist: true, forbidNonWhitelisted: true });
 }
 
-test("GrantSpecialCategoryDto accepts the current draft grant", () => {
+test("GrantSpecialCategoryDto accepts the current published grant", () => {
   assert.equal(validate(currentSpecialCategoryGrantFields()).length, 0);
 });
 

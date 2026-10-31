@@ -6,7 +6,6 @@ import { AuthService } from "./auth.service.js";
 import {
   CodedBadRequestException,
   CodedConflictException,
-  CodedForbiddenException,
 } from "../common/exceptions/coded-exception.js";
 import type { EmailLookupResult, UsersService } from "../users/users.service.js";
 import type { RefreshSessionService } from "./refresh-session.service.js";
@@ -15,7 +14,6 @@ import {
   currentSpecialCategoryGrantFields,
 } from "@soma/shared-types";
 import { AUTH_ACCEPTANCE_REQUIRED_CODE } from "./registration-acceptance.js";
-import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
 
 const acceptance = currentRegisterClientFields();
 
@@ -176,36 +174,29 @@ test("register without current acceptances is rejected before user create", asyn
   else process.env.AUTH_REGISTRATION_MODE = prevMode;
 });
 
-test("production register is refused while legal notices stay draft", async () => {
+test("production open register is allowed after legal notices are published", async () => {
   const prevMode = process.env.AUTH_REGISTRATION_MODE;
   const prevNode = process.env.NODE_ENV;
-  process.env.AUTH_REGISTRATION_MODE = "invite";
+  process.env.AUTH_REGISTRATION_MODE = "open";
   process.env.NODE_ENV = "production";
   let created = 0;
   const service = createService({
     findByEmailInsensitive: async () => ({ status: "none" }),
     create: async () => {
       created += 1;
-      return fakeUser();
+      return fakeUser({ email: "prod@example.com", displayName: "Prod" });
     },
   });
 
-  await assert.rejects(
-    () =>
-      service.register({
-        email: "prod@example.com",
-        password: "password123",
-        displayName: "Prod",
-        biologicalSex: "male",
-        ...acceptance,
-      }),
-    (err: unknown) => {
-      assert.ok(err instanceof CodedForbiddenException);
-      assert.equal(err.code, REGISTRATION_UNAVAILABLE_CODE);
-      return true;
-    },
-  );
-  assert.equal(created, 0);
+  const result = await service.register({
+    email: "prod@example.com",
+    password: "password123",
+    displayName: "Prod",
+    biologicalSex: "male",
+    ...acceptance,
+  });
+  assert.equal(created, 1);
+  assert.equal(result.user.email, "prod@example.com");
   if (prevMode === undefined) delete process.env.AUTH_REGISTRATION_MODE;
   else process.env.AUTH_REGISTRATION_MODE = prevMode;
   if (prevNode === undefined) delete process.env.NODE_ENV;

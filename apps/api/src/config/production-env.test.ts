@@ -81,17 +81,26 @@ test("production rejects placeholder JWT_SECRET values", () => {
   );
 });
 
-test("production rejects AUTH_REGISTRATION_MODE=open", () => {
-  throwsConfig(
-    validProd({ AUTH_REGISTRATION_MODE: "open" }),
-    /invite/,
+test("production accepts AUTH_REGISTRATION_MODE=open or invite", () => {
+  assert.doesNotThrow(() =>
+    assertSecureProductionEnv(validProd({ AUTH_REGISTRATION_MODE: "open" })),
+  );
+  assert.doesNotThrow(() =>
+    assertSecureProductionEnv(validProd({ AUTH_REGISTRATION_MODE: "invite" })),
   );
 });
 
 test("production rejects unset AUTH_REGISTRATION_MODE", () => {
   throwsConfig(
     validProd({ AUTH_REGISTRATION_MODE: undefined }),
-    /invite/,
+    /open" or "invite"/,
+  );
+});
+
+test("production rejects unknown AUTH_REGISTRATION_MODE", () => {
+  throwsConfig(
+    validProd({ AUTH_REGISTRATION_MODE: "closed" }),
+    /open" or "invite"/,
   );
 });
 

@@ -78,18 +78,18 @@ test("start:prod rejects an example JWT_SECRET before listen", async (t) => {
   assert.doesNotMatch(result.combined, /listening/i);
 });
 
-test("start:prod rejects AUTH_REGISTRATION_MODE=open before listen", async (t) => {
+test("start:prod rejects an unknown AUTH_REGISTRATION_MODE before listen", async (t) => {
   if (!existsSync(distMain)) {
     t.skip("API dist is missing; compile with tsc -b before this suite");
     return;
   }
   const result = await spawnStartProd({
     JWT_SECRET: VALID_SECRET,
-    AUTH_REGISTRATION_MODE: "open",
+    AUTH_REGISTRATION_MODE: "closed",
     CORS_ORIGIN: "https://app.example.com",
     JWT_EXPIRES_IN: "15m",
   });
   assert.equal(result.code, 1);
-  assert.match(result.combined, /invite/);
+  assert.match(result.combined, /open" or "invite"/);
   assert.doesNotMatch(result.combined, /listening/i);
 });

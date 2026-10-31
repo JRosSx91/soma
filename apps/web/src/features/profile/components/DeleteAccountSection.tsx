@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/index.js";
+import { useRegistrationMode } from "../../auth/context/RegistrationModeContext.js";
 import { previewFocus } from "../../recovery-dashboard/focus.js";
 import { deleteOwnAccount } from "../client/profile-api.js";
 import {
@@ -12,6 +13,11 @@ import {
 export function DeleteAccountSection() {
   const { t } = useTranslation("account");
   const { clearSessionAfterAccountDeletion } = useAuth();
+  const registrationMode = useRegistrationMode();
+  const reregisterBullet =
+    registrationMode.status === "ready" && registrationMode.mode === "invite"
+      ? t("delete.bulletInvite")
+      : t("delete.bulletRegister");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
   const [password, setPassword] = useState("");
@@ -80,7 +86,7 @@ export function DeleteAccountSection() {
         <li>{t("delete.bulletBackups")}</li>
         <li>{t("delete.bulletSessions")}</li>
         <li>{t("delete.bulletIrreversible")}</li>
-        <li>{t("delete.bulletInvite")}</li>
+        <li>{reregisterBullet}</li>
       </ul>
       <button
         type="button"

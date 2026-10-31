@@ -177,6 +177,10 @@ test("account delete copy exists in ES and EN with the same keys", () => {
   assert.match(esAccount.delete.title, /Eliminar mi cuenta/);
   assert.match(esAccount.delete.confirm, /Eliminar definitivamente mi cuenta/);
   assert.match(enAccount.delete.confirm, /Permanently delete my account/);
+  assert.match(enAccount.delete.bulletRegister, /Registration is open/);
+  assert.match(esAccount.delete.bulletRegister, /registro está abierto/);
+  assert.match(enAccount.delete.bulletInvite, /new invitation/);
+  assert.match(esAccount.delete.bulletInvite, /invitación nueva/);
   assert.equal(enAccount.delete.success.includes("@"), false);
   assert.equal(esAccount.delete.success.includes("@"), false);
   assert.match(enAccount.withdrawConsent.title, /Withdraw health-data consent/);

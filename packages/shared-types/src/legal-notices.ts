@@ -1,24 +1,31 @@
 /**
- * Draft legal-notice contract for closed-beta preparation.
+ * Published legal-notice contract for the public beta.
  *
- * LEGAL_NOTICE_STATUS stays "draft" until identity, legal bases, retention,
- * processors, transfers and rights procedures are confirmed. Changing this
- * to "published" is a product decision, not a code default.
- *
- * Affirmative registration checkboxes persist evidence of an action on these
- * draft versions. They are not a claim of GDPR (or other) compliance.
+ * Prior acceptances keep their persisted draft-* documentVersion values.
+ * New registrations record the RELEASE identifiers below so published
+ * evidence stays distinguishable from the draft history.
  *
  * Special-category processing is not accepted at registration. A later
  * explicit grant (purpose special_category_processing) is required before
  * writing substance, journal or derived health data.
  */
-export const LEGAL_NOTICE_STATUS = "draft" as const;
+export const LEGAL_NOTICE_STATUS = "published" as const;
 export type LegalNoticeStatus = "draft" | "published";
 
-export const LEGAL_TERMS_VERSION = "draft-2026-10-31.2";
-export const LEGAL_PRIVACY_VERSION = "draft-2026-10-31.2";
-export const LEGAL_ADULT_AGE_VERSION = "draft-2026-10-31";
-export const LEGAL_SPECIAL_CATEGORY_VERSION = "draft-2026-10-30";
+/**
+ * Identifiers without the draft- prefix. Active while notices are published.
+ */
+export const LEGAL_TERMS_VERSION_RELEASE = "2026-10-31.2";
+export const LEGAL_PRIVACY_VERSION_RELEASE = "2026-10-31.2";
+export const LEGAL_ADULT_AGE_VERSION_RELEASE = "2026-10-31";
+export const LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE = "2026-10-30";
+
+/** Active identifiers persisted on new registration and consent grants. */
+export const LEGAL_TERMS_VERSION = LEGAL_TERMS_VERSION_RELEASE;
+export const LEGAL_PRIVACY_VERSION = LEGAL_PRIVACY_VERSION_RELEASE;
+export const LEGAL_ADULT_AGE_VERSION = LEGAL_ADULT_AGE_VERSION_RELEASE;
+export const LEGAL_SPECIAL_CATEGORY_VERSION =
+  LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE;
 
 export const REGISTRATION_ACCEPTANCE_PURPOSES = [
   "terms_of_use",
@@ -41,7 +48,8 @@ export const SPECIAL_CATEGORY_PROCESSING_PURPOSE =
 export const SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE =
   "special_category_processing_withdrawal" as const;
 
-export const LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION = "draft-2026-10-30";
+export const LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION =
+  LEGAL_SPECIAL_CATEGORY_VERSION_RELEASE;
 
 export type SpecialCategoryConsentRecord = {
   purpose: string;
