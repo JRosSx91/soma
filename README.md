@@ -1,5 +1,13 @@
 <div align="center">
 
+<div align="center">
+  <img
+    src="docs/assets/soma-banner.png"
+    alt="SOMA — Understanding recovery, one day at a time."
+    width="100%"
+  />
+</div>
+
 # SOMA
 
 ### Your body is recovering. Discover how.
