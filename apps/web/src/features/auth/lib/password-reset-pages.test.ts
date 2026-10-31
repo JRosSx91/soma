@@ -265,6 +265,21 @@ test("RegisterPage still renders core fields (no regression)", async () => {
   assert.doesNotMatch(html, /privacy#privacy-special/);
   assert.equal((html.match(/type="checkbox"/g) ?? []).length, 3);
   assert.doesNotMatch(html, /type="checkbox"[^>]*checked/);
+  assert.match(html, /Legal documents are still drafts/);
+  assert.match(html, /development draft, not a published contract/);
+  assert.match(html, /Create account/);
+});
+
+test("AuthShell lets a tall register form scroll inside the form column", () => {
+  const shell = readFileSync(
+    new URL("../components/AuthShell.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(shell, /lg:overflow-y-auto/);
+  assert.match(shell, /overflow-x-clip/);
+  assert.match(shell, /my-auto/);
+  assert.doesNotMatch(shell, /lg:justify-center/);
+  assert.match(shell, /lg:grid-cols-2/);
 });
 
 test("RegisterPage source clears password errors when the confirmation is edited", () => {

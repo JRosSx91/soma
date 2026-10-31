@@ -73,11 +73,11 @@ export function AuthShell({ children }: { children: ReactNode }) {
   }, [pathname, t, i18n.language]);
 
   return (
-    <div className="min-h-svh overflow-x-hidden bg-[#081018] text-soma-ink">
+    <div className="min-h-svh overflow-x-clip bg-[#081018] text-soma-ink">
       <SkipToContent />
-      <div className="grid min-h-svh lg:h-svh lg:grid-cols-2">
+      <div className="grid min-h-svh lg:h-svh lg:grid-cols-2 lg:overflow-hidden">
         <AuthVisualPanel />
-        <div className="flex min-h-svh min-w-0 flex-col lg:h-svh lg:overflow-y-auto">
+        <div className="flex min-h-svh min-w-0 flex-col lg:h-full lg:min-h-0 lg:overflow-y-auto">
           <header className="flex shrink-0 items-center justify-between gap-3 px-4 py-4 sm:px-8">
             <Link to="/" className={`${previewFocus} rounded-lg`}>
               <SomaMark />
@@ -87,9 +87,9 @@ export function AuthShell({ children }: { children: ReactNode }) {
           <main
             id={MAIN_CONTENT_ID}
             tabIndex={-1}
-            className="flex min-h-0 flex-1 flex-col justify-start px-4 py-6 sm:px-8 sm:py-10 lg:justify-center"
+            className="flex min-h-0 flex-1 flex-col px-4 py-6 sm:px-8 sm:py-10"
           >
-            <div className="mx-auto w-full max-w-sm">{children}</div>
+            <div className="mx-auto my-auto w-full max-w-sm">{children}</div>
           </main>
         </div>
       </div>
