@@ -1,10 +1,11 @@
 import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { Somi } from "../somi/SomiView.js";
-import type { SomiState } from "../somi/somi-model.js";
+import { SOMI_SIZE_PX, type SomiState } from "../somi/somi-model.js";
 import { ONB_TOUR_LG_QUERY } from "./tour-steps.js";
 import { tourGhostBtn, tourPrimaryBtn } from "./tour-buttons.js";
 import {
+  TOUR_SOMI_PEEK,
   TOUR_SPOTLIGHT_PAD,
   inflateBox,
   placeTourCard,
@@ -135,7 +136,13 @@ export function TourTalkCard({
       tabIndex={-1}
       data-onb-compact={compact ? "true" : "false"}
       className="onb-card rounded-2xl px-4 pb-4 pt-3 outline-none"
-      style={{ top: pos.top, left: pos.left, width }}
+      style={{
+        top: pos.top,
+        left: pos.left,
+        width,
+        ["--onb-somi-out" as string]: `${compact ? TOUR_SOMI_PEEK.mobile : TOUR_SOMI_PEEK.desktop}px`,
+        ["--onb-somi-size" as string]: `${compact ? SOMI_SIZE_PX.small : SOMI_SIZE_PX.medium}px`,
+      }}
     >
       <div className="onb-somi-peek">
         <Somi state={somi} size={compact ? "small" : "medium"} />
