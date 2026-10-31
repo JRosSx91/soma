@@ -11,9 +11,25 @@ import { PrismaService } from "../prisma/prisma.service.js";
 import { RegisterDto } from "./dto/register.dto.js";
 import { LoginDto } from "./dto/login.dto.js";
 import {
+  CodedBadRequestException,
   CodedConflictException,
   CodedForbiddenException,
 } from "../common/exceptions/coded-exception.js";
+import {
+  AUTH_ACCEPTANCE_REQUIRED_CODE,
+  AUTH_ACCEPTANCE_REQUIRED_MESSAGE,
+  assertProductionAllowsRegistration,
+  assertRegistrationAcceptance,
+  persistRegistrationAcceptances,
+} from "./registration-acceptance.js";
+import { assertEligibleRegistrationAge } from "./registration-age.js";
+import {
+  persistSpecialCategoryGrant,
+  persistSpecialCategoryWithdrawal,
+  purgeSpecialCategoryProductData,
+} from "./special-category-consent.js";
+import { isCurrentSpecialCategoryGrant } from "@soma/shared-types";
+import type { GrantSpecialCategoryDto } from "../account/dto/grant-special-category.dto.js";
 import { normalizeEmail } from "./normalize-email.js";
 import {
   RefreshSessionService,
@@ -74,11 +90,14 @@ export class AuthService {
     dto: RegisterDto,
     meta: SessionMeta = {},
   ): Promise<AuthenticatedSessionResult> {
+    assertRegistrationAcceptance(dto);
+    const birthYear = assertEligibleRegistrationAge(dto.birthDate);
+    assertProductionAllowsRegistration();
     const mode = resolveRegistrationMode();
     if (mode === "invite") {
-      return this.registerWithInvite(dto, meta);
+      return this.registerWithInvite(dto, meta, birthYear);
     }
-    return this.registerOpen(dto, meta);
+    return this.registerOpen(dto, meta, birthYear);
   }
 
   private registrationUnavailable(): CodedForbiddenException {
@@ -91,6 +110,7 @@ export class AuthService {
   private async registerOpen(
     dto: RegisterDto,
     meta: SessionMeta,
+    birthYear: number,
   ): Promise<AuthenticatedSessionResult> {
     const email = normalizeEmail(dto.email);
     const existing = await this.usersService.findByEmailInsensitive(email);
@@ -119,9 +139,10 @@ export class AuthService {
       hashedPassword,
       displayName: dto.displayName,
       biologicalSex: dto.biologicalSex,
-      birthYear: dto.birthYear,
+      birthYear,
       weightKg: dto.weightKg,
     });
+    await persistRegistrationAcceptances(this.prisma, user.id);
 
     return this.buildSession(user.id, user.email, user.displayName, meta);
   }
@@ -129,6 +150,7 @@ export class AuthService {
   private async registerWithInvite(
     dto: RegisterDto,
     meta: SessionMeta,
+    birthYear: number,
   ): Promise<AuthenticatedSessionResult> {
     const inviteToken = dto.inviteToken ?? "";
     if (!isRegistrationInviteTokenFormat(inviteToken)) {
@@ -160,11 +182,12 @@ export class AuthService {
             hashedPassword,
             displayName: dto.displayName,
             biologicalSex: dto.biologicalSex,
-            birthYear: dto.birthYear,
+            birthYear,
             weightKg: dto.weightKg,
           },
           tx,
         );
+        await persistRegistrationAcceptances(tx, created.id);
         await this.invites.attachUser(tx, claimed.id, created.id);
         return created;
       });
@@ -239,6 +262,86 @@ export class AuthService {
 
   async logout(plaintext: string | undefined): Promise<void> {
     await this.refreshSessions.revokeByPlaintext(plaintext);
+  }
+
+  /**
+   * Records an explicit special-category grant for the JWT subject.
+   * Append-only. Idempotent while already active on the current version.
+   */
+  async grantSpecialCategoryConsent(
+    userId: string,
+    dto: GrantSpecialCategoryDto,
+  ): Promise<void> {
+    if (!isCurrentSpecialCategoryGrant(dto)) {
+      throw new CodedBadRequestException(
+        AUTH_ACCEPTANCE_REQUIRED_CODE,
+        AUTH_ACCEPTANCE_REQUIRED_MESSAGE,
+      );
+    }
+
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const locked = await tx.$queryRaw<{ id: string }[]>`
+          SELECT id FROM "User" WHERE id = ${userId} FOR UPDATE
+        `;
+        if (locked.length === 0) {
+          throw this.invalidCredentials();
+        }
+        await persistSpecialCategoryGrant(tx, userId);
+      });
+    } catch (err) {
+      if (err instanceof UnauthorizedException) {
+        throw err;
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Withdraws special-category consent in the live database.
+   * Keeps the account and refresh session. Idempotent.
+   */
+  async withdrawSpecialCategoryConsent(
+    userId: string,
+    password: string,
+  ): Promise<void> {
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const locked = await tx.$queryRaw<{ id: string }[]>`
+          SELECT id FROM "User" WHERE id = ${userId} FOR UPDATE
+        `;
+        if (locked.length === 0) {
+          throw this.invalidCredentials();
+        }
+
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) {
+          throw this.invalidCredentials();
+        }
+
+        const passwordMatches = await bcrypt.compare(
+          password,
+          user.hashedPassword,
+        );
+        if (!passwordMatches) {
+          throw this.invalidCredentials();
+        }
+
+        await persistSpecialCategoryWithdrawal(tx, userId);
+        await purgeSpecialCategoryProductData(tx, userId);
+      });
+    } catch (err) {
+      if (err instanceof UnauthorizedException) {
+        throw err;
+      }
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2025"
+      ) {
+        throw this.invalidCredentials();
+      }
+      throw err;
+    }
   }
 
   /**

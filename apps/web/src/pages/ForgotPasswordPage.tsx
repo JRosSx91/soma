@@ -16,12 +16,14 @@ export function ForgotPasswordPage() {
   const { t } = useTranslation("auth");
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [errorField, setErrorField] = useState<"email" | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
+    setErrorField(null);
     setSubmitting(true);
     try {
       const outcome = await runForgotPasswordRequest(email);
@@ -29,6 +31,9 @@ export function ForgotPasswordPage() {
         setSubmitted(true);
       } else {
         setError(t(outcome.messageKey));
+        setErrorField(
+          outcome.messageKey === "forgotPassword.invalidEmail" ? "email" : null,
+        );
       }
     } finally {
       setSubmitting(false);
@@ -58,21 +63,33 @@ export function ForgotPasswordPage() {
           <>
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+                <label
+                  htmlFor="forgot-email"
+                  className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+                >
                   {t("forgotPassword.email")}
                 </label>
                 <input
+                  id="forgot-email"
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={authFieldClass}
                   autoComplete="email"
+                  aria-invalid={errorField === "email" ? true : undefined}
+                  aria-describedby={
+                    errorField === "email" ? "forgot-field-error" : undefined
+                  }
                 />
               </div>
 
               {error && (
-                <p className="text-sm text-soma-organ-damaged" role="alert">
+                <p
+                  id={errorField === "email" ? "forgot-field-error" : "forgot-form-error"}
+                  className="text-sm text-soma-organ-damaged"
+                  role="alert"
+                >
                   {error}
                 </p>
               )}
@@ -80,6 +97,7 @@ export function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={submitting}
+                aria-busy={submitting || undefined}
                 className={authPrimaryButtonClass}
               >
                 {submitting

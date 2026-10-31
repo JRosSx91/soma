@@ -287,6 +287,8 @@
   },
   "recoveryTrajectoryHint": "En trayectoria estimada",
   "demoDisclaimer": "Cifras y textos ficticios. No son mediciones clínicas.",
+  "demoBadge": "DEMO",
+  "demoAria": "DEMO. {{disclaimer}}",
   "demoChangeStatus": "En progreso",
   "demoPhases": {
     "cannabis": "Fase de normalización de neurotransmisores",
@@ -306,7 +308,7 @@
     "respiratory": "Respiratorio",
     "digestive": "Digestivo",
     "endocrine": "Endocrino",
-    "immune": "Inmunológico"
+    "immune": "Linfático"
   },
   "demoChanges": {
     "dopamine": {
@@ -338,7 +340,7 @@
     "digestive": "Digestivo",
     "hepatic": "Hepático",
     "endocrine": "Endocrino",
-    "immune": "Inmunológico",
+    "immune": "Linfático",
     "integumentary": "Sistema tegumentario",
     "reproductive": "Sistema reproductor"
   }

@@ -106,7 +106,7 @@ export function PreviewMoreMenu({
       ? `${previewFocus} flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm ${
           collapsed ? "justify-center px-0" : ""
         } ${open || childActive ? shellNavActiveClass : shellNavIdleClass}`
-      : `${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2.5 text-[10px] ${
+      : `${previewFocus} flex min-h-12 w-full flex-col items-center justify-center gap-0.5 px-0.5 py-2.5 text-center text-[10px] leading-tight ${
           open || childActive ? shellNavActiveClass : shellNavIdleClass
         }`;
 

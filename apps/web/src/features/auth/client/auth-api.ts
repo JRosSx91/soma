@@ -37,7 +37,13 @@ export async function register(
     password: credentials.password,
     displayName: credentials.displayName,
     biologicalSex: credentials.biologicalSex,
-    birthYear: credentials.birthYear,
+    birthDate: credentials.birthDate,
+    acceptedTerms: credentials.acceptedTerms,
+    termsVersion: credentials.termsVersion,
+    acceptedPrivacyNotice: credentials.acceptedPrivacyNotice,
+    privacyNoticeVersion: credentials.privacyNoticeVersion,
+    acceptedAdultAge: credentials.acceptedAdultAge,
+    adultAgeVersion: credentials.adultAgeVersion,
   };
   if (credentials.weightKg !== undefined) {
     body.weightKg = credentials.weightKg;

@@ -7,6 +7,10 @@ import type {
 } from "@prisma/client";
 import type { ProgressAvailability } from "@soma/shared-types";
 import { PrismaService } from "../prisma/prisma.service.js";
+import {
+  loadSpecialCategoryConsentActive,
+  lockUserForSpecialCategoryMutation,
+} from "../auth/special-category-consent.js";
 import { planAchievementUnlocks, readAchievementProgress } from "./recovery-math.js";
 import {
   claimUserAchievementTimestamp,
@@ -69,61 +73,64 @@ export class AchievementsService {
   async detectAndPersistUnlocks(
     userId: string,
   ): Promise<string[]> {
-    const usages = await this.prisma.substanceUsage.findMany({
-      where: { userId },
-    });
-    if (usages.length === 0) return [];
+    return this.prisma.$transaction(async (tx) => {
+      await lockUserForSpecialCategoryMutation(tx, userId);
+      const active = await loadSpecialCategoryConsentActive(tx, userId);
+      if (!active) return [];
 
-    // Pull all recovery curves and achievements in one go to avoid N+1.
-    const [curves, achievements, alreadyUnlocked] = await Promise.all([
-      this.prisma.organRecoveryCurve.findMany(),
-      this.prisma.achievement.findMany(),
-      this.prisma.userAchievement.findMany({
+      const usages = await tx.substanceUsage.findMany({
         where: { userId },
-        select: { achievementId: true },
-      }),
-    ]);
+      });
+      if (usages.length === 0) return [];
 
-    const alreadyUnlockedIds = new Set(
-      alreadyUnlocked.map((row) => row.achievementId),
-    );
-    const achievementById = new Map(achievements.map((item) => [item.id, item]));
-    const now = new Date();
+      const [curves, achievements, alreadyUnlocked] = await Promise.all([
+        tx.organRecoveryCurve.findMany(),
+        tx.achievement.findMany(),
+        tx.userAchievement.findMany({
+          where: { userId },
+          select: { achievementId: true },
+        }),
+      ]);
 
-    // Missing curves stay out of this list. They are pending review
-    // and are not granted.
-    const planned = planAchievementUnlocks({
-      achievements: achievements.map((item) => ({
-        id: item.id,
-        organId: item.triggerOrganId,
-        substanceId: item.triggerSubstanceId,
-        threshold: item.triggerRecoveryThreshold,
-        family: item.family,
-        abstinenceDays: item.triggerAbstinenceDays,
-      })),
-      curves,
-      usages,
-      alreadyUnlockedIds,
-      now,
+      const alreadyUnlockedIds = new Set(
+        alreadyUnlocked.map((row) => row.achievementId),
+      );
+      const achievementById = new Map(achievements.map((item) => [item.id, item]));
+      const now = new Date();
+
+      const planned = planAchievementUnlocks({
+        achievements: achievements.map((item) => ({
+          id: item.id,
+          organId: item.triggerOrganId,
+          substanceId: item.triggerSubstanceId,
+          threshold: item.triggerRecoveryThreshold,
+          family: item.family,
+          abstinenceDays: item.triggerAbstinenceDays,
+        })),
+        curves,
+        usages,
+        alreadyUnlockedIds,
+        now,
+      });
+
+      const newUnlocks: NewlyUnlockedAchievement[] = [];
+      for (const unlock of planned) {
+        const achievement = achievementById.get(unlock.id);
+        if (!achievement) continue;
+        newUnlocks.push({ achievement, unlockedAt: unlock.unlockedAt });
+      }
+
+      if (newUnlocks.length === 0) return [];
+
+      return insertUserAchievementsIgnoringConflicts(
+        tx,
+        userId,
+        newUnlocks.map((u) => ({
+          achievementId: u.achievement.id,
+          unlockedAt: u.unlockedAt,
+        })),
+      );
     });
-
-    const newUnlocks: NewlyUnlockedAchievement[] = [];
-    for (const unlock of planned) {
-      const achievement = achievementById.get(unlock.id);
-      if (!achievement) continue;
-      newUnlocks.push({ achievement, unlockedAt: unlock.unlockedAt });
-    }
-
-    if (newUnlocks.length === 0) return [];
-
-    return insertUserAchievementsIgnoringConflicts(
-      this.prisma,
-      userId,
-      newUnlocks.map((u) => ({
-        achievementId: u.achievement.id,
-        unlockedAt: u.unlockedAt,
-      })),
-    );
   }
 
   /**

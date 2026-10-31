@@ -1,3 +1,7 @@
+import {
+  currentRegistrationAcceptanceFields,
+  evaluateRegistrationBirthDate,
+} from "@soma/shared-types";
 import type { RegisterCredentials } from "../types.js";
 import {
   isPasswordLongEnough,
@@ -9,11 +13,17 @@ export type RegisterPasswordCheck =
   | { ok: false; messageKey: string };
 
 /**
- * Client-side register password checks. Confirm is never copied into the
- * API payload. Length matches RegisterDto (min 8).
+ * Client-side register checks. Confirm is never copied into the
+ * API payload. Length matches RegisterDto (min 8). Age is also checked
+ * on the server.
  */
 export function prepareRegisterCredentials(
-  input: RegisterCredentials & { confirmPassword: string },
+  input: RegisterCredentials & {
+    confirmPassword: string;
+    acceptedTerms: boolean;
+    acceptedPrivacyNotice: boolean;
+    acceptedAdultAge: boolean;
+  },
 ): RegisterPasswordCheck {
   if (!isPasswordLongEnough(input.password)) {
     return { ok: false, messageKey: "register.passwordTooShort" };
@@ -21,13 +31,34 @@ export function prepareRegisterCredentials(
   if (!passwordsMatch(input.password, input.confirmPassword)) {
     return { ok: false, messageKey: "register.passwordMismatch" };
   }
+  if (
+    !input.acceptedTerms ||
+    !input.acceptedPrivacyNotice ||
+    !input.acceptedAdultAge
+  ) {
+    return { ok: false, messageKey: "register.acceptRequired" };
+  }
+  const age = evaluateRegistrationBirthDate(input.birthDate);
+  if (!age.ok && age.reason === "underage") {
+    return { ok: false, messageKey: "register.ageRestricted" };
+  }
+  if (!age.ok) {
+    return { ok: false, messageKey: "register.birthDateInvalid" };
+  }
 
+  const acceptance = currentRegistrationAcceptanceFields();
   const credentials: RegisterCredentials = {
     email: input.email,
     password: input.password,
     displayName: input.displayName,
     biologicalSex: input.biologicalSex,
-    birthYear: input.birthYear,
+    birthDate: input.birthDate,
+    acceptedTerms: acceptance.acceptedTerms,
+    termsVersion: acceptance.termsVersion,
+    acceptedPrivacyNotice: acceptance.acceptedPrivacyNotice,
+    privacyNoticeVersion: acceptance.privacyNoticeVersion,
+    acceptedAdultAge: acceptance.acceptedAdultAge,
+    adultAgeVersion: acceptance.adultAgeVersion,
   };
   if (input.weightKg !== undefined) {
     credentials.weightKg = input.weightKg;

@@ -31,12 +31,16 @@ export function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [errorField, setErrorField] = useState<"password" | "confirm" | null>(
+    null,
+  );
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
+    setErrorField(null);
     setSubmitting(true);
     try {
       const outcome = await runResetPasswordRequest(token, password, confirm);
@@ -46,6 +50,13 @@ export function ResetPasswordPage() {
         clearHeldPasswordResetToken();
       } else {
         setError(t(outcome.messageKey));
+        if (outcome.messageKey === "resetPassword.tooShort") {
+          setErrorField("password");
+        } else if (outcome.messageKey === "resetPassword.mismatch") {
+          setErrorField("confirm");
+        } else {
+          setErrorField(null);
+        }
       }
     } finally {
       setSubmitting(false);
@@ -89,36 +100,69 @@ export function ResetPasswordPage() {
           <>
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+                <label
+                  htmlFor="reset-password"
+                  className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+                >
                   {t("resetPassword.newPassword")}
                 </label>
                 <AuthPasswordField
+                  id="reset-password"
                   required
                   minLength={8}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setError(null);
+                    setErrorField(null);
+                  }}
                   autoComplete="new-password"
+                  aria-invalid={errorField === "password" ? true : undefined}
+                  aria-describedby={
+                    errorField === "password"
+                      ? "reset-password-hint reset-field-error"
+                      : "reset-password-hint"
+                  }
                 />
-                <p className="mt-1 text-xs text-soma-ink-muted">
+                <p
+                  id="reset-password-hint"
+                  className="mt-1 text-xs text-soma-ink-muted"
+                >
                   {t("resetPassword.passwordHint")}
                 </p>
               </div>
 
               <div>
-                <label className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary">
+                <label
+                  htmlFor="reset-confirm-password"
+                  className="mb-2 block text-xs uppercase tracking-wider text-soma-ink-secondary"
+                >
                   {t("resetPassword.confirmPassword")}
                 </label>
                 <AuthPasswordField
+                  id="reset-confirm-password"
                   required
                   minLength={8}
                   value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
+                  onChange={(e) => {
+                    setConfirm(e.target.value);
+                    setError(null);
+                    setErrorField(null);
+                  }}
                   autoComplete="new-password"
+                  aria-invalid={errorField === "confirm" ? true : undefined}
+                  aria-describedby={
+                    errorField === "confirm" ? "reset-field-error" : undefined
+                  }
                 />
               </div>
 
               {error && (
-                <p className="text-sm text-soma-organ-damaged" role="alert">
+                <p
+                  id={errorField ? "reset-field-error" : "reset-form-error"}
+                  className="text-sm text-soma-organ-damaged"
+                  role="alert"
+                >
                   {error}
                 </p>
               )}
@@ -126,6 +170,7 @@ export function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={submitting}
+                aria-busy={submitting || undefined}
                 className={authPrimaryButtonClass}
               >
                 {submitting

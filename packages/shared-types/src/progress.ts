@@ -26,6 +26,24 @@ export const PROGRESS_XP_SOURCES = [
 
 export type ProgressXpSource = (typeof PROGRESS_XP_SOURCES)[number];
 
+/**
+ * Ledger sources that encode substance use, abstinence, journal wellbeing,
+ * or onboarding of tracking. Mission and referral grants are educational /
+ * operational and are not this set.
+ */
+export const SPECIAL_CATEGORY_XP_SOURCES = [
+  "journal_create_day",
+  "personal_milestone",
+  "onboarding_complete",
+  "achievement_eligible",
+] as const satisfies readonly ProgressXpSource[];
+
+export function isSpecialCategoryXpSource(
+  value: string,
+): value is (typeof SPECIAL_CATEGORY_XP_SOURCES)[number] {
+  return (SPECIAL_CATEGORY_XP_SOURCES as readonly string[]).includes(value);
+}
+
 /** Amounts for sources that already have an approved figure. Others stay reserved. */
 export const PROGRESS_XP_AMOUNT = {
   journal_create_day: 12,

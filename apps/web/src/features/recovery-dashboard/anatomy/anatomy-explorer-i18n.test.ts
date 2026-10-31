@@ -85,6 +85,32 @@ test("scientific resolvers keep the same associations after atlas i18n", () => {
   );
 });
 
+test("atlas 2.0 chrome uses RecoveryHero, nature-8, and drops the illustrated systems grid", () => {
+  const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /RecoveryHero/);
+  assert.match(page, /nature-8\.png/);
+  assert.match(page, /generalDisclaimer/);
+  assert.match(page, /relatedContentForSystem/);
+  assert.match(page, /SystemSheetSummary/);
+  assert.equal(page.includes("illustratedSystems"), false);
+  assert.equal(page.includes("PageHeading"), false);
+  assert.equal(page.includes("BodyDiagram3D"), false);
+  assert.equal(typeof esAnatomy.selectedSystem, "string");
+  assert.notEqual(esAnatomy.selectedSystem, enAnatomy.selectedSystem);
+  assert.notEqual(esAnatomy.exploreThisSystem, enAnatomy.exploreThisSystem);
+  assert.notEqual(esAnatomy.relatedTitle, enAnatomy.relatedTitle);
+  assert.equal(esAnatomy.quotes.length, enAnatomy.quotes.length);
+  assert.match(page, /compactBand/);
+  assert.match(page, /exploreSystemCardSources/);
+  assert.match(page, /lg:grid-cols-\[minmax\(0,7fr\)_minmax\(16\.5rem,3fr\)\]/);
+  assert.match(page, /repeat\(auto-fill,minmax\(11\.5rem,13rem\)\)/);
+  assert.match(page, /self-start/);
+  assert.match(esAnatomy.organCount_one, /Órganos en el atlas/);
+  assert.match(esAnatomy.relatedSubstanceCount_one, /Sustancias analizadas/);
+  assert.match(enAnatomy.organCount_one, /Organs in the atlas/);
+  assert.match(enAnatomy.relatedSubstanceCount_one, /Substances analyzed/);
+});
+
 test("atlas chrome uses the anatomy namespace without forced spanish lookups", () => {
   const page = readFileSync(new URL("../pages/AnatomyExplorerPage.tsx", import.meta.url), "utf8");
   const summary = readFileSync(new URL("../components/OrganSheetSummary.tsx", import.meta.url), "utf8");

@@ -18,6 +18,7 @@ import {
   hashRegistrationInviteToken,
 } from "./invite-token.crypto.js";
 import { REGISTRATION_UNAVAILABLE_CODE } from "./registration-mode.js";
+import { currentRegisterClientFields } from "@soma/shared-types";
 
 async function withLiveDb(
   run: (ctx: {
@@ -92,8 +93,8 @@ test("pg: two concurrent registers with the same invite — one winner", async (
       password: "password123",
       displayName: "A",
       biologicalSex: "male" as const,
-      birthYear: 1990,
       inviteToken: plaintext,
+      ...currentRegisterClientFields(),
     };
     const dtoB = {
       ...dtoA,

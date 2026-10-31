@@ -1,6 +1,11 @@
-import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, type ReactNode } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../../../components/LanguageSelector.js";
+import {
+  MAIN_CONTENT_ID,
+  SkipToContent,
+} from "../../../components/SkipToContent.js";
 import { SomaMark } from "../../recovery-dashboard/components/SomaMark.js";
 import { previewFocus } from "../../recovery-dashboard/focus.js";
 
@@ -48,9 +53,28 @@ function AuthVisualPanel() {
   );
 }
 
+function authTitleKey(pathname: string): string {
+  if (pathname.startsWith("/register")) return "register.title";
+  if (pathname.startsWith("/forgot-password")) return "forgotPassword.title";
+  if (pathname.startsWith("/reset-password")) return "resetPassword.title";
+  return "login.title";
+}
+
 export function AuthShell({ children }: { children: ReactNode }) {
+  const { t, i18n } = useTranslation("auth");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const previous = document.title;
+    document.title = `${t("appName")} — ${t(authTitleKey(pathname))}`;
+    return () => {
+      document.title = previous;
+    };
+  }, [pathname, t, i18n.language]);
+
   return (
     <div className="min-h-svh overflow-x-hidden bg-[#081018] text-soma-ink">
+      <SkipToContent />
       <div className="grid min-h-svh lg:h-svh lg:grid-cols-2">
         <AuthVisualPanel />
         <div className="flex min-h-svh min-w-0 flex-col lg:h-svh lg:overflow-y-auto">
@@ -60,9 +84,13 @@ export function AuthShell({ children }: { children: ReactNode }) {
             </Link>
             <LanguageSelector />
           </header>
-          <div className="flex min-h-0 flex-1 flex-col justify-start px-4 py-6 sm:px-8 sm:py-10 lg:justify-center">
+          <main
+            id={MAIN_CONTENT_ID}
+            tabIndex={-1}
+            className="flex min-h-0 flex-1 flex-col justify-start px-4 py-6 sm:px-8 sm:py-10 lg:justify-center"
+          >
             <div className="mx-auto w-full max-w-sm">{children}</div>
-          </div>
+          </main>
         </div>
       </div>
     </div>

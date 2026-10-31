@@ -72,6 +72,10 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
     new URL("./components/PreviewShell.tsx", import.meta.url),
     "utf8",
   );
+  const mobileNav = readFileSync(
+    new URL("./components/PreviewMobileNav.tsx", import.meta.url),
+    "utf8",
+  );
   assert.match(header, /LanguageSelector/);
   assert.match(header, /AchievementInboxBell compact/);
   assert.match(header, /AccountMenu compact/);
@@ -100,12 +104,21 @@ test("authenticated chrome keeps language, inbox and account in the header", () 
   assert.match(sidebar, /mt-auto/);
   assert.match(sidebar, /translate-x-1\/2/);
   assert.match(shell, /PreviewMobileNav/);
+  assert.equal((shell.match(/<SkipToContent/g) ?? []).length, 1);
+  assert.match(shell, /id=\{MAIN_CONTENT_ID\}/);
   assert.match(shell, /SHELL_SURFACE/);
   assert.equal(shell.includes("bg-[#081018]"), false);
   assert.match(shell, /#081018/);
   assert.match(shell, /#12283a/);
   assert.equal(shell.includes("homeSurface"), false);
-  assert.match(shell, /safe-area-inset-bottom/);
+  assert.match(shell, /h-dvh/);
+  assert.match(shell, /lg:h-auto/);
+  assert.match(shell, /flex-1/);
+  assert.match(shell, /overflow-y-auto/);
+  assert.equal(shell.includes("pb-[calc(5.75rem"), false);
+  assert.equal(mobileNav.includes("fixed inset-x-0"), false);
+  assert.match(mobileNav, /shrink-0/);
+  assert.match(mobileNav, /safe-area-inset-bottom/);
   assert.match(shell, /SHELL_SIDEBAR_COLLAPSED_CLASS/);
   assert.match(shell, /SHELL_CONTENT_COLLAPSED_PAD_CLASS/);
   assert.match(shell, /SHELL_CONTENT_COLLAPSED_ALIGN_CLASS/);

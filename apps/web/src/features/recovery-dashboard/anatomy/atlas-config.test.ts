@@ -114,6 +114,8 @@ test("bound atlas plates never point at missing files", () => {
 test("immune uses system-immune.png and no lymphatic leftover", () => {
   const immune = atlasSystems.find((system) => system.id === "immune");
   assert.ok(immune);
+  assert.equal(immune.id, "immune");
+  assert.equal(immune.name, "Sistema linfático");
   assert.equal(immune.plates.anterior?.src, "/images/anatomy/system-immune.png");
   assert.equal(immune.plates.anterior?.aspectRatio, "1024 / 1536");
   assert.equal(existsSync(join(anatomyPublicDir, "system-immune.png")), true);

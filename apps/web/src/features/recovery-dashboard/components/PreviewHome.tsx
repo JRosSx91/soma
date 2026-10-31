@@ -5,6 +5,7 @@ import { Award, ChevronRight, Route } from "lucide-react";
 import { HomeProgressIdentity, useProgress } from "../../progress/index.js";
 import type { TemporalMilestoneState } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
+import { SpecialCategoryConsentCard } from "../../profile/components/SpecialCategoryConsentCard.js";
 import type { AchievementWithUnlockState } from "../../achievements/types.js";
 import type { DemoSubstance } from "../demo-data.js";
 import { previewFocus } from "../focus.js";
@@ -160,12 +161,22 @@ export function PreviewHome() {
           unlockedCount={unlockedCount}
           progression={progression}
         />
-        <p className="rounded-2xl border border-dashed border-soma-line px-4 py-5 text-sm text-soma-ink-secondary">
-          {t("recovery:homeEmptyBody")}
-        </p>
-        <Link to="/onboarding" className={textLink}>
-          {t("recovery:goOnboarding")}
-        </Link>
+        {dashboard.needsSpecialCategoryConsent ? (
+          <SpecialCategoryConsentCard
+            onGranted={() => {
+              dashboard.reload();
+            }}
+          />
+        ) : (
+          <>
+            <p className="rounded-2xl border border-dashed border-soma-line px-4 py-5 text-sm text-soma-ink-secondary">
+              {t("recovery:homeEmptyBody")}
+            </p>
+            <Link to="/onboarding" className={textLink}>
+              {t("recovery:goOnboarding")}
+            </Link>
+          </>
+        )}
       </div>
     );
   }
@@ -310,6 +321,7 @@ function HomeHeader({ demo, message }: { demo: boolean; message: string | null }
           <h1
             className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
             style={{ color: "rgb(var(--soma-shell-accent))" }}
+            data-onb="home-title"
           >
             {t("homeTitleLead")}
           </h1>

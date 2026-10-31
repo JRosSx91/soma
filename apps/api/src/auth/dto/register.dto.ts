@@ -1,15 +1,22 @@
 import {
+  Equals,
+  IsBoolean,
   IsEmail,
   IsEnum,
-  IsInt,
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
   Max,
   Min,
   MinLength,
 } from "class-validator";
 import { BiologicalSex } from "@prisma/client";
+import {
+  LEGAL_ADULT_AGE_VERSION,
+  LEGAL_PRIVACY_VERSION,
+  LEGAL_TERMS_VERSION,
+} from "@soma/shared-types";
 
 export class RegisterDto {
   @IsEmail()
@@ -26,10 +33,13 @@ export class RegisterDto {
   @IsEnum(BiologicalSex)
   biologicalSex!: BiologicalSex;
 
-  @IsInt()
-  @Min(1900)
-  @Max(new Date().getFullYear())
-  birthYear!: number;
+  /**
+   * Civil date of birth (YYYY-MM-DD). Used only to check majority of age.
+   * The account stores the derived year, not this date.
+   */
+  @IsString()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/)
+  birthDate!: string;
 
   /** Optional; Prisma Float? / PG DOUBLE PRECISION — decimals allowed. */
   @IsOptional()
@@ -45,4 +55,32 @@ export class RegisterDto {
   @IsOptional()
   @IsString()
   inviteToken?: string;
+
+  /**
+   * Affirmative actions on the current draft documents. Required for new
+   * registrations.
+   */
+  @IsBoolean()
+  @Equals(true)
+  acceptedTerms!: boolean;
+
+  @IsString()
+  @Equals(LEGAL_TERMS_VERSION)
+  termsVersion!: string;
+
+  @IsBoolean()
+  @Equals(true)
+  acceptedPrivacyNotice!: boolean;
+
+  @IsString()
+  @Equals(LEGAL_PRIVACY_VERSION)
+  privacyNoticeVersion!: string;
+
+  @IsBoolean()
+  @Equals(true)
+  acceptedAdultAge!: boolean;
+
+  @IsString()
+  @Equals(LEGAL_ADULT_AGE_VERSION)
+  adultAgeVersion!: string;
 }

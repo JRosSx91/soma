@@ -7,6 +7,7 @@ import { useAuth } from "../../auth/index.js";
 import { previewFocus } from "../focus.js";
 import { placeAnchoredPanel } from "../lib/place-anchored-panel.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
+import { useOnboardingTourOptional } from "../../onboarding-tour/useOnboardingTour.js";
 
 interface AccountMenuProps {
   /** Compact circular trigger for the shared shell header. */
@@ -20,10 +21,11 @@ interface AccountMenuProps {
  * Does not expose tokens or private profile fields in public preview.
  */
 export function AccountMenu({ compact = false, anchor = "bottom" }: AccountMenuProps) {
-  const { t } = useTranslation("account");
+  const { t } = useTranslation(["account", "onboarding-tour"]);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const base = useShellBase();
+  const tour = useOnboardingTourOptional();
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -138,20 +140,33 @@ export function AccountMenu({ compact = false, anchor = "bottom" }: AccountMenuP
                   </Link>
                   <Link
                     role="menuitem"
+                    to={`${base}/feedback`}
+                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t("menuFeedback")}
+                  </Link>
+                  <Link
+                    role="menuitem"
                     to="/onboarding"
                     className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
                     onClick={() => setOpen(false)}
                   >
                     {t("menuSubstances")}
                   </Link>
-                  <Link
-                    role="menuitem"
-                    to="/app-legacy"
-                    className={`${previewFocus} block px-3 py-2 text-sm text-soma-ink hover:bg-soma-surface`}
-                    onClick={() => setOpen(false)}
-                  >
-                    {t("menuOpenLegacy")}
-                  </Link>
+                  {tour ? (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className={`${previewFocus} block w-full px-3 py-2 text-left text-sm text-soma-ink hover:bg-soma-surface`}
+                      onClick={() => {
+                        setOpen(false);
+                        tour.restart();
+                      }}
+                    >
+                      {t("onboarding-tour:restart")}
+                    </button>
+                  ) : null}
                   <button
                     type="button"
                     role="menuitem"

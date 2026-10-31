@@ -43,6 +43,7 @@
     "lastUseDateRequired": "Indica la última vez que consumiste {{substance}}",
     "saveFailed": "No se ha podido guardar tu seguimiento. Inténtalo de nuevo.",
     "statusFailed": "Tus sustancias se han guardado, pero no hemos podido actualizar el estado de la configuración. Reinténtalo sin perder tus datos.",
-    "skipFailed": "No se ha podido continuar sin seguimiento. Inténtalo de nuevo."
+    "skipFailed": "No se ha podido continuar sin seguimiento. Inténtalo de nuevo.",
+    "consentRequired": "Para guardar el seguimiento, permite antes que Soma conserve esos datos."
   }
 }

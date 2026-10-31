@@ -12,6 +12,7 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { createId } from "../auth/create-id.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
 import { JournalService } from "./journal.service.js";
 import { ProgressService } from "../progress/progress.service.js";
 import type { CreateJournalEntryDto } from "./dto/create-journal-entry.dto.js";
@@ -85,6 +86,7 @@ async function createTestUser(
       birthYear: 1991,
     },
   });
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, id);
   return { id };
 }
 

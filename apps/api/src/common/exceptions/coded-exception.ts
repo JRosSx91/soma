@@ -1,9 +1,19 @@
 import {
+  BadRequestException,
   ConflictException,
   ForbiddenException,
   UnauthorizedException,
   NotFoundException,
 } from "@nestjs/common";
+
+export class CodedBadRequestException extends BadRequestException {
+  public readonly code: string;
+
+  constructor(code: string, message: string) {
+    super({ message, code });
+    this.code = code;
+  }
+}
 
 export class CodedConflictException extends ConflictException {
   public readonly code: string;

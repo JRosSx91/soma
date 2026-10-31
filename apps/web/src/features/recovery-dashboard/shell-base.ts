@@ -8,8 +8,9 @@
  *
  * Pending destinations (Expedition) are omitted until they have real
  * pages. Add a def with desktop/mobile/more flags; menus filter.
- * Journal and Missions are on the desktop rail and in mobile «Más».
- * Account stays in AccountMenu, not in the desktop overflow.
+ * Mobile dock: Home, Recovery, Missions, Journal, then «Más».
+ * Explore sits with Anatomy in mobile «Más» so the dock stays at five
+ * slots. Feedback is more-only. Account stays in AccountMenu on desktop.
  */
 export type ShellBase = "/app" | "/preview";
 
@@ -21,6 +22,7 @@ export type ShellIconId =
   | "trophy"
   | "book"
   | "flag"
+  | "messageCircle"
   | "user";
 
 export const shellSectionDefs = [
@@ -51,8 +53,8 @@ export const shellSectionDefs = [
     path: "/explore",
     icon: "compass",
     desktop: true,
-    mobile: true,
-    more: false,
+    mobile: false,
+    more: true,
   },
   {
     id: "misiones",
@@ -61,8 +63,8 @@ export const shellSectionDefs = [
     path: "/missions",
     icon: "flag",
     desktop: true,
-    mobile: false,
-    more: true,
+    mobile: true,
+    more: false,
   },
   {
     id: "anatomia",
@@ -91,6 +93,16 @@ export const shellSectionDefs = [
     path: "/journal",
     icon: "book",
     desktop: true,
+    mobile: true,
+    more: false,
+  },
+  {
+    id: "ayuda",
+    labelKey: "feedback",
+    mobileLabelKey: "feedback",
+    path: "/feedback",
+    icon: "messageCircle",
+    desktop: false,
     mobile: false,
     more: true,
   },

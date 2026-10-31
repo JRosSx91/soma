@@ -1,3 +1,5 @@
+import { isStoredBirthYearAllowed } from "@soma/shared-types";
+
 /**
  * Client-side helpers for PATCH /me/profile/details.
  * Aligns with API UpdateProfileDetailsDto (no silent rounding; no string numbers).
@@ -98,7 +100,8 @@ export function buildProfileDetailsPatch(
   if (
     !Number.isInteger(birthYear) ||
     birthYear < 1900 ||
-    birthYear > currentYear
+    birthYear > currentYear ||
+    !isStoredBirthYearAllowed(birthYear, baseline.birthYear)
   ) {
     return { ok: false, errorKey: "errors.birthYearInvalid" };
   }

@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BadRequestException, NotFoundException } from "@nestjs/common";
+import {
+  CodedBadRequestException,
+  CodedForbiddenException,
+} from "../common/exceptions/coded-exception.js";
+import { AUTH_AGE_RESTRICTED_CODE } from "../auth/registration-age.js";
 import { OnboardingStatus } from "@prisma/client";
 import { ProfileService } from "./profile.service.js";
 
@@ -54,8 +59,32 @@ function makeUsage(userId: string, substanceId = "nicotine"): UsageRow {
 
 function createService(store: {
   users: Map<string, ReturnType<typeof makeUser>>;
+  withdrawn?: Set<string>;
+  withoutConsent?: Set<string>;
 }) {
   const prisma = {
+    registrationAcceptance: {
+      findMany: async ({
+        where,
+      }: {
+        where: { userId: string };
+      }) => {
+        if (store.withoutConsent?.has(where.userId)) return [];
+        const withdrawn = store.withdrawn?.has(where.userId) ?? false;
+        const grant = {
+          purpose: "special_category_processing",
+          acceptedAt: new Date("2026-10-30T10:00:00.000Z"),
+        };
+        if (!withdrawn) return [grant];
+        return [
+          grant,
+          {
+            purpose: "special_category_processing_withdrawal",
+            acceptedAt: new Date("2026-10-30T12:00:00.000Z"),
+          },
+        ];
+      },
+    },
     user: {
       findUnique: async ({
         where,
@@ -64,12 +93,18 @@ function createService(store: {
       }: {
         where: { id: string };
         include?: { usages: boolean };
-        select?: { id: boolean; onboardingStatus: boolean };
+        select?: { id: boolean; onboardingStatus?: boolean; birthYear?: boolean };
       }) => {
         const user = store.users.get(where.id);
         if (!user) return null;
         if (select) {
-          return { id: user.id, onboardingStatus: user.onboardingStatus };
+          return {
+            id: user.id,
+            ...(select.onboardingStatus
+              ? { onboardingStatus: user.onboardingStatus }
+              : {}),
+            ...(select.birthYear ? { birthYear: user.birthYear } : {}),
+          };
         }
         if (include?.usages) return user;
         return user;
@@ -135,6 +170,7 @@ function createService(store: {
         return { count: data.length };
       },
     },
+    $queryRaw: async () => [{ id: "locked" }],
     $transaction: async (fn: (tx: unknown) => Promise<unknown>) => fn(prisma),
   };
 
@@ -146,7 +182,20 @@ test("getProfile returns pending for a new user with empty usages", async () => 
   const service = createService({ users: new Map([[user.id, user]]) });
   const profile = await service.getProfile(user.id);
   assert.equal(profile.onboardingStatus, OnboardingStatus.pending);
+  assert.equal(profile.specialCategoryConsentActive, true);
+  assert.equal(profile.specialCategoryConsentWithdrawn, false);
   assert.equal(profile.usages.length, 0);
+});
+
+test("getProfile reports withdrawn special-category consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withdrawn: new Set([user.id]),
+  });
+  const profile = await service.getProfile(user.id);
+  assert.equal(profile.specialCategoryConsentActive, false);
+  assert.equal(profile.specialCategoryConsentWithdrawn, true);
 });
 
 test("getProfile returns stored status even when usages are empty (skipped)", async () => {
@@ -235,6 +284,95 @@ test("upsertProfile does not change onboardingStatus", async () => {
   assert.equal(profile.usages.length, 1);
 });
 
+test("upsertProfile with usages is forbidden after consent withdrawal", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withdrawn: new Set([user.id]),
+  });
+  await assert.rejects(
+    () =>
+      service.upsertProfile(user.id, {
+        usages: [
+          {
+            substanceId: "nicotine",
+            yearStarted: 2020,
+            frequency: "daily",
+            status: "abstinent",
+            lastUseDate: "2024-01-01",
+          },
+        ],
+      }),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.usages.length, 0);
+});
+
+test("upsertProfile with usages is forbidden without consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withoutConsent: new Set([user.id]),
+  });
+  await assert.rejects(
+    () =>
+      service.upsertProfile(user.id, {
+        usages: [
+          {
+            substanceId: "nicotine",
+            yearStarted: 2020,
+            frequency: "daily",
+            status: "abstinent",
+            lastUseDate: "2024-01-01",
+          },
+        ],
+      }),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.usages.length, 0);
+});
+
+test("completing onboarding is forbidden without consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withoutConsent: new Set([user.id]),
+  });
+  await assert.rejects(
+    () => service.updateOnboardingStatus(user.id, OnboardingStatus.completed),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.onboardingStatus, OnboardingStatus.pending);
+});
+
+test("updateProfileDetails is allowed without special-category consent", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withoutConsent: new Set([user.id]),
+  });
+  const profile = await service.updateProfileDetails(user.id, {
+    displayName: "Pat",
+    weightKg: 70,
+  });
+  assert.equal(profile.user.displayName, "Pat");
+  assert.equal(profile.user.weightKg, 70);
+});
+
+test("completing onboarding is forbidden after consent withdrawal", async () => {
+  const user = makeUser();
+  const service = createService({
+    users: new Map([[user.id, user]]),
+    withdrawn: new Set([user.id]),
+  });
+  await assert.rejects(
+    () =>
+      service.updateOnboardingStatus(user.id, OnboardingStatus.completed),
+    (err: unknown) => err instanceof CodedForbiddenException,
+  );
+  assert.equal(user.onboardingStatus, OnboardingStatus.pending);
+});
+
 test("upsertProfile empty array clears usages but keeps skipped status", async () => {
   const user = makeUser({
     onboardingStatus: OnboardingStatus.skipped,
@@ -320,6 +458,23 @@ test("updateProfileDetails omitted fields stay unchanged", async () => {
   assert.equal(profile.user.birthYear, 1990);
   assert.equal(profile.user.weightKg, 80);
   assert.equal(profile.user.email, user.email);
+});
+
+test("updateProfileDetails rejects a birth year that cannot be 18", async () => {
+  const user = makeUser();
+  const service = createService({ users: new Map([[user.id, user]]) });
+  await assert.rejects(
+    () =>
+      service.updateProfileDetails(user.id, {
+        birthYear: new Date().getFullYear() - 1,
+      }),
+    (err: unknown) => {
+      assert.ok(err instanceof CodedBadRequestException);
+      assert.equal(err.code, AUTH_AGE_RESTRICTED_CODE);
+      return true;
+    },
+  );
+  assert.equal(user.birthYear, 1990);
 });
 
 test("updateProfileDetails allows null weightKg and preserves other fields", async () => {

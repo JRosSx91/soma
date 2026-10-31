@@ -7,6 +7,7 @@ import { test } from "node:test";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { createId } from "../auth/create-id.js";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { upsertTemporalAchievements } from "../../prisma/seed/achievements.js";
 import { AchievementsService } from "./achievements.service.js";
@@ -66,6 +67,7 @@ async function createUser(prisma: PrismaClient, label: string): Promise<string> 
       birthYear: 1992,
     },
   });
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, id);
   return id;
 }
 

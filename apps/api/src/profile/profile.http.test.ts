@@ -104,6 +104,8 @@ class RecordingProfileService {
       },
       onboardingStatus:
         this.statusByUser.get(userId) ?? OnboardingStatus.pending,
+      specialCategoryConsentActive: true,
+      specialCategoryConsentWithdrawn: false,
       usages: [],
     };
   }

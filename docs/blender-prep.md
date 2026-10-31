@@ -1,5 +1,8 @@
 # Blender preparation — Z-Anatomy → Soma
 
+> Historical Soma 1.0 notes. The `BodyDiagram3D` viewer and `body_male.glb`
+> were removed in CLEAN-01; Soma 2.0 does not ship this 3D surface.
+
 This document records the exploration of Z-Anatomy as the source of the
 3D anatomical model for Soma's `BodyDiagram3D`, and the decisions taken
 during initial inventory.

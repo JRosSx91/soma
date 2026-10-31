@@ -19,6 +19,7 @@ interface Labels {
   substance: string;
   tier: string;
   family: string;
+  hiddenLabel: string;
 }
 
 export function AchievementGalleryCard({
@@ -36,10 +37,10 @@ export function AchievementGalleryCard({
 }) {
   const status = statusLabel(view, labels);
   const requirement = requirementCopy(item, view, labels);
-  const title = view.sealed ? "???" : item.title;
-  const accessibleName = [status, title, labels.family, requirement, labels.substance]
-    .filter(Boolean)
-    .join(". ");
+  const title = view.sealed ? labels.hiddenLabel : item.title;
+  const accessibleName = view.sealed
+    ? labels.hiddenLabel
+    : [status, title, labels.family, requirement, labels.substance].filter(Boolean).join(". ");
   const fill =
     view.bucket === "in_progress" && view.temporal?.fillPercent
       ? temporalBarFill(view.temporal.fillPercent)
@@ -97,7 +98,10 @@ export function AchievementGalleryCard({
           <span className="mt-2 block line-clamp-2 text-sm font-semibold leading-snug text-soma-ink">
             {title}
           </span>
-          <span className="mt-1 block text-[11px] text-soma-ink-secondary">{requirement}</span>
+          {view.sealed ? null : (
+            <span className="mt-1 block text-[11px] text-soma-ink-secondary">{requirement}</span>
+          )}
+          {view.sealed ? null : (
           <span className="mt-2 flex flex-wrap gap-1">
             <span className="inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
               {labels.family}
@@ -106,6 +110,7 @@ export function AchievementGalleryCard({
               {labels.substance}
             </span>
           </span>
+          )}
           {fill || progressCaption ? (
             <span className="mt-2 flex flex-col gap-1">
               {progressCaption ? (
@@ -137,10 +142,17 @@ export function AchievementGalleryCard({
     >
       <ChevronRight className="absolute top-2 right-2 h-3.5 w-3.5 text-soma-ink-muted" aria-hidden="true" />
       <span className="mx-auto">{medal}</span>
-      <span className="line-clamp-2 text-sm font-semibold leading-snug text-soma-ink">
+      <span
+        className={`line-clamp-2 w-full text-sm font-semibold leading-snug text-soma-ink ${
+          view.sealed ? "text-center" : ""
+        }`}
+      >
         {title}
       </span>
-      <span className="text-[11px] leading-snug text-soma-ink-secondary">{requirement}</span>
+      {view.sealed ? null : (
+        <span className="text-[11px] leading-snug text-soma-ink-secondary">{requirement}</span>
+      )}
+      {view.sealed ? null : (
       <span className="flex min-w-0 flex-wrap gap-1">
         <span className="inline-flex rounded-full bg-soma-raised px-2 py-0.5 text-[11px] text-soma-ink-secondary">
           {labels.family}
@@ -149,6 +161,7 @@ export function AchievementGalleryCard({
           {labels.substance}
         </span>
       </span>
+      )}
       <span className="mt-auto flex w-full flex-col gap-1 pt-1.5">
         {view.bucket !== "in_progress" ? <span className="self-start">{pill}</span> : null}
         {progressCaption && view.bucket !== "in_progress" ? (
@@ -174,6 +187,7 @@ export function AchievementGalleryCard({
 }
 
 function statusLabel(view: AchievementViewModel, labels: Labels): string {
+  if (view.sealed) return labels.hiddenLabel;
   if (view.review) return labels.review;
   if (view.bucket === "unlocked") return labels.unlocked;
   if (view.bucket === "in_progress") return labels.inProgress;
@@ -189,7 +203,7 @@ function pillClass(bucket: StatusBucket): string {
 }
 
 function requirementCopy(item: CatalogItem, view: AchievementViewModel, labels: Labels): string {
-  if (view.sealed) return labels.tier;
+  if (view.sealed) return labels.hiddenLabel;
   if (view.review) return labels.unavailableHint;
   if (item.family === "temporal" && item.abstinenceDays != null) {
     return labels.temporalRequirement(item.abstinenceDays, labels.substance);

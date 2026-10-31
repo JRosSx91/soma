@@ -8,11 +8,9 @@
     "build": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "tsx --tsconfig ./tsconfig.app.json --test \"src/features/auth/**/*.test.ts\" \"src/features/profile/**/*.test.ts\" \"src/features/achievements/**/*.test.ts\" \"src/features/journal/**/*.test.ts\" \"src/features/progress/**/*.test.ts\" \"src/features/missions/**/*.test.ts\" \"src/features/recovery-dashboard/**/*.test.ts\" \"src/features/landing-v2/**/*.test.ts\" \"src/seo/**/*.test.ts\""
+    "test": "node scripts/run-web-tests.cjs"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.0",
     "@soma/shared-types": "workspace:^",
     "framer-motion": "^12.38.0",
     "i18next": "^26.0.8",
@@ -21,16 +19,13 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-i18next": "^17.0.6",
-    "react-router-dom": "^7.14.2",
-    "three": "^0.184.0",
-    "zustand": "^5.0.13"
+    "react-router-dom": "^7.14.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/three": "^0.184.0",
     "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.2.1",

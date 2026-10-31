@@ -30,6 +30,9 @@ import {
   hashRegistrationInviteToken,
   registrationInviteTtlMs,
 } from "../auth/invite-token.crypto.js";
+import { currentRegisterClientFields } from "@soma/shared-types";
+import { persistSpecialCategoryGrant } from "../auth/special-category-consent.js";
+import { PrismaService } from "../prisma/prisma.service.js";
 
 const ORIGIN = "http://localhost:5173";
 const PASSWORD_A = "iso-pass-A-9f3k2m";
@@ -239,8 +242,9 @@ async function registerUser(input: {
     password: input.password,
     displayName: input.displayName,
     biologicalSex: input.biologicalSex,
-    birthYear: input.birthYear,
     inviteToken: input.inviteToken,
+    ...currentRegisterClientFields(),
+    birthDate: `${input.birthYear}-06-15`,
   });
   assert.equal(res.status, 201, "register must succeed with a live invite");
   const refresh = cookieValue(res, REFRESH_COOKIE_NAME);
@@ -255,6 +259,8 @@ async function registerUser(input: {
   };
   createdUserIds.push(session.id);
   assert.equal(jwtSub(session.accessToken), session.id);
+  if (!prisma) throw new Error("prisma is not connected");
+  await persistSpecialCategoryGrant(prisma as unknown as PrismaService, session.id);
   return session;
 }
 

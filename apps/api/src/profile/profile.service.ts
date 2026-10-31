@@ -3,6 +3,17 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import { isStoredBirthYearAllowed } from "@soma/shared-types";
+import { CodedBadRequestException } from "../common/exceptions/coded-exception.js";
+import {
+  AUTH_AGE_RESTRICTED_CODE,
+  AUTH_AGE_RESTRICTED_MESSAGE,
+} from "../auth/registration-age.js";
+import {
+  requireSpecialCategoryWrite,
+  loadSpecialCategoryConsentActive,
+  loadSpecialCategoryProcessingWithdrawn,
+} from "../auth/special-category-consent.js";
 import type {
   BiologicalSex,
   OnboardingStatus,
@@ -25,6 +36,8 @@ export interface ProfileResponse {
   };
   /** Explicit onboarding intent — independent of usages.length. */
   onboardingStatus: OnboardingStatus;
+  specialCategoryConsentActive: boolean;
+  specialCategoryConsentWithdrawn: boolean;
   usages: SubstanceUsage[];
 }
 
@@ -42,7 +55,16 @@ export class ProfileService {
       throw new NotFoundException("User not found");
     }
 
-    return this.toResponse(user);
+    const [specialCategoryConsentActive, specialCategoryConsentWithdrawn] =
+      await Promise.all([
+        loadSpecialCategoryConsentActive(this.prisma, userId),
+        loadSpecialCategoryProcessingWithdrawn(this.prisma, userId),
+      ]);
+    return this.toResponse(
+      user,
+      specialCategoryConsentActive,
+      specialCategoryConsentWithdrawn,
+    );
   }
 
   /**
@@ -71,6 +93,9 @@ export class ProfileService {
     }
 
     await this.prisma.$transaction(async (tx) => {
+      if (dto.usages.length > 0) {
+        await requireSpecialCategoryWrite(tx, userId);
+      }
       await tx.substanceUsage.deleteMany({ where: { userId } });
 
       if (dto.usages.length > 0) {
@@ -100,6 +125,9 @@ export class ProfileService {
    * Partial update of editable personal fields only.
    * Never mutates email, password, onboardingStatus, or SubstanceUsage rows.
    * Omitted DTO properties are left unchanged; `weightKg: null` clears weight.
+   * Not gated by special-category consent: biologicalSex, birthYear and
+   * weightKg are account demographics. Recovery curves and NT composition
+   * do not use them (BETA-01C.2 inspection).
    */
   async updateProfileDetails(
     userId: string,
@@ -134,10 +162,19 @@ export class ProfileService {
 
     const existing = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true },
+      select: { id: true, birthYear: true },
     });
     if (!existing) {
       throw new NotFoundException("User not found");
+    }
+    if (
+      dto.birthYear !== undefined &&
+      !isStoredBirthYearAllowed(dto.birthYear, existing.birthYear)
+    ) {
+      throw new CodedBadRequestException(
+        AUTH_AGE_RESTRICTED_CODE,
+        AUTH_AGE_RESTRICTED_MESSAGE,
+      );
     }
 
     await this.prisma.user.update({
@@ -180,10 +217,17 @@ export class ProfileService {
       );
     }
 
-    if (user.onboardingStatus !== next) {
-      await this.prisma.user.update({
-        where: { id: userId },
-        data: { onboardingStatus: next },
+    if (next === "completed" || user.onboardingStatus !== next) {
+      await this.prisma.$transaction(async (tx) => {
+        if (next === "completed") {
+          await requireSpecialCategoryWrite(tx, userId);
+        }
+        if (user.onboardingStatus !== next) {
+          await tx.user.update({
+            where: { id: userId },
+            data: { onboardingStatus: next },
+          });
+        }
       });
     }
 
@@ -192,6 +236,8 @@ export class ProfileService {
 
   private toResponse(
     user: User & { usages: SubstanceUsage[] },
+    specialCategoryConsentActive: boolean,
+    specialCategoryConsentWithdrawn: boolean,
   ): ProfileResponse {
     return {
       user: {
@@ -203,6 +249,8 @@ export class ProfileService {
         weightKg: user.weightKg,
       },
       onboardingStatus: user.onboardingStatus,
+      specialCategoryConsentActive,
+      specialCategoryConsentWithdrawn,
       usages: user.usages,
     };
   }

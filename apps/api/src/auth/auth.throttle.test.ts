@@ -20,6 +20,9 @@ import {
 } from "./auth-throttle.js";
 import { PasswordResetService } from "./password-reset.service.js";
 import { FORGOT_PASSWORD_RESPONSE } from "./password-reset.service.js";
+import { currentRegisterClientFields } from "@soma/shared-types";
+
+const acceptance = currentRegisterClientFields();
 
 @Injectable()
 class StubAuthService {
@@ -135,7 +138,7 @@ test("register budget stays independent after login is already exhausted", async
         password: "password123",
         displayName: "Fresh",
         biologicalSex: "male",
-        birthYear: 1990,
+        ...acceptance,
       });
     assert.equal(res.status, 201, `register attempt ${i + 1}`);
   }
@@ -147,7 +150,7 @@ test("register budget stays independent after login is already exhausted", async
       password: "password123",
       displayName: "Overflow",
       biologicalSex: "male",
-      birthYear: 1990,
+      ...acceptance,
     });
 
   assert.equal(blocked.status, 429);

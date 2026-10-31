@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, test } from "node:test";
+import { currentSpecialCategoryGrantFields } from "@soma/shared-types";
 import {
   fetchUserProfile,
+  grantSpecialCategoryConsent,
   patchOnboardingStatus,
   patchProfileDetails,
   saveUserUsages,
@@ -92,4 +94,20 @@ test("patchProfileDetails PATCHes /me/profile/details with numeric fields", asyn
 test("patchProfileDetails rejects empty patch client-side", async () => {
   await assert.rejects(() => patchProfileDetails({}), /at least one field/i);
   assert.equal(calls.length, 0);
+});
+
+test("grantSpecialCategoryConsent POSTs current grant fields and accepts 204", async () => {
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    calls.push({ url: String(input), init });
+    return new Response(null, { status: 204 });
+  }) as typeof fetch;
+
+  await grantSpecialCategoryConsent();
+  assert.equal(calls[0]!.init?.method, "POST");
+  assert.match(calls[0]!.url, /\/me\/account\/special-category-consent$/);
+  assert.doesNotMatch(calls[0]!.url, /withdraw/);
+  assert.deepEqual(
+    JSON.parse(String(calls[0]!.init?.body)),
+    currentSpecialCategoryGrantFields(),
+  );
 });

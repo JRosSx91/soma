@@ -6,6 +6,7 @@ import {
   SHELL_HERO_BLEED_EXPANDED_CLASS,
 } from "../shell-sidebar.js";
 import { DemoNotice } from "./DemoNotice.js";
+import "./photo-copy.css";
 
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
 const photoMask = {
@@ -16,7 +17,7 @@ const photoMask = {
 const DEFAULT_IMAGE = "/images/decoration/nature-2.png";
 const DEFAULT_OBJECT_POSITION = "center 42%";
 const DEFAULT_OVERLAY =
-  "linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.88) 0%, rgb(var(--soma-shell-rail) / 0.4) 36%, rgb(var(--soma-shell-rail) / 0.06) 68%, transparent 100%)";
+  "linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.62) 0%, rgb(var(--soma-shell-rail) / 0.28) 42%, transparent 72%), linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.9) 0%, rgb(var(--soma-shell-rail) / 0.48) 34%, rgb(var(--soma-shell-rail) / 0.12) 62%, transparent 88%)";
 
 interface RecoveryHeroProps {
   eyebrow: string;
@@ -36,6 +37,10 @@ interface RecoveryHeroProps {
   panorama?: boolean;
   /** Recovery page: sit the heading against the content top without moving other heroes. */
   compactHeader?: boolean;
+  /** Atlas: shorter band so the visor can sit with the system list. Other pages omit it. */
+  compactBand?: boolean;
+  /** Stable ONB-01 tour hook. Omit on surfaces the tour does not highlight. */
+  onbAnchor?: string;
   children?: ReactNode;
 }
 
@@ -54,6 +59,8 @@ export function RecoveryHero({
   imageClassName,
   panorama = false,
   compactHeader = false,
+  compactBand = false,
+  onbAnchor,
   children,
 }: RecoveryHeroProps) {
   const { t } = useTranslation("recovery");
@@ -64,7 +71,8 @@ export function RecoveryHero({
         collapsed ? SHELL_HERO_BLEED_COLLAPSED_CLASS : SHELL_HERO_BLEED_EXPANDED_CLASS
       }`}
     >
-      <div className="relative overflow-hidden">
+        <div className="relative overflow-x-clip">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
           src={imageSrc}
           alt=""
@@ -81,23 +89,26 @@ export function RecoveryHero({
           }}
         />
         <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
+          className="absolute inset-0"
           style={{
             backgroundImage: overlay,
             ...photoMask,
           }}
         />
+        </div>
         <div
           className={
-            compactHeader
-              ? "relative z-10 grid items-start gap-5 px-4 pb-6 pt-7 sm:pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:px-6 lg:pb-10 lg:pt-7"
-              : panorama
-                ? "relative z-10 grid items-start gap-5 px-4 pb-16 pt-7 min-h-[14.5rem] sm:min-h-[18rem] sm:pb-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,18rem)] lg:min-h-[20rem] lg:px-6 lg:pb-24 lg:pt-8"
-                : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
+            compactBand
+              ? "relative z-10 grid items-center gap-3 px-4 py-4 sm:py-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(13rem,18rem)] lg:min-h-[10.75rem] lg:px-6 lg:py-5"
+              : compactHeader
+                ? "relative z-10 grid items-start gap-5 px-4 pb-6 pt-7 sm:pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:px-6 lg:pb-10 lg:pt-7"
+                : panorama
+                  ? "relative z-10 grid items-start gap-5 px-4 pb-16 pt-7 min-h-[14.5rem] sm:min-h-[18rem] sm:pb-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,18rem)] lg:min-h-[20rem] lg:px-6 lg:pb-24 lg:pt-8"
+                  : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
           }
         >
-          <header className="max-w-2xl">
+          <header className="soma-photo-copy-veil max-w-2xl">
+            <span className="soma-photo-copy-veil__plate" aria-hidden="true" />
             <div className="flex items-start justify-between gap-3">
               <p
                 className="text-[11px] font-medium uppercase tracking-[0.22em]"
@@ -107,28 +118,47 @@ export function RecoveryHero({
               </p>
               {demo ? <DemoNotice /> : null}
             </div>
-            <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl">
+            <h1
+              className={
+                compactBand
+                  ? "soma-photo-copy mt-2 text-2xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-3xl"
+                  : "soma-photo-copy mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl"
+              }
+              data-onb={onbAnchor}
+            >
               {title}
             </h1>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-soma-ink-secondary">
+            <p
+              className={
+                compactBand
+                  ? "soma-photo-copy mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
+                  : "soma-photo-copy mt-3 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
+              }
+            >
               {description}
             </p>
           </header>
           {quote ? (
             <aside
               className={
-                panorama
-                  ? "mt-8 mr-1 justify-self-start max-w-xs rounded-xl border border-soma-line-strong/50 bg-[rgb(3_12_20_/_0.55)] px-3 py-2.5 backdrop-blur-md sm:mt-10 lg:mt-12 lg:mr-4 lg:justify-self-end"
-                  : "justify-self-start rounded-2xl border border-soma-line-strong/70 bg-[rgb(3_12_20_/_0.58)] px-4 py-4 backdrop-blur-md lg:justify-self-end"
+                compactBand
+                  ? "justify-self-start max-w-xs rounded-xl border border-soma-line-strong/50 bg-[rgb(3_12_20_/_0.55)] px-3 py-2.5 backdrop-blur-md lg:justify-self-end"
+                  : panorama
+                    ? "mt-8 mr-1 justify-self-start max-w-xs rounded-xl border border-soma-line-strong/50 bg-[rgb(3_12_20_/_0.55)] px-3 py-2.5 backdrop-blur-md sm:mt-10 lg:mt-12 lg:mr-4 lg:justify-self-end"
+                    : "justify-self-start rounded-2xl border border-soma-line-strong/70 bg-[rgb(3_12_20_/_0.58)] px-4 py-4 backdrop-blur-md lg:justify-self-end"
               }
             >
-              {panorama ? null : (
+              {compactBand ? null : (
                 <span aria-hidden="true" className="font-serif text-4xl leading-none" style={accentColor}>
                   “
                 </span>
               )}
-              <p className={`text-sm font-medium leading-relaxed text-soma-ink ${panorama ? "" : "mt-1"}`}>
-                {panorama ? `“${quote}”` : quote}
+              <p
+                className={`text-sm font-medium leading-relaxed text-soma-ink ${
+                  compactBand ? "" : "mt-1"
+                }`}
+              >
+                {compactBand ? `“${quote}”` : quote}
               </p>
               <span className="sr-only">{t("homeDailyTitle")}</span>
             </aside>

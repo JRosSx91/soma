@@ -25,7 +25,7 @@ export const exploreSystemOrganFallback: Readonly<Record<string, readonly string
   digestive: ["/images/anatomy/digestive.png"],
   hepatic: ["/images/anatomy/liver.png"],
   renal: ["/images/anatomy/kidneys.png"],
-  immune: ["/images/anatomy/immune.png"],
+  immune: ["/images/anatomy/spleen.png"],
   reproductive: ["/images/anatomy/reproductive.png"],
   integumentary: ["/images/anatomy/skin.png"],
   sensory: ["/images/anatomy/eyes.png"],
