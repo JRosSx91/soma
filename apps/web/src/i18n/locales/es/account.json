@@ -98,6 +98,7 @@
     "bulletSessions": "Las sesiones quedan invalidadas.",
     "bulletIrreversible": "No se puede deshacer.",
     "bulletInvite": "Si quieres registrarte otra vez mientras la beta sea cerrada, necesitarás una invitación nueva.",
+    "bulletRegister": "Si quieres registrarte otra vez, puedes crear una cuenta nueva. El registro está abierto.",
     "openDialog": "Revisar la eliminación de la cuenta",
     "dialogTitle": "¿Eliminar esta cuenta de forma permanente?",
     "dialogBody": "Confirma que comprendes las consecuencias e introduce tu contraseña actual. Soma solo eliminará la cuenta después de esa confirmación.",

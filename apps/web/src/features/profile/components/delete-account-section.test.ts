@@ -9,6 +9,8 @@ import { test } from "node:test";
 import enAccount from "../../../i18n/locales/en/account.json" with { type: "json" };
 import esAccount from "../../../i18n/locales/es/account.json" with { type: "json" };
 import { AuthContext } from "../../auth/context/AuthContext.js";
+import { RegistrationModeProvider } from "../../auth/context/RegistrationModeContext.js";
+import type { RegistrationModeState } from "../../auth/client/registration-mode.js";
 import {
   DeleteAccountDialog,
   DeleteAccountSection,
@@ -50,14 +52,22 @@ const authValue = {
   clearSessionAfterAccountDeletion: () => undefined,
 };
 
-function wrap(node: ReactNode, i18n: Awaited<ReturnType<typeof makeI18n>>) {
+function wrap(
+  node: ReactNode,
+  i18n: Awaited<ReturnType<typeof makeI18n>>,
+  registration: RegistrationModeState = { status: "ready", mode: "open" },
+) {
   return createElement(
     I18nextProvider,
     { i18n },
     createElement(
       AuthContext.Provider,
       { value: authValue },
-      createElement(MemoryRouter, { initialEntries: ["/app/account"] }, node),
+      createElement(
+        RegistrationModeProvider,
+        { value: registration },
+        createElement(MemoryRouter, { initialEntries: ["/app/account"] }, node),
+      ),
     ),
   );
 }
@@ -79,10 +89,23 @@ test("section explains deletion and does not show an immediate delete submit", a
   assert.match(html, /Delete my account/);
   assert.match(html, /journal, missions, achievements, progress, feedback/);
   assert.match(html, /backups and operational logs/);
-  assert.match(html, /new invitation/);
+  assert.match(html, /Registration is open/);
+  assert.doesNotMatch(html, /new invitation/);
   assert.match(html, /Review account deletion/);
   assert.equal(html.includes('role="dialog"'), false);
   assert.equal(html.includes("Permanently delete my account"), false);
+});
+
+test("invite mode still explains that a new invitation is required", async () => {
+  const i18n = await makeI18n("en");
+  const html = renderToStaticMarkup(
+    wrap(createElement(DeleteAccountSection), i18n, {
+      status: "ready",
+      mode: "invite",
+    }),
+  );
+  assert.match(html, /new invitation/);
+  assert.doesNotMatch(html, /Registration is open/);
 });
 
 test("open dialog requires checkbox and password before the final button enables", async () => {

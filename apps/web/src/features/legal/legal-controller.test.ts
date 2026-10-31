@@ -66,9 +66,10 @@ async function wrap(
 
 test("name and email without a postal address satisfy the technical check", () => {
   assert.equal(hasRequiredLegalController(CONTACT_ONLY), true);
-  assert.equal(LEGAL_NOTICE_STATUS, "draft");
+  assert.equal(LEGAL_NOTICE_STATUS, "published");
   assert.equal(areLegalDocumentsPublishable("draft", CONTACT_ONLY), false);
   assert.equal(areLegalDocumentsPublishable("published", CONTACT_ONLY), true);
+  assert.equal(areLegalDocumentsPublishable(LEGAL_NOTICE_STATUS, CONTACT_ONLY), true);
 
   const es = applyLegalControllerCopy(esLegal.privacy.identityBody, CONTACT_ONLY);
   const en = applyLegalControllerCopy(enLegal.privacy.identityBody, CONTACT_ONLY);
@@ -132,7 +133,7 @@ test("optional fields appear as text when provided", () => {
 });
 
 test("missing name or email keeps documents unpublishable even if status is published", () => {
-  assert.equal(LEGAL_NOTICE_STATUS, "draft");
+  assert.equal(LEGAL_NOTICE_STATUS, "published");
   assert.equal(
     areLegalDocumentsPublishable("published", {
       ...CONTACT_ONLY,

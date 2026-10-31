@@ -13,12 +13,17 @@ import {
 } from "@soma/shared-types";
 import enLegal from "../../i18n/locales/en/legal.json" with { type: "json" };
 import esLegal from "../../i18n/locales/es/legal.json" with { type: "json" };
-import {
-  CookiesPage,
-  LegalNoticePage,
-  PrivacyPage,
-  TermsPage,
-} from "./LegalDocumentPage.js";
+import { LegalDocumentPage, PrivacyPage } from "./LegalDocumentPage.js";
+import type { LegalControllerFields } from "./legal-controller.js";
+
+const PUBLISHED_CONTROLLER: LegalControllerFields = {
+  name: "Ada Example",
+  address: "",
+  email: "legal@example.test",
+  taxId: "",
+  phone: "",
+  dpo: "",
+};
 
 function flattenKeys(value: unknown, prefix = ""): string[] {
   if (value == null || typeof value !== "object") return prefix ? [prefix] : [];
@@ -63,43 +68,109 @@ test("ES and EN legal catalogs share the same keys", () => {
   }
 });
 
-test("legal notices stay marked as drafts in ES and EN", async () => {
-  assert.equal(LEGAL_NOTICE_STATUS, "draft");
-  assert.equal(isLegalNoticePublished(), false);
-  assert.equal(LEGAL_TERMS_VERSION.startsWith("draft-"), true);
-  assert.equal(LEGAL_PRIVACY_VERSION.startsWith("draft-"), true);
+test("legal notices are published in ES and EN when the controller is present", async () => {
+  assert.equal(LEGAL_NOTICE_STATUS, "published");
+  assert.equal(isLegalNoticePublished(), true);
+  assert.equal(LEGAL_TERMS_VERSION.startsWith("draft-"), false);
+  assert.equal(LEGAL_PRIVACY_VERSION.startsWith("draft-"), false);
+  assert.equal(LEGAL_TERMS_VERSION, "2026-10-31.2");
+  assert.equal(LEGAL_PRIVACY_VERSION, "2026-10-31.2");
 
-  const privacyEn = renderToStaticMarkup(
+  const unpublishedEn = renderToStaticMarkup(
     await wrap("en", createElement(PrivacyPage)),
   );
-  const privacyEs = renderToStaticMarkup(
-    await wrap("es", createElement(PrivacyPage)),
+  assert.match(unpublishedEn, /Development draft/);
+  assert.match(unpublishedEn, /\[NOMBRE DEL RESPONSABLE\]/);
+  assert.match(unpublishedEn, /\[CORREO DE CONTACTO\]/);
+  assert.doesNotMatch(unpublishedEn, /\[DOMICILIO A EFECTOS LEGALES\]/);
+
+  const privacyEn = renderToStaticMarkup(
+    await wrap(
+      "en",
+      createElement(LegalDocumentPage, {
+        kind: "privacy",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
   );
-  const termsEn = renderToStaticMarkup(await wrap("en", createElement(TermsPage)));
-  const termsEs = renderToStaticMarkup(await wrap("es", createElement(TermsPage)));
+  const privacyEs = renderToStaticMarkup(
+    await wrap(
+      "es",
+      createElement(LegalDocumentPage, {
+        kind: "privacy",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
+  );
+  const termsEn = renderToStaticMarkup(
+    await wrap(
+      "en",
+      createElement(LegalDocumentPage, {
+        kind: "terms",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
+  );
+  const termsEs = renderToStaticMarkup(
+    await wrap(
+      "es",
+      createElement(LegalDocumentPage, {
+        kind: "terms",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
+  );
   const noticeEn = renderToStaticMarkup(
-    await wrap("en", createElement(LegalNoticePage)),
+    await wrap(
+      "en",
+      createElement(LegalDocumentPage, {
+        kind: "notice",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
   );
   const noticeEs = renderToStaticMarkup(
-    await wrap("es", createElement(LegalNoticePage)),
+    await wrap(
+      "es",
+      createElement(LegalDocumentPage, {
+        kind: "notice",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
   );
   const cookiesEn = renderToStaticMarkup(
-    await wrap("en", createElement(CookiesPage)),
+    await wrap(
+      "en",
+      createElement(LegalDocumentPage, {
+        kind: "cookies",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
   );
   const cookiesEs = renderToStaticMarkup(
-    await wrap("es", createElement(CookiesPage)),
+    await wrap(
+      "es",
+      createElement(LegalDocumentPage, {
+        kind: "cookies",
+        controller: PUBLISHED_CONTROLLER,
+      }),
+    ),
   );
 
-  assert.match(privacyEn, /Development draft/);
-  assert.match(privacyEs, /Borrador de desarrollo/);
+  assert.doesNotMatch(privacyEn, /Development draft/);
+  assert.doesNotMatch(privacyEs, /Borrador de desarrollo/);
+  assert.match(privacyEn, /Ada Example/);
+  assert.match(privacyEs, /Ada Example/);
+  assert.match(privacyEn, /legal@example\.test/);
+  assert.match(privacyEs, /legal@example\.test/);
   assert.match(termsEn, /public beta/i);
   assert.match(termsEs, /beta pública/);
   assert.match(noticeEn, /natural person/);
   assert.match(noticeEs, /persona física/);
   assert.match(privacyEn, /somarecovery\.app/);
-  assert.match(privacyEn, /\[CORREO DE CONTACTO\]/);
-  assert.match(privacyEs, /\[CORREO DE CONTACTO\]/);
-  assert.match(privacyEn, /\[NOMBRE DEL RESPONSABLE\]/);
+  assert.doesNotMatch(privacyEn, /\[CORREO DE CONTACTO\]/);
+  assert.doesNotMatch(privacyEs, /\[CORREO DE CONTACTO\]/);
+  assert.doesNotMatch(privacyEn, /\[NOMBRE DEL RESPONSABLE\]/);
   assert.doesNotMatch(privacyEs, /\[DOMICILIO A EFECTOS LEGALES\]/);
   assert.doesNotMatch(privacyEn, /\[DOMICILIO A EFECTOS LEGALES\]/);
   assert.doesNotMatch(privacyEn, /soma\.recovery\.app@gmail\.com/);

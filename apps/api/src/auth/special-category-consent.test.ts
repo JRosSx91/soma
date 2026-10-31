@@ -4,6 +4,7 @@ import { test } from "node:test";
 import { MISSION_XP_SOURCE, listMissionsByCategory } from "@soma/shared-types";
 import {
   LEGAL_SPECIAL_CATEGORY_VERSION,
+  LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION,
   SPECIAL_CATEGORY_PROCESSING_PURPOSE,
   SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE,
 } from "@soma/shared-types";
@@ -142,6 +143,11 @@ test("persistSpecialCategoryWithdrawal is idempotent and is not a grant", async 
   assert.equal(rows.length, 2);
   assert.equal(rows[1]?.purpose, SPECIAL_CATEGORY_WITHDRAWAL_PURPOSE);
   assert.notEqual(rows[1]?.purpose, SPECIAL_CATEGORY_PROCESSING_PURPOSE);
+  assert.equal(
+    rows[1]?.documentVersion,
+    LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION,
+  );
+  assert.equal(LEGAL_SPECIAL_CATEGORY_WITHDRAWAL_VERSION, "2026-10-30");
 });
 
 test("a grant after a same-timestamp withdrawal is stored strictly later", async () => {

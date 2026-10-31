@@ -132,7 +132,7 @@ test("register persists terms and privacy without a health grant and user delete
     assert.equal(purposes.has("special_category_processing"), false);
     for (const row of rows) {
       assert.equal(row.userId, userId);
-      assert.equal(row.documentVersion.startsWith("draft-"), true);
+      assert.equal(row.documentVersion.startsWith("draft-"), false);
       assert.ok(row.acceptedAt instanceof Date);
     }
 

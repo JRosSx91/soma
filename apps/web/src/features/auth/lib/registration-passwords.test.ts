@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import enAuth from "../../../i18n/locales/en/auth.json" with { type: "json" };
 import esAuth from "../../../i18n/locales/es/auth.json" with { type: "json" };
+import { LEGAL_ADULT_AGE_VERSION, LEGAL_PRIVACY_VERSION, LEGAL_TERMS_VERSION } from "@soma/shared-types";
 import { prepareRegisterCredentials } from "./registration-passwords.js";
 
 const valid = {
@@ -43,6 +44,10 @@ test("matching passwords yield a payload without confirmPassword", () => {
   assert.equal("birthYear" in result.credentials, false);
   assert.equal(result.credentials.birthDate, "1991-04-02");
   assert.equal(result.credentials.acceptedAdultAge, true);
+  assert.equal(result.credentials.termsVersion, LEGAL_TERMS_VERSION);
+  assert.equal(result.credentials.privacyNoticeVersion, LEGAL_PRIVACY_VERSION);
+  assert.equal(result.credentials.adultAgeVersion, LEGAL_ADULT_AGE_VERSION);
+  assert.equal(LEGAL_TERMS_VERSION, "2026-10-31.2");
 });
 
 test("mismatched passwords do not produce credentials", () => {
