@@ -15,7 +15,7 @@
     "title": "Aviso legal",
     "intro": "Este aviso identifica, en la medida de lo ya confirmado, al titular del servicio Soma en somarecovery.app. Sigue siendo un borrador. No describe una sociedad mercantil.",
     "identityTitle": "Titular del servicio",
-    "identityBody": "Soma es ofrecido, en esta fase, por una persona física residente en España. No se afirma la existencia de una sociedad mercantil.\n\nIdentificación pendiente: [NOMBRE DEL RESPONSABLE]. [NIF / documento de identificación, si se publica]. [DOMICILIO A EFECTOS LEGALES]. [PENDIENTE DE COMPLETAR]. Hasta que esos datos figuren aquí, este texto no está listo para publicarse como aviso vigente.",
+    "identityBody": "Soma es ofrecido, en esta fase, por una persona física residente en España. No se afirma la existencia de una sociedad mercantil.\n\nIdentificación pendiente: [NOMBRE DEL RESPONSABLE]. [NIF / documento de identificación, si se publica]. [DOMICILIO A EFECTOS LEGALES]. [PENDIENTE DE COMPLETAR]. Hasta que figuren el nombre y el correo de contacto, este texto no está listo para publicarse como aviso vigente. Un domicilio postal no es un dato técnico obligatorio de este producto.",
     "contactTitle": "Datos de contacto",
     "contactBody": "Canal previsto: [CORREO DE CONTACTO]. Teléfono: [TELÉFONO, si se quiere publicar]. Delegado de protección de datos: [DELEGADO DE PROTECCIÓN DE DATOS, si aplica; si no, “no designado”].\n\nNo se inserta en este documento una dirección de correo operativa como si ya fuera el canal jurídico definitivo.",
     "siteTitle": "Identificación del sitio",
@@ -32,9 +32,9 @@
     "title": "Política de privacidad",
     "intro": "Esta política describe el tratamiento de datos personales en Soma (somarecovery.app) según el inventario del producto. Es un borrador. No hay publicidad, suscripciones ni venta de datos personales en esta fase. La beta se dirige a personas de 18 años o más. El producto puede operar con registro abierto o, si se configura así, con invitación; estos textos no desbloquean por sí solos el registro.",
     "knownTitle": "Qué está confirmado y qué no",
-    "knownBody": "Está confirmado en el producto: el responsable previsto es una persona física residente en España; el ámbito normativo previsto es el RGPD y la LOPDGDD; la beta se dirige a personas de 18 años o más; el consentimiento para datos de consumo, abstinencia y bitácora es contextual y no forma parte del alta.\n\nPendiente de completar: [NOMBRE DEL RESPONSABLE], [DOMICILIO A EFECTOS LEGALES], [CORREO DE CONTACTO], proveedores y regiones efectivamente usados en producción, transferencias internacionales y garantías, retención real de copias de seguridad y plazos de registros de los proveedores. [PENDIENTE DE COMPLETAR].",
+    "knownBody": "Está confirmado en el producto: el responsable previsto es una persona física residente en España; el ámbito normativo previsto es el RGPD y la LOPDGDD; la beta se dirige a personas de 18 años o más; el consentimiento para datos de consumo, abstinencia y bitácora es contextual y no forma parte del alta.\n\nPendiente de completar: [NOMBRE DEL RESPONSABLE], [CORREO DE CONTACTO], [DOMICILIO A EFECTOS LEGALES], proveedores y regiones efectivamente usados en producción, transferencias internacionales y garantías, retención real de copias de seguridad y plazos de registros de los proveedores. [PENDIENTE DE COMPLETAR].",
     "identityTitle": "Responsable del tratamiento",
-    "identityBody": "El responsable es una persona física. Identificación legal: [NOMBRE DEL RESPONSABLE]. [NIF / documento de identificación, si se publica]. [DOMICILIO A EFECTOS LEGALES]. Contacto: [CORREO DE CONTACTO].\n\nHasta que esa identificación figure aquí, este documento no está listo para publicarse como política vigente.",
+    "identityBody": "El responsable es una persona física. Identificación legal: [NOMBRE DEL RESPONSABLE]. [NIF / documento de identificación, si se publica]. [DOMICILIO A EFECTOS LEGALES]. Contacto: [CORREO DE CONTACTO].\n\nHasta que figuren el nombre y el correo de contacto, este documento no está listo para publicarse como política vigente. Un domicilio postal no es un dato técnico obligatorio de este producto.",
     "purposeTitle": "Finalidades",
     "purposeBody": "Soma trata datos para: crear y mantener una cuenta; autenticar el acceso y conservar una sesión; mostrar contenidos educativos; si hay consentimiento, guardar un seguimiento personal de sustancias, abstinencia y bitácora y calcular estimaciones, logros y XP derivados; permitir misiones educativas; recibir feedback opcional sobre el producto; enviar el correo de restablecimiento de contraseña cuando ese envío está activado; conservar copias de seguridad de la base de datos cuando el flujo de copias está activo; y permitir la eliminación de la cuenta o la retirada del consentimiento.\n\nLos datos no se usan para publicidad ni para comercializar perfiles.",
     "basesTitle": "Bases jurídicas",
@@ -99,7 +99,7 @@
     "advertisingTitle": "Publicidad y pagos",
     "advertisingBody": "No hay publicidad, pagos ni venta de datos personales ligada a estas condiciones en esta fase.",
     "contactTitle": "Contacto y ámbito",
-    "contactBody": "Contacto: [CORREO DE CONTACTO]. El titular es una persona física residente en España. Identificación completa: [NOMBRE DEL RESPONSABLE], [DOMICILIO A EFECTOS LEGALES]. Este texto no fija ley aplicable ni fuero. Ámbito previsto: España y normativa europea."
+    "contactBody": "Contacto: [CORREO DE CONTACTO]. El titular es una persona física residente en España. Identificación: [NOMBRE DEL RESPONSABLE], [DOMICILIO A EFECTOS LEGALES]. Este texto no fija ley aplicable ni fuero. Ámbito previsto: España y normativa europea."
   },
   "cookies": {
     "metaTitle": "Soma — Cookies y almacenamiento local (borrador)",

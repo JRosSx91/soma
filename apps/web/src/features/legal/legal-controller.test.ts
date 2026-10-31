@@ -17,13 +17,18 @@ import {
 } from "./legal-controller.js";
 import { LegalDocumentPage } from "./LegalDocumentPage.js";
 
-const SAMPLE: LegalControllerFields = {
+const CONTACT_ONLY: LegalControllerFields = {
   name: "Ada Example",
-  address: "Calle Ficticia 1, 28001 Madrid",
+  address: "",
   email: "legal@example.test",
   taxId: "",
   phone: "",
   dpo: "",
+};
+
+const WITH_ADDRESS: LegalControllerFields = {
+  ...CONTACT_ONLY,
+  address: "Calle Ficticia 1, 28001 Madrid",
 };
 
 const MARKER_SNIPPETS = [
@@ -59,29 +64,40 @@ async function wrap(
   );
 }
 
-test("required name, address and email replace the same markers in ES and EN", () => {
-  const es = applyLegalControllerCopy(esLegal.privacy.identityBody, SAMPLE);
-  const en = applyLegalControllerCopy(enLegal.privacy.identityBody, SAMPLE);
+test("name and email without a postal address satisfy the technical check", () => {
+  assert.equal(hasRequiredLegalController(CONTACT_ONLY), true);
+  assert.equal(LEGAL_NOTICE_STATUS, "draft");
+  assert.equal(areLegalDocumentsPublishable("draft", CONTACT_ONLY), false);
+  assert.equal(areLegalDocumentsPublishable("published", CONTACT_ONLY), true);
 
+  const es = applyLegalControllerCopy(esLegal.privacy.identityBody, CONTACT_ONLY);
+  const en = applyLegalControllerCopy(enLegal.privacy.identityBody, CONTACT_ONLY);
   assert.match(es, /Ada Example/);
   assert.match(en, /Ada Example/);
-  assert.match(es, /Calle Ficticia 1, 28001 Madrid/);
-  assert.match(en, /Calle Ficticia 1, 28001 Madrid/);
   assert.match(es, /legal@example\.test/);
   assert.match(en, /legal@example\.test/);
-  assert.doesNotMatch(es, /\[NOMBRE DEL RESPONSABLE\]/);
-  assert.doesNotMatch(en, /\[NOMBRE DEL RESPONSABLE\]/);
   assert.doesNotMatch(es, /\[DOMICILIO A EFECTOS LEGALES\]/);
   assert.doesNotMatch(en, /\[DOMICILIO A EFECTOS LEGALES\]/);
-  assert.doesNotMatch(es, /\[CORREO DE CONTACTO\]/);
-  assert.doesNotMatch(en, /\[CORREO DE CONTACTO\]/);
+  assert.doesNotMatch(es, /Calle Ficticia/);
+  assert.doesNotMatch(en, /Calle Ficticia/);
+});
+
+test("an optional postal address is shown when configured", () => {
+  const es = applyLegalControllerCopy(esLegal.privacy.identityBody, WITH_ADDRESS);
+  const en = applyLegalControllerCopy(enLegal.privacy.identityBody, WITH_ADDRESS);
+  const esTerms = applyLegalControllerCopy(esLegal.terms.contactBody, WITH_ADDRESS);
+
+  assert.match(es, /Calle Ficticia 1, 28001 Madrid/);
+  assert.match(en, /Calle Ficticia 1, 28001 Madrid/);
+  assert.match(esTerms, /Calle Ficticia 1, 28001 Madrid/);
+  assert.doesNotMatch(es, /\[DOMICILIO A EFECTOS LEGALES\]/);
 });
 
 test("optional NIF, phone and DPO are omitted when empty", () => {
-  const es = applyLegalControllerCopy(esLegal.notice.contactBody, SAMPLE);
-  const en = applyLegalControllerCopy(enLegal.notice.contactBody, SAMPLE);
-  const esId = applyLegalControllerCopy(esLegal.notice.identityBody, SAMPLE);
-  const enId = applyLegalControllerCopy(enLegal.notice.identityBody, SAMPLE);
+  const es = applyLegalControllerCopy(esLegal.notice.contactBody, CONTACT_ONLY);
+  const en = applyLegalControllerCopy(enLegal.notice.contactBody, CONTACT_ONLY);
+  const esId = applyLegalControllerCopy(esLegal.notice.identityBody, CONTACT_ONLY);
+  const enId = applyLegalControllerCopy(enLegal.notice.identityBody, CONTACT_ONLY);
 
   assert.doesNotMatch(es, /Teléfono:/);
   assert.doesNotMatch(en, /Telephone:/);
@@ -99,7 +115,7 @@ test("optional NIF, phone and DPO are omitted when empty", () => {
 
 test("optional fields appear as text when provided", () => {
   const filled: LegalControllerFields = {
-    ...SAMPLE,
+    ...WITH_ADDRESS,
     taxId: "00000000T",
     phone: "+34 600 000 000",
     dpo: "DPO Example",
@@ -115,22 +131,24 @@ test("optional fields appear as text when provided", () => {
   assert.match(esId, /00000000T/);
 });
 
-test("missing required fields keep documents unpublishable even if status is published", () => {
+test("missing name or email keeps documents unpublishable even if status is published", () => {
   assert.equal(LEGAL_NOTICE_STATUS, "draft");
-  assert.equal(hasRequiredLegalController(SAMPLE), true);
-  assert.equal(areLegalDocumentsPublishable("draft", SAMPLE), false);
   assert.equal(
     areLegalDocumentsPublishable("published", {
+      ...CONTACT_ONLY,
       name: "",
-      address: SAMPLE.address,
-      email: SAMPLE.email,
-      taxId: "",
-      phone: "",
-      dpo: "",
     }),
     false,
   );
-  assert.equal(areLegalDocumentsPublishable("published", SAMPLE), true);
+  assert.equal(
+    areLegalDocumentsPublishable("published", {
+      ...CONTACT_ONLY,
+      email: "",
+    }),
+    false,
+  );
+  assert.equal(areLegalDocumentsPublishable("published", CONTACT_ONLY), true);
+  assert.equal(areLegalDocumentsPublishable("draft", CONTACT_ONLY), false);
 });
 
 test("a published status without required env still renders as draft", async () => {
@@ -154,16 +172,17 @@ test("a published status without required env still renders as draft", async () 
   );
   assert.match(html, /Development draft/);
   assert.match(html, /\[NOMBRE DEL RESPONSABLE\]/);
+  assert.doesNotMatch(html, /\[DOMICILIO A EFECTOS LEGALES\]/);
   assert.equal(areLegalDocumentsPublishable("published", incomplete), false);
 });
 
-test("published documents do not show leftover controller markers", async () => {
+test("published documents without an address show no leftover markers", async () => {
   const es = renderToStaticMarkup(
     await wrap(
       "es",
       createElement(LegalDocumentPage, {
         kind: "privacy",
-        controller: SAMPLE,
+        controller: CONTACT_ONLY,
         noticeStatus: "published",
       }),
     ),
@@ -173,7 +192,7 @@ test("published documents do not show leftover controller markers", async () => 
       "en",
       createElement(LegalDocumentPage, {
         kind: "privacy",
-        controller: SAMPLE,
+        controller: CONTACT_ONLY,
         noticeStatus: "published",
       }),
     ),
@@ -188,7 +207,7 @@ test("published documents do not show leftover controller markers", async () => 
   assert.doesNotMatch(es, /\[PENDIENTE DE COMPLETAR\]/);
   assert.doesNotMatch(en, /\[TO BE COMPLETED\]/);
   assert.match(es, /Ada Example/);
-  assert.match(en, /Ada Example/);
+  assert.match(en, /legal@example\.test/);
 });
 
 test("controller values are escaped as text, not executed as HTML", async () => {

@@ -15,7 +15,7 @@
     "title": "Legal notice",
     "intro": "This notice identifies, to the extent already confirmed, the operator of Soma at somarecovery.app. It remains a draft. It does not describe a commercial company.",
     "identityTitle": "Service operator",
-    "identityBody": "In this phase Soma is offered by a natural person resident in Spain. It does not claim that a company exists.\n\nIdentification still pending: [NOMBRE DEL RESPONSABLE]. [NIF / identity document, if published]. [DOMICILIO A EFECTOS LEGALES]. [TO BE COMPLETED]. Until those details appear here, this text is not ready to be published as a current notice.",
+    "identityBody": "In this phase Soma is offered by a natural person resident in Spain. It does not claim that a company exists.\n\nIdentification still pending: [NOMBRE DEL RESPONSABLE]. [NIF / identity document, if published]. [DOMICILIO A EFECTOS LEGALES]. [TO BE COMPLETED]. Until the name and contact email appear here, this text is not ready to be published as a current notice. A postal address is not a technical requirement of this product.",
     "contactTitle": "Contact details",
     "contactBody": "Intended channel: [CORREO DE CONTACTO]. Telephone: [TELÉFONO, if published]. Data protection officer: [DELEGADO DE PROTECCIÓN DE DATOS, if applicable; otherwise “not appointed”].\n\nThis document does not insert an operational mailbox as if it were already the definitive legal contact channel.",
     "siteTitle": "Website",
@@ -32,9 +32,9 @@
     "title": "Privacy policy",
     "intro": "This policy describes personal-data processing in Soma (somarecovery.app) according to the product inventory. It is a draft. There is no advertising, subscriptions or sale of personal data in this phase. The beta is aimed at people aged 18 or over. The product may operate with open registration or, if so configured, with invitations; these texts do not by themselves unlock registration.",
     "knownTitle": "What is confirmed and what is not",
-    "knownBody": "Confirmed in the product: the intended controller is a natural person resident in Spain; the intended legal setting is the GDPR and Spain’s LOPDGDD; the beta is aimed at people aged 18 or over; consent for substance, abstinence and journal data is contextual and is not part of registration.\n\nStill to complete: [NOMBRE DEL RESPONSABLE], [DOMICILIO A EFECTOS LEGALES], [CORREO DE CONTACTO], providers and regions actually used in production, international transfers and safeguards, real backup retention, and provider log periods. [TO BE COMPLETED].",
+    "knownBody": "Confirmed in the product: the intended controller is a natural person resident in Spain; the intended legal setting is the GDPR and Spain’s LOPDGDD; the beta is aimed at people aged 18 or over; consent for substance, abstinence and journal data is contextual and is not part of registration.\n\nStill to complete: [NOMBRE DEL RESPONSABLE], [CORREO DE CONTACTO], [DOMICILIO A EFECTOS LEGALES], providers and regions actually used in production, international transfers and safeguards, real backup retention, and provider log periods. [TO BE COMPLETED].",
     "identityTitle": "Controller",
-    "identityBody": "The controller is a natural person. Legal identification: [NOMBRE DEL RESPONSABLE]. [NIF / identity document, if published]. [DOMICILIO A EFECTOS LEGALES]. Contact: [CORREO DE CONTACTO].\n\nUntil that identification appears here, this document is not ready to be published as a current policy.",
+    "identityBody": "The controller is a natural person. Legal identification: [NOMBRE DEL RESPONSABLE]. [NIF / identity document, if published]. [DOMICILIO A EFECTOS LEGALES]. Contact: [CORREO DE CONTACTO].\n\nUntil the name and contact email appear here, this document is not ready to be published as a current policy. A postal address is not a technical requirement of this product.",
     "purposeTitle": "Purposes",
     "purposeBody": "Soma processes data to: create and maintain an account; authenticate access and keep a session; show educational content; if consent is given, store personal tracking of substances, abstinence and the journal and calculate derived estimates, achievements and XP; allow educational missions; receive optional product feedback; send password-reset email when that sending is enabled; keep database backups when the backup flow is active; and allow account deletion or withdrawal of consent.\n\nData are not used for advertising or to commercialise profiles.",
     "basesTitle": "Legal bases",
@@ -99,7 +99,7 @@
     "advertisingTitle": "Advertising and payments",
     "advertisingBody": "There is no advertising, payments or sale of personal data under these terms in this phase.",
     "contactTitle": "Contact and setting",
-    "contactBody": "Contact: [CORREO DE CONTACTO]. The operator is a natural person resident in Spain. Full identification: [NOMBRE DEL RESPONSABLE], [DOMICILIO A EFECTOS LEGALES]. This text does not set governing law or venue. Intended setting: Spain and European law."
+    "contactBody": "Contact: [CORREO DE CONTACTO]. The operator is a natural person resident in Spain. Identification: [NOMBRE DEL RESPONSABLE], [DOMICILIO A EFECTOS LEGALES]. This text does not set governing law or venue. Intended setting: Spain and European law."
   },
   "cookies": {
     "metaTitle": "Soma — Cookies and local storage (draft)",

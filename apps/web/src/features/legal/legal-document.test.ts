@@ -100,7 +100,8 @@ test("legal notices stay marked as drafts in ES and EN", async () => {
   assert.match(privacyEn, /\[CORREO DE CONTACTO\]/);
   assert.match(privacyEs, /\[CORREO DE CONTACTO\]/);
   assert.match(privacyEn, /\[NOMBRE DEL RESPONSABLE\]/);
-  assert.match(privacyEs, /\[DOMICILIO A EFECTOS LEGALES\]/);
+  assert.doesNotMatch(privacyEs, /\[DOMICILIO A EFECTOS LEGALES\]/);
+  assert.doesNotMatch(privacyEn, /\[DOMICILIO A EFECTOS LEGALES\]/);
   assert.doesNotMatch(privacyEn, /soma\.recovery\.app@gmail\.com/);
   assert.doesNotMatch(privacyEs, /soma\.recovery\.app@gmail\.com/);
   assert.match(privacyEn, /has not confirmed those safeguards/);
