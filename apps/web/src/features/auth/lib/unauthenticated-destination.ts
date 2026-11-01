@@ -6,6 +6,9 @@
  * aims at `/`, and ProtectedRoute must not steal that to `/login` while
  * `/app` unmounts. Expired sessions and anonymous deep-links to `/app`
  * still use `/login`.
+ *
+ * An explicit visit to `/login` is different: `signed_out` must not bounce
+ * the sign-in form back to `/`. See `shouldRedirectAnonymousLogin`.
  */
 export function unauthenticatedDestination(
   sessionNotice: string | null,
@@ -13,6 +16,16 @@ export function unauthenticatedDestination(
   return sessionNotice === "account_deleted" || sessionNotice === "signed_out"
     ? "/"
     : "/login";
+}
+
+/**
+ * Whether `/login` should replace itself with the public home.
+ * Only `account_deleted` — `signed_out` still shows the sign-in form.
+ */
+export function shouldRedirectAnonymousLogin(
+  sessionNotice: string | null,
+): boolean {
+  return sessionNotice === "account_deleted";
 }
 
 /** Destination AccountMenu uses after POST /auth/logout. */

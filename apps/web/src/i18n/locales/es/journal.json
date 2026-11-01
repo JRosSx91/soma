@@ -190,7 +190,10 @@
     "bodyTooLong": "El texto no puede superar 8.000 caracteres.",
     "invalidDate": "La fecha no es válida.",
     "invalidWellbeing": "La valoración de bienestar va de 0 a 10.",
-    "saveError": "No se ha podido guardar. Inténtalo de nuevo."
+    "saveError": "No se ha podido guardar. Inténtalo de nuevo.",
+    "saveUnconfirmed": "No hemos podido confirmar si la entrada se guardó. Actualiza el diario antes de crear otra.",
+    "refreshError": "Guardado. No se ha podido actualizar la vista del diario. Reintenta sin crear otra entrada.",
+    "refreshRetry": "Actualizar vista"
   },
   "scale": {
     "1": "1",

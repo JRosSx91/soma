@@ -9,7 +9,8 @@ import {
   Validate,
 } from "class-validator";
 import {
-  IsJournalCivilDateConstraint,
+  IsJournalQueryCivilDateConstraint,
+  JournalListRangeOrderConstraint,
   toBooleanOrPassthrough,
   toIntOrPassthrough,
 } from "./journal-field-validators.js";
@@ -18,14 +19,17 @@ export const JOURNAL_LIST_DEFAULT_LIMIT = 20;
 export const JOURNAL_LIST_MAX_LIMIT = 50;
 
 export class ListJournalQueryDto {
+  @Validate(JournalListRangeOrderConstraint)
+  private readonly _rangeOrder?: undefined;
+
   @IsOptional()
   @IsString()
-  @Validate(IsJournalCivilDateConstraint)
+  @Validate(IsJournalQueryCivilDateConstraint)
   from?: string;
 
   @IsOptional()
   @IsString()
-  @Validate(IsJournalCivilDateConstraint)
+  @Validate(IsJournalQueryCivilDateConstraint)
   to?: string;
 
   @IsOptional()

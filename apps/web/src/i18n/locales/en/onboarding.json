@@ -33,6 +33,8 @@
   "loadError": "Could not load your profile. Check your connection and try again.",
   "loadErrorHint": "We will not change your tracking until the profile loads successfully.",
   "retryLoad": "Retry",
+  "catalogLoadError": "Could not load the substance list. Check your connection and try again.",
+  "catalogLoadErrorHint": "Your account and consents are unchanged. Tracking is not edited until the list loads.",
   "enterAppWithoutSetup": "Enter Soma without changing setup",
   "clearConfirmTitle": "Remove all substance tracking?",
   "clearConfirmBody": "Saving with no substances selected will delete the tracking you already configured. This cannot be undone from this screen.",

@@ -25,7 +25,15 @@ import {
   resolveAnchorId,
   tourHref,
 } from "./tour-steps.ts";
-import { boxFromElement, inflateBox, placeTourCard } from "./tour-layout.ts";
+import {
+  boxFromElement,
+  boxesOverlap,
+  inflateBox,
+  placeTourCard,
+  somiPeekBox,
+  tourPlacementCoversAnchor,
+  TOUR_SOMI_PEEK,
+} from "./tour-layout.ts";
 import {
   captureTourLockSnapshot,
   lockTourBackground,
@@ -284,6 +292,62 @@ test("desktop placement keeps a 16px bottom margin even when the peek would over
   });
   assert.ok(pos.top + card.height <= viewport.height - 16);
   assert.ok(pos.top >= 12);
+  assert.equal(
+    tourPlacementCoversAnchor(pos, card, hole, TOUR_SOMI_PEEK.desktop),
+    false,
+  );
+});
+
+test("home-title step keeps the card and Somi peek off a top-edge desktop heading", () => {
+  const hole = { top: 36, left: 24, width: 220, height: 44 };
+  const viewport = { width: 1280, height: 800 };
+  const card = { width: 360, height: 280 };
+  const pos = placeTourCard({
+    viewport,
+    card,
+    hole,
+    desktop: true,
+    bottomReserve: 16,
+  });
+  const cardBox = { ...pos, width: card.width, height: card.height };
+  const peekBox = somiPeekBox(pos, card, TOUR_SOMI_PEEK.desktop);
+  assert.equal(boxesOverlap(cardBox, hole), false);
+  assert.equal(boxesOverlap(peekBox, hole), false);
+  assert.ok(pos.top + card.height <= viewport.height - 16);
+});
+
+test("tall desktop card still leaves the highlighted heading readable", () => {
+  const hole = { top: 40, left: 16, width: 640, height: 48 };
+  const viewport = { width: 1280, height: 720 };
+  const card = { width: 360, height: 420 };
+  const pos = placeTourCard({
+    viewport,
+    card,
+    hole,
+    desktop: true,
+    bottomReserve: 16,
+  });
+  assert.equal(
+    tourPlacementCoversAnchor(pos, card, hole, TOUR_SOMI_PEEK.desktop),
+    false,
+  );
+  assert.ok(pos.top + 160 <= viewport.height);
+});
+
+test("short desktop viewport keeps tour controls on screen", () => {
+  const hole = { top: 32, left: 24, width: 200, height: 40 };
+  const viewport = { width: 1100, height: 480 };
+  const card = { width: 360, height: 400 };
+  const pos = placeTourCard({
+    viewport,
+    card,
+    hole,
+    desktop: true,
+    bottomReserve: 16,
+  });
+  assert.ok(pos.top < viewport.height - 80);
+  assert.ok(pos.top + 160 <= viewport.height);
+  assert.ok(pos.left >= 12);
 });
 
 test("visual chrome reuses Somi, exit, and a non-blocking invite", () => {

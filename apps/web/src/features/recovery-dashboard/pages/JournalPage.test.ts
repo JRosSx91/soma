@@ -66,6 +66,8 @@ test("LIVE journal fetch is isolated from DEMO samples", () => {
   assert.match(page, /if \(!live\) return/);
   assert.match(page, /JOURNAL_DEMO_ENTRIES/);
   assert.match(page, /JOURNAL_DEMO_MILESTONES/);
+  assert.match(page, /fetchJournalMonthEntries\(calYear, calMonth\)/);
+  assert.equal(demo.includes("refreshLiveViewsAfterWrite"), false);
 });
 
 test("journal entry delete confirms, reloads LIVE views and stays local in DEMO", () => {

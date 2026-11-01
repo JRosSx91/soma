@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchSubstances } from "./substances.js";
 import type { ApiSubstance } from "../../shared/api/types.js";
 
@@ -6,20 +6,22 @@ interface UseSubstancesState {
   data: ApiSubstance[] | null;
   loading: boolean;
   error: Error | null;
+  /** User-initiated refetch. Does not loop on its own. */
+  retry: () => void;
 }
 
 /**
- * Loads the substance catalog once on mount.
+ * Loads the substance catalog once on mount, and again when `retry` runs.
  *
- * Intentionally minimal. No revalidation, no manual refetch trigger,
- * no global cache. The catalog is static seed data — there's nothing
- * to invalidate during a session.
- *
- * If we later need cross-component sharing without prop drilling,
- * lift this into a React Context or move to TanStack Query.
+ * Intentionally minimal. No revalidation, no global cache, no auto-retry.
+ * The catalog is static seed data — there's nothing to invalidate during
+ * a session besides recovering from a failed fetch.
  */
 export function useSubstances(): UseSubstancesState {
-  const [state, setState] = useState<UseSubstancesState>({
+  const [attempt, setAttempt] = useState(0);
+  const [state, setState] = useState<
+    Pick<UseSubstancesState, "data" | "loading" | "error">
+  >({
     data: null,
     loading: true,
     error: null,
@@ -27,6 +29,7 @@ export function useSubstances(): UseSubstancesState {
 
   useEffect(() => {
     let cancelled = false;
+    setState((prev) => ({ ...prev, loading: true, error: null }));
 
     fetchSubstances()
       .then((data) => {
@@ -43,7 +46,11 @@ export function useSubstances(): UseSubstancesState {
     return () => {
       cancelled = true;
     };
+  }, [attempt]);
+
+  const retry = useCallback(() => {
+    setAttempt((current) => current + 1);
   }, []);
 
-  return state;
+  return { ...state, retry };
 }

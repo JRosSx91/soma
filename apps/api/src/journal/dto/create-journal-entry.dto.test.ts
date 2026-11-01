@@ -102,3 +102,12 @@ test("CreateJournalEntryDto rejects invalid civil dates", () => {
   assert.ok(validate({ occurredOn: "29/04/2026", mood: 3 }).length > 0);
   assert.ok(validate({ occurredOn: "1969-12-31", mood: 3 }).length > 0);
 });
+
+test("CreateJournalEntryDto rejects occurredOn after UTC tomorrow", () => {
+  const errors = validate({ occurredOn: "2099-01-01", mood: 3 });
+  assert.ok(errors.length > 0);
+  assert.match(
+    errors.flatMap((error) => Object.values(error.constraints ?? {})).join("; "),
+    /occurredOn must be a YYYY-MM-DD civil date between 1970-01-01 and UTC tomorrow/,
+  );
+});

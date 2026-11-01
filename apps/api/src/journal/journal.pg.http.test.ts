@@ -281,3 +281,50 @@ test("pg http: owner CRUD, foreign 404, export and wipe isolation", async (t) =>
   const removed = await http().delete(`/me/journal/${peer.body.id}`);
   assert.equal(removed.status, 204);
 });
+
+test("pg http: list accepts current and past months; rejects inverted range; write still caps occurredOn", async (t) => {
+  if (skipReason) {
+    t.skip(skipReason);
+    return;
+  }
+  activeUserId = userA!.id;
+
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const monthIndex = now.getUTCMonth();
+  const pad = (value: number) => String(value).padStart(2, "0");
+  const last = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+  const currentFrom = `${year}-${pad(monthIndex + 1)}-01`;
+  const currentTo = `${year}-${pad(monthIndex + 1)}-${pad(last)}`;
+
+  const currentMonth = await http()
+    .get("/me/journal")
+    .query({ from: currentFrom, to: currentTo, limit: 50 });
+  assert.equal(currentMonth.status, 200);
+  assert.ok(Array.isArray(currentMonth.body.items));
+
+  const reproduced = await http()
+    .get("/me/journal")
+    .query({ from: "2026-11-01", to: "2026-11-30", limit: 50 });
+  assert.equal(reproduced.status, 200);
+
+  const pastMonth = await http()
+    .get("/me/journal")
+    .query({ from: "2026-10-01", to: "2026-10-31", limit: 50 });
+  assert.equal(pastMonth.status, 200);
+
+  const inverted = await http()
+    .get("/me/journal")
+    .query({ from: "2026-11-30", to: "2026-11-01" });
+  assert.equal(inverted.status, 400);
+
+  const futureWrite = await http().post("/me/journal").send({
+    occurredOn: "2099-01-01",
+    mood: 3,
+  });
+  assert.equal(futureWrite.status, 400);
+  assert.match(
+    JSON.stringify(futureWrite.body),
+    /occurredOn must be a YYYY-MM-DD civil date between 1970-01-01 and UTC tomorrow/,
+  );
+});

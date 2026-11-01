@@ -236,6 +236,10 @@ test("civil months use calendar dates, including February leap years", () => {
     from: "2025-02-01",
     to: "2025-02-28",
   });
+  assert.deepEqual(civilMonthRange(2026, 10), {
+    from: "2026-11-01",
+    to: "2026-11-30",
+  });
   assert.equal(shiftCivilDate("2024-02-28", 1), "2024-02-29");
   assert.equal(shiftCivilDate("2024-02-29", 1), "2024-03-01");
   assert.equal(isIsoInCivilMonth("2024-02-29", 2024, 1), true);
