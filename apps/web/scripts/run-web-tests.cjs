@@ -23,6 +23,7 @@ const TEST_ROOTS = [
   "src/features/landing-v2",
   "src/features/legal",
   "src/features/somi",
+  "src/features/onboarding",
   "src/features/onboarding-tour",
   "src/seo",
   "src/i18n",

@@ -33,6 +33,8 @@
   "loadError": "No se ha podido cargar tu perfil. Comprueba la conexión e inténtalo de nuevo.",
   "loadErrorHint": "No cambiaremos tu seguimiento hasta que el perfil se cargue correctamente.",
   "retryLoad": "Reintentar",
+  "catalogLoadError": "No se ha podido cargar la lista de sustancias. Comprueba la conexión e inténtalo de nuevo.",
+  "catalogLoadErrorHint": "Tu cuenta y tus consentimientos no se modifican. El seguimiento no se edita hasta que la lista cargue.",
   "enterAppWithoutSetup": "Entrar en Soma sin cambiar la configuración",
   "clearConfirmTitle": "¿Eliminar todo el seguimiento de sustancias?",
   "clearConfirmBody": "Si guardas sin sustancias seleccionadas, se borrará el seguimiento que ya habías configurado. Esta acción no se puede deshacer desde esta pantalla.",

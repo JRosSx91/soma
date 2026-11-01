@@ -3,6 +3,10 @@ import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSubstances } from "../features/substances/index.js";
+import {
+  logOnboardingLoadInDev,
+  resolveOnboardingLoadView,
+} from "../features/onboarding/lib/onboarding-load-state.js";
 import { useUserProfile } from "../features/profile/index.js";
 import type { UsageInput } from "../features/profile/index.js";
 import {
@@ -75,13 +79,24 @@ function toDateInputValue(isoDate: string): string {
 export function OnboardingPage() {
   const { t } = useTranslation(["onboarding", "substances", "common"]);
   const navigate = useNavigate();
-  const { data: substances, loading: loadingSubstances } = useSubstances();
+  const {
+    data: substances,
+    loading: loadingSubstances,
+    retry: retrySubstances,
+  } = useSubstances();
   const {
     profile,
     loading: loadingProfile,
     error: profileError,
     refresh,
   } = useUserProfile();
+  const loadView = resolveOnboardingLoadView({
+    catalogLoading: loadingSubstances,
+    catalog: substances,
+    profileLoading: loadingProfile,
+    profile,
+    profileError,
+  });
   const [error, setError] = useState<string | null>(null);
   const [fieldError, setFieldError] = useState<{
     substanceId: string;
@@ -102,6 +117,10 @@ export function OnboardingPage() {
   const confirmedClearFingerprint = useRef<string | null>(null);
   /** Exact validated payload frozen at confirmation time (avoids races). */
   const confirmedClearUsages = useRef<UsageInput[] | null>(null);
+
+  useEffect(() => {
+    logOnboardingLoadInDev(loadView);
+  }, [loadView]);
 
   useEffect(() => {
     if (initialized || !profile || !substances) return;
@@ -293,7 +312,7 @@ export function OnboardingPage() {
     }
   };
 
-  if (loadingSubstances || loadingProfile || !substances) {
+  if (loadView === "loading") {
     return (
       <OnboardingShell>
         <p className="text-sm text-soma-ink-secondary" role="status">
@@ -303,7 +322,36 @@ export function OnboardingPage() {
     );
   }
 
-  if (profileError || !profile) {
+  if (loadView === "catalogError") {
+    return (
+      <OnboardingShell>
+        <div className="space-y-4">
+          <p className="text-sm text-soma-organ-damaged" role="alert">
+            {t("catalogLoadError")}
+          </p>
+          <p className="text-xs text-soma-ink-muted">
+            {t("catalogLoadErrorHint")}
+          </p>
+          <button
+            type="button"
+            onClick={retrySubstances}
+            className={authPrimaryButtonClass}
+          >
+            {t("retryLoad")}
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/app", { replace: true })}
+            className={`${authLinkClass} text-sm`}
+          >
+            {t("enterAppWithoutSetup")}
+          </button>
+        </div>
+      </OnboardingShell>
+    );
+  }
+
+  if (loadView === "profileError" || !profile) {
     return (
       <OnboardingShell>
         <div className="space-y-4">
@@ -326,6 +374,28 @@ export function OnboardingPage() {
             className={`${authLinkClass} text-sm`}
           >
             {t("enterAppWithoutSetup")}
+          </button>
+        </div>
+      </OnboardingShell>
+    );
+  }
+
+  if (!substances) {
+    return (
+      <OnboardingShell>
+        <div className="space-y-4">
+          <p className="text-sm text-soma-organ-damaged" role="alert">
+            {t("catalogLoadError")}
+          </p>
+          <p className="text-xs text-soma-ink-muted">
+            {t("catalogLoadErrorHint")}
+          </p>
+          <button
+            type="button"
+            onClick={retrySubstances}
+            className={authPrimaryButtonClass}
+          >
+            {t("retryLoad")}
           </button>
         </div>
       </OnboardingShell>
