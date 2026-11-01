@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
   explicitLogoutDestination,
+  shouldRedirectAnonymousLogin,
   unauthenticatedDestination,
 } from "./unauthenticated-destination.js";
 
@@ -86,4 +87,41 @@ test("explicit logout from /app lands on the public home, not /login", () => {
   );
   assert.match(menu, /explicitLogoutDestination\(\)/);
   assert.match(auth, /setSessionNotice\("signed_out"\)/);
+});
+
+test("signed_out still opens /login while /app stays on the landing", () => {
+  assert.equal(shouldRedirectAnonymousLogin("signed_out"), false);
+  assert.equal(shouldRedirectAnonymousLogin(null), false);
+  assert.equal(shouldRedirectAnonymousLogin("session_expired"), false);
+  assert.equal(shouldRedirectAnonymousLogin("account_deleted"), true);
+  assert.equal(unauthenticatedDestination("signed_out"), "/");
+
+  const loginPage = readFileSync(
+    new URL("../../../pages/LoginPage.tsx", import.meta.url),
+    "utf8",
+  );
+  const protectedRoute = readFileSync(
+    new URL("../../../components/ProtectedRoute.tsx", import.meta.url),
+    "utf8",
+  );
+  const landingHeader = readFileSync(
+    new URL("../../landing-v2/LandingV2Header.tsx", import.meta.url),
+    "utf8",
+  );
+  const auth = readFileSync(
+    new URL("../context/AuthContext.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(loginPage, /shouldRedirectAnonymousLogin\(sessionNotice\)/);
+  assert.doesNotMatch(
+    loginPage,
+    /unauthenticatedDestination\(sessionNotice\) === "\/"/,
+  );
+  assert.match(
+    protectedRoute,
+    /Navigate to=\{unauthenticatedDestination\(sessionNotice\)\}/,
+  );
+  assert.match(landingHeader, /to="\/login"/);
+  assert.match(auth, /setSessionNotice\(null\)/);
+  assert.match(loginPage, /navigate\("\/app", \{ replace: true \}\)/);
 });

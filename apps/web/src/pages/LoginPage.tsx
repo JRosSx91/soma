@@ -4,7 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth, translateAuthError } from "../features/auth/index.js";
 import { useRegistrationMode } from "../features/auth/context/RegistrationModeContext.js";
-import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
+import { shouldRedirectAnonymousLogin } from "../features/auth/lib/unauthenticated-destination.js";
 import { AuthPasswordField } from "../features/auth/components/AuthPasswordField.js";
 import {
   AuthShell,
@@ -146,7 +146,7 @@ export function LoginPage() {
     );
   }
 
-  if (!user && unauthenticatedDestination(sessionNotice) === "/") {
+  if (!user && shouldRedirectAnonymousLogin(sessionNotice)) {
     return <Navigate to="/" replace />;
   }
 

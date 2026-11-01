@@ -146,6 +146,25 @@ test("ForgotPasswordPage confirmation copy stays anti-enumeration", async () => 
   assert.equal(/has been sent|email delivery is available/i.test(confirmation), false);
 });
 
+test("LoginPage with signed_out still shows the sign-in form", async () => {
+  await ensureI18n();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        {
+          value: { ...guestAuth, sessionNotice: "signed_out" },
+        },
+        createElement(LoginPage),
+      ),
+      ["/login"],
+    ),
+  );
+  assert.match(html, /Welcome back/);
+  assert.match(html, /Sign in/);
+  assert.match(html, /type="email"/);
+});
+
 test("LoginPage with account_deleted does not keep the visitor on login", async () => {
   await ensureI18n();
   const html = renderToStaticMarkup(
