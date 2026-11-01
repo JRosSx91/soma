@@ -76,37 +76,64 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Soma — Physiological recovery</title>
+    <title>Soma — Educational models of physiological recovery</title>
     <meta
       name="description"
-      content="Soma is an educational companion for exploring modelled physiological recovery after substance use. Catalog curves are illustrative estimates, not clinical measurements or diagnoses."
+      content="Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses."
     />
     <link rel="canonical" href="https://somarecovery.app/" />
     <meta name="robots" content="index,follow" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Soma" />
     <meta property="og:locale" content="en" />
-    <meta property="og:title" content="Soma — Physiological recovery" />
+    <meta property="og:title" content="Soma — Educational models of physiological recovery" />
     <meta
       property="og:description"
-      content="Soma is an educational companion for exploring modelled physiological recovery after substance use. Catalog curves are illustrative estimates, not clinical measurements or diagnoses."
+      content="Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses."
     />
     <meta property="og:url" content="https://somarecovery.app/" />
     <meta
       property="og:image"
       content="https://somarecovery.app/images/landing-v2/hero-holographic-anatomy.png"
     />
+    <meta property="og:image:width" content="1828" />
+    <meta property="og:image:height" content="860" />
     <meta
       property="og:image:alt"
       content="Educational holographic anatomy illustration from the Soma landing. Not a clinical scan or personal measurement."
     />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Soma — Educational models of physiological recovery" />
+    <meta
+      name="twitter:description"
+      content="Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses."
+    />
+    <meta
+      name="twitter:image"
+      content="https://somarecovery.app/images/landing-v2/hero-holographic-anatomy.png"
+    />
+    <script id="soma-jsonld" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Soma",
+        "url": "https://somarecovery.app/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "description": "Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses.",
+        "offers": {
+          "@type": "Offer",
+          "price": 0,
+          "priceCurrency": "EUR"
+        }
+      }
+    </script>
     <!--
       SPA: every route serves this document. Static robots/canonical/og:url
       describe the public landing and remain valid without JavaScript.
       Production also sends X-Robots-Tag: noindex, nofollow on private paths
       (Render Headers; not in this file). This parser-blocking script only
-      runs off `/`: HTML noindex and strip canonical/og:url before React.
+      runs off `/`: HTML noindex and strip canonical/og:url/JSON-LD before React.
     -->
     <script>
       (function () {
@@ -127,6 +154,8 @@
           if (canonical) canonical.parentNode.removeChild(canonical);
           var ogUrl = document.querySelector('meta[property="og:url"]');
           if (ogUrl) ogUrl.parentNode.removeChild(ogUrl);
+          var jsonLd = document.getElementById("soma-jsonld");
+          if (jsonLd) jsonLd.parentNode.removeChild(jsonLd);
         } catch (_) {
           /* keep static landing robots */
         }
@@ -134,6 +163,17 @@
     </script>
   </head>
   <body>
+    <noscript>
+      <main>
+        <h1>Soma</h1>
+        <p>
+          Soma is an educational web app for exploring modelled physiological
+          recovery after substance use. Catalog curves are estimates, not
+          diagnoses.
+        </p>
+        <p>JavaScript is required to use the application.</p>
+      </main>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

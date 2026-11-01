@@ -5,25 +5,71 @@
  * SPA rewrite). That file is the landing: `index,follow`, canonical and
  * `og:url` are in the markup so `/` is indexable without JavaScript.
  *
- * Private/demo/auth paths: Render `X-Robots-Tag: noindex, nofollow` (panel,
- * not this repo) plus the parser-blocking head script and DocumentSeo.
- * robots.txt allows crawling so those tags can be fetched. Sitemap: `/` only.
- * Locale is client-only; no hreflang.
+ * Private/demo/auth/legal paths: Render `X-Robots-Tag: noindex, nofollow`
+ * (Headers on the static site; not applied from this repo) plus the
+ * parser-blocking head script and DocumentSeo. robots.txt allows crawling
+ * so those tags can be fetched. Sitemap: `/` only. Locale is client-only;
+ * no hreflang.
+ *
+ * Legal routes (`/legal`, `/privacy`, `/terms`, `/cookies`) must be listed
+ * as exact Header paths in Render. A missing header leaves only the JS
+ * snippet as noindex; crawlers that skip JS would still see index,follow.
  */
 
 export const PUBLIC_SITE_ORIGIN = "https://somarecovery.app";
 export const PUBLIC_LANDING_URL = `${PUBLIC_SITE_ORIGIN}/`;
 export const PUBLIC_SITEMAP_URL = `${PUBLIC_SITE_ORIGIN}/sitemap.xml`;
 
-export const DEFAULT_DOCUMENT_TITLE = "Soma — Physiological recovery";
+export const DEFAULT_DOCUMENT_TITLE =
+  "Soma — Educational models of physiological recovery";
 
 export const DEFAULT_DOCUMENT_DESCRIPTION =
-  "Soma is an educational companion for exploring modelled physiological recovery after substance use. Catalog curves are illustrative estimates, not clinical measurements or diagnoses.";
+  "Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses.";
 
 export const DEFAULT_OG_IMAGE_URL = `${PUBLIC_SITE_ORIGIN}/images/landing-v2/hero-holographic-anatomy.png`;
 
+export const DEFAULT_OG_IMAGE_WIDTH = 1828;
+export const DEFAULT_OG_IMAGE_HEIGHT = 860;
+
 export const DEFAULT_OG_IMAGE_ALT =
   "Educational holographic anatomy illustration from the Soma landing. Not a clinical scan or personal measurement.";
+
+export const LANDING_JSON_LD_SCRIPT_ID = "soma-jsonld";
+
+export type LandingWebApplicationJsonLd = {
+  "@context": "https://schema.org";
+  "@type": "WebApplication";
+  name: "Soma";
+  url: typeof PUBLIC_LANDING_URL;
+  applicationCategory: "EducationalApplication";
+  operatingSystem: "Web";
+  description: string;
+  offers: {
+    "@type": "Offer";
+    price: 0;
+    priceCurrency: "EUR";
+  };
+};
+
+/** Homepage-only JSON-LD. Do not emit this on private, demo, auth, or legal paths. */
+export function landingWebApplicationJsonLd(
+  description: string = DEFAULT_DOCUMENT_DESCRIPTION,
+): LandingWebApplicationJsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Soma",
+    url: PUBLIC_LANDING_URL,
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web",
+    description,
+    offers: {
+      "@type": "Offer",
+      price: 0,
+      priceCurrency: "EUR",
+    },
+  };
+}
 
 /**
  * Exact Render Header paths for `X-Robots-Tag: noindex, nofollow`.
