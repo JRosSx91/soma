@@ -18,9 +18,9 @@ import {
   sortMissions,
 } from "./missions-view.ts";
 
-test("published catalog has six missions in stable sort order", () => {
+test("published catalog has fourteen missions in stable sort order", () => {
   const rows = sortMissions(buildDemoMissions(new Set()));
-  assert.equal(rows.length, 6);
+  assert.equal(rows.length, 14);
   const orders = rows.map((row) => row.sortOrder);
   assert.deepEqual([...orders], [...orders].sort((a, b) => a - b));
   assert.equal(rows[0]?.id, "edu-dopamine-01");
@@ -44,9 +44,9 @@ test("completed counts and i18n paths stay public", () => {
   const rows = buildDemoMissions(new Set(["edu-dopamine-01"]));
   const summary = countCompletedMissions(rows);
   assert.equal(summary.completed, 1);
-  assert.equal(summary.total, 6);
-  assert.equal(summary.available, 5);
-  assert.equal(summary.percent, 17);
+  assert.equal(summary.total, 14);
+  assert.equal(summary.available, 13);
+  assert.equal(summary.percent, 7);
   assert.equal(summary.discoverable, 2);
   assert.equal(rows.find((row) => row.id === "edu-dopamine-01")?.state, "completed");
   assert.equal(rows.find((row) => row.id === "edu-gaba-01")?.state, "available");
@@ -67,9 +67,9 @@ test("search, completed filter and title sort stay local", () => {
   assert.equal(searchMissions(rows, "gaba", haystack)[0]?.id, "edu-gaba-01");
   assert.equal(filterMissionCatalog(rows, "completed").length, 1);
   const titled = sortMissionCatalog(rows, "title", (row) => row.id);
-  assert.equal(titled[0]?.id, "edu-dopamine-01");
+  assert.equal(titled[0]?.id, "edu-acetylcholine-01");
   assert.equal(categoryProgress(rows, "substances").upcoming, true);
-  assert.equal(categoryProgress(rows, "neurotransmitters").total, 3);
+  assert.equal(categoryProgress(rows, "neurotransmitters").total, 9);
   assert.ok(missionIllustrationSrc("dopamine")?.includes("neurotransmitter-dopamine"));
   assert.ok(missionIllustrationSrc("tolerance")?.includes("process-tolerance"));
   assert.equal(missionArtNeedsFrame("dopamine"), false);

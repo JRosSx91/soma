@@ -83,6 +83,80 @@ test("unknown mission or option is rejected", () => {
   );
 });
 
+test("original six published missions keep a 2-2-2 visual split", () => {
+  const original = [
+    "edu-dopamine-01",
+    "edu-serotonin-01",
+    "edu-gaba-01",
+    "edu-receptors-01",
+    "edu-tolerance-01",
+    "edu-neuroadaptation-01",
+  ] as const;
+  const counts = [0, 0, 0];
+  for (const id of original) {
+    const mission = getMissionById(id);
+    assert.ok(mission);
+    const index = mission.options.findIndex((option) => option.id === MISSION_CORRECT_OPTION_ID[id]);
+    assert.ok(index >= 0 && index <= 2);
+    counts[index] += 1;
+  }
+  assert.deepEqual(counts, [2, 2, 2]);
+});
+
+test("published correct options are not concentrated in one visual slot", () => {
+  const published = MISSION_CATALOG.filter((row) => row.status === "published");
+  const counts = [0, 0, 0];
+  for (const row of published) {
+    const correct = MISSION_CORRECT_OPTION_ID[row.id];
+    const index = row.options.findIndex((option) => option.id === correct);
+    assert.ok(index >= 0 && index <= 2);
+    counts[index] += 1;
+    const first = row.options[0];
+    assert.ok(first);
+    const firstVerdict = evaluateReadingCheckAnswer({
+      missionId: row.id,
+      selectedOptionId: first.id,
+    });
+    assert.equal(firstVerdict.ok, true);
+    if (firstVerdict.ok) {
+      assert.equal(firstVerdict.correct, first.id === correct);
+    }
+  }
+  assert.equal(counts.reduce((sum, n) => sum + n, 0), 14);
+  assert.ok(counts.every((n) => n >= 4));
+  assert.ok(Math.max(...counts) - Math.min(...counts) <= 1);
+  assert.ok(counts[0]! < 14);
+});
+
+test("a correct option is scored by id even when it is not first", () => {
+  const last = evaluateReadingCheckAnswer({
+    missionId: "edu-tolerance-01",
+    selectedOptionId: "sensitivity",
+  });
+  assert.deepEqual(last, {
+    ok: true,
+    missionId: "edu-tolerance-01",
+    selectedOptionId: "sensitivity",
+    correct: true,
+  });
+  const firstWrong = evaluateReadingCheckAnswer({
+    missionId: "edu-tolerance-01",
+    selectedOptionId: "equals_addiction",
+  });
+  assert.equal(firstWrong.ok, true);
+  if (firstWrong.ok) {
+    assert.equal(firstWrong.correct, false);
+  }
+  const middle = evaluateReadingCheckAnswer({
+    missionId: "edu-gaba-01",
+    selectedOptionId: "network_brake",
+  });
+  assert.equal(middle.ok, true);
+  if (middle.ok) {
+    assert.equal(middle.correct, true);
+  }
+});
+
 test("evaluation does not persist progress or grant XP", () => {
   assert.equal(evaluationSource.includes("awardXp"), false);
   assert.equal(evaluationSource.includes("xpGranted"), false);

@@ -20,6 +20,14 @@ export const DEMO_MISSION_CORRECT_OPTION_ID = {
   "edu-receptors-01": "occupancy",
   "edu-tolerance-01": "sensitivity",
   "edu-neuroadaptation-01": "plasticity",
+  "edu-dependence-01": "not_disorder",
+  "edu-metabolism-01": "not_reset",
+  "edu-glutamate-01": "favours_transmission",
+  "edu-norepinephrine-01": "not_blood_map",
+  "edu-acetylcholine-01": "mimic_some",
+  "edu-adenosine-01": "antagonist",
+  "edu-endorphin-01": "own_peptides",
+  "edu-endocannabinoid-01": "not_the_ligands",
 } as const satisfies Record<
   Exclude<MissionId, "edu-unpublished-01">,
   string

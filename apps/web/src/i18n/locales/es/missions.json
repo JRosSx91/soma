@@ -126,6 +126,102 @@
         "cell_death": "Toda adaptación a la cafeína o la nicotina es lo mismo que perder neuronas",
         "fixed_calendar": "Son el mismo proceso, y el cerebro vuelve a una foto fija en un número de días"
       }
+    },
+    "edu-dependence-01": {
+      "title": "La dependencia física no es adicción",
+      "summary": "Una comprobación tras la ficha de dependencia: un equilibrio prestado frente a un diagnóstico clínico.",
+      "goal": "Separar la dependencia física y la abstinencia de un trastorno por uso de sustancias.",
+      "prompt": "Según la ficha educativa, ¿en qué se diferencia la dependencia física de un trastorno por uso de sustancias?",
+      "explain": "La dependencia física es una adaptación del cuerpo a la presencia repetida de una sustancia. Al reducirla puede aparecer abstinencia, pero la abstinencia sola no determina un diagnóstico. Un trastorno por uso de sustancias se valora clínicamente con un conjunto más amplio de criterios. También puede haber trastorno con poca abstinencia clásica, según la sustancia.",
+      "options": {
+        "not_disorder": "Es una adaptación corporal; la abstinencia por sí sola no diagnostica un trastorno por uso de sustancias",
+        "same_as_addiction": "Son el mismo diagnóstico: si parar se pasa mal, eso ya es adicción",
+        "soma_meter": "Sin el síndrome de abstinencia típico del alcohol (temblor, convulsiones), no hay dependencia física"
+      }
+    },
+    "edu-metabolism-01": {
+      "title": "Vaciar el plasma no reinicia el sistema nervioso",
+      "summary": "Una comprobación tras la ficha de metabolismo: transformar una molécula no es deshacer adaptaciones.",
+      "goal": "Ver por qué la biotransformación no es la recuperación neuronal, y por qué la semivida no es la duración del efecto.",
+      "prompt": "¿Qué dice la ficha educativa sobre el metabolismo de una sustancia?",
+      "explain": "El metabolismo es el conjunto de reacciones que modifican una molécula, a menudo en el hígado. Procesarla y eliminarla no deshace por sí solo las adaptaciones del sistema nervioso. La semivida plasmática no es lo mismo que la duración del efecto: también importan metabolitos activos y el desfase entre concentración y respuesta.",
+      "options": {
+        "half_life_is_effect": "La semivida plasmática es lo mismo que cuánto dura el efecto",
+        "not_reset": "Transformar y eliminar la molécula no deshace por sí solo las adaptaciones del sistema nervioso",
+        "soma_hours": "Cuando la sustancia ya no está en plasma, la tolerancia y las adaptaciones nerviosas también han desaparecido"
+      }
+    },
+    "edu-glutamate-01": {
+      "title": "Excitatorio no significa tóxico",
+      "summary": "Una comprobación tras la ficha de glutamato: qué significa «excitatorio» en una red.",
+      "goal": "Distinguir la transmisión excitatoria cotidiana de la excitotoxicidad, que es una vía patológica, no una copa.",
+      "prompt": "Según la ficha educativa, ¿qué significa que el glutamato sea el principal mensajero excitatorio?",
+      "explain": "Excitatorio significa que favorece la transmisión: empuja a la neurona vecina hacia el umbral de disparo. No significa «peligroso» ni «tóxico por naturaleza». La excitotoxicidad es una vía patológica estudiada en lesiones como la isquemia; no es la descripción de un café o de una sola copa.",
+      "options": {
+        "poison": "Es un veneno excitatorio: su mera existencia daña neuronas",
+        "one_drink": "Una copa o un café son el mismo fenómeno que la excitotoxicidad",
+        "favours_transmission": "Favorece que la neurona vecina se acerque al umbral de disparo; no es peligroso por naturaleza"
+      }
+    },
+    "edu-norepinephrine-01": {
+      "title": "La noradrenalina del cerebro no es un análisis de sangre",
+      "summary": "Una comprobación tras la ficha de noradrenalina: atención y vigilia no son las catecolaminas que circulan.",
+      "goal": "Separar el papel de la noradrenalina en el cerebro de las catecolaminas en sangre, y de la dopamina.",
+      "prompt": "Según la ficha educativa, ¿qué hace sobre todo la noradrenalina en el cerebro?",
+      "explain": "En el cerebro participa en la atención, la vigilia y en que algunos estímulos destaquen. Eso no es lo mismo que las catecolaminas que circulan en sangre o se miden en orina, aunque el nombre coincida. El parentesco con la dopamina no las convierte en la misma señal, ni en una alarma permanente.",
+      "options": {
+        "not_blood_map": "Participa en la atención y la vigilia, y ayuda a que algunos estímulos destaquen; no es solo «ponerse nervioso»",
+        "urine_is_focus": "Es una alarma continua: más noradrenalina en sangre es más estrés y más atención en el cerebro",
+        "same_as_dopamine": "Noradrenalina y dopamina son la misma señal porque una se fabrica a partir de la otra"
+      }
+    },
+    "edu-acetylcholine-01": {
+      "title": "La nicotina no es acetilcolina",
+      "summary": "Una comprobación tras la ficha de acetilcolina: un alcaloide exógeno no es el mensajero endógeno.",
+      "goal": "Separar la nicotina de la acetilcolina, y los receptores nicotínicos de los muscarínicos.",
+      "prompt": "Según la ficha educativa, ¿cómo se relacionan la nicotina y la acetilcolina?",
+      "explain": "La nicotina no es acetilcolina. Imita de forma aproximada la acetilcolina en algunos receptores nicotínicos, no en los muscarínicos ni en todas las sinapsis. Estimular un receptor nicotínico no es «subir la acetilcolina cerebral» como si fuera un depósito.",
+      "options": {
+        "is_the_messenger": "La nicotina es acetilcolina: sustituye al mensajero en todo el cuerpo",
+        "mimic_some": "La nicotina imita de forma aproximada la acetilcolina en algunos receptores nicotínicos, no en los muscarínicos",
+        "raises_store": "Abrir un receptor nicotínico es «subir la acetilcolina cerebral» como llenar un depósito"
+      }
+    },
+    "edu-adenosine-01": {
+      "title": "La cafeína no vacía un depósito de sueño",
+      "summary": "Una comprobación tras la ficha de adenosina: ocupar un receptor no es vaciar un líquido.",
+      "goal": "Ver la cafeína como antagonista de los receptores de adenosina, no como vaciar un tanque de sueño ni como el mismo gesto que la cocaína.",
+      "prompt": "¿Cuál es el gesto principal de la cafeína en esta ficha educativa?",
+      "explain": "La cafeína es un antagonista competitivo en los receptores de adenosina —sobre todo A1 y A2A a dosis habituales de taza—: ocupa el sitio y levanta parte del freno. No vacía un depósito de sueño ni copia el mecanismo principal de la cocaína. Levantar ese freno no es «subir la dopamina» como hace la cocaína.",
+      "options": {
+        "empties_tank": "Vacía un depósito de adenosina, y con él desaparece la presión de sueño",
+        "blocks_dat": "Copia el gesto principal de la cocaína: impide recoger la dopamina ya liberada",
+        "antagonist": "Es un antagonista competitivo en receptores de adenosina (sobre todo A1 y A2A): ocupa el sitio y levanta parte del freno"
+      }
+    },
+    "edu-endorphin-01": {
+      "title": "Las endorfinas no son morfina",
+      "summary": "Una comprobación tras la ficha de endorfinas: péptidos propios no son un grifo de placer.",
+      "goal": "Distinguir las endorfinas de la morfina, y de una cuenta única del placer o del subidón del corredor.",
+      "prompt": "¿Qué aclara la ficha educativa sobre las endorfinas?",
+      "explain": "Las endorfinas son péptidos opioides que el cuerpo fabrica. No son morfina ni heroína. Endorfina, encefalina y dinorfina no son tres nombres del placer: las dinorfinas, en muchos modelos, empujan más hacia la aversión. El llamado subidón del corredor se ha relacionado también con endocannabinoides; no hay una sola molécula como explicación universal.",
+      "options": {
+        "own_peptides": "Son péptidos opioides que el cuerpo fabrica; no son morfina ni un único interruptor de placer",
+        "are_morphine": "Endorfina es el nombre científico de la morfina que produce el cerebro",
+        "runner_meter": "El subidón del corredor se explica solo por un pico de β-endorfina, la molécula universal del placer"
+      }
+    },
+    "edu-endocannabinoid-01": {
+      "title": "El THC no es el mensajero del cuerpo",
+      "summary": "Una comprobación tras la ficha del sistema endocannabinoide: un agonista vegetal no es anandamida ni 2-AG.",
+      "goal": "Separar el THC de los ligandos endógenos, y «el cannabis del cuerpo» de la señalización retrógrada.",
+      "prompt": "Según la ficha educativa, ¿cómo se relacionan el sistema endocannabinoide y el THC?",
+      "explain": "El THC no es anandamida ni 2-AG. Ocupa receptores CB1 que ya tenían sus propios ligandos, con otra cinética. El sistema no es «el cannabis del cuerpo», y el cannabis no empieza por inundar el cerebro de anandamida.",
+      "options": {
+        "body_cannabis": "El sistema es «el cannabis del cuerpo», y el THC copia exactamente esos ligandos",
+        "not_the_ligands": "El THC no es anandamida ni 2-AG: ocupa receptores CB1 que ya tenían sus propios ligandos",
+        "makes_anandamide": "El cannabis primero inunda el cerebro de anandamida"
+      }
     }
   }
 }

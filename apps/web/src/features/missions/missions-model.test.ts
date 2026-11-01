@@ -13,7 +13,7 @@ const sample = buildDemoMissions(new Set());
 
 test("parseMissionCatalog accepts a published list and rejects private keys", () => {
   const parsed = parseMissionCatalog({ missions: sample });
-  assert.equal(parsed.missions.length, 6);
+  assert.equal(parsed.missions.length, 14);
   assert.equal(
     parsed.missions.some((row) => row.id === "edu-unpublished-01"),
     false,
@@ -62,5 +62,5 @@ test("shouldBlockMissionSubmit only blocks the in-flight mission id", () => {
   const pending = new Set(["edu-dopamine-01"]);
   assert.equal(shouldBlockMissionSubmit(pending, "edu-dopamine-01"), true);
   assert.equal(shouldBlockMissionSubmit(pending, "edu-gaba-01"), false);
-  assert.equal(listPublishedMissions().length, 6);
+  assert.equal(listPublishedMissions().length, 14);
 });

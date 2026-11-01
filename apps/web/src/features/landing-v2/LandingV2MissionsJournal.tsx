@@ -18,7 +18,7 @@ const DEMO_MISSIONS = [
 
 const DEMO_COMPLETED = DEMO_MISSIONS.filter((item) => item.state === "completed")
   .length;
-const DEMO_TOTAL = 6;
+const DEMO_TOTAL = 14;
 
 const JOURNAL_SAMPLE_EMOTIONS = ["calm", "grateful"] as const;
 

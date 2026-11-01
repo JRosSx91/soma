@@ -126,6 +126,102 @@
         "cell_death": "Every adaptation to caffeine or nicotine is the same as losing neurons",
         "fixed_calendar": "They are the same process, and the brain returns to a snapshot on a fixed number of days"
       }
+    },
+    "edu-dependence-01": {
+      "title": "Physical dependence is not addiction",
+      "summary": "A check after the dependence sheet: a borrowed equilibrium versus a clinical diagnosis.",
+      "goal": "Separate physical dependence and withdrawal from a substance use disorder.",
+      "prompt": "According to the educational sheet, how does physical dependence differ from a substance use disorder?",
+      "explain": "Physical dependence is an adaptation of the body to the repeated presence of a substance. Withdrawal may appear when it is cut down, but withdrawal alone does not determine a diagnosis. A substance use disorder is assessed clinically with a broader set of criteria. You can also have a disorder with little classic withdrawal, depending on the substance.",
+      "options": {
+        "not_disorder": "It is a bodily adaptation; withdrawal by itself does not diagnose a substance use disorder",
+        "same_as_addiction": "They are the same diagnosis: if stopping feels bad, that is already addiction",
+        "soma_meter": "Without alcohol-like withdrawal (tremor, seizures), there is no physical dependence"
+      }
+    },
+    "edu-metabolism-01": {
+      "title": "Clearing the plasma does not reset the nervous system",
+      "summary": "A check after the metabolism sheet: transforming a molecule is not the same as undoing adaptations.",
+      "goal": "See why biotransformation is not neuronal recovery, and why half-life is not duration of effect.",
+      "prompt": "What does the educational sheet say about the metabolism of a substance?",
+      "explain": "Metabolism is the set of reactions that modify a molecule, often in the liver. Processing and eliminating it does not by itself undo nervous-system adaptations. Plasma half-life is not the same as duration of effect: active metabolites and the lag between concentration and response also matter.",
+      "options": {
+        "half_life_is_effect": "Plasma half-life is the same thing as how long the effect lasts",
+        "not_reset": "Transforming and eliminating the molecule does not by itself undo nervous-system adaptations",
+        "soma_hours": "Once the substance is gone from plasma, tolerance and nervous-system adaptations have gone too"
+      }
+    },
+    "edu-glutamate-01": {
+      "title": "Excitatory does not mean toxic",
+      "summary": "A check after the glutamate sheet: what “excitatory” means in a network.",
+      "goal": "Distinguish everyday excitatory transmission from excitotoxicity, which is a pathological path, not a drink.",
+      "prompt": "According to the educational sheet, what does it mean that glutamate is the main excitatory messenger?",
+      "explain": "Excitatory means it favours transmission: it pushes a neighbouring neuron toward firing threshold. It does not mean “dangerous” or “toxic by nature.” Excitotoxicity is a pathological path studied in injury such as ischaemia; it is not the description of a cup of coffee or a single drink.",
+      "options": {
+        "poison": "It is an excitatory poison: its mere existence damages neurons",
+        "one_drink": "A drink or a coffee is the same phenomenon as excitotoxicity",
+        "favours_transmission": "It favours the neighbouring neuron approaching firing threshold — it is not dangerous by nature"
+      }
+    },
+    "edu-norepinephrine-01": {
+      "title": "Brain noradrenaline is not a blood test",
+      "summary": "A check after the noradrenaline sheet: attention and wakefulness are not circulating catecholamines.",
+      "goal": "Keep noradrenaline’s role in the brain apart from catecholamines in blood, and apart from dopamine.",
+      "prompt": "According to the educational sheet, what is noradrenaline mainly doing in the brain?",
+      "explain": "In the brain it takes part in attention, wakefulness and helping some signals stand out. That is not the same as catecholamines circulating in blood or measured in urine, even if the name matches. Being built from dopamine does not make them the same signal, nor a permanent alarm.",
+      "options": {
+        "not_blood_map": "It takes part in attention and wakefulness, and helps some signals stand out — it is not only “getting nervous”",
+        "urine_is_focus": "It is a continuous alarm: more noradrenaline in blood means more stress and more attention in the brain",
+        "same_as_dopamine": "Noradrenaline and dopamine are the same signal because one is built from the other"
+      }
+    },
+    "edu-acetylcholine-01": {
+      "title": "Nicotine is not acetylcholine",
+      "summary": "A check after the acetylcholine sheet: an exogenous alkaloid is not the endogenous messenger.",
+      "goal": "Separate nicotine from acetylcholine, and nicotinic receptors from muscarinic ones.",
+      "prompt": "According to the educational sheet, how do nicotine and acetylcholine relate?",
+      "explain": "Nicotine is not acetylcholine. It roughly mimics acetylcholine at some nicotinic receptors, not at muscarinic ones and not at every synapse. Stimulating a nicotinic receptor is not “raising brain acetylcholine” as if it were a store.",
+      "options": {
+        "is_the_messenger": "Nicotine is acetylcholine: it replaces the messenger throughout the body",
+        "mimic_some": "Nicotine roughly mimics acetylcholine at some nicotinic receptors, not at muscarinic ones",
+        "raises_store": "Opening a nicotinic receptor is “raising brain acetylcholine” like filling a tank"
+      }
+    },
+    "edu-adenosine-01": {
+      "title": "Caffeine does not empty a sleep tank",
+      "summary": "A check after the adenosine sheet: occupying a receptor is not draining a liquid.",
+      "goal": "See caffeine as an antagonist at adenosine receptors, not as emptying a sleep tank or as cocaine’s main move.",
+      "prompt": "What is caffeine’s main move in this educational sheet?",
+      "explain": "Caffeine is a competitive antagonist at adenosine receptors — mainly A1 and A2A at usual cup doses: it occupies the site and lifts part of the brake. It does not empty a tank of sleep, and it does not copy cocaine’s main move. Lifting that brake is not “raising dopamine” the way cocaine does.",
+      "options": {
+        "empties_tank": "It empties a store of adenosine, and with it sleep pressure disappears",
+        "blocks_dat": "It copies cocaine’s main move: stopping already-released dopamine from being cleared",
+        "antagonist": "It is a competitive antagonist at adenosine receptors (mainly A1 and A2A): it occupies the site and lifts part of the brake"
+      }
+    },
+    "edu-endorphin-01": {
+      "title": "Endorphins are not morphine",
+      "summary": "A check after the endorphin sheet: endogenous peptides are not a pleasure tap.",
+      "goal": "Distinguish endorphins from morphine, and from a single account of pleasure or of a runner’s high.",
+      "prompt": "What does the educational sheet clarify about endorphins?",
+      "explain": "Endorphins are opioid peptides the body makes itself. They are not morphine or heroin. Endorphin, enkephalin and dynorphin are not three names for pleasure: dynorphins, in many models, push more toward aversion. The so-called runner’s high has also been linked to endocannabinoids; a single molecule is not a universal explanation.",
+      "options": {
+        "own_peptides": "They are opioid peptides the body makes; they are not morphine, and not a single pleasure switch",
+        "are_morphine": "Endorphin is the scientific name for the morphine the brain produces",
+        "runner_meter": "The runner’s high is explained only by a surge of β-endorphin, the universal pleasure molecule"
+      }
+    },
+    "edu-endocannabinoid-01": {
+      "title": "THC is not the body’s own messenger",
+      "summary": "A check after the endocannabinoid sheet: a plant agonist is not anandamide or 2-AG.",
+      "goal": "Separate THC from endogenous ligands, and “the body’s cannabis” from retrograde signalling.",
+      "prompt": "According to the educational sheet, how do the endocannabinoid system and THC relate?",
+      "explain": "THC is not anandamide or 2-AG. It occupies CB1 receptors that already had their own ligands, with different kinetics. The system is not “the body’s cannabis,” and cannabis does not start by flooding the brain with anandamide.",
+      "options": {
+        "body_cannabis": "The system is “the body’s cannabis,” and THC exactly copies those ligands",
+        "not_the_ligands": "THC is not anandamide or 2-AG: it occupies CB1 receptors that already had their own ligands",
+        "makes_anandamide": "Cannabis first floods the brain with anandamide"
+      }
     }
   }
 }

@@ -37,8 +37,8 @@ test("LIVE GET is authenticated and shares a single in-flight request", async ()
   try {
     const [a, b] = await Promise.all([fetchMyMissions(), fetchMyMissions()]);
     assert.equal(calls, 1);
-    assert.equal(a.missions.length, 6);
-    assert.equal(b.missions.length, 6);
+    assert.equal(a.missions.length, 14);
+    assert.equal(b.missions.length, 14);
   } finally {
     globalThis.fetch = originalFetch;
   }
