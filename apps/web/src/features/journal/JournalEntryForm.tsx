@@ -29,6 +29,9 @@ interface JournalEntryFormProps {
   error: string | null;
   onSubmit: (draft: JournalEntryWrite) => void;
   onCancel: () => void;
+  /** GET-only recovery after an unconfirmed write. Never posts again. */
+  recoveryLabel?: string;
+  onRecovery?: () => void;
 }
 
 const FEELING_SCALES = ["mood", "sleep", "energy", "anxiety"] as const;
@@ -40,6 +43,8 @@ export function JournalEntryForm({
   error,
   onSubmit,
   onCancel,
+  recoveryLabel,
+  onRecovery,
 }: JournalEntryFormProps) {
   const { t } = useTranslation("journal");
   const [occurredOn, setOccurredOn] = useState(entry?.occurredOn ?? localCivilDate());
@@ -301,6 +306,15 @@ export function JournalEntryForm({
         >
           {t("form.cancel")}
         </button>
+        {onRecovery && recoveryLabel ? (
+          <button
+            type="button"
+            onClick={onRecovery}
+            className={`${previewFocus} min-h-11 rounded-full bg-soma-raised px-4 text-sm text-soma-ink-secondary`}
+          >
+            {recoveryLabel}
+          </button>
+        ) : null}
       </div>
     </form>
   );

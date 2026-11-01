@@ -70,6 +70,11 @@ import {
 } from "../../journal/journal-demo.js";
 import { runDeleteJournalEntry } from "../../journal/journal-delete.js";
 import {
+  beginExclusive,
+  endExclusive,
+  runJournalLiveSave,
+} from "../../journal/journal-live-save.js";
+import {
   JOURNAL_DEMO_LIST_PAGE_SIZE,
   JOURNAL_LIST_PAGE_SIZE,
   JOURNAL_MILESTONE_NOTE_MAX,
@@ -189,10 +194,13 @@ export function JournalPage() {
   const [sheet, setSheet] = useState<Sheet | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [refreshError, setRefreshError] = useState<string | null>(null);
+  const [saveUnconfirmed, setSaveUnconfirmed] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const deleteInFlight = useRef(false);
+  const entrySaveLock = useRef(false);
   const [chartSeries, setChartSeries] = useState<ChartSeries>("wellbeing");
   const [patternScale, setPatternScale] = useState<JournalScaleId>("wellbeing");
   const [patternWindow, setPatternWindow] = useState<JournalTrendWindow>(28);
@@ -249,6 +257,28 @@ export function JournalPage() {
       setLoading(false);
     }
   }, [live]);
+
+  const refreshLiveViewsAfterWrite = useCallback(async () => {
+    const [rows, marks] = await Promise.all([
+      fetchAllJournalEntries(),
+      fetchJournalMilestones(),
+    ]);
+    setEntries(rows);
+    setMilestones(marks);
+    const monthRows = await fetchJournalMonthEntries(calYear, calMonth);
+    setMonthEntries(monthRows);
+    setMonthReady(true);
+    setMonthError(false);
+    if (tab === "entries") {
+      const page = await fetchJournalPage({
+        ...listFilters,
+        limit: JOURNAL_LIST_PAGE_SIZE,
+      });
+      setListItems(page.items);
+      setListCursor(page.nextCursor);
+      setListError(false);
+    }
+  }, [calYear, calMonth, listFilters, tab]);
 
   useEffect(() => {
     if (demo) {
@@ -445,8 +475,11 @@ export function JournalPage() {
   }
 
   async function handleSave(draft: JournalEntryWrite) {
+    if (!beginExclusive(entrySaveLock)) return;
     setSaving(true);
     setSaveError(null);
+    setSaveUnconfirmed(false);
+    setRefreshError(null);
     const editing = sheet?.kind === "edit" ? sheet.entry : null;
     try {
       if (demo) {
@@ -494,32 +527,56 @@ export function JournalPage() {
           };
           setEntries((rows) => [created, ...rows]);
         }
+        setSheet(null);
       } else if (live) {
-        if (editing) await patchJournalEntry(editing.id, draft);
-        else await createJournalEntry(draft);
-        await loadLive();
-        setMonthReady(false);
-        const monthRows = await fetchJournalMonthEntries(calYear, calMonth);
-        setMonthEntries(monthRows);
-        setMonthReady(true);
-        if (tab === "entries") {
-          const page = await fetchJournalPage({
-            ...listFilters,
-            limit: JOURNAL_LIST_PAGE_SIZE,
-          });
-          setListItems(page.items);
-          setListCursor(page.nextCursor);
+        const result = await runJournalLiveSave({
+          write: () => {
+            if (editing) return patchJournalEntry(editing.id, draft);
+            return createJournalEntry(draft);
+          },
+          refresh: refreshLiveViewsAfterWrite,
+        });
+        if (result.write === "ok") {
+          setSheet(null);
+          if (result.refresh === "failed") {
+            setRefreshError(t("form.refreshError"));
+          }
+          return;
         }
+        if (result.write === "uncertain") {
+          setSaveUnconfirmed(true);
+          setSaveError(t("form.saveUnconfirmed"));
+          return;
+        }
+        setSaveError(
+          isSpecialCategoryWriteBlocked(result.error)
+            ? t("consentSaveError")
+            : t("form.saveError"),
+        );
       }
-      setSheet(null);
-    } catch (err) {
-      setSaveError(
-        isSpecialCategoryWriteBlocked(err)
-          ? t("consentSaveError")
-          : t("form.saveError"),
-      );
     } finally {
+      endExclusive(entrySaveLock);
       setSaving(false);
+    }
+  }
+
+  async function retryJournalRefresh() {
+    setRefreshError(null);
+    try {
+      await refreshLiveViewsAfterWrite();
+    } catch {
+      setRefreshError(t("form.refreshError"));
+    }
+  }
+
+  async function handleUnconfirmedCheck() {
+    setSaveError(null);
+    try {
+      await refreshLiveViewsAfterWrite();
+      setSaveUnconfirmed(false);
+      setSheet(null);
+    } catch {
+      setSaveError(t("form.refreshError"));
     }
   }
 
@@ -675,6 +732,7 @@ export function JournalPage() {
             type="button"
             onClick={() => {
               setSaveError(null);
+              setSaveUnconfirmed(false);
               setSheet({ kind: "create" });
             }}
             className={`${previewFocus} inline-flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-full bg-soma-action px-4 text-sm font-semibold text-[#081018]`}
@@ -698,6 +756,19 @@ export function JournalPage() {
             className={`${previewFocus} mt-3 rounded-full bg-soma-action px-3 py-1.5 text-sm font-semibold text-[#081018]`}
           >
             {t("retry")}
+          </button>
+        </div>
+      ) : null}
+
+      {refreshError ? (
+        <div className={cardClass} role="status">
+          <p className="text-sm text-soma-ink-secondary">{refreshError}</p>
+          <button
+            type="button"
+            onClick={() => void retryJournalRefresh()}
+            className={`${previewFocus} mt-3 rounded-full bg-soma-action px-3 py-1.5 text-sm font-semibold text-[#081018]`}
+          >
+            {t("form.refreshRetry")}
           </button>
         </div>
       ) : null}
@@ -1320,6 +1391,12 @@ export function JournalPage() {
               error={saveError}
               onSubmit={(draft) => void handleSave(draft)}
               onCancel={() => setSheet(null)}
+              recoveryLabel={
+                saveUnconfirmed ? t("form.refreshRetry") : undefined
+              }
+              onRecovery={
+                saveUnconfirmed ? handleUnconfirmedCheck : undefined
+              }
             />
           ) : null}
           {sheet.kind === "day" ? (
