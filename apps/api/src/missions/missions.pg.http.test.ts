@@ -176,7 +176,8 @@ test("pg http: GET returns published catalog in stable order without private key
   const res = await http().get("/me/missions");
   assert.equal(res.status, 200);
   const expected = listPublishedMissions();
-  assert.equal(res.body.missions.length, 6);
+  assert.equal(res.body.missions.length, expected.length);
+  assert.equal(res.body.missions.length, 14);
   assert.deepEqual(
     res.body.missions.map((row: { id: string }) => row.id),
     expected.map((row) => row.id),

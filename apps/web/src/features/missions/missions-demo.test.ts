@@ -8,9 +8,9 @@ import {
   evaluateDemoAnswer,
 } from "./missions-demo.ts";
 
-test("DEMO catalog is the six published missions and starts available", () => {
+test("DEMO catalog is the fourteen published missions and starts available", () => {
   const rows = buildDemoMissions(new Set());
-  assert.equal(rows.length, 6);
+  assert.equal(rows.length, 14);
   assert.ok(rows.every((row) => row.state === "available"));
   assert.equal(
     rows.some((row) => row.id === "edu-unpublished-01"),
@@ -46,6 +46,24 @@ test("DEMO answer keys never emit a simulated XP grant", () => {
   const source = readFileSync(new URL("./missions-demo.ts", import.meta.url), "utf8");
   assert.equal(source.includes("xpGranted: 12"), false);
   assert.match(source, /xpGranted: 0/);
+});
+
+test("DEMO scores by option id and does not treat the first option as always correct", () => {
+  const rows = buildDemoMissions(new Set());
+  const lastCorrect = rows.find((row) => row.id === "edu-tolerance-01");
+  assert.equal(lastCorrect?.options[2]?.id, "sensitivity");
+  const byId = evaluateDemoAnswer("edu-tolerance-01", "sensitivity", false);
+  assert.equal(byId.correct, true);
+  const firstSlot = evaluateDemoAnswer("edu-tolerance-01", "equals_addiction", false);
+  assert.equal(firstSlot.correct, false);
+  const counts = [0, 0, 0];
+  for (const row of rows) {
+    const correct = DEMO_MISSION_CORRECT_OPTION_ID[row.id as keyof typeof DEMO_MISSION_CORRECT_OPTION_ID];
+    const index = row.options.findIndex((option) => option.id === correct);
+    counts[index] += 1;
+  }
+  assert.ok(counts.every((n) => n >= 4));
+  assert.ok(counts[0]! < rows.length);
 });
 
 test("DEMO remount starts from an empty completion set", () => {
