@@ -1,8 +1,13 @@
 import {
   DEFAULT_DOCUMENT_DESCRIPTION,
   DEFAULT_DOCUMENT_TITLE,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_URL,
+  DEFAULT_OG_IMAGE_WIDTH,
+  LANDING_JSON_LD_SCRIPT_ID,
   PUBLIC_LANDING_URL,
   isIndexablePublicPath,
+  landingWebApplicationJsonLd,
   robotsContentForPath,
 } from "./public-site.js";
 
@@ -39,6 +44,21 @@ function removeCanonical(): void {
   document.head.querySelector('link[rel="canonical"]')?.remove();
 }
 
+function upsertLandingJsonLd(description: string): void {
+  let el = document.getElementById(LANDING_JSON_LD_SCRIPT_ID);
+  if (!el) {
+    el = document.createElement("script");
+    el.id = LANDING_JSON_LD_SCRIPT_ID;
+    el.setAttribute("type", "application/ld+json");
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(landingWebApplicationJsonLd(description));
+}
+
+function removeLandingJsonLd(): void {
+  document.getElementById(LANDING_JSON_LD_SCRIPT_ID)?.remove();
+}
+
 export type LandingDocumentCopy = {
   title: string;
   description: string;
@@ -57,6 +77,7 @@ export function syncDocumentSeo(
   if (!isIndexablePublicPath(pathname)) {
     removeCanonical();
     removeMeta("property", "og:url");
+    removeLandingJsonLd();
     return;
   }
 
@@ -67,4 +88,12 @@ export function syncDocumentSeo(
   upsertMeta("name", "description", description);
   upsertMeta("property", "og:title", title);
   upsertMeta("property", "og:description", description);
+  upsertMeta("property", "og:image", DEFAULT_OG_IMAGE_URL);
+  upsertMeta("property", "og:image:width", String(DEFAULT_OG_IMAGE_WIDTH));
+  upsertMeta("property", "og:image:height", String(DEFAULT_OG_IMAGE_HEIGHT));
+  upsertMeta("name", "twitter:card", "summary_large_image");
+  upsertMeta("name", "twitter:title", title);
+  upsertMeta("name", "twitter:description", description);
+  upsertMeta("name", "twitter:image", DEFAULT_OG_IMAGE_URL);
+  upsertLandingJsonLd(description);
 }
