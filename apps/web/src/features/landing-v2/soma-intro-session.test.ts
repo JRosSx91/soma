@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { afterEach, test } from "node:test";
 import { fileURLToPath } from "node:url";
+import en from "../../i18n/locales/en/landing-v2.json" with { type: "json" };
+import es from "../../i18n/locales/es/landing-v2.json" with { type: "json" };
 import {
   SOMA_INTRO_SESSION_KEY,
   markLandingV2IntroSeen,
@@ -101,6 +103,30 @@ test("first visit plays intro and keeps the hero gated until complete", () => {
   const afterComplete = landingV2IntroFirstPaint(false);
   assert.equal(afterComplete.showIntro, false);
   assert.equal(afterComplete.introComplete, true);
+});
+
+test("SomaIntro exposes a localized skip control and keeps Escape", () => {
+  const intro = readFileSync(
+    fileURLToPath(new URL("./SomaIntro.tsx", import.meta.url)),
+    "utf8",
+  );
+  const page = readFileSync(
+    fileURLToPath(new URL("./LandingV2Page.tsx", import.meta.url)),
+    "utf8",
+  );
+  assert.match(intro, /intro\.skipAria/);
+  assert.match(intro, /intro\.skip/);
+  assert.match(intro, /intro\.dialogLabel/);
+  assert.match(intro, /beginFade\(true\)/);
+  assert.match(intro, /event\.key === "Escape"/);
+  assert.match(intro, /skipRef\.current\?\.focus/);
+  assert.match(intro, /useReducedMotion/);
+  assert.match(page, /aria-hidden=\{introVisible\}/);
+  assert.match(page, /inert=\{introVisible\}/);
+  assert.equal(en.intro.skip, "Skip");
+  assert.equal(es.intro.skip, "Saltar");
+  assert.equal(en.intro.skipAria.includes("Skip"), true);
+  assert.equal(es.intro.skipAria.includes("Saltar"), true);
 });
 
 test("return visit with intro seen skips overlay and shows the hero immediately", () => {

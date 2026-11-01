@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { unauthenticatedDestination } from "./unauthenticated-destination.js";
+import {
+  explicitLogoutDestination,
+  unauthenticatedDestination,
+} from "./unauthenticated-destination.js";
 
 /**
  * RootRoute historically sent anyone with a truthy `user` to /login.
@@ -60,4 +64,26 @@ test("logout and expired session still go to login", () => {
     }),
     "/",
   );
+});
+
+test("explicit logout from /app lands on the public home, not /login", () => {
+  assert.equal(explicitLogoutDestination(), "/");
+  assert.equal(unauthenticatedDestination("signed_out"), "/");
+  assert.equal(
+    rootRouteDestination({ user: null, sessionNotice: "signed_out" }),
+    "/",
+  );
+  const menu = readFileSync(
+    new URL(
+      "../../recovery-dashboard/components/AccountMenu.tsx",
+      import.meta.url,
+    ),
+    "utf8",
+  );
+  const auth = readFileSync(
+    new URL("../context/AuthContext.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(menu, /explicitLogoutDestination\(\)/);
+  assert.match(auth, /setSessionNotice\("signed_out"\)/);
 });

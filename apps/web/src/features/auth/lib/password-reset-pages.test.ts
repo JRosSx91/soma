@@ -164,6 +164,35 @@ test("LoginPage with account_deleted does not keep the visitor on login", async 
   assert.equal(html.includes("Sign in"), false);
 });
 
+test("anonymous session restore does not use the setup-check copy", async () => {
+  await ensureI18n();
+  const html = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: { ...guestAuth, loading: true, status: "checking" } },
+        createElement(LoginPage),
+      ),
+      ["/login"],
+    ),
+  );
+  assert.match(html, /Checking for an existing session/);
+  assert.equal(html.includes("Checking your setup"), false);
+
+  const registerHtml = renderToStaticMarkup(
+    wrap(
+      createElement(
+        AuthContext.Provider,
+        { value: { ...guestAuth, loading: true, status: "checking" } },
+        createElement(RegisterPage),
+      ),
+      ["/register"],
+      { status: "ready", mode: "open" },
+    ),
+  );
+  assert.match(registerHtml, /Checking for an existing session/);
+});
+
 test("LoginPage links to forgot-password", async () => {
   await ensureI18n();
   const html = renderToStaticMarkup(

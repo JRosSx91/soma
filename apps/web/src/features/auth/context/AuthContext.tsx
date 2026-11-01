@@ -144,10 +144,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = useCallback(async () => {
     setError(null);
-    setSessionNotice(null);
     // Clear local state first so a late refresh cannot resurrect the session.
+    // `signed_out` keeps ProtectedRoute from sending /app → /login before
+    // AccountMenu can navigate to the public home.
     setUser(null);
     setStatus("anonymous");
+    setSessionNotice("signed_out");
     const result = await logoutApi();
     return result;
   }, []);

@@ -116,6 +116,9 @@ function tidyCopy(text: string): string {
     .replace(/[ \t]{2,}/g, " ")
     .replace(/ +\./g, ".")
     .replace(/\.\s+\./g, ".")
+    // Collapses a doubled period from an omitted optional marker
+    // (`Name. [NIF].` → `Name..`). Leaves ellipses (`...`) intact.
+    .replace(/(?<!\.)\.\.(?!\.)/g, ".")
     .replace(/ +,/g, ",")
     .replace(/\n{3,}/g, "\n\n")
     .trimEnd();

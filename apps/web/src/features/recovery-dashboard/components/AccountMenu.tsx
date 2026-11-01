@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LogOut, User } from "lucide-react";
 import { useAuth } from "../../auth/index.js";
+import { explicitLogoutDestination } from "../../auth/lib/unauthenticated-destination.js";
 import { previewFocus } from "../focus.js";
 import { placeAnchoredPanel } from "../lib/place-anchored-panel.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
@@ -77,7 +78,7 @@ export function AccountMenu({ compact = false, anchor = "bottom" }: AccountMenuP
   async function handleLogout() {
     setOpen(false);
     await logout();
-    navigate("/", { replace: true });
+    navigate(explicitLogoutDestination(), { replace: true });
   }
 
   const triggerClass = compact

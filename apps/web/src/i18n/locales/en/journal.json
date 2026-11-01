@@ -222,5 +222,71 @@
   "loading": "Loading your journal…",
   "error": "The journal could not be loaded.",
   "retry": "Try again",
-  "emptyOverview": "When you are ready, leave a first note. The streak is only informational and there is no average you must hit."
+  "emptyOverview": "When you are ready, leave a first note. The streak is only informational and there is no average you must hit.",
+  "demo": {
+    "entries": {
+      "demo-journal-1": {
+        "title": "One day closer",
+        "body": "I have felt calmer today. I slept better and my mind was clearer."
+      },
+      "demo-journal-1b": {
+        "title": "In the morning",
+        "body": "I noted how the day started. Later I wrote again."
+      },
+      "demo-journal-2": {
+        "title": "Evening walk",
+        "body": "A short walk helped me slow down. I noted what felt good."
+      },
+      "demo-journal-3": {
+        "body": "A steady day. I could focus on a task I had put off."
+      },
+      "demo-journal-4": {
+        "title": "More energy in the afternoon",
+        "body": "A short nap and a glass of water helped more than I expected."
+      },
+      "demo-journal-5": {
+        "body": "A difficult conversation, but I left clearer than I arrived."
+      },
+      "demo-journal-6": {
+        "body": "A heavier day. The craving showed up and passed. It does not have to be read as a failure."
+      },
+      "demo-journal-7": {
+        "title": "Walking helps",
+        "body": "Going outside eased the tiredness. I want to remember that."
+      },
+      "demo-journal-8": {
+        "body": "I feel more energy and want to pick up projects again."
+      },
+      "demo-journal-9": {
+        "title": "A shorter night",
+        "body": "I slept less, but I noted how I felt on waking."
+      },
+      "demo-journal-10": {
+        "body": "A simple day. It was enough to notice myself without asking for more."
+      },
+      "demo-journal-11": {
+        "title": "Midday clarity",
+        "body": "I could read with attention. That counts too."
+      },
+      "demo-journal-12": {
+        "body": "An uneven week. I keep recording without demanding a perfect streak."
+      },
+      "demo-journal-prev-month": {
+        "title": "A month further back",
+        "body": "This note sits in another month so the calendar can be browsed."
+      },
+      "demo-journal-older-month": {
+        "title": "A couple of months ago",
+        "body": "An older note, to see another month with a record."
+      }
+    },
+    "milestones": {
+      "clarity": "I notice more clarity when I think calmly.",
+      "rest": "I have rested better for a couple of nights.",
+      "lessAnxiety": "The anxiety appears and eases sooner.",
+      "energy": "I feel more like moving.",
+      "focus": "I can hold my attention a little longer.",
+      "emotionalStability": "The day feels a bit more steady."
+    }
+  }
 }
