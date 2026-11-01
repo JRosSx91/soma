@@ -194,7 +194,7 @@ export function JournalPage() {
   const [sheet, setSheet] = useState<Sheet | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [refreshError, setRefreshError] = useState<string | null>(null);
+  const [refreshError, setRefreshError] = useState(false);
   const [saveUnconfirmed, setSaveUnconfirmed] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -479,7 +479,7 @@ export function JournalPage() {
     setSaving(true);
     setSaveError(null);
     setSaveUnconfirmed(false);
-    setRefreshError(null);
+    setRefreshError(false);
     const editing = sheet?.kind === "edit" ? sheet.entry : null;
     try {
       if (demo) {
@@ -538,9 +538,7 @@ export function JournalPage() {
         });
         if (result.write === "ok") {
           setSheet(null);
-          if (result.refresh === "failed") {
-            setRefreshError(t("form.refreshError"));
-          }
+          setRefreshError(result.refresh === "failed");
           return;
         }
         if (result.write === "uncertain") {
@@ -561,11 +559,11 @@ export function JournalPage() {
   }
 
   async function retryJournalRefresh() {
-    setRefreshError(null);
+    setRefreshError(false);
     try {
       await refreshLiveViewsAfterWrite();
     } catch {
-      setRefreshError(t("form.refreshError"));
+      setRefreshError(true);
     }
   }
 
@@ -762,7 +760,7 @@ export function JournalPage() {
 
       {refreshError ? (
         <div className={cardClass} role="status">
-          <p className="text-sm text-soma-ink-secondary">{refreshError}</p>
+          <p className="text-sm text-soma-ink-secondary">{t("form.refreshError")}</p>
           <button
             type="button"
             onClick={() => void retryJournalRefresh()}

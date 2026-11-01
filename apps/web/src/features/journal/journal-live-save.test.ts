@@ -52,7 +52,9 @@ test("POST 201 plus history refresh failure closes the sheet with a refresh warn
   assert.equal(outcome.closeSheet, true);
   assert.equal(outcome.refresh, "failed");
   assert.match(page, /setSheet\(null\)/);
-  assert.match(page, /setRefreshError\(t\("form\.refreshError"\)\)/);
+  assert.match(page, /setRefreshError\(result\.refresh === "failed"\)/);
+  assert.match(page, /\{t\("form\.refreshError"\)\}/);
+  assert.doesNotMatch(page, /setRefreshError\(t\(/);
   assert.equal(
     enJournal.form.refreshError,
     "Saved. The journal view could not be updated. Retry without creating another entry.",
@@ -167,4 +169,44 @@ test("network failure after an unknown persist result is recovery, not a second 
   );
   assert.match(page, /form\.saveUnconfirmed/);
   assert.match(page, /saveUnconfirmed \? handleUnconfirmedCheck/);
+});
+
+test("successful write plus monthly refresh clears the refresh warning", async () => {
+  const outcome = await runJournalLiveSave({
+    write: async () => ({ id: "entry-4" }),
+    refresh: async () => {},
+  });
+  assert.equal(outcome.write, "ok");
+  assert.equal(outcome.refresh, "ok");
+  assert.match(page, /fetchJournalMonthEntries\(calYear, calMonth\)/);
+  assert.match(page, /setRefreshError\(result\.refresh === "failed"\)/);
+  assert.match(page, /setRefreshError\(false\)/);
+});
+
+test("refresh warning keeps an i18n key so EN and ES switch with the UI", () => {
+  assert.match(page, /useState\(false\)/);
+  assert.match(
+    page,
+    /<p className="text-sm text-soma-ink-secondary">\{t\("form\.refreshError"\)\}<\/p>/,
+  );
+  assert.match(page, /\{t\("form\.refreshRetry"\)\}/);
+  assert.doesNotMatch(
+    page,
+    /<p className="text-sm text-soma-ink-secondary">\{refreshError\}<\/p>/,
+  );
+  assert.equal(
+    enJournal.form.refreshError !== esJournal.form.refreshError,
+    true,
+  );
+});
+
+test("Actualizar vista only drops the warning after a successful refresh", () => {
+  assert.match(page, /async function retryJournalRefresh/);
+  const retry = page.slice(
+    page.indexOf("async function retryJournalRefresh"),
+    page.indexOf("async function handleUnconfirmedCheck"),
+  );
+  assert.match(retry, /setRefreshError\(false\)/);
+  assert.match(retry, /await refreshLiveViewsAfterWrite\(\)/);
+  assert.match(retry, /setRefreshError\(true\)/);
 });

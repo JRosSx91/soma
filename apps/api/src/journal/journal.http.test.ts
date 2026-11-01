@@ -54,6 +54,7 @@ class RecordingJournalService {
   lastWipe: { userId: string } | null = null;
   lastExport: { userId: string } | null = null;
   lastMilestoneGet: { userId: string; id: string } | null = null;
+  lastList: { userId: string; query: unknown } | null = null;
   foreignIds = new Set(["foreign-entry"]);
   foreignMilestones = new Set(["foreign-milestone"]);
 
@@ -68,7 +69,8 @@ class RecordingJournalService {
     return { id, occurredOn: "2026-04-29", mood: 3 };
   }
 
-  async list(userId: string) {
+  async list(userId: string, query: unknown) {
+    this.lastList = { userId, query };
     return { items: [{ id: "own", userId }], nextCursor: null };
   }
 
@@ -184,6 +186,73 @@ test("POST /me/journal uses authenticated user id", async () => {
     .send({ occurredOn: "2026-04-29", mood: 3 });
   assert.equal(res.status, 201);
   assert.equal(stub.lastCreate?.userId, USER_A.id);
+});
+
+test("GET /me/journal accepts the current month including days after UTC tomorrow", async () => {
+  activeUser = USER_A;
+  stub.lastList = null;
+  const res = await request(app.getHttpServer())
+    .get("/me/journal")
+    .query({ from: "2026-11-01", to: "2026-11-30", limit: 50 });
+  assert.equal(res.status, 200);
+  assert.equal(stub.lastList?.userId, USER_A.id);
+  assert.equal(
+    (stub.lastList?.query as { from?: string; to?: string }).from,
+    "2026-11-01",
+  );
+  assert.equal(
+    (stub.lastList?.query as { from?: string; to?: string }).to,
+    "2026-11-30",
+  );
+});
+
+test("GET /me/journal accepts a past civil month", async () => {
+  activeUser = USER_A;
+  const res = await request(app.getHttpServer())
+    .get("/me/journal")
+    .query({ from: "2026-10-01", to: "2026-10-31", limit: 50 });
+  assert.equal(res.status, 200);
+});
+
+test("GET /me/journal rejects inverted and malformed ranges", async () => {
+  activeUser = USER_A;
+  stub.lastList = null;
+  const inverted = await request(app.getHttpServer())
+    .get("/me/journal")
+    .query({ from: "2026-11-30", to: "2026-11-01" });
+  assert.equal(inverted.status, 400);
+  assert.match(JSON.stringify(inverted.body), /from must be on or before to/);
+  assert.equal(stub.lastList, null);
+
+  const malformed = await request(app.getHttpServer())
+    .get("/me/journal")
+    .query({ from: "2026-02-30", to: "2026-02-30" });
+  assert.equal(malformed.status, 400);
+  assert.equal(JSON.stringify(malformed.body).includes("occurredOn"), false);
+});
+
+test("POST /me/journal rejects occurredOn after UTC tomorrow", async () => {
+  activeUser = USER_A;
+  stub.lastCreate = null;
+  const res = await request(app.getHttpServer())
+    .post("/me/journal")
+    .send({ occurredOn: "2099-01-01", mood: 3 });
+  assert.equal(res.status, 400);
+  assert.match(
+    JSON.stringify(res.body),
+    /occurredOn must be a YYYY-MM-DD civil date between 1970-01-01 and UTC tomorrow/,
+  );
+  assert.equal(stub.lastCreate, null);
+});
+
+test("PATCH /me/journal/:id rejects occurredOn after UTC tomorrow", async () => {
+  activeUser = USER_A;
+  stub.lastPatch = null;
+  const res = await request(app.getHttpServer())
+    .patch("/me/journal/created-1")
+    .send({ occurredOn: "2099-01-01" });
+  assert.equal(res.status, 400);
+  assert.equal(stub.lastPatch, null);
 });
 
 test("GET /me/journal/export is registered before :id", async () => {

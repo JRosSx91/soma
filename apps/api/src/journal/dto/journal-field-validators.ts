@@ -23,6 +23,7 @@ import {
   JOURNAL_TRIGGER_IDS,
   JOURNAL_WELLBEING_MAX,
   JOURNAL_WELLBEING_MIN,
+  isCivilDateString,
   isJournalOccurredOnInRange,
 } from "@soma/shared-types";
 import { hasSignificantJournalContent } from "../journal.mapper.js";
@@ -64,6 +65,35 @@ export class IsJournalCivilDateConstraint
 
   defaultMessage(): string {
     return "occurredOn must be a YYYY-MM-DD civil date between 1970-01-01 and UTC tomorrow";
+  }
+}
+
+/** List `from`/`to` window bounds — not an entry occurredOn write. */
+@ValidatorConstraint({ name: "isJournalQueryCivilDate", async: false })
+export class IsJournalQueryCivilDateConstraint
+  implements ValidatorConstraintInterface
+{
+  validate(value: unknown): boolean {
+    return typeof value === "string" && isCivilDateString(value);
+  }
+
+  defaultMessage(): string {
+    return "from and to must be YYYY-MM-DD civil dates";
+  }
+}
+
+@ValidatorConstraint({ name: "journalListRangeOrder", async: false })
+export class JournalListRangeOrderConstraint
+  implements ValidatorConstraintInterface
+{
+  validate(_: unknown, args: ValidationArguments): boolean {
+    const query = args.object as { from?: string; to?: string };
+    if (!query.from || !query.to) return true;
+    return query.from <= query.to;
+  }
+
+  defaultMessage(): string {
+    return "from must be on or before to";
   }
 }
 
