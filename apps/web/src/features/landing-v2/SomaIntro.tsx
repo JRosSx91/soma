@@ -9,6 +9,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { markLandingV2IntroSeen } from "./soma-intro-session.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -60,8 +61,10 @@ type SomaIntroProps = {
 };
 
 export function SomaIntro({ onReveal, onComplete }: SomaIntroProps) {
+  const { t } = useTranslation("landing-v2");
   const reduceMotion = Boolean(useReducedMotion());
   const overlayRef = useRef<HTMLDivElement>(null);
+  const skipRef = useRef<HTMLButtonElement>(null);
   const closingRef = useRef(false);
   const revealedRef = useRef(false);
   const finishedRef = useRef(false);
@@ -119,12 +122,16 @@ export function SomaIntro({ onReveal, onComplete }: SomaIntroProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useLayoutEffect(() => {
+    skipRef.current?.focus({ preventScroll: true });
+  }, []);
+
   const overlay = (
     <motion.div
       ref={overlayRef}
       role="dialog"
       aria-modal="true"
-      aria-label="soma"
+      aria-label={t("intro.dialogLabel")}
       contentEditable={false}
       spellCheck={false}
       className="fixed inset-0 z-[80] flex cursor-default items-center justify-center overflow-hidden bg-[#081018] caret-transparent outline-none select-none [-webkit-tap-highlight-color:transparent]"
@@ -147,6 +154,19 @@ export function SomaIntro({ onReveal, onComplete }: SomaIntroProps) {
       onPointerDown={() => beginFade(true)}
       onWheel={(event) => event.preventDefault()}
     >
+      <button
+        ref={skipRef}
+        type="button"
+        className="absolute right-4 top-4 z-10 rounded-sm px-2 py-1 text-sm text-[#68D8C0] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#68D8C0]"
+        aria-label={t("intro.skipAria")}
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={(event) => {
+          event.stopPropagation();
+          beginFade(true);
+        }}
+      >
+        {t("intro.skip")}
+      </button>
       <motion.div
         className="flex items-center gap-3"
         initial={reduceMotion ? false : { x: 44 }}

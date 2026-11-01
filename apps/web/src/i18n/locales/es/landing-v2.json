@@ -205,5 +205,10 @@
     "ctaSecondary": "Explorar la demo",
     "metaTitle": "Soma — Pulso no encontrado"
   },
-  "registrationUnavailable": "El registro no está disponible temporalmente."
+  "registrationUnavailable": "El registro no está disponible temporalmente.",
+  "intro": {
+    "dialogLabel": "Soma",
+    "skip": "Saltar",
+    "skipAria": "Saltar la introducción"
+  }
 }

@@ -205,5 +205,10 @@
     "ctaSecondary": "Explore the demo",
     "metaTitle": "Soma — Pulse not found"
   },
-  "registrationUnavailable": "Registration is temporarily unavailable."
+  "registrationUnavailable": "Registration is temporarily unavailable.",
+  "intro": {
+    "dialogLabel": "Soma",
+    "skip": "Skip",
+    "skipAria": "Skip introduction"
+  }
 }

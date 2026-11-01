@@ -138,7 +138,9 @@ export function LoginPage() {
     return (
       <AuthShell>
         <p className="text-sm text-soma-ink-secondary" role="status">
-          {t("login.pendingLoading")}
+          {loading && !user
+            ? t("login.sessionChecking")
+            : t("login.pendingLoading")}
         </p>
       </AuthShell>
     );

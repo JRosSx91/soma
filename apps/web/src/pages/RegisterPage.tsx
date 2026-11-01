@@ -54,7 +54,9 @@ export function RegisterPage() {
           className="text-sm text-soma-ink-secondary"
           role="status"
         >
-          {t("common:loading", { defaultValue: "Loading…" })}
+          {loading
+            ? t("login.sessionChecking")
+            : t("common:loading", { defaultValue: "Loading…" })}
         </p>
       </AuthShell>
     );

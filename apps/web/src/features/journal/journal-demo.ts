@@ -266,3 +266,87 @@ export function buildJournalDemoMilestones(now = new Date()): JournalMilestone[]
 export const JOURNAL_DEMO_ENTRIES: readonly JournalEntry[] = buildJournalDemoEntries();
 export const JOURNAL_DEMO_MILESTONES: readonly JournalMilestone[] =
   buildJournalDemoMilestones();
+
+export type JournalDemoCopyFn = (
+  key: string,
+  options?: { defaultValue?: string },
+) => string;
+
+function demoEntryTitleKey(id: string): string {
+  return `demo.entries.${id}.title`;
+}
+
+function demoEntryBodyKey(id: string): string {
+  return `demo.entries.${id}.body`;
+}
+
+function demoMilestoneNoteKey(kind: string): string {
+  return `demo.milestones.${kind}`;
+}
+
+export function isJournalDemoEntryId(id: string): boolean {
+  return id.startsWith("demo-journal-");
+}
+
+export function isJournalDemoMilestoneId(id: string): boolean {
+  return id.startsWith("demo-milestone-");
+}
+
+/** Overlay localized titles/bodies. LIVE rows are never passed here. */
+export function presentJournalDemoEntries(
+  t: JournalDemoCopyFn,
+  now = new Date(),
+): JournalEntry[] {
+  return buildJournalDemoEntries(now).map((row) => ({
+    ...row,
+    title:
+      row.title == null
+        ? null
+        : t(demoEntryTitleKey(row.id), { defaultValue: row.title }),
+    body: row.body
+      ? t(demoEntryBodyKey(row.id), { defaultValue: row.body })
+      : row.body,
+  }));
+}
+
+export function presentJournalDemoMilestones(
+  t: JournalDemoCopyFn,
+  now = new Date(),
+): JournalMilestone[] {
+  return buildJournalDemoMilestones(now).map((row) => ({
+    ...row,
+    note: row.note
+      ? t(demoMilestoneNoteKey(row.kind), { defaultValue: row.note })
+      : row.note,
+  }));
+}
+
+/**
+ * Relocalize sample copy in the in-memory DEMO session.
+ * Does not restore deleted sample ids. Visitor-created rows stay as-is.
+ */
+export function relocalizeJournalDemoEntries(
+  current: readonly JournalEntry[],
+  seeded: readonly JournalEntry[],
+): JournalEntry[] {
+  const seededById = new Map(seeded.map((row) => [row.id, row]));
+  return current.map((row) => {
+    if (!isJournalDemoEntryId(row.id)) return row;
+    const next = seededById.get(row.id);
+    if (!next) return row;
+    return { ...row, title: next.title, body: next.body };
+  });
+}
+
+export function relocalizeJournalDemoMilestones(
+  current: readonly JournalMilestone[],
+  seeded: readonly JournalMilestone[],
+): JournalMilestone[] {
+  const seededById = new Map(seeded.map((row) => [row.id, row]));
+  return current.map((row) => {
+    if (!isJournalDemoMilestoneId(row.id)) return row;
+    const next = seededById.get(row.id);
+    if (!next) return row;
+    return { ...row, note: next.note };
+  });
+}

@@ -63,6 +63,10 @@ import {
 import {
   JOURNAL_DEMO_ENTRIES,
   JOURNAL_DEMO_MILESTONES,
+  presentJournalDemoEntries,
+  presentJournalDemoMilestones,
+  relocalizeJournalDemoEntries,
+  relocalizeJournalDemoMilestones,
 } from "../../journal/journal-demo.js";
 import { runDeleteJournalEntry } from "../../journal/journal-delete.js";
 import {
@@ -248,14 +252,22 @@ export function JournalPage() {
 
   useEffect(() => {
     if (demo) {
-      setEntries([...JOURNAL_DEMO_ENTRIES]);
-      setMilestones([...JOURNAL_DEMO_MILESTONES]);
+      const seededEntries = presentJournalDemoEntries((key, options) =>
+        t(key, options),
+      );
+      const seededMilestones = presentJournalDemoMilestones((key, options) =>
+        t(key, options),
+      );
+      setEntries((rows) => relocalizeJournalDemoEntries(rows, seededEntries));
+      setMilestones((rows) =>
+        relocalizeJournalDemoMilestones(rows, seededMilestones),
+      );
       setLoading(false);
       setError(false);
       return;
     }
     if (live) void loadLive();
-  }, [demo, live, loadLive]);
+  }, [demo, live, loadLive, t, i18n.language]);
 
   useEffect(() => {
     if (!live) {

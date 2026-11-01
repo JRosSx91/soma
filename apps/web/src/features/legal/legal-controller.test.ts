@@ -130,8 +130,24 @@ test("optional NIF, phone and DPO are omitted when empty", () => {
   assert.doesNotMatch(en, /\[DELEGADO/);
   assert.doesNotMatch(esId, /\[NIF/);
   assert.doesNotMatch(enId, /\[NIF/);
+  assert.doesNotMatch(esId, /Ada Example\.\./);
+  assert.doesNotMatch(enId, /Ada Example\.\./);
+  assert.match(enId, /Ada Example\./);
   assert.doesNotMatch(es, /no designado/);
   assert.doesNotMatch(en, /not appointed/);
+});
+
+test("tidying a doubled period from omitted markers leaves ellipses intact", () => {
+  const raw =
+    `Wait... Identification: ${LEGAL_CONTROLLER_MARKERS.name}. ` +
+    `${LEGAL_CONTROLLER_MARKERS.taxIdEn}. ` +
+    `${LEGAL_CONTROLLER_MARKERS.address}. End...`;
+  const out = applyLegalControllerCopy(raw, CONTACT_ONLY);
+  assert.match(out, /Wait\.\.\./);
+  assert.match(out, /End\.\.\./);
+  assert.match(out, /Ada Example\./);
+  assert.doesNotMatch(out, /Ada Example\.\./);
+  assert.doesNotMatch(out, /\[\s*NIF/);
 });
 
 test("optional fields appear as text when provided", () => {

@@ -64,6 +64,24 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.equal((page.match(/pages\/AchievementsPage/) ?? []).length, 0);
 });
 
+test("DEMO achievements never wait on account session copy", () => {
+  const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
+  assert.match(page, /demoShell = base === "\/preview"/);
+  assert.match(page, /!demoShell && \(sessionPending/);
+  assert.match(page, /const description = demoShell/);
+  assert.match(page, /achievements:ui\.descriptionDemo/);
+  assert.match(page, /liveEnabled = Boolean\(user\) && base === "\/app"/);
+  assert.match(page, /achievements:ui\.descriptionLoading/);
+  assert.doesNotMatch(
+    (enAchievements as { ui: Record<string, string> }).ui.descriptionDemo,
+    /session|account/i,
+  );
+  assert.doesNotMatch(
+    (esAchievements as { ui: Record<string, string> }).ui.descriptionDemo,
+    /sesión|cuenta/i,
+  );
+});
+
 test("achievements search and copy resolve localized catalog keys", () => {
   const page = readFileSync(new URL("../pages/AchievementsPage.tsx", import.meta.url), "utf8");
   assert.match(page, /substanceFor/);

@@ -222,5 +222,71 @@
   "loading": "Cargando tu bitácora…",
   "error": "No se ha podido cargar la bitácora.",
   "retry": "Reintentar",
-  "emptyOverview": "Cuando quieras, deja una primera nota. La racha es solo informativa y no hay una nota media que alcanzar."
+  "emptyOverview": "Cuando quieras, deja una primera nota. La racha es solo informativa y no hay una nota media que alcanzar.",
+  "demo": {
+    "entries": {
+      "demo-journal-1": {
+        "title": "Un día más cerca",
+        "body": "Hoy me he sentido más tranquilo. He dormido mejor y tuve más claridad mental."
+      },
+      "demo-journal-1b": {
+        "title": "Por la mañana",
+        "body": "Anoté cómo empecé el día. Más tarde escribí otra vez."
+      },
+      "demo-journal-2": {
+        "title": "Paseo al atardecer",
+        "body": "Caminar un rato me ayudó a bajar el ritmo. Anoté lo que me sentó bien."
+      },
+      "demo-journal-3": {
+        "body": "Día estable. Pude concentrarme en una tarea que tenía aparcada."
+      },
+      "demo-journal-4": {
+        "title": "Más energía por la tarde",
+        "body": "La siesta corta y un vaso de agua me sentaron mejor de lo que esperaba."
+      },
+      "demo-journal-5": {
+        "body": "Conversación difícil, pero salí más claro de lo que entré."
+      },
+      "demo-journal-6": {
+        "body": "Día más denso. El deseo apareció y pasó. No hay que interpretarlo como un fallo."
+      },
+      "demo-journal-7": {
+        "title": "Caminar ayuda",
+        "body": "Salir un rato me alivió el cansancio. Quiero recordarlo."
+      },
+      "demo-journal-8": {
+        "body": "Me siento con más energía y con ganas de retomar proyectos."
+      },
+      "demo-journal-9": {
+        "title": "Noche más corta",
+        "body": "Dormí menos, pero anoté cómo me sentí al despertar."
+      },
+      "demo-journal-10": {
+        "body": "Un día sencillo. Bastó con observarme sin pedirme más."
+      },
+      "demo-journal-11": {
+        "title": "Claridad al mediodía",
+        "body": "Pude leer con atención. Eso también cuenta."
+      },
+      "demo-journal-12": {
+        "body": "Semana irregular. Sigo registrando sin exigirme una racha perfecta."
+      },
+      "demo-journal-prev-month": {
+        "title": "Un mes más atrás",
+        "body": "Esta nota queda en otro mes para poder recorrer el calendario."
+      },
+      "demo-journal-older-month": {
+        "title": "Hace un par de meses",
+        "body": "Una nota más antigua, para ver otro mes con registro."
+      }
+    },
+    "milestones": {
+      "clarity": "Noto más claridad al pensar con calma.",
+      "rest": "He descansado mejor un par de noches.",
+      "lessAnxiety": "La ansiedad aparece y baja antes.",
+      "energy": "Tengo más ganas de moverme.",
+      "focus": "Puedo sostener la atención un rato más.",
+      "emotionalStability": "El día se siente un poco más estable."
+    }
+  }
 }

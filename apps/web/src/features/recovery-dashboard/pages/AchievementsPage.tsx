@@ -63,6 +63,7 @@ export function AchievementsPage() {
   const { user, loading: authLoading } = useAuth();
   const sessionPending = authLoading;
   const liveEnabled = Boolean(user) && base === "/app";
+  const demoShell = base === "/preview";
   const live = useLiveAchievements(liveEnabled ? (user?.id ?? null) : null);
   const dashboard = usePreviewDashboard(null);
   const temporal = useTemporalMilestones(dashboard.substances, {
@@ -88,7 +89,8 @@ export function AchievementsPage() {
   );
 
   const showingLive = liveEnabled && live.rows !== null;
-  const awaitingAccount = sessionPending || (liveEnabled && live.loading);
+  const awaitingAccount =
+    !demoShell && (sessionPending || (liveEnabled && live.loading));
   const catalogOnly = !showingLive && !awaitingAccount && !live.error;
   const counts = catalogFamilyCounts(achievementCatalog);
   const stats = countProgressStats(
@@ -195,12 +197,12 @@ export function AchievementsPage() {
     } as CatalogItem;
   }
 
-  const description = showingLive
-    ? t("achievements:ui.descriptionLive")
-    : awaitingAccount
-      ? t("achievements:ui.descriptionLoading")
-      : base === "/preview"
-        ? t("achievements:ui.descriptionDemo")
+  const description = demoShell
+    ? t("achievements:ui.descriptionDemo")
+    : showingLive
+      ? t("achievements:ui.descriptionLive")
+      : awaitingAccount
+        ? t("achievements:ui.descriptionLoading")
         : t("achievements:ui.descriptionSignedOut", {
             available: stats.availableTotal,
             unavailable: stats.unavailableTotal,
