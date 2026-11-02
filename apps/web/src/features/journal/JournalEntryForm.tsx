@@ -46,7 +46,7 @@ export function JournalEntryForm({
   recoveryLabel,
   onRecovery,
 }: JournalEntryFormProps) {
-  const { t } = useTranslation("journal");
+  const { t } = useTranslation(["journal", "substances"]);
   const [occurredOn, setOccurredOn] = useState(entry?.occurredOn ?? localCivilDate());
   const [wellbeingRating, setWellbeingRating] = useState<number | null>(
     entry?.wellbeingRating ?? null,
@@ -203,7 +203,7 @@ export function JournalEntryForm({
             <option value="">{t("form.substanceNone")}</option>
             {substances.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.name}
+                {t(`substances:${item.id}.name`, { defaultValue: item.name })}
               </option>
             ))}
           </select>
