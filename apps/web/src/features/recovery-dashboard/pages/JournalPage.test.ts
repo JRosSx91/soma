@@ -145,6 +145,9 @@ test("journal form covers required fields and catalogs", () => {
   assert.match(form, /journal-field-error/);
   assert.match(form, /journal-form-error/);
   assert.match(form, /journal-save-error/);
+  assert.match(form, /useTranslation\(\["journal", "substances"\]\)/);
+  assert.match(form, /t\(`substances:\$\{item\.id\}\.name`/);
+  assert.match(form, /value=\{item\.id\}/);
 });
 
 test("journal patterns and emotions tabs stay descriptive and local for DEMO", () => {
