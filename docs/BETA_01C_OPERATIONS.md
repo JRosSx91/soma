@@ -1,6 +1,7 @@
-# Soma — operaciones mínimas (beta cerrada)
+# Soma — operaciones mínimas (beta pública)
 
-Guía operativa breve para arrancar y mantener Soma en una beta cerrada.
+Guía operativa breve para arrancar y mantener Soma. El README identifica **beta pública**;
+el SHA servido por Render **no está verificado** aquí.
 No sustituye a un proveedor concreto: **no se han verificado** panel de hosting,
 backups ni dominio de correo en esta fase.
 
@@ -43,7 +44,7 @@ Requisito: `apps/api/dist` generado (`prisma generate` + `tsc -b`) en el artefac
 | `NODE_ENV` | `production` (lo impone `start:prod`) |
 | `DATABASE_URL` | PostgreSQL gestionado. Preferir `sslmode=require` (el código **aún no** lo exige al arrancar) |
 | `JWT_SECRET` | Aleatorio criptográfico; mínimo 32 bytes de longitud; **nunca** un ejemplo documentado |
-| `AUTH_REGISTRATION_MODE` | `invite` (obligatorio para arrancar) |
+| `AUTH_REGISTRATION_MODE` | `open` o `invite` (producción exige uno de los dos; el valor del host no está verificado aquí) |
 | `CORS_ORIGIN` | Un solo origen `https://…` (sin `*`, sin lista) |
 | `APP_PUBLIC_URL` | Origen HTTPS de la SPA (enlaces de reset; no se toma de `Host`/`Origin`) |
 | `AUTH_PASSWORD_RESET_MAILER` | `resend` (con credenciales) o `disabled` (no envía ni emite tokens de reset) |
@@ -148,13 +149,13 @@ Procedimiento cuando **sí** se autorice una migración:
 
 ## F. Comprobaciones antes de beta
 
-- [ ] API arranca con `start:prod` y `NODE_ENV=production` (falla cerrado si faltan JWT, invite, CORS HTTPS, cookie secure).
+- [ ] API arranca con `start:prod` y `NODE_ENV=production` (falla cerrado si faltan JWT, `AUTH_REGISTRATION_MODE` `open`/`invite`, CORS HTTPS, cookie secure).
 - [ ] HTTPS en SPA y API; certificado válido.
 - [ ] `DATABASE_URL` con SSL; `/health` 200 (`SELECT 1`).
 - [ ] Backup del proveedor **activo** y restauración de prueba en base aislada documentada.
 - [ ] Resend: dominio verificado, FROM técnico, prueba de envío y reset con cuenta propia. Contacto: `soma.recovery.app@gmail.com`.
-- [ ] `AUTH_REGISTRATION_MODE=invite`; registro solo con invitación válida.
-- [ ] Avisos legales en `/privacy` y `/terms`. Hoy `LEGAL_NOTICE_STATUS=draft`: **el registro en producción está bloqueado** hasta publicación consciente (BETA-01B). Publicar es decisión de producto, no un flip accidental.
+- [ ] `AUTH_REGISTRATION_MODE` del host es `open` o `invite` (producción exige uno de los dos). **El valor real de Render no está verificado en este documento.**
+- [ ] Avisos legales en `/privacy` y `/terms`. En código, `LEGAL_NOTICE_STATUS=published` (`packages/shared-types/src/legal-notices.ts`). El SHA servido por Render **no** está verificado aquí. Publicar o revertir avisos es decisión de producto, no un flip accidental.
 - [ ] CORS un origen HTTPS; cookie refresh HttpOnly + Secure; SameSite acorde a si SPA y API comparten sitio.
 - [ ] Migraciones de git aplicadas con `migrate deploy` (tras backup), no `migrate dev`.
 - [ ] SPA servida desde el artefacto acordado; SHA de deploy anotado cuando el host lo permita.
