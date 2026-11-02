@@ -1,7 +1,7 @@
-import { useMemo, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Award, ChevronRight, Route } from "lucide-react";
+import { Award, ChevronLeft, ChevronRight, Route } from "lucide-react";
 import { HomeProgressIdentity, useProgress } from "../../progress/index.js";
 import type { TemporalMilestoneState } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
@@ -396,6 +396,41 @@ function ExplorerStat({
   );
 }
 
+function useHorizontalOverflow(count: number) {
+  const ref = useRef<HTMLUListElement>(null);
+  const [overflows, setOverflows] = useState(false);
+  const [canScrollMore, setCanScrollMore] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const update = () => {
+      const extra = node.scrollWidth - node.clientWidth;
+      setOverflows(extra > 1);
+      setCanScrollMore(extra - node.scrollLeft > 1);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(node);
+    node.addEventListener("scroll", update, { passive: true });
+    return () => {
+      observer.disconnect();
+      node.removeEventListener("scroll", update);
+    };
+  }, [count]);
+
+  const scrollByCards = (direction: -1 | 1) => {
+    const node = ref.current;
+    if (!node) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const step = Math.max(node.clientWidth * 0.7, 220);
+    node.scrollBy({ left: direction * step, behavior: reduced ? "auto" : "smooth" });
+  };
+
+  return { ref, overflows, canScrollMore, scrollByCards };
+}
+
 function SubstanceRow({
   substances,
   temporalById,
@@ -408,6 +443,7 @@ function SubstanceRow({
   basePath: ShellBase;
 }) {
   const { t } = useTranslation("recovery");
+  const { ref, overflows, canScrollMore, scrollByCards } = useHorizontalOverflow(substances.length);
   return (
     <div
       className="pointer-events-none relative z-10 lg:pr-[calc(min(28rem,34%)+0.75rem)]"
@@ -419,17 +455,68 @@ function SubstanceRow({
           <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
-      <ul className="pointer-events-auto grid grid-cols-[repeat(auto-fit,minmax(min(100%,13.5rem),1fr))] gap-3">
-        {substances.map((substance) => (
-          <li key={substance.id} className="min-w-0">
-              <HomeSubstanceCard
-                substance={substance}
-                temporal={temporalById.get(substance.id)}
-                to={recoveryHref(basePath, substance.id)}
-              />
-            </li>
-          ))}
-      </ul>
+      <div className="relative min-w-0">
+        <div className="flex min-w-0 items-stretch gap-2">
+          {overflows ? (
+            <button
+              type="button"
+              className={`${previewFocus} pointer-events-auto hidden h-9 w-9 shrink-0 self-center items-center justify-center rounded-full border border-soma-line text-soma-ink-muted hover:bg-soma-raised sm:flex`}
+              aria-label={t("homeRecoveryPrev")}
+              onClick={() => scrollByCards(-1)}
+            >
+              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+            </button>
+          ) : null}
+          <ul
+            ref={ref}
+            tabIndex={overflows ? 0 : undefined}
+            aria-label={t("homeRecoveryScroller")}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowRight") {
+                event.preventDefault();
+                scrollByCards(1);
+              }
+              if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                scrollByCards(-1);
+              }
+            }}
+            className="pointer-events-auto flex min-w-0 flex-1 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-1 snap-x snap-mandatory touch-pan-x [scrollbar-width:thin] [-webkit-overflow-scrolling:touch]"
+          >
+            {substances.map((substance) => (
+              <li
+                key={substance.id}
+                className="min-w-[min(18.5rem,82%)] flex-1 basis-0 snap-start sm:min-w-[13.25rem] lg:min-w-[12.25rem]"
+              >
+                <HomeSubstanceCard
+                  substance={substance}
+                  temporal={temporalById.get(substance.id)}
+                  to={recoveryHref(basePath, substance.id)}
+                />
+              </li>
+            ))}
+          </ul>
+          {overflows ? (
+            <button
+              type="button"
+              className={`${previewFocus} pointer-events-auto hidden h-9 w-9 shrink-0 self-center items-center justify-center rounded-full border border-soma-line text-soma-ink-muted hover:bg-soma-raised sm:flex`}
+              aria-label={t("homeRecoveryNext")}
+              onClick={() => scrollByCards(1)}
+            >
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          ) : null}
+        </div>
+        {canScrollMore ? (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-10 bg-gradient-to-l from-soma-canvas to-transparent sm:right-11"
+          />
+        ) : null}
+        {overflows ? (
+          <p className="sr-only">{t("homeRecoveryScrollHint")}</p>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -721,7 +808,7 @@ function HomeSubstanceCard({
   return (
     <Link
       to={to}
-      className={`${previewFocus} flex min-w-0 flex-col rounded-2xl border border-soma-line-strong bg-soma-canvas/50 px-3 py-3 text-left hover:bg-soma-raised/50`}
+      className={`${previewFocus} flex h-full min-w-0 flex-col rounded-2xl border border-soma-line-strong bg-soma-canvas/50 px-3 py-3 text-left hover:bg-soma-raised/50`}
     >
       <span className="flex min-w-0 items-center gap-3">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-soma-canvas text-soma-shell-accent">

@@ -46,8 +46,19 @@ test("home 2.0 uses a three-band expedition board", () => {
   assert.match(home, /AnatomyColumn/);
   assert.match(home, /ExplorerSummary/);
   assert.match(home, /SubstanceRow/);
-  assert.match(home, /repeat\(auto-fit,minmax\(min\(100%,13\.5rem\),1fr\)\)/);
+  assert.match(home, /overflow-x-auto/);
+  assert.match(home, /snap-x/);
+  assert.match(home, /snap-start/);
+  assert.match(home, /flex-1/);
+  assert.match(home, /lg:min-w-\[12\.25rem\]/);
+  assert.equal(home.includes("auto-fit"), false);
   assert.equal(home.includes("w-[16.5rem]"), false);
+  assert.match(home, /homeRecoveryScroller/);
+  assert.match(home, /homeRecoveryScrollHint/);
+  assert.match(home, /homeRecoveryPrev/);
+  assert.match(home, /homeRecoveryNext/);
+  assert.match(home, /ArrowLeft/);
+  assert.match(home, /ArrowRight/);
   assert.match(home, /RecommendedExploration/);
   assert.match(home, /HomeSubstanceCard/);
   assert.match(home, /recoveryHref\(basePath, substance\.id\)/);
@@ -99,6 +110,11 @@ test("home 2.0 copy exists in spanish and english", () => {
     "homeAdviceTitle",
     "homeAdviceEyebrow",
     "homeHorizonCaption",
+    "homeRecoveryTitle",
+    "homeRecoveryScroller",
+    "homeRecoveryScrollHint",
+    "homeRecoveryPrev",
+    "homeRecoveryNext",
   ] as const;
   for (const key of keys) {
     assert.equal(typeof esRecovery[key], "string", key);
