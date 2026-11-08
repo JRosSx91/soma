@@ -378,7 +378,8 @@ test("RegisterPage captures invite, strips URL, keeps form, no-referrer", async 
   );
 
   assert.match(html, /Start your journey/);
-  assert.match(html, /closed beta/i);
+  assert.match(html, /public beta/i);
+  assert.doesNotMatch(html, /closed beta/i);
   assert.match(html, /name="referrer"/);
   assert.match(html, /content="no-referrer"/);
   assert.equal(html.includes("abc_invite_from_query"), false);

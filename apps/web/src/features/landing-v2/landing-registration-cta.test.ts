@@ -41,7 +41,9 @@ async function html(mode: RegistrationModeState) {
 test("invite CTAs do not send visitors without an invite to /register", async () => {
   const markup = await html({ status: "ready", mode: "invite" });
   assert.match(markup, /href="\/login"/);
-  assert.match(markup, /closed beta/i);
+  assert.match(markup, /public beta/i);
+  assert.match(markup, /invitation/i);
+  assert.doesNotMatch(markup, /closed beta/i);
   assert.equal(markup.includes('href="/register"'), false);
   assert.equal(markup.includes("Create an account"), false);
 });
@@ -50,13 +52,16 @@ test("open CTAs keep create-account copy", async () => {
   const markup = await html({ status: "ready", mode: "open" });
   assert.match(markup, /href="\/register"/);
   assert.match(markup, /Create an account/);
+  assert.doesNotMatch(markup, /invitation/i);
+  assert.doesNotMatch(markup, /closed beta/i);
 });
 
 test("mode fetch failure does not promise registration", async () => {
   const markup = await html({ status: "error", mode: null });
   assert.match(markup, /temporarily unavailable/i);
+  assert.doesNotMatch(markup, /closed beta/i);
+  assert.doesNotMatch(markup, /Create an account/);
   assert.equal(markup.includes('href="/register"'), false);
-  assert.equal(markup.includes("Create an account"), false);
 });
 
 test("hero and closing no longer hard-code /register", () => {

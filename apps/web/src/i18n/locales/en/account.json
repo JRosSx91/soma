@@ -97,7 +97,7 @@
     "bulletBackups": "Deleting the account does not necessarily mean backups and operational logs disappear immediately.",
     "bulletSessions": "Signed-in sessions are invalidated.",
     "bulletIrreversible": "This cannot be undone.",
-    "bulletInvite": "If you want to register again while the beta is closed, you will need a new invitation.",
+    "bulletInvite": "If you want to register again while sign-up requires an invitation, you will need a new invitation.",
     "bulletRegister": "If you want to register again, you can create a new account. Registration is open.",
     "openDialog": "Review account deletion",
     "dialogTitle": "Permanently delete this account?",

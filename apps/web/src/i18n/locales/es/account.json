@@ -97,7 +97,7 @@
     "bulletBackups": "La eliminación de la cuenta no implica necesariamente la desaparición inmediata de copias de seguridad y registros operativos.",
     "bulletSessions": "Las sesiones quedan invalidadas.",
     "bulletIrreversible": "No se puede deshacer.",
-    "bulletInvite": "Si quieres registrarte otra vez mientras la beta sea cerrada, necesitarás una invitación nueva.",
+    "bulletInvite": "Si quieres registrarte otra vez mientras el alta sea por invitación, necesitarás una invitación nueva.",
     "bulletRegister": "Si quieres registrarte otra vez, puedes crear una cuenta nueva. El registro está abierto.",
     "openDialog": "Revisar la eliminación de la cuenta",
     "dialogTitle": "¿Eliminar esta cuenta de forma permanente?",

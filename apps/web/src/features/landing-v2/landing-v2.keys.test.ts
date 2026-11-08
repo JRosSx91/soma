@@ -13,3 +13,14 @@ function keysOf(value: unknown, prefix = ""): string[] {
 test("landing-v2 english and spanish bundles expose the same keys", () => {
   assert.deepEqual(keysOf(es).sort(), keysOf(en).sort());
 });
+
+test("invite notes keep public beta and do not say closed beta", () => {
+  assert.match(es.hero.ctaInviteNote, /beta pública/);
+  assert.match(en.hero.ctaInviteNote, /public beta/i);
+  assert.match(es.closing.ctaInviteNote, /beta pública/);
+  assert.match(en.closing.ctaInviteNote, /public beta/i);
+  assert.doesNotMatch(es.hero.ctaInviteNote, /cerrada/);
+  assert.doesNotMatch(en.hero.ctaInviteNote, /closed beta/i);
+  assert.doesNotMatch(es.closing.ctaInviteNote, /cerrada/);
+  assert.doesNotMatch(en.closing.ctaInviteNote, /closed beta/i);
+});

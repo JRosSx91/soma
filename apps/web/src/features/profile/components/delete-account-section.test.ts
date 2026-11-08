@@ -106,6 +106,7 @@ test("invite mode still explains that a new invitation is required", async () =>
   );
   assert.match(html, /new invitation/);
   assert.doesNotMatch(html, /Registration is open/);
+  assert.doesNotMatch(html, /closed beta/i);
 });
 
 test("open dialog requires checkbox and password before the final button enables", async () => {
