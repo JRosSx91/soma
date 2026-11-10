@@ -95,13 +95,34 @@ type ProgressionWriter = Prisma.TransactionClient | PrismaClientLike;
 
 type PrismaClientLike = {
   $executeRaw: Prisma.TransactionClient["$executeRaw"];
+  $queryRaw: Prisma.TransactionClient["$queryRaw"];
   userProgression: Prisma.TransactionClient["userProgression"];
 };
+
+/**
+ * Lock order for first-touch progression: User then UserProgression.
+ * INSERT into UserProgression takes the unique index first and then
+ * FOR KEY SHARE on User (FK). awardXp already locks User (consent).
+ * Mixing that with an unlocked getMine/equipTitle INSERT deadlocks (40P01).
+ *
+ * FOR NO KEY UPDATE serializes init with other progression writers and
+ * with consent FOR UPDATE, without conflicting with FOR KEY SHARE taken by
+ * unrelated child-row inserts that later lock User.
+ */
+async function lockUserForProgressionWrite(
+  db: Pick<ProgressionWriter, "$queryRaw">,
+  userId: string,
+): Promise<void> {
+  await db.$queryRaw(
+    Prisma.sql`SELECT id FROM "User" WHERE id = ${userId} FOR NO KEY UPDATE`,
+  );
+}
 
 /**
  * Prisma 5.22 compiles `upsert({ update: {} })` to SELECT + INSERT, which
  * races on UserProgression.userId. Insert with ON CONFLICT is atomic.
  * `updatedAt` has no database default; it must be set on insert.
+ * Caller must already hold the User row lock in the same transaction.
  */
 async function ensureProgressionRow(
   db: ProgressionWriter,
@@ -127,11 +148,14 @@ export class ProgressService {
    * Does not insert grants and does not award XP.
    */
   async getMine(userId: string): Promise<ProgressResponse> {
-    await ensureProgressionRow(this.prisma, userId);
-    const row = await this.prisma.userProgression.findUniqueOrThrow({
-      where: { userId },
+    return this.prisma.$transaction(async (tx) => {
+      await lockUserForProgressionWrite(tx, userId);
+      await ensureProgressionRow(tx, userId);
+      const row = await tx.userProgression.findUniqueOrThrow({
+        where: { userId },
+      });
+      return toResponse(bigintToXp(row.totalXp), row.equippedTitleId);
     });
-    return toResponse(bigintToXp(row.totalXp), row.equippedTitleId);
   }
 
   /**
@@ -146,25 +170,28 @@ export class ProgressService {
       throw new BadRequestException("Invalid equippedTitleId");
     }
 
-    await ensureProgressionRow(this.prisma, userId);
-    const row = await this.prisma.userProgression.findUniqueOrThrow({
-      where: { userId },
-    });
-    const totalXp = bigintToXp(row.totalXp);
-    const level = levelFromTotalXp(totalXp);
-    if (!isProgressTitleUnlocked(titleId, level)) {
-      throw new BadRequestException("Title is not unlocked");
-    }
+    return this.prisma.$transaction(async (tx) => {
+      await lockUserForProgressionWrite(tx, userId);
+      await ensureProgressionRow(tx, userId);
+      const row = await tx.userProgression.findUniqueOrThrow({
+        where: { userId },
+      });
+      const totalXp = bigintToXp(row.totalXp);
+      const level = levelFromTotalXp(totalXp);
+      if (!isProgressTitleUnlocked(titleId, level)) {
+        throw new BadRequestException("Title is not unlocked");
+      }
 
-    if (row.equippedTitleId === titleId) {
-      return toResponse(totalXp, titleId);
-    }
+      if (row.equippedTitleId === titleId) {
+        return toResponse(totalXp, titleId);
+      }
 
-    const updated = await this.prisma.userProgression.update({
-      where: { userId },
-      data: { equippedTitleId: titleId },
+      const updated = await tx.userProgression.update({
+        where: { userId },
+        data: { equippedTitleId: titleId },
+      });
+      return toResponse(bigintToXp(updated.totalXp), updated.equippedTitleId);
     });
-    return toResponse(bigintToXp(updated.totalXp), updated.equippedTitleId);
   }
 
   /**
@@ -213,6 +240,7 @@ export class ProgressService {
     const amountBig = BigInt(amount);
     const cap = BigInt(PROGRESS_XP_MAX);
 
+    await lockUserForProgressionWrite(tx, userId);
     await ensureProgressionRow(tx, userId);
     await tx.$queryRaw(
       Prisma.sql`SELECT "userId" FROM "UserProgression" WHERE "userId" = ${userId} FOR UPDATE`,
