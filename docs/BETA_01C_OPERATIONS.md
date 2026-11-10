@@ -1,9 +1,8 @@
 # Soma — operaciones mínimas (beta pública)
 
-Guía operativa breve para arrancar y mantener Soma. El README identifica **beta pública**;
-el SHA servido por Render **no está verificado** aquí.
-No sustituye a un proveedor concreto: **no se han verificado** panel de hosting,
-backups ni dominio de correo en esta fase.
+Guía operativa breve para arrancar y mantener Soma. El README identifica **beta pública**.
+Inventario de SHA Live: `ROADMAP.md` (R-SHA / Publicación). Un merge en `main` **no** es un despliegue.
+No sustituye a un proveedor concreto: backups y dominio de correo **no** se reabren aquí.
 
 No incluye secretos. No autoriza despliegues ni migraciones por sí sola.
 
@@ -15,8 +14,8 @@ Cuatro piezas. Distinguir lo que el código asume de lo que hay que confirmar en
 
 | Pieza | Rol | Estado |
 | --- | --- | --- |
-| SPA | Vite/React. Origen público previsto: `https://somarecovery.app` (`/app` LIVE, `/preview` DEMO). | **Confirmado en código.** El SHA servido por el host **no está verificado**. |
-| API | NestJS. Entrada de producción: `pnpm --filter @soma/api start:prod`. Prisma no migra al arrancar. | **Confirmado en código.** Host, URL pública de la API y TLS **pendientes de verificar**. |
+| SPA | Vite/React. Origen público: `https://somarecovery.app` (`/app` LIVE, `/preview` DEMO). | **Confirmado.** SHA Live: `ROADMAP.md` R-SHA. |
+| API | NestJS. Origen público: `https://api.somarecovery.app`. Entrada: `pnpm --filter @soma/api start:prod`. Prisma no migra al arrancar. | **Confirmado.** SHA Live: `ROADMAP.md` R-SHA. |
 | PostgreSQL | Única base. `DATABASE_URL` en Prisma. | **Confirmado en código.** El proveedor (p. ej. mención a Supabase en el roadmap) **no está verificado**. SSL de conexión **recomendado, no autoimpuesto**. |
 | Correo | Recuperación de contraseña. Proveedor previsto: Resend. | **Confirmado en código** (`AUTH_PASSWORD_RESET_MAILER=resend`). Dominio, DNS y clave **pendientes de verificar**. No configurados en esta tarea. |
 
@@ -155,10 +154,24 @@ Procedimiento cuando **sí** se autorice una migración:
 - [ ] Backup del proveedor **activo** y restauración de prueba en base aislada documentada.
 - [ ] Resend: dominio verificado, FROM técnico, prueba de envío y reset con cuenta propia. Contacto: `soma.recovery.app@gmail.com`.
 - [ ] `AUTH_REGISTRATION_MODE` del host es `open` o `invite` (producción exige uno de los dos). **El valor real de Render no está verificado en este documento.**
-- [ ] Avisos legales en `/privacy` y `/terms`. En código, `LEGAL_NOTICE_STATUS=published` (`packages/shared-types/src/legal-notices.ts`). El SHA servido por Render **no** está verificado aquí. Publicar o revertir avisos es decisión de producto, no un flip accidental.
+- [ ] Avisos legales en `/privacy` y `/terms`. En código, `LEGAL_NOTICE_STATUS=published` (`packages/shared-types/src/legal-notices.ts`). SHA Live: inventario R-SHA en `ROADMAP.md`. Publicar o revertir avisos es decisión de producto, no un flip accidental.
 - [ ] CORS un origen HTTPS; cookie refresh HttpOnly + Secure; SameSite acorde a si SPA y API comparten sitio.
 - [ ] Migraciones de git aplicadas con `migrate deploy` (tras backup), no `migrate dev`.
-- [ ] SPA servida desde el artefacto acordado; SHA de deploy anotado cuando el host lo permita.
+- [ ] SPA y API: SHA Live anotados (R-SHA). Tras cada deploy autorizado, repetir el procedimiento G.
+
+---
+
+## G. Trazabilidad de revisión (R-SHA)
+
+Tras **cada** despliegue autorizado (no tras un merge):
+
+1. En el panel Render, abrir el Deploy **Live** del servicio SPA (`somarecovery.app`) y del servicio API (`api.somarecovery.app`).
+2. Copiar el SHA completo y, si el panel la muestra, la fecha UTC del deploy.
+3. Contrastar cada SHA con Git (`git merge-base --is-ancestor <sha> origin/main`). Si no es ancestro de `main`, documentar por qué.
+4. Actualizar la tabla **Publicación (Git ≠ Render)** en `ROADMAP.md`.
+5. No tratar un merge en `main` como despliegue. No inventar SHA ni fechas.
+
+Comprobación **2026-11-10** (panel, propietario): SPA `4c67c2b26214f642821fa38ce590c1220d055fd1`; API `4520530b1242398103aead689fead05eb212f425`. Fechas UTC de esos deploys no comunicadas.
 
 ---
 
