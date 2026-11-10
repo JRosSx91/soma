@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-02 (**ROADMAP-SYNC** tras ROADMAP-AUDIT). Prioridad inmediata: **alinear ops/CI con la beta ya publicada**, no reabrir la secuencia de apertura. `origin/main` = `origin/develop` = `42594a0c24335e85ae901013ff4b4ce69bf94407` (merge PR #98). **SHA servido por Render: no verificado.** `LEGAL_NOTICE_STATUS=published` en código. **GAME-07** sigue pendiente (Centro de Expedición). MOB-01 pospuesto.
+Última actualización editorial: 2026-11-10 (**PWA-01A/B** implementados y validados técnicamente en git local). Prioridad inmediata de **producto:** **PWA-01C** (copy ES/EN + instalación real) y **PWA-01D**. PWA-01 permanece **parcial**. **No** publicado. **JRN-01R** en `origin/main` (PR #101). Bloqueadores: **BETA-01D.3**; **R-SHA**; CI sin tests PG. **GAME-07** pendiente. **MOB-01** pospuesto.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,17 +29,21 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **sigue abierta** mientras no conste cierre formal. No se inventa esa autorización aquí.
 
-**Prioridad inmediata:** gobernanza y estabilidad de la beta (ops/CI, trazabilidad de deploy, residuales LIVE), **no** nuevas obligaciones diarias ni un segundo motor de XP.
+**Prioridad inmediata de producto:** **PWA-01** — que la beta pública se pueda **añadir a la pantalla de inicio** desde el navegador, con icono y nombre oficiales, sin Google Play ni App Store. No es empaquetado nativo (**MOB-01**). No es offline completo ni push.
+
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (validación jurídica); **R-SHA** (SHA de Render); residual de Q-CI (tests PG no corren en Actions). **No** nuevas obligaciones diarias ni un segundo motor de XP.
 
 ### Próximos cinco hitos (orden)
 
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
-| 1 | ROADMAP-SYNC (este documento) | Fuente de verdad alineada con git. No es feature. |
-| 2 | Q-CI | Extender checks a PRs hacia `main`. Hoy CI solo en `pull_request` → `develop`. |
-| 3 | R-SHA + ops | Anotar SHA web/API de Render cuando el panel lo permita. `AUTH_REGISTRATION_MODE` del host: no verificado aquí. |
-| 4 | JRN escritura LIVE | Residual: POST no idempotente si se pierde el 2xx (`journal-live-save.ts`). No igualar Preview a LIVE sin autorización. |
+| 1 | **PWA-01** | Parcial. A/B implementados y validados técnicamente. **C/D pendientes.** Instalación Android/iOS real pendiente. **No** publicado. |
+| 2 | R-SHA + ops | Anotar SHA web/API de Render cuando el panel lo permita. Host de registro no verificado aquí. |
+| 3 | BETA-01D.3 | Jurídica (responsable, proveedores, transferencias). Paralela; no cierra PWA-01. |
+| 4 | Q-CI residual | `ci.yml` ya cubre PRs a `develop` y `main` (PR #100). Tests PostgreSQL **siguen** omitidos en CI. |
 | 5 | GAME-07 | Centro de Expedición (mapa). **Reservado.** Pendiente. No reutilizar el ID. |
+
+**JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101, punta `4520530`; commits de producto `4967da2` + `996af6c`). **No** se afirma desplegado en Render.
 
 Después, según diseño: sostenibilidad XP **sin** Bitácora (catálogo de misiones finito: 14×12 XP), categorías GAM-02 bienestar/objetivos, SEO-01B, WEB-02, MKT-01. **FBK-02**, **GAME-08**, **MOB-01** e **I18N-04** no son el siguiente código.
 
@@ -61,6 +65,7 @@ Hitos de apertura **ya en `main`** (integrados; deploy SHA no verificado):
 | 9 | BETA-01 | Apertura **de producto** ejecutada. Residual: D.3 jurídica; R-SHA; env de registro en el host |
 | 10 | BETA-02A/B/C | Estabilización post-apertura. En `main` (PR #94, #95) |
 | 11 | MKT-01 | Pendiente. Elegible **después** de la apertura; **no** ejecutado. Sin campañas automáticas |
+| — | JRN-01R | En `main` (PR #101). SHA Render no verificado |
 
 ---
 
@@ -122,7 +127,7 @@ Cuatro capas (no se mezclan):
 | REC-VIS-01 visualización de recuperación | En `main` git (`f346709`, PR #69, REL-01). Curvas educativas + NT cualitativos. **No** medición fisiológica individual |
 | ACH-01 sistema de logros y medallas | En `main` git (`c28b31e`, PR #70, REL-01). Galería 2.0; 156 IDs; 149 alcanzables; 7 no disponibles; recaídas no revocan |
 | HOME-UI-01 layout | En `main` git (PR #66, REL-01). No reabre UX-03 |
-| JRN-01 Bitácora | En `main` (PR #72 + BETA-02C). Residual: POST no idempotente si se pierde el 2xx |
+| JRN-01 Bitácora | En `main` (PR #72 + BETA-02C). **JRN-01R** idempotencia LIVE en `main` (PR #101). SHA Render no verificado |
 | GAM-01 XP, niveles, títulos | En `main`. Ledger `XpGrant`. Medallas no conceden XP. Sin Bitácora el techo de misiones es 14×12 XP |
 | GAM-02 / GAME-05 Misiones | En `main`. **14** `reading_check` publicadas (PR #96) + 1 draft. Bienestar/objetivos personales pendientes |
 | GAM-03 integración | Cerrado técnicamente. En `main`. Sin segunda economía. Copy educativa vs participación: residual UX |
@@ -134,7 +139,7 @@ Cuatro capas (no se mezclan):
 | CLEAN-01 legado Soma 1.0 | Completado. En `main` |
 | WEB-01 landing Soma 2.0 | Completado. En `main`. WEB-02 y SEO-01B pendientes |
 | SEO-01 visibilidad | SEO-01A en `main` (PR #75 / #93). SEO-01B pendiente |
-| FAV-01 favicon | Completado. En `main` (PR #92) |
+| FAV-01 favicon | Completado. En `main` (PR #92). Hay favicon + Apple Touch 180; **no** hay Web App Manifest ni service worker |
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `42594a0` |
 | FBK-01 centro de feedback | Completado. En `main` |
 | R-JXP carrera XP | Cerrado. En `main` (`a26585e`, PR #78). No reabre GAM-03 |
@@ -144,7 +149,8 @@ Cuatro capas (no se mezclan):
 | I18N-JOURNAL-01 sustancias Bitácora | Completado. En `main` (PR #98, `e04e3aa`). Preview vacío ≠ LIVE |
 | GAME-07 Centro de Expedición | **Pendiente.** Sin ruta `/expedition` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
-| MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** implementar. **Pospuesto.** |
+| PWA-01 instalación web | **Parcial.** A/B implementados y validados técnicamente (manifest, iconos 192/512, sin SW). C/D pendientes. Distinto de MOB-01. **No** publicado |
+| MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** es PWA-01. **Pospuesto.** |
 | MKT-01 presencia digital | Pendiente. Elegible tras la apertura. **No** ejecutado. Sin campañas ni publicaciones automáticas |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Requiere investigación |
@@ -690,14 +696,15 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01.
 - **Apertura:** ejecutada en producto. Avisos `published` en código. SHA Render **no** verificado.
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí).
-- **Siguiente código (prioridad):** Q-CI (`main`) → R-SHA → residual JRN → **GAME-07**.
-- **Residual / posterior:** WEB-02; SEO-01B; MKT-01; FBK-02; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto.
+- **Siguiente código (prioridad de producto):** **PWA-01C** (copy ES/EN + verificación móvil) luego **PWA-01D**. A/B validados técnicamente. **JRN-01R** en `main` (PR #101); SHA Render no verificado.
+- **Paralelo / ops:** R-SHA; residual Q-CI (PG); BETA-01D.3.
+- **Residual / posterior:** GAME-07 (reservado); WEB-02; SEO-01B; MKT-01; FBK-02; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto (tiendas, no PWA).
 
 #### JRN-01 — Bitácora personal
 
 - **Objetivo:** Ampliar GAME-04: diario privado y voluntario que conserva los campos históricos y añade registro emocional opcional, intensidad del deseo de consumir, desencadenantes y consulta de la evolución personal.
 - **Prioridad:** P1
-- **Estado:** Completado e integrado en `main` (PR #72 + BETA-02C). No es un segundo diario: implementa GAME-04 más los campos nuevos. Residual: nota de privacidad / retención GDPR; POST LIVE no idempotente si se pierde el 2xx. Preview usa `GET /substances` (lista vacía si el catálogo no carga); **I18N-JOURNAL-01-FIX cancelado** (no era LIVE).
+- **Estado:** Completado e integrado en `main` (PR #72 + BETA-02C). No es un segundo diario: implementa GAME-04 más los campos nuevos. **JRN-01R** (idempotencia de alta LIVE) en `main` (PR #101, `996af6c` cherry-pick). Residual: nota de privacidad / retención GDPR; SHA Render de JRN-01R **no** verificado. Preview usa `GET /substances` (lista vacía si el catálogo no carga); **I18N-JOURNAL-01-FIX cancelado** (no era LIVE).
 - **Dependencias:** AUTH-01 (cuenta LIVE). GAME-DESIGN-01 (navegación; Bitácora en secundario / «Más», no 8 pestañas). Nota de privacidad **antes** de Prisma/API (criterio GAME-04). No depende de GAM-01 ni de CHR-01.
 - **Criterios acordados (GAME-04, vigentes):** ánimo, sueño, energía, ansiedad/estrés, notas, calendario, tendencias, reflexiones destacadas por el usuario; sin racha; sin «bienestar medio» clínico; sin causalidad automática con la abstinencia; no diagnóstico.
 - **Decisiones confirmadas (ampliación):**
@@ -706,6 +713,73 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
   - Convivencia de los campos GAME-04 con emoción opcional, intensidad de deseo y desencadenantes (no son un reemplazo).
 - **Pendiente de diseño:** Cómo se presentan juntos esos campos en la UI; escalas de intensidad; taxonomía de desencadenantes; retención/exportación/borrado (detalle GDPR); si las tendencias son solo consulta personal.
 - **Criterio:** El usuario puede escribir, consultar el calendario y dejar de escribir sin perder progreso de Soma. Nadie más ve las entradas. La nota de privacidad existe **antes** de Prisma.
+
+#### JRN-01R — Idempotencia de alta LIVE
+
+- **Objetivo:** Una misma operación de creación LIVE produce como máximo una fila (clave `Idempotency-Key`, unique `(userId, clientOpId)`).
+- **Prioridad:** P1 (cerrada en git).
+- **Estado:** Implementado e integrado en `main` (PR #101). Tests PG locales 29/29 sobre Postgres efímero. **No** se afirma desplegado. Clientes sin cabecera conservan el alta múltiple.
+- **Criterio:** Replay idéntico → 200 y el mismo `id`; clave reutilizada con otro cuerpo → 409; sin XP duplicado.
+
+#### PWA-01 — Instalación desde la web (sin tiendas)
+
+- **Objetivo:** Que un usuario de la beta pública pueda **instalar Soma desde el navegador** (Android Chromium; iOS «Añadir a pantalla de inicio») y abrirla en modo *standalone* donde el SO lo permita, con el **icono y el nombre oficiales**, sin Google Play ni App Store.
+- **Prioridad:** **P1 de producto** (acceso y recurrencia en beta). No desplaza BETA-01D.3 ni R-SHA.
+- **Estado:** **Parcialmente implementado.** **PWA-01A/B** implementados y validados técnicamente (tests de contrato, tsc, build). **PWA-01C/D pendientes.** Instalación real Android/iOS **no** verificada. Hito global **no** cerrado. **No** publicado (sin deploy).
+- **Fuera de alcance de este ID:** empaquetado nativo / tiendas (**MOB-01**); offline complejo; cola de Bitácora offline; notificaciones push; nuevas dependencias salvo justificación en PWA-01A; reinterpretar el icono oficial.
+- **Dependencias:** Superficie web 2.0 y FAV-01 en git. **JRN-01R** en `main` (no cachear `/me/journal`). AUTH-01 (sesión). SHELL-01 (nav móvil). No espera GAME-07, WEB-02, MKT-01 ni MOB-01.
+- **Criterio de cierre (las cuatro fases):** instalable en Android compatible; instrucciones iOS de pantalla de inicio; standalone donde exista; auth/nav/logout; sin secretos ni Bitácora LIVE en caché opaca; actualizaciones del JS nuevo; copy ES/EN; sin tiendas.
+
+##### PWA-01A — Auditoría técnica y alcance
+
+- **Objetivo:** Congelar el recorte mínimo: qué archivos, qué *start_url*, qué no cachear, si hace falta service worker (y cuál) **sin** librería nueva por defecto.
+- **Prioridad:** P1
+- **Estado:** **Completado** (auditoría + aprobación del propietario, 2026-11-10). Validado técnicamente junto con B. Decisiones: `start_url` `/`; **sin** SW en B; sin librerías PWA; no cachear `/me` ni `/auth`.
+- **Alcance:**
+  - Inventario: `index.html`, `public/` (FAV-01), `vite.config.ts`, `document-meta.ts` / JSON-LD `WebApplication`, Render rewrite + Headers.
+  - Criterio de instalabilidad Chromium (manifest + iconos + *served over HTTPS*).
+  - iOS: Apple Touch existente; `apple-mobile-web-app-capable` / `mobile-web-app-capable`; limitaciones (no `beforeinstallprompt`).
+  - Decidir *start_url* (`/` vs `/app`) sin indexar `/app` (SEO-01A).
+  - Lista blanca de estáticos vs red: **prohibido** cachear `GET/POST /me/journal`, `/auth/*`, JWT.
+  - No introducir `vite-plugin-pwa` / Workbox salvo que A demuestre que un SW a mano no cubre actualizaciones.
+- **Criterio:** Informe de alcance aprobado por el propietario **antes** de B. **Cumplido** (autorización PWA-01B).
+
+##### PWA-01B — Instalación y experiencia standalone
+
+- **Objetivo:** Manifest + iconos oficiales (192/512, **sin** rediseñar la marca) + apertura *standalone*. **Sin** service worker en esta fase.
+- **Prioridad:** P1
+- **Estado:** **Implementado y validado técnicamente** (manifest, iconos, metas, tests, tsc, build). **Sin** validación de instalación en Android/iOS reales (eso es C). **No** publicado.
+- **Entregado:**
+  - `public/manifest.webmanifest`: `name`/`short_name` **SOMA**, `display: standalone`, `theme_color`/`background_color` `#061018`, `start_url` `/`, `scope` `/`.
+  - Iconos `/pwa-192x192.png` y `/pwa-512x512.png` reescalados de `soma-favicon.png` (1254², FAV-01). `apple-touch-icon` 180 sin cambiar.
+  - `index.html`: `rel=manifest`, `theme-color`, `mobile-web-app-capable`, metas Apple, `viewport-fit=cover`.
+- **No entregado aquí:** SW; copy de instalación (C); Lighthouse en dispositivo real; deploy (D).
+- **Criterio residual de B:** Chromium «Installable» y iOS «Añadir a inicio» se **validan en C** sobre un host HTTPS; no se afirman con solo el código.
+
+##### PWA-01C — UX de instalación ES/EN y validación móvil
+
+- **Objetivo:** El usuario entiende **cómo** instalar según plataforma. No un *prompt* agresivo ni copy de «app de tienda».
+- **Prioridad:** P1
+- **Estado:** Pendiente. Después de B.
+- **Alcance:**
+  - Copy ES/EN: Android (menú del navegador / banner nativo si existe); iOS Safari (Compartir → Añadir a pantalla de inicio).
+  - Superficie mínima (Cuenta o ayuda), no un segundo onboarding que reabra ONB-01.
+  - No afirmar disponibilidad en Play/App Store.
+  - Validación real: Android Chrome; iOS Safari; sesión LIVE (login, shell, Bitácora, logout). Tamaños UX-PRE-BETA 320/375/430 + *standalone* (safe-area ya usado en dock).
+- **Criterio:** Un usuario ES y uno EN pueden instalar o añadir a inicio sin pasar por una tienda. DEMO `/preview` y LIVE `/app` no se confunden.
+
+##### PWA-01D — Seguridad, actualizaciones, QA y publicación controlada
+
+- **Objetivo:** Publicar la PWA **sin** filtrar diario/sesión y **sin** dejar clientes eternos en un bundle viejo.
+- **Prioridad:** P1
+- **Estado:** Pendiente. Después de C.
+- **Alcance:**
+  - Revisión: SW no guarda cuerpos de Bitácora ni Authorization; no Cache Storage opaco para `/me/*`.
+  - Actualización: `index.html` / precache con bust de Vite; skipWaiting controlado (aviso o recarga, no silencio indefinido).
+  - QA: no-SW / SW viejo; logout; dos pestañas; iOS sin SW.
+  - Despliegue **solo** con autorización (Render web manual). No migración Prisma. No MOB-01.
+  - Tests de contrato (manifest enlazado, start_url, que el SW —si existe— ignore `/me/journal`).
+- **Criterio:** Checklist de seguridad y de update firmado. SHA Render de esta entrega documentado o explícitamente «no verificado».
 
 #### GAM-01 — Experiencia y niveles
 
@@ -859,7 +933,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
   - Imagen Open Graph.
   - Comprobación de visualización en navegadores y dispositivos.
   - Coherencia con la identidad de Soma y el futuro Somi (CHR-01).
-- **Residual:** WEB-02 (origen del nombre / filosofía) no se empaquetó aquí. SEO-01B (posicionamiento orgánico) sigue pendiente. El copy público **no** describe funciones que no estén en producción.
+- **Residual:** WEB-02 (origen del nombre / filosofía) no se empaquetó aquí. SEO-01B (posicionamiento orgánico) sigue pendiente. Iconos de **instalación PWA** (manifest 192/512, standalone) pasan a **PWA-01**; FAV-01 cubre pestaña/Apple Touch 180, no el instalador. El copy público **no** describe funciones que no estén en producción.
 - **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0, qué puede hacer hoy, y no cree que hay app Android o mapa GAME-07 si aún no están. Favicon: **FAV-01** (PR #92) en `main`. **Cumplido en git.** SHA Render no verificado.
 
 #### WEB-02 — Identidad y filosofía
@@ -1022,7 +1096,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 - **Objetivo:** Distribuir Soma 2.0 en Android (Google Play) en un horizonte **futuro**.
 - **Prioridad:** P3. **Sin fecha.**
-- **Estado:** Documentado. **No** iniciar implementación. **No** es requisito de la beta pública. **No** desplaza FBK-01, UX-GLO-01, CLEAN-01, WEB-01 ni BETA-01.
+- **Estado:** Documentado. **No** iniciar implementación. **No** es requisito de la beta pública. **No** es **PWA-01** (PWA-01 es instalación desde el navegador; MOB-01 es ficha de tienda / binario nativo). **No** desplaza PWA-01.
 - **Tecnología:** Capacitor queda como **alternativa preliminar**, no como decisión irreversible. Cualquier empaquetado se reevaluará cuando este ID se autorice.
 - **Dependencias:** Beta pública usable (BETA-01). No bloquea ni es bloqueado por CHR-01 / ONB-01 salvo copy de tienda.
 - **Criterio (cuando se autorice, no ahora):** un artefacto instalable coherente con las funciones reales; sin promesas clínicas ni APK paralelo no gobernado.
@@ -1060,8 +1134,8 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### Q-CI — Integración continua
 
 - **Descripción:** Automatizar tests (al menos web + API unit/http) en cada PR a `develop`/`main`.
-- **Estado:** Parcialmente implementado. **No** cerrado. `ci.yml` dispara **solo** `pull_request` hacia **`develop`**. Los PR `develop`→`main` (#97, #98) **no** ejecutan esos checks. Backups: `database-backups.yml`. Residual: scripts raíz, cobertura, tests PG sin `DATABASE_URL`, `shared-types` sin script `test` (Q-05).
-- **Prioridad:** P1 (PRs a `main` sin esos checks)
+- **Estado:** Parcialmente implementado. **No** cerrado. `ci.yml` dispara `pull_request` hacia **`develop` y `main`** (PR #100 en `main`). Residual: tests PG sin `DATABASE_URL` en Actions; scripts raíz; cobertura; `shared-types` sin script `test` (Q-05).
+- **Prioridad:** P2 residual (PG / cobertura). Ya no es el siguiente hito de producto (eso es **PWA-01**).
 - **Evidencia (2026-10-30):** existen `ci.yml` y `database-backups.yml`. Root `package.json` sin `test`/`lint` globales. Web `pnpm test`. API `tsx --test src/**/*.test.ts`. Pg tests se saltan sin `DATABASE_URL`.
 - **Dependencias:** Ninguna de producto.
 - **Criterio:** Un PR muestra checks verdes o fallo explícito de test; no se exige cobertura 100 %.
@@ -1165,7 +1239,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (14 educativas publicadas en `main`).
 14. **CHR-01:** cerrado técnicamente en `main`. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01 / CHR-01:** en `main`.
-16. **UX-PRE-BETA:** ya no es candado de apertura. **MKT-01** pendiente. **GAME-07** pendiente.
+16. **UX-PRE-BETA:** ya no es candado de apertura. **MKT-01** pendiente. **GAME-07** pendiente. **PWA-01** es la prioridad de producto post-JRN-01R; **MOB-01** sigue pospuesto.
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
 
@@ -1183,7 +1257,7 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 | R-DUP | Duplicar párrafos NT como lista de síntomas. | Mitigado en catálogo; falta UI de síntomas |
 | R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación, Logros 2.0 (PR #60), Explorar (PR #61) y atlas (PR #68). LEG-01 redirige |
 | R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en GAM-01 (`main`). Techo bajo sin Bitácora (14×12 XP): diseño futuro, no racha |
-| R-LOG | Nota de privacidad / retención detallada de Bitácora. | Residual. POST LIVE no idempotente si se pierde el 2xx |
+| R-LOG | Nota de privacidad / retención detallada de Bitácora. | Residual GDPR. **JRN-01R** en `main` (PR #101); SHA Render no verificado |
 | R-JXP | Carrera en `UserProgression.upsert`. | **Cerrado en `main`** (`a26585e`, PR #78). **No** es GAM-03 |
 | R-PREV | Confundir Preview (`/preview`) con LIVE. | I18N-JOURNAL-01-FIX cancelado. Preview no se iguala a LIVE sin autorización |
 | R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
@@ -1196,9 +1270,9 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 
 ## Próximos pasos (por dependencia)
 
-1. **Q-CI:** checks en PRs hacia `main` (hoy solo `develop`).
+1. **PWA-01:** A/B implementados y validados técnicamente. **C** copy ES/EN + instalación real Android/iOS. **D** seguridad/updates/deploy. **No** publicado.
 2. **R-SHA:** SHA web/API de Render cuando el panel lo permita. No inventar.
-3. **JRN residual:** idempotencia de POST LIVE si se pierde el 2xx. Preview ≠ LIVE.
+3. **JRN-01R:** en `main` (PR #101). Pendiente afirmar deploy. Preview ≠ LIVE.
 4. **GAME-07:** Centro de Expedición (mapa). Pendiente. ID reservado.
 5. **BETA-01D.3:** validación jurídica formal (no cerrada aquí).
 6. **XP sin Bitácora:** diseño opcional; no racha; no reabrir cantidades catalogadas.
@@ -1207,7 +1281,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 9. **ACH-REV residual:** fecha errónea. Bloquea GAME-08.
 10. **SEO-01B, WEB-02, MKT-01** cuando se autoricen. **I18N-04** no añade idiomas.
 11. **UX-08 / UX-09** y síntomas: revisión clínica humana.
-12. **Q-05, Q-E2E, Q-OBS, VIS-01.** MOB-01 pospuesto. FBK-02 futuro.
+12. **Q-05, Q-E2E, Q-OBS, VIS-01.** MOB-01 pospuesto (tiendas). FBK-02 futuro. Q-CI residual: PG no corre en Actions.
 
 ---
 
@@ -1295,10 +1369,11 @@ Soma Expeditions (dirección visual OK; parcialmente en main; GAME-07 pendiente)
   Fase E2   REL-01 y trenes #77–#98 hasta `42594a0`
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
             BETA-01D.3 jurídica — **abierta**
-            Q-CI (`main`) → R-SHA → JRN residual → GAME-07
+            PWA-01 (prioridad producto) → R-SHA; JRN-01R en main (PR #101)
+            GAME-07 reservado
             MKT-01 cuando se autorice
   Fase G    WEB-02 → SEO-01B → FBK-02
-  MOB-01    pospuesto
+  MOB-01    pospuesto (Play/App Store; ≠ PWA-01)
   GAME-08   tras ACH-REV residual
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar
@@ -1320,7 +1395,7 @@ VIS-01 (no reabre UX-03)
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, EXP-EDU-01, JRN-01, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, MOB-01, MKT-01, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, EXP-EDU-01, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**.
 11. **Regla de avance:** un hito bloqueado por dependencia externa no impide trabajos posteriores técnicamente independientes. El hito bloqueado **no** se marca cerrado.
 12. **Cierre de hito:** criterios validados, aprobación, actualización de este archivo, pruebas/referencias, y commit solo autorizado. Un cierre técnico sin fila en el roadmap no cuenta.
 
@@ -1393,3 +1468,6 @@ VIS-01 (no reabre UX-03)
 | 2026-10-31 | UX-PRE-BETA ajustes visuales (sombra de encabezados, medallas ocultas centradas, banderas circulares, opacidad de tarjetas, a11y «Oculto»). **En curso.** Sin commit. **No** desplegado. |
 | 2026-10-31 | UX-PRE-BETA: primera tanda **UX-01 a UX-10** completada localmente; copy público del encabezado de Logros. El hito general **sigue abierto**. **BETA-01** y **MKT-01** pendientes. Sin commit. **No** desplegado. |
 | 2026-11-02 | **ROADMAP-SYNC** (ROADMAP-AUDIT). `main`=`develop`=`42594a0`. Beta pública (README); avisos `published`. 14 misiones (PR #96). CHR-01, ONB-01, BETA-02, UX-REC-01, I18N-JOURNAL-01 en `main`. GAME-07 pendiente. SHA Render no verificado. I18N-JOURNAL-01-FIX cancelado (Preview). Sin commit de este sync. |
+| 2026-11-10 | **PWA-01** añadido (A–D), pendiente. Diagnóstico: sin manifest, sin SW, FAV-01 no basta para instalar. Prioridad de producto tras **JRN-01R** (PR #101 → `main` `4520530`). MOB-01 sigue siendo tiendas, no PWA. Sin implementación. Sin commit de este sync. |
+| 2026-11-10 | **PWA-01A** aprobada. **PWA-01B** implementado en local: manifest SOMA, `start_url` `/`, iconos 192/512 desde `soma-favicon.png`, metas iOS, **sin** SW ni dependencias nuevas. C/D pendientes. Sin commit. Sin deploy. |
+| 2026-11-10 | **PWA-01A/B** commit local autorizado: implementados y validados técnicamente. PWA-01 sigue **parcial**. C/D pendientes. Instalación Android/iOS real pendiente. MOB-01 pospuesto. **No** publicado. |
