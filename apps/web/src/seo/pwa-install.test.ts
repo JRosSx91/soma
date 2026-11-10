@@ -37,13 +37,18 @@ test("web app manifest is installable without a service worker", () => {
   assert.equal(manifest.scope, "/");
   assert.equal(manifest.id, "/");
   assert.deepEqual(
-    manifest.icons.map((icon) => icon.sizes).sort(),
-    ["192x192", "512x512"],
+    manifest.icons.map((icon) => `${icon.purpose}:${icon.sizes}`).sort(),
+    [
+      "any:192x192",
+      "any:512x512",
+      "maskable:192x192",
+      "maskable:512x512",
+    ],
   );
   for (const icon of manifest.icons) {
     assert.equal(icon.type, "image/png");
-    assert.equal(icon.purpose, "any");
-    assert.match(icon.src, /^\/pwa-\d+x\d+\.png$/);
+    assert.match(icon.src, /^\/pwa-\d+x\d+(?:-maskable)?\.png$/);
+    assert.equal(icon.src.includes("maskable"), icon.purpose === "maskable");
   }
 });
 
@@ -52,19 +57,28 @@ test("PWA icons are 192 and 512 RGBA PNGs derived from FAV-01", () => {
   assert.equal(source.width, 1254);
   assert.equal(source.height, 1254);
   assert.equal(source.colorType, 6);
-  const small = pngSize(join(webRoot, "public/pwa-192x192.png"));
-  assert.equal(small.width, 192);
-  assert.equal(small.height, 192);
-  assert.equal(small.colorType, 6);
-  const large = pngSize(join(webRoot, "public/pwa-512x512.png"));
-  assert.equal(large.width, 512);
-  assert.equal(large.height, 512);
-  assert.equal(large.colorType, 6);
+  const files = [
+    ["pwa-192x192.png", 192],
+    ["pwa-512x512.png", 512],
+    ["pwa-192x192-maskable.png", 192],
+    ["pwa-512x512-maskable.png", 512],
+  ] as const;
+  for (const [name, size] of files) {
+    const info = pngSize(join(webRoot, "public", name));
+    assert.equal(info.width, size, name);
+    assert.equal(info.height, size, name);
+    assert.equal(info.colorType, 6, name);
+  }
 });
 
 test("index.html links the manifest and iOS install metadata", () => {
   const html = readFileSync(join(webRoot, "index.html"), "utf8");
   assert.match(html, /<link rel="manifest" href="\/manifest.webmanifest" \/>/);
+  assert.match(html, /<meta name="color-scheme" content="dark" \/>/);
+  assert.match(
+    html,
+    /html,\s*body\s*\{\s*background-color:\s*#061018;\s*\}/,
+  );
   assert.match(html, /<meta name="theme-color" content="#061018" \/>/);
   assert.match(html, /<meta name="mobile-web-app-capable" content="yes" \/>/);
   assert.match(

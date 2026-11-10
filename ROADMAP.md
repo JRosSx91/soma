@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-10 (**PWA-01A/B** validados técnicamente en git local; **PWA-01C** implementado y validado técnicamente). Prioridad inmediata de **producto:** **PWA-01D**. PWA-01 permanece **parcial**. Instalación Android/iOS real **no** verificada. **No** publicado. **JRN-01R** en `origin/main` (PR #101). Bloqueadores: **BETA-01D.3**; **R-SHA**; CI sin tests PG. **GAME-07** pendiente. **MOB-01** pospuesto.
+Última actualización editorial: 2026-11-10 (**PWA-01A/B/C** validados técnicamente; **PWA-01D-ICON** implementado en git local, pendiente Android real; **PWA-01D-BOOT** mitigación visual en git local, causa raíz no confirmada). **PWA-01D** pendiente de QA y cierre. PWA-01 permanece **parcial**. Instalación Android/iOS real **no** verificada. Primer arranque **no** cerrado. **No** publicado. **JRN-01R** en `origin/main` (PR #101). Bloqueadores: **BETA-01D.3**; **R-SHA**; CI sin tests PG. **GAME-07** pendiente. **MOB-01** pospuesto.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -149,7 +149,7 @@ Cuatro capas (no se mezclan):
 | I18N-JOURNAL-01 sustancias Bitácora | Completado. En `main` (PR #98, `e04e3aa`). Preview vacío ≠ LIVE |
 | GAME-07 Centro de Expedición | **Pendiente.** Sin ruta `/expedition` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
-| PWA-01 instalación web | **Parcial.** A/B/C validados técnicamente (manifest, iconos, UX ES/EN, sin SW). **D** pendiente. Instalación Android/iOS real **no** verificada. Distinto de MOB-01. **No** publicado |
+| PWA-01 instalación web | **Parcial.** A/B/C validados técnicamente. **D-ICON** en git local (pendiente Android real). **D-BOOT** mitigación visual (causa raíz no confirmada). **D** pendiente de QA y cierre. Distinto de MOB-01. **No** publicado |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** es PWA-01. **Pospuesto.** |
 | MKT-01 presencia digital | Pendiente. Elegible tras la apertura. **No** ejecutado. Sin campañas ni publicaciones automáticas |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
@@ -696,7 +696,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01.
 - **Apertura:** ejecutada en producto. Avisos `published` en código. SHA Render **no** verificado.
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí).
-- **Siguiente código (prioridad de producto):** **PWA-01D** (seguridad, updates, QA móvil real, deploy autorizado). A/B/C validados técnicamente. **JRN-01R** en `main` (PR #101); SHA Render no verificado.
+- **Siguiente código (prioridad de producto):** **PWA-01D** residual (QA Android/iOS real, MIME/caché/Polish en Render+Cloudflare, causa raíz del primer arranque, deploy autorizado). **D-ICON**/**D-BOOT** en git local. **JRN-01R** en `main` (PR #101); SHA Render no verificado.
 - **Paralelo / ops:** R-SHA; residual Q-CI (PG); BETA-01D.3.
 - **Residual / posterior:** GAME-07 (reservado); WEB-02; SEO-01B; MKT-01; FBK-02; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto (tiendas, no PWA).
 
@@ -725,7 +725,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 
 - **Objetivo:** Que un usuario de la beta pública pueda **instalar Soma desde el navegador** (Android Chromium; iOS «Añadir a pantalla de inicio») y abrirla en modo *standalone* donde el SO lo permita, con el **icono y el nombre oficiales**, sin Google Play ni App Store.
 - **Prioridad:** **P1 de producto** (acceso y recurrencia en beta). No desplaza BETA-01D.3 ni R-SHA.
-- **Estado:** **Parcialmente implementado.** **PWA-01A/B/C** implementados y validados técnicamente. **PWA-01D** pendiente. Instalación real Android/iOS **no** verificada. Hito global **no** cerrado. **No** publicado (sin deploy).
+- **Estado:** **Parcialmente implementado.** **PWA-01A/B/C** implementados y validados técnicamente. **PWA-01D-ICON** implementado en git local (pendiente Android real). **PWA-01D-BOOT** mitigación visual en git local (causa raíz no confirmada). **PWA-01D** pendiente de QA y cierre. Instalación real Android/iOS **no** verificada. Primer arranque **no** cerrado. Hito global **no** cerrado. **No** publicado (sin deploy).
 - **Fuera de alcance de este ID:** empaquetado nativo / tiendas (**MOB-01**); offline complejo; cola de Bitácora offline; notificaciones push; nuevas dependencias salvo justificación en PWA-01A; reinterpretar el icono oficial.
 - **Dependencias:** Superficie web 2.0 y FAV-01 en git. **JRN-01R** en `main` (no cachear `/me/journal`). AUTH-01 (sesión). SHELL-01 (nav móvil). No espera GAME-07, WEB-02, MKT-01 ni MOB-01.
 - **Criterio de cierre (las cuatro fases):** instalable en Android compatible; instrucciones iOS de pantalla de inicio; standalone donde exista; auth/nav/logout; sin secretos ni Bitácora LIVE en caché opaca; actualizaciones del JS nuevo; copy ES/EN; sin tiendas.
@@ -771,18 +771,21 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 
 ##### PWA-01D — Seguridad, actualizaciones, QA y publicación controlada
 
-- **Objetivo:** Publicar la PWA **sin** filtrar diario/sesión y **sin** dejar clientes eternos en un bundle viejo.
+- **Objetivo:** Publicar la PWA **sin** filtrar diario/sesión y **sin** dejar clientes eternos en un bundle viejo. Incluye icono de launcher correcto, primer arranque sin FOUC blanco, MIME/caché de manifest y assets, y QA móvil real.
 - **Prioridad:** P1
-- **Estado:** Pendiente. Después de C.
-- **Alcance:**
-  - Revisión: SW no guarda cuerpos de Bitácora ni Authorization; no Cache Storage opaco para `/me/*`.
-  - Actualización: `index.html` / precache con bust de Vite; skipWaiting controlado (aviso o recarga, no silencio indefinido).
+- **Estado:** **Pendiente de QA y cierre.** **PWA-01D-ICON** implementado en git local: iconos `any`/`maskable` 192/512 desde `soma-favicon.png`, fondo opaco `#061018`, manifest actualizado; **pendiente de Android real**. **PWA-01D-BOOT** mitigación visual implementada (`color-scheme: dark` y fondo `#061018` en `index.html` antes de Tailwind); **causa raíz no confirmada**; primer arranque **no** se declara corregido. **Sin** service worker. **Sin** cambios en Render ni Cloudflare. Favicon y Apple Touch **no** tocados. **No** publicado.
+- **Hecho en git local:**
+  - Recorte del símbolo oficial (bbox 126,136–1119,1105 sobre 1254²); `any` a lienzo completo; `maskable` al ~82 % para zona segura W3C (círculo 80 %). Pulso interior dentro de esa zona en medición local. Sin redibujar el pulso ni cambiar colores internos.
+  - Tests de contrato del manifest (any + maskable) y de tamaños PNG.
+- **Pendiente (mantiene el hito parcial):**
+  - Revisión: SW no guarda cuerpos de Bitácora ni Authorization; no Cache Storage opaco para `/me/*` (hoy **no hay SW**; no introducir uno aquí).
+  - Actualización: política de caché de `index.html` vs `/assets/*` hasheados en el host; no precache.
+  - Headers CDN (propuesta, **no aplicada**): `manifest.webmanifest` → `application/manifest+json`; `/assets/*` → `immutable`; HTML `no-cache`; excepción Polish **solo** `/pwa-*.png` (no Polish global; no immutable sobre iconos/manifest de nombre estable).
   - QA: no-SW / SW viejo; dos pestañas; iOS sin SW.
-  - QA LIVE en dispositivo (pendiente; no ejecutado en C): login; refresh de sesión; navegación del shell; Bitácora; logout; re-login; tanto en pestaña del navegador como en ventana *standalone* tras instalar. Comprobar que el control de instalación no reaparece en standalone.
-  - QA iOS: Añadir a inicio desde Safari; abrir standalone; login/logout/refresh. No asumir `beforeinstallprompt`.
+  - QA LIVE en dispositivo: login; refresh; shell; Bitácora; logout; standalone; icono launcher Android (any vs máscara); primer arranque en red lenta / tras deploy.
+  - QA iOS: Añadir a inicio; standalone; login/logout/refresh. No asumir `beforeinstallprompt`.
   - Despliegue **solo** con autorización (Render web manual). No migración Prisma. No MOB-01.
-  - Tests de contrato (manifest enlazado, start_url, que el SW —si existe— ignore `/me/journal`).
-- **Criterio:** Checklist de seguridad y de update firmado. SHA Render de esta entrega documentado o explícitamente «no verificado».
+- **Criterio:** Checklist de seguridad y de update firmado. SHA Render de esta entrega documentado o explícitamente «no verificado». Icono Android y primer arranque **solo** se cierran con evidencia en dispositivo/producción.
 
 #### GAM-01 — Experiencia y niveles
 
@@ -1476,3 +1479,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-10 | **PWA-01A/B** commit local autorizado: implementados y validados técnicamente. PWA-01 sigue **parcial**. C/D pendientes. Instalación Android/iOS real pendiente. MOB-01 pospuesto. **No** publicado. |
 | 2026-11-10 | **PWA-01C** implementado en local: «Instalar SOMA» en landing y Cuenta LIVE, diálogo `DetailSheet`, `beforeinstallprompt` diferido, instrucciones iOS/manual, ocultar en standalone, i18n ES/EN. Sin SW. Sin commit. Instalación móvil real **no** verificada. **D** pendiente. **No** publicado. |
 | 2026-11-10 | **PWA-01C** revisión final + commit local: `userChoice.accepted` no confirma instalación; éxito con `appinstalled`/standalone; listeners únicos. Validado técnicamente. Instalación Android/iOS real **no** verificada. **D** pendiente. **No** publicado. |
+| 2026-11-10 | **PWA-01D** implementación local parcial: iconos any/maskable opacos `#061018` desde `soma-favicon.png`; manifest; CSS crítico en `index.html`. Sin SW. Sin commit. Sin deploy. Sin tocar Render/Cloudflare. Icono Android y primer arranque **no** cerrados. |
+| 2026-11-10 | **PWA-01D** commit local: **D-ICON** implementado (pendiente Android real); **D-BOOT** mitigación visual (causa raíz no confirmada). PWA-01 **parcial**. **D** pendiente de QA y cierre. Sin push. Sin deploy. |
