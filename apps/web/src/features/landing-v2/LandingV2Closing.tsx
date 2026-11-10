@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { SomaMark } from "../recovery-dashboard/components/SomaMark.js";
 import { LandingPulseWave } from "./LandingPulseWave.js";
+import { InstallSomaControl } from "../pwa/InstallSomaControl.js";
 import { LandingRegistrationActions } from "./LandingRegistrationActions.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -137,6 +138,7 @@ export function LandingV2Closing() {
             <Link className="hover:text-soma-action" to="/cookies">
               {t("legal:nav.cookies")}
             </Link>
+            <InstallSomaControl tone="footer" />
           </nav>
         </footer>
       </div>

@@ -78,6 +78,7 @@ test("index.html is indexable without JavaScript and strips private routes in th
   assert.match(html, /name="twitter:description"/);
   assert.match(html, /name="twitter:image"/);
   assert.equal(html.includes("hreflang"), false);
+  assert.match(html, /<link rel="manifest" href="\/manifest.webmanifest" \/>/);
   assert.match(html, /<noscript>/);
   assert.match(html, /JavaScript is required to use the application/);
   assert.match(html, /id="soma-jsonld"/);
