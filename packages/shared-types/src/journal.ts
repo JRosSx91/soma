@@ -118,3 +118,53 @@ export function isJournalOccurredOnInRange(
   const max = civilDateToUtcDate(journalOccurredOnMax(now));
   return value.getTime() >= min.getTime() && value.getTime() <= max.getTime();
 }
+
+/**
+ * Semantic fields of POST /me/journal used for Idempotency-Key replay.
+ * Property order in the JSON is fixed. emotionIds/triggerIds are sorted.
+ * title/body are trimmed; empty string is null. Booleans default false.
+ * PATCH must not be compared against this snapshot of the stored row.
+ */
+export type JournalCreateCanonicalInput = {
+  occurredOn: string;
+  mood?: number | null;
+  sleep?: number | null;
+  energy?: number | null;
+  anxiety?: number | null;
+  cravingIntensity?: number | null;
+  wellbeingRating?: number | null;
+  cravingSubstanceId?: string | null;
+  title?: string | null;
+  body?: string | null;
+  highlighted?: boolean | null;
+  learning?: boolean | null;
+  emotionIds?: readonly string[] | null;
+  triggerIds?: readonly string[] | null;
+};
+
+function canonicalJournalText(value: string | null | undefined): string | null {
+  if (value == null) return null;
+  const trimmed = value.trim();
+  return trimmed.length === 0 ? null : trimmed;
+}
+
+export function journalCreateCanonicalJson(
+  input: JournalCreateCanonicalInput,
+): string {
+  return JSON.stringify({
+    occurredOn: input.occurredOn,
+    mood: input.mood ?? null,
+    sleep: input.sleep ?? null,
+    energy: input.energy ?? null,
+    anxiety: input.anxiety ?? null,
+    cravingIntensity: input.cravingIntensity ?? null,
+    wellbeingRating: input.wellbeingRating ?? null,
+    cravingSubstanceId: input.cravingSubstanceId ?? null,
+    title: canonicalJournalText(input.title),
+    body: canonicalJournalText(input.body),
+    highlighted: input.highlighted ?? false,
+    learning: input.learning ?? false,
+    emotionIds: [...(input.emotionIds ?? [])].map(String).sort(),
+    triggerIds: [...(input.triggerIds ?? [])].map(String).sort(),
+  });
+}

@@ -192,6 +192,7 @@
     "invalidWellbeing": "La valoración de bienestar va de 0 a 10.",
     "saveError": "No se ha podido guardar. Inténtalo de nuevo.",
     "saveUnconfirmed": "No hemos podido confirmar si la entrada se guardó. Actualiza el diario antes de crear otra.",
+    "idempotencyConflict": "Este guardado ya existe como otra entrada. Actualiza el diario en lugar de crear otra.",
     "refreshError": "Guardado. No se ha podido actualizar la vista del diario. Reintenta sin crear otra entrada.",
     "refreshRetry": "Actualizar vista"
   },

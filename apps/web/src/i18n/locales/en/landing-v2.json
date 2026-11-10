@@ -12,7 +12,7 @@
     "subtitle": "Soma visualizes orientative trajectories from scientific literature and a personal timeline. They are educational estimates from catalog curves — not clinical measurements, diagnoses, or a guarantee of individual recovery.",
     "ctaPrimary": "Create an account",
     "ctaSignIn": "Sign in",
-    "ctaInviteNote": "Soma is in closed beta. Registration is by invitation; if you were invited, use the link you received.",
+    "ctaInviteNote": "Soma is in public beta. Sign-up currently requires an invitation. If you were invited, use the link you received.",
     "ctaSecondary": "Explore the demo",
     "disclaimer": "Educational models. Soma is not a medical device. Panels in the artwork are visual motifs, not measurements or profile data."
   },
@@ -191,7 +191,7 @@
     "subtitle": "Every day is part of a larger story. Discover how to explore your evolution, understand the processes in your body, and recognize the milestones along the way.",
     "ctaPrimary": "Create an account",
     "ctaSignIn": "Sign in",
-    "ctaInviteNote": "Public registration is not open. During closed beta you need an invitation.",
+    "ctaInviteNote": "General sign-up is not open: an invitation is required. Soma remains in public beta.",
     "ctaSecondary": "Explore the demo",
     "note": "Orientative educational models. They do not replace a medical evaluation.",
     "tagline": "Understanding recovery, one day at a time."

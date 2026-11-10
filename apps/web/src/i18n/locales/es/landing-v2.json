@@ -12,7 +12,7 @@
     "subtitle": "Soma visualiza trayectorias orientativas a partir de literatura científica y de una línea temporal personal. Son estimaciones educativas del catálogo — no mediciones clínicas, diagnósticos ni una garantía de recuperación individual.",
     "ctaPrimary": "Crear una cuenta",
     "ctaSignIn": "Entrar",
-    "ctaInviteNote": "Soma está en beta cerrada. El registro es por invitación; si te invitaron, usa el enlace que recibiste.",
+    "ctaInviteNote": "Soma está en beta pública. En esta fase el alta se hace con invitación. Si te invitaron, usa el enlace que recibiste.",
     "ctaSecondary": "Explorar la demo",
     "disclaimer": "Modelos educativos. Soma no es un dispositivo médico. Los paneles de la ilustración son motivos visuales, no mediciones ni datos de un perfil."
   },
@@ -191,7 +191,7 @@
     "subtitle": "Cada día forma parte de una historia más grande. Descubre cómo explorar tu evolución, comprender los procesos de tu organismo y reconocer los hitos de tu camino.",
     "ctaPrimary": "Crear una cuenta",
     "ctaSignIn": "Entrar",
-    "ctaInviteNote": "El registro público no está abierto. Durante la beta cerrada hace falta una invitación.",
+    "ctaInviteNote": "El alta no está abierta de forma general: hace falta una invitación. Soma sigue en beta pública.",
     "ctaSecondary": "Explorar la demo",
     "note": "Modelos educativos orientativos. No sustituyen una evaluación médica.",
     "tagline": "Comprender la recuperación, un día a la vez."

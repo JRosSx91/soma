@@ -31,6 +31,7 @@ import {
   type JournalEmotionId,
   type JournalTriggerId,
 } from "@soma/shared-types";
+import { ApiError } from "../../auth/client/api.js";
 import { useAuth } from "../../auth/index.js";
 import { useUserProfile } from "../../profile/hooks/useUserProfile.js";
 import { SpecialCategoryConsentCard } from "../../profile/components/SpecialCategoryConsentCard.js";
@@ -68,6 +69,10 @@ import {
   relocalizeJournalDemoEntries,
   relocalizeJournalDemoMilestones,
 } from "../../journal/journal-demo.js";
+import {
+  clearPendingJournalCreateOp,
+  resolveJournalCreateOpId,
+} from "../../journal/journal-create-op.js";
 import { runDeleteJournalEntry } from "../../journal/journal-delete.js";
 import {
   beginExclusive,
@@ -201,6 +206,9 @@ export function JournalPage() {
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const deleteInFlight = useRef(false);
   const entrySaveLock = useRef(false);
+  const createOpKeyRef = useRef<string | null>(null);
+  const createOpHashRef = useRef<string | null>(null);
+  const lastCreateOpUserId = useRef<string | null>(null);
   const [chartSeries, setChartSeries] = useState<ChartSeries>("wellbeing");
   const [patternScale, setPatternScale] = useState<JournalScaleId>("wellbeing");
   const [patternWindow, setPatternWindow] = useState<JournalTrendWindow>(28);
@@ -298,6 +306,16 @@ export function JournalPage() {
     }
     if (live) void loadLive();
   }, [demo, live, loadLive, t, i18n.language]);
+
+  useEffect(() => {
+    createOpKeyRef.current = null;
+    createOpHashRef.current = null;
+    const previous = lastCreateOpUserId.current;
+    if (previous && previous !== user?.id) {
+      clearPendingJournalCreateOp(previous);
+    }
+    lastCreateOpUserId.current = user?.id ?? null;
+  }, [user?.id]);
 
   useEffect(() => {
     if (!live) {
@@ -474,6 +492,20 @@ export function JournalPage() {
     return shortDateFmt.format(new Date(`${iso}T00:00:00.000Z`));
   }
 
+  function resetCreateOp(userId?: string | null) {
+    createOpKeyRef.current = null;
+    createOpHashRef.current = null;
+    if (userId) clearPendingJournalCreateOp(userId);
+  }
+
+  function isIdempotencyConflict(error: unknown): boolean {
+    return (
+      error instanceof ApiError &&
+      error.status === 409 &&
+      error.code === "IDEMPOTENCY_KEY_REUSED"
+    );
+  }
+
   async function handleSave(draft: JournalEntryWrite) {
     if (!beginExclusive(entrySaveLock)) return;
     setSaving(true);
@@ -530,13 +562,27 @@ export function JournalPage() {
         setSheet(null);
       } else if (live) {
         const result = await runJournalLiveSave({
-          write: () => {
+          write: async () => {
             if (editing) return patchJournalEntry(editing.id, draft);
-            return createJournalEntry(draft);
+            if (!user?.id) {
+              return Promise.reject(new Error("missing user"));
+            }
+            const resolved = await resolveJournalCreateOpId({
+              userId: user.id,
+              draft,
+              inMemoryKey: createOpKeyRef.current,
+              lastHash: createOpHashRef.current,
+            });
+            createOpKeyRef.current = resolved.key;
+            createOpHashRef.current = resolved.hash;
+            return createJournalEntry(draft, {
+              idempotencyKey: resolved.key,
+            });
           },
           refresh: refreshLiveViewsAfterWrite,
         });
         if (result.write === "ok") {
+          if (!editing) resetCreateOp(user?.id);
           setSheet(null);
           setRefreshError(result.refresh === "failed");
           return;
@@ -549,7 +595,9 @@ export function JournalPage() {
         setSaveError(
           isSpecialCategoryWriteBlocked(result.error)
             ? t("consentSaveError")
-            : t("form.saveError"),
+            : isIdempotencyConflict(result.error)
+              ? t("form.idempotencyConflict")
+              : t("form.saveError"),
         );
       }
     } finally {
@@ -572,6 +620,7 @@ export function JournalPage() {
     try {
       await refreshLiveViewsAfterWrite();
       setSaveUnconfirmed(false);
+      resetCreateOp(user?.id);
       setSheet(null);
     } catch {
       setSaveError(t("form.refreshError"));
@@ -1352,6 +1401,7 @@ export function JournalPage() {
             if (deleting) return;
             setConfirmDelete(false);
             setDeleteError(null);
+            if (sheet.kind === "create") resetCreateOp(user?.id);
             setSheet(null);
           }}
         >
@@ -1388,7 +1438,10 @@ export function JournalPage() {
               saving={saving}
               error={saveError}
               onSubmit={(draft) => void handleSave(draft)}
-              onCancel={() => setSheet(null)}
+              onCancel={() => {
+                if (sheet.kind === "create") resetCreateOp(user?.id);
+                setSheet(null);
+              }}
               recoveryLabel={
                 saveUnconfirmed ? t("form.refreshRetry") : undefined
               }

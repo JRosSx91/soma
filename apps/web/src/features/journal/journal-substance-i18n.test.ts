@@ -54,9 +54,9 @@ test("journal keep substance ids in state, save payloads and existing demo rows"
   assert.match(form, /entry\?\.cravingSubstanceId \?\? null/);
   assert.match(form, /setCravingSubstanceId\(event\.target\.value === "" \? null : event\.target\.value\)/);
   assert.match(page, /cravingSubstanceId: draft\.cravingSubstanceId \?\? null/);
-  assert.match(page, /createJournalEntry\(draft\)/);
+  assert.match(page, /createJournalEntry\(draft/);
   assert.match(page, /patchJournalEntry\(editing\.id, draft\)/);
-  assert.match(api, /apiRequest<JournalEntry>\("\/me\/journal", \{ method: "POST", body \}\)/);
+  assert.match(api, /apiRequest<JournalEntry>\("\/me\/journal"/);
   assert.match(api, /method: "PATCH"/);
   assert.match(model, /cravingSubstanceId: string \| null/);
   assert.match(demo, /cravingSubstanceId: "alcohol"/);
@@ -69,7 +69,7 @@ test("DEMO and LIVE journal still isolate catalog names from persisted ids", () 
   assert.match(page, /base === "\/preview"/);
   assert.match(page, /base === "\/app"/);
   assert.match(page, /JOURNAL_DEMO_ENTRIES/);
-  assert.match(page, /createJournalEntry\(draft\)/);
+  assert.match(page, /createJournalEntry\(draft/);
   assert.equal(demo.includes("apiRequest"), false);
   assert.equal(page.includes("cravingSubstanceName"), false);
   assert.equal(form.includes("cravingSubstanceName"), false);

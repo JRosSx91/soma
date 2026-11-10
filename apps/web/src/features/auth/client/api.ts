@@ -49,6 +49,8 @@ export class ApiError extends Error {
 export interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
+  /** Extra headers (never used to smuggle secrets). */
+  headers?: Record<string, string>;
   /** Skip Authorization header (login/register). */
   anonymous?: boolean;
   /** Include cookies (default true). */
@@ -184,6 +186,7 @@ export async function apiRequest<T>(
   const {
     method = "GET",
     body,
+    headers: extraHeaders,
     anonymous = false,
     credentials = "include",
     cookieAuth = false,
@@ -192,6 +195,7 @@ export async function apiRequest<T>(
 
   const headers: Record<string, string> = {
     Accept: "application/json",
+    ...extraHeaders,
   };
 
   if (body !== undefined) {

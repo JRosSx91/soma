@@ -78,8 +78,19 @@ export async function fetchAllJournalEntries(): Promise<JournalEntry[]> {
   return items;
 }
 
-export function createJournalEntry(body: JournalEntryWrite): Promise<JournalEntry> {
-  return apiRequest<JournalEntry>("/me/journal", { method: "POST", body });
+export function createJournalEntry(
+  body: JournalEntryWrite,
+  options: { idempotencyKey?: string } = {},
+): Promise<JournalEntry> {
+  const headers: Record<string, string> = {};
+  if (options.idempotencyKey) {
+    headers["Idempotency-Key"] = options.idempotencyKey;
+  }
+  return apiRequest<JournalEntry>("/me/journal", {
+    method: "POST",
+    body,
+    headers: Object.keys(headers).length > 0 ? headers : undefined,
+  });
 }
 
 export function patchJournalEntry(
