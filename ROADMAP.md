@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-10 (**PWA-01A/B/C** completados técnicamente y desplegados. **PWA-01D** QA Android completado: icono aprobado; instalación Chrome; standalone; login/sesión/Bitácora LIVE/logout; control de instalación oculto. Primer arranque sin estilos **no** reproducido tras reinstalación; causa raíz **no** confirmada. **iOS no validado.** MIME/CDN no bloqueante. Entrega Android hecha; PWA-01 **parcial** multiplataforma. **MOB-01** pospuesto). **JRN-01R** en `origin/main` (PR #101). Bloqueadores: **BETA-01D.3**; **R-SHA**; CI sin tests PG. **GAME-07** pendiente.
+Última actualización editorial: 2026-11-10 (**PWA-01A/B/C** completados y desplegados. **PWA-01D** parcial: QA Android LIVE OK (icono aprobado); iOS instalación y apertura en BrowserStack Live iPhone 15 Pro / Safari 17.0; QA funcional iOS pendiente. MIME/CDN no bloqueante. FOUC histórico no reproducido en Android; causa raíz no confirmada. PWA-01 **parcial**. **MOB-01** pospuesto). **JRN-01R** en `origin/main` (PR #101). Bloqueadores: **BETA-01D.3**; **R-SHA**; CI sin tests PG. **GAME-07** pendiente.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,7 +29,7 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **sigue abierta** mientras no conste cierre formal. No se inventa esa autorización aquí.
 
-**Prioridad inmediata de producto:** residual **PWA-01** — validación real **iOS** («Añadir a pantalla de inicio»). Entrega **Android** completada (Chrome, icono oficial aprobado, standalone, sesión LIVE). No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata de producto:** residual **PWA-01D** — QA funcional **iOS** en la PWA instalada (sesión, Bitácora, nav). Instalación básica Android/iOS ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
 Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (validación jurídica); **R-SHA** (SHA de Render); residual de Q-CI (tests PG no corren en Actions). **No** nuevas obligaciones diarias ni un segundo motor de XP.
 
@@ -37,7 +37,7 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (validación juríd
 
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
-| 1 | **PWA-01** | Entrega Android hecha. A/B/C desplegados. **D** QA Android OK. **iOS pendiente.** MIME/CDN no bloqueante. Multiplataforma **parcial**. |
+| 1 | **PWA-01** | A/B/C desplegados. Instalación básica Android/iOS validada. **D** parcial (QA funcional iOS pendiente). MIME/CDN no bloqueante. Global **parcial**. |
 | 2 | R-SHA + ops | Anotar SHA web/API de Render cuando el panel lo permita. Host de registro no verificado aquí. |
 | 3 | BETA-01D.3 | Jurídica (responsable, proveedores, transferencias). Paralela; no cierra PWA-01. |
 | 4 | Q-CI residual | `ci.yml` ya cubre PRs a `develop` y `main` (PR #100). Tests PostgreSQL **siguen** omitidos en CI. |
@@ -149,7 +149,7 @@ Cuatro capas (no se mezclan):
 | I18N-JOURNAL-01 sustancias Bitácora | Completado. En `main` (PR #98, `e04e3aa`). Preview vacío ≠ LIVE |
 | GAME-07 Centro de Expedición | **Pendiente.** Sin ruta `/expedition` |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
-| PWA-01 instalación web | **Parcial** (multiplataforma). A/B/C completados y desplegados. **D** QA Android OK (icono aprobado). iOS **no** validado. FOUC no reproducido tras reinstalación; causa raíz no confirmada. MIME/CDN no bloqueante. Distinto de MOB-01 |
+| PWA-01 instalación web | **Parcial.** A/B/C desplegados. Instalación básica Android/iOS validada (iOS: BrowserStack, no iPhone físico propio). **D** parcial: QA funcional iOS pendiente. Distinto de MOB-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** es PWA-01. Publicación en tiendas **pospuesta.** |
 | MKT-01 presencia digital | Pendiente. Elegible tras la apertura. **No** ejecutado. Sin campañas ni publicaciones automáticas |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
@@ -696,7 +696,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01.
 - **Apertura:** ejecutada en producto. Avisos `published` en código. SHA Render **no** verificado.
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí).
-- **Siguiente código (prioridad de producto):** residual **PWA-01** — QA **iOS** real. Entrega Android hecha. MIME/caché/Polish de Render+Cloudflare: revisión **no bloqueante** salvo evidencia de fallo. Causa raíz del FOUC **no** confirmada. **JRN-01R** en `main` (PR #101); SHA Render no verificado.
+- **Siguiente código (prioridad de producto):** residual **PWA-01D** — QA funcional iOS (login, persistencia, Bitácora LIVE, logout, control de instalación en standalone). Instalación/apertura iOS ya vistas en BrowserStack. MIME/CDN no bloqueante salvo incidencia. Causa raíz del FOUC **no** confirmada. **JRN-01R** en `main` (PR #101); SHA Render no verificado.
 - **Paralelo / ops:** R-SHA; residual Q-CI (PG); BETA-01D.3.
 - **Residual / posterior:** GAME-07 (reservado); WEB-02; SEO-01B; MKT-01; FBK-02; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto (tiendas, no PWA).
 
@@ -725,7 +725,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 
 - **Objetivo:** Que un usuario de la beta pública pueda **instalar Soma desde el navegador** (Android Chromium; iOS «Añadir a pantalla de inicio») y abrirla en modo *standalone* donde el SO lo permita, con el **icono y el nombre oficiales**, sin Google Play ni App Store.
 - **Prioridad:** **P1 de producto** (acceso y recurrencia en beta). No desplaza BETA-01D.3 ni R-SHA.
-- **Estado:** **Parcial** (alcance multiplataforma). Entrega **Android** completada. **PWA-01A/B/C** completados técnicamente y **desplegados**. **PWA-01D** QA Android **satisfactorio** (icono oficial aprobado por el propietario). **iOS no validado.** Primer arranque sin estilos **no** reproducido en reinstalación; causa raíz **no** confirmada. MIME del manifest y políticas CDN: revisión **no bloqueante** salvo fallo evidenciado. **MOB-01** (tiendas) pospuesto. Hito global **no** cerrado.
+- **Estado:** **Parcial.** **PWA-01A/B/C** completados y **desplegados**. Instalación básica **Android** (Chrome, recorrido LIVE) e **iOS** (BrowserStack Live, iPhone 15 Pro, Safari 17.0: añadir a inicio y abrir) **validada**. **PWA-01D** parcialmente completado: QA funcional iOS **pendiente**. No se afirma recorrido LIVE en iOS ni iPhone físico propio. **MOB-01** pospuesto. Hito global **no** cerrado.
 - **Fuera de alcance de este ID:** empaquetado nativo / tiendas (**MOB-01**); offline complejo; cola de Bitácora offline; notificaciones push; nuevas dependencias salvo justificación en PWA-01A; reinterpretar el icono oficial.
 - **Dependencias:** Superficie web 2.0 y FAV-01 en git. **JRN-01R** en `main` (no cachear `/me/journal`). AUTH-01 (sesión). SHELL-01 (nav móvil). No espera GAME-07, WEB-02, MKT-01 ni MOB-01.
 - **Criterio de cierre (las cuatro fases):** instalable en Android compatible; instrucciones iOS de pantalla de inicio; standalone donde exista; auth/nav/logout; sin secretos ni Bitácora LIVE en caché opaca; actualizaciones del JS nuevo; copy ES/EN; sin tiendas.
@@ -748,42 +748,41 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 
 - **Objetivo:** Manifest + iconos oficiales (192/512, **sin** rediseñar la marca) + apertura *standalone*. **Sin** service worker en esta fase.
 - **Prioridad:** P1
-- **Estado:** **Completado técnicamente y desplegado.** QA Android cubierto en D (instalación Chrome, icono aprobado, standalone). **iOS no validado.**
+- **Estado:** **Completado técnicamente y desplegado.** QA Android cubierto en D. iOS: instalación y apertura comprobadas en D (BrowserStack); recorrido funcional iOS **no** cubierto aquí.
 - **Entregado:**
   - `public/manifest.webmanifest`: `name`/`short_name` **SOMA**, `display: standalone`, `theme_color`/`background_color` `#061018`, `start_url` `/`, `scope` `/`.
   - Iconos `/pwa-192x192.png` y `/pwa-512x512.png` reescalados de `soma-favicon.png` (1254², FAV-01). `apple-touch-icon` 180 sin cambiar.
   - `index.html`: `rel=manifest`, `theme-color`, `mobile-web-app-capable`, metas Apple, `viewport-fit=cover`.
 - **No entregado aquí:** SW; copy de instalación (C); Lighthouse en dispositivo real; deploy (D).
-- **Criterio residual de B:** Chromium «Installable» y iOS «Añadir a inicio» se **validan en D** sobre un host HTTPS; no se afirman con solo el código.
+- **Criterio residual de B:** Chromium «Installable» (Android) e iOS «Añadir a inicio» + apertura **validados en D** sobre HTTPS. Recorrido funcional iOS sigue en D.
 
 ##### PWA-01C — UX de instalación ES/EN y validación móvil
 
 - **Objetivo:** El usuario entiende **cómo** instalar según plataforma. No un *prompt* agresivo ni copy de «app de tienda».
 - **Prioridad:** P1
-- **Estado:** **Completado técnicamente y desplegado.** QA Android en D: control «Instalar SOMA» oculto en standalone. **iOS no validado** (sigue el criterio residual de «Añadir a inicio» en Safari).
+- **Estado:** **Completado técnicamente y desplegado.** QA Android en D: control «Instalar SOMA» oculto en standalone. iOS: «Añadir a inicio» y apertura vistos en D (BrowserStack). Ocultación del control en standalone iOS **no** verificada.
 - **Alcance:**
   - Copy ES/EN: Android (menú del navegador / `beforeinstallprompt` si existe); iOS Safari (Compartir → Añadir a pantalla de inicio).
   - Superficie mínima: pie de landing pública + sección Cuenta LIVE. Sin modal automático ni banner persistente.
   - `userChoice.accepted` ≠ instalación confirmada; éxito solo con `appinstalled` o standalone.
   - No afirmar disponibilidad en Play/App Store. No afirmar offline.
-  - Validación real Android **hecha en D.** iOS Safari **pendiente.** Tamaños UX-PRE-BETA 320/375/430 + safe-area del dock: no reabiertos aquí.
-- **Criterio residual:** Un usuario ES y uno EN pueden instalar o añadir a inicio sin pasar por una tienda **en dispositivo real**. Android cumplido. iOS **no** afirmado. DEMO `/preview` y LIVE `/app` no se confunden.
+  - Validación real Android **hecha en D.** iOS: añadir a inicio y abrir **hechos en D** (BrowserStack). QA funcional iOS y otras versiones **pendientes.** Tamaños UX-PRE-BETA 320/375/430 + safe-area del dock: no reabiertos aquí.
+- **Criterio residual:** Instalar o añadir a inicio sin tienda. Android (funcional LIVE) e iOS (instalación/apertura remota) cubiertos en D. Recorrido LIVE iOS **no** afirmado. DEMO `/preview` y LIVE `/app` no se confunden.
 
 ##### PWA-01D — Seguridad, actualizaciones, QA y publicación controlada
 
 - **Objetivo:** Publicar la PWA **sin** filtrar diario/sesión y **sin** dejar clientes eternos en un bundle viejo. Incluye icono de launcher correcto, primer arranque sin FOUC blanco, MIME/caché de manifest y assets, y QA móvil real.
 - **Prioridad:** P1
-- **Estado:** **QA Android completado satisfactoriamente** (propietario, 2026-11-10). Icono Android **aprobado**. Instalación Chrome; primer arranque de instalación nueva **con estilos**; standalone; login; persistencia de sesión al cerrar y reabrir; navegación; Bitácora LIVE crear/editar; logout y nuevo login; «Instalar SOMA» oculto en standalone. Primer arranque sin estilos **no reproducido** tras reinstalación; **causa raíz no confirmada** (no se declara el FOUC cerrado por análisis). **iOS pendiente de validación real.** MIME `manifest.webmanifest` y políticas CDN (caché hashed/`immutable`, excepción Polish): revisión **no bloqueante** salvo evidencia de fallo. **Sin** service worker. **MOB-01** no forma parte de este cierre. PWA-01 sigue **parcial** por iOS.
-- **Hecho:**
-  - Recorte del símbolo oficial (bbox 126,136–1119,1105 sobre 1254²); `any` a lienzo completo; `maskable` al ~82 %; fondo opaco `#061018`. Sin redibujar el pulso.
-  - CSS crítico y `color-scheme: dark` en `index.html` (mitigación visual; no prueba de causa raíz).
-  - Tests de contrato del manifest (any + maskable) y tamaños PNG.
-- **Pendiente (mantiene el hito parcial multiplataforma):**
-  - QA iOS: Añadir a inicio desde Safari; abrir standalone; login/logout/refresh. No asumir `beforeinstallprompt`. **No** se afirma validado.
-  - Revisión no bloqueante: MIME `application/manifest+json`; HTML vs `/assets/*` hasheados; Polish **solo** si un fallo lo exige (no desactivar Polish global).
-  - SW: hoy **no hay**; no cachear `/me/*` ni Authorization si se introduce uno más adelante.
+- **Estado:** **Parcialmente completado.** **PWA-01A/B/C** completados y desplegados. Instalación básica Android/iOS validada. Recorrido funcional LIVE **solo** en Android. **MOB-01** pospuesto. PWA-01 global **parcial**.
+  - **Android:** instalación real y recorrido LIVE satisfactorios (propietario): Chrome; icono oficial **aprobado**; standalone; login; persistencia al cerrar/reabrir; nav; Bitácora LIVE crear/editar; logout y nuevo login; «Instalar SOMA» oculto en standalone. Primer arranque sin CSS **no** reproducido tras reinstalación.
+  - **iOS:** validación real de **instalación y apertura** en dispositivo remoto BrowserStack Live (2026-11-10): iPhone 15 Pro, Safari 17.0, https://somarecovery.app. Landing con estilos; añadir a pantalla de inicio; abrir la app instalada. **No** es un iPhone físico propio. **No** es solo emulación responsive. La sesión gratuita terminó antes del recorrido funcional.
+  - **Infraestructura:** MIME del manifest y políticas CDN: revisión **pendiente, no bloqueante** mientras no haya incidencia. Causa raíz histórica del primer arranque sin CSS **no confirmada**.
+- **Hecho:** iconos any/maskable y CSS crítico (mitigación visual). Tests de contrato del manifest. Sin service worker.
+- **Pendiente (mantiene PWA-01D parcial):**
+  - QA funcional iOS en la PWA instalada: login; persistencia al cerrar/reabrir; refresh token; nav DEMO/LIVE; Bitácora LIVE crear/editar; logout y nuevo login; ocultación de «Instalar SOMA» en standalone; icono y estilos **dentro** de la PWA; otras versiones de iOS. No inferir resultados de lo no probado. No asumir `beforeinstallprompt`.
+  - MIME `application/manifest+json` y caché HTML vs `/assets/*`; Polish solo si un fallo lo exige.
   - SHA Render de esta entrega: no verificado en este registro.
-- **Criterio residual:** iOS real; no tiendas (**MOB-01** pospuesto).
+- **Criterio residual:** QA funcional iOS; no tiendas (**MOB-01** pospuesto).
 
 #### GAM-01 — Experiencia y niveles
 
@@ -1243,7 +1242,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (14 educativas publicadas en `main`).
 14. **CHR-01:** cerrado técnicamente en `main`. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01 / CHR-01:** en `main`.
-16. **UX-PRE-BETA:** ya no es candado de apertura. **MKT-01** pendiente. **GAME-07** pendiente. **PWA-01** entrega Android hecha, iOS pendiente; **MOB-01** sigue pospuesto (tiendas).
+16. **UX-PRE-BETA:** ya no es candado de apertura. **MKT-01** pendiente. **GAME-07** pendiente. **PWA-01** instalación básica Android/iOS hecha, QA funcional iOS pendiente; **MOB-01** sigue pospuesto (tiendas).
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
 
@@ -1274,7 +1273,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 
 ## Próximos pasos (por dependencia)
 
-1. **PWA-01:** entrega Android completada (A/B/C desplegados; D QA Android OK; icono aprobado). **iOS no validado.** MIME/CDN no bloqueante. Multiplataforma **parcial**. **MOB-01** pospuesto.
+1. **PWA-01:** A/B/C desplegados. Instalación básica Android/iOS validada. **D** parcial (QA funcional iOS pendiente). MIME/CDN no bloqueante. Global **parcial**. **MOB-01** pospuesto.
 2. **R-SHA:** SHA web/API de Render cuando el panel lo permita. No inventar.
 3. **JRN-01R:** en `main` (PR #101). Pendiente afirmar deploy. Preview ≠ LIVE.
 4. **GAME-07:** Centro de Expedición (mapa). Pendiente. ID reservado.
@@ -1373,7 +1372,7 @@ Soma Expeditions (dirección visual OK; parcialmente en main; GAME-07 pendiente)
   Fase E2   REL-01 y trenes #77–#98 hasta `42594a0`
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
             BETA-01D.3 jurídica — **abierta**
-            PWA-01 entrega Android hecha; iOS pendiente → R-SHA; JRN-01R en main (PR #101)
+            PWA-01 instalación Android/iOS hecha; QA funcional iOS pendiente → R-SHA; JRN-01R en main (PR #101)
             GAME-07 reservado
             MKT-01 cuando se autorice
   Fase G    WEB-02 → SEO-01B → FBK-02
@@ -1480,3 +1479,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-10 | **PWA-01D** implementación local parcial: iconos any/maskable opacos `#061018` desde `soma-favicon.png`; manifest; CSS crítico en `index.html`. Sin SW. Sin commit. Sin deploy. Sin tocar Render/Cloudflare. Icono Android y primer arranque **no** cerrados. |
 | 2026-11-10 | **PWA-01D** commit local: **D-ICON** implementado (pendiente Android real); **D-BOOT** mitigación visual (causa raíz no confirmada). PWA-01 **parcial**. **D** pendiente de QA y cierre. Sin push. Sin deploy. |
 | 2026-11-10 | **PWA-01D** QA Android del propietario: instalación Chrome, icono oficial aprobado, primer arranque de instalación nueva **con** estilos, standalone, login, persistencia de sesión, nav, Bitácora LIVE, logout/re-login, control de instalación oculto. FOUC histórico **no** reproducido tras reinstalación; causa raíz **no** confirmada. **iOS no validado.** MIME/CDN no bloqueante. A/B/C desplegados. Entrega Android hecha; PWA-01 **parcial**. **MOB-01** pospuesto. Commit local de este registro. |
+| 2026-11-10 | **PWA-01D** iOS BrowserStack Live (iPhone 15 Pro, Safari 17.0, somarecovery.app): landing con estilos; añadir a pantalla de inicio; abrir la app instalada. Dispositivo remoto, **no** iPhone físico propio. Sesión gratuita cortó el recorrido funcional (login, persistencia, Bitácora, logout, control en standalone, icono/estilos en PWA, otras versiones iOS). **D** parcial. PWA-01 **parcial**. Commit local de este registro. |
