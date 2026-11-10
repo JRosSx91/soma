@@ -14,11 +14,25 @@ jobs:
   check:
     name: Typecheck and unit tests
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       # No production secrets. Prisma validate/generate do not need a live database.
       # Unit tests must not depend on DATABASE_URL.
       CI: true
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: soma
+          POSTGRES_PASSWORD: soma
+          POSTGRES_DB: soma_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U soma -d soma_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,3 +75,25 @@ jobs:
 
       - name: Web tests
         run: pnpm --filter @soma/web test
+
+      - name: Apply Prisma migrations (ephemeral PostgreSQL)
+        env:
+          DATABASE_URL: postgresql://soma:soma@127.0.0.1:5432/soma_ci
+        run: pnpm --filter @soma/api exec prisma migrate deploy
+
+      - name: Seed catalog for PostgreSQL tests
+        env:
+          DATABASE_URL: postgresql://soma:soma@127.0.0.1:5432/soma_ci
+        run: pnpm --filter @soma/api exec prisma db seed
+
+      - name: API PostgreSQL integration tests
+        env:
+          DATABASE_URL: postgresql://soma:soma@127.0.0.1:5432/soma_ci
+          JWT_SECRET: ci-test-jwt-secret-not-production-32b
+          CORS_ORIGIN: http://localhost:5173
+          APP_PUBLIC_URL: http://localhost:5173
+          AUTH_REGISTRATION_MODE: open
+          AUTH_PASSWORD_RESET_MAILER: disabled
+          # Opt-in required by achievements.inbox-celebrate.pg.http.test.ts
+          ACHIEVEMENT_PG_HTTP: "1"
+        run: pnpm --filter @soma/api test:pg
