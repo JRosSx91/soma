@@ -15,7 +15,8 @@
     "prisma:seed": "prisma db seed",
     "invite:mint": "tsx scripts/mint-invite.ts",
     "test": "tsx --test src/**/*.test.ts",
-    "test:unit": "node scripts/run-unit-tests.cjs"
+    "test:unit": "node scripts/run-unit-tests.cjs",
+    "test:pg": "node scripts/run-pg-tests.cjs"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
