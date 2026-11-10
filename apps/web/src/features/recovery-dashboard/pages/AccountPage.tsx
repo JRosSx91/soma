@@ -10,6 +10,7 @@ import {
   type ProfileDetailsDraft,
   type ProfileDetailsFields,
 } from "../../profile/index.js";
+import { InstallSomaControl } from "../../pwa/InstallSomaControl.js";
 import { DeleteAccountSection } from "../../profile/components/DeleteAccountSection.js";
 import { SpecialCategoryConsentCard } from "../../profile/components/SpecialCategoryConsentCard.js";
 import { WithdrawConsentSection } from "../../profile/components/WithdrawConsentSection.js";
@@ -474,6 +475,8 @@ export function AccountPage() {
           }}
         />
       ) : null}
+
+      <InstallSomaControl tone="account" />
 
       <DeleteAccountSection />
     </div>

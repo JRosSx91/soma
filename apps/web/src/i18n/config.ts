@@ -34,6 +34,7 @@ import enProgress from "./locales/en/progress.json";
 import enMissions from "./locales/en/missions.json";
 import enFeedback from "./locales/en/feedback.json";
 import enOnboardingTour from "./locales/en/onboarding-tour.json";
+import enPwa from "./locales/en/pwa.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -59,6 +60,7 @@ import esProgress from "./locales/es/progress.json";
 import esMissions from "./locales/es/missions.json";
 import esFeedback from "./locales/es/feedback.json";
 import esOnboardingTour from "./locales/es/onboarding-tour.json";
+import esPwa from "./locales/es/pwa.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -219,6 +221,7 @@ i18n
       "missions",
       "feedback",
       "onboarding-tour",
+      "pwa",
     ],
     defaultNS: "common",
     interpolation: {
@@ -259,6 +262,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
       es: {
         common: esCommon,
@@ -284,6 +288,7 @@ i18n
         missions: esMissions,
         feedback: esFeedback,
         "onboarding-tour": esOnboardingTour,
+        pwa: esPwa,
       },
       ca: {
         common: caCommon,
@@ -308,6 +313,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
       gl: {
         common: glCommon,
@@ -332,6 +338,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
       eu: {
         common: euCommon,
@@ -356,6 +363,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
       fr: {
         common: frCommon,
@@ -380,6 +388,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
       it: {
         common: itCommon,
@@ -404,6 +413,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
       de: {
         common: deCommon,
@@ -428,6 +438,7 @@ i18n
         missions: enMissions,
         feedback: enFeedback,
         "onboarding-tour": enOnboardingTour,
+        pwa: enPwa,
       },
     },
   }, () => {
