@@ -11,6 +11,7 @@ import {
   civilDateToUtcDate,
   isCivilDateString,
   isJournalOccurredOnInRange,
+  journalCreateCanonicalJson,
   journalOccurredOnMax,
   utcDateToCivilDate,
 } from "./journal.js";
@@ -92,4 +93,28 @@ test("occurredOn +1 UTC day covers local today near midnight in +14 and -12", ()
   assert.equal(isJournalOccurredOnInRange("2026-10-29", justAfterMidnightUtc), true);
   assert.equal(isJournalOccurredOnInRange("2026-10-30", justAfterMidnightUtc), true);
   assert.equal(isJournalOccurredOnInRange("2026-10-31", justAfterMidnightUtc), false);
+});
+
+test("journalCreateCanonicalJson sorts tags and normalizes empty text", () => {
+  const json = journalCreateCanonicalJson({
+    occurredOn: "2026-04-29",
+    title: "  Hi ",
+    body: "   ",
+    emotionIds: ["grateful", "calm"],
+    triggerIds: ["social", "fatigue"],
+  });
+  assert.equal(
+    json,
+    journalCreateCanonicalJson({
+      occurredOn: "2026-04-29",
+      mood: null,
+      title: "Hi",
+      body: null,
+      highlighted: false,
+      learning: false,
+      emotionIds: ["calm", "grateful"],
+      triggerIds: ["fatigue", "social"],
+    }),
+  );
+  assert.match(json, /"emotionIds":\["calm","grateful"\]/);
 });

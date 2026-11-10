@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Inject,
@@ -10,9 +11,12 @@ import {
   Patch,
   Post,
   Query,
+  Res,
   UseGuards,
   ValidationPipe,
 } from "@nestjs/common";
+import type { Response } from "express";
+import { CodedBadRequestException } from "../common/exceptions/coded-exception.js";
 import { Throttle, ThrottlerGuard } from "@nestjs/throttler";
 import type { User } from "@prisma/client";
 import { CurrentUser } from "../auth/current-user.decorator.js";
@@ -28,6 +32,11 @@ import {
   JOURNAL_WIPE_THROTTLE,
   JOURNAL_WRITE_THROTTLE,
 } from "./journal-throttle.js";
+import {
+  INVALID_IDEMPOTENCY_KEY,
+  isInvalidIdempotencyKey,
+  parseJournalIdempotencyKey,
+} from "./journal-idempotency.js";
 import { JournalService } from "./journal.service.js";
 
 /** Explicit expectedType so validation works when design:paramtypes is stripped. */
@@ -57,7 +66,6 @@ export class JournalController {
   ) {}
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
   @UseGuards(ThrottlerGuard)
   @Throttle({
     default: {
@@ -65,11 +73,22 @@ export class JournalController {
       ttl: JOURNAL_WRITE_THROTTLE.ttl,
     },
   })
-  create(
+  async create(
     @CurrentUser() user: Omit<User, "hashedPassword">,
     @Body(bodyOf(CreateJournalEntryDto)) dto: CreateJournalEntryDto,
+    @Headers("idempotency-key") rawKey: string | undefined,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.journal.create(user.id, dto);
+    const clientOpId = parseJournalIdempotencyKey(rawKey);
+    if (isInvalidIdempotencyKey(clientOpId)) {
+      throw new CodedBadRequestException(
+        INVALID_IDEMPOTENCY_KEY,
+        "Idempotency-Key must be a UUID v4",
+      );
+    }
+    const result = await this.journal.create(user.id, dto, clientOpId);
+    res.status(result.replay ? HttpStatus.OK : HttpStatus.CREATED);
+    return result.entry;
   }
 
   @Get()

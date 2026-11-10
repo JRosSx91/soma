@@ -463,6 +463,8 @@ model OrganNarrativePhase {
 // `civilDateToUtcDate` / `utcDateToCivilDate` in `@soma/shared-types` so a
 // local timezone never shifts the stored day. `createdAt` / `updatedAt` are
 // real timestamps. Several rows may share the same (`userId`, `occurredOn`).
+// (`userId`, `clientOpId`) is unique when clientOpId is set; it does not
+// constrain occurredOn.
 // Catalog IDs for emotions/triggers live in shared-types, not extra tables.
 // Optional `cravingSubstanceId` points at the Substance catalog; it never
 // writes SubstanceUsage or abstinence clocks.
@@ -470,6 +472,10 @@ model OrganNarrativePhase {
 model JournalEntry {
   id                 String    @id @default(cuid())
   userId             String
+  /// Client Idempotency-Key for LIVE create. Null on legacy rows and header-less clients.
+  clientOpId         String?
+  /// SHA-256 of the canonical create payload. Not updated on PATCH.
+  requestHash        String?
   /// Civil date the user associates with the entry (`YYYY-MM-DD` at the API).
   occurredOn         DateTime  @db.Date
   createdAt          DateTime  @default(now())
@@ -495,6 +501,7 @@ model JournalEntry {
   @@index([userId, occurredOn])
   @@index([userId, createdAt])
   @@index([userId, highlighted])
+  @@unique([userId, clientOpId])
 }
 
 /// Perceived everyday improvements recorded by the person. Not medals.

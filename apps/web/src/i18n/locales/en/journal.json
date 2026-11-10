@@ -192,6 +192,7 @@
     "invalidWellbeing": "Wellbeing ratings go from 0 to 10.",
     "saveError": "Could not save. Please try again.",
     "saveUnconfirmed": "We could not confirm whether the entry was saved. Refresh the journal before creating another.",
+    "idempotencyConflict": "This save already exists as a different entry. Refresh the journal instead of creating another.",
     "refreshError": "Saved. The journal view could not be updated. Retry without creating another entry.",
     "refreshRetry": "Update view"
   },

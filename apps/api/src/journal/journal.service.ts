@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import { CodedConflictException } from "../common/exceptions/coded-exception.js";
 import type { JournalEntry, JournalPersonalMilestone, Prisma } from "@prisma/client";
 import { Prisma as PrismaNs } from "@prisma/client";
 import { civilDateToUtcDate, utcDateToCivilDate } from "@soma/shared-types";
@@ -23,6 +24,10 @@ import {
   encodeJournalCursor,
 } from "./journal.cursor.js";
 import {
+  IDEMPOTENCY_KEY_REUSED,
+  journalCreateRequestHash,
+} from "./journal-idempotency.js";
+import {
   hasSignificantJournalContent,
   normalizeOptionalText,
   toJournalEntryResponse,
@@ -30,6 +35,11 @@ import {
   type JournalEntryResponse,
   type JournalMilestoneResponse,
 } from "./journal.mapper.js";
+
+export type JournalCreateResult = {
+  replay: boolean;
+  entry: JournalEntryResponse;
+};
 
 const NOT_FOUND = "Journal entry not found";
 const MILESTONE_NOT_FOUND = "Personal milestone not found";
@@ -44,7 +54,8 @@ export class JournalService {
   async create(
     userId: string,
     dto: CreateJournalEntryDto,
-  ): Promise<JournalEntryResponse> {
+    clientOpId?: string | null,
+  ): Promise<JournalCreateResult> {
     const title = normalizeOptionalText(dto.title) ?? null;
     const body = normalizeOptionalText(dto.body) ?? null;
     if (
@@ -66,12 +77,17 @@ export class JournalService {
       );
     }
 
+    const opId = clientOpId || null;
+    const requestHash = opId ? journalCreateRequestHash(dto) : null;
+
     try {
       const row = await this.prisma.$transaction(async (tx) => {
         await requireSpecialCategoryWrite(tx, userId);
         const created = await tx.journalEntry.create({
           data: {
             userId,
+            clientOpId: opId,
+            requestHash,
             occurredOn: civilDateToUtcDate(dto.occurredOn),
             mood: dto.mood ?? null,
             sleep: dto.sleep ?? null,
@@ -98,10 +114,36 @@ export class JournalService {
         );
         return created;
       });
-      return toJournalEntryResponse(row);
+      return { replay: false, entry: toJournalEntryResponse(row) };
     } catch (err) {
+      if (opId && isClientOpIdUniqueViolation(err)) {
+        return this.replayOwnedCreate(userId, opId, requestHash as string);
+      }
       throw this.mapWriteError(err);
     }
+  }
+
+  /**
+   * After P2002 the interactive transaction is aborted. Look up outside it.
+   */
+  private async replayOwnedCreate(
+    userId: string,
+    clientOpId: string,
+    requestHash: string,
+  ): Promise<JournalCreateResult> {
+    const existing = await this.prisma.journalEntry.findFirst({
+      where: { userId, clientOpId },
+    });
+    if (!existing || !existing.requestHash) {
+      throw new BadRequestException("Journal create could not be completed");
+    }
+    if (existing.requestHash !== requestHash) {
+      throw new CodedConflictException(
+        IDEMPOTENCY_KEY_REUSED,
+        "Idempotency-Key already used with a different create payload",
+      );
+    }
+    return { replay: true, entry: toJournalEntryResponse(existing) };
   }
 
   async getOne(userId: string, id: string): Promise<JournalEntryResponse> {
@@ -413,4 +455,23 @@ export class JournalService {
     }
     throw err;
   }
+}
+
+function isClientOpIdUniqueViolation(err: unknown): boolean {
+  if (
+    !(err instanceof PrismaNs.PrismaClientKnownRequestError) ||
+    err.code !== "P2002"
+  ) {
+    return false;
+  }
+  const target = err.meta?.target;
+  if (Array.isArray(target)) {
+    return target.map(String).includes("clientOpId");
+  }
+  if (typeof target === "string") {
+    return (
+      target.includes("clientOpId") || target.includes("userId_clientOpId")
+    );
+  }
+  return false;
 }

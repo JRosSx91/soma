@@ -120,7 +120,7 @@ test("double submit while a write is pending issues a single POST", async () => 
 });
 
 test("confirmed save keeps highlighted, learning and boredom on the write payload", () => {
-  assert.match(page, /createJournalEntry\(draft\)/);
+  assert.match(page, /createJournalEntry\(draft, \{/);
   assert.match(page, /patchJournalEntry\(editing\.id, draft\)/);
   assert.match(form, /highlighted,/);
   assert.match(form, /learning,/);
@@ -130,7 +130,7 @@ test("confirmed save keeps highlighted, learning and boredom on the write payloa
 
 test("editing an existing LIVE entry still PATCHes and does not POST", () => {
   assert.match(page, /if \(editing\) return patchJournalEntry\(editing\.id, draft\)/);
-  assert.match(page, /return createJournalEntry\(draft\)/);
+  assert.match(page, /return createJournalEntry\(draft, \{/);
   assert.doesNotMatch(page, /createJournalEntry\(draft\).*patchJournalEntry/s);
 });
 
@@ -169,6 +169,15 @@ test("network failure after an unknown persist result is recovery, not a second 
   );
   assert.match(page, /form\.saveUnconfirmed/);
   assert.match(page, /saveUnconfirmed \? handleUnconfirmedCheck/);
+  assert.match(page, /form\.idempotencyConflict/);
+  assert.equal(
+    typeof enJournal.form.idempotencyConflict,
+    "string",
+  );
+  assert.equal(
+    typeof esJournal.form.idempotencyConflict,
+    "string",
+  );
 });
 
 test("successful write plus monthly refresh clears the refresh warning", async () => {

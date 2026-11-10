@@ -58,9 +58,16 @@ class RecordingJournalService {
   foreignIds = new Set(["foreign-entry"]);
   foreignMilestones = new Set(["foreign-milestone"]);
 
+  replayNextCreate = false;
+
   async create(userId: string) {
     this.lastCreate = { userId };
-    return { id: "created-1", occurredOn: "2026-04-29", mood: 3 };
+    const replay = this.replayNextCreate;
+    this.replayNextCreate = false;
+    return {
+      replay,
+      entry: { id: "created-1", occurredOn: "2026-04-29", mood: 3 },
+    };
   }
 
   async getOne(userId: string, id: string) {
@@ -186,6 +193,29 @@ test("POST /me/journal uses authenticated user id", async () => {
     .send({ occurredOn: "2026-04-29", mood: 3 });
   assert.equal(res.status, 201);
   assert.equal(stub.lastCreate?.userId, USER_A.id);
+});
+
+test("POST /me/journal returns 200 when the service reports a replay", async () => {
+  activeUser = USER_A;
+  stub.replayNextCreate = true;
+  const res = await request(app.getHttpServer())
+    .post("/me/journal")
+    .set("Idempotency-Key", "550e8400-e29b-41d4-a716-446655440000")
+    .send({ occurredOn: "2026-04-29", mood: 3 });
+  assert.equal(res.status, 200);
+  assert.equal(res.body.id, "created-1");
+});
+
+test("POST /me/journal rejects a present but invalid Idempotency-Key", async () => {
+  activeUser = USER_A;
+  stub.lastCreate = null;
+  const res = await request(app.getHttpServer())
+    .post("/me/journal")
+    .set("Idempotency-Key", "not-a-uuid")
+    .send({ occurredOn: "2026-04-29", mood: 3 });
+  assert.equal(res.status, 400);
+  assert.equal(res.body.code, "INVALID_IDEMPOTENCY_KEY");
+  assert.equal(stub.lastCreate, null);
 });
 
 test("GET /me/journal accepts the current month including days after UTC tomorrow", async () => {

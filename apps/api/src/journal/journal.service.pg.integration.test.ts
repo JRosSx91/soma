@@ -105,7 +105,7 @@ test("pg service: create, get own, foreign id is 404, patch, delete", async (t) 
     const a = await createTestUser(prisma, "crud-a");
     const b = await createTestUser(prisma, "crud-b");
     try {
-      const created = await journal.create(a.id, createDto({ title: "Morning" }));
+      const created = (await journal.create(a.id, createDto({ title: "Morning" }))).entry;
       assert.equal(created.occurredOn, "2026-04-29");
       assert.equal(created.title, "Morning");
       assert.equal(created.mood, 3);
@@ -174,23 +174,23 @@ test("pg service: empty create rejected; several same-day rows; list cursor; fil
       );
 
       const day = "2026-07-10";
-      const first = await journal.create(a.id, createDto({ occurredOn: day, title: "one" }));
-      const second = await journal.create(a.id, createDto({
+      const first = (await journal.create(a.id, createDto({ occurredOn: day, title: "one" }))).entry;
+      const second = (await journal.create(a.id, createDto({
         occurredOn: day,
         title: "two",
         mood: undefined,
         body: "later",
-      }));
-      const third = await journal.create(a.id, createDto({
+      }))).entry;
+      const third = (await journal.create(a.id, createDto({
         occurredOn: day,
         title: "three",
         highlighted: true,
         learning: true,
-      }));
-      const older = await journal.create(a.id, createDto({
+      }))).entry;
+      const older = (await journal.create(a.id, createDto({
         occurredOn: "2026-07-09",
         title: "older",
-      }));
+      }))).entry;
       await journal.create(b.id, createDto({ occurredOn: day, title: "peer-secret" }));
 
       const page1 = await journal.list(a.id, { limit: 2 });
@@ -244,11 +244,11 @@ test("pg service: export is complete and owner-only; wipe is owner-only", async 
         title: "b-only",
       }));
 
-      const sparse = await journal.create(a.id, createDto({
+      const sparse = (await journal.create(a.id, createDto({
         occurredOn: "2026-08-02",
         mood: 2,
         title: undefined,
-      }));
+      }))).entry;
       assert.equal(sparse.title, null);
       assert.equal(sparse.body, null);
       assert.equal(sparse.sleep, null);
@@ -310,14 +310,45 @@ test("pg service: export is complete and owner-only; wipe is owner-only", async 
   }
 });
 
+test("pg service: unique clientOpId collision after a failed FK does not leave a row", async (t) => {
+  const result = await withLiveDb(async (journal, prisma) => {
+    const a = await createTestUser(prisma, "idem-fk");
+    const key = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeff";
+    try {
+      await assert.rejects(
+        () =>
+          journal.create(
+            a.id,
+            createDto({
+              title: "fk-fail",
+              cravingIntensity: 2,
+              cravingSubstanceId: "not-a-real-substance",
+            }),
+            key,
+          ),
+        BadRequestException,
+      );
+      assert.equal(
+        await prisma.journalEntry.count({ where: { userId: a.id, clientOpId: key } }),
+        0,
+      );
+    } finally {
+      await prisma.user.delete({ where: { id: a.id } }).catch(() => undefined);
+    }
+  });
+  if (result === "skipped") {
+    t.skip("DATABASE_URL unavailable or journal migration not applied");
+  }
+});
+
 test("pg service: civil dates round-trip without timezone shift", async (t) => {
   const result = await withLiveDb(async (journal, prisma) => {
     const a = await createTestUser(prisma, "dates");
     try {
-      const created = await journal.create(a.id, createDto({
+      const created = (await journal.create(a.id, createDto({
         occurredOn: "2026-01-01",
         body: "new year",
-      }));
+      }))).entry;
       assert.equal(created.occurredOn, "2026-01-01");
       const patched = await journal.patch(a.id, created.id, {
         occurredOn: "2026-12-31",
