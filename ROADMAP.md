@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-10 (**Q-CI** residual PostgreSQL validado en Actions, PR #105). **R-SHA** cerrado (SPA `4c67c2b` / API `4520530` en inventario; SHA Live del deploy de API posterior a #105 **no** recopiado). **PWA-01D** parcial (QA funcional iOS pendiente). PWA-01 **parcial**. **MOB-01** pospuesto. **JRN-01R** en inventario API Live `4520530` (PR #101) hasta recopia. Bloqueadores: **BETA-01D.3**. **GAME-07** pendiente.
+Última actualización editorial: 2026-11-11 (**GAME-07** implementación local `8ee1ee8`; integración remota y producción pendientes). **Q-CI** residual PostgreSQL validado en Actions, PR #105. **R-SHA** cerrado (SPA `4c67c2b` / API `4520530` en inventario; SHA Live del deploy de API posterior a #105 **no** recopiado). **PWA-01D** parcial (QA funcional iOS pendiente). PWA-01 **parcial**. **MOB-01** pospuesto. **JRN-01R** en inventario API Live `4520530` (PR #101) hasta recopia. Bloqueadores: **BETA-01D.3**.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -11,7 +11,7 @@ Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso
 
 ## Objetivo y alcance
 
-Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. Está identificada como **beta pública** (`README.md`; somarecovery.app). **Soma Expeditions** está **parcialmente implementada** en `main`: shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, **14** misiones educativas publicadas, atlas 2.0 (UX-GLO-01), landing (WEB-01), Somi (CHR-01) y tutorial (ONB-01). El **Centro de Expedición (GAME-07)** **no** está implementado (sin ruta `/expedition`). El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. **Integrado en `main` no equivale a SHA Render verificado.** DEMO `/preview` no equivale a LIVE `/app`.
+Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. Está identificada como **beta pública** (`README.md`; somarecovery.app). **Soma Expeditions** está **parcialmente implementada** en `main`: shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, **14** misiones educativas publicadas, atlas 2.0 (UX-GLO-01), landing (WEB-01), Somi (CHR-01) y tutorial (ONB-01). El **Centro de Expedición (GAME-07)** está **implementado en `develop` local** (`8ee1ee8`, ruta `/expedition`, GAME-07F e IMG-PERF-01A). **No** está en `origin` ni en SHA Live. Safari iOS, PWA standalone y LIVE autenticado **pendientes**. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. **Integrado en `main` no equivale a SHA Render verificado.** DEMO `/preview` no equivale a LIVE `/app`.
 
 No es un dispositivo médico. Las curvas son modelos ilustrativos (`curveProgress` / avance de curva), **no** un porcentaje de salud recuperada ni una medición clínica. No se miden neurotransmisores. Las estimaciones de recuperación **no** se presentan como mediciones fisiológicas individuales. Las fases educativas se eligen para comparar; no se calculan a partir de los días de abstinencia salvo que un hito futuro lo autorice con evidencia.
 
@@ -41,7 +41,7 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (validación juríd
 | 2 | R-SHA + ops | **R-SHA cerrado** (panel 2026-11-10). Host de registro (`AUTH_REGISTRATION_MODE`) **no** verificado aquí. |
 | 3 | BETA-01D.3 | Jurídica (responsable, proveedores, transferencias). Paralela; no cierra PWA-01. |
 | 4 | Q-CI residual | PG en Actions (PR #105). Quedan cobertura, scripts raíz y **Q-05**. **Q-E2E** es otro ID. |
-| 5 | GAME-07 | Centro de Expedición (mapa). **Reservado.** Pendiente. No reutilizar el ID. |
+| 5 | GAME-07 | Centro de Expedición (mapa). Implementación **local** `8ee1ee8`. Integración remota y producción **pendientes**. No reutilizar el ID. |
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -147,7 +147,7 @@ Cuatro capas (no se mezclan):
 | BETA-02A/B/C | Completado en git. En `main` (PR #94, #95) |
 | UX-REC-01 tarjetas Inicio | Completado. En `main` (PR #97, `4ca43af`) |
 | I18N-JOURNAL-01 sustancias Bitácora | Completado. En `main` (PR #98, `e04e3aa`). Preview vacío ≠ LIVE |
-| GAME-07 Centro de Expedición | **Pendiente.** Sin ruta `/expedition` |
+| GAME-07 Centro de Expedición | Implementado en local (`8ee1ee8`). **No** en `origin`. **No** desplegado |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
 | PWA-01 instalación web | **Parcial.** A/B/C desplegados. Instalación básica Android/iOS validada (iOS: BrowserStack, no iPhone físico propio). **D** parcial: QA funcional iOS pendiente. Distinto de MOB-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** es PWA-01. Publicación en tiendas **pospuesta.** |
@@ -499,7 +499,7 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
 
 ## Soma Expeditions — Gamificación de la recuperación
 
-Línea de producto **parcialmente implementada** en `main` (`42594a0`): GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02 (14 misiones), GAM-03, UX-GLO-01, CHR-01, ONB-01. Mapa de expedición (**GAME-07**) **sigue pendiente**. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**. Sin racha diaria obligatoria ni penalización por descanso o recaída.
+Línea de producto **parcialmente implementada** en `main` (`42594a0`): GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02 (14 misiones), GAM-03, UX-GLO-01, CHR-01, ONB-01. Mapa de expedición (**GAME-07**) **implementado en `develop` local** (`8ee1ee8`); **no** en `main` ni en SHA Live. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**. Sin racha diaria obligatoria ni penalización por descanso o recaída.
 
 Principios (no negociables hasta que un hito los reabra por escrito):
 
@@ -540,7 +540,7 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 #### GAME-DESIGN-01 — Navegación y diseño de Expeditions
 
 - **Descripción:** Cómo entra Expeditions en SHELL-01 **sin** segundo sistema de navegación. Dirección visual de ocho pantallas. Siete PNG 2.0 del inventario 2026-10-26 más `misiones-2.0.png` **local y sin seguimiento** (no está en Git; no es asset de producción ni mockup validado en el repositorio). Las misiones también aparecen como tarjetas embebidas en Inicio, Explorador y Expedición.
-- **Estado:** Dirección visual **aprobada**. NAV-01–02, GAME-03A–C, I18N-2.0, Explorador 2.0, REC-VIS-01 y ACH-01 **en `main`** (vía REL-01). SHA Render **no** verificado. **GAME-07** (ítem Expedición) **pendiente**.
+- **Estado:** Dirección visual **aprobada**. NAV-01–02, GAME-03A–C, I18N-2.0, Explorador 2.0, REC-VIS-01 y ACH-01 **en `main`** (vía REL-01). SHA Render **no** verificado. **GAME-07** (ítem Expedición) **implementado en local** (`8ee1ee8`); integración remota y producción pendientes.
 - **Prioridad:** P2 (hueco Expedición = GAME-07; no reabrir NAV-01/02)
 - **Horizonte:** cabecera de naturaleza + (en Inicio) mochilero ante el paisaje. Reutilizar identidad Soma; no sustituir la figura anatómica de Inicio. Fotos de mockup **no** son assets de producción hasta licencia/arte propio.
 - **Mapeo pantalla → hitos:**
@@ -680,8 +680,8 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 #### GAME-07 — Centro de expedición
 
 - **Descripción:** Sección **propia** Expedición (dirección: `expedicion-2.0.png`) **más** resumen en Inicio. Mapa de montaña; selector conocimiento vs perseverancia; no mezclar reglas.
-- **Estado:** Pendiente (dirección visual `expedicion-2.0.png`; **sin** implementación). Tests de shell **prohíben** `/expedition`. **No** reutilizar este ID para misiones, XP ni Inicio.
-- **Prioridad:** P2 (mapa). Nav de la sección: con GAME-DESIGN-01 / Fase C. No es el siguiente código hasta cerrar Q-CI / R-SHA / residual JRN si se sigue el orden de 2026-11-02.
+- **Estado:** Implementación local **completada** (`8ee1ee8`, 2026-11-11). Incluye GAME-07F (iluminación artística WebP) e IMG-PERF-01A (cabeceras WebP). Ruta `/expedition` en DEMO `/preview` y LIVE `/app`. Tests web **999/999**; typecheck y build OK. DEMO Chromium verificada. **No** en `origin`. **No** desplegado. Pendiente: Safari iOS y PWA standalone; LIVE autenticado; integración remota. **No** reutilizar este ID para misiones, XP ni Inicio.
+- **Prioridad:** P2 (mapa). Nav de la sección: «Más» (GAME-DESIGN-01 / Fase C). Integración remota y producción **pendientes**.
 - **Dependencias:** GAME-DESIGN-01 (ítem de menú sin vaciar el bottom nav). GAME-01/02 para metas temporales. GAM-02 para rutas de conocimiento. SHELL-01.
 - **Criterio:** Rutas de conocimiento = aprendizaje. Rutas de perseverancia = hitos temporales por sustancia (alcohol, nicotina, cannabis, cocaína, cafeína). Mapa exploratorio, no ranking. Sin segundo router.
 
@@ -706,7 +706,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC 2026-11-02):
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí).
 - **Siguiente código (prioridad de producto):** residual **PWA-01D** — QA funcional iOS (login, persistencia, Bitácora LIVE, logout, control de instalación en standalone). Instalación/apertura iOS ya vistas en BrowserStack. MIME/CDN no bloqueante salvo incidencia. Causa raíz del FOUC **no** confirmada. **JRN-01R** en API Live (`4520530`).
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); BETA-01D.3. **R-SHA** cerrado. Recopia SHA Live tras el deploy de API de #105: **pendiente**.
-- **Residual / posterior:** GAME-07 (reservado); WEB-02; SEO-01B; MKT-01; FBK-02; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto (tiendas, no PWA).
+- **Residual / posterior:** GAME-07 (código local `8ee1ee8`; push/PR/deploy pendientes); WEB-02; SEO-01B; MKT-01; FBK-02; GAME-08 (tras ACH-REV residual). MOB-01 pospuesto (tiendas, no PWA).
 
 #### JRN-01 — Bitácora personal
 
@@ -1087,7 +1087,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Superficies a revisar:** navegación, formularios, botones, modales, estados de carga, errores, accesibilidad y coherencia de componentes.
 - **Dependencias:** FBK-01 cerrado. SHELL-01 / GAME-DESIGN-01 (cinco huecos móviles). VIS-01 sigue siendo pulido de la figura de Inicio y **no** se mezcla. GAM-03 y ONB-01 **no** bloquean este barrido de lo ya existente.
 - **Decisiones confirmadas:** No competición entre usuarios. No segundo sistema de navegación. No penalizar recaídas con pérdida de XP, niveles o medallas. Corregir bloqueos de uso (controles tapados, teclado, scroll) antes de la beta; el pulido no crítico puede quedar residual.
-- **Pendiente de diseño:** Lista viva de incidencias por formato; qué ítems entran en el rail vs «Más» si GAME-07 añade Expedición.
+- **Pendiente de diseño:** Lista viva de incidencias por formato; Expedición (GAME-07) entra por «Más», no por el dock de cinco.
 - **Criterio:** Un usuario nuevo puede completar los recorridos principales en los cinco formatos sin controles inaccesibles ni sensación de interfaz «a medias». No hay dos galerías de logros ni dos diarios.
 
 #### CLEAN-01 — Retirada de rutas y componentes heredados
@@ -1244,7 +1244,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 5. Platinos: conjunto de logros vs umbral 0,99 (UX-11) — requiere diseño y autorización de catálogo.
 6. Fichas de anatomía EN (I18N-03): entregadas en PR #68; residual de validación LIVE.
 7. Destino de `/achievements` legacy (LEG-01): **redirige** a `/app/achievements` (ACH-01).
-8. Soma Expeditions: Expedición propia (**GAME-07**) y capítulos (**GAME-08**) pendientes. XP (**GAM-01**), bitácora (**JRN-01**), misiones (**GAM-02**, 14 publicadas), atlas 2.0 (**UX-GLO-01**), GAM-03, CHR-01 y ONB-01 están en `main`. Integrado ≠ SHA Render verificado. Apertura de beta ejecutada; D.3 jurídica abierta.
+8. Soma Expeditions: Expedición propia (**GAME-07**) implementada en local (`8ee1ee8`); capítulos (**GAME-08**) pendientes. XP (**GAM-01**), bitácora (**JRN-01**), misiones (**GAM-02**, 14 publicadas), atlas 2.0 (**UX-GLO-01**), GAM-03, CHR-01 y ONB-01 están en `main`. Integrado ≠ SHA Render verificado. Apertura de beta ejecutada; D.3 jurídica abierta.
 9. Naming de GAME-01: la tabla de este roadmap y los nombres frikis de los PNG son **propuestas históricas**, no catálogo a renombrar. Los 106 fisiológicos **no** se renombran.
 10. Arte Horizonte / mapa: los PNG no otorgan licencia. Somi (CHR-01) está en `main` (WebP estáticos, solo ONB-01); animación avanzada pospuesta.
 11. **GAM-01 residual:** copy público de niveles; fuentes de XP adicionales (exploración). Fórmulas del ledger **cerradas** en `main`. Techo sin Bitácora ≈ 14×12 XP.
@@ -1252,7 +1252,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (14 educativas publicadas en `main`).
 14. **CHR-01:** cerrado técnicamente en `main`. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01 / CHR-01:** en `main`.
-16. **UX-PRE-BETA:** ya no es candado de apertura. **MKT-01** pendiente. **GAME-07** pendiente. **PWA-01** instalación básica Android/iOS hecha, QA funcional iOS pendiente; **MOB-01** sigue pospuesto (tiendas).
+16. **UX-PRE-BETA:** ya no es candado de apertura. **MKT-01** pendiente. **GAME-07** local `8ee1ee8` (no en `origin`, no desplegado). **PWA-01** instalación básica Android/iOS hecha, QA funcional iOS pendiente; **MOB-01** sigue pospuesto (tiendas).
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
 
@@ -1273,7 +1273,7 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 | R-LOG | Nota de privacidad / retención detallada de Bitácora. | Residual GDPR. **JRN-01R** en API Live `4520530` (PR #101) |
 | R-JXP | Carrera en `UserProgression.upsert`. | **Cerrado en `main`** (`a26585e`, PR #78). **No** es GAM-03 |
 | R-PREV | Confundir Preview (`/preview`) con LIVE. | I18N-JOURNAL-01-FIX cancelado. Preview no se iguala a LIVE sin autorización |
-| R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más; sin Expedición hasta GAME-07) |
+| R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más). GAME-07 añade Expedición en «Más», no en el dock |
 | R-MIX | Mezclar % temporal con % de curva, o conocimiento con perseverancia. | Mitigado en copy UX-04 + GAME-02/07; vigilar implementación |
 | R-ART | Sustituir visor anatómico o medallas reales por arte generado de mockup. | Prohibido; visor y catálogo 106 se conservan |
 
@@ -1286,7 +1286,7 @@ Ninguno de estos es P0 de incidente en producción evidenciado.
 1. **PWA-01:** A/B/C desplegados. Instalación básica Android/iOS validada. **D** parcial (QA funcional iOS pendiente). MIME/CDN no bloqueante. Global **parcial**. **MOB-01** pospuesto.
 2. **R-SHA:** **cerrado** (2026-11-10). Recopiar SHA Live tras el próximo deploy. No inventar.
 3. **JRN-01R:** en `main` (PR #101) y API Live `4520530`. Preview ≠ LIVE.
-4. **GAME-07:** Centro de Expedición (mapa). Pendiente. ID reservado.
+4. **GAME-07:** Centro de Expedición (mapa). Código local `8ee1ee8`. Push, PR, merge y deploy **no** hechos. Safari iOS, PWA standalone y LIVE autenticado pendientes.
 5. **BETA-01D.3:** validación jurídica formal (no cerrada aquí).
 6. **XP sin Bitácora:** diseño opcional; no racha; no reabrir cantidades catalogadas.
 7. **GAM-02** bienestar/objetivos personales: diseño, no implementación inmediata.
@@ -1374,16 +1374,16 @@ AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
   → ACH-NOTIF-01 / ACH-CELEB-01 / SHELL-01 (main + validado LIVE producción)
   → I18N-04 (selector banderas; no implementar aún; no nuevos idiomas)
 
-Soma Expeditions (dirección visual OK; parcialmente en main; GAME-07 pendiente)
+Soma Expeditions (dirección visual OK; parcialmente en main; GAME-07 local, no en origin)
   Fase A–E  GAME-01–03, NAV, Explorador, EXP-EDU, REC-VIS, ACH-01, JRN-01, GAM-01 — en `main`
-  Fase C    GAME-07 Expedición (mapa + nav Más) — **pendiente**
+  Fase C    GAME-07 Expedición (mapa + nav Más) — **local** `8ee1ee8`; no en `origin`; no desplegado
   Fase D    Atlas 2.0 UX-GLO-01 — en `main`
   Fase E    GAM-02: 6 (PR #74) luego 14 (PR #96) — en `main`
   Fase E2   REL-01 y trenes #77–#98 hasta `42594a0`
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
             BETA-01D.3 jurídica — **abierta**
             PWA-01 instalación Android/iOS hecha; QA funcional iOS pendiente. R-SHA cerrado. Q-CI PG en Actions (PR #105). JRN-01R en inventario API Live (PR #101)
-            GAME-07 reservado
+            GAME-07 local `8ee1ee8` (push/PR/deploy pendientes)
             MKT-01 cuando se autorice
   Fase G    WEB-02 → SEO-01B → FBK-02
   MOB-01    pospuesto (Play/App Store; ≠ PWA-01)
@@ -1494,3 +1494,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-10 | **PWA-01D** iOS BrowserStack Live (iPhone 15 Pro, Safari 17.0, somarecovery.app): landing con estilos; añadir a pantalla de inicio; abrir la app instalada. Dispositivo remoto, **no** iPhone físico propio. Sesión gratuita cortó el recorrido funcional (login, persistencia, Bitácora, logout, control en standalone, icono/estilos en PWA, otras versiones iOS). **D** parcial. PWA-01 **parcial**. Commit local de este registro. |
 | 2026-11-10 | **R-SHA** cerrado: panel Render. SPA Live `4c67c2b` (PR #103). API Live `4520530` (PR #101). `origin/main` `d37a818` no es Live. Fechas UTC de deploy no comunicadas. Commit local de este registro. |
 | 2026-11-10 | **Q-CI** residual PostgreSQL: PR #105 en `origin/main` `455cdf5`. Actions: 329 API, 968 web, 115 PG; 0 fallos, 0 skips. Deadlock UserProgression `5eaa05c`. Q-05, cobertura, scripts raíz y **Q-E2E** no se cierran. R-SHA sigue cerrado. API desplegada (propietario); SHA Live de ese deploy **no** recopiado. Commit local de este registro. |
+| 2026-11-11 | **GAME-07** implementación local completada (`8ee1ee8`): Centro de Expedición, GAME-07F, IMG-PERF-01A. Tests web 999/999; typecheck y build OK; DEMO Chromium. Safari iOS, PWA standalone y LIVE autenticado **pendientes**. Integración remota y producción **pendientes**. **No** desplegado. Commit local de este registro. |
