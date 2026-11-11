@@ -42,6 +42,7 @@ import {
   featuredExploreNeurotransmitters,
   substancesForEducationalNeurotransmitter,
 } from "../explore/explore-neurotransmitters.js";
+import { EduPlateImg } from "../components/EduPlateImg.js";
 import {
   exploreMissionsArt,
   exploreProcessArt,
@@ -456,14 +457,13 @@ export function ExplorePage() {
                 const art = (
                   <>
                     <span className="flex h-20 w-full items-center justify-center">
-                      <img
+                      <EduPlateImg
                         src={exploreProcessArt[id]}
                         alt=""
                         width={120}
                         height={180}
-                        loading="lazy"
-                        decoding="async"
-                        draggable={false}
+                        sizes="80px"
+                        fetchPriority="low"
                         className="max-h-full w-auto max-w-full object-contain"
                       />
                     </span>
@@ -501,14 +501,13 @@ export function ExplorePage() {
               className={`${previewFocus} flex min-h-0 flex-1 flex-col justify-center gap-2.5 rounded-xl text-left`}
             >
               <span className="flex h-36 w-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#101820] sm:h-40 lg:h-44">
-                <img
+                <EduPlateImg
                   src={exploreMissionsArt}
                   alt=""
                   width={1024}
                   height={576}
-                  loading="lazy"
-                  decoding="async"
-                  draggable={false}
+                  sizes="(min-width: 1024px) 22rem, (min-width: 640px) 40vw, 90vw"
+                  fetchPriority="low"
                   className="h-full w-full object-contain"
                 />
               </span>

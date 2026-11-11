@@ -61,6 +61,17 @@ test("featured missions prefer available rows in catalog order", () => {
   assert.equal(featured.some((row) => row.id === "edu-dopamine-01"), false);
 });
 
+test("featured list surfaces process plates after neurotransmitter missions are complete", () => {
+  const ntDone = buildDemoMissions(new Set())
+    .filter((row) => row.categoryId === "neurotransmitters")
+    .map((row) => row.id);
+  const featured = pickFeaturedMissions(buildDemoMissions(new Set(ntDone)), 3);
+  assert.equal(featured[0]?.id, "edu-receptors-01");
+  assert.equal(featured[0]?.sheetId, "receptors");
+  assert.match(missionIllustrationSrc("receptors") ?? "", /process-receptors\.png$/);
+  assert.equal(missionArtNeedsFrame("receptors"), true);
+});
+
 test("search, completed filter and title sort stay local", () => {
   const rows = buildDemoMissions(new Set(["edu-tolerance-01"]));
   const haystack = (row: (typeof rows)[number]) => row.id;

@@ -41,6 +41,8 @@ test("page follows mockup sections without locked or in-progress states", () => 
   assert.match(page, /searchMissions/);
   assert.match(page, /sortMissionCatalog/);
   assert.match(page, /missionIllustrationSrc/);
+  assert.match(page, /EduPlateImg/);
+  assert.match(page, /MISSION_ART_SIZES/);
   assert.match(page, /comingSoon/);
   assert.equal(page.includes("in_progress"), false);
   assert.equal(page.includes("locked"), false);

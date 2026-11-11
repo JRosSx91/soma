@@ -59,6 +59,7 @@ test("explorer 2.0 does not ship mockup-only missions, xp or invented systems", 
   assert.match(page, /\$\{base\}\/missions/);
   assert.match(page, /processesPreparing/);
   assert.match(page, /exploreMissionsArt/);
+  assert.match(page, /EduPlateImg/);
   assert.match(page, /lg:h-44/);
   assert.equal(page.includes("sm:flex-row"), false);
   assert.match(page, /items-stretch/);
