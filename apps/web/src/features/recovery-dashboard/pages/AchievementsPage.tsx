@@ -219,6 +219,7 @@ export function AchievementsPage() {
         imageSrc={ACHIEVEMENTS_HERO_IMAGE}
         objectPosition="center 58%"
         overlay={ACHIEVEMENTS_HERO_OVERLAY}
+        fetchPriority="high"
         onbAnchor="achievements-title"
       />
 

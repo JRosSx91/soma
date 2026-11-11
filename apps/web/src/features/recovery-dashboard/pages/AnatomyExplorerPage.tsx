@@ -132,6 +132,7 @@ export function AnatomyExplorerPage() {
         objectPosition="center 48%"
         overlay={ATLAS_HERO_OVERLAY}
         compactBand
+        fetchPriority="high"
         onbAnchor="anatomy-title"
       />
 

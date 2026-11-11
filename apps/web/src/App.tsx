@@ -14,6 +14,7 @@ import { AnatomyExplorerPage } from "./features/recovery-dashboard/pages/Anatomy
 import { AchievementsPage as Soma2AchievementsPage } from "./features/recovery-dashboard/pages/AchievementsPage.js";
 import { JournalPage } from "./features/recovery-dashboard/pages/JournalPage.js";
 import { MissionsPage } from "./features/recovery-dashboard/pages/MissionsPage.js";
+import { ExpeditionPage } from "./features/recovery-dashboard/pages/ExpeditionPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
 import { FeedbackPage } from "./features/recovery-dashboard/pages/FeedbackPage.js";
 import { useTranslation } from "react-i18next";
@@ -59,6 +60,7 @@ const soma2Pages = (
     <Route path="recovery" element={<RecoveryPage />} />
     <Route path="explore" element={<ExplorePage />} />
     <Route path="missions" element={<MissionsPage />} />
+    <Route path="expedition" element={<ExpeditionPage />} />
     <Route path="anatomy" element={<AnatomyExplorerPage />} />
     <Route path="achievements" element={<Soma2AchievementsPage />} />
     <Route path="journal" element={<JournalPage />} />

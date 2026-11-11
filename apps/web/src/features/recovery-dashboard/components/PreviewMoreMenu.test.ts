@@ -18,7 +18,7 @@ test("the more menu closes on escape, outside pointer, and navigation", () => {
   assert.match(source, /variant === "rail"/);
   assert.match(source, /shellNavActiveClass/);
   assert.match(source, /bg-soma-shell-rail/);
-  assert.equal(source.includes("/expedition"), false);
+  assert.equal(source.includes("moreShellSections"), true);
 });
 
 test("mobile nav sizes columns from destinations plus Más and does not hardcode a padded grid", () => {

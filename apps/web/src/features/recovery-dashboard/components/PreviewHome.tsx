@@ -28,6 +28,7 @@ import { useTemporalMilestones } from "../hooks/useTemporalMilestones.js";
 import { AchievementMedal } from "./AchievementMedal.js";
 import { NextTemporalMedalCard } from "./NextTemporalMedalCard.js";
 import { DemoNotice } from "./DemoNotice.js";
+import { PhotoPlateImg } from "./PhotoPlateImg.js";
 import { HeroFigure } from "./HeroFigure.js";
 import { HeroFilaments } from "./HeroFilaments.js";
 import { SubstanceIllustration } from "./SubstanceIllustration.js";
@@ -768,13 +769,10 @@ function HorizonCard({ message }: { message: string | null }) {
   const { t } = useTranslation("recovery");
   return (
     <section className="relative flex h-full min-h-[11rem] overflow-hidden rounded-2xl border border-soma-line-strong">
-      <img
+      <PhotoPlateImg
         src="/images/decoration/nature-1.png"
-        alt=""
-        width={1024}
-        height={576}
-        decoding="async"
-        draggable={false}
+        width={1673}
+        height={940}
         className="absolute inset-0 h-full w-full object-cover object-[72%_center]"
       />
       <div

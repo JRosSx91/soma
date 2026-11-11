@@ -35,6 +35,7 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /imageSrc=\{ACHIEVEMENTS_HERO_IMAGE\}/);
   assert.match(hero, /imageSrc = DEFAULT_IMAGE/);
   assert.match(hero, /nature-2\.png/);
+  assert.match(hero, /PhotoPlateImg/);
   assert.match(hero, /soma-photo-copy/);
   assert.match(hero, /soma-photo-copy-veil/);
   assert.match(hero, /soma-photo-copy-veil__plate/);

@@ -5,6 +5,7 @@ import {
   Flag,
   Home,
   MessageCircle,
+  Mountain,
   PersonStanding,
   Trophy,
   User,
@@ -20,6 +21,7 @@ export const shellIcons: Record<ShellIconId, LucideIcon> = {
   trophy: Trophy,
   book: BookOpen,
   flag: Flag,
+  mountain: Mountain,
   messageCircle: MessageCircle,
   user: User,
 };

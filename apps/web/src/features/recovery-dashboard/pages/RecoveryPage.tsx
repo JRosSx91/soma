@@ -259,6 +259,7 @@ export function RecoveryPage() {
         quote={quote}
         demo={dashboard.showDemoBadge}
         compactHeader
+        fetchPriority="high"
         onbAnchor="recovery-title"
       >
         <ul className={substanceGridClass(dashboard.substances.length)}>

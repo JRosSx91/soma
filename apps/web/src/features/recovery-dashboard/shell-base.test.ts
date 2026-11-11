@@ -112,6 +112,7 @@ test("shell navigation labels live in spanish and english common copy", () => {
     "achievements",
     "journal",
     "missions",
+    "expedition",
     "feedback",
     "account",
     "more",
@@ -132,6 +133,7 @@ test("shell navigation labels live in spanish and english common copy", () => {
   assert.equal(esCommon.shell.achievements, "Logros");
   assert.equal(esCommon.shell.journal, "Bitácora");
   assert.equal(esCommon.shell.missions, "Misiones");
+  assert.equal(esCommon.shell.expedition, "Expedición");
   assert.equal(esCommon.shell.feedback, "Ayuda y sugerencias");
   assert.equal(esCommon.shell.account, "Cuenta");
   assert.equal(esCommon.shell.more, "Más");
@@ -144,6 +146,7 @@ test("shell navigation labels live in spanish and english common copy", () => {
   assert.equal(enCommon.shell.achievements, "Achievements");
   assert.equal(enCommon.shell.journal, "Journal");
   assert.equal(enCommon.shell.missions, "Missions");
+  assert.equal(enCommon.shell.expedition, "Expedition");
   assert.equal(enCommon.shell.feedback, "Help and suggestions");
   assert.equal(enCommon.shell.account, "Account");
   assert.equal(enCommon.shell.more, "More");
@@ -216,6 +219,7 @@ test("desktop, mobile and more menus split one section table", () => {
   assert.equal(mobile.includes("ayuda"), false);
   assert.equal(mobile.includes("explorar"), false);
   assert.deepEqual(more, [
+    "expedicion",
     "explorar",
     "anatomia",
     "logros",
@@ -228,12 +232,16 @@ test("desktop, mobile and more menus split one section table", () => {
   );
   assert.deepEqual(
     railMoreShellSections("/app").map((item) => item.id),
-    ["ayuda"],
+    ["expedicion", "ayuda"],
   );
   assert.equal(
-    shellSectionDefs.some((item) => item.id === "expedicion" || item.path === "/expedition"),
-    false,
+    shellSectionDefs.some((item) => item.id === "expedicion" && item.path === "/expedition"),
+    true,
   );
+  const expedition = shellSectionDefs.find((item) => item.id === "expedicion");
+  assert.equal(expedition?.desktop, false);
+  assert.equal(expedition?.mobile, false);
+  assert.equal(expedition?.more, true);
 });
 
 test("account is a real shell section and titles it instead of home", () => {
@@ -247,6 +255,8 @@ test("account is a real shell section and titles it instead of home", () => {
   assert.equal(shellSectionForPathname("/app", "/app/account")?.id, "cuenta");
   assert.equal(shellSectionForPathname("/preview", "/preview/account")?.id, "cuenta");
   assert.equal(shellSectionForPathname("/app", "/app/recovery")?.id, "recuperacion");
+  assert.equal(shellSectionForPathname("/app", "/app/expedition")?.id, "expedicion");
+  assert.equal(shellSectionForPathname("/preview", "/preview/expedition")?.id, "expedicion");
   assert.equal(isSectionPathActive("/app", "/app/recovery", { end: true }), false);
   assert.equal(isSectionPathActive("/app/recovery", "/app/recovery", { end: false }), true);
 });
@@ -255,6 +265,7 @@ test("shell keeps the existing app and preview destinations", () => {
   const app = shellSections("/app");
   assert.equal(app.find((item) => item.id === "inicio")?.to, "/app");
   assert.equal(app.find((item) => item.id === "recuperacion")?.to, "/app/recovery");
+  assert.equal(app.find((item) => item.id === "expedicion")?.to, "/app/expedition");
   assert.equal(app.find((item) => item.id === "explorar")?.to, "/app/explore");
   assert.equal(app.find((item) => item.id === "misiones")?.to, "/app/missions");
   assert.equal(app.find((item) => item.id === "anatomia")?.to, "/app/anatomy");
