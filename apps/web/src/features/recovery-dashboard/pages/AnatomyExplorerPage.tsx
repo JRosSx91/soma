@@ -48,6 +48,7 @@ import {
   readDailyMessages,
 } from "../dashboard/home-daily-message.js";
 import { CatalogEvidenceNote } from "../components/CatalogEvidenceNote.js";
+import { EduPlateImg } from "../components/EduPlateImg.js";
 import {
   OrganSheetSummary,
   SystemSheetSummary,
@@ -577,7 +578,17 @@ function RelatedContentBlock({
                     to={href}
                     className={`${previewFocus} flex items-center gap-2 rounded-xl border border-soma-line px-2.5 py-2 text-sm text-soma-ink hover:border-soma-line-strong`}
                   >
-                    {art ? <img src={art} alt="" className="h-8 w-8 shrink-0 object-contain" /> : null}
+                    {art ? (
+                      <EduPlateImg
+                        src={art}
+                        alt=""
+                        width={32}
+                        height={32}
+                        sizes="32px"
+                        fetchPriority="low"
+                        className="h-8 w-8 shrink-0 object-contain"
+                      />
+                    ) : null}
                     <span className="min-w-0 flex-1">
                       {t(`explore-edu:anatomyToArticle.${article.sheetId}`, {
                         defaultValue: article.sheetId,
@@ -627,7 +638,17 @@ function RelatedContentBlock({
                     to={`${base}/missions`}
                     className={`${previewFocus} flex items-center gap-2 rounded-xl border border-soma-line px-2.5 py-2 text-sm text-soma-ink hover:border-soma-line-strong`}
                   >
-                    {art ? <img src={art} alt="" className="h-8 w-8 shrink-0 object-contain" /> : null}
+                    {art ? (
+                      <EduPlateImg
+                        src={art}
+                        alt=""
+                        width={32}
+                        height={32}
+                        sizes="32px"
+                        fetchPriority="low"
+                        className="h-8 w-8 shrink-0 object-contain"
+                      />
+                    ) : null}
                     <span className="min-w-0 flex-1">
                       {t(missionCopyPath(mission.titleKey), { ns: "missions" })}
                     </span>

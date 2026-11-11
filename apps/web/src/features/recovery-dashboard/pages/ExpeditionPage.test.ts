@@ -51,6 +51,7 @@ test("knowledge and perseverance stay independent selectors with real CTAs", () 
   assert.match(page, /ExpeditionMap/);
   assert.match(map, /ExpeditionTrail/);
   assert.match(page, /pickFeaturedMissions/);
+  assert.match(page, /EduPlateImg/);
   assert.match(page, /nature-10.png/);
   assert.match(page, /compactPanorama/);
   assert.match(page, /pt-4 lg:pt-6/);

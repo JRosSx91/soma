@@ -26,6 +26,7 @@ import { usePreviewDashboard } from "../hooks/usePreviewDashboard.js";
 import { useTemporalMilestones } from "../hooks/useTemporalMilestones.js";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
+import { EduPlateImg } from "../components/EduPlateImg.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
 import { SegmentedControl } from "../components/SegmentedControl.js";
 import { ExpeditionMap } from "../expedition/ExpeditionMap.js";
@@ -520,14 +521,12 @@ function FeaturedMissions({
                 <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-raised/40">
                   <div className="relative flex h-28 w-full items-center justify-center overflow-hidden bg-[#101820]">
                     {art ? (
-                      <img
+                      <EduPlateImg
                         src={art}
                         alt=""
                         width={framed ? 499 : 640}
                         height={framed ? 660 : 360}
-                        loading="lazy"
-                        decoding="async"
-                        draggable={false}
+                        sizes="(min-width: 640px) 12rem, 90vw"
                         className={`max-h-full ${framed ? "object-contain" : "h-full w-full object-cover"}`}
                       />
                     ) : null}

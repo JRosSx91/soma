@@ -31,3 +31,13 @@ test("explorer 2.0 ships fifteen graphic assets on disk", () => {
     assert.equal(existsSync(join(publicRoot, src.replace(/^\//, ""))), true, src);
   }
 });
+
+test("IMG-PERF-01B WebP derivatives exist without replacing PNG masters", () => {
+  for (const id of exploreProcessTopics) {
+    assert.equal(existsSync(join(publicRoot, `images/processes/process-${id}.png`)), true);
+    assert.equal(existsSync(join(publicRoot, `images/processes/process-${id}.webp`)), true);
+    assert.equal(existsSync(join(publicRoot, `images/processes/process-${id}-240.webp`)), true);
+  }
+  assert.equal(existsSync(join(publicRoot, "images/missions/educational-missions.webp")), true);
+  assert.equal(existsSync(join(publicRoot, "images/missions/educational-missions-960.webp")), true);
+});

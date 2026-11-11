@@ -42,6 +42,7 @@ import {
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import { DetailSheet } from "../components/DetailSheet.js";
+import { EduPlateImg } from "../components/EduPlateImg.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
 import { SegmentedControl } from "../components/SegmentedControl.js";
 import { exploreEduHref } from "../explore/explore-edu-query.js";
@@ -527,6 +528,8 @@ function CatalogCard({
   );
 }
 
+const MISSION_ART_SIZES = "(min-width: 640px) 22rem, 90vw";
+
 function MissionArt({
   src,
   title,
@@ -546,29 +549,25 @@ function MissionArt({
     >
       {src && framed ? (
         <>
-          <img
+          <EduPlateImg
             src={src}
             alt=""
             aria-hidden="true"
             width={640}
             height={360}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
+            sizes={MISSION_ART_SIZES}
             className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-40"
           />
           <div className="pointer-events-none absolute inset-0 z-[1] bg-[#101820]/25" aria-hidden="true" />
         </>
       ) : null}
       {src ? (
-        <img
+        <EduPlateImg
           src={src}
           alt=""
           width={framed ? 499 : 640}
           height={framed ? 660 : 360}
-          loading="lazy"
-          decoding="async"
-          draggable={false}
+          sizes={MISSION_ART_SIZES}
           className={`relative z-10 h-full object-contain ${framed ? "w-auto max-w-[46%]" : "w-full"}`}
         />
       ) : (
