@@ -46,6 +46,7 @@ import {
 } from "../dashboard/home-daily-message.js";
 import { previewFocus } from "../focus.js";
 import { DetailSheet } from "../components/DetailSheet.js";
+import { PhotoPlateImg } from "../components/PhotoPlateImg.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
 import { SegmentedControl } from "../components/SegmentedControl.js";
 import { JournalEntryForm } from "../../journal/JournalEntryForm.js";
@@ -751,6 +752,7 @@ export function JournalPage() {
         imageSrc={JOURNAL_HERO_IMAGE}
         objectPosition={JOURNAL_HERO_POSITION}
         overlay={JOURNAL_HERO_OVERLAY}
+        fetchPriority="high"
         onbAnchor="journal-title"
       />
 
@@ -1821,12 +1823,13 @@ function LastEntryCard({
   const { t } = useTranslation("journal");
   return (
     <article className="mt-4 flex min-w-0 flex-col gap-4 sm:flex-row sm:items-stretch">
-      <img
+      <PhotoPlateImg
         src={JOURNAL_LAST_IMAGE}
         alt={t("overview.lastPhotoHint")}
         width={320}
         height={220}
-        draggable={false}
+        sizes="(min-width: 640px) 42vw, 100vw"
+        loading="lazy"
         className="h-44 w-full shrink-0 rounded-2xl object-cover sm:h-auto sm:min-h-[11rem] sm:w-[42%] lg:min-h-[13rem]"
       />
       <div className="flex min-w-0 flex-1 flex-col">

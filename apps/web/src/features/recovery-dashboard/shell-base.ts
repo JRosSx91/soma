@@ -6,8 +6,9 @@
  * Visible labels live in `common.shell` (ES/EN). This module only
  * stores ids, i18n keys, routes, icons, and which chrome shows each item.
  *
- * Pending destinations (Expedition) are omitted until they have real
- * pages. Add a def with desktop/mobile/more flags; menus filter.
+ * Expedition lives in «Más» (GAME-07 / R-NAV): the mobile dock stays
+ * at five slots and the desktop rail is not saturated.
+ * Add a def with desktop/mobile/more flags; menus filter.
  * Mobile dock: Home, Recovery, Missions, Journal, then «Más».
  * Explore sits with Anatomy in mobile «Más» so the dock stays at five
  * slots. Feedback is more-only. Account stays in AccountMenu on desktop.
@@ -22,6 +23,7 @@ export type ShellIconId =
   | "trophy"
   | "book"
   | "flag"
+  | "mountain"
   | "messageCircle"
   | "user";
 
@@ -45,6 +47,16 @@ export const shellSectionDefs = [
     desktop: true,
     mobile: true,
     more: false,
+  },
+  {
+    id: "expedicion",
+    labelKey: "expedition",
+    mobileLabelKey: "expedition",
+    path: "/expedition",
+    icon: "mountain",
+    desktop: false,
+    mobile: false,
+    more: true,
   },
   {
     id: "explorar",

@@ -23,6 +23,8 @@ test("journal 2.0 uses the shared shell, hero, tabs, nature-5 and nature-6", () 
   assert.match(page, /RecoveryHero/);
   assert.match(page, /nature-5\.png/);
   assert.match(page, /nature-6\.png/);
+  assert.match(page, /PhotoPlateImg/);
+  assert.match(page, /fetchPriority="high"/);
   assert.match(page, /SegmentedControl/);
   assert.match(page, /DetailSheet/);
   assert.match(page, /demo=\{demo\}/);

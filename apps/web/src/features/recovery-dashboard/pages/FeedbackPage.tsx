@@ -70,6 +70,7 @@ export function FeedbackPage() {
         demo={demo}
         imageSrc={FEEDBACK_HERO_IMAGE}
         overlay={FEEDBACK_HERO_OVERLAY}
+        fetchPriority="high"
       />
 
       <p className="text-sm leading-relaxed text-soma-ink-secondary">{t("privacy")}</p>

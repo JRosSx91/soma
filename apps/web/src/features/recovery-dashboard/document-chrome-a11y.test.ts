@@ -74,6 +74,8 @@ test("each layout exposes one skip link to a single main landmark", () => {
   assert.equal(esCommon.skipToContent, "Saltar al contenido principal");
   assert.match(skip, /href=\{`#\$\{targetId\}`\}/);
   assert.match(skip, /MAIN_CONTENT_ID = "main-content"/);
+  assert.match(skip, /sr-only focus:not-sr-only/);
+  assert.match(skip, /focus:z-\[200\]/);
   assert.equal((preview.match(/<SkipToContent/g) ?? []).length, 1);
   assert.match(preview, /id=\{MAIN_CONTENT_ID\}/);
   assert.equal((auth.match(/<SkipToContent/g) ?? []).length, 1);

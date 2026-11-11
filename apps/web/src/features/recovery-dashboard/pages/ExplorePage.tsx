@@ -285,6 +285,7 @@ export function ExplorePage() {
         imageSrc={EXPLORE_HERO_IMAGE}
         objectPosition="center 48%"
         overlay={EXPLORE_HERO_OVERLAY}
+        fetchPriority="high"
         onbAnchor="explore-title"
       />
 

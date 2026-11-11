@@ -6,6 +6,7 @@ import {
   SHELL_HERO_BLEED_EXPANDED_CLASS,
 } from "../shell-sidebar.js";
 import { DemoNotice } from "./DemoNotice.js";
+import { PhotoPlateImg } from "./PhotoPlateImg.js";
 import "./photo-copy.css";
 
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
@@ -35,6 +36,8 @@ interface RecoveryHeroProps {
   imageClassName?: string;
   /** Taller frame for ultra-wide panoramas. */
   panorama?: boolean;
+  /** GAME-07: shorter nature-10 band so stats sit close to the copy. Other pages omit it. */
+  compactPanorama?: boolean;
   /** Recovery page: sit the heading against the content top without moving other heroes. */
   compactHeader?: boolean;
   /** Atlas: shorter band so the visor can sit with the system list. Other pages omit it. */
@@ -58,6 +61,7 @@ export function RecoveryHero({
   imageHeight = 800,
   imageClassName,
   panorama = false,
+  compactPanorama = false,
   compactHeader = false,
   compactBand = false,
   onbAnchor,
@@ -73,13 +77,10 @@ export function RecoveryHero({
     >
         <div className="relative overflow-x-clip">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <img
+        <PhotoPlateImg
           src={imageSrc}
-          alt=""
           width={imageWidth}
           height={imageHeight}
-          decoding="async"
-          draggable={false}
           fetchPriority={fetchPriority}
           sizes="100vw"
           className={`absolute inset-0 h-full w-full object-cover ${imageClassName ?? ""}`}
@@ -96,17 +97,7 @@ export function RecoveryHero({
           }}
         />
         </div>
-        <div
-          className={
-            compactBand
-              ? "relative z-10 grid items-center gap-3 px-4 py-4 sm:py-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(13rem,18rem)] lg:min-h-[10.75rem] lg:px-6 lg:py-5"
-              : compactHeader
-                ? "relative z-10 grid items-start gap-5 px-4 pb-6 pt-7 sm:pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:px-6 lg:pb-10 lg:pt-7"
-                : panorama
-                  ? "relative z-10 grid items-start gap-5 px-4 pb-16 pt-7 min-h-[14.5rem] sm:min-h-[18rem] sm:pb-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,18rem)] lg:min-h-[20rem] lg:px-6 lg:pb-24 lg:pt-8"
-                  : "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10"
-          }
-        >
+        <div className={heroCopyFrameClass({ compactBand, compactHeader, compactPanorama, panorama })}>
           <header className="soma-photo-copy-veil max-w-2xl">
             <span className="soma-photo-copy-veil__plate" aria-hidden="true" />
             <div className="flex items-start justify-between gap-3">
@@ -120,7 +111,7 @@ export function RecoveryHero({
             </div>
             <h1
               className={
-                compactBand
+                compactBand || compactPanorama
                   ? "soma-photo-copy mt-2 text-2xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-3xl"
                   : "soma-photo-copy mt-3 text-3xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-4xl"
               }
@@ -130,7 +121,7 @@ export function RecoveryHero({
             </h1>
             <p
               className={
-                compactBand
+                compactBand || compactPanorama
                   ? "soma-photo-copy mt-2 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
                   : "soma-photo-copy mt-3 max-w-xl text-sm leading-relaxed text-soma-ink-secondary"
               }
@@ -141,7 +132,7 @@ export function RecoveryHero({
           {quote ? (
             <aside
               className={
-                compactBand
+                compactBand || compactPanorama
                   ? "justify-self-start max-w-xs rounded-xl border border-soma-line-strong/50 bg-[rgb(3_12_20_/_0.55)] px-3 py-2.5 backdrop-blur-md lg:justify-self-end"
                   : panorama
                     ? "mt-8 mr-1 justify-self-start max-w-xs rounded-xl border border-soma-line-strong/50 bg-[rgb(3_12_20_/_0.55)] px-3 py-2.5 backdrop-blur-md sm:mt-10 lg:mt-12 lg:mr-4 lg:justify-self-end"
@@ -166,16 +157,48 @@ export function RecoveryHero({
         </div>
       </div>
       {children ? (
-        <div
-          className={
-            compactHeader
-              ? "relative z-20 px-4 pt-4 sm:pt-5 lg:px-6"
-              : "relative z-20 px-4 -mt-8 sm:-mt-12 lg:px-6 lg:-mt-20"
-          }
-        >
+        <div className={heroChildrenClass({ compactHeader, compactPanorama })}>
           {children}
         </div>
       ) : null}
     </section>
   );
+}
+
+function heroCopyFrameClass({
+  compactBand,
+  compactHeader,
+  compactPanorama,
+  panorama,
+}: {
+  compactBand: boolean;
+  compactHeader: boolean;
+  compactPanorama: boolean;
+  panorama: boolean;
+}): string {
+  if (compactBand) {
+    return "relative z-10 grid items-center gap-3 px-4 py-4 sm:py-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(13rem,18rem)] lg:min-h-[10.75rem] lg:px-6 lg:py-5";
+  }
+  if (compactHeader) {
+    return "relative z-10 grid items-start gap-5 px-4 pb-6 pt-7 sm:pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:px-6 lg:pb-10 lg:pt-7";
+  }
+  if (compactPanorama) {
+    return "relative z-10 grid items-end gap-3 px-4 pb-8 pt-5 min-h-[11.5rem] sm:min-h-[13rem] sm:pb-9 lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,18rem)] lg:min-h-[14rem] lg:px-6 lg:pb-10 lg:pt-6";
+  }
+  if (panorama) {
+    return "relative z-10 grid items-start gap-5 px-4 pb-16 pt-7 min-h-[14.5rem] sm:min-h-[18rem] sm:pb-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(14rem,18rem)] lg:min-h-[20rem] lg:px-6 lg:pb-24 lg:pt-8";
+  }
+  return "relative z-10 grid items-end gap-5 px-4 pb-10 pt-8 sm:min-h-[16.5rem] sm:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,22rem)] lg:items-center lg:px-6 lg:pb-20 lg:pt-10";
+}
+
+function heroChildrenClass({
+  compactHeader,
+  compactPanorama,
+}: {
+  compactHeader: boolean;
+  compactPanorama: boolean;
+}): string {
+  if (compactHeader) return "relative z-20 px-4 pt-4 sm:pt-5 lg:px-6";
+  if (compactPanorama) return "relative z-20 px-4 -mt-5 sm:-mt-6 lg:px-6 lg:-mt-8";
+  return "relative z-20 px-4 -mt-8 sm:-mt-12 lg:px-6 lg:-mt-20";
 }
