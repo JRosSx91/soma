@@ -235,6 +235,21 @@ test("legal notices are published in ES and EN when the controller is present", 
   assert.match(noticeEs, /No describe una sociedad mercantil/);
   assert.match(cookiesEn, /soma\.i18n\.lang/);
   assert.match(cookiesEs, /soma\.landing-v2\.intro\.seen/);
+  for (const cookies of [cookiesEn, cookiesEs]) {
+    assert.match(cookies, /soma\.journal\.createOp\./);
+    assert.match(cookies, /UUID/);
+    assert.match(cookies, /SHA-256/);
+  }
+  assert.match(cookiesEn, /title and body are not stored/);
+  assert.match(cookiesEs, /No se guardan el título ni el cuerpo/);
+  for (const page of [privacyEn, privacyEs, noticeEn, noticeEs]) {
+    assert.doesNotMatch(
+      page,
+      /repositor|inventory|inventario|unless it is configured|si no se configura|in the code|en el código|Soma’s code|código de Soma/i,
+    );
+  }
+  assert.doesNotMatch(privacyEn, /nor each provider’s region/);
+  assert.doesNotMatch(privacyEs, /ni las regiones de cada proveedor/);
   assert.match(cookiesEn, /does not introduce a cookie-consent banner/i);
   assert.match(cookiesEs, /no introduce un banner de consentimiento/i);
   assert.match(noticeEn, /href="\/privacy"/);
