@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados en este archivo). Git: `origin/develop` = `origin/main` = `c519bb3043734179e2a5f1ba9c0d30b0aa496eaf` (merge PR #107). **SPA Live** (panel Render, propietario): el mismo SHA. **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** parcial (QA funcional iOS pendiente). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueadores abiertos: **BETA-01D.3**, **LIVE-01** (producción), **PWA-01D**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** actualización de landing implementada **en local**, pendiente de revisión/despliegue; **MKT-PR-01** dos rondas enviadas). Git: `origin/develop` = `origin/main` = `c519bb3043734179e2a5f1ba9c0d30b0aa496eaf` (merge PR #107). **SPA Live** (panel Render, propietario): el mismo SHA. **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** parcial (QA funcional iOS pendiente). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueadores abiertos: **BETA-01D.3**, **PWA-01D**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,19 +29,21 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **sigue abierta** mientras no conste cierre formal. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** **BETA-01D.3** (revisión jurídica formal); humo **LIVE `/app`** (**AUTH-01** / **LIVE-01**, no inferir desde DEMO); **PWA-01D** QA funcional **iOS** (la PWA **no** está plenamente verificada en iOS); observabilidad básica (**Q-OBS**, **Q-05** en CI). Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** revisión y eventual despliegue de **WEB-01** (landing actualizada, hoy solo en local); **PWA-01D** QA funcional **iOS/Safari** (la PWA **no** está plenamente verificada en iOS); **UX-POLISH** (descubrimiento de Expedición); seguimiento de prensa (**MKT-PR-01D**); observabilidad básica (**Q-OBS**, **Q-05** en CI). **BETA-01D.3** (revisión jurídica formal) sigue abierta en paralelo. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
-Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **LIVE-01** en producción; **PWA-01D**; residual de Q-CI (**Q-05**, scripts raíz, cobertura; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **PWA-01D**; **WEB-01** (actualización local sin desplegar); **MKT-PR-01D**; residual de Q-CI (**Q-05**, scripts raíz, cobertura; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
 ### Próximos cinco hitos (orden)
 
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
-| 1 | **BETA-01D.3** | Jurídica (responsable, proveedores, transferencias). Los avisos en código **no** se marcan revisados por un jurista. |
-| 2 | **AUTH-01 / LIVE-01** | Humo autorizado de `/app` (cuenta sintética). DEMO ≠ LIVE. |
-| 3 | **PWA-01D** | QA funcional iOS en la PWA instalada. A/B/C desplegados. Instalación iOS ≠ recorrido LIVE. |
-| 4 | **Q-OBS** (+ **Q-05**) | Errores visibles y `recovery-math` en CI. No es Sentry obligatorio. |
-| 5 | **R-SHA recopy API** | Procedimiento cerrado. Falta SHA Live de API tras #105. No inventar. |
+| 1 | **WEB-01** | Revisión y eventual despliegue de la landing actualizada (funcionalidades actuales + Centro de Expedición). Implementada en local; **no** desplegada. |
+| 2 | **PWA-01D** | Validación en iOS/Safari de la PWA instalada. A/B/C desplegados. Instalación iOS ≠ recorrido LIVE. |
+| 3 | **UX-POLISH** | Descubrimiento de Expedición desde Inicio y desde el tutorial (ONB-01 hoy **sin** paso Expedición). |
+| 4 | **MKT-PR-01D** | Seguimiento de prensa: respuestas, seguimiento y posibles publicaciones. Sin cobertura confirmada. |
+| 5 | **Q-OBS** / **Q-05** | Mejoras de calidad justificadas: errores visibles y `recovery-math` en CI. No es Sentry obligatorio. |
+
+**BETA-01D.3** (jurídica: responsable, proveedores, transferencias) sigue **abierta** en paralelo; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -57,14 +59,15 @@ Hitos de apertura **ya en `main`** (`c519bb3`; SPA Live el mismo SHA; **no** imp
 | 2 | R-JXP | Cerrado. En `main` |
 | 3 | UX-GLO-01 | Completado. En `main` |
 | 4 | CLEAN-01 | Completado. En `main` |
-| 5 | WEB-01 | Completado. En `main`. **SEO-01B** completado (GSC / indexación). Copy público vs Expedición ahora desplegada: residual de comunicación |
+| 5 | WEB-01 | Landing original completada en `main` (PR #82). **SEO-01B** completado (GSC / indexación). Actualización 2026-11-12 (funcionalidades actuales + Expedición): implementada **en local**, pendiente de revisión/despliegue |
 | — | GAM-03 | Cerrado técnicamente. Mapa en `gamification-events.ts` en `main` |
 | 6 | CHR-01 | Cerrado técnicamente. En `main`. Solo ONB-01; no en Cuenta |
 | 7 | ONB-01 | Completado en git (A/B/C). En `main`. Recorrido LIVE autenticado de punta a punta: no reauditado aquí. Tour **sin** paso Expedición |
-| 8 | UX-PRE-BETA | **Cerrado** como hito histórico de apertura (ROADMAP-SYNC-01). Residual en VIS-01, I18N-04, AUTH-01/LIVE-01, PWA-01D |
+| 8 | UX-PRE-BETA | **Cerrado** como hito histórico de apertura (ROADMAP-SYNC-01). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados) |
 | 9 | BETA-01 | Apertura **de producto** ejecutada. Residual: D.3 jurídica; env de registro en el host |
 | 10 | BETA-02A/B/C | Estabilización post-apertura. En `main` (PR #94, #95) |
 | 11 | MKT-01 | **MKT-01C** (medición básica) **Completado**. Resto (canales, campañas, perfiles): pendiente. P3/posterior. Sin campañas automáticas |
+| — | MKT-PR-01 | Comunicación a prensa: dos rondas enviadas (seis medios). **MKT-PR-01D** en curso (respuestas / seguimiento). Sin cobertura confirmada |
 | — | JRN-01R | En `main` (PR #101) y API Live `4520530` (inventario 2026-11-10) |
 | — | BETA-COPY-01 | En `main` (PR #101, `4967da2`). Copy de registro alineada con beta pública. **No** es D.3 jurídica |
 | — | GAME-07 | En `main` (PR #106) y SPA Live. QA DEMO Chromium. Safari/PWA/LIVE **no** validados |
@@ -119,7 +122,7 @@ Cuatro capas (no se mezclan):
 | UX-12 secretos y platinos | Parcialmente implementado |
 | Neurotransmisores educativos | Publicados como MVP educativo (PR #49). REC-VIS-01 añade panel cualitativo en Recuperación. No son mediciones. Ilustraciones NT siguen en PNG (fuera de IMG-PERF-01B). LIVE `/app` no reauditado aquí |
 | Síntomas / Consejos | Bloqueado por revisión clínica; catálogos **publicados vacíos** |
-| LIVE `/app` | AUTH-01 y LIVE-01 validados funcionalmente **en local** (cuenta sintética). No producción, no staging, no recaídas, no múltiples pestañas |
+| LIVE `/app` | **AUTH-01** y **LIVE-01** completados: validación funcional en local (2026-10-25, cuenta sintética) y en producción (confirmación del propietario; sin fecha ni detalle registrados aquí). Pendientes como validaciones específicas nuevas, no como LIVE-01: recaídas, múltiples pestañas, Expedición LIVE en Safari/PWA |
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
@@ -136,11 +139,11 @@ Cuatro capas (no se mezclan):
 | GAM-03 integración | Cerrado técnicamente. En `main`. Sin segunda economía. Copy educativa vs participación: residual UX |
 | CHR-01 Somi | Cerrado técnicamente. En `main`. Seis WebP; no en Cuenta; solo ONB-01 |
 | ONB-01 tutorial | Completado en git (A/B/C). En `main`. Distinto de AUTH-01. Nueve pasos; **sin** Expedición |
-| UX-PRE-BETA revisión | **Cerrado** (histórico de apertura, ROADMAP-SYNC-01). No reabre UX-GLO-01. Residual: VIS-01, I18N-04, LIVE-01, PWA-01D |
+| UX-PRE-BETA revisión | **Cerrado** (histórico de apertura, ROADMAP-SYNC-01). No reabre UX-GLO-01. Residual: VIS-01, I18N-04, PWA-01D |
 | WEB-02 identidad y filosofía | Pendiente |
 | UX-GLO-01 consolidación UX | Completado. En `main` (`db6385b`, PR #79). Distinto de UX-01 |
 | CLEAN-01 legado Soma 1.0 | Completado. En `main` |
-| WEB-01 landing Soma 2.0 | Completado. En `main`. WEB-02 pendiente. **SEO-01B** completado |
+| WEB-01 landing Soma 2.0 | Landing original en `main`. Actualización 2026-11-12 (sección de funcionalidades actuales + Centro de Expedición): **implementada en local**, pendiente de revisión/despliegue; **no** desplegada. WEB-02 pendiente. **SEO-01B** completado |
 | SEO-01 visibilidad | SEO-01A en `main` (PR #75 / #93). **SEO-01B** Completado (2026-11-12): GSC, canonical, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales |
 | FAV-01 favicon | Completado. En `main` (PR #92). Favicon + Apple Touch 180. **Manifest e iconos 192/512:** PWA-01B (desplegados). **Sin** service worker (PWA-01A) |
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `c519bb3` |
@@ -157,6 +160,7 @@ Cuatro capas (no se mezclan):
 | PWA-01 instalación web | **Parcial.** A/B/C desplegados. Instalación básica Android/iOS validada (iOS: BrowserStack, no iPhone físico propio). **D** parcial: QA funcional iOS pendiente. Distinto de MOB-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** es PWA-01. Publicación en tiendas **pospuesta.** |
 | MKT-01 presencia digital | **MKT-01C** Completado (medición básica, 2026-11-12). Canales/campañas/perfiles: pendiente. Sin analítica de producto ni campañas automáticas |
+| MKT-PR-01 prensa | Dos rondas enviadas: VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka (seis medios). **MKT-PR-01D** en curso: pendiente de respuestas, seguimiento y posibles publicaciones. Sin cobertura confirmada |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Procedimiento **R-SHA** cerrado. Inventario **2026-11-11:** SPA `c519bb3` (PR #107, propietario). Inventario API **2026-11-10:** `4520530` (PR #101). SHA API post-#105 **no** copiado. Fechas UTC **no** comunicadas |
 
@@ -348,13 +352,13 @@ El catálogo de **106** ítems debe distinguirse así: **existencia** (seed/gene
 
 ## Cuenta, autenticación y onboarding
 
-Código existente (JWT en memoria, cookie de refresh, PUT `/me/profile`, onboarding skip/complete). **No** hay E2E de navegador. LIVE **producción** no recorrido.
+Código existente (JWT en memoria, cookie de refresh, PUT `/me/profile`, onboarding skip/complete). **No** hay E2E de navegador. AUTH-01 y LIVE-01 completados en local y en producción (esta última según confirmación del propietario).
 
 #### AUTH-01 — Validar registro, onboarding, sesión y `/app`
 
 - **Descripción:** Recorrer de punta a punta: registro o login, restauración de sesión, onboarding (completar o omitir), acceso a `/app`, logout y estados de carga/error.
-- **Estado:** Validado funcionalmente en local; pendiente de validación en producción o entorno de staging autorizado
-- **Prioridad:** P1
+- **Estado:** **Completado.** Validación funcional en local (recorrido 2026-10-25, abajo) y en producción (confirmación del propietario; fecha y resultados detallados **no** registrados en este archivo). No se repite salvo regresión o cambio funcional relevante. Validaciones específicas nuevas (p. ej. E2E automatizado, Q-E2E) se abren con su propio ID.
+- **Prioridad:** Cerrado (antes P1)
 - **Evidencia:** `AuthContext`, `ProtectedRoute`, `auth.controller.ts`, tests `auth-session.test.ts`, `auth.refresh.http.test.ts`, `onboarding-actions.test.ts`. Sin tests de montaje de `AuthProvider`/`ProtectedRoute`/`OnboardingPage`. **Sin Playwright/Cypress** (esta validación no es cobertura E2E automatizada).
 - **Recorrido local 2026-10-25** (PostgreSQL local, API `localhost:3000`, web `localhost:5173`, cuenta sintética nueva `soma.auth01.live01@example.test`; **no** producción): registro OK; creación de sesión OK; onboarding OK; persistencia de sesión tras recargar `/app` OK; acceso a `/app` OK; logout OK (landing `/`); nuevo login OK. No se usó ninguna cuenta existente.
 - **Dependencias:** Q-E2E para automatizar después del humo manual. No usar cuenta de producción real salvo autorización explícita.
@@ -363,8 +367,8 @@ Código existente (JWT en memoria, cookie de refresh, PUT `/me/profile`, onboard
 #### LIVE-01 — Sustancias, fechas, persistencia y recálculo
 
 - **Descripción:** Validar edición de sustancias y fechas (hoy en `/onboarding` vía PUT `/me/profile`, no en la página Cuenta), persistencia Prisma, y que recuperación LIVE se actualiza al refetch. Los logros **añaden** desbloqueos en `GET /me/achievements`; no revocan (ACH-REV).
-- **Estado:** Validado funcionalmente en local para los casos probados
-- **Prioridad:** P1
+- **Estado:** **Completado.** Validación funcional en local (casos del recorrido 2026-10-25, abajo) y en producción (confirmación del propietario; fecha y resultados detallados **no** registrados en este archivo). No se repite salvo regresión o cambio funcional relevante. Recaídas y múltiples pestañas no se documentaron como probadas: si se necesitan, son validaciones específicas nuevas.
+- **Prioridad:** Cerrado (antes P1)
 - **Evidencia:** `profile.service.ts` (replace de usages); `useLiveProfile` + `adapt-live-dashboard.ts`; `detectAndPersistUnlocks` insert-only. Tests de adapter (fechas faltantes, activo, vacío); **no** hay PUT→GET dashboard automatizado.
 - **Recorrido local 2026-10-25** (misma cuenta sintética; **no** producción, **no** recaídas, **no** múltiples pestañas): nicotina abstinente desde el 11/10/2026 → **14 días**; cannabis **activo** (sin recuento de abstinencia). Recuperación LIVE diferenciada por sustancia. Tras cambiar nicotina al 15/09/2026 → **40 días**; perfil e Inicio («Desde el 15 sept 2026») y curvas actualizados. Marcador de gráfico **`Hoy · N días · Nicotina`**: identificado con nicotina, sin porcentaje global ficticio que mezcle cannabis activo. Logros insert-only: **3** desbloqueos iniciales (bronces nicotina) y **5** adicionales retroactivos (total **8**); los `unlockedAt` de los 3 primeros no se reescribieron. Anuncios de entonces: toasts (histórico); hoy ACH-NOTIF-01 / ACH-CELEB-01 en `main`, sin validar en producción.
 - **Dependencias:** AUTH-01. ACH-REV (política; no implementar revocación en este ítem).
@@ -734,7 +738,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
-- **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). LIVE-01 producción. PWA-01D iOS.
+- **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). PWA-01D iOS. WEB-01 actualización local pendiente de revisión/despliegue. MKT-PR-01D seguimiento de prensa.
 - **Siguiente trabajo (prioridad):** revisión legal D.3; humo LIVE `/app`; QA iOS PWA; observabilidad básica (Q-OBS / Q-05). **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
@@ -959,8 +963,13 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 #### WEB-01 — Renovación de la landing
 
 - **Objetivo:** Nueva landing de Soma 2.0: funcionalidades **reales**, propuesta educativa y de seguimiento, y un camino claro al registro.
-- **Prioridad:** P3 residual (WEB-02).
-- **Estado:** Completado e integrado en `main` (`ff5a359`, PR #82). El copy público debe describir funciones **reales**. GAME-07 **sí** está desplegado en SPA Live (DEMO Chromium); alinear landing/tour es residual de comunicación, **no** un hito nuevo obligatorio. **No** anunciar Android / Play Store (**MOB-01** pospuesto).
+- **Prioridad:** P1 (revisión y despliegue de la actualización); WEB-02 sigue P2/P3.
+- **Estado:** Landing original completada e integrada en `main` (`ff5a359`, PR #82). **Actualización 2026-11-12: implementada en local, pendiente de revisión/despliegue** (sin commit; **no** desplegada ni validada en producción). Añade:
+  - Sección «Lo que puedes explorar hoy en Soma»: recuperación/modelos, nueve perfiles cualitativos de NT, explorador de sustancias, atlas anatómico, Bitácora, misiones, logros/medallas/niveles y Centro de Expedición. Cada tarjeta enlaza a su ruta DEMO `/preview/*`.
+  - Sección del Centro de Expedición (beta pública): rutas de conocimiento y de perseverancia, con el mapa real (`expedition-map.webp`/`.png`) y los iconos existentes. CTA a `/preview/expedition`.
+  - Copy ES/EN educativa y motivacional, sin promesas clínicas. Se conservan los CTA DEMO / crear cuenta / entrar y los contratos SEO-01B (`index.html`, `robots.txt`, `sitemap.xml` sin cambios).
+  - QA local: tests web, typecheck y build OK; revisión visual DEMO Chromium escritorio (1440) y móvil (375) en `vite preview`. **No** Safari, **no** producción.
+- **No** anunciar Android / Play Store (**MOB-01** pospuesto).
 - **Dependencias:** REL-01 (funciones ya en `main`). **SEO-01A** y **SEO-01B** cerrados. WEB-02 puede ir en el mismo trabajo visual. No espera GAM-03 ni MOB-01.
 - **Decisiones confirmadas:**
   - Presentar las funcionalidades reales (Recuperación, Explorador, Logros, Bitácora, Misiones/XP **si** están desplegadas).
@@ -976,7 +985,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
   - Comprobación de visualización en navegadores y dispositivos.
   - Coherencia con la identidad de Soma y el futuro Somi (CHR-01).
 - **Residual:** WEB-02 (origen del nombre / filosofía) no se empaquetó aquí. **SEO-01B** cerrado (2026-11-12). Iconos de **instalación PWA** (manifest 192/512, standalone) pasan a **PWA-01**; FAV-01 cubre pestaña/Apple Touch 180, no el instalador. El copy público **no** describe funciones que no estén en producción.
-- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0 y qué puede hacer hoy. No afirma tienda nativa. Favicon: **FAV-01** (PR #92); instalabilidad: **PWA-01**. SHA SPA Live `c519bb3` (2026-11-11). Residual: mencionar Expedición en copy público si el propietario lo prioriza.
+- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0 y qué puede hacer hoy. No afirma tienda nativa. Favicon: **FAV-01** (PR #92); instalabilidad: **PWA-01**. SHA SPA Live `c519bb3` (2026-11-11). Expedición en copy público: cubierta por la actualización local de 2026-11-12, pendiente de revisión/despliegue.
 
 #### WEB-02 — Identidad y filosofía
 
@@ -1160,7 +1169,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### MKT-01 — Producto, identidad profesional y marketing
 
 - **Objetivo:** Preparar la visibilidad de Soma y la identidad pública del proyecto **después** de abrir la beta (BETA-01). ONB-01 ya estará previsto **antes** de la beta; MKT-01 **no** espera el tutorial como requisito futuro distinto.
-- **Prioridad:** P3 / posterior (comunicación). Elegible **después** de la apertura (ya ocurrida). No desplaza D.3, LIVE-01 ni PWA-01D.
+- **Prioridad:** P3 / posterior (comunicación). Elegible **después** de la apertura (ya ocurrida). No desplaza D.3 ni PWA-01D.
 - **Estado:** Parcial. **MKT-01C** (medición básica) **Completado** (2026-11-12). Canales, campañas, perfiles y estrategia de contenidos: **pendiente**. **No** crear cuentas ni publicaciones desde este archivo. **No** iniciar campañas automáticas. Este documento **no** autoriza publicaciones ni cambios automáticos de perfiles.
 - **Secuencia vigente:** apertura ya hecha → **MKT-01C** cerrado → resto de MKT-01 cuando se autorice. No crear cuentas ni publicaciones en un sync documental.
 - **Alcance previsto (evaluación y propuesta; no ejecución ahora):**
@@ -1199,6 +1208,17 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Limitación aceptada:** no hay medición consolidada de visitantes únicos ni de conversiones internas (registro, DEMO, LIVE).
 - **Criterio:** visibilidad orgánica y de redes observable sin beacon ni píxeles. Cumplido en este recorte.
 
+#### MKT-PR-01 — Comunicación a prensa
+
+- **Objetivo:** Dar a conocer la beta pública de Soma a medios, con mensajes alineados con funciones **reales** y sin afirmaciones clínicas.
+- **Prioridad:** P2 (seguimiento).
+- **Estado:** En curso. Dos rondas enviadas; seis medios contactados en total.
+  - **Primera ronda — enviados:** VIA Empresa, NacióDigital, El Referente.
+  - **Segunda ronda — enviados:** Genbeta, Salud a Diario, Xataka.
+- **MKT-PR-01D — Seguimiento:** **en curso**. Pendiente de respuestas, seguimiento y posibles publicaciones. **No** hay respuestas ni cobertura editorial confirmadas en este archivo.
+- **Dependencias:** BETA-01 (producto público). Independiente de **MKT-01C** (medición básica, cerrado).
+- **Criterio:** Respuestas y publicaciones registradas solo cuando estén confirmadas.
+
 ---
 
 ## Calidad y lanzamiento
@@ -1207,7 +1227,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 
 - **Descripción:** Automatizar tests (al menos web + API unit/http) en cada PR a `develop`/`main`.
 - **Estado:** Residual PostgreSQL **completado y validado** (PR #105, merge `455cdf5`). El hito **no** está cerrado del todo: quedan scripts raíz, cobertura y **Q-05**. **Q-E2E** es un hito aparte (pendiente). `ci.yml` job `check`, PRs a `develop` y `main`. Postgres 16 efímero, `migrate deploy`, seed, `test:pg`; skips TAP o suite vacía fallan el job.
-- **Prioridad:** P2 residual (cobertura / **Q-05**). Siguiente trabajo de calidad junto a **Q-OBS**; no desplaza D.3 ni LIVE-01.
+- **Prioridad:** P2 residual (cobertura / **Q-05**). Siguiente trabajo de calidad junto a **Q-OBS**; no desplaza D.3.
 - **Evidencia (2026-11-10, Actions, propietario):** 329 tests API, 968 web, 115 PostgreSQL; 0 fallos, 0 skips. Deadlock `40P01` en init concurrente de `UserProgression` corregido en `5eaa05c` (mismo PR).
 - **Evidencia previa (2026-10-30):** `ci.yml` y `database-backups.yml`. Root sin `test`/`lint` globales. Eso **sigue** (no cerrado por el PG).
 - **Dependencias:** Ninguna de producto.
@@ -1313,7 +1333,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (14 educativas publicadas en `main`).
 14. **CHR-01:** cerrado técnicamente en `main`. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01 / CHR-01:** en `main`.
-16. **UX-PRE-BETA:** **cerrado** (histórico de apertura). Residual en VIS-01, I18N-04, LIVE-01, PWA-01D. **MKT-01C** cerrado (medición básica). Resto de **MKT-01** pendiente (P3). **SEO-01B** cerrado. **GAME-07** en origin y SPA Live. **PWA-01** instalación básica Android/iOS hecha; QA funcional iOS pendiente; **MOB-01** pospuesto (tiendas).
+16. **UX-PRE-BETA:** **cerrado** (histórico de apertura). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados). **MKT-01C** cerrado (medición básica). **MKT-PR-01D** (prensa) en curso. Resto de **MKT-01** pendiente (P3). **SEO-01B** cerrado. **GAME-07** en origin y SPA Live. **PWA-01** instalación básica Android/iOS hecha; QA funcional iOS pendiente; **MOB-01** pospuesto (tiendas).
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
 
@@ -1323,7 +1343,7 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 
 | ID | Riesgo / bloqueo | Estado |
 | --- | --- | --- |
-| R-API | Explorar/sustancias depende del API. Mitigado en local. `/app` autenticado comprobado **en local** (AUTH-01/LIVE-01); no producción. No forzar `.env` ni seeds. | Mitigado en local |
+| R-API | Explorar/sustancias depende del API. `/app` autenticado comprobado en local y en producción (AUTH-01/LIVE-01; producción según confirmación del propietario). No forzar `.env` ni seeds. | Mitigado |
 | R-CLIN | Publicar síntomas o Consejos sin revisión clínica. | Bloqueado por revisión clínica |
 | R-% | Confundir avance de curva con salud recuperada. | Mitigado en DEMO (UX-04); pendiente con usuarios LIVE |
 | R-CAL | Reutilizar 1–7/8–56/57+ como calendario clínico. | Pendiente (guardrails; catálogo educativo vacío) |
@@ -1344,11 +1364,12 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 ## Próximos pasos (por dependencia)
 
-1. **BETA-01D.3:** validación jurídica formal (responsable, proveedores, transferencias). Abierta. Los avisos `published` **no** están revisados por un jurista en este documento.
-2. **AUTH-01 / LIVE-01:** humo autorizado de `/app` (cuenta sintética). No inferir desde DEMO Chromium.
-3. **PWA-01D:** QA funcional iOS en la PWA instalada. A/B/C desplegados. Instalación iOS ≠ recorrido LIVE. **MOB-01** pospuesto.
-4. **Q-OBS** y **Q-05:** errores visibles / `recovery-math` en CI. Q-E2E aparte (no instalar Playwright sin autorización).
-5. **R-SHA recopy API:** procedimiento cerrado. Falta SHA Live de API tras #105. No inventar.
+1. **WEB-01:** revisión y eventual despliegue de la landing actualizada (implementada en local; sin commit ni despliegue).
+2. **PWA-01D:** validación iOS/Safari en la PWA instalada. A/B/C desplegados. Instalación iOS ≠ recorrido LIVE. **MOB-01** pospuesto.
+3. **UX-POLISH:** descubrimiento de Expedición desde Inicio y desde el tutorial.
+4. **MKT-PR-01D:** seguimiento de prensa (seis medios contactados; sin cobertura confirmada).
+5. **Q-OBS** y **Q-05:** mejoras de calidad justificadas (errores visibles / `recovery-math` en CI). Q-E2E aparte (no instalar Playwright sin autorización).
+- **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), abierta; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
 7. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
 8. **XP sin Bitácora / GAM-02 bienestar / UX-11–12 / GAME-08 / WEB-02 / resto de MKT-01:** P3 o diseño, no el siguiente código. **SEO-01B** y **MKT-01C** cerrados.
@@ -1432,7 +1453,7 @@ Síntomas / Consejos
   → ingestión al catálogo público (otro hito; no automática)
   → UI que solo lee lo publicado
 
-AUTH-01 + LIVE-01 (local hecho; prod/staging pendiente)
+AUTH-01 + LIVE-01 (completados: local + producción según propietario)
   →  I18N-2.0 (PR #60) + ANAT-I18N-01 (PR #68)
   → UX-12  →  UX-11 (autorización de reglas)
   → ACH-REV residual (fecha errónea) antes de cualquier revocación
@@ -1449,9 +1470,11 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
   Fase E2   REL-01 y trenes #77–#107 hasta `c519bb3`
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
             BETA-01D.3 jurídica — **abierta**
-            AUTH-01 / LIVE-01 producción — **abiertos**
+            AUTH-01 / LIVE-01 — completados (local + producción según propietario)
             PWA-01 instalación Android/iOS hecha; QA funcional iOS **pendiente**. R-SHA procedimiento cerrado. SPA Live recopiada `c519bb3`. API copiada `4520530`; recopia post-#105 pendiente. Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
-  Fase G    WEB-02 → resto de MKT-01 → FBK-02  (P3 / cuando se autorice)
+  Fase G    WEB-01 actualización (local; revisión/despliegue) → UX-POLISH Expedición
+            MKT-PR-01: 2 rondas / 6 medios; MKT-PR-01D seguimiento en curso
+            WEB-02 → resto de MKT-01 → FBK-02  (P3 / cuando se autorice)
             SEO-01B y MKT-01C — cerrados (2026-11-12)
   MOB-01    pospuesto (Play/App Store; ≠ PWA-01)
   GAME-08   tras ACH-REV residual (P3)
@@ -1477,7 +1500,7 @@ VIS-01 (no reabre UX-03)
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, GAME-07F, EXP-EDU-01, IMG-PERF-01A, IMG-PERF-01B, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, SEO-01A, SEO-01B, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-COPY-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, MKT-01C, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**. **FAV-01** ≠ manifest PWA. **MKT-01C** ≠ el resto de MKT-01.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, GAME-07F, EXP-EDU-01, IMG-PERF-01A, IMG-PERF-01B, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, SEO-01A, SEO-01B, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-COPY-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, MKT-01C, MKT-PR-01, MKT-PR-01D, UX-POLISH, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**. **FAV-01** ≠ manifest PWA. **MKT-01C** ≠ el resto de MKT-01.
 11. **Regla de avance:** un hito bloqueado por dependencia externa no impide trabajos posteriores técnicamente independientes. El hito bloqueado **no** se marca cerrado.
 12. **Cierre de hito:** criterios validados, aprobación, actualización de este archivo, pruebas/referencias, y commit solo autorizado. Un cierre técnico sin fila en el roadmap no cuenta.
 
@@ -1568,3 +1591,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-11 | SPA Live = `c519bb3` (panel Render, propietario). QA DEMO Chromium GAME-07 + IMG-PERF-01B. API Live copiada permanece `4520530` (2026-11-10); SHA post-#105 **no** recopiado. |
 | 2026-11-11 | **ROADMAP-SYNC-01** (este registro): actualiza estados a git/SPA reales. Cierra UX-PRE-BETA como histórico. GAME-07 / 07F / IMG-PERF-01A/01B integrados y desplegados (DEMO Chromium). BETA-01D.3, LIVE-01, PWA-01D **abiertos**. Sin commit de código. **No** dictamen jurídico. **No** QA iOS/LIVE. |
 | 2026-11-12 | **SEO-01B** Completado: GSC, canonical `https://somarecovery.app/`, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales (prueba en tiempo real `/reset-password`). URLs antiguas: recrawl. Sin código/SSR/infra. **MKT-01C** Completado (medición básica): GSC + Instagram/LinkedIn, revisión semanal. Cloudflare Web Analytics descartado (`spa: false` no evita rutas internas al ocultar). HTTP Analytics CF inactivo con DNS only (se mantiene). Sin visitantes únicos ni conversiones internas (limitación aceptada). Resto de MKT-01 pendiente. Solo este archivo. Sin commit. |
+| 2026-11-12 | **AUTH-01** / **LIVE-01** Completados: validación funcional local (2026-10-25) y en producción según confirmación del propietario (sin fecha ni detalle registrados). No se repiten salvo regresión o cambio funcional relevante. **WEB-01** actualización de landing (funcionalidades actuales + Centro de Expedición, ES/EN, assets existentes): implementada en local, pendiente de revisión/despliegue; tests/typecheck/build OK; revisión visual DEMO Chromium escritorio/móvil. **MKT-PR-01**: dos rondas enviadas (VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka); **MKT-PR-01D** en curso, sin cobertura confirmada. Prioridades: WEB-01 → PWA-01D → UX-POLISH → MKT-PR-01D → Q-OBS/Q-05. Sin commit. |
