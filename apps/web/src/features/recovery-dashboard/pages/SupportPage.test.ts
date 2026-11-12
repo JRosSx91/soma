@@ -30,6 +30,12 @@ import {
   supportLearnLinks,
   supportResourceGroups,
 } from "../support/support-links.js";
+import {
+  SUPPORT_ILLUSTRATION_SIZE,
+  supportIllustrationSrc,
+  supportResourceIllustrations,
+  supportToolIllustrations,
+} from "../support/support-visuals.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const srcDir = join(here, "../../..");
@@ -119,6 +125,7 @@ test("quick tools: breathing works in DEMO and LIVE, the other three stay planne
         const card = blockFor(markup, "data-tool", tool);
         assert.match(card, new RegExp(`<h3[^>]*>${copy.tools[tool].title}</h3>`));
         assert.equal(card.includes("href="), false, tool);
+        assert.match(card, new RegExp(`data-illustration="${supportToolIllustrations[tool]}"`));
         if (tool === "breathing") {
           assert.match(card, /data-breathing-status="idle"/);
           assert.equal((card.match(/<button/g) ?? []).length, 1);
@@ -132,6 +139,40 @@ test("quick tools: breathing works in DEMO and LIVE, the other three stay planne
       assert.ok(markup.indexOf('data-tool="breathing"') < markup.indexOf('data-tool="craving"'));
     }
   }
+});
+
+test("SUP-ASSET-01 maps each card to its illustration and keeps PNG masters with WebP derivatives", () => {
+  assert.deepEqual(supportToolIllustrations, {
+    breathing: "support-breathing",
+    mindfulness: "support-mindfulness",
+    movement: "support-activity",
+    craving: "support-craving",
+  });
+  assert.deepEqual(supportResourceIllustrations, {
+    processes: "support-learning",
+    reading: "support-reading",
+    audio: "support-audio",
+  });
+  assert.deepEqual(SUPPORT_ILLUSTRATION_SIZE, { width: 768, height: 512 });
+
+  const names = [
+    ...Object.values(supportToolIllustrations),
+    ...Object.values(supportResourceIllustrations),
+  ];
+  assert.equal(new Set(names).size, 7);
+  const dir = join(publicDir, "images/support");
+  for (const name of names) {
+    const png = join(dir, `${name}.png`);
+    const webp = join(dir, `${name}.webp`);
+    assert.equal(existsSync(png), true, png);
+    assert.equal(existsSync(webp), true, webp);
+    assert.equal(supportIllustrationSrc(name, "png"), `/images/support/${name}.png`);
+    assert.equal(supportIllustrationSrc(name, "webp"), `/images/support/${name}.webp`);
+  }
+  assert.deepEqual(
+    readdirSync(dir).filter((file) => file.endsWith(".png")).sort(),
+    names.map((name) => `${name}.png`).sort(),
+  );
 });
 
 test("resource cards group published articles and mark audio as unavailable", async () => {
@@ -148,6 +189,7 @@ test("resource cards group published articles and mark audio as unavailable", as
     for (const group of groups) {
       const card = blockFor(markup, "data-resource-group", group.id);
       assert.ok(card.includes(esSupport.learn.groups[group.id].title), group.id);
+      assert.match(card, new RegExp(`data-illustration="${supportResourceIllustrations[group.id]}"`));
       assert.equal((card.match(/href="/g) ?? []).length, group.links.length, group.id);
       for (const link of group.links) assert.ok(card.includes(`href="${link.href}"`), link.id);
     }
