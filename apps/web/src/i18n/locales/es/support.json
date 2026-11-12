@@ -7,13 +7,22 @@
     "title": "Herramientas rápidas",
     "subtitle": "Ejercicios breves para usar a tu ritmo.",
     "status": {
-      "preparing": "En preparación",
       "planned": "Prevista"
     },
     "breathing": {
       "title": "Respiración guiada",
-      "body": "Respiración pausada, sin retenciones, que podrás detener cuando quieras.",
-      "statusHint": "Todavía no está disponible."
+      "body": "Una guía visual para acompasar la respiración, sin retener el aire.",
+      "rhythm": "Ritmo orientativo: inspira 4 s y espira 6 s.",
+      "notice": "Respira a tu propio ritmo. Si notas mareo o incomodidad, detente.",
+      "controls": "Controles de la respiración guiada",
+      "start": "Comenzar",
+      "pause": "Pausar",
+      "resume": "Continuar",
+      "restart": "Reiniciar",
+      "inhale": "Inspira",
+      "exhale": "Espira",
+      "paused": "Ejercicio pausado",
+      "secondsLeft": "{{count}} s"
     },
     "mindfulness": {
       "title": "Atención plena",

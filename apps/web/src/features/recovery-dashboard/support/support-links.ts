@@ -5,14 +5,14 @@ import type { ExploreEduSheetId } from "../explore/explore-edu.js";
 /**
  * Support page content map. Resource groups only link to Explore articles
  * that are already published; titles come from `explore-edu`, never
- * rewritten here. Tools, the audio group and strategy topics have no content
- * yet and must render as unavailable, never as actions.
+ * rewritten here. Planned tools, the audio group and strategy topics have no
+ * content yet and must render as unavailable, never as actions.
  */
 export const SUPPORT_TOOLS = ["breathing", "mindfulness", "movement", "craving"] as const;
 export type SupportTool = (typeof SUPPORT_TOOLS)[number];
 
-/** The only tool with an approved spec (SUP-01C); the rest are planned. */
-export const SUPPORT_TOOL_IN_PREPARATION: SupportTool = "breathing";
+/** The only working tool (SUP-01C); the rest are planned. */
+export const SUPPORT_AVAILABLE_TOOL: SupportTool = "breathing";
 
 export const SUPPORT_RESOURCE_GROUPS = [
   { id: "processes", sheets: ["dependence", "tolerance", "neuroadaptation"] },

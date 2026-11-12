@@ -7,13 +7,22 @@
     "title": "Quick tools",
     "subtitle": "Short exercises to use at your own pace.",
     "status": {
-      "preparing": "In preparation",
       "planned": "Planned"
     },
     "breathing": {
       "title": "Guided breathing",
-      "body": "Slow breathing, with no breath holds, that you will be able to stop whenever you like.",
-      "statusHint": "Not available yet."
+      "body": "A visual guide to pace your breathing, without holding your breath.",
+      "rhythm": "Suggested pace: breathe in for 4 s and out for 6 s.",
+      "notice": "Breathe at your own pace. If you feel dizzy or uncomfortable, stop.",
+      "controls": "Guided breathing controls",
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Resume",
+      "restart": "Restart",
+      "inhale": "Breathe in",
+      "exhale": "Breathe out",
+      "paused": "Exercise paused",
+      "secondsLeft": "{{count}} s"
     },
     "mindfulness": {
       "title": "Mindfulness",

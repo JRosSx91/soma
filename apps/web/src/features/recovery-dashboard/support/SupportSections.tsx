@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -8,33 +7,36 @@ import {
   ChevronRight,
   Clock,
   Compass,
-  Flower2,
-  Footprints,
   Headphones,
   Layers,
   Library,
   LifeBuoy,
   Sprout,
   Target,
-  WavesHorizontal,
-  Wind,
   type LucideIcon,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
+import { BreathingTool } from "./BreathingTool.js";
+import { SupportHalo } from "./SupportHalo.js";
 import {
+  SUPPORT_AVAILABLE_TOOL,
   SUPPORT_STRATEGY_TOPICS,
   SUPPORT_TERMS_EMERGENCY_HREF,
-  SUPPORT_TOOL_IN_PREPARATION,
   SUPPORT_TOOLS,
   supportExploreHref,
   supportResourceGroups,
   type SupportResourceGroupId,
   type SupportStrategyTopic,
-  type SupportTool,
 } from "./support-links.js";
+import {
+  supportBackdrop as backdrop,
+  supportGlowIcon as glowIcon,
+  supportToolVisuals as toolVisuals,
+  type SupportVisual,
+} from "./support-visuals.js";
 
 const panelClass =
   "min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 p-4 sm:p-5";
@@ -42,22 +44,7 @@ const accentColor = { color: "rgb(var(--soma-shell-accent))" };
 const plannedPillClass =
   "inline-flex items-center gap-1.5 rounded-full border border-dashed border-soma-line-strong px-2.5 py-1 text-xs font-medium text-soma-ink-secondary";
 
-interface Visual {
-  icon: LucideIcon;
-  /** Icon color, also used for its soft glow. */
-  rgb: string;
-  /** Second color of the radial backdrop. */
-  haloRgb: string;
-}
-
-const toolVisuals: Record<SupportTool, Visual> = {
-  breathing: { icon: Wind, rgb: "103 232 249", haloRgb: "139 92 246" },
-  mindfulness: { icon: Flower2, rgb: "196 181 253", haloRgb: "217 70 239" },
-  movement: { icon: Footprints, rgb: "253 186 116", haloRgb: "56 189 248" },
-  craving: { icon: WavesHorizontal, rgb: "125 211 252", haloRgb: "59 130 246" },
-};
-
-const resourceVisuals: Record<SupportResourceGroupId, Visual> = {
+const resourceVisuals: Record<SupportResourceGroupId, SupportVisual> = {
   processes: { icon: BookOpen, rgb: "253 224 71", haloRgb: "103 232 249" },
   reading: { icon: Library, rgb: "165 180 252", haloRgb: "244 114 182" },
   audio: { icon: Headphones, rgb: "196 181 253", haloRgb: "139 92 246" },
@@ -76,39 +63,7 @@ const planParts = [
   { id: "habits", icon: Sprout },
 ] as const;
 
-function backdrop({ rgb, haloRgb }: Visual, dim = false): CSSProperties {
-  const a = dim ? 0.14 : 0.42;
-  return {
-    background: `radial-gradient(circle at 50% 55%, rgb(${rgb} / ${a}) 0%, rgb(${haloRgb} / ${a * 0.75}) 34%, transparent 70%), linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.5) 0%, rgb(var(--soma-surface) / 0.2) 100%)`,
-  };
-}
-
-function glowIcon({ rgb }: Visual, dim = false): CSSProperties {
-  return {
-    color: `rgb(${rgb} / ${dim ? 0.6 : 1})`,
-    filter: dim
-      ? undefined
-      : `drop-shadow(0 0 6px rgb(${rgb} / 0.9)) drop-shadow(0 0 18px rgb(${rgb} / 0.55))`,
-  };
-}
-
-/** Static concentric halo behind an illustration icon. */
-function Halo({ rgb, dim = false }: { rgb: string; dim?: boolean }) {
-  const ring = (inset: string, alpha: number) => (
-    <span
-      className={`absolute ${inset} rounded-full border`}
-      style={{ borderColor: `rgb(${rgb} / ${dim ? alpha / 2 : alpha})` }}
-    />
-  );
-  return (
-    <span className="pointer-events-none absolute left-1/2 top-1/2 hidden aspect-square h-[78%] -translate-x-1/2 -translate-y-1/2 sm:block">
-      {ring("inset-0", 0.14)}
-      {ring("inset-[18%]", 0.24)}
-    </span>
-  );
-}
-
-/** SUP-01B.1: static content below the hero, laid out after `apoyo-2.0`. No tool is interactive yet. */
+/** Content below the hero, laid out after `apoyo-2.0`. Only guided breathing is interactive (SUP-01C). */
 export function SupportSections() {
   const { t } = useTranslation(["support", "explore-edu"]);
   const base = useShellBase();
@@ -122,25 +77,23 @@ export function SupportSections() {
         </h2>
         <p className="mt-1 text-sm text-soma-ink-secondary">{t("support:tools.subtitle")}</p>
 
-        <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {SUPPORT_TOOLS.map((tool) => {
+            if (tool === SUPPORT_AVAILABLE_TOOL) return <BreathingTool key={tool} />;
             const visual = toolVisuals[tool];
             const Icon = visual.icon;
-            const preparing = tool === SUPPORT_TOOL_IN_PREPARATION;
             return (
               <li
                 key={tool}
                 data-tool={tool}
-                className={`flex min-w-0 gap-3 overflow-hidden rounded-2xl border bg-soma-surface/90 p-3 sm:flex-col sm:p-0 ${
-                  preparing ? "border-soma-shell-accent/40" : "border-soma-line"
-                }`}
+                className="flex min-w-0 gap-3 overflow-hidden rounded-2xl border border-soma-line bg-soma-surface/90 p-3 sm:flex-col sm:p-0"
               >
                 <div
-                  className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl sm:h-32 sm:w-full lg:h-24 xl:h-32 sm:rounded-none sm:border-b sm:border-soma-line"
+                  className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl sm:h-36 sm:w-full sm:rounded-none sm:border-b sm:border-soma-line"
                   style={backdrop(visual)}
                   aria-hidden="true"
                 >
-                  <Halo rgb={visual.rgb} />
+                  <SupportHalo rgb={visual.rgb} />
                   <Icon className="relative h-8 w-8 sm:h-14 sm:w-14" strokeWidth={1.35} style={glowIcon(visual)} />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pb-4">
@@ -150,18 +103,8 @@ export function SupportSections() {
                   <p className="mt-1 text-sm leading-relaxed text-soma-ink-secondary">
                     {t(`support:tools.${tool}.body`)}
                   </p>
-                  <p className="mt-auto flex flex-wrap items-center gap-x-2 gap-y-1 pt-3 text-xs text-soma-ink-muted">
-                    {preparing ? (
-                      <>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-soma-shell-accent/40 bg-soma-shell-accent/10 px-2.5 py-1 font-medium text-soma-ink">
-                          <Clock className="h-3.5 w-3.5" style={accentColor} aria-hidden="true" />
-                          {t("support:tools.status.preparing")}
-                        </span>
-                        <span>{t("support:tools.breathing.statusHint")}</span>
-                      </>
-                    ) : (
-                      <span className={plannedPillClass}>{t("support:tools.status.planned")}</span>
-                    )}
+                  <p className="mt-auto pt-3 text-xs text-soma-ink-muted">
+                    <span className={plannedPillClass}>{t("support:tools.status.planned")}</span>
                   </p>
                 </div>
               </li>
@@ -204,7 +147,7 @@ export function SupportSections() {
                       style={backdrop(visual, empty)}
                       aria-hidden="true"
                     >
-                      <Halo rgb={visual.rgb} dim={empty} />
+                      <SupportHalo rgb={visual.rgb} dim={empty} />
                       <Icon className="relative h-7 w-7 sm:h-11 sm:w-11" strokeWidth={1.35} style={glowIcon(visual, empty)} />
                     </div>
                     <div className="min-w-0 sm:px-3 sm:pt-3">
