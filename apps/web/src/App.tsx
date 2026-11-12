@@ -17,7 +17,7 @@ import { MissionsPage } from "./features/recovery-dashboard/pages/MissionsPage.j
 import { ExpeditionPage } from "./features/recovery-dashboard/pages/ExpeditionPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
 import { FeedbackPage } from "./features/recovery-dashboard/pages/FeedbackPage.js";
-import { useTranslation } from "react-i18next";
+import { AppBootScreen } from "./components/AppBootScreen.js";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
 import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
@@ -32,14 +32,9 @@ import {
 
 function RootRoute() {
   const { user, loading, sessionNotice } = useAuth();
-  const { t } = useTranslation("common");
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#081018] text-[#68D8C0]">
-        {t("loading")}
-      </div>
-    );
+    return <AppBootScreen />;
   }
 
   // After account deletion the notice is set with user=null. Never bounce

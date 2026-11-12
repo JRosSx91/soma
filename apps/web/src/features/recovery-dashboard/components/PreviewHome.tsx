@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Award, ChevronLeft, ChevronRight, Route } from "lucide-react";
+import { Award, ChevronLeft, ChevronRight, Mountain, Route } from "lucide-react";
 import { HomeProgressIdentity, useProgress } from "../../progress/index.js";
 import type { TemporalMilestoneState } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
@@ -91,6 +91,7 @@ export function PreviewHome() {
   const recoveryTo = recoveryHref(base);
   const anatomyTo = `${base}/anatomy`;
   const achievementsTo = `${base}/achievements`;
+  const expeditionTo = `${base}/expedition`;
   const dailyPool = readDailyMessages(t("recovery:homeDailyMessages", { returnObjects: true }));
   const dailyMessage = pickDailyMessage(dailyPool);
   const horizonMessage = pickDailyMessage(dailyPool, new Date(), 1);
@@ -259,7 +260,7 @@ export function PreviewHome() {
           achievementsTo={achievementsTo}
         />
         <AdviceCard anatomyTo={anatomyTo} />
-        <HorizonCard message={horizonMessage} />
+        <HorizonCard message={horizonMessage} expeditionTo={expeditionTo} />
       </div>
     </div>
   );
@@ -765,7 +766,13 @@ function AdviceCard({ anatomyTo }: { anatomyTo: string }) {
   );
 }
 
-function HorizonCard({ message }: { message: string | null }) {
+function HorizonCard({
+  message,
+  expeditionTo,
+}: {
+  message: string | null;
+  expeditionTo: string;
+}) {
   const { t } = useTranslation("recovery");
   return (
     <section className="relative flex h-full min-h-[11rem] overflow-hidden rounded-2xl border border-soma-line-strong">
@@ -779,12 +786,17 @@ function HorizonCard({ message }: { message: string | null }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(var(--soma-shell-rail)_/_0.82)_0%,rgb(var(--soma-shell-rail)_/_0.28)_58%,transparent_100%)]"
       />
-      <div className="relative z-10 flex max-w-[16rem] flex-col items-start px-4 pt-4">
+      <div className="relative z-10 flex max-w-[16rem] flex-col items-start px-4 pb-2 pt-4">
         <span aria-hidden="true" className="font-serif text-5xl leading-none" style={accentColor}>
           “
         </span>
         <p className="text-sm font-medium leading-relaxed text-soma-ink">{message ?? t("homeQuote")}</p>
         <span className="mt-3 h-0.5 w-10 rounded-full" style={temporalFillColor} />
+        <Link to={expeditionTo} className={`${textLink} mt-auto whitespace-nowrap pt-3 font-medium`}>
+          <Mountain className="h-4 w-4" aria-hidden="true" />
+          {t("homeExpeditionCta")}
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );
