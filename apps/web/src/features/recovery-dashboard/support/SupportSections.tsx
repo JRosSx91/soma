@@ -28,6 +28,7 @@ import {
   supportResourceGroups,
   type SupportStrategyTopic,
 } from "./support-links.js";
+import { supportStrategyHrefForTopic } from "./support-strategies.js";
 import { supportResourceIllustrations, supportToolIllustrations } from "./support-visuals.js";
 
 const panelClass =
@@ -167,17 +168,39 @@ export function SupportSections() {
           <ul className="mt-4 grid min-w-0 flex-1 auto-rows-fr gap-2 xl:max-h-80">
             {SUPPORT_STRATEGY_TOPICS.map((topic) => {
               const Icon = strategyIcons[topic];
+              const href = supportStrategyHrefForTopic(base, topic);
+              const label = t(`support:strategies.topics.${topic}`);
+              if (href) {
+                return (
+                  <li key={topic} data-strategy={topic} data-strategy-state="available" className="min-w-0">
+                    <Link
+                      to={href}
+                      aria-label={label}
+                      className={`${previewFocus} flex min-h-12 min-w-0 items-center gap-3 rounded-xl border border-soma-line bg-soma-raised/30 px-3 py-2 motion-safe:transition-colors motion-reduce:transition-none hover:bg-soma-raised/70`}
+                    >
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soma-shell-accent/10">
+                        <Icon className="h-4 w-4" style={accentColor} aria-hidden="true" />
+                      </span>
+                      <span className="min-w-0 flex-1 text-sm font-medium leading-snug text-soma-ink">
+                        {label}
+                      </span>
+                      <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
+                    </Link>
+                  </li>
+                );
+              }
               return (
                 <li
                   key={topic}
                   data-strategy={topic}
+                  data-strategy-state="planned"
                   className="flex min-h-12 min-w-0 items-center gap-3 rounded-xl border border-soma-line bg-soma-raised/30 px-3 py-2"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soma-shell-accent/10">
                     <Icon className="h-4 w-4" style={accentColor} aria-hidden="true" />
                   </span>
                   <span className="min-w-0 flex-1 text-sm font-medium leading-snug text-soma-ink">
-                    {t(`support:strategies.topics.${topic}`)}
+                    {label}
                   </span>
                   <span className="shrink-0 text-xs text-soma-ink-muted">
                     {t("support:strategies.status")}
