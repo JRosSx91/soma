@@ -16,6 +16,48 @@
     "ctaSecondary": "Explore the demo",
     "disclaimer": "Educational models. Soma is not a medical device. Panels in the artwork are visual motifs, not measurements or profile data."
   },
+  "features": {
+    "eyebrow": "Available in the public beta",
+    "title": "What you can explore in Soma today",
+    "intro": "An educational and motivational tool for understanding what happens in the body after stopping a substance. Every area can be explored in the demo, without an account.",
+    "listLabel": "Available features",
+    "demoLink": "See it in the demo",
+    "note": "The models are educational estimates from the catalog. Soma does not diagnose, is not a medical device, and does not predict your personal recovery.",
+    "items": {
+      "recovery": {
+        "title": "Recovery",
+        "body": "Educational curves by system and abstinence clocks based on your timeline."
+      },
+      "neurotransmitters": {
+        "title": "Neurotransmitters",
+        "body": "Nine qualitative, educational profiles. They do not measure your brain activity."
+      },
+      "substances": {
+        "title": "Substance explorer",
+        "body": "Alcohol, nicotine, cannabis, cocaine and caffeine: educational sheets, processes and phases."
+      },
+      "atlas": {
+        "title": "Anatomical atlas",
+        "body": "Twelve body systems on illustrated plates."
+      },
+      "journal": {
+        "title": "Journal",
+        "body": "A personal, voluntary space to record mood, sleep, energy and notes."
+      },
+      "missions": {
+        "title": "Educational missions",
+        "body": "Short readings with questions that add experience when completed."
+      },
+      "achievements": {
+        "title": "Achievements and levels",
+        "body": "Medals tied to catalog thresholds, experience, levels and titles."
+      },
+      "expedition": {
+        "title": "Expedition centre",
+        "body": "Knowledge and perseverance routes on an interactive map."
+      }
+    }
+  },
   "journey": {
     "eyebrow": "Explore time",
     "title": "Recovery does not happen overnight.",
@@ -164,6 +206,27 @@
       "note": "Fictional notes. They do not belong to any account.",
       "demo": "See the journal in the demo"
     }
+  },
+  "expedition": {
+    "eyebrow": "Expedition centre",
+    "title": "Your journey, on a map you can explore.",
+    "badge": "Available now in the public beta",
+    "intro": "The Expedition centre is an educational, interactive experience. It brings together on an illustrated map what already exists in Soma: you choose a stage, see its progress and open the matching section to keep exploring and progress through missions.",
+    "routesLabel": "Two kinds of route",
+    "routes": {
+      "knowledge": {
+        "title": "Knowledge routes",
+        "body": "Five stages — neuroscience, anatomy, substances, key processes and recovery — connected to the educational missions and the sections of Soma."
+      },
+      "perseverance": {
+        "title": "Perseverance routes",
+        "body": "One stage per substance, with the abstinence milestones from your timeline. The clock follows abstinence, not sign-ins."
+      }
+    },
+    "demo": "Explore the expedition in the demo",
+    "mapAlt": "Illustrated map of the Soma Expedition centre: a landscape with five beacons marking the stages of the journey.",
+    "mapCaption": "The real expedition map artwork. In the app, the beacons show the state of each stage.",
+    "note": "In the demo the figures are examples; with an account, the expedition uses your data. It is an educational and motivational journey, not a clinical assessment or a prediction of your recovery."
   },
   "achievements": {
     "eyebrow": "Milestones along the way",
