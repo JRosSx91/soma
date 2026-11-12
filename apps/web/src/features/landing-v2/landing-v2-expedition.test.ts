@@ -58,6 +58,19 @@ test("expedition section reuses the real map artwork and route icons", () => {
   assert.match(expedition, /alt=\{t\("expedition\.mapAlt"\)\}/);
 });
 
+test("new sections reuse existing decorative backgrounds, not the map", () => {
+  assert.match(features, /\/images\/landing-v2\/soma-science-bg\.png/);
+  assert.equal(existsSync(publicFile("/images/landing-v2/soma-science-bg.png")), true);
+  assert.match(features, /alt=""/);
+
+  assert.match(expedition, /"\/images\/decoration\/nature-10\.png"/);
+  assert.match(expedition, /PhotoPlateImg/);
+  for (const file of ["nature-10.png", "nature-10.webp", "nature-10-960.webp", "nature-10-1600.webp"]) {
+    assert.equal(existsSync(publicFile(`/images/decoration/${file}`)), true, file);
+  }
+  assert.equal(expedition.match(/EXPEDITION_MAP_WEBP_SRC/g)?.length, 2);
+});
+
 test("expedition CTA opens the public demo route", () => {
   assert.match(expedition, /to="\/preview\/expedition"/);
   assert.match(app, /path="expedition" element=\{<ExpeditionPage \/>\}/);

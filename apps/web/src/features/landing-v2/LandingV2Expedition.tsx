@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { previewFocus } from "../recovery-dashboard/focus.js";
+import { PhotoPlateImg } from "../recovery-dashboard/components/PhotoPlateImg.js";
 import {
   EXPEDITION_MAP_HEIGHT,
   EXPEDITION_MAP_SRC,
@@ -11,6 +12,8 @@ import {
 } from "../recovery-dashboard/expedition/expedition-map-layout.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
+
+const EXPEDITION_BG = "/images/decoration/nature-10.png";
 
 const ROUTES = [
   {
@@ -40,9 +43,24 @@ export function LandingV2Expedition() {
   return (
     <section
       id="landing-expedition"
-      className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-12 sm:px-6 lg:px-12 lg:py-16 xl:px-16"
+      className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-12 sm:px-6 lg:flex lg:min-h-svh lg:flex-col lg:justify-center lg:px-12 lg:py-10 xl:px-16"
       aria-labelledby="landing-v2-expedition-title"
     >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <PhotoPlateImg
+          src={EXPEDITION_BG}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full max-w-none object-cover object-[center_60%] opacity-80"
+        />
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[#081018]/50 md:bg-[#081018]/35"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(8,16,24,0.7)_0%,rgba(8,16,24,0.45)_40%,rgba(8,16,24,0.15)_100%),linear-gradient(180deg,rgba(8,16,24,0.5)_0%,rgba(8,16,24,0.05)_30%,rgba(8,16,24,0.1)_70%,rgba(8,16,24,0.65)_100%)]"
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_40%,rgba(104,216,192,0.1),transparent_46%),radial-gradient(ellipse_at_12%_70%,rgba(251,191,36,0.06),transparent_40%)]"
@@ -54,7 +72,7 @@ export function LandingV2Expedition() {
 
       <div className="relative mx-auto grid w-full max-w-[88rem] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:gap-12">
         <motion.div
-          className="min-w-0"
+          className="landing-v2-copy-veil min-w-0"
           initial={fadeUp}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
