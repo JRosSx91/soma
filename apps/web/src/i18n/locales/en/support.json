@@ -77,7 +77,22 @@
     "educational": "Soma is an educational resource. It does not provide professional assistance or emergency care.",
     "emergency": "If your life or someone else's is in immediate danger, contact the emergency services where you are.",
     "professional": "For personalised guidance, talk to a healthcare professional.",
-    "termsLink": "Read the section on situations that need professional help"
+    "thirdParty": "The links and phone numbers below belong to external services. Soma does not run those services and does not guarantee their availability or response.",
+    "termsLink": "Read the section on situations that need professional help",
+    "verified": "Checked",
+    "otherEmergency": "If there is immediate danger, contact local emergency services where you are. Soma does not provide an international emergency number.",
+    "coverage": {
+      "label": "Choose the resource coverage",
+      "hint": "This choice only changes which list is shown. It does not detect your location.",
+      "empty": "Select a coverage to see verified official resources.",
+      "shown": "Coverage shown: {{coverage}}",
+      "spain": "Spain",
+      "other": "Other countries"
+    },
+    "zones": {
+      "crisis": "Emergencies and crisis situations",
+      "professional": "Professional help and information"
+    }
   },
   "plan": {
     "title": "Your support plan",

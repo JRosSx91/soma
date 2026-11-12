@@ -316,10 +316,14 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
   for (const lng of ["es", "en"] as const) {
     const markup = await render("/app", lng);
     const breathing = blockFor(markup, "data-tool", "breathing");
-    assert.equal((markup.match(/<button/g) ?? []).length, 1);
+    // Breathing start + coverage chooser (Spain / Other). No tel: until a coverage is chosen.
+    assert.equal((markup.match(/<button/g) ?? []).length, 3);
     assert.equal((breathing.match(/<button/g) ?? []).length, 1);
+    assert.match(markup, /data-help-coverage="spain"/);
+    assert.match(markup, /data-help-coverage="other"/);
     assert.equal(markup.includes('role="button"'), false);
     assert.equal(markup.includes("tel:"), false);
+    assert.equal(markup.includes("href=\"tel:"), false);
   }
   const { start: esStart, ...esRest } = esSupport.tools.breathing;
   const { start: enStart, ...enRest } = enSupport.tools.breathing;

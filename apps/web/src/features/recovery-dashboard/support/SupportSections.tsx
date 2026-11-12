@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import { BreathingTool } from "./BreathingTool.js";
+import { SupportHelpResources } from "./SupportHelpResources.js";
 import { SupportIllustration } from "./SupportIllustration.js";
 import {
   SUPPORT_AVAILABLE_TOOL,
@@ -236,7 +237,9 @@ export function SupportSections() {
             <p className="font-medium text-soma-ink">{t("support:help.educational")}</p>
             <p>{t("support:help.emergency")}</p>
             <p>{t("support:help.professional")}</p>
+            <p>{t("support:help.thirdParty")}</p>
           </div>
+          <SupportHelpResources />
           <Link
             to={SUPPORT_TERMS_EMERGENCY_HREF}
             className={`${previewFocus} mt-4 flex min-h-11 items-center justify-between gap-3 rounded-xl border border-rose-300/40 bg-rose-400/10 px-4 py-2.5 text-sm font-medium text-rose-100 motion-safe:transition-colors motion-reduce:transition-none hover:bg-rose-400/20`}
