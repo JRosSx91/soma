@@ -12,6 +12,7 @@ import {
   breathingVisual as visual,
   supportToolIllustrations,
 } from "./support-visuals.js";
+import { SUPPORT_BREATHING_ANCHOR_ID } from "./support-strategies.js";
 import { useBreathingSession } from "./useBreathingSession.js";
 
 export function BreathingTool() {
@@ -83,9 +84,11 @@ export function BreathingToolView({
 
   return (
     <li
+      id={SUPPORT_BREATHING_ANCHOR_ID}
+      tabIndex={-1}
       data-tool="breathing"
       data-breathing-status={status}
-      className="flex min-w-0 flex-col gap-3 overflow-hidden rounded-2xl border border-soma-shell-accent/40 bg-soma-surface/90"
+      className={`${previewFocus} flex min-w-0 flex-col gap-3 overflow-hidden rounded-2xl border border-soma-shell-accent/40 bg-soma-surface/90`}
     >
       {/* The illustration leads at rest; during the exercise it fades back so
           the circle, the functional cue, is never covered. Same box in every state. */}

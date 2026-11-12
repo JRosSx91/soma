@@ -59,8 +59,11 @@
   },
   "strategies": {
     "title": "Estrategias de apoyo",
-    "subtitle": "Temas previstos para futuras guías. Solo se publicarán después de revisar su contenido.",
+    "subtitle": "Guías educativas breves. Algunas ya están disponibles; otras se publicarán tras revisión.",
     "status": "Prevista",
+    "back": "Volver al Centro de Apoyo",
+    "sheetNotice": "Contenido educativo. No es terapia ni atención médica.",
+    "termsReference": "Leer el apartado sobre situaciones que requieren ayuda profesional",
     "topics": {
       "emotions": "Manejo de emociones",
       "relapse": "Prevención de recaídas",

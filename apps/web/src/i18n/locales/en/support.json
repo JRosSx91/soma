@@ -59,8 +59,11 @@
   },
   "strategies": {
     "title": "Support strategies",
-    "subtitle": "Topics planned for future guides. They will only be published after their content has been reviewed.",
+    "subtitle": "Short educational guides. Some are already available; others will be published after review.",
     "status": "Planned",
+    "back": "Back to the Support centre",
+    "sheetNotice": "Educational content. Not therapy or medical care.",
+    "termsReference": "Read the section on situations that need professional help",
     "topics": {
       "emotions": "Managing emotions",
       "relapse": "Relapse prevention",

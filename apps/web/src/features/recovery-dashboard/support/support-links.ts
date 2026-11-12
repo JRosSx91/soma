@@ -5,8 +5,8 @@ import type { ExploreEduSheetId } from "../explore/explore-edu.js";
 /**
  * Support page content map. Resource groups only link to Explore articles
  * that are already published; titles come from `explore-edu`, never
- * rewritten here. Planned tools, the audio group and strategy topics have no
- * content yet and must render as unavailable, never as actions.
+ * rewritten here. Planned tools and the audio group stay unavailable.
+ * Strategy topics resolve through `support-strategies.ts` (enabled allow-list).
  */
 export const SUPPORT_TOOLS = ["breathing", "mindfulness", "movement", "craving"] as const;
 export type SupportTool = (typeof SUPPORT_TOOLS)[number];

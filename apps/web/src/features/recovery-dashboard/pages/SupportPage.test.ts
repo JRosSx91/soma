@@ -31,6 +31,10 @@ import {
   supportResourceGroups,
 } from "../support/support-links.js";
 import {
+  SUPPORT_ENABLED_STRATEGY_IDS,
+  supportStrategyHrefForTopic,
+} from "../support/support-strategies.js";
+import {
   SUPPORT_ILLUSTRATION_SIZE,
   supportIllustrationSrc,
   supportResourceIllustrations,
@@ -197,15 +201,30 @@ test("resource cards group published articles and mark audio as unavailable", as
   }
 });
 
-test("strategy topics and the personal plan are shown as not available yet", async () => {
+test("three strategy topics are navigable; relapse and the personal plan stay unavailable", async () => {
   assert.deepEqual([...SUPPORT_STRATEGY_TOPICS], ["emotions", "relapse", "stress", "habits"]);
+  assert.deepEqual([...SUPPORT_ENABLED_STRATEGY_IDS], [
+    "stress.pause",
+    "habits.small-routines",
+    "emotions.naming",
+  ]);
   for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
     const markup = await render("/app", lng);
     for (const topic of SUPPORT_STRATEGY_TOPICS) {
       const row = blockFor(markup, "data-strategy", topic);
       assert.ok(row.includes(copy.strategies.topics[topic]), topic);
-      assert.ok(row.includes(copy.strategies.status), topic);
-      assert.equal(row.includes("href="), false, topic);
+      const href = supportStrategyHrefForTopic("/app", topic);
+      if (topic === "relapse") {
+        assert.equal(href, null);
+        assert.match(row, /data-strategy-state="planned"/);
+        assert.ok(row.includes(copy.strategies.status), topic);
+        assert.equal(row.includes("href="), false, topic);
+      } else {
+        assert.ok(href);
+        assert.match(row, /data-strategy-state="available"/);
+        assert.ok(row.includes(`href="${href}"`), topic);
+        assert.equal(row.includes(copy.strategies.status), false, topic);
+      }
     }
     const plan = markup.slice(markup.indexOf('id="support-plan-title"'));
     assert.ok(plan.includes(copy.plan.status));
@@ -230,10 +249,16 @@ test("learn links stay inside the active base and only open published articles",
     const markup = await render(base, "es");
     const other = base === "/app" ? "/preview" : "/app";
     const inApp = hrefs(markup).filter((href) => href !== SUPPORT_TERMS_EMERGENCY_HREF);
-    assert.equal(inApp.length, SUPPORT_LEARN_SHEETS.length + 1);
+    assert.equal(
+      inApp.length,
+      SUPPORT_LEARN_SHEETS.length + 1 + SUPPORT_ENABLED_STRATEGY_IDS.length,
+    );
     assert.ok(inApp.every((href) => href.startsWith(`${base}/`)), inApp.join(", "));
     assert.ok(inApp.every((href) => !href.startsWith(`${other}/`)));
     assert.equal(hrefs(markup).includes(SUPPORT_TERMS_EMERGENCY_HREF), true);
+    for (const id of SUPPORT_ENABLED_STRATEGY_IDS) {
+      assert.ok(inApp.includes(`${base}/support?strategy=${id}`), id);
+    }
   }
 });
 
@@ -286,6 +311,8 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
     assert.equal(source.includes("sessionStorage"), false);
     assert.equal(source.includes("fetch("), false);
   }
+  assert.match(page, /resolveSupportStrategyQueryParam/);
+  assert.match(page, /SupportStrategySheet/);
   for (const lng of ["es", "en"] as const) {
     const markup = await render("/app", lng);
     const breathing = blockFor(markup, "data-tool", "breathing");
