@@ -24,7 +24,7 @@ import {
   SUPPORT_RESOURCE_GROUPS,
   SUPPORT_STRATEGY_TOPICS,
   SUPPORT_TERMS_EMERGENCY_HREF,
-  SUPPORT_TOOL_IN_PREPARATION,
+  SUPPORT_AVAILABLE_TOOL,
   SUPPORT_TOOLS,
   supportExploreHref,
   supportLearnLinks,
@@ -109,19 +109,28 @@ function blockFor(markup: string, attribute: string, id: string): string {
   return markup.slice(start, Math.min(...ends));
 }
 
-test("quick tools render four cards, only breathing in preparation, none actionable", async () => {
+test("quick tools: breathing works in DEMO and LIVE, the other three stay planned", async () => {
   assert.deepEqual([...SUPPORT_TOOLS], ["breathing", "mindfulness", "movement", "craving"]);
-  assert.equal(SUPPORT_TOOL_IN_PREPARATION, "breathing");
-  for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
-    const markup = await render("/preview", lng);
-    for (const tool of SUPPORT_TOOLS) {
-      const card = blockFor(markup, "data-tool", tool);
-      assert.match(card, new RegExp(`<h3[^>]*>${copy.tools[tool].title}</h3>`));
-      assert.equal(card.includes("href="), false, tool);
-      const expected = tool === "breathing" ? copy.tools.status.preparing : copy.tools.status.planned;
-      assert.ok(card.includes(expected), `${lng} ${tool}`);
+  assert.equal(SUPPORT_AVAILABLE_TOOL, "breathing");
+  for (const base of ["/app", "/preview"] as const) {
+    for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
+      const markup = await render(base, lng);
+      for (const tool of SUPPORT_TOOLS) {
+        const card = blockFor(markup, "data-tool", tool);
+        assert.match(card, new RegExp(`<h3[^>]*>${copy.tools[tool].title}</h3>`));
+        assert.equal(card.includes("href="), false, tool);
+        if (tool === "breathing") {
+          assert.match(card, /data-breathing-status="idle"/);
+          assert.equal((card.match(/<button/g) ?? []).length, 1);
+          assert.ok(card.includes(copy.tools.breathing.start));
+          assert.equal(card.includes(copy.tools.status.planned), false);
+        } else {
+          assert.ok(card.includes(copy.tools.status.planned), `${lng} ${tool}`);
+          assert.equal(card.includes("<button"), false, tool);
+        }
+      }
+      assert.ok(markup.indexOf('data-tool="breathing"') < markup.indexOf('data-tool="craving"'));
     }
-    assert.ok(markup.indexOf('data-tool="breathing"') < markup.indexOf('data-tool="craving"'));
   }
 });
 
@@ -237,11 +246,19 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
   }
   for (const lng of ["es", "en"] as const) {
     const markup = await render("/app", lng);
-    assert.equal(markup.includes("<button"), false);
+    const breathing = blockFor(markup, "data-tool", "breathing");
+    assert.equal((markup.match(/<button/g) ?? []).length, 1);
+    assert.equal((breathing.match(/<button/g) ?? []).length, 1);
     assert.equal(markup.includes('role="button"'), false);
     assert.equal(markup.includes("tel:"), false);
   }
-  const copy = [...leafValues(esSupport), ...leafValues(enSupport)].join("\n");
+  const { start: esStart, ...esRest } = esSupport.tools.breathing;
+  const { start: enStart, ...enRest } = enSupport.tools.breathing;
+  assert.deepEqual([esStart, enStart], ["Comenzar", "Start"]);
+  const copy = [
+    ...leafValues({ ...esSupport, tools: { ...esSupport.tools, breathing: esRest } }),
+    ...leafValues({ ...enSupport, tools: { ...enSupport.tools, breathing: enRest } }),
+  ].join("\n");
   assert.doesNotMatch(copy, /\d{3}/);
   assert.doesNotMatch(copy, /evidencia|evidence|eficaz|efectiv|effective|reduce la ansiedad|reduces? anxiety/i);
   assert.doesNotMatch(copy, /Buscar ayuda ahora|Get help now/i);
