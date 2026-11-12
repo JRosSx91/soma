@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** actualización de landing implementada **en local**, pendiente de revisión/despliegue; **MKT-PR-01** dos rondas enviadas). Git: `origin/develop` = `origin/main` = `c519bb3043734179e2a5f1ba9c0d30b0aa496eaf` (merge PR #107). **SPA Live** (panel Render, propietario): el mismo SHA. **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** parcial (QA funcional iOS pendiente). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueadores abiertos: **BETA-01D.3**, **PWA-01D**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** implementado **en local**, pendiente de revisión/publicación). Git: `origin/main` = `7c9fe07d08475d256cfe245a666832cdbde7efa9` (merge PR #109); `origin/develop` = `cadf893`. **SPA Live:** el propietario confirma el despliegue de WEB-01-FIX; SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,21 +29,21 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **sigue abierta** mientras no conste cierre formal. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** revisión y eventual despliegue de **WEB-01** (landing actualizada, hoy solo en local); **PWA-01D** QA funcional **iOS/Safari** (la PWA **no** está plenamente verificada en iOS); **UX-POLISH** (descubrimiento de Expedición); seguimiento de prensa (**MKT-PR-01D**); observabilidad básica (**Q-OBS**, **Q-05** en CI). **BETA-01D.3** (revisión jurídica formal) sigue abierta en paralelo. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** revisión, publicación y comprobación de **UX-POLISH** (pantalla de carga y descubrimiento de Expedición; hoy solo en local); seguimiento de prensa (**MKT-PR-01D**); observabilidad básica (**Q-OBS**, **Q-05** en CI); comprobación puntual de datos legales (**BETA-01D.3**). **WEB-01** / **WEB-01-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
-Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **PWA-01D**; **WEB-01** (actualización local sin desplegar); **MKT-PR-01D**; residual de Q-CI (**Q-05**, scripts raíz, cobertura; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **PWA-01D** (aplazado); **UX-POLISH** (local, sin publicar); **MKT-PR-01D**; residual de Q-CI (**Q-05**, scripts raíz, cobertura; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
 ### Próximos cinco hitos (orden)
 
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
-| 1 | **WEB-01** | Revisión y eventual despliegue de la landing actualizada (funcionalidades actuales + Centro de Expedición). Implementada en local; **no** desplegada. |
-| 2 | **PWA-01D** | Validación en iOS/Safari de la PWA instalada. A/B/C desplegados. Instalación iOS ≠ recorrido LIVE. |
-| 3 | **UX-POLISH** | Descubrimiento de Expedición desde Inicio y desde el tutorial (ONB-01 hoy **sin** paso Expedición). |
-| 4 | **MKT-PR-01D** | Seguimiento de prensa: respuestas, seguimiento y posibles publicaciones. Sin cobertura confirmada. |
-| 5 | **Q-OBS** / **Q-05** | Mejoras de calidad justificadas: errores visibles y `recovery-math` en CI. No es Sentry obligatorio. |
+| 1 | **UX-POLISH** | Revisión, publicación y comprobación: pantalla de carga de marca, enlace a Expedición desde Inicio y mención en el tutorial. Implementado en local; **no** desplegado. |
+| 2 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
+| 3 | **Q-OBS** / **Q-05** | Mejoras de calidad justificadas: errores visibles y `recovery-math` en CI. No es Sentry obligatorio. |
+| 4 | **BETA-01D.3** | Comprobación puntual de datos legales (responsable, proveedores, transferencias). |
+| 5 | **WEB-02** | Solo si hay necesidades reales. |
 
-**BETA-01D.3** (jurídica: responsable, proveedores, transferencias) sigue **abierta** en paralelo; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
+**PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) sigue **abierta**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -59,15 +59,15 @@ Hitos de apertura **ya en `main`** (`c519bb3`; SPA Live el mismo SHA; **no** imp
 | 2 | R-JXP | Cerrado. En `main` |
 | 3 | UX-GLO-01 | Completado. En `main` |
 | 4 | CLEAN-01 | Completado. En `main` |
-| 5 | WEB-01 | Landing original completada en `main` (PR #82). **SEO-01B** completado (GSC / indexación). Actualización 2026-11-12 (funcionalidades actuales + Expedición): implementada **en local**, pendiente de revisión/despliegue |
+| 5 | WEB-01 | Landing original completada en `main` (PR #82). **SEO-01B** completado (GSC / indexación). Actualización 2026-11-12 (funcionalidades actuales + Expedición): PR #108; **WEB-01-FIX** PR #109. Integrados y desplegados (propietario) |
 | — | GAM-03 | Cerrado técnicamente. Mapa en `gamification-events.ts` en `main` |
 | 6 | CHR-01 | Cerrado técnicamente. En `main`. Solo ONB-01; no en Cuenta |
-| 7 | ONB-01 | Completado en git (A/B/C). En `main`. Recorrido LIVE autenticado de punta a punta: no reauditado aquí. Tour **sin** paso Expedición |
+| 7 | ONB-01 | Completado en git (A/B/C). En `main`. Recorrido LIVE autenticado de punta a punta: no reauditado aquí. Tour **sin** paso Expedición propio; UX-POLISH (local) la menciona en el paso de navegación |
 | 8 | UX-PRE-BETA | **Cerrado** como hito histórico de apertura (ROADMAP-SYNC-01). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados) |
 | 9 | BETA-01 | Apertura **de producto** ejecutada. Residual: D.3 jurídica; env de registro en el host |
 | 10 | BETA-02A/B/C | Estabilización post-apertura. En `main` (PR #94, #95) |
 | 11 | MKT-01 | **MKT-01C** (medición básica) **Completado**. Resto (canales, campañas, perfiles): pendiente. P3/posterior. Sin campañas automáticas |
-| — | MKT-PR-01 | Comunicación a prensa: dos rondas enviadas (seis medios). **MKT-PR-01D** en curso (respuestas / seguimiento). Sin cobertura confirmada |
+| — | MKT-PR-01 | Comunicación a prensa: dos rondas enviadas (seis medios). **MKT-PR-01D** en curso (El Referente: requisito de sociedad/CIF; aclaración enviada). Sin cobertura confirmada |
 | — | JRN-01R | En `main` (PR #101) y API Live `4520530` (inventario 2026-11-10) |
 | — | BETA-COPY-01 | En `main` (PR #101, `4967da2`). Copy de registro alineada con beta pública. **No** es D.3 jurídica |
 | — | GAME-07 | En `main` (PR #106) y SPA Live. QA DEMO Chromium. Safari/PWA/LIVE **no** validados |
@@ -143,7 +143,8 @@ Cuatro capas (no se mezclan):
 | WEB-02 identidad y filosofía | Pendiente |
 | UX-GLO-01 consolidación UX | Completado. En `main` (`db6385b`, PR #79). Distinto de UX-01 |
 | CLEAN-01 legado Soma 1.0 | Completado. En `main` |
-| WEB-01 landing Soma 2.0 | Landing original en `main`. Actualización 2026-11-12 (sección de funcionalidades actuales + Centro de Expedición): **implementada en local**, pendiente de revisión/despliegue; **no** desplegada. WEB-02 pendiente. **SEO-01B** completado |
+| WEB-01 landing Soma 2.0 | Landing original en `main`. Actualización 2026-11-12 (funcionalidades actuales + Centro de Expedición, PR #108) y **WEB-01-FIX** (PR #109): integrados en `main` y **desplegados en producción** (propietario; SHA de panel no recopiado). WEB-02 pendiente. **SEO-01B** completado |
+| UX-POLISH | **Implementado en local** (A pantalla de carga, B Expedición desde Inicio, C mención en ONB-01). Pendiente de revisión y publicación; **no** desplegado |
 | SEO-01 visibilidad | SEO-01A en `main` (PR #75 / #93). **SEO-01B** Completado (2026-11-12): GSC, canonical, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales |
 | FAV-01 favicon | Completado. En `main` (PR #92). Favicon + Apple Touch 180. **Manifest e iconos 192/512:** PWA-01B (desplegados). **Sin** service worker (PWA-01A) |
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `c519bb3` |
@@ -157,10 +158,10 @@ Cuatro capas (no se mezclan):
 | IMG-PERF-01A cabeceras naturaleza | Integrado con GAME-07 (PR #106). WebP de plates de paisaje. Desplegado SPA Live |
 | IMG-PERF-01B ilustraciones educativas | Integrado (PR #107, `d24f032`) y **SPA Live**. QA DEMO Chromium: `process-*-240.webp` y `educational-missions-960.webp`. Catálogo: **dependence**, no `withdrawal`. NT siguen PNG |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
-| PWA-01 instalación web | **Parcial.** A/B/C desplegados. Instalación básica Android/iOS validada (iOS: BrowserStack, no iPhone físico propio). **D** parcial: QA funcional iOS pendiente. Distinto de MOB-01 |
+| PWA-01 instalación web | **Parcial.** A/B/C desplegados. Instalación básica Android/iOS validada (iOS: BrowserStack, no iPhone físico propio). **D** **aplazado**: resto de pruebas Safari/iOS sin dispositivo; no bloquea la beta. Distinto de MOB-01 |
 | MOB-01 Android / Google Play | Futuro, sin fecha. Capacitor es alternativa preliminar, no decisión. **No** requisito de beta. **No** es PWA-01. Publicación en tiendas **pospuesta.** |
 | MKT-01 presencia digital | **MKT-01C** Completado (medición básica, 2026-11-12). Canales/campañas/perfiles: pendiente. Sin analítica de producto ni campañas automáticas |
-| MKT-PR-01 prensa | Dos rondas enviadas: VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka (seis medios). **MKT-PR-01D** en curso: pendiente de respuestas, seguimiento y posibles publicaciones. Sin cobertura confirmada |
+| MKT-PR-01 prensa | Dos rondas enviadas: VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka (seis medios). **MKT-PR-01D** en curso: El Referente pidió sociedad/CIF; se envió aclaración (persona física); pendiente de respuesta. Ni rechazo ni aceptación. Sin cobertura confirmada |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
 | SHA desplegado por Render | Procedimiento **R-SHA** cerrado. Inventario **2026-11-11:** SPA `c519bb3` (PR #107, propietario). Inventario API **2026-11-10:** `4520530` (PR #101). SHA API post-#105 **no** copiado. Fechas UTC **no** comunicadas |
 
@@ -187,6 +188,9 @@ Cuatro capas (no se mezclan):
 | PR #106 merge en `main` | `f27cc2e` — GAME-07, GAME-07F, IMG-PERF-01A. Producto `8ee1ee8`. |
 | PR #107 merge en `main` | `c519bb3043734179e2a5f1ba9c0d30b0aa496eaf` — IMG-PERF-01B. Producto `d24f032`. |
 | Fast-forward `develop` (2026-11-11) | `origin/develop` = `origin/main` = `c519bb3`. ROADMAP-SYNC-01. |
+| PR #108 merge en `main` | `99c398557ab8033c2b42aca315cbca994123b5e9` — WEB-01 (funcionalidades actuales + Expedición). Producto `e3a55e1`. |
+| PR #109 merge en `main` | `7c9fe07d08475d256cfe245a666832cdbde7efa9` — WEB-01-FIX (alturas y fondos). Producto `cadf893`. |
+| SPA Live tras #109 | Desplegado según el propietario (2026-11-12). SHA de panel **no** recopiado: **no** se afirma `7c9fe07` como Live. |
 | Inventario SPA Live (**2026-11-11**) | Propietario: Render Live SPA = `c519bb3`. QA DEMO Chromium GAME-07 + IMG-PERF-01B. **No** es QA LIVE `/app` ni Safari. |
 | SPA vs `main` (2026-11-11) | Coinciden (`c519bb3`). |
 | API vs `main` (2026-11-11) | Inventario API sigue `4520530` hasta recopia de panel. `main` adelanta con #105–#107. **No** afirmar SHA Live de API distinto de `4520530`. | |
@@ -738,8 +742,8 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
-- **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). PWA-01D iOS. WEB-01 actualización local pendiente de revisión/despliegue. MKT-PR-01D seguimiento de prensa.
-- **Siguiente trabajo (prioridad):** revisión legal D.3; humo LIVE `/app`; QA iOS PWA; observabilidad básica (Q-OBS / Q-05). **No** más mapa ni catálogo educativo de procesos.
+- **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. UX-POLISH local pendiente de revisión/publicación. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX integrados (PR #108, #109) y desplegados (propietario).
+- **Siguiente trabajo (prioridad):** UX-POLISH; MKT-PR-01D; observabilidad básica (Q-OBS / Q-05); comprobación puntual D.3. **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -768,7 +772,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
 - **Objetivo:** Que un usuario de la beta pública pueda **instalar Soma desde el navegador** (Android Chromium; iOS «Añadir a pantalla de inicio») y abrirla en modo *standalone* donde el SO lo permita, con el **icono y el nombre oficiales**, sin Google Play ni App Store.
 - **Prioridad:** **P1 de producto** (acceso y recurrencia en beta). No desplaza BETA-01D.3 ni R-SHA.
-- **Estado:** **Parcial.** **PWA-01A/B/C** completados y **desplegados**. Instalación básica **Android** (Chrome, recorrido LIVE) e **iOS** (BrowserStack Live, iPhone 15 Pro, Safari 17.0: añadir a inicio y abrir) **validada**. **PWA-01D** parcialmente completado: QA funcional iOS **pendiente**. No se afirma recorrido LIVE en iOS ni iPhone físico propio. **MOB-01** pospuesto. Hito global **no** cerrado.
+- **Estado:** **Parcial.** **PWA-01A/B/C** completados y **desplegados**. Instalación básica **Android** (Chrome, recorrido LIVE) e **iOS** (BrowserStack Live, iPhone 15 Pro, Safari 17.0: añadir a inicio y abrir) **validada**. **PWA-01D** **aplazado** (2026-11-12): QA funcional iOS sin dispositivo; no bloquea la beta. No se afirma recorrido LIVE en iOS ni iPhone físico propio. **MOB-01** pospuesto. Hito global **no** cerrado.
 - **Fuera de alcance de este ID:** empaquetado nativo / tiendas (**MOB-01**); offline complejo; cola de Bitácora offline; notificaciones push; nuevas dependencias salvo justificación en PWA-01A; reinterpretar el icono oficial.
 - **Dependencias:** Superficie web 2.0 y FAV-01 en git. **JRN-01R** en `main` (no cachear `/me/journal`). AUTH-01 (sesión). SHELL-01 (nav móvil). No espera GAME-07, WEB-02, MKT-01 ni MOB-01.
 - **Criterio de cierre (las cuatro fases):** instalable en Android compatible; instrucciones iOS de pantalla de inicio; standalone donde exista; auth/nav/logout; sin secretos ni Bitácora LIVE en caché opaca; actualizaciones del JS nuevo; copy ES/EN; sin tiendas.
@@ -816,16 +820,16 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
 - **Objetivo:** Publicar la PWA **sin** filtrar diario/sesión y **sin** dejar clientes eternos en un bundle viejo. Incluye icono de launcher correcto, primer arranque sin FOUC blanco, MIME/caché de manifest y assets, y QA móvil real.
 - **Prioridad:** P1
-- **Estado:** **Parcialmente completado.** **PWA-01A/B/C** completados y desplegados. Instalación básica Android/iOS validada. Recorrido funcional LIVE **solo** en Android. **MOB-01** pospuesto. PWA-01 global **parcial**.
+- **Estado:** **APLAZADO** (2026-11-12). **PWA-01A/B/C** completados y desplegados. Instalación en iPhone ya comprobada. Las pruebas adicionales de Safari/iOS (persistencia, caché, actualizaciones) quedan aplazadas por no disponer de dispositivo. **No** bloquea la beta. Se retoma solo con acceso a un dispositivo o ante una incidencia real. **No** se prevé comprar hardware. Recorrido funcional LIVE **solo** en Android. **MOB-01** pospuesto. PWA-01 global **parcial**.
   - **Android:** instalación real y recorrido LIVE satisfactorios (propietario): Chrome; icono oficial **aprobado**; standalone; login; persistencia al cerrar/reabrir; nav; Bitácora LIVE crear/editar; logout y nuevo login; «Instalar SOMA» oculto en standalone. Primer arranque sin CSS **no** reproducido tras reinstalación.
   - **iOS:** validación real de **instalación y apertura** en dispositivo remoto BrowserStack Live (2026-11-10): iPhone 15 Pro, Safari 17.0, https://somarecovery.app. Landing con estilos; añadir a pantalla de inicio; abrir la app instalada. **No** es un iPhone físico propio. **No** es solo emulación responsive. La sesión gratuita terminó antes del recorrido funcional.
   - **Infraestructura:** MIME del manifest y políticas CDN: revisión **pendiente, no bloqueante** mientras no haya incidencia. Causa raíz histórica del primer arranque sin CSS **no confirmada**.
 - **Hecho:** iconos any/maskable y CSS crítico (mitigación visual). Tests de contrato del manifest. Sin service worker.
-- **Pendiente (mantiene PWA-01D parcial):**
+- **Aplazado (sin dispositivo; no se infieren resultados):**
   - QA funcional iOS en la PWA instalada: login; persistencia al cerrar/reabrir; refresh token; nav DEMO/LIVE; Bitácora LIVE crear/editar; logout y nuevo login; ocultación de «Instalar SOMA» en standalone; icono y estilos **dentro** de la PWA; otras versiones de iOS. No inferir resultados de lo no probado. No asumir `beforeinstallprompt`.
   - MIME `application/manifest+json` y caché HTML vs `/assets/*`; Polish solo si un fallo lo exige.
   - SHA SPA Live (2026-11-11): `c519bb3` (incluye PWA-01A–C y entregas posteriores). API inventario 2026-11-10: `4520530`. PWA-01D **no** se cierra por el SHA.
-- **Criterio residual:** QA funcional iOS; no tiendas (**MOB-01** pospuesto).
+- **Criterio residual:** QA funcional iOS cuando haya dispositivo o incidencia; no tiendas (**MOB-01** pospuesto).
 
 #### GAM-01 — Experiencia y niveles
 
@@ -963,12 +967,13 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 #### WEB-01 — Renovación de la landing
 
 - **Objetivo:** Nueva landing de Soma 2.0: funcionalidades **reales**, propuesta educativa y de seguimiento, y un camino claro al registro.
-- **Prioridad:** P1 (revisión y despliegue de la actualización); WEB-02 sigue P2/P3.
-- **Estado:** Landing original completada e integrada en `main` (`ff5a359`, PR #82). **Actualización 2026-11-12: implementada en local, pendiente de revisión/despliegue** (sin commit; **no** desplegada ni validada en producción). Añade:
+- **Prioridad:** P3 residual (regresiones); WEB-02 sigue P2/P3.
+- **Estado:** Landing original completada e integrada en `main` (`ff5a359`, PR #82). **Actualización 2026-11-12: integrada y desplegada** (PR #108, producto `e3a55e1`; despliegue confirmado por el propietario, SHA de panel no recopiado). Añade:
   - Sección «Lo que puedes explorar hoy en Soma»: recuperación/modelos, nueve perfiles cualitativos de NT, explorador de sustancias, atlas anatómico, Bitácora, misiones, logros/medallas/niveles y Centro de Expedición. Cada tarjeta enlaza a su ruta DEMO `/preview/*`.
   - Sección del Centro de Expedición (beta pública): rutas de conocimiento y de perseverancia, con el mapa real (`expedition-map.webp`/`.png`) y los iconos existentes. CTA a `/preview/expedition`.
   - Copy ES/EN educativa y motivacional, sin promesas clínicas. Se conservan los CTA DEMO / crear cuenta / entrar y los contratos SEO-01B (`index.html`, `robots.txt`, `sitemap.xml` sin cambios).
-  - QA local: tests web, typecheck y build OK; revisión visual DEMO Chromium escritorio (1440) y móvil (375) en `vite preview`. **No** Safari, **no** producción.
+  - QA local: tests web, typecheck y build OK; revisión visual DEMO Chromium escritorio (1440) y móvil (375) en `vite preview`. **No** Safari.
+  - **WEB-01-FIX** (PR #109, producto `cadf893`): altura mínima de escritorio de las nuevas secciones, fondos decorativos con recursos existentes y legibilidad del texto sobre ellos. Tests web 1011/1011. Integrado y desplegado (propietario).
 - **No** anunciar Android / Play Store (**MOB-01** pospuesto).
 - **Dependencias:** REL-01 (funciones ya en `main`). **SEO-01A** y **SEO-01B** cerrados. WEB-02 puede ir en el mismo trabajo visual. No espera GAM-03 ni MOB-01.
 - **Decisiones confirmadas:**
@@ -985,7 +990,18 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
   - Comprobación de visualización en navegadores y dispositivos.
   - Coherencia con la identidad de Soma y el futuro Somi (CHR-01).
 - **Residual:** WEB-02 (origen del nombre / filosofía) no se empaquetó aquí. **SEO-01B** cerrado (2026-11-12). Iconos de **instalación PWA** (manifest 192/512, standalone) pasan a **PWA-01**; FAV-01 cubre pestaña/Apple Touch 180, no el instalador. El copy público **no** describe funciones que no estén en producción.
-- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0 y qué puede hacer hoy. No afirma tienda nativa. Favicon: **FAV-01** (PR #92); instalabilidad: **PWA-01**. SHA SPA Live `c519bb3` (2026-11-11). Expedición en copy público: cubierta por la actualización local de 2026-11-12, pendiente de revisión/despliegue.
+- **Criterio:** Un visitante de `somarecovery.app` entiende qué es Soma 2.0 y qué puede hacer hoy. No afirma tienda nativa. Favicon: **FAV-01** (PR #92); instalabilidad: **PWA-01**. SHA SPA Live `c519bb3` (2026-11-11, último inventario copiado). Expedición en copy público: cubierta por PR #108/#109, desplegados según el propietario.
+
+#### UX-POLISH — Pantalla de carga y descubrimiento de Expedición
+
+- **Objetivo:** Sustituir el «Cargando…» genérico por una pantalla de marca y hacer visible el Centro de Expedición desde Inicio y desde el tutorial, sin tocar autenticación, progreso ni lógica de Expedición.
+- **Prioridad:** P1 (revisión y publicación).
+- **Estado:** **Implementado en local** (2026-11-12). Pendiente de revisión y publicación; **no** desplegado.
+  - **A — Pantalla de carga:** **implementado en local.** Se muestra mientras `AuthProvider` restaura la sesión (`POST /auth/refresh` y `/auth/me`) en `/` y en rutas protegidas. Fondo azul oscuro, `SomaMark`, tres puntos con `motion-safe:animate-pulse`, «Preparando tu espacio…» y, tras 6 s, aviso de que la primera conexión con el servidor puede tardar. Solo cambia el texto: sin barra falsa, sin error por tiempo, sin reintentos ni botón. ES/EN.
+  - **B — Expedición desde Inicio:** **implementado en local.** Enlace «Abrir el Centro de Expedición» en la tarjeta de horizonte de Inicio, hacia `${base}/expedition` (DEMO `/preview`, LIVE `/app`). Solo en el Inicio completo (con sustancias).
+  - **C — Tutorial ONB-01:** **implementado en local.** El paso de navegación menciona el Centro de Expedición en «Más». Sigue con nueve pasos; sin cambios de lógica ni persistencia.
+- **Residual (tarea aparte, no implementada):** para visitantes anónimos la landing espera a `/auth/refresh`, así que con la API en reposo (*cold start*) se ve la pantalla de carga hasta que responde. Mostrarla de forma optimista o reintentar requiere cambiar la lógica de autenticación.
+- **Criterio:** revisión del propietario, publicación y comprobación en producción.
 
 #### WEB-02 — Identidad y filosofía
 
@@ -1215,7 +1231,9 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Estado:** En curso. Dos rondas enviadas; seis medios contactados en total.
   - **Primera ronda — enviados:** VIA Empresa, NacióDigital, El Referente.
   - **Segunda ronda — enviados:** Genbeta, Salud a Diario, Xataka.
-- **MKT-PR-01D — Seguimiento:** **en curso**. Pendiente de respuestas, seguimiento y posibles publicaciones. **No** hay respuestas ni cobertura editorial confirmadas en este archivo.
+- **MKT-PR-01D — Seguimiento:** **en curso** sobre los seis medios.
+  - **El Referente:** respondió con un requisito editorial: piden una sociedad constituida / CIF. SOMA es una iniciativa individual (persona física). Se envió una respuesta aclaratoria; queda pendiente su posible contestación. **No** es un rechazo ni una aceptación.
+  - Resto de medios: sin respuesta registrada. **No** hay cobertura editorial confirmada.
 - **Dependencias:** BETA-01 (producto público). Independiente de **MKT-01C** (medición básica, cerrado).
 - **Criterio:** Respuestas y publicaciones registradas solo cuando estén confirmadas.
 
@@ -1333,7 +1351,7 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (14 educativas publicadas en `main`).
 14. **CHR-01:** cerrado técnicamente en `main`. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01 / CHR-01:** en `main`.
-16. **UX-PRE-BETA:** **cerrado** (histórico de apertura). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados). **MKT-01C** cerrado (medición básica). **MKT-PR-01D** (prensa) en curso. Resto de **MKT-01** pendiente (P3). **SEO-01B** cerrado. **GAME-07** en origin y SPA Live. **PWA-01** instalación básica Android/iOS hecha; QA funcional iOS pendiente; **MOB-01** pospuesto (tiendas).
+16. **UX-PRE-BETA:** **cerrado** (histórico de apertura). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados). **MKT-01C** cerrado (medición básica). **MKT-PR-01D** (prensa) en curso. Resto de **MKT-01** pendiente (P3). **SEO-01B** cerrado. **GAME-07** en origin y SPA Live. **PWA-01** instalación básica Android/iOS hecha; **PWA-01D** aplazado (sin dispositivo iOS); **MOB-01** pospuesto (tiendas).
 
 Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya confirmadas de ACH-01, REC-VIS-01 y ROADMAP-02 están en sus hitos; el resto sigue abierto.
 
@@ -1364,11 +1382,12 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 ## Próximos pasos (por dependencia)
 
-1. **WEB-01:** revisión y eventual despliegue de la landing actualizada (implementada en local; sin commit ni despliegue).
-2. **PWA-01D:** validación iOS/Safari en la PWA instalada. A/B/C desplegados. Instalación iOS ≠ recorrido LIVE. **MOB-01** pospuesto.
-3. **UX-POLISH:** descubrimiento de Expedición desde Inicio y desde el tutorial.
-4. **MKT-PR-01D:** seguimiento de prensa (seis medios contactados; sin cobertura confirmada).
-5. **Q-OBS** y **Q-05:** mejoras de calidad justificadas (errores visibles / `recovery-math` en CI). Q-E2E aparte (no instalar Playwright sin autorización).
+1. **UX-POLISH:** revisión, publicación y comprobación (pantalla de carga, Expedición desde Inicio y tutorial; implementado en local).
+2. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
+3. **Q-OBS** y **Q-05:** mejoras de calidad justificadas (errores visibles / `recovery-math` en CI). Q-E2E aparte (no instalar Playwright sin autorización).
+4. **BETA-01D.3:** comprobación puntual de datos legales.
+5. **WEB-02:** solo si hay necesidades reales.
+- **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** integrados y desplegados (PR #108, #109).
 - **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), abierta; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
 7. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
@@ -1471,9 +1490,9 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
             BETA-01D.3 jurídica — **abierta**
             AUTH-01 / LIVE-01 — completados (local + producción según propietario)
-            PWA-01 instalación Android/iOS hecha; QA funcional iOS **pendiente**. R-SHA procedimiento cerrado. SPA Live recopiada `c519bb3`. API copiada `4520530`; recopia post-#105 pendiente. Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
-  Fase G    WEB-01 actualización (local; revisión/despliegue) → UX-POLISH Expedición
-            MKT-PR-01: 2 rondas / 6 medios; MKT-PR-01D seguimiento en curso
+            PWA-01 instalación Android/iOS hecha; PWA-01D **aplazado** (sin dispositivo iOS). R-SHA procedimiento cerrado. SPA Live recopiada `c519bb3`. API copiada `4520530`; recopia post-#105 pendiente. Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
+  Fase G    WEB-01 + WEB-01-FIX (PR #108, #109; desplegados) → UX-POLISH (local; revisión/publicación)
+            MKT-PR-01: 2 rondas / 6 medios; MKT-PR-01D seguimiento en curso (El Referente: CIF)
             WEB-02 → resto de MKT-01 → FBK-02  (P3 / cuando se autorice)
             SEO-01B y MKT-01C — cerrados (2026-11-12)
   MOB-01    pospuesto (Play/App Store; ≠ PWA-01)
@@ -1592,3 +1611,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-11 | **ROADMAP-SYNC-01** (este registro): actualiza estados a git/SPA reales. Cierra UX-PRE-BETA como histórico. GAME-07 / 07F / IMG-PERF-01A/01B integrados y desplegados (DEMO Chromium). BETA-01D.3, LIVE-01, PWA-01D **abiertos**. Sin commit de código. **No** dictamen jurídico. **No** QA iOS/LIVE. |
 | 2026-11-12 | **SEO-01B** Completado: GSC, canonical `https://somarecovery.app/`, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales (prueba en tiempo real `/reset-password`). URLs antiguas: recrawl. Sin código/SSR/infra. **MKT-01C** Completado (medición básica): GSC + Instagram/LinkedIn, revisión semanal. Cloudflare Web Analytics descartado (`spa: false` no evita rutas internas al ocultar). HTTP Analytics CF inactivo con DNS only (se mantiene). Sin visitantes únicos ni conversiones internas (limitación aceptada). Resto de MKT-01 pendiente. Solo este archivo. Sin commit. |
 | 2026-11-12 | **AUTH-01** / **LIVE-01** Completados: validación funcional local (2026-10-25) y en producción según confirmación del propietario (sin fecha ni detalle registrados). No se repiten salvo regresión o cambio funcional relevante. **WEB-01** actualización de landing (funcionalidades actuales + Centro de Expedición, ES/EN, assets existentes): implementada en local, pendiente de revisión/despliegue; tests/typecheck/build OK; revisión visual DEMO Chromium escritorio/móvil. **MKT-PR-01**: dos rondas enviadas (VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka); **MKT-PR-01D** en curso, sin cobertura confirmada. Prioridades: WEB-01 → PWA-01D → UX-POLISH → MKT-PR-01D → Q-OBS/Q-05. Sin commit. |
+| 2026-11-12 | **WEB-01** (PR #108, merge `99c3985`) y **WEB-01-FIX** (PR #109, merge `7c9fe07`; altura mínima de escritorio, fondos decorativos, legibilidad; tests web 1011) integrados y **desplegados en producción** según el propietario; SHA de panel no recopiado. **PWA-01D** **APLAZADO**: instalación iPhone comprobada; resto de pruebas Safari/iOS sin dispositivo; no bloquea la beta. **MKT-PR-01D**: El Referente pidió sociedad/CIF; aclaración enviada (persona física); ni rechazo ni aceptación. **UX-POLISH** A/B/C implementado en local (pantalla de carga de marca; enlace a Expedición desde Inicio; mención en el paso de navegación de ONB-01, nueve pasos); tests web 1019, typecheck/build OK; **no** desplegado. Prioridades: UX-POLISH → MKT-PR-01D → Q-OBS/Q-05 → BETA-01D.3 → WEB-02 (si procede). Sin commit. |

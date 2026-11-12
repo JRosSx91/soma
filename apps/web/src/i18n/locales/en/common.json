@@ -1,5 +1,9 @@
 {
   "loading": "Loading…",
+  "boot": {
+    "preparing": "Getting your space ready…",
+    "slowServer": "We are connecting to the server. The first connection can take a little longer."
+  },
   "error": "Something went wrong",
   "save": "Save",
   "cancel": "Cancel",

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useAuth } from "../features/auth/index.js";
+import { AppBootScreen } from "./AppBootScreen.js";
 import { unauthenticatedDestination } from "../features/auth/lib/unauthenticated-destination.js";
 
 interface ProtectedRouteProps {
@@ -11,20 +11,15 @@ interface ProtectedRouteProps {
 /**
  * Wraps routes that require authentication.
  * - While the auth context is loading (e.g. validating a stored token
- *   on mount), shows a minimal loading screen.
+ *   on mount), shows the shared boot screen.
  * - If there's no authenticated user, redirects to /login.
  * - Otherwise renders the protected children.
  */
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user, loading, sessionNotice } = useAuth();
-  const { t } = useTranslation("common");
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-soma-bg-base text-soma-fg-secondary">
-        {t("loading")}
-      </div>
-    );
+    return <AppBootScreen />;
   }
 
   if (!user) {
