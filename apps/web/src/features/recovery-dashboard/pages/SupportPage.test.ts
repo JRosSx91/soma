@@ -21,9 +21,14 @@ import { moreShellSections, railMoreShellSections, type ShellBase } from "../she
 import { SupportSections } from "../support/SupportSections.js";
 import {
   SUPPORT_LEARN_SHEETS,
+  SUPPORT_RESOURCE_GROUPS,
+  SUPPORT_STRATEGY_TOPICS,
   SUPPORT_TERMS_EMERGENCY_HREF,
+  SUPPORT_TOOL_IN_PREPARATION,
+  SUPPORT_TOOLS,
   supportExploreHref,
   supportLearnLinks,
+  supportResourceGroups,
 } from "../support/support-links.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -94,8 +99,74 @@ test("support route is shared by DEMO and LIVE and reachable only from «Más»"
   }
 });
 
+function blockFor(markup: string, attribute: string, id: string): string {
+  const start = markup.indexOf(`${attribute}="${id}"`);
+  assert.notEqual(start, -1, `${attribute}=${id}`);
+  const ends = [
+    markup.indexOf(`${attribute}="`, start + attribute.length + id.length + 3),
+    markup.indexOf("</section>", start),
+  ].filter((index) => index !== -1);
+  return markup.slice(start, Math.min(...ends));
+}
+
+test("quick tools render four cards, only breathing in preparation, none actionable", async () => {
+  assert.deepEqual([...SUPPORT_TOOLS], ["breathing", "mindfulness", "movement", "craving"]);
+  assert.equal(SUPPORT_TOOL_IN_PREPARATION, "breathing");
+  for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
+    const markup = await render("/preview", lng);
+    for (const tool of SUPPORT_TOOLS) {
+      const card = blockFor(markup, "data-tool", tool);
+      assert.match(card, new RegExp(`<h3[^>]*>${copy.tools[tool].title}</h3>`));
+      assert.equal(card.includes("href="), false, tool);
+      const expected = tool === "breathing" ? copy.tools.status.preparing : copy.tools.status.planned;
+      assert.ok(card.includes(expected), `${lng} ${tool}`);
+    }
+    assert.ok(markup.indexOf('data-tool="breathing"') < markup.indexOf('data-tool="craving"'));
+  }
+});
+
+test("resource cards group published articles and mark audio as unavailable", async () => {
+  assert.deepEqual(
+    SUPPORT_RESOURCE_GROUPS.map((group) => group.id),
+    ["processes", "reading", "audio"],
+  );
+  assert.equal(new Set(SUPPORT_LEARN_SHEETS).size, SUPPORT_LEARN_SHEETS.length);
+  for (const base of ["/app", "/preview"] as const) {
+    const groups = supportResourceGroups(base);
+    assert.equal(groups.find((group) => group.id === "audio")?.links.length, 0);
+    assert.ok(groups.filter((group) => group.id !== "audio").every((group) => group.links.length > 0));
+    const markup = await render(base, "es");
+    for (const group of groups) {
+      const card = blockFor(markup, "data-resource-group", group.id);
+      assert.ok(card.includes(esSupport.learn.groups[group.id].title), group.id);
+      assert.equal((card.match(/href="/g) ?? []).length, group.links.length, group.id);
+      for (const link of group.links) assert.ok(card.includes(`href="${link.href}"`), link.id);
+    }
+    assert.ok(blockFor(markup, "data-resource-group", "audio").includes(esSupport.learn.unavailable));
+  }
+});
+
+test("strategy topics and the personal plan are shown as not available yet", async () => {
+  assert.deepEqual([...SUPPORT_STRATEGY_TOPICS], ["emotions", "relapse", "stress", "habits"]);
+  for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
+    const markup = await render("/app", lng);
+    for (const topic of SUPPORT_STRATEGY_TOPICS) {
+      const row = blockFor(markup, "data-strategy", topic);
+      assert.ok(row.includes(copy.strategies.topics[topic]), topic);
+      assert.ok(row.includes(copy.strategies.status), topic);
+      assert.equal(row.includes("href="), false, topic);
+    }
+    const plan = markup.slice(markup.indexOf('id="support-plan-title"'));
+    assert.ok(plan.includes(copy.plan.status));
+    assert.ok(plan.includes(copy.plan.statusHint));
+    assert.equal(plan.includes("href="), false);
+    assert.doesNotMatch(plan, /<input|<form|<progress|role="progressbar"|aria-valuenow/);
+  }
+  assert.equal(esSupport.strategies.title, "Estrategias de apoyo");
+});
+
 test("learn links stay inside the active base and only open published articles", async () => {
-  assert.equal(SUPPORT_LEARN_SHEETS.length >= 3 && SUPPORT_LEARN_SHEETS.length <= 4, true);
+  assert.equal(SUPPORT_LEARN_SHEETS.length, 6);
   for (const base of ["/app", "/preview"] as const) {
     const links = supportLearnLinks(base);
     assert.equal(links.length, SUPPORT_LEARN_SHEETS.length);
@@ -123,6 +194,7 @@ test("learn link titles reuse published explore-edu copy in both languages", asy
   const es = await render("/preview", "es");
   const en = await render("/preview", "en");
   assert.match(es, /¿Qué es la dependencia física\?/);
+  assert.match(en, /What is GABA\?/);
   assert.equal(es.includes("explore-edu:"), false);
   assert.equal(en.includes("explore-edu:"), false);
   assert.equal(es.includes("support:"), false);
@@ -174,9 +246,14 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
   assert.doesNotMatch(copy, /evidencia|evidence|eficaz|efectiv|effective|reduce la ansiedad|reduces? anxiety/i);
   assert.doesNotMatch(copy, /Buscar ayuda ahora|Get help now/i);
   assert.doesNotMatch(copy, /hacerlo solo\b/);
-  assert.doesNotMatch(copy, /Iniciar|Configurar mi plan|Ver todos/);
-  assert.equal(page.includes("lungs"), false);
-  assert.equal(page.includes("anatomy/"), false);
+  assert.doesNotMatch(copy, /Iniciar|Comenzar|Configurar mi plan|Ver todos|\bStart\b|Set up my plan|View all/);
+  assert.doesNotMatch(copy, /que funcionan|that work/i);
+  for (const source of [page, sections]) {
+    assert.equal(source.includes("lungs"), false);
+    assert.equal(source.includes("anatomy/"), false);
+  }
+  assert.equal(sections.includes("/images/"), false);
+  assert.equal(sections.includes("<img"), false);
 });
 
 test("hero uses its exclusive nature-11 plate and shows the DEMO notice only in preview", () => {

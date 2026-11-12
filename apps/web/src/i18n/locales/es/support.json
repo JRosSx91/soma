@@ -6,24 +6,76 @@
   "tools": {
     "title": "Herramientas rápidas",
     "subtitle": "Ejercicios breves para usar a tu ritmo.",
+    "status": {
+      "preparing": "En preparación",
+      "planned": "Prevista"
+    },
     "breathing": {
       "title": "Respiración guiada",
-      "body": "Un ejercicio de respiración pausada, sin retenciones, que podrás seguir a tu ritmo y detener cuando quieras.",
-      "status": "En preparación",
-      "statusHint": "Todavía no está disponible. Llegará en una próxima versión de Soma."
+      "body": "Respiración pausada, sin retenciones, que podrás detener cuando quieras.",
+      "statusHint": "Todavía no está disponible."
+    },
+    "mindfulness": {
+      "title": "Atención plena",
+      "body": "Pausas breves para volver al momento presente."
+    },
+    "movement": {
+      "title": "Activación física",
+      "body": "Propuestas de movimiento suave para el día a día."
+    },
+    "craving": {
+      "title": "Manejo del craving",
+      "body": "Recursos para atravesar las ganas de consumir."
     }
   },
   "learn": {
-    "title": "Comprender lo que pasa",
-    "subtitle": "Artículos educativos ya publicados en Explorar sobre cómo responde el cerebro a las sustancias.",
-    "kind": "Artículo en Explorar",
-    "viewAll": "Ir a Explorar"
+    "title": "Recursos de aprendizaje",
+    "subtitle": "Artículos educativos ya publicados en Explorar.",
+    "viewAll": "Ir a Explorar",
+    "unavailable": "No disponible",
+    "groups": {
+      "processes": {
+        "title": "Procesos clave",
+        "caption": "Cómo se adapta el organismo al consumo."
+      },
+      "reading": {
+        "title": "Lecturas recomendadas",
+        "caption": "Mensajeros químicos del cerebro."
+      },
+      "audio": {
+        "title": "Audios y meditaciones",
+        "caption": "Soma todavía no tiene audios."
+      }
+    }
+  },
+  "strategies": {
+    "title": "Estrategias de apoyo",
+    "subtitle": "Temas previstos para futuras guías. Solo se publicarán después de revisar su contenido.",
+    "status": "Prevista",
+    "topics": {
+      "emotions": "Manejo de emociones",
+      "relapse": "Prevención de recaídas",
+      "stress": "Gestión del estrés",
+      "habits": "Hábitos y rutinas saludables"
+    }
   },
   "help": {
     "title": "Si necesitas ayuda ahora",
+    "subtitle": "Orientación para momentos difíciles.",
     "educational": "Soma es un recurso educativo. No ofrece asistencia profesional ni atención de emergencias.",
     "emergency": "Si tu vida o la de otra persona está en peligro inmediato, contacta con los servicios de emergencia de tu zona.",
     "professional": "Para recibir orientación personalizada, habla con un profesional sanitario.",
     "termsLink": "Leer el apartado sobre situaciones que requieren ayuda profesional"
+  },
+  "plan": {
+    "title": "Tu plan de apoyo",
+    "body": "Un espacio previsto para reunir, a tu manera, los recursos y estrategias que te resulten útiles.",
+    "status": "En desarrollo",
+    "statusHint": "Todavía no está disponible y no guarda ningún dato.",
+    "parts": {
+      "resources": "Recursos",
+      "strategies": "Estrategias",
+      "habits": "Hábitos"
+    }
   }
 }

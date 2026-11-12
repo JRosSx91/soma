@@ -1,23 +1,118 @@
-import { ArrowRight, BookOpenText, ChevronRight, Clock, LifeBuoy, Wind } from "lucide-react";
+import type { CSSProperties } from "react";
+import {
+  ArrowRight,
+  BookOpen,
+  BookOpenText,
+  Brain,
+  CalendarHeart,
+  ChevronRight,
+  Clock,
+  Compass,
+  Flower2,
+  Footprints,
+  Headphones,
+  Layers,
+  Library,
+  LifeBuoy,
+  Sprout,
+  Target,
+  WavesHorizontal,
+  Wind,
+  type LucideIcon,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import {
+  SUPPORT_STRATEGY_TOPICS,
   SUPPORT_TERMS_EMERGENCY_HREF,
+  SUPPORT_TOOL_IN_PREPARATION,
+  SUPPORT_TOOLS,
   supportExploreHref,
-  supportLearnLinks,
+  supportResourceGroups,
+  type SupportResourceGroupId,
+  type SupportStrategyTopic,
+  type SupportTool,
 } from "./support-links.js";
 
 const panelClass =
   "min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 p-4 sm:p-5";
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
+const plannedPillClass =
+  "inline-flex items-center gap-1.5 rounded-full border border-dashed border-soma-line-strong px-2.5 py-1 text-xs font-medium text-soma-ink-secondary";
 
-/** SUP-01B: static content below the hero. No tool is interactive yet. */
+interface Visual {
+  icon: LucideIcon;
+  /** Icon color, also used for its soft glow. */
+  rgb: string;
+  /** Second color of the radial backdrop. */
+  haloRgb: string;
+}
+
+const toolVisuals: Record<SupportTool, Visual> = {
+  breathing: { icon: Wind, rgb: "103 232 249", haloRgb: "139 92 246" },
+  mindfulness: { icon: Flower2, rgb: "196 181 253", haloRgb: "217 70 239" },
+  movement: { icon: Footprints, rgb: "253 186 116", haloRgb: "56 189 248" },
+  craving: { icon: WavesHorizontal, rgb: "125 211 252", haloRgb: "59 130 246" },
+};
+
+const resourceVisuals: Record<SupportResourceGroupId, Visual> = {
+  processes: { icon: BookOpen, rgb: "253 224 71", haloRgb: "103 232 249" },
+  reading: { icon: Library, rgb: "165 180 252", haloRgb: "244 114 182" },
+  audio: { icon: Headphones, rgb: "196 181 253", haloRgb: "139 92 246" },
+};
+
+const strategyIcons: Record<SupportStrategyTopic, LucideIcon> = {
+  emotions: Brain,
+  relapse: Layers,
+  stress: Target,
+  habits: Sprout,
+};
+
+const planParts = [
+  { id: "resources", icon: BookOpen },
+  { id: "strategies", icon: Compass },
+  { id: "habits", icon: Sprout },
+] as const;
+
+function backdrop({ rgb, haloRgb }: Visual, dim = false): CSSProperties {
+  const a = dim ? 0.14 : 0.42;
+  return {
+    background: `radial-gradient(circle at 50% 55%, rgb(${rgb} / ${a}) 0%, rgb(${haloRgb} / ${a * 0.75}) 34%, transparent 70%), linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.5) 0%, rgb(var(--soma-surface) / 0.2) 100%)`,
+  };
+}
+
+function glowIcon({ rgb }: Visual, dim = false): CSSProperties {
+  return {
+    color: `rgb(${rgb} / ${dim ? 0.6 : 1})`,
+    filter: dim
+      ? undefined
+      : `drop-shadow(0 0 6px rgb(${rgb} / 0.9)) drop-shadow(0 0 18px rgb(${rgb} / 0.55))`,
+  };
+}
+
+/** Static concentric halo behind an illustration icon. */
+function Halo({ rgb, dim = false }: { rgb: string; dim?: boolean }) {
+  const ring = (inset: string, alpha: number) => (
+    <span
+      className={`absolute ${inset} rounded-full border`}
+      style={{ borderColor: `rgb(${rgb} / ${dim ? alpha / 2 : alpha})` }}
+    />
+  );
+  return (
+    <span className="pointer-events-none absolute left-1/2 top-1/2 hidden aspect-square h-[78%] -translate-x-1/2 -translate-y-1/2 sm:block">
+      {ring("inset-0", 0.14)}
+      {ring("inset-[18%]", 0.24)}
+    </span>
+  );
+}
+
+/** SUP-01B.1: static content below the hero, laid out after `apoyo-2.0`. No tool is interactive yet. */
 export function SupportSections() {
   const { t } = useTranslation(["support", "explore-edu"]);
   const base = useShellBase();
-  const learnLinks = supportLearnLinks(base);
+  const resourceGroups = supportResourceGroups(base);
 
   return (
     <>
@@ -27,47 +122,58 @@ export function SupportSections() {
         </h2>
         <p className="mt-1 text-sm text-soma-ink-secondary">{t("support:tools.subtitle")}</p>
 
-        <article
-          className={`${panelClass} mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6`}
-          aria-labelledby="support-breathing-title"
-        >
-          <div
-            className="relative flex h-24 w-24 shrink-0 items-center justify-center self-center rounded-full sm:h-28 sm:w-28"
-            style={{
-              background:
-                "radial-gradient(circle at 50% 50%, rgb(var(--soma-shell-accent) / 0.28) 0%, rgb(139 92 246 / 0.22) 55%, transparent 72%)",
-            }}
-            aria-hidden="true"
-          >
-            <span className="absolute inset-3 rounded-full border border-soma-shell-accent/35" />
-            <span className="absolute inset-6 rounded-full border border-violet-300/30" />
-            <Wind className="relative h-9 w-9" style={accentColor} />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h3
-              id="support-breathing-title"
-              className="text-base font-semibold leading-snug text-soma-ink"
-            >
-              {t("support:tools.breathing.title")}
-            </h3>
-            <p className="mt-1 max-w-xl text-sm leading-relaxed text-soma-ink-secondary">
-              {t("support:tools.breathing.body")}
-            </p>
-            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-soma-ink-muted">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-soma-line-strong px-2.5 py-1 font-medium text-soma-ink-secondary">
-                <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                {t("support:tools.breathing.status")}
-              </span>
-              <span>{t("support:tools.breathing.statusHint")}</span>
-            </p>
-          </div>
-        </article>
+        <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {SUPPORT_TOOLS.map((tool) => {
+            const visual = toolVisuals[tool];
+            const Icon = visual.icon;
+            const preparing = tool === SUPPORT_TOOL_IN_PREPARATION;
+            return (
+              <li
+                key={tool}
+                data-tool={tool}
+                className={`flex min-w-0 gap-3 overflow-hidden rounded-2xl border bg-soma-surface/90 p-3 sm:flex-col sm:p-0 ${
+                  preparing ? "border-soma-shell-accent/40" : "border-soma-line"
+                }`}
+              >
+                <div
+                  className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl sm:h-32 sm:w-full lg:h-24 xl:h-32 sm:rounded-none sm:border-b sm:border-soma-line"
+                  style={backdrop(visual)}
+                  aria-hidden="true"
+                >
+                  <Halo rgb={visual.rgb} />
+                  <Icon className="relative h-8 w-8 sm:h-14 sm:w-14" strokeWidth={1.35} style={glowIcon(visual)} />
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pb-4">
+                  <h3 className="text-base font-semibold leading-snug text-soma-ink">
+                    {t(`support:tools.${tool}.title`)}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-soma-ink-secondary">
+                    {t(`support:tools.${tool}.body`)}
+                  </p>
+                  <p className="mt-auto flex flex-wrap items-center gap-x-2 gap-y-1 pt-3 text-xs text-soma-ink-muted">
+                    {preparing ? (
+                      <>
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-soma-shell-accent/40 bg-soma-shell-accent/10 px-2.5 py-1 font-medium text-soma-ink">
+                          <Clock className="h-3.5 w-3.5" style={accentColor} aria-hidden="true" />
+                          {t("support:tools.status.preparing")}
+                        </span>
+                        <span>{t("support:tools.breathing.statusHint")}</span>
+                      </>
+                    ) : (
+                      <span className={plannedPillClass}>{t("support:tools.status.planned")}</span>
+                    )}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+      <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
         <section className={panelClass} aria-labelledby="support-learn-title">
-          <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-            <h2 id="support-learn-title" className="text-lg font-semibold text-soma-ink">
+          <div className="flex flex-wrap items-start justify-between gap-x-4">
+            <h2 id="support-learn-title" className="pt-2.5 text-lg font-semibold text-soma-ink">
               {t("support:learn.title")}
             </h2>
             <Link
@@ -81,44 +187,112 @@ export function SupportSections() {
           <p className="text-sm leading-relaxed text-soma-ink-secondary">
             {t("support:learn.subtitle")}
           </p>
-          <ul className="mt-4 flex min-w-0 flex-col gap-2">
-            {learnLinks.map((item) => (
-              <li key={item.id} className="min-w-0">
-                <Link
-                  to={item.href}
-                  className={`${previewFocus} flex min-h-11 min-w-0 items-center gap-3 rounded-xl border border-soma-line bg-soma-raised/40 px-3 py-2.5 motion-safe:transition-colors motion-reduce:transition-none hover:border-soma-line-strong hover:bg-soma-raised/70`}
+          <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-3">
+            {resourceGroups.map((group) => {
+              const visual = resourceVisuals[group.id];
+              const Icon = visual.icon;
+              const empty = group.links.length === 0;
+              return (
+                <li
+                  key={group.id}
+                  data-resource-group={group.id}
+                  className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-soma-line bg-soma-raised/30"
                 >
-                  <BookOpenText className="h-5 w-5 shrink-0" style={accentColor} aria-hidden="true" />
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-medium leading-snug text-soma-ink">
-                      {t(item.titleKey)}
-                    </span>
-                    <span className="mt-0.5 block text-xs text-soma-ink-muted">
-                      {t("support:learn.kind")}
-                    </span>
-                  </span>
-                  <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
-                </Link>
-              </li>
-            ))}
+                  <div className="flex items-center gap-3 p-3 sm:flex-col sm:items-stretch sm:gap-0 sm:p-0">
+                    <div
+                      className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-lg sm:h-24 sm:w-full sm:rounded-none"
+                      style={backdrop(visual, empty)}
+                      aria-hidden="true"
+                    >
+                      <Halo rgb={visual.rgb} dim={empty} />
+                      <Icon className="relative h-7 w-7 sm:h-11 sm:w-11" strokeWidth={1.35} style={glowIcon(visual, empty)} />
+                    </div>
+                    <div className="min-w-0 sm:px-3 sm:pt-3">
+                      <h3 className="text-sm font-semibold leading-snug text-soma-ink">
+                        {t(`support:learn.groups.${group.id}.title`)}
+                      </h3>
+                      <p className="mt-0.5 text-xs leading-relaxed text-soma-ink-muted">
+                        {t(`support:learn.groups.${group.id}.caption`)}
+                      </p>
+                    </div>
+                  </div>
+                  {empty ? (
+                    <p className="px-3 pb-3 sm:pt-2">
+                      <span className={plannedPillClass}>{t("support:learn.unavailable")}</span>
+                    </p>
+                  ) : (
+                    <ul className="flex min-w-0 flex-col gap-1 px-2 pb-2 sm:pt-1">
+                      {group.links.map((item) => (
+                        <li key={item.id} className="min-w-0">
+                          <Link
+                            to={item.href}
+                            className={`${previewFocus} flex min-h-11 min-w-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm leading-snug text-soma-ink motion-safe:transition-colors motion-reduce:transition-none hover:bg-soma-raised/70 sm:max-xl:gap-1.5 xl:text-[13px]`}
+                          >
+                            <BookOpenText className="h-4 w-4 shrink-0 sm:hidden" style={accentColor} aria-hidden="true" />
+                            <span className="min-w-0 flex-1">{t(item.titleKey)}</span>
+                            <ChevronRight className="h-4 w-4 shrink-0 text-soma-ink-muted" aria-hidden="true" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
 
+        <section className={`${panelClass} flex flex-col`} aria-labelledby="support-strategies-title">
+          <h2 id="support-strategies-title" className="text-lg font-semibold text-soma-ink">
+            {t("support:strategies.title")}
+          </h2>
+          <p className="mt-1 text-sm leading-relaxed text-soma-ink-secondary">
+            {t("support:strategies.subtitle")}
+          </p>
+          <ul className="mt-4 grid min-w-0 flex-1 auto-rows-fr gap-2 xl:max-h-80">
+            {SUPPORT_STRATEGY_TOPICS.map((topic) => {
+              const Icon = strategyIcons[topic];
+              return (
+                <li
+                  key={topic}
+                  data-strategy={topic}
+                  className="flex min-h-12 min-w-0 items-center gap-3 rounded-xl border border-soma-line bg-soma-raised/30 px-3 py-2"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soma-shell-accent/10">
+                    <Icon className="h-4 w-4" style={accentColor} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1 text-sm font-medium leading-snug text-soma-ink">
+                    {t(`support:strategies.topics.${topic}`)}
+                  </span>
+                  <span className="shrink-0 text-xs text-soma-ink-muted">
+                    {t("support:strategies.status")}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      </div>
+
+      <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <section
-          className="min-w-0 rounded-2xl border border-violet-300/30 p-4 sm:p-5"
+          className="min-w-0 rounded-2xl border border-rose-300/30 p-4 sm:p-5"
           style={{
             background:
-              "linear-gradient(160deg, rgb(139 92 246 / 0.14) 0%, rgb(var(--soma-surface) / 0.92) 55%)",
+              "linear-gradient(160deg, rgb(244 63 94 / 0.13) 0%, rgb(var(--soma-surface) / 0.92) 60%)",
           }}
           aria-labelledby="support-help-title"
         >
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-violet-400/15">
-              <LifeBuoy className="h-5 w-5 text-violet-200" aria-hidden="true" />
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-400/15">
+              <LifeBuoy className="h-5 w-5 text-rose-200" aria-hidden="true" />
             </span>
-            <h2 id="support-help-title" className="text-lg font-semibold text-soma-ink">
-              {t("support:help.title")}
-            </h2>
+            <div className="min-w-0">
+              <h2 id="support-help-title" className="text-lg font-semibold leading-snug text-soma-ink">
+                {t("support:help.title")}
+              </h2>
+              <p className="mt-0.5 text-sm text-soma-ink-secondary">{t("support:help.subtitle")}</p>
+            </div>
           </div>
           <div className="mt-4 flex flex-col gap-3 text-sm leading-relaxed text-soma-ink-secondary">
             <p className="font-medium text-soma-ink">{t("support:help.educational")}</p>
@@ -127,11 +301,46 @@ export function SupportSections() {
           </div>
           <Link
             to={SUPPORT_TERMS_EMERGENCY_HREF}
-            className={`${previewFocus} mt-4 inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-medium text-violet-200 underline-offset-4 hover:underline`}
+            className={`${previewFocus} mt-4 flex min-h-11 items-center justify-between gap-3 rounded-xl border border-rose-300/40 bg-rose-400/10 px-4 py-2.5 text-sm font-medium text-rose-100 motion-safe:transition-colors motion-reduce:transition-none hover:bg-rose-400/20`}
           >
-            {t("support:help.termsLink")}
+            <span className="min-w-0">{t("support:help.termsLink")}</span>
             <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
           </Link>
+        </section>
+
+        <section className={panelClass} aria-labelledby="support-plan-title">
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-soma-shell-accent/10">
+              <CalendarHeart className="h-5 w-5" style={accentColor} aria-hidden="true" />
+            </span>
+            <div className="min-w-0">
+              <h2 id="support-plan-title" className="text-lg font-semibold leading-snug text-soma-ink">
+                {t("support:plan.title")}
+              </h2>
+              <p className="mt-0.5 text-sm leading-relaxed text-soma-ink-secondary">
+                {t("support:plan.body")}
+              </p>
+            </div>
+          </div>
+          <ul className="mt-5 grid grid-cols-3 gap-2">
+            {planParts.map(({ id, icon: Icon }) => (
+              <li key={id} className="flex min-w-0 flex-col items-center gap-2 text-center">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-dashed border-soma-line-strong">
+                  <Icon className="h-5 w-5 text-soma-ink-muted" aria-hidden="true" />
+                </span>
+                <span className="text-xs leading-snug text-soma-ink-secondary">
+                  {t(`support:plan.parts.${id}`)}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-soma-ink-muted">
+            <span className={plannedPillClass}>
+              <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+              {t("support:plan.status")}
+            </span>
+            <span>{t("support:plan.statusHint")}</span>
+          </p>
         </section>
       </div>
     </>
