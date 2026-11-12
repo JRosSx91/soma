@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LEGAL_NOTICE_STATUS } from "@soma/shared-types";
 import { LanguageSelector } from "../../components/LanguageSelector.js";
@@ -120,6 +120,13 @@ export function LegalDocumentPage({
       document.title = previous;
     };
   }, [ns, t, i18n.language]);
+
+  // Client-side navigation does not scroll to `#section` anchors on its own.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView();
+  }, [hash]);
 
   return (
     <div className="min-h-svh bg-[#081018] text-soma-ink">

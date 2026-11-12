@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3** en revisión). Git: `origin/main` = `35a9b112b04fc1180be1c192b319ed2bf90fcf13` (merge PR #111); `origin/develop` = `36a7da4`. **SPA Live:** el propietario confirma el despliegue de Q-05/Q-OBS y el bundle público contiene el fallback del Error Boundary (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3-FIX** completado y **desplegado** (PR #112); **BETA-01D.3** en revisión jurídica; **SUP-01A** completado y aprobado; **SUP-01B** implementado en local, sin commit). Git: `origin/main` = `68ce47e0ad61d959d23d90bbddc3b1d5c35501fd` (merge PR #112); `origin/develop` = `0349dda`. **SPA Live:** el propietario confirma el despliegue de PR #112; el bundle público (`index-BzTb-IBq.js`) contiene los textos legales corregidos (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -27,9 +27,9 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **abrir**. Ese corte está **integrado en `main`**. `LEGAL_NOTICE_STATUS=published` (`packages/shared-types/src/legal-notices.ts`). El README identifica **beta pública**. **No** se reabre esa secuencia. SHA Live: tabla **Publicación (Git ≠ Render)**. `AUTH_REGISTRATION_MODE` del host **no** verificado.
 
-**BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12, sin cambios en los textos); sigue sin cierre formal. No se inventa esa autorización aquí.
+**BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12; correcciones documentales C1–C3 desplegadas con PR #112); sigue sin cierre formal ni valoración jurídica especializada. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); revisión y publicación de **BETA-01D.3-FIX** (C1–C3 corregidos en local; **BETA-01D.3** sigue en revisión); análisis opcional **UX-BOOT**. **SUP-01** (Centro de Apoyo y Herramientas): propuesta futura, sin iniciar. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); análisis opcional **UX-BOOT**. **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A** completado y aprobado; **SUP-01B** (página base) implementado en local, sin commit; SUP-01C en adelante requiere autorización. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
 Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
@@ -38,11 +38,11 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **P
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
 | 1 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
-| 2 | **BETA-01D.3** | **En revisión.** Comprobación puntual hecha (2026-11-12). C1–C3 corregidos en local (BETA-01D.3-FIX), pendientes de publicación; C4 aplazado. Identificación y domicilio del responsable, y demás puntos jurídicos, pendientes de asesoramiento profesional. |
+| 2 | **BETA-01D.3** | **En revisión.** Comprobación puntual hecha (2026-11-12). C1–C3 completados y desplegados (BETA-01D.3-FIX, PR #112); C4 aplazado. Identificación y domicilio del responsable, y demás puntos jurídicos, pendientes de asesoramiento profesional. |
 | 3 | **UX-BOOT** | Análisis opcional de la espera inicial del backend (landing de anónimos tras `/auth/refresh` en *cold start*). Solo análisis; cambiar el arranque toca autenticación. |
 | 4 | **WEB-02** | Solo si hay necesidades reales. |
 
-**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
+**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A** (aprobado) y **SUP-01B** (local) no desplazan estos hitos; el orden de SUP-01B en adelante lo decide el propietario. **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -194,6 +194,8 @@ Cuatro capas (no se mezclan):
 | SPA Live tras #110 | Desplegado según el propietario (2026-11-12). SHA de panel **no** recopiado: **no** se afirma `cf17b47` como Live. |
 | PR #111 merge en `main` | `35a9b112b04fc1180be1c192b319ed2bf90fcf13` — Q-05 + Q-OBS. Producto `36a7da4`. Check `Typecheck and unit tests` en verde sobre `36a7da4`, con el paso «Shared types tests» en verde (API pública de GitHub, 2026-11-12). |
 | SPA Live tras #111 | Desplegado según el propietario (2026-11-12). El bundle público (`index-CNpJIZEq.js`) contiene los textos del fallback ES/EN. SHA de panel **no** recopiado: **no** se afirma `35a9b11` como Live. |
+| PR #112 merge en `main` | `68ce47e0ad61d959d23d90bbddc3b1d5c35501fd` — BETA-01D.3-FIX (textos legales ES/EN). Producto `0349dda`. Check `Typecheck and unit tests` en verde sobre `0349dda` (API pública de GitHub). |
+| SPA Live tras #112 | Desplegado según el propietario (2026-11-12). El bundle público (`index-BzTb-IBq.js`) contiene `soma.journal.createOp.{identificador de usuario}` y ya no la frase anterior de C1. SHA de panel **no** recopiado: **no** se afirma `68ce47e` como Live. |
 | Inventario SPA Live (**2026-11-11**) | Propietario: Render Live SPA = `c519bb3`. QA DEMO Chromium GAME-07 + IMG-PERF-01B. **No** es QA LIVE `/app` ni Safari. |
 | SPA vs `main` (2026-11-11) | Coinciden (`c519bb3`). |
 | API vs `main` (2026-11-11) | Inventario API sigue `4520530` hasta recopia de panel. `main` adelanta con #105–#107. **No** afirmar SHA Live de API distinto de `4520530`. | |
@@ -746,7 +748,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** MKT-PR-01D; publicar BETA-01D.3-FIX (C1–C3 en local); UX-BOOT (análisis opcional); WEB-02 si procede. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
+- **Siguiente trabajo (prioridad):** MKT-PR-01D; valoración jurídica de BETA-01D.3 (BETA-01D.3-FIX desplegado, PR #112); UX-BOOT (análisis opcional); WEB-02 si procede. SUP-01B implementado en local (sin commit); SUP-01C pendiente de autorización. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -1104,7 +1106,7 @@ Solo diagnóstico: **no** se han modificado textos. **No** es dictamen jurídico
 
 ##### BETA-01D.3-FIX — correcciones documentales mínimas (2026-11-12)
 
-**C1, C2 y C3 corregidos y validados en local** (commit local `docs(legal): correct privacy and storage disclosures`); **pendientes de publicación** hasta su despliegue. BETA-01D.3 **no** queda resuelto jurídicamente. Solo `legal.json` ES/EN y `legal-document.test.ts`. **No** es dictamen jurídico.
+**Completado y desplegado:** PR #112 (producto `0349dda`, merge `68ce47e`), check `Typecheck and unit tests` en verde; despliegue confirmado por el propietario y textos corregidos presentes en el bundle público (SHA de panel no recopiado). BETA-01D.3 **no** queda resuelto jurídicamente. Solo `legal.json` ES/EN y `legal-document.test.ts`. **No** es dictamen jurídico.
 
 - **C1 (privacidad):** «Qué está confirmado» y «Destinatarios» ya no dicen que las regiones no constan; remiten a «Transferencias internacionales», que queda como única descripción de ubicaciones y garantías (sin cambios en esa sección).
 - **C2 (cookies):** `soma.journal.createOp.{identificador de usuario}` documentada en «Almacenamiento de sesión» (UUID y huella SHA-256 del contenido; sin título ni cuerpo; evita duplicados al reintentar; se borra al crear la entrada o al cambiar de usuario). «Alcance» y «Banner» ajustados para no contradecir esa clave.
@@ -1170,9 +1172,67 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 
 #### SUP-01 — Centro de Apoyo y Herramientas
 
-- **Estado:** **Propuesta futura.** Referencia visual: mockup aprobado `docs/design/apoyo-2.0.png` (local, sin versionar en git, como el resto de `docs/design/`). Implementación **no** iniciada.
+- **Objetivo:** sección educativa con herramientas prácticas breves y recursos para situaciones habituales de la recuperación. **No** es terapia, asistencia clínica, intervención profesional ni servicio de emergencias.
+- **Estado:** **SUP-01A** completado y aprobado por el propietario (2026-11-12). **SUP-01B** implementado en local (2026-11-12), pendiente de commit y publicación. **SUP-01C** pendiente, con decisiones aprobadas (abajo). **SUP-01D**, **SUP-01E1** y **SUP-01E2** pendientes, sin autorizar. Cada fase requiere autorización expresa.
+- **SUP-01B (local):**
+  - **Rutas y navegación:** `/preview/support` y `/app/support`, ambas en `soma2Pages`. Entrada «Apoyo» (id `apoyo`, icono `HeartHandshake`) solo en «Más», entre Logros y «Ayuda y sugerencias». La barra lateral (7 destinos) y el dock móvil (4 + «Más») no cambian. ONB-01 sin cambios.
+  - **Página** (`SupportPage` + `support/SupportSections`):
+    - `RecoveryHero` con `nature-11`, imagen exclusiva de la sección aprobada por el propietario. Está registrada en `photo-plate.ts` y tiene variantes WebP de 960 y 1600 px y a tamaño completo, generadas con `optimize-img-perf-01a.mjs --only=nature-11` (las mismas opciones que el resto de `nature-*`). El PNG maestro no se ha modificado. Encuadre `object-position: 62% 55%` y degradados de lectura propios. Eyebrow «Apoyo», título «Apoyo y herramientas.» y cita.
+    - Tarjeta «Respiración guiada» marcada «En preparación», sin botón ni acción.
+    - «Comprender lo que pasa»: cuatro enlaces a artículos ya publicados de Explorar (`dependence`, `tolerance`, `neuroadaptation`, `dopamine`), con los títulos existentes de `explore-edu`, más «Ir a Explorar»; todos en la base activa.
+    - Panel violeta «Si necesitas ayuda ahora», sin teléfonos, con enlace a `/terms#terms-emergency`.
+  - **Textos:** namespace `support` ES/EN; los demás idiomas usan el inglés como respaldo explícito.
+  - **Condiciones de uso:** `LegalDocumentPage` desplaza al `#apartado` al navegar dentro de la SPA (cambio aprobado). Comprobado en navegación interna y en apertura directa: sin hash o con un hash inexistente no hay desplazamiento, y no añade entradas al historial. Sin cambios en textos legales.
+  - **QA:**
+    - `SupportPage.test.ts` y `shell-base.test.ts` actualizados. Suite web 1034/1034, `tsc -b`, build y ESLint de los archivos modificados correctos.
+    - Revisión visual en Chromium (DEMO, ES/EN): 1440 y 1024 px de escritorio; 768, 375 y 320 px sin desbordamiento horizontal y con enlaces de al menos 44 px. Comprobados «Más» en escritorio y móvil, el enlace a Explorar y el ancla de las condiciones.
+    - **No** verificado visualmente: LIVE `/app/support` (requiere sesión; misma ruta y componente cubiertos por tests).
+- **Referencia visual aprobada:** `docs/design/apoyo-2.0.png` (1199×1312, escritorio; local, sin versionar en git, como el resto de `docs/design/`). Estructura: hero fotográfico con cita; pestañas (Vista general, Estrategias, Recursos, Apoyo, Plan personal); cuatro tarjetas de herramientas rápidas con ilustración (Respiración guiada, Atención plena, Activación física, Manejo del craving); paneles «Recursos de aprendizaje» (guías, lecturas, audios) y «Estrategias que funcionan» (cuatro filas); panel rojo «Si ahora lo necesitas» con «Buscar ayuda ahora»; panel «Tu plan de apoyo» con progreso en tres pasos.
 - **Prioridad:** sin asignar; **no** desplaza MKT-PR-01D, BETA-01D.3, UX-BOOT ni WEB-02.
-- **Alcance, dependencias y criterio:** pendientes de definir en su propio hito.
+
+##### Propuesta de MVP (SUP-01B + SUP-01C; sin backend)
+
+- Ruta `support` dentro de `soma2Pages` (`/preview/support` y `/app/support`), mismo componente; sin datos de usuario, por lo que DEMO y LIVE se comportan igual (DEMO muestra `DemoNotice`). Ya cubierta por el `noindex` de `/preview/*` y `/app/*`.
+- Entrada en «Más» (escritorio y móvil) con id `apoyo`; el dock móvil sigue en cinco huecos. Enlace desde Inicio solo como decisión aparte. El id `ayuda` ya es Feedback («Ayuda y sugerencias»).
+- Página sin pestañas: `RecoveryHero` (sin promesas en el texto) → herramienta de respiración guiada funcional → «Comprender lo que pasa» con enlaces a contenido ya publicado (Explorar, misiones) → panel «Si necesitas ayuda ahora» solo con texto seguro y sin números hasta su verificación.
+- **Fuera del MVP:** atención plena, activación física y manejo del craving (sin tarjetas falsas ni «próximamente» clicable); catálogo de estrategias; audios; plan personal; recursos telefónicos sin verificar; ilustraciones del mockup (no existen como assets; se usan iconos `lucide-react`).
+- **Privacidad:** sin almacenamiento, sin telemetría, sin llamadas nuevas a la API, sin permisos, sin registrar el uso de herramientas, sin XP ni medallas por usarlas.
+
+##### Fases
+
+| Fase | Alcance | Dependencias |
+| --- | --- | --- |
+| **SUP-01A** (completado, aprobado) | Análisis del mockup, definición funcional, integración, MVP, riesgos. | — |
+| **SUP-01B** (implementado en local) | Página base, ruta, entrada en «Más», hero, textos ES/EN, panel de ayuda sin números, enlaces a contenido publicado. | Decisiones del propietario (abajo). Tests de navegación (`shell-base.test.ts`) actualizados. |
+| **SUP-01C** (pendiente; decisiones aprobadas) | Respiración guiada: 4 s de inspiración y 6 s de espiración, sin retenciones, iniciar/pausar/reiniciar, texto accesible, `prefers-reduced-motion`, pausa al ocultar la pestaña, limpieza de temporizadores, aviso de detenerse ante malestar o mareo. | SUP-01B. Revisión del texto del ejercicio por el propietario. |
+| **SUP-01D** (pendiente, sin autorizar) | Recursos educativos breves por categorías (emociones, prevención de recaídas, hábitos, afrontamiento). | Contenido nuevo con fuentes y revisión editorial y, si hace afirmaciones de salud, revisión profesional. **No** reutiliza el catálogo de consejos (publicado vacío por revisión clínica). |
+| **SUP-01E1** (pendiente, sin autorizar) | Ayuda externa: recursos verificados con fuente oficial y fecha de comprobación; alternativa segura cuando no haya recurso confirmado para un país. | Verificación de recursos; sin asumir ubicación. |
+| **SUP-01E2** (pendiente, sin autorizar) | Plan personal (estrategias y contactos de confianza). | Decisión de producto, evaluación de privacidad (datos de terceros y de salud), modelo de persistencia, consentimiento, actualización de textos legales. Sin contacto automático ni notificaciones. |
+
+##### Decisiones del propietario
+
+- **Aprobadas (SUP-01B):**
+  - Rutas `/preview/support` y `/app/support`.
+  - Página «Apoyo y herramientas» y etiqueta «Apoyo».
+  - Acceso inicial solo desde «Más».
+  - «Ayuda y sugerencias» sin cambios.
+  - Hero fotográfico con `nature-11`, imagen definitiva y exclusiva de la sección (sustituye a `nature-3`, propuesta inicialmente).
+  - ES/EN, sin backend ni almacenamiento.
+  - Cambio en `LegalDocumentPage` para el ancla de urgencias.
+- **Aprobadas para SUP-01C (sin implementar):**
+  - Ritmo inicial: 4 s de inspiración y 6 s de espiración, sin retenciones.
+  - Sin ritmo alternativo en la primera versión.
+  - Controles: comenzar, pausar y reiniciar. Sin duración obligatoria.
+  - Ejercicio opcional, que se presenta como adaptable al ritmo natural de cada persona.
+  - Indicación de detenerse si aparece mareo o incomodidad.
+  - Sin backend, almacenamiento ni seguimiento.
+- **Pendientes:**
+  - Enlace desde Inicio.
+  - Verificación de recursos concretos (SUP-01E1).
+  - Si SUP-01D entra en la beta y quién revisa su contenido.
+  - Si SUP-01E2 se plantea en algún momento.
+
+- **Criterio (MVP):** la página abre en DEMO y LIVE desde «Más», la respiración guiada funciona sin conexión a la API y sin guardar nada, no hay tarjetas que aparenten funciones inexistentes ni números sin verificar, y los textos ES/EN no prometen resultados ni se presentan como terapia.
 
 #### UX-GLO-01 — Experiencia global (consolidación funcional, visual y responsive)
 
@@ -1434,7 +1494,7 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). Q-E2E aparte (no instalar Playwright sin autorización).
 1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
-2. **BETA-01D.3:** **en revisión**. C1–C3 corregidos en local (BETA-01D.3-FIX); siguiente paso, revisión y publicación. C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
+2. **BETA-01D.3:** **en revisión**. C1–C3 desplegados (BETA-01D.3-FIX, PR #112). C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
 3. **UX-BOOT:** análisis opcional de la espera inicial del backend (sin cambiar autenticación en el análisis).
 4. **WEB-02:** solo si hay necesidades reales.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
@@ -1666,3 +1726,6 @@ VIS-01 (no reabre UX-03)
 | 2026-11-12 | **Q-05** y **Q-OBS** implementados en local (sin commit). Q-05: script `test` en `@soma/shared-types` (`tsx` 4.21.0, ya en el lockfile), 9 archivos / 82 tests OK, paso «Shared types tests» en `ci.yml`; Actions **pendiente**. Q-OBS: `AppErrorBoundary` raíz con fallback ES/EN, sin detalles internos ni telemetría; 8 tests; verificado en Chromium forzando un error de render. Tests web 1027/1027, API unit 329/329, typecheck y build OK. Siguiente: publicar; después MKT-PR-01D → BETA-01D.3 → UX-BOOT (análisis) → WEB-02 (si procede). PWA-01D aplazado. |
 | 2026-11-12 | **Q-05** y **Q-OBS** completados y desplegados: PR #111 (producto `36a7da4`, merge `35a9b11`); «Shared types tests» en verde en Actions; despliegue confirmado por el propietario y fallback presente en el bundle público (SHA de panel no recopiado). **BETA-01D.3** en revisión: comprobación puntual de los textos legales ES/EN frente a producción (nombre y correo del responsable inyectados; persona física; beta gratuita sin promesa permanente; carácter educativo; 18+ coherente; registro `open`). Incoherencias documentales: regiones de proveedores «no documentadas» frente a la sección de transferencias; clave `soma.journal.createOp.*` ausente de cookies; redacción interna en texto público. Puntos para jurista registrados en BETA-01. Textos sin modificar. MKT-PR-01D en seguimiento; PWA-01D aplazado. Sin commit. |
 | 2026-11-12 | **BETA-01D.3-FIX** (validado en local; commit local, sin push): C1 (regiones remitidas a «Transferencias internacionales»), C2 (`soma.journal.createOp.*` en cookies, con «Alcance» y «Banner» ajustados) y C3 (redacción interna eliminada del aviso legal y la privacidad) en `legal.json` ES/EN; aserciones nuevas en `legal-document.test.ts` (12/12 tests legales OK). Versiones legales **sin cambios** (`2026-10-31.2`): solo se validan en el alta y no hay re-aceptación; subirlas exigiría desplegar SPA y API a la vez. C4 aplazado. Identificación y domicilio del responsable pendientes de asesoramiento profesional. Pendiente de publicación. **SUP-01** (Centro de Apoyo y Herramientas) registrado como propuesta futura, sin iniciar; referencia visual `apoyo-2.0`. Q-05/Q-OBS desplegados (PR #111); PWA-01D aplazado; MKT-PR-01D en seguimiento; UX-BOOT pendiente de análisis. |
+| 2026-11-12 | **BETA-01D.3-FIX** completado y desplegado: PR #112 (producto `0349dda`, merge `68ce47e`), CI en verde, despliegue confirmado por el propietario y textos corregidos en el bundle público (SHA de panel no recopiado). BETA-01D.3 sigue en revisión jurídica. **SUP-01A** en análisis (sin código): mockup `apoyo-2.0` analizado; MVP propuesto sin backend (página `support` en DEMO y LIVE desde «Más», respiración guiada local, enlaces a contenido ya publicado, panel de ayuda sin números sin verificar); fases SUP-01B–E2 y decisiones pendientes del propietario registradas en SUP-01. Prioridades sin cambios: MKT-PR-01D → BETA-01D.3 → UX-BOOT → WEB-02. PWA-01D aplazado. Sin commit. |
+| 2026-11-12 | **SUP-01A** aprobado. **SUP-01B** implementado en local (sin commit): página «Apoyo y herramientas» en `/preview/support` y `/app/support` con entrada «Apoyo» solo en «Más»; hero con `nature-3` reutilizada; respiración guiada «En preparación», sin acción; cuatro enlaces a artículos publicados de Explorar; panel de ayuda sin teléfonos, con enlace al apartado de urgencias de las condiciones (que ahora desplaza al ancla); namespace `support` ES/EN. QA: tests web 1034/1034; typecheck, build y ESLint de los archivos modificados OK; revisión visual en Chromium (DEMO, ES/EN, 1440/1024/768/375/320 px). LIVE no revisado visualmente. SUP-01C pendiente. Demás hitos sin cambios. |
+| 2026-11-12 | **SUP-01B-FINAL** (local, sin commit): hero con `nature-11`, imagen exclusiva aprobada, en lugar de `nature-3`. Registrada en `photo-plate.ts`, con WebP de tamaño completo, 960 y 1600 px generadas con las opciones de IMG-PERF-01A (`--only=nature-11`); PNG sin modificar; `object-position: 62% 55%`. Ancla de urgencias de `LegalDocumentPage` aprobada y comprobada: navegación interna, apertura directa, otras páginas legales sin cambios, sin bucles. Decisiones de SUP-01C registradas: 4 s de inspiración y 6 s de espiración, sin retenciones ni ritmo alternativo; comenzar, pausar y reiniciar; sin duración obligatoria; aviso ante mareo; sin backend ni seguimiento. QA: tests afectados 31/31; typecheck, build y ESLint OK; revisión visual en Chromium a 1440/1024/375/320 px. SUP-01B pendiente de commit y publicación. SUP-01C sin implementar; SUP-01D/E1/E2 sin iniciar. |

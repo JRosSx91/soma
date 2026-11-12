@@ -1,0 +1,29 @@
+{
+  "eyebrow": "Apoyo",
+  "title": "Apoyo y herramientas.",
+  "intro": "Recursos sencillos y contenido educativo para acompañarte en tu proceso. Soma no sustituye la atención profesional.",
+  "quote": "Pedir apoyo también es una forma de fortaleza.",
+  "tools": {
+    "title": "Herramientas rápidas",
+    "subtitle": "Ejercicios breves para usar a tu ritmo.",
+    "breathing": {
+      "title": "Respiración guiada",
+      "body": "Un ejercicio de respiración pausada, sin retenciones, que podrás seguir a tu ritmo y detener cuando quieras.",
+      "status": "En preparación",
+      "statusHint": "Todavía no está disponible. Llegará en una próxima versión de Soma."
+    }
+  },
+  "learn": {
+    "title": "Comprender lo que pasa",
+    "subtitle": "Artículos educativos ya publicados en Explorar sobre cómo responde el cerebro a las sustancias.",
+    "kind": "Artículo en Explorar",
+    "viewAll": "Ir a Explorar"
+  },
+  "help": {
+    "title": "Si necesitas ayuda ahora",
+    "educational": "Soma es un recurso educativo. No ofrece asistencia profesional ni atención de emergencias.",
+    "emergency": "Si tu vida o la de otra persona está en peligro inmediato, contacta con los servicios de emergencia de tu zona.",
+    "professional": "Para recibir orientación personalizada, habla con un profesional sanitario.",
+    "termsLink": "Leer el apartado sobre situaciones que requieren ayuda profesional"
+  }
+}

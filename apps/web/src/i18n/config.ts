@@ -36,6 +36,7 @@ import enFeedback from "./locales/en/feedback.json";
 import enOnboardingTour from "./locales/en/onboarding-tour.json";
 import enPwa from "./locales/en/pwa.json";
 import enExpedition from "./locales/en/expedition.json";
+import enSupport from "./locales/en/support.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -63,6 +64,7 @@ import esFeedback from "./locales/es/feedback.json";
 import esOnboardingTour from "./locales/es/onboarding-tour.json";
 import esPwa from "./locales/es/pwa.json";
 import esExpedition from "./locales/es/expedition.json";
+import esSupport from "./locales/es/support.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -144,7 +146,7 @@ import deAchievements from "./locales/de/achievements.json";
  * - When a key is missing in the active language, fall back to
  *   English. If still missing, the key string itself is shown
  *   (helpful during development).
- * - Recovery, Explore, Anatomy, Journal, Progress, Missions, Feedback and Expedition namespaces: complete for English (base) and Spanish.
+ * - Recovery, Explore, Anatomy, Journal, Progress, Missions, Feedback, Expedition and Support namespaces: complete for English (base) and Spanish.
  *   ca, gl, eu, fr, it and de reuse the English bundle as an explicit
  *   interim fallback — not a complete Recovery, Explore, Anatomy or Feedback translation.
  * - Neurotransmitter phases and mechanisms: reviewed English and Spanish only (8N.6B).
@@ -225,6 +227,7 @@ i18n
       "onboarding-tour",
       "pwa",
       "expedition",
+      "support",
     ],
     defaultNS: "common",
     interpolation: {
@@ -267,6 +270,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
       es: {
         common: esCommon,
@@ -294,6 +298,7 @@ i18n
         "onboarding-tour": esOnboardingTour,
         pwa: esPwa,
         expedition: esExpedition,
+        support: esSupport,
       },
       ca: {
         common: caCommon,
@@ -320,6 +325,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
       gl: {
         common: glCommon,
@@ -346,6 +352,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
       eu: {
         common: euCommon,
@@ -372,6 +379,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
       fr: {
         common: frCommon,
@@ -398,6 +406,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
       it: {
         common: itCommon,
@@ -424,6 +433,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
       de: {
         common: deCommon,
@@ -450,6 +460,7 @@ i18n
         "onboarding-tour": enOnboardingTour,
         pwa: enPwa,
         expedition: enExpedition,
+        support: enSupport,
       },
     },
   }, () => {

@@ -7,7 +7,8 @@
  * stores ids, i18n keys, routes, icons, and which chrome shows each item.
  *
  * Expedition lives in «Más» (GAME-07 / R-NAV): the mobile dock stays
- * at five slots and the desktop rail is not saturated.
+ * at five slots and the desktop rail is not saturated. Support (SUP-01B)
+ * follows the same rule.
  * Add a def with desktop/mobile/more flags; menus filter.
  * Mobile dock: Home, Recovery, Missions, Journal, then «Más».
  * Explore sits with Anatomy in mobile «Más» so the dock stays at five
@@ -25,6 +26,7 @@ export type ShellIconId =
   | "flag"
   | "mountain"
   | "messageCircle"
+  | "heartHandshake"
   | "user";
 
 export const shellSectionDefs = [
@@ -107,6 +109,16 @@ export const shellSectionDefs = [
     desktop: true,
     mobile: true,
     more: false,
+  },
+  {
+    id: "apoyo",
+    labelKey: "support",
+    mobileLabelKey: "support",
+    path: "/support",
+    icon: "heartHandshake",
+    desktop: false,
+    mobile: false,
+    more: true,
   },
   {
     id: "ayuda",

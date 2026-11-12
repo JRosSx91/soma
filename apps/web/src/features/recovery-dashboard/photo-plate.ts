@@ -28,6 +28,7 @@ const NATURE_PLATES: Record<string, PlateSpec> = {
   "nature-8": { width: 2048, height: 768, steps: [960, 1600] },
   "nature-9": { width: 2172, height: 724, steps: [960, 1600] },
   "nature-10": { width: 2172, height: 724, steps: [960, 1600] },
+  "nature-11": { width: 2172, height: 724, steps: [960, 1600] },
 };
 
 const DECORATION_DIR = "/images/decoration";

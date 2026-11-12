@@ -33,6 +33,7 @@ const nature = [
   { id: "nature-8", width: 2048, steps: [960, 1600] },
   { id: "nature-9", width: 2172, steps: [960, 1600] },
   { id: "nature-10", width: 2172, steps: [960, 1600] },
+  { id: "nature-11", width: 2172, steps: [960, 1600] },
 ];
 
 const knowledgeIcons = [
@@ -143,6 +144,8 @@ console.log("IMG-PERF-01A using", magick, only === "all" ? "" : `(only=${only})`
 if (only === "all" || only === "photos") {
   for (const plate of nature) emitPhoto(plate.id, plate.width, plate.steps);
 }
+const singlePlate = nature.find((plate) => plate.id === only);
+if (singlePlate) emitPhoto(singlePlate.id, singlePlate.width, singlePlate.steps);
 if (only === "all" || only === "map") emitMap();
 if (only === "all" || only === "knowledge") {
   for (const id of knowledgeIcons) emitIcon(id);
