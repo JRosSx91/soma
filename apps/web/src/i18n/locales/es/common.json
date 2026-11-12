@@ -4,6 +4,11 @@
     "preparing": "Preparando tu espacio…",
     "slowServer": "Estamos conectando con el servidor. La primera conexión puede tardar un poco más."
   },
+  "errorBoundary": {
+    "title": "Algo ha salido mal",
+    "body": "Se ha producido un error inesperado. Puedes recargar la página para intentarlo de nuevo.",
+    "reload": "Recargar página"
+  },
   "error": "Algo ha ido mal",
   "save": "Guardar",
   "cancel": "Cancelar",

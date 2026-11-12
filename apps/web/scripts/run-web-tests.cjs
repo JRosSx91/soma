@@ -26,6 +26,7 @@ const TEST_ROOTS = [
   "src/features/onboarding",
   "src/features/onboarding-tour",
   "src/features/pwa",
+  "src/components",
   "src/seo",
   "src/i18n",
 ];
