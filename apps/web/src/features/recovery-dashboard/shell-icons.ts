@@ -3,6 +3,7 @@ import {
   BookOpen,
   Compass,
   Flag,
+  HeartHandshake,
   Home,
   MessageCircle,
   Mountain,
@@ -23,5 +24,6 @@ export const shellIcons: Record<ShellIconId, LucideIcon> = {
   flag: Flag,
   mountain: Mountain,
   messageCircle: MessageCircle,
+  heartHandshake: HeartHandshake,
   user: User,
 };

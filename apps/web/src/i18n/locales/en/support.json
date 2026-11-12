@@ -1,0 +1,29 @@
+{
+  "eyebrow": "Support",
+  "title": "Support and tools.",
+  "intro": "Simple resources and educational content to accompany you through your process. Soma does not replace professional care.",
+  "quote": "Asking for support is also a form of strength.",
+  "tools": {
+    "title": "Quick tools",
+    "subtitle": "Short exercises to use at your own pace.",
+    "breathing": {
+      "title": "Guided breathing",
+      "body": "A slow breathing exercise, with no breath holds, that you will be able to follow at your own pace and stop whenever you like.",
+      "status": "In preparation",
+      "statusHint": "Not available yet. It will arrive in a future version of Soma."
+    }
+  },
+  "learn": {
+    "title": "Understanding what is happening",
+    "subtitle": "Educational articles already published in Explore about how the brain responds to substances.",
+    "kind": "Article in Explore",
+    "viewAll": "Go to Explore"
+  },
+  "help": {
+    "title": "If you need help now",
+    "educational": "Soma is an educational resource. It does not provide professional assistance or emergency care.",
+    "emergency": "If your life or someone else's is in immediate danger, contact the emergency services where you are.",
+    "professional": "For personalised guidance, talk to a healthcare professional.",
+    "termsLink": "Read the section on situations that need professional help"
+  }
+}

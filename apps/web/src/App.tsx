@@ -17,6 +17,7 @@ import { MissionsPage } from "./features/recovery-dashboard/pages/MissionsPage.j
 import { ExpeditionPage } from "./features/recovery-dashboard/pages/ExpeditionPage.js";
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
 import { FeedbackPage } from "./features/recovery-dashboard/pages/FeedbackPage.js";
+import { SupportPage } from "./features/recovery-dashboard/pages/SupportPage.js";
 import { AppBootScreen } from "./components/AppBootScreen.js";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
@@ -59,6 +60,7 @@ const soma2Pages = (
     <Route path="anatomy" element={<AnatomyExplorerPage />} />
     <Route path="achievements" element={<Soma2AchievementsPage />} />
     <Route path="journal" element={<JournalPage />} />
+    <Route path="support" element={<SupportPage />} />
     <Route path="feedback" element={<FeedbackPage />} />
     <Route path="account" element={<AccountPage />} />
   </>
