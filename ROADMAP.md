@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; diagnóstico **Q-OBS** / **Q-05** registrado). Git: `origin/main` = `cf17b47915a8246b2396948f82789526aa77b108` (merge PR #110); `origin/develop` = `83556cf`. **SPA Live:** el propietario confirma el despliegue de UX-POLISH; SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3** en revisión). Git: `origin/main` = `35a9b112b04fc1180be1c192b319ed2bf90fcf13` (merge PR #111); `origin/develop` = `36a7da4`. **SPA Live:** el propietario confirma el despliegue de Q-05/Q-OBS y el bundle público contiene el fallback del Error Boundary (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -27,23 +27,22 @@ Fuera de alcance hasta autorización: síntomas de abstinencia **publicados**, c
 
 La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **abrir**. Ese corte está **integrado en `main`**. `LEGAL_NOTICE_STATUS=published` (`packages/shared-types/src/legal-notices.ts`). El README identifica **beta pública**. **No** se reabre esa secuencia. SHA Live: tabla **Publicación (Git ≠ Render)**. `AUTH_REGISTRATION_MODE` del host **no** verificado.
 
-**BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **sigue abierta** mientras no conste cierre formal. No se inventa esa autorización aquí.
+**BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12, sin cambios en los textos); sigue sin cierre formal. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** revisión y publicación de **Q-05** (tests de `shared-types` en CI) y **Q-OBS** (Error Boundary de la SPA), ambos implementados en local; seguimiento de prensa (**MKT-PR-01D**); comprobación puntual de datos legales (**BETA-01D.3**); análisis opcional **UX-BOOT**. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); revisión y publicación de **BETA-01D.3-FIX** (C1–C3 corregidos en local; **BETA-01D.3** sigue en revisión); análisis opcional **UX-BOOT**. **SUP-01** (Centro de Apoyo y Herramientas): propuesta futura, sin iniciar. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
-Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **PWA-01D** (aplazado); **MKT-PR-01D**; **Q-OBS** y **Q-05** (implementados en local, sin publicar); residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
-### Próximos cinco hitos (orden)
+### Próximos hitos (orden)
 
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
-| 1 | **Q-05** + **Q-OBS** | Revisión y publicación del cierre técnico (implementado en local): tests de `shared-types` en CI y Error Boundary raíz. Verificar el nuevo paso en Actions. |
-| 2 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
-| 3 | **BETA-01D.3** | Comprobación puntual de datos legales (responsable, proveedores, transferencias). |
-| 4 | **UX-BOOT** | Análisis opcional de la espera inicial del backend (landing de anónimos tras `/auth/refresh` en *cold start*). Solo análisis; cambiar el arranque toca autenticación. |
-| 5 | **WEB-02** | Solo si hay necesidades reales. |
+| 1 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
+| 2 | **BETA-01D.3** | **En revisión.** Comprobación puntual hecha (2026-11-12). C1–C3 corregidos en local (BETA-01D.3-FIX), pendientes de publicación; C4 aplazado. Identificación y domicilio del responsable, y demás puntos jurídicos, pendientes de asesoramiento profesional. |
+| 3 | **UX-BOOT** | Análisis opcional de la espera inicial del backend (landing de anónimos tras `/auth/refresh` en *cold start*). Solo análisis; cambiar el arranque toca autenticación. |
+| 4 | **WEB-02** | Solo si hay necesidades reales. |
 
-**PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) sigue **abierta**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
+**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -193,6 +192,8 @@ Cuatro capas (no se mezclan):
 | SPA Live tras #109 | Desplegado según el propietario (2026-11-12). SHA de panel **no** recopiado: **no** se afirma `7c9fe07` como Live. |
 | PR #110 merge en `main` | `cf17b47915a8246b2396948f82789526aa77b108` — UX-POLISH A/B/C. Producto `83556cf`. Check `Typecheck and unit tests` en verde sobre `83556cf` antes del merge (API pública de GitHub). |
 | SPA Live tras #110 | Desplegado según el propietario (2026-11-12). SHA de panel **no** recopiado: **no** se afirma `cf17b47` como Live. |
+| PR #111 merge en `main` | `35a9b112b04fc1180be1c192b319ed2bf90fcf13` — Q-05 + Q-OBS. Producto `36a7da4`. Check `Typecheck and unit tests` en verde sobre `36a7da4`, con el paso «Shared types tests» en verde (API pública de GitHub, 2026-11-12). |
+| SPA Live tras #111 | Desplegado según el propietario (2026-11-12). El bundle público (`index-CNpJIZEq.js`) contiene los textos del fallback ES/EN. SHA de panel **no** recopiado: **no** se afirma `35a9b11` como Live. |
 | Inventario SPA Live (**2026-11-11**) | Propietario: Render Live SPA = `c519bb3`. QA DEMO Chromium GAME-07 + IMG-PERF-01B. **No** es QA LIVE `/app` ni Safari. |
 | SPA vs `main` (2026-11-11) | Coinciden (`c519bb3`). |
 | API vs `main` (2026-11-11) | Inventario API sigue `4520530` hasta recopia de panel. `main` adelanta con #105–#107. **No** afirmar SHA Live de API distinto de `4520530`. | |
@@ -745,7 +746,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** publicar Q-05 + Q-OBS (local); después MKT-PR-01D; comprobación puntual D.3; UX-BOOT (análisis opcional); WEB-02 si procede. **No** más mapa ni catálogo educativo de procesos.
+- **Siguiente trabajo (prioridad):** MKT-PR-01D; publicar BETA-01D.3-FIX (C1–C3 en local); UX-BOOT (análisis opcional); WEB-02 si procede. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -1086,7 +1087,31 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 
 - **Objetivo:** Permitir registros **públicos** y abrir Soma a usuarios reales, identificada como **beta pública**, cuando estabilidad, seguridad, coherencia visual y usabilidad sean suficientes.
 - **Prioridad:** P1 residual **jurídico** (D.3), no de “volver a abrir”.
-- **Estado:** Apertura de **producto** ejecutada: README «Public Beta»; código `LEGAL_NOTICE_STATUS=published` (**no** es dictamen jurídico). Preparación git **integrada en `main`**. **BETA-01D.3** **sigue abierta**. `AUTH_REGISTRATION_MODE` del host **no verificado aquí**. SPA Live `c519bb3` (2026-11-11). API Live copiada `4520530` (2026-11-10).
+- **Estado:** Apertura de **producto** ejecutada: README «Public Beta»; código `LEGAL_NOTICE_STATUS=published` (**no** es dictamen jurídico). Preparación git **integrada en `main`**. **BETA-01D.3** **en revisión** (2026-11-12). Registro en producción: `GET /auth/registration-mode` = `open` (lectura pública 2026-11-12). SPA Live `c519bb3` (2026-11-11). API Live copiada `4520530` (2026-11-10).
+
+##### BETA-01D.3 — comprobación puntual (2026-11-12)
+
+Solo diagnóstico: **no** se han modificado textos. **No** es dictamen jurídico.
+
+- **Revisado:** `legal.json` ES/EN (aviso legal, privacidad, condiciones, cookies), `LegalDocumentPage`, `legal-controller.ts`, versiones en `legal-notices.ts` (`2026-10-31.2`), textos de alta y edad (`auth.json`), landing, feedback, README e `index.html`. Bundle publicado en somarecovery.app y `GET /auth/registration-mode` (lectura pública).
+- **Confirmado en producción:** nombre del responsable y correo de contacto inyectados en el build (`VITE_LEGAL_CONTROLLER_NAME`, `VITE_LEGAL_CONTROLLER_EMAIL`); domicilio, NIF, teléfono y DPO vacíos, y sus cláusulas se omiten sin dejar marcadores. Sin aviso de borrador. Persona física, sin sociedad. Beta pública gratuita sin fecha de fin ni promesa de gratuidad permanente en los textos legales. Carácter educativo, no sanitario, coherente en los cuatro documentos, landing y meta. Edad 18+ coherente entre condiciones, privacidad, aviso, alta y API (`MINIMUM_SERVICE_AGE_YEARS = 18`, `Europe/Madrid`). Registro `open`, coherente con «registro abierto» (la nota de invitación de la landing solo aparece en modo `invite`).
+- **Incoherencias demostrables (pendientes de corrección mínima autorizada):**
+  1. Privacidad, «Qué está confirmado» y «Destinatarios»: afirman que no constan las regiones de los proveedores, mientras «Transferencias internacionales» las confirma (Fráncfort, Reino Unido, WEUR, Estados Unidos para Resend).
+  2. Cookies: no recoge la clave de `sessionStorage` `soma.journal.createOp.{usuario}` (UUID y huella SHA-256, sin texto), introducida con JRN-01R después de la versión `2026-10-31.2`.
+  3. Redacción interna en texto público: «el domicilio postal no se publica si no se configura», «en el repositorio», «según el inventario del producto».
+- **Menores (decisión del propietario):** el feedback habla de «el equipo» y en primera persona del plural; el README dice «Soma is free to use» sin acotarlo a la beta.
+- **Para revisión jurídica profesional:** suficiencia de la identificación sin domicilio ni NIF (LSSI-CE art. 10, si aplica a un servicio gratuito sin actividad económica); acuerdos de encargo efectivamente aceptados con Render, Supabase, Cloudflare y Resend, y la transferencia a EE. UU. de Resend; necesidad de EIPD y registro de actividades por tratar datos de salud (RGPD art. 35 y 30.5); base jurídica del feedback; suficiencia de la verificación de edad para datos de categoría especial; ausencia de ley aplicable y fuero en las condiciones; si un cambio de texto exige nueva versión y nueva aceptación.
+
+##### BETA-01D.3-FIX — correcciones documentales mínimas (2026-11-12)
+
+**C1, C2 y C3 corregidos y validados en local** (commit local `docs(legal): correct privacy and storage disclosures`); **pendientes de publicación** hasta su despliegue. BETA-01D.3 **no** queda resuelto jurídicamente. Solo `legal.json` ES/EN y `legal-document.test.ts`. **No** es dictamen jurídico.
+
+- **C1 (privacidad):** «Qué está confirmado» y «Destinatarios» ya no dicen que las regiones no constan; remiten a «Transferencias internacionales», que queda como única descripción de ubicaciones y garantías (sin cambios en esa sección).
+- **C2 (cookies):** `soma.journal.createOp.{identificador de usuario}` documentada en «Almacenamiento de sesión» (UUID y huella SHA-256 del contenido; sin título ni cuerpo; evita duplicados al reintentar; se borra al crear la entrada o al cambiar de usuario). «Alcance» y «Banner» ajustados para no contradecir esa clave.
+- **C3 (aviso legal y privacidad):** eliminadas «el domicilio postal no se publica si no se configura», «según el inventario del producto», «en el código» y «en el código de Soma». Sin domicilio inventado ni datos personales nuevos; **no** se afirma que el correo sustituya al domicilio ni que la identificación cumpla la LSSI-CE. Residual fuera de C3: el documento de cookies conserva «en el código» y «según el inventario actual».
+- **Versiones:** **sin cambios** (`2026-10-31.2`). Las versiones solo se validan al registrarse (`@Equals` en `register.dto.ts`) y se guardan como evidencia en `RegistrationAcceptance`; no existe flujo de re-aceptación para cuentas existentes, ni versión propia de cookies o aviso legal, ni revisión editorial separada. Subir la versión no obligaría a re-aceptar, pero exigiría desplegar SPA y API a la vez (si no, el alta falla con `AUTH_ACCEPTANCE_REQUIRED`). Las correcciones no cambian finalidades, bases ni condiciones; la trazabilidad queda en git y en este documento.
+- **C4 aplazado:** «el equipo» y primera persona del plural en feedback; README «free to use» sin acotar a la beta.
+- **Sigue pendiente de asesoramiento profesional**, en especial la **información identificativa y el domicilio** del responsable (aplicabilidad del art. 10 LSSI-CE), además de los demás puntos listados arriba.
 
 Preparación y autorización siguen siendo fases distintas. Este sync **no** cambia env de producción.
 
@@ -1094,7 +1119,7 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 
 - Registro invite/open implementado en código (`65866c2`, PR #83). El valor **real** del host no se afirma aquí.
 - Avisos ES/EN **`published`** en `legal-notices.ts` (versiones `2026-10-31.2`). Consentimiento de categoría especial y retirada en código.
-- **BETA-01D.3 pendiente:** validación jurídica formal.
+- **BETA-01D.3 en revisión:** comprobación puntual hecha (ver arriba); validación jurídica formal pendiente.
 - Backups R2/PG17 en `main`. R-JXP, GAM-03, CHR-01, ONB-01, FBK-01, WEB-01, CLEAN-01, UX-GLO-01 en `main`.
 
 ##### Autorización de apertura
@@ -1142,6 +1167,12 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 - **Posibles funcionalidades (no son requisitos cerrados de esta fase):** propuestas públicas moderadas; votaciones; estados de desarrollo; seguimiento de propuestas.
 - **Dependencias:** FBK-01, BETA-01, WEB-01. Moderación y privacidad **antes** de cualquier muro público. No adelantar a la consolidación UX.
 - **Criterio:** Nada enviado en FBK-01 se vuelve público sin moderación y consentimiento explícitos. Sigue sin XP por feedback.
+
+#### SUP-01 — Centro de Apoyo y Herramientas
+
+- **Estado:** **Propuesta futura.** Referencia visual: mockup aprobado `docs/design/apoyo-2.0.png` (local, sin versionar en git, como el resto de `docs/design/`). Implementación **no** iniciada.
+- **Prioridad:** sin asignar; **no** desplaza MKT-PR-01D, BETA-01D.3, UX-BOOT ni WEB-02.
+- **Alcance, dependencias y criterio:** pendientes de definir en su propio hito.
 
 #### UX-GLO-01 — Experiencia global (consolidación funcional, visual y responsive)
 
@@ -1253,7 +1284,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Diagnóstico 2026-11-12 (Q-OBS / Q-05):**
   - Disparadores confirmados: `pull_request` hacia `develop` **y** `main` (desde `ce72761`). PR #110 → `main` ejecutó el job en verde. **No** hay `push`; un push directo a una rama no lanza CI.
   - Cubierto: typecheck API/web, `prisma validate`, unitarios API (todo `src` salvo `*.pg.*`), tests web (154 archivos, todos dentro de las raíces del runner) y PostgreSQL efímero.
-  - **Fuera de CI:** ESLint (49 errores y 12 avisos previos en web, mayoría reglas `react-hooks` de estilo; no hay fallo funcional demostrado). `vite build` (lo ejecuta Render al desplegar). Los 82 tests de `packages/shared-types` pasan a CI con **Q-05** (paso añadido en local, pendiente de su primera ejecución en Actions).
+  - **Fuera de CI:** ESLint (49 errores y 12 avisos previos en web, mayoría reglas `react-hooks` de estilo; no hay fallo funcional demostrado). `vite build` (lo ejecuta Render al desplegar). Los 82 tests de `packages/shared-types` están en CI desde **Q-05** (PR #111, paso en verde en Actions).
 - **Dependencias:** Ninguna de producto.
 - **Criterio:** Un PR muestra checks verdes o fallo explícito de test; no se exige cobertura 100 %. **Cumplido** para typecheck, unitarios, web y PG.
 
@@ -1269,7 +1300,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### Q-OBS — Errores y observabilidad
 
 - **Descripción:** Gestión visible de errores de cliente y telemetría mínima de API (hoy `Logger` Nest + `GET /health`; no Sentry ni ErrorBoundary).
-- **Estado:** **Implementado en local** (2026-11-12), pendiente de revisión, publicación y despliegue. Error Boundary raíz añadido (`AppErrorBoundary` en `main.tsx`, envolviendo `AuthProvider`, `AchievementSyncProvider` y `App`). La gestión de errores de API por pantalla no cambia. Sin telemetría.
+- **Estado:** **Completado y desplegado** (2026-11-12): PR #111 (producto `36a7da4`, merge `35a9b11`), despliegue confirmado por el propietario; el bundle público contiene el fallback. SHA de panel no recopiado. Canal 5xx = logs de Render. Error Boundary raíz añadido (`AppErrorBoundary` en `main.tsx`, envolviendo `AuthProvider`, `AchievementSyncProvider` y `App`). La gestión de errores de API por pantalla no cambia. Sin telemetría.
   - Fallback ES/EN («Algo ha salido mal» / «Something went wrong») con `SomaMark`, fondo azul oscuro, `h1`, texto y botón «Recargar página» / «Reload page». No muestra el mensaje ni el *stack* de la excepción. Los textos salen de `common.errorBoundary` en los JSON de locales, sin depender de `I18nextProvider`; el idioma se toma de la instancia `i18next`, después de `<html lang>` y del navegador.
   - Tests: 8 en `src/components/app-error-boundary.test.ts` (raíz añadida al runner web). Verificación en Chromium (`vite preview`) forzando un error real de render en Bitácora: aparece el fallback ES y EN (375 px), sin el mensaje interno; el botón recarga y la página vuelve a funcionar.
 - **Prioridad:** P2 (prioridad de calidad inmediata; **no** P0 ni P1 evidenciado)
@@ -1277,7 +1308,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Diagnóstico 2026-11-12:**
   - **API — suficiente para el criterio de 5xx:** `Logger` de Nest por defecto (texto a stdout → logs de Render). Las excepciones no controladas pasan por el `ExceptionsHandler` por defecto, que registra mensaje y *stack* y responde un 500 genérico. Logs de dominio sin datos sensibles (ids, categorías y nombres de error; destinatario y URL de reset ocultos en producción). `GET /health` comprueba PostgreSQL (`SELECT 1`). No hay id de petición ni log de acceso; no hay alertas versionadas (no hay `render.yaml`). Retención y alertas del panel Render: **no** verificadas desde el repositorio.
   - **SPA — falta el Error Boundary:** no existe ninguno (`main.tsx` monta `AuthProvider` → `App` sin barrera). Un error de render desmonta toda la app y deja el fondo oscuro sin mensaje. No se ha observado ningún caso; es la carencia exacta frente al criterio. Los errores de red sí se convierten en estados de error por pantalla (Recovery, Bitácora, Misiones, Feedback, Onboarding, Login). Sin `console.*` en producción (solo un `console.debug` limitado a dev).
-- **Mínimo para cerrar:** un Error Boundary raíz con mensaje ES/EN y botón de recarga; sin envío de datos a terceros (**hecho en local**). Al publicarse, Q-OBS se cierra con «canal 5xx = logs de Render».
+- **Mínimo para cerrar:** un Error Boundary raíz con mensaje ES/EN y botón de recarga; sin envío de datos a terceros (**hecho**, PR #111). Cerrado con «canal 5xx = logs de Render».
 - **Fuera de alcance (P3):** ids de petición, logs JSON, Sentry, monitor externo de disponibilidad.
 - **Dependencias:** Ninguna de herramienta para el mínimo. Ausencia de P0 en una auditoría **no** prueba observabilidad suficiente.
 - **Criterio:** Fallos de API en LIVE no dejan pantalla en blanco sin mensaje; existe un canal acordado para errores 5xx (log o servicio).
@@ -1285,7 +1316,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### Q-05 — Pruebas de `recovery-math`
 
 - **Descripción:** `packages/shared-types/src/recovery-math.test.ts` existe y no está en un script `test` del paquete (`package.json` solo `build`/`clean`).
-- **Estado:** **Implementado en local** (2026-11-12). Integración en GitHub Actions **pendiente de verificar** en el primer PR.
+- **Estado:** **Completado y desplegado** (2026-11-12): PR #111 (producto `36a7da4`, merge `35a9b11`). En Actions, el paso «Shared types tests» pasó en verde sobre `36a7da4` (API pública de GitHub).
   - `packages/shared-types/package.json`: script `"test": "tsx --test src/*.test.ts"` y `tsx` `^4.21.0` como devDependency (misma versión 4.21.0 ya resuelta en el lockfile; solo cambia la entrada del importador).
   - `pnpm --filter @soma/shared-types test` desde la raíz: 9 archivos, **82/82** OK.
   - `ci.yml`: paso «Shared types tests» justo después de «Build @soma/shared-types». Disparadores sin cambios (PR a `develop` y `main`).
@@ -1293,7 +1324,7 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Prioridad:** P2
 - **Evidencia:** Archivo de test en disco; `packages/shared-types/package.json` sin `test`.
 - **Diagnóstico 2026-11-12:** el alcance real es mayor que `recovery-math`: `packages/shared-types/src` tiene **9** archivos de test (`recovery-math`, `temporal-milestone`, `progress`, `missions`, `journal`, `feedback`, `gamification-events`, `legal-notices`, `registration-age`), **82** tests. Ningún script los ejecuta: ni el runner web, ni `test:unit` de la API, ni `ci.yml`; `tsconfig` del paquete los excluye. Ejecutados una vez en local con el `tsx` de la API: **82/82 OK**. Los tests web que tocan `recovery-math.ts` leen el fuente como texto (contrato), no prueban su comportamiento: hoy una regresión del cálculo de curvas no la detecta CI.
-- **Mínimo para cerrar:** script `test` en `@soma/shared-types` y un paso en `ci.yml` tras el build del paquete (**hecho en local**). Se cierra cuando el paso pase en Actions.
+- **Mínimo para cerrar:** script `test` en `@soma/shared-types` y un paso en `ci.yml` tras el build del paquete (**hecho**). Cerrado: el paso pasó en Actions (PR #111).
 - **Dependencias:** Q-CI (para ejecutarlo siempre).
 - **Criterio:** `pnpm --filter @soma/shared-types test` (o el glob raíz) ejecuta `recovery-math.test.ts` en local y en CI.
 
@@ -1401,13 +1432,13 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 ## Próximos pasos (por dependencia)
 
-0. **Q-05 + Q-OBS:** revisión y publicación (implementados en local); confirmar el paso «Shared types tests» en Actions. Q-E2E aparte (no instalar Playwright sin autorización).
+0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). Q-E2E aparte (no instalar Playwright sin autorización).
 1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
-2. **BETA-01D.3:** comprobación puntual de datos legales.
+2. **BETA-01D.3:** **en revisión**. C1–C3 corregidos en local (BETA-01D.3-FIX); siguiente paso, revisión y publicación. C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
 3. **UX-BOOT:** análisis opcional de la espera inicial del backend (sin cambiar autenticación en el análisis).
 4. **WEB-02:** solo si hay necesidades reales.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
-- **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), abierta; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
+- **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
 7. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
 8. **XP sin Bitácora / GAM-02 bienestar / UX-11–12 / GAME-08 / WEB-02 / resto de MKT-01:** P3 o diseño, no el siguiente código. **SEO-01B** y **MKT-01C** cerrados.
@@ -1507,10 +1538,10 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
   Fase E    GAM-02: 6 (PR #74) luego 14 (PR #96) — en `main`
   Fase E2   REL-01 y trenes #77–#107 hasta `c519bb3`
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
-            BETA-01D.3 jurídica — **abierta**
+            BETA-01D.3 jurídica — **en revisión** (comprobación puntual 2026-11-12; C1–C3 en local, sin publicar)
             AUTH-01 / LIVE-01 — completados (local + producción según propietario)
             PWA-01 instalación Android/iOS hecha; PWA-01D **aplazado** (sin dispositivo iOS). R-SHA procedimiento cerrado. SPA Live recopiada `c519bb3`. API copiada `4520530`; recopia post-#105 pendiente. Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
-  Fase G    WEB-01 + WEB-01-FIX (PR #108, #109) → UX-POLISH (PR #110) — desplegados
+  Fase G    WEB-01 + WEB-01-FIX (PR #108, #109) → UX-POLISH (PR #110) → Q-05 + Q-OBS (PR #111) — desplegados
             MKT-PR-01: 2 rondas / 6 medios; MKT-PR-01D seguimiento en curso (El Referente: CIF)
             WEB-02 → resto de MKT-01 → FBK-02  (P3 / cuando se autorice)
             SEO-01B y MKT-01C — cerrados (2026-11-12)
@@ -1519,8 +1550,8 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar; P3
 
-Q-CI: PG validado (PR #105); PR a develop y main; Q-05 shared-types en CI (local); residual ESLint / scripts raíz
-Q-E2E pendiente; Q-OBS Error Boundary (local; pendiente de publicar)
+Q-CI: PG validado (PR #105); PR a develop y main; Q-05 shared-types en CI (PR #111); residual ESLint / scripts raíz
+Q-E2E pendiente; Q-OBS Error Boundary (PR #111; desplegado)
 R-SHA: SPA `c519bb3` (2026-11-11); API `4520530` (2026-11-10)
 VIS-01 (no reabre UX-03)
 ```
@@ -1538,7 +1569,7 @@ VIS-01 (no reabre UX-03)
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, GAME-07F, EXP-EDU-01, IMG-PERF-01A, IMG-PERF-01B, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, SEO-01A, SEO-01B, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-COPY-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, MKT-01C, MKT-PR-01, MKT-PR-01D, UX-POLISH, UX-BOOT, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**. **FAV-01** ≠ manifest PWA. **MKT-01C** ≠ el resto de MKT-01.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, GAME-07F, EXP-EDU-01, IMG-PERF-01A, IMG-PERF-01B, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, SEO-01A, SEO-01B, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-COPY-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, MKT-01C, MKT-PR-01, MKT-PR-01D, UX-POLISH, UX-BOOT, SUP-01, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**. **FAV-01** ≠ manifest PWA. **MKT-01C** ≠ el resto de MKT-01.
 11. **Regla de avance:** un hito bloqueado por dependencia externa no impide trabajos posteriores técnicamente independientes. El hito bloqueado **no** se marca cerrado.
 12. **Cierre de hito:** criterios validados, aprobación, actualización de este archivo, pruebas/referencias, y commit solo autorizado. Un cierre técnico sin fila en el roadmap no cuenta.
 
@@ -1633,3 +1664,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-12 | **WEB-01** (PR #108, merge `99c3985`) y **WEB-01-FIX** (PR #109, merge `7c9fe07`; altura mínima de escritorio, fondos decorativos, legibilidad; tests web 1011) integrados y **desplegados en producción** según el propietario; SHA de panel no recopiado. **PWA-01D** **APLAZADO**: instalación iPhone comprobada; resto de pruebas Safari/iOS sin dispositivo; no bloquea la beta. **MKT-PR-01D**: El Referente pidió sociedad/CIF; aclaración enviada (persona física); ni rechazo ni aceptación. **UX-POLISH** A/B/C implementado en local (pantalla de carga de marca; enlace a Expedición desde Inicio; mención en el paso de navegación de ONB-01, nueve pasos); tests web 1019, typecheck/build OK; **no** desplegado. Prioridades: UX-POLISH → MKT-PR-01D → Q-OBS/Q-05 → BETA-01D.3 → WEB-02 (si procede). Sin commit. |
 | 2026-11-12 | **UX-POLISH** A/B/C completado: PR #110 (producto `83556cf`, merge `cf17b47`), CI en verde, desplegado según el propietario; presentación animada del logo conservada (ventana privada); 1019 tests web en el hito. **Diagnóstico Q-OBS / Q-05** (sin cambios de código): CI corre en PR a `develop` y `main`; 82 tests de `shared-types` (9 archivos) fuera de toda ejecución, 82/82 OK en local; ESLint web con 49 errores previos fuera de CI; API registra 5xx con el handler por defecto de Nest en logs de Render; SPA sin Error Boundary. Sin P0 ni P1 evidenciados. Prioridades: MKT-PR-01D → Q-05 → Q-OBS → BETA-01D.3 → WEB-02 (si procede). PWA-01D aplazado. Sin commit. |
 | 2026-11-12 | **Q-05** y **Q-OBS** implementados en local (sin commit). Q-05: script `test` en `@soma/shared-types` (`tsx` 4.21.0, ya en el lockfile), 9 archivos / 82 tests OK, paso «Shared types tests» en `ci.yml`; Actions **pendiente**. Q-OBS: `AppErrorBoundary` raíz con fallback ES/EN, sin detalles internos ni telemetría; 8 tests; verificado en Chromium forzando un error de render. Tests web 1027/1027, API unit 329/329, typecheck y build OK. Siguiente: publicar; después MKT-PR-01D → BETA-01D.3 → UX-BOOT (análisis) → WEB-02 (si procede). PWA-01D aplazado. |
+| 2026-11-12 | **Q-05** y **Q-OBS** completados y desplegados: PR #111 (producto `36a7da4`, merge `35a9b11`); «Shared types tests» en verde en Actions; despliegue confirmado por el propietario y fallback presente en el bundle público (SHA de panel no recopiado). **BETA-01D.3** en revisión: comprobación puntual de los textos legales ES/EN frente a producción (nombre y correo del responsable inyectados; persona física; beta gratuita sin promesa permanente; carácter educativo; 18+ coherente; registro `open`). Incoherencias documentales: regiones de proveedores «no documentadas» frente a la sección de transferencias; clave `soma.journal.createOp.*` ausente de cookies; redacción interna en texto público. Puntos para jurista registrados en BETA-01. Textos sin modificar. MKT-PR-01D en seguimiento; PWA-01D aplazado. Sin commit. |
+| 2026-11-12 | **BETA-01D.3-FIX** (validado en local; commit local, sin push): C1 (regiones remitidas a «Transferencias internacionales»), C2 (`soma.journal.createOp.*` en cookies, con «Alcance» y «Banner» ajustados) y C3 (redacción interna eliminada del aviso legal y la privacidad) en `legal.json` ES/EN; aserciones nuevas en `legal-document.test.ts` (12/12 tests legales OK). Versiones legales **sin cambios** (`2026-10-31.2`): solo se validan en el alta y no hay re-aceptación; subirlas exigiría desplegar SPA y API a la vez. C4 aplazado. Identificación y domicilio del responsable pendientes de asesoramiento profesional. Pendiente de publicación. **SUP-01** (Centro de Apoyo y Herramientas) registrado como propuesta futura, sin iniciar; referencia visual `apoyo-2.0`. Q-05/Q-OBS desplegados (PR #111); PWA-01D aplazado; MKT-PR-01D en seguimiento; UX-BOOT pendiente de análisis. |
