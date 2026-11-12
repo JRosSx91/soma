@@ -14,9 +14,11 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "clean": "tsc -b --clean"
+    "clean": "tsc -b --clean",
+    "test": "tsx --test src/*.test.ts"
   },
   "devDependencies": {
+    "tsx": "^4.21.0",
     "typescript": "^5.4.0"
   }
 }

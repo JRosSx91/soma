@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** implementado **en local**, pendiente de revisión/publicación). Git: `origin/main` = `7c9fe07d08475d256cfe245a666832cdbde7efa9` (merge PR #109); `origin/develop` = `cadf893`. **SPA Live:** el propietario confirma el despliegue de WEB-01-FIX; SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; diagnóstico **Q-OBS** / **Q-05** registrado). Git: `origin/main` = `cf17b47915a8246b2396948f82789526aa77b108` (merge PR #110); `origin/develop` = `83556cf`. **SPA Live:** el propietario confirma el despliegue de UX-POLISH; SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,18 +29,18 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **sigue abierta** mientras no conste cierre formal. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** revisión, publicación y comprobación de **UX-POLISH** (pantalla de carga y descubrimiento de Expedición; hoy solo en local); seguimiento de prensa (**MKT-PR-01D**); observabilidad básica (**Q-OBS**, **Q-05** en CI); comprobación puntual de datos legales (**BETA-01D.3**). **WEB-01** / **WEB-01-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** revisión y publicación de **Q-05** (tests de `shared-types` en CI) y **Q-OBS** (Error Boundary de la SPA), ambos implementados en local; seguimiento de prensa (**MKT-PR-01D**); comprobación puntual de datos legales (**BETA-01D.3**); análisis opcional **UX-BOOT**. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
-Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **PWA-01D** (aplazado); **UX-POLISH** (local, sin publicar); **MKT-PR-01D**; residual de Q-CI (**Q-05**, scripts raíz, cobertura; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3**; **PWA-01D** (aplazado); **MKT-PR-01D**; **Q-OBS** y **Q-05** (implementados en local, sin publicar); residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
 ### Próximos cinco hitos (orden)
 
 | Orden | ID / trabajo | Notas |
 | --- | --- | --- |
-| 1 | **UX-POLISH** | Revisión, publicación y comprobación: pantalla de carga de marca, enlace a Expedición desde Inicio y mención en el tutorial. Implementado en local; **no** desplegado. |
+| 1 | **Q-05** + **Q-OBS** | Revisión y publicación del cierre técnico (implementado en local): tests de `shared-types` en CI y Error Boundary raíz. Verificar el nuevo paso en Actions. |
 | 2 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
-| 3 | **Q-OBS** / **Q-05** | Mejoras de calidad justificadas: errores visibles y `recovery-math` en CI. No es Sentry obligatorio. |
-| 4 | **BETA-01D.3** | Comprobación puntual de datos legales (responsable, proveedores, transferencias). |
+| 3 | **BETA-01D.3** | Comprobación puntual de datos legales (responsable, proveedores, transferencias). |
+| 4 | **UX-BOOT** | Análisis opcional de la espera inicial del backend (landing de anónimos tras `/auth/refresh` en *cold start*). Solo análisis; cambiar el arranque toca autenticación. |
 | 5 | **WEB-02** | Solo si hay necesidades reales. |
 
 **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) sigue **abierta**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
@@ -62,7 +62,7 @@ Hitos de apertura **ya en `main`** (`c519bb3`; SPA Live el mismo SHA; **no** imp
 | 5 | WEB-01 | Landing original completada en `main` (PR #82). **SEO-01B** completado (GSC / indexación). Actualización 2026-11-12 (funcionalidades actuales + Expedición): PR #108; **WEB-01-FIX** PR #109. Integrados y desplegados (propietario) |
 | — | GAM-03 | Cerrado técnicamente. Mapa en `gamification-events.ts` en `main` |
 | 6 | CHR-01 | Cerrado técnicamente. En `main`. Solo ONB-01; no en Cuenta |
-| 7 | ONB-01 | Completado en git (A/B/C). En `main`. Recorrido LIVE autenticado de punta a punta: no reauditado aquí. Tour **sin** paso Expedición propio; UX-POLISH (local) la menciona en el paso de navegación |
+| 7 | ONB-01 | Completado en git (A/B/C). En `main`. Recorrido LIVE autenticado de punta a punta: no reauditado aquí. Tour **sin** paso Expedición propio; UX-POLISH (PR #110) la menciona en el paso de navegación |
 | 8 | UX-PRE-BETA | **Cerrado** como hito histórico de apertura (ROADMAP-SYNC-01). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados) |
 | 9 | BETA-01 | Apertura **de producto** ejecutada. Residual: D.3 jurídica; env de registro en el host |
 | 10 | BETA-02A/B/C | Estabilización post-apertura. En `main` (PR #94, #95) |
@@ -144,7 +144,7 @@ Cuatro capas (no se mezclan):
 | UX-GLO-01 consolidación UX | Completado. En `main` (`db6385b`, PR #79). Distinto de UX-01 |
 | CLEAN-01 legado Soma 1.0 | Completado. En `main` |
 | WEB-01 landing Soma 2.0 | Landing original en `main`. Actualización 2026-11-12 (funcionalidades actuales + Centro de Expedición, PR #108) y **WEB-01-FIX** (PR #109): integrados en `main` y **desplegados en producción** (propietario; SHA de panel no recopiado). WEB-02 pendiente. **SEO-01B** completado |
-| UX-POLISH | **Implementado en local** (A pantalla de carga, B Expedición desde Inicio, C mención en ONB-01). Pendiente de revisión y publicación; **no** desplegado |
+| UX-POLISH | **Completado** (A pantalla de carga, B Expedición desde Inicio, C mención en ONB-01). PR #110 (merge `cf17b47`) y **desplegado** (propietario) |
 | SEO-01 visibilidad | SEO-01A en `main` (PR #75 / #93). **SEO-01B** Completado (2026-11-12): GSC, canonical, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales |
 | FAV-01 favicon | Completado. En `main` (PR #92). Favicon + Apple Touch 180. **Manifest e iconos 192/512:** PWA-01B (desplegados). **Sin** service worker (PWA-01A) |
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `c519bb3` |
@@ -191,6 +191,8 @@ Cuatro capas (no se mezclan):
 | PR #108 merge en `main` | `99c398557ab8033c2b42aca315cbca994123b5e9` — WEB-01 (funcionalidades actuales + Expedición). Producto `e3a55e1`. |
 | PR #109 merge en `main` | `7c9fe07d08475d256cfe245a666832cdbde7efa9` — WEB-01-FIX (alturas y fondos). Producto `cadf893`. |
 | SPA Live tras #109 | Desplegado según el propietario (2026-11-12). SHA de panel **no** recopiado: **no** se afirma `7c9fe07` como Live. |
+| PR #110 merge en `main` | `cf17b47915a8246b2396948f82789526aa77b108` — UX-POLISH A/B/C. Producto `83556cf`. Check `Typecheck and unit tests` en verde sobre `83556cf` antes del merge (API pública de GitHub). |
+| SPA Live tras #110 | Desplegado según el propietario (2026-11-12). SHA de panel **no** recopiado: **no** se afirma `cf17b47` como Live. |
 | Inventario SPA Live (**2026-11-11**) | Propietario: Render Live SPA = `c519bb3`. QA DEMO Chromium GAME-07 + IMG-PERF-01B. **No** es QA LIVE `/app` ni Safari. |
 | SPA vs `main` (2026-11-11) | Coinciden (`c519bb3`). |
 | API vs `main` (2026-11-11) | Inventario API sigue `4520530` hasta recopia de panel. `main` adelanta con #105–#107. **No** afirmar SHA Live de API distinto de `4520530`. | |
@@ -742,8 +744,8 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
-- **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. UX-POLISH local pendiente de revisión/publicación. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX integrados (PR #108, #109) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** UX-POLISH; MKT-PR-01D; observabilidad básica (Q-OBS / Q-05); comprobación puntual D.3. **No** más mapa ni catálogo educativo de procesos.
+- **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
+- **Siguiente trabajo (prioridad):** publicar Q-05 + Q-OBS (local); después MKT-PR-01D; comprobación puntual D.3; UX-BOOT (análisis opcional); WEB-02 si procede. **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -995,13 +997,13 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 #### UX-POLISH — Pantalla de carga y descubrimiento de Expedición
 
 - **Objetivo:** Sustituir el «Cargando…» genérico por una pantalla de marca y hacer visible el Centro de Expedición desde Inicio y desde el tutorial, sin tocar autenticación, progreso ni lógica de Expedición.
-- **Prioridad:** P1 (revisión y publicación).
-- **Estado:** **Implementado en local** (2026-11-12). Pendiente de revisión y publicación; **no** desplegado.
-  - **A — Pantalla de carga:** **implementado en local.** Se muestra mientras `AuthProvider` restaura la sesión (`POST /auth/refresh` y `/auth/me`) en `/` y en rutas protegidas. Fondo azul oscuro, `SomaMark`, tres puntos con `motion-safe:animate-pulse`, «Preparando tu espacio…» y, tras 6 s, aviso de que la primera conexión con el servidor puede tardar. Solo cambia el texto: sin barra falsa, sin error por tiempo, sin reintentos ni botón. ES/EN.
-  - **B — Expedición desde Inicio:** **implementado en local.** Enlace «Abrir el Centro de Expedición» en la tarjeta de horizonte de Inicio, hacia `${base}/expedition` (DEMO `/preview`, LIVE `/app`). Solo en el Inicio completo (con sustancias).
-  - **C — Tutorial ONB-01:** **implementado en local.** El paso de navegación menciona el Centro de Expedición en «Más». Sigue con nueve pasos; sin cambios de lógica ni persistencia.
-- **Residual (tarea aparte, no implementada):** para visitantes anónimos la landing espera a `/auth/refresh`, así que con la API en reposo (*cold start*) se ve la pantalla de carga hasta que responde. Mostrarla de forma optimista o reintentar requiere cambiar la lógica de autenticación.
-- **Criterio:** revisión del propietario, publicación y comprobación en producción.
+- **Prioridad:** P3 residual (regresiones).
+- **Estado:** **Completado** (2026-11-12). PR #110 (producto `83556cf`, merge `cf17b47`) fusionado y **desplegado** según el propietario. Tests web 1019/1019 en el momento del hito. La presentación animada original del logo en la landing se conserva (comprobado por el propietario en ventana privada).
+  - **A — Pantalla de carga:** **completado.** Se muestra mientras `AuthProvider` restaura la sesión (`POST /auth/refresh` y `/auth/me`) en `/` y en rutas protegidas. Fondo azul oscuro, `SomaMark`, tres puntos con `motion-safe:animate-pulse`, «Preparando tu espacio…» y, tras 6 s, aviso de que la primera conexión con el servidor puede tardar. Solo cambia el texto: sin barra falsa, sin error por tiempo, sin reintentos ni botón. ES/EN.
+  - **B — Expedición desde Inicio:** **completado.** Enlace «Abrir el Centro de Expedición» en la tarjeta de horizonte de Inicio, hacia `${base}/expedition` (DEMO `/preview`, LIVE `/app`). Solo en el Inicio completo (con sustancias).
+  - **C — Tutorial ONB-01:** **completado.** El paso de navegación menciona el Centro de Expedición en «Más». Sigue con nueve pasos; sin cambios de lógica ni persistencia.
+- **Residual (tarea aparte **UX-BOOT**, no implementada):** para visitantes anónimos la landing espera a `/auth/refresh`, así que con la API en reposo (*cold start*) se ve la pantalla de carga hasta que responde. Mostrarla de forma optimista o reintentar requiere cambiar la lógica de autenticación.
+- **Criterio:** revisión del propietario, publicación y comprobación en producción. **Cumplido.**
 
 #### WEB-02 — Identidad y filosofía
 
@@ -1248,6 +1250,10 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 - **Prioridad:** P2 residual (cobertura / **Q-05**). Siguiente trabajo de calidad junto a **Q-OBS**; no desplaza D.3.
 - **Evidencia (2026-11-10, Actions, propietario):** 329 tests API, 968 web, 115 PostgreSQL; 0 fallos, 0 skips. Deadlock `40P01` en init concurrente de `UserProgression` corregido en `5eaa05c` (mismo PR).
 - **Evidencia previa (2026-10-30):** `ci.yml` y `database-backups.yml`. Root sin `test`/`lint` globales. Eso **sigue** (no cerrado por el PG).
+- **Diagnóstico 2026-11-12 (Q-OBS / Q-05):**
+  - Disparadores confirmados: `pull_request` hacia `develop` **y** `main` (desde `ce72761`). PR #110 → `main` ejecutó el job en verde. **No** hay `push`; un push directo a una rama no lanza CI.
+  - Cubierto: typecheck API/web, `prisma validate`, unitarios API (todo `src` salvo `*.pg.*`), tests web (154 archivos, todos dentro de las raíces del runner) y PostgreSQL efímero.
+  - **Fuera de CI:** ESLint (49 errores y 12 avisos previos en web, mayoría reglas `react-hooks` de estilo; no hay fallo funcional demostrado). `vite build` (lo ejecuta Render al desplegar). Los 82 tests de `packages/shared-types` pasan a CI con **Q-05** (paso añadido en local, pendiente de su primera ejecución en Actions).
 - **Dependencias:** Ninguna de producto.
 - **Criterio:** Un PR muestra checks verdes o fallo explícito de test; no se exige cobertura 100 %. **Cumplido** para typecheck, unitarios, web y PG.
 
@@ -1263,18 +1269,31 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### Q-OBS — Errores y observabilidad
 
 - **Descripción:** Gestión visible de errores de cliente y telemetría mínima de API (hoy `Logger` Nest + `GET /health`; no Sentry ni ErrorBoundary).
-- **Estado:** Parcialmente implementado
-- **Prioridad:** P2 (prioridad de calidad inmediata; **no** P0)
+- **Estado:** **Implementado en local** (2026-11-12), pendiente de revisión, publicación y despliegue. Error Boundary raíz añadido (`AppErrorBoundary` en `main.tsx`, envolviendo `AuthProvider`, `AchievementSyncProvider` y `App`). La gestión de errores de API por pantalla no cambia. Sin telemetría.
+  - Fallback ES/EN («Algo ha salido mal» / «Something went wrong») con `SomaMark`, fondo azul oscuro, `h1`, texto y botón «Recargar página» / «Reload page». No muestra el mensaje ni el *stack* de la excepción. Los textos salen de `common.errorBoundary` en los JSON de locales, sin depender de `I18nextProvider`; el idioma se toma de la instancia `i18next`, después de `<html lang>` y del navegador.
+  - Tests: 8 en `src/components/app-error-boundary.test.ts` (raíz añadida al runner web). Verificación en Chromium (`vite preview`) forzando un error real de render en Bitácora: aparece el fallback ES y EN (375 px), sin el mensaje interno; el botón recarga y la página vuelve a funcionar.
+- **Prioridad:** P2 (prioridad de calidad inmediata; **no** P0 ni P1 evidenciado)
 - **Evidencia:** `health.controller.ts`; Recovery tiene UI `loadError`; no hay `@sentry` ni filtro global Nest.
-- **Dependencias:** Decisión de herramienta. Ausencia de P0 en una auditoría **no** prueba observabilidad suficiente.
+- **Diagnóstico 2026-11-12:**
+  - **API — suficiente para el criterio de 5xx:** `Logger` de Nest por defecto (texto a stdout → logs de Render). Las excepciones no controladas pasan por el `ExceptionsHandler` por defecto, que registra mensaje y *stack* y responde un 500 genérico. Logs de dominio sin datos sensibles (ids, categorías y nombres de error; destinatario y URL de reset ocultos en producción). `GET /health` comprueba PostgreSQL (`SELECT 1`). No hay id de petición ni log de acceso; no hay alertas versionadas (no hay `render.yaml`). Retención y alertas del panel Render: **no** verificadas desde el repositorio.
+  - **SPA — falta el Error Boundary:** no existe ninguno (`main.tsx` monta `AuthProvider` → `App` sin barrera). Un error de render desmonta toda la app y deja el fondo oscuro sin mensaje. No se ha observado ningún caso; es la carencia exacta frente al criterio. Los errores de red sí se convierten en estados de error por pantalla (Recovery, Bitácora, Misiones, Feedback, Onboarding, Login). Sin `console.*` en producción (solo un `console.debug` limitado a dev).
+- **Mínimo para cerrar:** un Error Boundary raíz con mensaje ES/EN y botón de recarga; sin envío de datos a terceros (**hecho en local**). Al publicarse, Q-OBS se cierra con «canal 5xx = logs de Render».
+- **Fuera de alcance (P3):** ids de petición, logs JSON, Sentry, monitor externo de disponibilidad.
+- **Dependencias:** Ninguna de herramienta para el mínimo. Ausencia de P0 en una auditoría **no** prueba observabilidad suficiente.
 - **Criterio:** Fallos de API en LIVE no dejan pantalla en blanco sin mensaje; existe un canal acordado para errores 5xx (log o servicio).
 
 #### Q-05 — Pruebas de `recovery-math`
 
 - **Descripción:** `packages/shared-types/src/recovery-math.test.ts` existe y no está en un script `test` del paquete (`package.json` solo `build`/`clean`).
-- **Estado:** Parcialmente implementado
+- **Estado:** **Implementado en local** (2026-11-12). Integración en GitHub Actions **pendiente de verificar** en el primer PR.
+  - `packages/shared-types/package.json`: script `"test": "tsx --test src/*.test.ts"` y `tsx` `^4.21.0` como devDependency (misma versión 4.21.0 ya resuelta en el lockfile; solo cambia la entrada del importador).
+  - `pnpm --filter @soma/shared-types test` desde la raíz: 9 archivos, **82/82** OK.
+  - `ci.yml`: paso «Shared types tests» justo después de «Build @soma/shared-types». Disparadores sin cambios (PR a `develop` y `main`).
+  - Tests y cálculos de `recovery-math` sin cambios.
 - **Prioridad:** P2
 - **Evidencia:** Archivo de test en disco; `packages/shared-types/package.json` sin `test`.
+- **Diagnóstico 2026-11-12:** el alcance real es mayor que `recovery-math`: `packages/shared-types/src` tiene **9** archivos de test (`recovery-math`, `temporal-milestone`, `progress`, `missions`, `journal`, `feedback`, `gamification-events`, `legal-notices`, `registration-age`), **82** tests. Ningún script los ejecuta: ni el runner web, ni `test:unit` de la API, ni `ci.yml`; `tsconfig` del paquete los excluye. Ejecutados una vez en local con el `tsx` de la API: **82/82 OK**. Los tests web que tocan `recovery-math.ts` leen el fuente como texto (contrato), no prueban su comportamiento: hoy una regresión del cálculo de curvas no la detecta CI.
+- **Mínimo para cerrar:** script `test` en `@soma/shared-types` y un paso en `ci.yml` tras el build del paquete (**hecho en local**). Se cierra cuando el paso pase en Actions.
 - **Dependencias:** Q-CI (para ejecutarlo siempre).
 - **Criterio:** `pnpm --filter @soma/shared-types test` (o el glob raíz) ejecuta `recovery-math.test.ts` en local y en CI.
 
@@ -1382,12 +1401,12 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 ## Próximos pasos (por dependencia)
 
-1. **UX-POLISH:** revisión, publicación y comprobación (pantalla de carga, Expedición desde Inicio y tutorial; implementado en local).
-2. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
-3. **Q-OBS** y **Q-05:** mejoras de calidad justificadas (errores visibles / `recovery-math` en CI). Q-E2E aparte (no instalar Playwright sin autorización).
-4. **BETA-01D.3:** comprobación puntual de datos legales.
-5. **WEB-02:** solo si hay necesidades reales.
-- **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** integrados y desplegados (PR #108, #109).
+0. **Q-05 + Q-OBS:** revisión y publicación (implementados en local); confirmar el paso «Shared types tests» en Actions. Q-E2E aparte (no instalar Playwright sin autorización).
+1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
+2. **BETA-01D.3:** comprobación puntual de datos legales.
+3. **UX-BOOT:** análisis opcional de la espera inicial del backend (sin cambiar autenticación en el análisis).
+4. **WEB-02:** solo si hay necesidades reales.
+- **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
 - **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), abierta; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
 7. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
@@ -1446,7 +1465,7 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 | — | CLEAN-01 | En `main` (`ca3b456`) |
 | #82 | WEB-01 | En `main` |
 | #83 | Registro / privacidad | En `main`. Invite/open en código; env del host no verificado |
-| #84 | CI | En `main`. Checks **solo** PRs a `develop` |
+| #84 | CI | En `main`. Checks entonces solo en PRs a `develop`; ampliado a PRs a `main` en `ce72761` (2026-11-02), confirmado con PR #110 |
 | #85–#86 | Backups R2 / PG17 | En `main` |
 | #92 | FAV-01 | En `main` |
 | #93 | SEO-01A refuerzo | En `main` |
@@ -1491,7 +1510,7 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
             BETA-01D.3 jurídica — **abierta**
             AUTH-01 / LIVE-01 — completados (local + producción según propietario)
             PWA-01 instalación Android/iOS hecha; PWA-01D **aplazado** (sin dispositivo iOS). R-SHA procedimiento cerrado. SPA Live recopiada `c519bb3`. API copiada `4520530`; recopia post-#105 pendiente. Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
-  Fase G    WEB-01 + WEB-01-FIX (PR #108, #109; desplegados) → UX-POLISH (local; revisión/publicación)
+  Fase G    WEB-01 + WEB-01-FIX (PR #108, #109) → UX-POLISH (PR #110) — desplegados
             MKT-PR-01: 2 rondas / 6 medios; MKT-PR-01D seguimiento en curso (El Referente: CIF)
             WEB-02 → resto de MKT-01 → FBK-02  (P3 / cuando se autorice)
             SEO-01B y MKT-01C — cerrados (2026-11-12)
@@ -1500,8 +1519,8 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
 
 UX-08, UX-09  →  editorial con fuentes; sin inventar; P3
 
-Q-CI: PG validado (PR #105); residual Q-05 / cobertura / scripts raíz
-Q-E2E pendiente; Q-OBS parcial (prioridad de calidad)
+Q-CI: PG validado (PR #105); PR a develop y main; Q-05 shared-types en CI (local); residual ESLint / scripts raíz
+Q-E2E pendiente; Q-OBS Error Boundary (local; pendiente de publicar)
 R-SHA: SPA `c519bb3` (2026-11-11); API `4520530` (2026-11-10)
 VIS-01 (no reabre UX-03)
 ```
@@ -1519,7 +1538,7 @@ VIS-01 (no reabre UX-03)
 7. Mantener el roadmap alineado con `git status` y con lo que el usuario autorice.
 8. La revisión clínica **no** se marca Completado porque pasen tests.
 9. Este documento **no** autoriza commit, push, PR, merge, seeds, migraciones ni despliegue.
-10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, GAME-07F, EXP-EDU-01, IMG-PERF-01A, IMG-PERF-01B, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, SEO-01A, SEO-01B, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-COPY-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, MKT-01C, MKT-PR-01, MKT-PR-01D, UX-POLISH, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**. **FAV-01** ≠ manifest PWA. **MKT-01C** ≠ el resto de MKT-01.
+10. Conservar `UX-01`–`UX-12`; los IDs nuevos (AUTH, LIVE, I18N-01–04, I18N-JOURNAL-01, ACH-REV, ACH-NOTIF-01, ACH-CELEB-01, ACH-01, REC-VIS-01, SHELL-01, GAME-DESIGN-01, GAME-01–08, GAME-07F, EXP-EDU-01, IMG-PERF-01A, IMG-PERF-01B, JRN-01, JRN-01R, GAM-01–03, CHR-01, CHR-01A, CHR-01B, ONB-01, WEB-01–02, SEO-01, SEO-01A, SEO-01B, FAV-01, REL-01, FBK-01–02, BETA-01, BETA-COPY-01, BETA-02A/B/C, UX-GLO-01, UX-PRE-BETA, UX-REC-01, CLEAN-01, PWA-01, PWA-01A–D, MOB-01, MKT-01, MKT-01C, MKT-PR-01, MKT-PR-01D, UX-POLISH, UX-BOOT, Q-*, VIS, LEG, R-SHA, R-JXP) no los sustituyen. `GAM-*` ≠ `GAME-*`. **GAME-07** = Centro de Expedición, no misiones. `UX-GLO-01` ≠ `UX-01` ≠ `UX-PRE-BETA`. **PWA-01** ≠ **MOB-01**. **FAV-01** ≠ manifest PWA. **MKT-01C** ≠ el resto de MKT-01.
 11. **Regla de avance:** un hito bloqueado por dependencia externa no impide trabajos posteriores técnicamente independientes. El hito bloqueado **no** se marca cerrado.
 12. **Cierre de hito:** criterios validados, aprobación, actualización de este archivo, pruebas/referencias, y commit solo autorizado. Un cierre técnico sin fila en el roadmap no cuenta.
 
@@ -1612,3 +1631,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-12 | **SEO-01B** Completado: GSC, canonical `https://somarecovery.app/`, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales (prueba en tiempo real `/reset-password`). URLs antiguas: recrawl. Sin código/SSR/infra. **MKT-01C** Completado (medición básica): GSC + Instagram/LinkedIn, revisión semanal. Cloudflare Web Analytics descartado (`spa: false` no evita rutas internas al ocultar). HTTP Analytics CF inactivo con DNS only (se mantiene). Sin visitantes únicos ni conversiones internas (limitación aceptada). Resto de MKT-01 pendiente. Solo este archivo. Sin commit. |
 | 2026-11-12 | **AUTH-01** / **LIVE-01** Completados: validación funcional local (2026-10-25) y en producción según confirmación del propietario (sin fecha ni detalle registrados). No se repiten salvo regresión o cambio funcional relevante. **WEB-01** actualización de landing (funcionalidades actuales + Centro de Expedición, ES/EN, assets existentes): implementada en local, pendiente de revisión/despliegue; tests/typecheck/build OK; revisión visual DEMO Chromium escritorio/móvil. **MKT-PR-01**: dos rondas enviadas (VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka); **MKT-PR-01D** en curso, sin cobertura confirmada. Prioridades: WEB-01 → PWA-01D → UX-POLISH → MKT-PR-01D → Q-OBS/Q-05. Sin commit. |
 | 2026-11-12 | **WEB-01** (PR #108, merge `99c3985`) y **WEB-01-FIX** (PR #109, merge `7c9fe07`; altura mínima de escritorio, fondos decorativos, legibilidad; tests web 1011) integrados y **desplegados en producción** según el propietario; SHA de panel no recopiado. **PWA-01D** **APLAZADO**: instalación iPhone comprobada; resto de pruebas Safari/iOS sin dispositivo; no bloquea la beta. **MKT-PR-01D**: El Referente pidió sociedad/CIF; aclaración enviada (persona física); ni rechazo ni aceptación. **UX-POLISH** A/B/C implementado en local (pantalla de carga de marca; enlace a Expedición desde Inicio; mención en el paso de navegación de ONB-01, nueve pasos); tests web 1019, typecheck/build OK; **no** desplegado. Prioridades: UX-POLISH → MKT-PR-01D → Q-OBS/Q-05 → BETA-01D.3 → WEB-02 (si procede). Sin commit. |
+| 2026-11-12 | **UX-POLISH** A/B/C completado: PR #110 (producto `83556cf`, merge `cf17b47`), CI en verde, desplegado según el propietario; presentación animada del logo conservada (ventana privada); 1019 tests web en el hito. **Diagnóstico Q-OBS / Q-05** (sin cambios de código): CI corre en PR a `develop` y `main`; 82 tests de `shared-types` (9 archivos) fuera de toda ejecución, 82/82 OK en local; ESLint web con 49 errores previos fuera de CI; API registra 5xx con el handler por defecto de Nest en logs de Render; SPA sin Error Boundary. Sin P0 ni P1 evidenciados. Prioridades: MKT-PR-01D → Q-05 → Q-OBS → BETA-01D.3 → WEB-02 (si procede). PWA-01D aplazado. Sin commit. |
+| 2026-11-12 | **Q-05** y **Q-OBS** implementados en local (sin commit). Q-05: script `test` en `@soma/shared-types` (`tsx` 4.21.0, ya en el lockfile), 9 archivos / 82 tests OK, paso «Shared types tests» en `ci.yml`; Actions **pendiente**. Q-OBS: `AppErrorBoundary` raíz con fallback ES/EN, sin detalles internos ni telemetría; 8 tests; verificado en Chromium forzando un error de render. Tests web 1027/1027, API unit 329/329, typecheck y build OK. Siguiente: publicar; después MKT-PR-01D → BETA-01D.3 → UX-BOOT (análisis) → WEB-02 (si procede). PWA-01D aplazado. |

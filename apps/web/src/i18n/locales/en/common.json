@@ -4,6 +4,11 @@
     "preparing": "Getting your space ready…",
     "slowServer": "We are connecting to the server. The first connection can take a little longer."
   },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "body": "An unexpected error occurred. You can reload the page to try again.",
+    "reload": "Reload page"
+  },
   "error": "Something went wrong",
   "save": "Save",
   "cancel": "Cancel",
