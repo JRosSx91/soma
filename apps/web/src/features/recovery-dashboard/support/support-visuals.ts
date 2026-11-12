@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { Flower2, Footprints, WavesHorizontal, Wind, type LucideIcon } from "lucide-react";
 import {
   BREATHING_CYCLE_MS,
   BREATHING_PHASE_MS,
@@ -7,29 +6,35 @@ import {
   breathingScale,
   type BreathingSnapshot,
 } from "./breathing-session.js";
-import type { SupportTool } from "./support-links.js";
+import type { SupportResourceGroupId, SupportTool } from "./support-links.js";
 
-export interface SupportVisual {
-  icon: LucideIcon;
-  /** Icon color, also used for its soft glow. */
-  rgb: string;
-  /** Second color of the radial backdrop. */
-  haloRgb: string;
-}
+/** SUP-ASSET-01 illustrations: PNG masters with one 768 px WebP each (`optimize-sup-asset-01.mjs`). */
+export const SUPPORT_ILLUSTRATION_DIR = "/images/support";
+export const SUPPORT_ILLUSTRATION_SIZE = { width: 768, height: 512 } as const;
 
-export const supportToolVisuals: Record<SupportTool, SupportVisual> = {
-  breathing: { icon: Wind, rgb: "103 232 249", haloRgb: "139 92 246" },
-  mindfulness: { icon: Flower2, rgb: "196 181 253", haloRgb: "217 70 239" },
-  movement: { icon: Footprints, rgb: "253 186 116", haloRgb: "56 189 248" },
-  craving: { icon: WavesHorizontal, rgb: "125 211 252", haloRgb: "59 130 246" },
+export const supportToolIllustrations: Record<SupportTool, string> = {
+  breathing: "support-breathing",
+  mindfulness: "support-mindfulness",
+  movement: "support-activity",
+  craving: "support-craving",
 };
 
-export function supportBackdrop({ rgb, haloRgb }: SupportVisual, dim = false): CSSProperties {
-  const a = dim ? 0.14 : 0.42;
-  return {
-    background: `radial-gradient(circle at 50% 55%, rgb(${rgb} / ${a}) 0%, rgb(${haloRgb} / ${a * 0.75}) 34%, transparent 70%), linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.5) 0%, rgb(var(--soma-surface) / 0.2) 100%)`,
-  };
+export const supportResourceIllustrations: Record<SupportResourceGroupId, string> = {
+  processes: "support-learning",
+  reading: "support-reading",
+  audio: "support-audio",
+};
+
+export function supportIllustrationSrc(name: string, format: "webp" | "png"): string {
+  return `${SUPPORT_ILLUSTRATION_DIR}/${name}.${format}`;
 }
+
+/** Colors of the breathing circle and the backdrop it sits on. */
+export const breathingVisual = { rgb: "103 232 249", haloRgb: "139 92 246" } as const;
+
+export const breathingBackdrop: CSSProperties = {
+  background: `radial-gradient(circle at 50% 55%, rgb(${breathingVisual.rgb} / 0.42) 0%, rgb(${breathingVisual.haloRgb} / 0.32) 34%, transparent 70%), linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.5) 0%, rgb(var(--soma-surface) / 0.2) 100%)`,
+};
 
 export const BREATHING_ANIMATION_NAME = "soma-breathing-cycle";
 
@@ -56,13 +61,4 @@ export function breathingCircleStyle(snapshot: BreathingSnapshot): CSSProperties
       ? breathingScale(snapshot.phase, snapshot.phaseProgress)
       : BREATHING_SCALE.min;
   return { transform: `scale(${scale.toFixed(4)})` };
-}
-
-export function supportGlowIcon({ rgb }: SupportVisual, dim = false): CSSProperties {
-  return {
-    color: `rgb(${rgb} / ${dim ? 0.6 : 1})`,
-    filter: dim
-      ? undefined
-      : `drop-shadow(0 0 6px rgb(${rgb} / 0.9)) drop-shadow(0 0 18px rgb(${rgb} / 0.55))`,
-  };
 }

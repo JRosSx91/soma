@@ -64,6 +64,20 @@ test("initial state shows the rhythm, the safety note and only «Comenzar»", as
   assert.deepEqual(buttons(markup), ["Comenzar"]);
   assert.equal(liveRegion(markup), "");
   assert.doesNotMatch(markup, /Prevista|En preparación/);
+  assert.match(markup, /data-illustration="support-breathing"/);
+  assert.match(markup, /alt=""/);
+  assert.match(markup, /data-breathing-circle[^>]*opacity-0/);
+  assert.match(markup, /data-illustration="support-breathing"[^>]*opacity-100/);
+});
+
+test("during the exercise the illustration yields to the circle without changing card height", async () => {
+  for (const snapshot of [running, paused]) {
+    const markup = await render(snapshot);
+    assert.match(markup, /aspect-\[8\/5\]/);
+    assert.match(markup, /data-illustration="support-breathing"[^>]*opacity-20/);
+    assert.match(markup, /data-breathing-circle[^>]*opacity-100/);
+  }
+  assert.match(await render(idle), /aspect-\[8\/5\]/);
 });
 
 test("running state shows the phase, its countdown, «Pausar» and «Reiniciar»", async () => {

@@ -4,16 +4,15 @@ import { useTranslation } from "react-i18next";
 import { previewFocus } from "../focus.js";
 import type { BreathingSnapshot } from "./breathing-session.js";
 import { SupportHalo } from "./SupportHalo.js";
+import { SupportIllustration } from "./SupportIllustration.js";
 import {
+  breathingBackdrop,
   breathingCircleStyle,
   breathingKeyframes,
-  supportBackdrop,
-  supportGlowIcon,
-  supportToolVisuals,
+  breathingVisual as visual,
+  supportToolIllustrations,
 } from "./support-visuals.js";
 import { useBreathingSession } from "./useBreathingSession.js";
-
-const visual = supportToolVisuals.breathing;
 
 export function BreathingTool() {
   const { session, snapshot } = useBreathingSession();
@@ -69,7 +68,7 @@ export function BreathingToolView({
 }: BreathingToolViewProps) {
   const { t } = useTranslation("support");
   const { status, phase } = snapshot;
-  const Icon = visual.icon;
+  const idle = status === "idle";
   const phaseLabel = t(`tools.breathing.${phase}`);
   const liveText =
     status === "running" ? phaseLabel : status === "paused" ? t("tools.breathing.paused") : "";
@@ -88,18 +87,25 @@ export function BreathingToolView({
       data-breathing-status={status}
       className="flex min-w-0 flex-col gap-3 overflow-hidden rounded-2xl border border-soma-shell-accent/40 bg-soma-surface/90"
     >
+      {/* The illustration leads at rest; during the exercise it fades back so
+          the circle, the functional cue, is never covered. Same box in every state. */}
       <div
-        className="relative flex h-40 w-full shrink-0 items-center justify-center border-b border-soma-line sm:h-36"
-        style={supportBackdrop(visual)}
+        className="relative flex aspect-[8/5] w-full shrink-0 items-center justify-center overflow-hidden border-b border-soma-line"
+        style={breathingBackdrop}
       >
         <style>{breathingKeyframes}</style>
-        <SupportHalo rgb={visual.rgb} always />
+        <SupportIllustration
+          name={supportToolIllustrations.breathing}
+          loading="eager"
+          className={`motion-safe:transition-opacity motion-safe:duration-500 ${idle ? "opacity-100" : "opacity-20"}`}
+        />
+        <SupportHalo rgb={visual.rgb} className={idle ? "opacity-0" : "opacity-100"} />
         <span
           ref={circleRef}
           data-breathing-circle
           className={`absolute left-1/2 top-1/2 -ml-14 -mt-14 h-28 w-28 rounded-full border-2 motion-reduce:!animate-none motion-reduce:![transform:none] ${
             exhaling ? "border-violet-300/70" : "border-cyan-300/70"
-          }`}
+          } ${idle ? "opacity-0" : "opacity-100"}`}
           style={{
             ...breathingCircleStyle(snapshot),
             background: `radial-gradient(circle, rgb(${visual.rgb} / 0.22) 0%, rgb(${visual.haloRgb} / 0.16) 60%, transparent 100%)`,
@@ -112,9 +118,7 @@ export function BreathingToolView({
           style={{ textShadow: "0 1px 6px rgb(0 0 0 / 0.6)" }}
           aria-hidden="true"
         >
-          {status === "idle" ? (
-            <Icon className="h-12 w-12" strokeWidth={1.35} style={supportGlowIcon(visual)} />
-          ) : (
+          {idle ? null : (
             <>
               {status === "paused" ? (
                 <span className="text-[11px] font-semibold uppercase tracking-wide text-soma-ink-secondary">

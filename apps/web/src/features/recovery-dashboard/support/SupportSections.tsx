@@ -7,9 +7,7 @@ import {
   ChevronRight,
   Clock,
   Compass,
-  Headphones,
   Layers,
-  Library,
   LifeBuoy,
   Sprout,
   Target,
@@ -20,7 +18,7 @@ import { Link } from "react-router-dom";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { previewFocus } from "../focus.js";
 import { BreathingTool } from "./BreathingTool.js";
-import { SupportHalo } from "./SupportHalo.js";
+import { SupportIllustration } from "./SupportIllustration.js";
 import {
   SUPPORT_AVAILABLE_TOOL,
   SUPPORT_STRATEGY_TOPICS,
@@ -28,27 +26,15 @@ import {
   SUPPORT_TOOLS,
   supportExploreHref,
   supportResourceGroups,
-  type SupportResourceGroupId,
   type SupportStrategyTopic,
 } from "./support-links.js";
-import {
-  supportBackdrop as backdrop,
-  supportGlowIcon as glowIcon,
-  supportToolVisuals as toolVisuals,
-  type SupportVisual,
-} from "./support-visuals.js";
+import { supportResourceIllustrations, supportToolIllustrations } from "./support-visuals.js";
 
 const panelClass =
   "min-w-0 rounded-2xl border border-soma-line bg-soma-surface/90 p-4 sm:p-5";
 const accentColor = { color: "rgb(var(--soma-shell-accent))" };
 const plannedPillClass =
   "inline-flex items-center gap-1.5 rounded-full border border-dashed border-soma-line-strong px-2.5 py-1 text-xs font-medium text-soma-ink-secondary";
-
-const resourceVisuals: Record<SupportResourceGroupId, SupportVisual> = {
-  processes: { icon: BookOpen, rgb: "253 224 71", haloRgb: "103 232 249" },
-  reading: { icon: Library, rgb: "165 180 252", haloRgb: "244 114 182" },
-  audio: { icon: Headphones, rgb: "196 181 253", haloRgb: "139 92 246" },
-};
 
 const strategyIcons: Record<SupportStrategyTopic, LucideIcon> = {
   emotions: Brain,
@@ -63,7 +49,7 @@ const planParts = [
   { id: "habits", icon: Sprout },
 ] as const;
 
-/** Content below the hero, laid out after `apoyo-2.0`. Only guided breathing is interactive (SUP-01C). */
+/** Content below the hero, laid out after `apoyo-2.0`. Card art is SUP-ASSET-01; only breathing is interactive. */
 export function SupportSections() {
   const { t } = useTranslation(["support", "explore-edu"]);
   const base = useShellBase();
@@ -80,21 +66,14 @@ export function SupportSections() {
         <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {SUPPORT_TOOLS.map((tool) => {
             if (tool === SUPPORT_AVAILABLE_TOOL) return <BreathingTool key={tool} />;
-            const visual = toolVisuals[tool];
-            const Icon = visual.icon;
             return (
               <li
                 key={tool}
                 data-tool={tool}
-                className="flex min-w-0 gap-3 overflow-hidden rounded-2xl border border-soma-line bg-soma-surface/90 p-3 sm:flex-col sm:p-0"
+                className="flex min-w-0 items-start gap-3 overflow-hidden rounded-2xl border border-soma-line bg-soma-surface/90 p-3 sm:flex-col sm:items-stretch sm:p-0"
               >
-                <div
-                  className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl sm:h-36 sm:w-full sm:rounded-none sm:border-b sm:border-soma-line"
-                  style={backdrop(visual)}
-                  aria-hidden="true"
-                >
-                  <SupportHalo rgb={visual.rgb} />
-                  <Icon className="relative h-8 w-8 sm:h-14 sm:w-14" strokeWidth={1.35} style={glowIcon(visual)} />
+                <div className="relative aspect-[3/2] w-28 shrink-0 overflow-hidden rounded-xl sm:aspect-[8/5] sm:w-full sm:rounded-none sm:border-b sm:border-soma-line">
+                  <SupportIllustration name={supportToolIllustrations[tool]} loading="eager" />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pb-4">
                   <h3 className="text-base font-semibold leading-snug text-soma-ink">
@@ -132,8 +111,6 @@ export function SupportSections() {
           </p>
           <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-3">
             {resourceGroups.map((group) => {
-              const visual = resourceVisuals[group.id];
-              const Icon = visual.icon;
               const empty = group.links.length === 0;
               return (
                 <li
@@ -141,14 +118,9 @@ export function SupportSections() {
                   data-resource-group={group.id}
                   className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-soma-line bg-soma-raised/30"
                 >
-                  <div className="flex items-center gap-3 p-3 sm:flex-col sm:items-stretch sm:gap-0 sm:p-0">
-                    <div
-                      className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-lg sm:h-24 sm:w-full sm:rounded-none"
-                      style={backdrop(visual, empty)}
-                      aria-hidden="true"
-                    >
-                      <SupportHalo rgb={visual.rgb} dim={empty} />
-                      <Icon className="relative h-7 w-7 sm:h-11 sm:w-11" strokeWidth={1.35} style={glowIcon(visual, empty)} />
+                  <div className="flex items-start gap-3 p-3 sm:flex-col sm:items-stretch sm:gap-0 sm:p-0">
+                    <div className="relative aspect-[3/2] w-24 shrink-0 overflow-hidden rounded-lg sm:aspect-[8/5] sm:w-full sm:rounded-none">
+                      <SupportIllustration name={supportResourceIllustrations[group.id]} />
                     </div>
                     <div className="min-w-0 sm:px-3 sm:pt-3">
                       <h3 className="text-sm font-semibold leading-snug text-soma-ink">
