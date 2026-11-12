@@ -77,7 +77,22 @@
     "educational": "Soma es un recurso educativo. No ofrece asistencia profesional ni atención de emergencias.",
     "emergency": "Si tu vida o la de otra persona está en peligro inmediato, contacta con los servicios de emergencia de tu zona.",
     "professional": "Para recibir orientación personalizada, habla con un profesional sanitario.",
-    "termsLink": "Leer el apartado sobre situaciones que requieren ayuda profesional"
+    "thirdParty": "Los enlaces y teléfonos siguientes pertenecen a servicios externos. Soma no gestiona esos servicios ni garantiza su disponibilidad o respuesta.",
+    "termsLink": "Leer el apartado sobre situaciones que requieren ayuda profesional",
+    "verified": "Comprobado",
+    "otherEmergency": "Ante peligro inmediato, contacta con los servicios de emergencias de tu zona. Soma no dispone de un número internacional de emergencias.",
+    "coverage": {
+      "label": "Elige la cobertura de los recursos",
+      "hint": "Esta elección solo cambia qué listado se muestra. No detecta tu ubicación.",
+      "empty": "Selecciona una cobertura para ver recursos oficiales verificados.",
+      "shown": "Cobertura mostrada: {{coverage}}",
+      "spain": "España",
+      "other": "Otros países"
+    },
+    "zones": {
+      "crisis": "Emergencias y situaciones de crisis",
+      "professional": "Ayuda profesional e información"
+    }
   },
   "plan": {
     "title": "Tu plan de apoyo",
