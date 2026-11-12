@@ -6,24 +6,76 @@
   "tools": {
     "title": "Quick tools",
     "subtitle": "Short exercises to use at your own pace.",
+    "status": {
+      "preparing": "In preparation",
+      "planned": "Planned"
+    },
     "breathing": {
       "title": "Guided breathing",
-      "body": "A slow breathing exercise, with no breath holds, that you will be able to follow at your own pace and stop whenever you like.",
-      "status": "In preparation",
-      "statusHint": "Not available yet. It will arrive in a future version of Soma."
+      "body": "Slow breathing, with no breath holds, that you will be able to stop whenever you like.",
+      "statusHint": "Not available yet."
+    },
+    "mindfulness": {
+      "title": "Mindfulness",
+      "body": "Short pauses to come back to the present moment."
+    },
+    "movement": {
+      "title": "Physical activation",
+      "body": "Gentle movement ideas for everyday life."
+    },
+    "craving": {
+      "title": "Managing cravings",
+      "body": "Resources for riding out the urge to use."
     }
   },
   "learn": {
-    "title": "Understanding what is happening",
-    "subtitle": "Educational articles already published in Explore about how the brain responds to substances.",
-    "kind": "Article in Explore",
-    "viewAll": "Go to Explore"
+    "title": "Learning resources",
+    "subtitle": "Educational articles already published in Explore.",
+    "viewAll": "Go to Explore",
+    "unavailable": "Not available",
+    "groups": {
+      "processes": {
+        "title": "Key processes",
+        "caption": "How the body adapts to substance use."
+      },
+      "reading": {
+        "title": "Recommended reading",
+        "caption": "The brain's chemical messengers."
+      },
+      "audio": {
+        "title": "Audio and meditations",
+        "caption": "Soma does not have audio content yet."
+      }
+    }
+  },
+  "strategies": {
+    "title": "Support strategies",
+    "subtitle": "Topics planned for future guides. They will only be published after their content has been reviewed.",
+    "status": "Planned",
+    "topics": {
+      "emotions": "Managing emotions",
+      "relapse": "Relapse prevention",
+      "stress": "Managing stress",
+      "habits": "Healthy habits and routines"
+    }
   },
   "help": {
     "title": "If you need help now",
+    "subtitle": "Guidance for difficult moments.",
     "educational": "Soma is an educational resource. It does not provide professional assistance or emergency care.",
     "emergency": "If your life or someone else's is in immediate danger, contact the emergency services where you are.",
     "professional": "For personalised guidance, talk to a healthcare professional.",
     "termsLink": "Read the section on situations that need professional help"
+  },
+  "plan": {
+    "title": "Your support plan",
+    "body": "A planned space for gathering, your own way, the resources and strategies you find helpful.",
+    "status": "In development",
+    "statusHint": "Not available yet, and it does not store any data.",
+    "parts": {
+      "resources": "Resources",
+      "strategies": "Strategies",
+      "habits": "Habits"
+    }
   }
 }
