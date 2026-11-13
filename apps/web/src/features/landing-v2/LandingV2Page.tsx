@@ -11,6 +11,7 @@ import { LandingV2MissionsJournal } from "./LandingV2MissionsJournal.js";
 import { LandingV2Expedition } from "./LandingV2Expedition.js";
 import { LandingV2Features } from "./LandingV2Features.js";
 import { LandingV2Achievements } from "./LandingV2Achievements.js";
+import { LandingV2Faq } from "./LandingV2Faq.js";
 import { LandingV2Closing } from "./LandingV2Closing.js";
 import { LandingV2IntroProvider, SomaIntro } from "./SomaIntro.js";
 import { shouldPlayLandingV2Intro } from "./soma-intro-session.js";
@@ -74,6 +75,7 @@ export function LandingV2Page() {
           <LandingV2MissionsJournal />
           <LandingV2Expedition />
           <LandingV2Achievements />
+          <LandingV2Faq />
           <LandingV2Closing />
         </main>
       </div>

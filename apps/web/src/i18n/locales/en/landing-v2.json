@@ -1,6 +1,6 @@
 {
   "metaTitle": "Soma — Educational models of physiological recovery",
-  "metaDescription": "Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses.",
+  "metaDescription": "Soma is an educational web app for modelled physiological recovery after substance use. Try the demo without an account. Curves are estimates, not diagnoses.",
   "nav": {
     "preview": "Demo",
     "signIn": "Sign in"
@@ -247,6 +247,33 @@
     "sealedBody": "Some achievements stay sealed until they are reached. This showcase does not reveal the name or the description.",
     "sealedSubstance": "Still to discover",
     "note": "Achievements are granted when a modeled educational trajectory crosses a catalog threshold. They are not clinical measurements, and not proof that an organ has recovered."
+  },
+  "faq": {
+    "eyebrow": "Before you begin",
+    "title": "Frequently asked questions",
+    "intro": "Brief answers about what Soma is and what it is not. They do not replace the terms of use or the privacy policy.",
+    "items": {
+      "what": {
+        "question": "What is Soma?",
+        "answer": "Soma is an educational and motivational web app for adults (18+) who want to explore, at their own pace, how an educational catalog describes some physiological changes linked to abstinence and recovery. It visualizes orientative trajectories and offers learning tools (atlas, missions, journal, expedition, and more). It is not a healthcare provider, not a medical device, and it does not diagnose or treat."
+      },
+      "curves": {
+        "question": "Do the curves represent my personal recovery?",
+        "answer": "No. The curves and clocks are educational catalog models: orientative estimates grounded in literature and product rules, placed on a timeline. They do not measure your body, read biomarkers, or guarantee an individual outcome. A point on a curve is not a clinical data point about you."
+      },
+      "care": {
+        "question": "Does Soma replace medical or psychological care?",
+        "answer": "No. Soma is an educational companion. It does not diagnose, prescribe, or replace health professionals or emergency services. If there is immediate danger or you need clinical care, contact the health resources in your area."
+      },
+      "demo": {
+        "question": "What can I explore without creating an account?",
+        "answer": "The demo lets you browse educational surfaces of the product without signing up: illustrative recovery, the explorer (substances and neurotransmitters), atlas, missions, achievements, expedition and sample journal. Demo sample data does not belong to any real account. Creating an account (when you have an invitation) enables personalized use according to the product’s features and consents; it is not required to learn what Soma is."
+      },
+      "beta": {
+        "question": "Is Soma free during the beta?",
+        "answer": "Yes. In the public beta, access is offered without payment, advertising or subscription, according to the current legal texts. General sign-up is not open: an invitation is required. A free beta does not promise an indefinite duration or a recovery outcome."
+      }
+    }
   },
   "closing": {
     "eyebrow": "Your next chapter",

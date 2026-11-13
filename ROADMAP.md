@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-12 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3-FIX** completado y **desplegado** (PR #112); **BETA-01D.3** en revisión jurídica; **SUP-01A** completado y aprobado; **SUP-01B** completado y desplegado (PR #113); **SUP-01B.1** completado y publicado (PR #114); **SUP-01C** completado y publicado (PR #115); **SUP-ASSET-01** publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118, merge `8bdca1c`); **SUP-01E2-A** diseño aprobado (alternativa A); **SUP-01E2-B** implementación local pendiente de revisión). Git: `origin/main` = `8bdca1cc7ef3953da61c55933590a99e4b427494` (merge PR #118); `origin/develop` alineable con `main`. **SPA Live:** el propietario confirma el despliegue de PR #112; el bundle público (`index-BzTb-IBq.js`) contiene los textos legales corregidos (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-13 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3-FIX** completado y **desplegado** (PR #112); **BETA-01D.3** en revisión jurídica; **SUP-01A** completado y aprobado; **SUP-01B** completado y desplegado (PR #113); **SUP-01B.1** completado y publicado (PR #114); **SUP-01C** completado y publicado (PR #115); **SUP-ASSET-01** publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118, merge `8bdca1c`); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119, merge `04820c9`); **SEO-02A** auditoría completada; **SEO-02B1-A** propuesta FAQ aprobada; **SEO-02B1-B** FAQ de landing implementada en local (pendiente de revisión); **SEO-02B2** / **SEO-02C** pendientes). Git: `origin/main` = `04820c99724495644cb6f4a778e2072106c6a7d7` (merge PR #119); `develop` local alineable con `main`. **SPA Live:** el propietario confirma el despliegue de PR #112; el bundle público (`index-BzTb-IBq.js`) contiene los textos legales corregidos (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,7 +29,7 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12; correcciones documentales C1–C3 desplegadas con PR #112); sigue sin cierre formal ni valoración jurídica especializada. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); análisis opcional **UX-BOOT**. **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A** completado y aprobado; **SUP-01B** (página base) completado y desplegado (PR #113); **SUP-01B.1** (fidelidad visual) completado y publicado (PR #114); **SUP-01C** (respiración guiada) completado y publicado (PR #115); **SUP-ASSET-01** (ilustraciones) publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118); **SUP-01E2-A** diseño aprobado (alternativa A sin datos personales); **SUP-01E2-B** guía de apoyo en implementación local pendiente de revisión; prevención de recaídas pendiente. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); análisis opcional **UX-BOOT**. **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A** completado y aprobado; **SUP-01B** (página base) completado y desplegado (PR #113); **SUP-01B.1** (fidelidad visual) completado y publicado (PR #114); **SUP-01C** (respiración guiada) completado y publicado (PR #115); **SUP-ASSET-01** (ilustraciones) publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1-B** FAQ de landing en local (pendiente de revisión). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
 Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
@@ -42,7 +42,7 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **P
 | 3 | **UX-BOOT** | Análisis opcional de la espera inicial del backend (landing de anónimos tras `/auth/refresh` en *cold start*). Solo análisis; cambiar el arranque toca autenticación. |
 | 4 | **WEB-02** | Solo si hay necesidades reales. |
 
-**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A**–**SUP-01D**, **SUP-ASSET-01** y **SUP-01E1** están publicados (PR #113–#118); **SUP-01E2-B** está en implementación local (sin publicar). **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
+**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** están publicados (PR #113–#119). **SEO-02B1-B** (FAQ landing) está en implementación local (sin publicar). **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -145,6 +145,7 @@ Cuatro capas (no se mezclan):
 | WEB-01 landing Soma 2.0 | Landing original en `main`. Actualización 2026-11-12 (funcionalidades actuales + Centro de Expedición, PR #108) y **WEB-01-FIX** (PR #109): integrados en `main` y **desplegados en producción** (propietario; SHA de panel no recopiado). WEB-02 pendiente. **SEO-01B** completado |
 | UX-POLISH | **Completado** (A pantalla de carga, B Expedición desde Inicio, C mención en ONB-01). PR #110 (merge `cf17b47`) y **desplegado** (propietario) |
 | SEO-01 visibilidad | SEO-01A en `main` (PR #75 / #93). **SEO-01B** Completado (2026-11-12): GSC, canonical, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales |
+| SEO-02 crecimiento orgánico | **SEO-02A** auditoría completada (`docs/review/seo/seo-02a-audit-and-growth-plan.md`). **SEO-02B1-A** propuesta FAQ aprobada. **SEO-02B1-B** FAQ de landing en local (pendiente de revisión). **SEO-02B2** páginas educativas públicas pendientes de diseño. **SEO-02C** medición/seguimiento pendiente |
 | FAV-01 favicon | Completado. En `main` (PR #92). Favicon + Apple Touch 180. **Manifest e iconos 192/512:** PWA-01B (desplegados). **Sin** service worker (PWA-01A) |
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `c519bb3` |
 | FBK-01 centro de feedback | Completado. En `main` |
@@ -748,7 +749,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** MKT-PR-01D; valoración jurídica de BETA-01D.3 (BETA-01D.3-FIX desplegado, PR #112); UX-BOOT (análisis opcional); WEB-02 si procede. SUP-01B–D, SUP-ASSET-01 y SUP-01E1 publicados (PR #113–#118). SUP-01E2-A aprobado (alternativa A); SUP-01E2-B local pendiente de revisión; relapse pendiente. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
+- **Siguiente trabajo (prioridad):** MKT-PR-01D; valoración jurídica de BETA-01D.3 (BETA-01D.3-FIX desplegado, PR #112); UX-BOOT (análisis opcional); WEB-02 si procede; revisión de **SEO-02B1-B** (FAQ landing local). SUP-01B–E2 y SUP-ASSET-01 publicados (PR #113–#119). Relapse pendiente. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -1060,6 +1061,35 @@ Visibilidad de búsqueda de las superficies **públicas**. No indexar `/app`, `/
 - **Dependencias:** WEB-01 y SEO-01A cumplidas. WEB-02 (filosofía / origen del nombre) **sigue pendiente** y no forma parte de este cierre.
 - **Criterio:** Un crawler recibe la landing pública; las superficies privadas no se tratan como indexables. Cumplido.
 
+#### SEO-02 — Crecimiento orgánico (landing y contenidos públicos)
+
+Visibilidad y comprensión de la landing indexable, sin ampliar arquitectura SPA ni indexar superficies privadas/DEMO. Documentos: `docs/review/seo/`.
+
+##### SEO-02A — Auditoría y plan
+
+- **Objetivo:** Auditoría técnica/editorial y plan de crecimiento realista tras SEO-01B.
+- **Estado:** **Completado** (2026-11-13). Documento `seo-02a-audit-and-growth-plan.md`. Sin cambios de código.
+- **Conclusiones aprobadas:** base SEO-01 correcta; una sola URL indexable (`/`); no Next.js/SSR ahora; ES/EN en selector cliente; no indexar privadas/DEMO; no publicar `pending_clinical_review`.
+
+##### SEO-02B1-A — Propuesta FAQ de landing
+
+- **Objetivo:** Diseñar FAQ mínima ES/EN y ajustes opcionales de meta description.
+- **Estado:** **Aprobado** (2026-11-13). Documento `seo-02b1-a-landing-faq-proposal.md`. Sin implementación.
+
+##### SEO-02B1-B — FAQ pública en la landing
+
+- **Objetivo:** Implementar cinco preguntas en `/` (Achievements → FAQ → Closing), i18n ES/EN, meta description con mención a demo sin cuenta; sin rutas nuevas ni `FAQPage` JSON-LD.
+- **Estado:** **Implementado en local** (2026-11-13), pendiente de revisión. Sin commit/push/PR/despliegue en este hito.
+- **Fuera de alcance:** SEO-02B2 (`/learn`), SEO-02C (medición), cambios de robots/sitemap/canonical.
+
+##### SEO-02B2 — Páginas educativas públicas
+
+- **Estado:** Pendiente de diseño. Requiere contenido propio, metadatos por URL, canonical, sitemap y protección de privadas.
+
+##### SEO-02C — Medición y seguimiento
+
+- **Estado:** Pendiente. Continúa la línea MKT-01C / GSC sin analytics invasivos.
+
 #### REL-01 — Release de producción
 
 - **Objetivo:** Preparar el paso de `develop` a `main` y desplegar los avances acumulados **después** de PR #52, sin poner en riesgo datos existentes.
@@ -1173,7 +1203,7 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 #### SUP-01 — Centro de Apoyo y Herramientas
 
 - **Objetivo:** sección educativa con herramientas prácticas breves y recursos para situaciones habituales de la recuperación. **No** es terapia, asistencia clínica, intervención profesional ni servicio de emergencias.
-- **Estado:** **SUP-01A** completado y aprobado por el propietario (2026-11-12). **SUP-01B** completado y desplegado mediante PR #113. **SUP-01B.1** publicado mediante PR #114. **SUP-01C** publicado mediante PR #115. **SUP-ASSET-01** publicado mediante PR #116. **SUP-01D** (estrategias educativas) completado y desplegado mediante PR #117. **SUP-01E1** (recursos oficiales de ayuda) completado y desplegado mediante PR #118 (commit `11337a0`, merge `8bdca1c`). **SUP-01E2-A** diseño y privacidad aprobados (alternativa A: sin datos personales). **SUP-01E2-B** implementación local de «Mi guía de apoyo» pendiente de revisión. Alternativas B/C del plan y contactos almacenados: fuera del MVP. Prevención de recaídas pendiente. Cada fase posterior requiere autorización expresa.
+- **Estado:** **SUP-01A** completado y aprobado por el propietario (2026-11-12). **SUP-01B** completado y desplegado mediante PR #113. **SUP-01B.1** publicado mediante PR #114. **SUP-01C** publicado mediante PR #115. **SUP-ASSET-01** publicado mediante PR #116. **SUP-01D** (estrategias educativas) completado y desplegado mediante PR #117. **SUP-01E1** (recursos oficiales de ayuda) completado y desplegado mediante PR #118 (commit `11337a0`, merge `8bdca1c`). **SUP-01E2-A** / **SUP-01E2-B** publicados mediante PR #119 (commit `7c71620`, merge `04820c9`): «Mi guía de apoyo» sin datos personales ni persistencia. Alternativas B/C del plan y contactos almacenados: fuera del MVP. Prevención de recaídas pendiente. Cada fase posterior requiere autorización expresa.
 - **SUP-01B (completado, PR #113):** primera versión de la página; SUP-01B.1 sustituye la composición de las secciones (ver abajo).
   - **Rutas y navegación:** `/preview/support` y `/app/support`, ambas en `soma2Pages`. Entrada «Apoyo» (id `apoyo`, icono `HeartHandshake`) solo en «Más», entre Logros y «Ayuda y sugerencias». La barra lateral (7 destinos) y el dock móvil (4 + «Más») no cambian. ONB-01 sin cambios.
   - **Página** (`SupportPage` + `support/SupportSections`):
@@ -1222,7 +1252,7 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 | **SUP-01E1-A** (investigación aprobada) | Inventario y diseño de recursos externos oficiales. | `docs/review/support/sup-01e1-a-research.md`. |
 | **SUP-01E1-B** (completado y desplegado, PR #118) | Panel de ayuda: selector España/Otros; 112, 024, PNSD, Find A Helpline. | Sin geo-IP ni persistencia; sin Fad/SIOF. |
 | **SUP-01E2-A** (diseño aprobado) | Privacidad y alcance del plan/guía; alternativa A sin datos personales. | `docs/review/support/sup-01e2-a-design-privacy.md`. |
-| **SUP-01E2-B** (implementación local; pendiente de revisión) | «Mi guía de apoyo»: cuatro apartados, casillas en memoria, enlaces a C/D/E1. | Sin persistencia, texto libre ni contactos. B/C pospuestas. |
+| **SUP-01E2-B** (publicado, PR #119) | «Mi guía de apoyo»: cuatro apartados, casillas en memoria, enlaces a C/D/E1. | Sin persistencia, texto libre ni contactos. B/C pospuestas. |
 | **Prevención de recaídas** (pendiente) | Contenido de categoría `relapse` (fuera de B1). | Alcance, evidencia y seguridad propios. |
 
 ##### Decisiones del propietario
@@ -1258,10 +1288,10 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 - **SUP-01E1-A — investigación aprobada:** `docs/review/support/sup-01e1-a-research.md`.
 - **SUP-01E1-B — completado y desplegado (PR #118; merge `8bdca1c`):** allow-list `ext.es.112`, `ext.es.024`, `ext.es.pnsd.ayuda-cerca`, `ext.int.iasp.find-a-helpline`; selector España/Otros sin persistencia.
 - **SUP-01E2-A — diseño aprobado:** alternativa A (guía orientativa sin datos personales); B/C pospuestas; contactos fuera del MVP. Documento `sup-01e2-a-design-privacy.md`.
-- **SUP-01E2-B — implementación local (sin commit/push/PR/despliegue en este hito):** «Mi guía de apoyo» / «My support guide»; cuatro apartados con casillas solo en memoria; enlaces a respiración, estrategias y panel de ayuda; sin texto libre ni teléfonos de terceros.
+- **SUP-01E2-B — publicado (PR #119):** «Mi guía de apoyo» / «My support guide»; cuatro apartados con casillas solo en memoria; enlaces a respiración, estrategias y panel de ayuda; sin texto libre ni teléfonos de terceros.
 - **Pendientes:**
-  - Revisión técnica y autorización de publicación de SUP-01E2-B.
   - Prevención de recaídas (categoría `relapse`).
+  - Revisión de **SEO-02B1-B** (FAQ landing local; no es SUP).
   - Enlace desde Inicio.
 
 - **Criterio (MVP):** la página abre en DEMO y LIVE desde «Más», la respiración guiada funciona sin conexión a la API y sin guardar nada, no hay tarjetas que aparenten funciones inexistentes ni números sin verificar, y los textos ES/EN no prometen resultados ni se presentan como terapia.
@@ -1768,3 +1798,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-12 | **SUP-01D-B2** (local, sin commit): B1 aprobado editorialmente para integración (sin validación clínica). Correcciones menores: «insomnio»; precauciones de estrés vs valoración urgente; consumo «recurres / está aumentando». Catálogo tipado (`support-strategies.ts` + `support-strategy-content.ts`); UI `SupportStrategySheet`; `?strategy=` DEMO/LIVE; relapse «Prevista»; enlace a `#support-breathing`; referencias públicas con notas de verificación parcial. QA: suite web 1070/1070; typecheck y build OK. Pendiente revisión técnica y autorización de publicación. E1/E2/relapse pendientes. |
 | 2026-11-12 | **SUP-01D-B2** publicado mediante PR #117 (commit `c06595e`, merge `e21be40`); despliegue según propietario. **SUP-01E1-A** investigación aprobada. **SUP-01E1-B** (local, sin commit): recursos externos 112, 024, PNSD «Ayuda cerca de ti», Find A Helpline; selector España/Otros sin geo ni persistencia; Fad/SIOF excluido. QA pendiente en el informe del hito. E2/relapse pendientes. |
 | 2026-11-12 | **SUP-01E1-B** publicado mediante PR #118 (commit `11337a0`, merge `8bdca1c`); despliegue según propietario. **SUP-01E2-A** diseño/privacidad aprobado (alternativa A). **SUP-01E2-B** (local, sin commit): «Mi guía de apoyo» con cuatro apartados, casillas en memoria, sin datos personales ni persistencia; B/C y contactos almacenados fuera del MVP. Relapse pendiente. |
+| 2026-11-13 | **SUP-01E2-B** publicado mediante PR #119 (commit `7c71620`, merge `04820c9`). **SEO-02A** auditoría completada (`docs/review/seo/seo-02a-audit-and-growth-plan.md`). **SEO-02B1-A** propuesta FAQ aprobada (`seo-02b1-a-landing-faq-proposal.md`). **SEO-02B1-B** (local, sin commit): FAQ de cinco preguntas en la landing (ES/EN), meta description con demo sin cuenta; sin rutas nuevas ni `FAQPage` JSON-LD. **SEO-02B2** / **SEO-02C** pendientes. Fast-forward local `develop` → `04820c9`. Relapse pendiente. |
