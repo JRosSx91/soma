@@ -188,7 +188,7 @@ export function describeAchievement(
   const review =
     !unlocked && (item.ruleReview || live?.progressAvailability === "pending_review");
   const curveProgress =
-    item.family === "temporal" || sealed
+    item.family === "temporal" || sealed || item.tier === "platinum"
       ? null
       : quantifiableAchievementProgress({
           unlocked,
@@ -383,4 +383,38 @@ export function platinumIdsOf(
   catalog: readonly CatalogItem[],
 ): string[] {
   return catalog.filter((item) => item.tier === "platinum").map((item) => item.id);
+}
+
+/**
+ * ACH-02B / D1-A: curve medals required for a sovereignty platinum.
+ * Mirrors `platinumRequirementIds` using the web catalog's `ruleReview` flag.
+ */
+export function platinumRequirementItems(
+  catalog: readonly CatalogItem[],
+  substanceId: CatalogItem["substanceId"],
+): CatalogItem[] {
+  return catalog.filter(
+    (item) =>
+      item.substanceId === substanceId &&
+      item.family === "curve" &&
+      item.tier !== "platinum" &&
+      item.ruleReview !== true,
+  );
+}
+
+export function platinumCollectionProgress(
+  catalog: readonly CatalogItem[],
+  substanceId: CatalogItem["substanceId"],
+  unlockedIds: ReadonlySet<string>,
+): { required: number; owned: number; complete: boolean } {
+  const required = platinumRequirementItems(catalog, substanceId);
+  let owned = 0;
+  for (const item of required) {
+    if (unlockedIds.has(item.id)) owned += 1;
+  }
+  return {
+    required: required.length,
+    owned,
+    complete: required.length > 0 && owned >= required.length,
+  };
 }

@@ -28,6 +28,7 @@ import {
   describeAchievement,
   filterCatalog,
   pickAchievementHighlights,
+  platinumCollectionProgress,
   sortCatalog,
   type CatalogItem,
   type FamilyFilter,
@@ -460,6 +461,15 @@ export function AchievementsPage() {
             showingLive ? (liveById.get(open.id) ?? null) : undefined,
             temporalBySubstance.get(open.substanceId) ?? null,
           )}
+          unlockedIds={
+            showingLive
+              ? new Set(
+                  [...liveById.values()]
+                    .filter((row) => row.unlocked)
+                    .map((row) => row.id),
+                )
+              : new Set()
+          }
           locale={i18n.language}
           onClose={() => setOpenId(null)}
         />
@@ -562,7 +572,10 @@ function cardLabels(item: CatalogItem, t: ReturnType<typeof useTranslation>[0]) 
       t("achievements:ui.temporalRequirement", { count: days, substance: name }),
     curveProgress: (current: number, threshold: number) =>
       t("achievements:ui.curveProgress", { current, threshold }),
-    curveRequirement: (percent: number) => t("achievements:ui.curveRequirement", { percent }),
+    curveRequirement: (percent: number) =>
+      item.tier === "platinum"
+        ? t("achievements:ui.platinumCollectionHint", { substance })
+        : t("achievements:ui.curveRequirement", { percent }),
     unavailableHint: t("achievements:ui.unavailableHint"),
     substance,
     tier: t(`achievements:ui.${item.tier}`),
@@ -612,11 +625,13 @@ function FilterGroup<T extends string>({
 function AchievementDetail({
   item,
   view,
+  unlockedIds,
   locale,
   onClose,
 }: {
   item: CatalogItem;
   view: ReturnType<typeof describeAchievement>;
+  unlockedIds: ReadonlySet<string>;
   locale: string;
   onClose: () => void;
 }) {
@@ -626,6 +641,10 @@ function AchievementDetail({
   });
   const thresholdPercent = Math.round((item.threshold ?? 0) * 100);
   const unlockedOn = formatDisplayDate(view.unlockedAt, locale);
+  const platinumProgress =
+    item.tier === "platinum"
+      ? platinumCollectionProgress(achievementCatalog, item.substanceId, unlockedIds)
+      : null;
 
   if (view.sealed) {
     return (
@@ -677,6 +696,14 @@ function AchievementDetail({
         </p>
       ) : view.review ? (
         <p className="mt-2">{t("ui.reviewDetail")}</p>
+      ) : platinumProgress ? (
+        <p className="mt-2">
+          {t("ui.platinumCollectionDetail", {
+            substance,
+            owned: platinumProgress.owned,
+            required: platinumProgress.required,
+          })}
+        </p>
       ) : (
         <p className="mt-2">
           {t("ui.curveDetail", { percent: thresholdPercent, organ: item.organName })}
@@ -691,7 +718,7 @@ function AchievementDetail({
         </p>
       ) : null}
       {view.gap ? <p className="mt-2">{gapNote(view.gap, t)}</p> : null}
-      {view.unlocked || !item.hidden || item.tier === "platinum" ? (
+      {view.unlocked || !item.hidden ? (
         <p className="mt-2">{item.description}</p>
       ) : null}
     </DetailSheet>

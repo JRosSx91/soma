@@ -58,6 +58,25 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /achievements:ui\.historyNote/);
   assert.match(page, /ui\.hiddenLabel/);
   assert.doesNotMatch(page, /ui\.hiddenLocked/);
+  assert.match(page, /platinumCollectionDetail/);
+  assert.match(page, /platinumCollectionHint/);
+  assert.match(page, /platinumCollectionProgress/);
+  assert.equal(
+    typeof (enAchievements as { ui: Record<string, string> }).ui.platinumCollectionDetail,
+    "string",
+  );
+  assert.equal(
+    typeof (esAchievements as { ui: Record<string, string> }).ui.platinumCollectionDetail,
+    "string",
+  );
+  assert.match(
+    (enAchievements as { ui: Record<string, string> }).ui.platinumCollectionHint,
+    /curve medal|reachable/i,
+  );
+  assert.match(
+    (esAchievements as { ui: Record<string, string> }).ui.platinumCollectionHint,
+    /curva|alcanzables/i,
+  );
   assert.match(page, /useTranslation\("achievements"\)|useTranslation\(\["achievements"/);
   assert.match(page, /\$\{item\.id\}\.title/);
   assert.doesNotMatch(page, /nature-2\.png/);

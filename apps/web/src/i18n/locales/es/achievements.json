@@ -77,6 +77,8 @@
     "curveProgressDetail": "Avance actual {{current}}% hacia el umbral educativo del {{threshold}}%. Es el modelo, no salud recuperada.",
     "hiddenLocked": "Pendiente.",
     "hiddenLabel": "Oculto",
+    "platinumCollectionDetail": "Culminación de la colección de curvas educativas de {{substance}}: {{owned}} de {{required}} medallas alcanzables. No exige un umbral adicional del modelo.",
+    "platinumCollectionHint": "Se desbloquea al obtener todas las medallas de curva alcanzables de {{substance}} (sin las pendientes de definición ni las de tiempo).",
     "gapMissingRow": "Este logro no ha llegado en la respuesta, así que no se muestra un porcentaje.",
     "gapNotTracked": "Esta sustancia no está en tu perfil, así que no hay avance que calcular.",
     "gapActiveUse": "El consumo sigue activo. El hito mide abstinencia y todavía no tiene avance.",

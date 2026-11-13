@@ -221,8 +221,9 @@ export const ACHIEVEMENTS = [
     descriptionKey: "alcohol-sovereignty-platinum.description",
     triggerOrganId: "brain-vta",
     triggerSubstanceId: "alcohol",
+    // Threshold retained as catalog metadata only; ACH-02B unlocks by collection (D3-A).
     triggerRecoveryThreshold: 0.99,
-    hidden: true,
+    hidden: false,
   },
 
     {
@@ -491,8 +492,9 @@ export const ACHIEVEMENTS = [
     descriptionKey: "nicotine-sovereignty-platinum.description",
     triggerOrganId: "brain-vta",
     triggerSubstanceId: "nicotine",
+    // Threshold retained as catalog metadata only; ACH-02B unlocks by collection (D3-A).
     triggerRecoveryThreshold: 0.99,
-    hidden: true,
+    hidden: false,
   },
 
   // ---------------------------------------------------------------------------
@@ -685,8 +687,9 @@ export const ACHIEVEMENTS = [
     descriptionKey: "cannabis-sovereignty-platinum.description",
     triggerOrganId: "brain-vta",
     triggerSubstanceId: "cannabis",
+    // Threshold retained as catalog metadata only; ACH-02B unlocks by collection (D3-A).
     triggerRecoveryThreshold: 0.99,
-    hidden: true,
+    hidden: false,
   },
   // ---------------------------------------------------------------------------
   // Cocaine
@@ -950,8 +953,9 @@ export const ACHIEVEMENTS = [
     descriptionKey: "cocaine-sovereignty-platinum.description",
     triggerOrganId: "brain-vta",
     triggerSubstanceId: "cocaine",
+    // Threshold retained as catalog metadata only; ACH-02B unlocks by collection (D3-A).
     triggerRecoveryThreshold: 0.99,
-    hidden: true,
+    hidden: false,
   },
 
   // ---------------------------------------------------------------------------

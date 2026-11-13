@@ -106,6 +106,7 @@ export class AchievementsService {
           threshold: item.triggerRecoveryThreshold,
           family: item.family,
           abstinenceDays: item.triggerAbstinenceDays,
+          tier: item.tier,
         })),
         curves,
         usages,
