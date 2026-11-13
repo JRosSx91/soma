@@ -2,6 +2,7 @@ import { useId, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { previewFocus } from "../recovery-dashboard/focus.js";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 
 const MAX_DAY = 90;
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -62,13 +63,14 @@ export function LandingV2Journey() {
       className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-10 sm:px-6 sm:py-24 lg:px-12 lg:py-28 xl:px-16"
       aria-labelledby="landing-v2-journey-title"
     >
-      <img
+      <LandingPhotoImg
         src="/images/landing-v2/soma-journey-bg.png"
         alt=""
-        width={1920}
-        height={800}
+        width={1819}
+        height={865}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[center_70%] opacity-80"
       />

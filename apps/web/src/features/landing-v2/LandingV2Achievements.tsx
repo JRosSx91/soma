@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { previewFocus } from "../recovery-dashboard/focus.js";
 import { SealedMedalDisk, type MedalTier } from "../recovery-dashboard/components/MedalMark.js";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -83,13 +84,14 @@ function MedalFigure({
       {item.kind === "sealed" ? (
         <SealedMedalDisk />
       ) : (
-        <img
+        <LandingPhotoImg
           src={medalSrc(item)}
           alt=""
           width={1280}
           height={1240}
           decoding="async"
-          draggable={false}
+          loading="lazy"
+          sizes="(max-width: 640px) 96px, 192px"
           className="h-full w-full object-contain"
         />
       )}
@@ -148,13 +150,14 @@ export function LandingV2Achievements() {
       className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-8 sm:px-6 lg:flex lg:min-h-svh lg:flex-col lg:px-12 lg:py-6 xl:px-16"
       aria-labelledby="landing-v2-achievements-title"
     >
-      <img
+      <LandingPhotoImg
         src="/images/landing-v2/soma-achievements-bg.png"
         alt=""
-        width={1920}
-        height={800}
+        width={1829}
+        height={860}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[center_42%] opacity-80"
       />

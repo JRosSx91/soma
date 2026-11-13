@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 
 export const LANDING_METHODOLOGY_ID = "landing-methodology";
 
@@ -34,13 +35,14 @@ export function LandingV2Methodology() {
       className="relative isolate overflow-x-hidden bg-[#07141f] px-4 py-8 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-6 xl:px-16"
       aria-labelledby="landing-v2-methodology-title"
     >
-      <img
+      <LandingPhotoImg
         src="/images/landing-v2/soma-methodology-bg.png"
         alt=""
-        width={1920}
-        height={800}
+        width={1821}
+        height={864}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-center opacity-35"
       />

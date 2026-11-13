@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLandingV2Intro } from "./SomaIntro.js";
 import { LandingRegistrationActions } from "./LandingRegistrationActions.js";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 import "./landing-v2-hero.css";
 
 const HERO_ART = "/images/landing-v2/hero-holographic-anatomy.png";
@@ -23,14 +24,14 @@ export function LandingV2Hero() {
         animate={shown ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.03 }}
         transition={enter}
       >
-        <img
+        <LandingPhotoImg
           src={HERO_ART}
           alt=""
           width={1828}
           height={860}
           decoding="async"
           fetchPriority="high"
-          draggable={false}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 1828px"
           className="landing-v2-hero__art-img absolute inset-0 h-full w-full max-w-none object-cover object-[90%_74%] sm:object-[86%_62%] md:object-[center_18%] lg:object-[22%_44%] xl:object-[70%_42%]"
         />
         <div className="landing-v2-hero__veil-portrait absolute inset-0 md:hidden">
