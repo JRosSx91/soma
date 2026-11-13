@@ -8,15 +8,18 @@ import {
 } from "./unauthenticated-destination.js";
 
 /**
- * RootRoute historically sent anyone with a truthy `user` to /login.
- * Navigating to `/` in the same tick as setUser(null) reproduced the
- * E2E failure: home still saw the old user and bounced to login.
+ * Mirrors `rootRouteView` destinations used by public `/`.
+ * Navigating to `/` in the same tick as setUser(null) used to bounce to
+ * login when a stale user was still set — account_deleted must win.
  */
 function rootRouteDestination(input: {
   user: { id: string } | null;
   sessionNotice: string | null;
+  loading?: boolean;
 }): "/" | "/login" {
   if (input.sessionNotice === "account_deleted") return "/";
+  if (input.sessionNotice === "signed_out") return "/";
+  if (input.loading) return "/";
   return input.user ? "/login" : "/";
 }
 

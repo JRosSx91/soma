@@ -18,10 +18,9 @@ import { ExpeditionPage } from "./features/recovery-dashboard/pages/ExpeditionPa
 import { AccountPage } from "./features/recovery-dashboard/pages/AccountPage.js";
 import { FeedbackPage } from "./features/recovery-dashboard/pages/FeedbackPage.js";
 import { SupportPage } from "./features/recovery-dashboard/pages/SupportPage.js";
-import { AppBootScreen } from "./components/AppBootScreen.js";
 import { ProtectedLayout } from "./components/ProtectedLayout.js";
 import { useAuth } from "./features/auth/index.js";
-import { unauthenticatedDestination } from "./features/auth/lib/unauthenticated-destination.js";
+import { rootRouteView } from "./features/auth/lib/root-route-view.js";
 import { DocumentSeo } from "./seo/DocumentSeo.js";
 import { RegistrationModeProvider } from "./features/auth/context/RegistrationModeContext.js";
 import {
@@ -31,22 +30,20 @@ import {
   TermsPage,
 } from "./features/legal/LegalDocumentPage.js";
 
+/**
+ * Public `/` (PERF-01B): paint the landing while AuthProvider restores the
+ * session. Do not wait on `/auth/refresh` for anonymous first content.
+ * Protected routes keep the shared boot screen while auth is checking.
+ */
 function RootRoute() {
   const { user, loading, sessionNotice } = useAuth();
 
-  if (loading) {
-    return <AppBootScreen />;
+  if (rootRouteView({ loading, user, sessionNotice }) === "login-gate") {
+    // Authenticated users resolve onboarding via LoginPage (pending invite vs /app).
+    return <Navigate to="/login" replace />;
   }
 
-  // After account deletion the notice is set with user=null. Never bounce
-  // that visitor to /login — the landing renders the generic confirmation.
-  if (unauthenticatedDestination(sessionNotice) === "/") {
-    return <LandingV2Page />;
-  }
-
-  // Authenticated users resolve onboarding via LoginPage (pending invite vs /app).
-  // Avoids sending pending sessions straight to /app without a coherent invite.
-  return user ? <Navigate to="/login" replace /> : <LandingV2Page />;
+  return <LandingV2Page />;
 }
 
 /** Shared Soma 2.0 page tree — same elements under `/app` and `/preview`. */
