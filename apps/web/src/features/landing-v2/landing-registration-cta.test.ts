@@ -64,6 +64,14 @@ test("mode fetch failure does not promise registration", async () => {
   assert.equal(markup.includes('href="/register"'), false);
 });
 
+test("registration-mode loading keeps demo CTA and hides register/sign-in primary", async () => {
+  const markup = await html({ status: "loading", mode: null });
+  assert.match(markup, /href="\/preview"/);
+  assert.equal(markup.includes('href="/register"'), false);
+  assert.equal(markup.includes("Create an account"), false);
+  assert.doesNotMatch(markup, /temporarily unavailable/i);
+});
+
 test("hero and closing no longer hard-code /register", () => {
   const hero = readFileSync(new URL("./LandingV2Hero.tsx", import.meta.url), "utf8");
   const closing = readFileSync(

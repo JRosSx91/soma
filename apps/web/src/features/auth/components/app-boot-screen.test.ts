@@ -35,14 +35,14 @@ test("boot copy exists in spanish and english", () => {
   assert.notEqual(enCommon.boot.slowServer, esCommon.boot.slowServer);
 });
 
-test("root and protected routes show the boot screen only while auth is checking", () => {
-  assert.match(app, /if \(loading\) \{\s*return <AppBootScreen \/>;/);
+test("protected routes keep the boot screen while auth is checking; public / does not", () => {
+  assert.doesNotMatch(app, /from "\.\/components\/AppBootScreen/);
+  assert.match(app, /rootRouteView\(/);
   assert.match(protectedRoute, /if \(loading\) \{\s*return <AppBootScreen \/>;/);
   assert.match(
     protectedRoute,
     /Navigate to=\{unauthenticatedDestination\(sessionNotice\)\}/,
   );
-  assert.match(app, /user \? <Navigate to="\/login" replace \/> : <LandingV2Page \/>/);
   assert.match(auth, /const loading = status === "checking";/);
   assert.equal(auth.includes("AppBootScreen"), false);
 });
