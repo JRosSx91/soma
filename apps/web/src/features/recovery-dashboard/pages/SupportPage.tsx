@@ -6,6 +6,11 @@ import { RecoveryHero } from "../components/RecoveryHero.js";
 import { SupportSections } from "../support/SupportSections.js";
 import { SupportStrategySheet } from "../support/SupportStrategySheet.js";
 import {
+  SUPPORT_GUIDE_ANCHOR_ID,
+  SUPPORT_HELP_PANEL_HASH,
+  SUPPORT_STRATEGIES_PANEL_HASH,
+} from "../support/support-guide.js";
+import {
   SUPPORT_BREATHING_ANCHOR_ID,
   SUPPORT_STRATEGY_QUERY_KEY,
   resolveSupportStrategyQueryParam,
@@ -17,6 +22,15 @@ const SUPPORT_HERO_IMAGE = "/images/decoration/nature-11.png";
 const SUPPORT_HERO_OBJECT_POSITION = "62% 55%";
 const SUPPORT_HERO_OVERLAY =
   "linear-gradient(180deg, rgb(var(--soma-shell-rail) / 0.5) 0%, rgb(var(--soma-shell-rail) / 0.18) 45%, transparent 72%), linear-gradient(90deg, rgb(var(--soma-shell-rail) / 0.82) 0%, rgb(var(--soma-shell-rail) / 0.4) 38%, rgb(var(--soma-shell-rail) / 0.08) 64%, transparent 86%)";
+
+/** In-page anchors the hub may scroll to (SPA hash changes do not scroll by themselves). */
+const SUPPORT_HASH_SCROLL_IDS = new Set<string>([
+  SUPPORT_BREATHING_ANCHOR_ID,
+  SUPPORT_STRATEGIES_PANEL_HASH,
+  SUPPORT_HELP_PANEL_HASH,
+  SUPPORT_GUIDE_ANCHOR_ID,
+  "support-plan-title",
+]);
 
 export function SupportPage() {
   const { t } = useTranslation("support");
@@ -35,14 +49,23 @@ export function SupportPage() {
     });
   }, [strategyParam, strategyId, setSearchParams]);
 
-  // Deep-link to the breathing tool after leaving a strategy sheet.
+  // Deep-links from strategies / the support guide: scroll allow-listed hashes; focus breathing only.
   useEffect(() => {
     if (strategyId) return;
-    if (hash !== `#${SUPPORT_BREATHING_ANCHOR_ID}`) return;
-    const target = document.getElementById(SUPPORT_BREATHING_ANCHOR_ID);
+    if (!hash.startsWith("#") || hash.length < 2) return;
+    let id = hash.slice(1);
+    try {
+      id = decodeURIComponent(id);
+    } catch {
+      return;
+    }
+    if (!SUPPORT_HASH_SCROLL_IDS.has(id)) return;
+    const target = document.getElementById(id);
     if (!(target instanceof HTMLElement)) return;
     target.scrollIntoView({ block: "start" });
-    target.focus({ preventScroll: true });
+    if (id === SUPPORT_BREATHING_ANCHOR_ID) {
+      target.focus({ preventScroll: true });
+    }
   }, [hash, strategyId]);
 
   return (

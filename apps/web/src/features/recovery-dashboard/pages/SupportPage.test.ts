@@ -227,10 +227,13 @@ test("three strategy topics are navigable; relapse and the personal plan stay un
       }
     }
     const plan = markup.slice(markup.indexOf('id="support-plan-title"'));
-    assert.ok(plan.includes(copy.plan.status));
-    assert.ok(plan.includes(copy.plan.statusHint));
-    assert.equal(plan.includes("href="), false);
-    assert.doesNotMatch(plan, /<input|<form|<progress|role="progressbar"|aria-valuenow/);
+    assert.ok(plan.includes(copy.plan.title));
+    assert.ok(plan.includes(copy.plan.privacy));
+    assert.match(plan, /data-support-guide/);
+    assert.equal((plan.match(/type="checkbox"/g) ?? []).length, 4);
+    assert.match(plan, /data-support-guide-reset/);
+    assert.ok(plan.includes("href="));
+    assert.doesNotMatch(plan, /<textarea|<form|<progress|role="progressbar"|aria-valuenow|type="text"|type="tel"/);
   }
   assert.equal(esSupport.strategies.title, "Estrategias de apoyo");
 });
@@ -249,9 +252,11 @@ test("learn links stay inside the active base and only open published articles",
     const markup = await render(base, "es");
     const other = base === "/app" ? "/preview" : "/app";
     const inApp = hrefs(markup).filter((href) => href !== SUPPORT_TERMS_EMERGENCY_HREF);
+    // Learn sheets + Explore + 3 strategies + guide (breathing, strategies hash, help hash).
+    // Terms appears twice (help panel + guide) and is filtered out above.
     assert.equal(
       inApp.length,
-      SUPPORT_LEARN_SHEETS.length + 1 + SUPPORT_ENABLED_STRATEGY_IDS.length,
+      SUPPORT_LEARN_SHEETS.length + 1 + SUPPORT_ENABLED_STRATEGY_IDS.length + 3,
     );
     assert.ok(inApp.every((href) => href.startsWith(`${base}/`)), inApp.join(", "));
     assert.ok(inApp.every((href) => !href.startsWith(`${other}/`)));
@@ -316,9 +321,10 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
   for (const lng of ["es", "en"] as const) {
     const markup = await render("/app", lng);
     const breathing = blockFor(markup, "data-tool", "breathing");
-    // Breathing start + coverage chooser (Spain / Other). No tel: until a coverage is chosen.
-    assert.equal((markup.match(/<button/g) ?? []).length, 3);
+    // Breathing start + coverage chooser (Spain / Other) + guide reset. No tel: until coverage is chosen.
+    assert.equal((markup.match(/<button/g) ?? []).length, 4);
     assert.equal((breathing.match(/<button/g) ?? []).length, 1);
+    assert.match(markup, /data-support-guide-reset/);
     assert.match(markup, /data-help-coverage="spain"/);
     assert.match(markup, /data-help-coverage="other"/);
     assert.equal(markup.includes('role="button"'), false);

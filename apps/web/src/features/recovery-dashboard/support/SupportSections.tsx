@@ -1,12 +1,9 @@
 import {
   ArrowRight,
-  BookOpen,
   BookOpenText,
   Brain,
   CalendarHeart,
   ChevronRight,
-  Clock,
-  Compass,
   Layers,
   LifeBuoy,
   Sprout,
@@ -20,6 +17,7 @@ import { previewFocus } from "../focus.js";
 import { BreathingTool } from "./BreathingTool.js";
 import { SupportHelpResources } from "./SupportHelpResources.js";
 import { SupportIllustration } from "./SupportIllustration.js";
+import { SupportSupportGuide } from "./SupportSupportGuide.js";
 import {
   SUPPORT_AVAILABLE_TOOL,
   SUPPORT_STRATEGY_TOPICS,
@@ -44,12 +42,6 @@ const strategyIcons: Record<SupportStrategyTopic, LucideIcon> = {
   stress: Target,
   habits: Sprout,
 };
-
-const planParts = [
-  { id: "resources", icon: BookOpen },
-  { id: "strategies", icon: Compass },
-  { id: "habits", icon: Sprout },
-] as const;
 
 /** Content below the hero, laid out after `apoyo-2.0`. Card art is SUP-ASSET-01; only breathing is interactive. */
 export function SupportSections() {
@@ -249,7 +241,7 @@ export function SupportSections() {
           </Link>
         </section>
 
-        <section className={panelClass} aria-labelledby="support-plan-title">
+        <section className={panelClass} aria-labelledby="support-plan-title" data-support-plan>
           <div className="flex items-start gap-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-soma-shell-accent/10">
               <CalendarHeart className="h-5 w-5" style={accentColor} aria-hidden="true" />
@@ -263,25 +255,7 @@ export function SupportSections() {
               </p>
             </div>
           </div>
-          <ul className="mt-5 grid grid-cols-3 gap-2">
-            {planParts.map(({ id, icon: Icon }) => (
-              <li key={id} className="flex min-w-0 flex-col items-center gap-2 text-center">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-dashed border-soma-line-strong">
-                  <Icon className="h-5 w-5 text-soma-ink-muted" aria-hidden="true" />
-                </span>
-                <span className="text-xs leading-snug text-soma-ink-secondary">
-                  {t(`support:plan.parts.${id}`)}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-soma-ink-muted">
-            <span className={plannedPillClass}>
-              <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-              {t("support:plan.status")}
-            </span>
-            <span>{t("support:plan.statusHint")}</span>
-          </p>
+          <SupportSupportGuide />
         </section>
       </div>
     </>
