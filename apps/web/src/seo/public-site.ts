@@ -24,7 +24,7 @@ export const DEFAULT_DOCUMENT_TITLE =
   "Soma — Educational models of physiological recovery";
 
 export const DEFAULT_DOCUMENT_DESCRIPTION =
-  "Soma is an educational web app for exploring modelled physiological recovery after substance use. Catalog curves are estimates, not diagnoses.";
+  "Soma is an educational web app for modelled physiological recovery after substance use. Try the demo without an account. Curves are estimates, not diagnoses.";
 
 export const DEFAULT_OG_IMAGE_URL = `${PUBLIC_SITE_ORIGIN}/images/landing-v2/hero-holographic-anatomy.png`;
 

@@ -1,6 +1,6 @@
 {
   "metaTitle": "Soma — Modelos educativos de recuperación fisiológica",
-  "metaDescription": "Soma es una aplicación web educativa para explorar la recuperación fisiológica modelada tras el consumo de sustancias. Las curvas son estimaciones, no diagnósticos.",
+  "metaDescription": "Soma es una app educativa de recuperación fisiológica modelada tras el consumo de sustancias. Hay demo sin cuenta. Las curvas son estimaciones, no diagnósticos.",
   "nav": {
     "preview": "Demo",
     "signIn": "Entrar"
@@ -247,6 +247,33 @@
     "sealedBody": "Algunos logros permanecen sellados hasta que se alcanzan. Esta vitrina no revela su nombre ni su descripción.",
     "sealedSubstance": "Por descubrir",
     "note": "Los logros se conceden cuando una trayectoria educativa modelada cruza un umbral del catálogo. No son mediciones clínicas ni la prueba de que un órgano se ha recuperado."
+  },
+  "faq": {
+    "eyebrow": "Antes de empezar",
+    "title": "Preguntas frecuentes",
+    "intro": "Respuestas breves sobre qué es Soma y qué no es. No sustituyen la lectura de las condiciones ni de la política de privacidad.",
+    "items": {
+      "what": {
+        "question": "¿Qué es Soma?",
+        "answer": "Soma es una aplicación web educativa y motivacional para personas adultas (18 años o más) que quieren explorar, con calma, cómo se describen en un catálogo educativo algunos cambios fisiológicos asociados a la abstinencia y a la recuperación. Visualiza trayectorias orientativas y ofrece herramientas para aprender (atlas, misiones, bitácora, expedición, entre otras). No es un centro sanitario, no es un dispositivo médico y no ofrece diagnóstico ni tratamiento."
+      },
+      "curves": {
+        "question": "¿Las curvas representan mi recuperación personal?",
+        "answer": "No. Las curvas y relojes son modelos educativos del catálogo: estimaciones orientativas a partir de literatura y de reglas del producto, situadas en una línea temporal. No miden tu cuerpo, no leen biomarcadores y no garantizan un resultado individual. Un punto en la curva no es un dato clínico tuyo."
+      },
+      "care": {
+        "question": "¿Soma sustituye la atención médica o psicológica?",
+        "answer": "No. Soma es un compañero educativo. No diagnostica, no prescribe y no sustituye a profesionales de la salud, ni a servicios de emergencia. Si hay peligro inmediato o necesitas atención clínica, contacta con los recursos sanitarios de tu zona."
+      },
+      "demo": {
+        "question": "¿Qué puedo explorar sin crear una cuenta?",
+        "answer": "La demo permite recorrer superficies educativas del producto sin registro: recuperación ilustrativa, explorador (sustancias y neurotransmisores), atlas, misiones, logros, expedición y bitácora de ejemplo. Los datos de ejemplo de la demo no son de ninguna cuenta real. Crear una cuenta (cuando tengas invitación) permite un uso personalizado según las funciones y consentimientos del producto; no es obligatorio para conocer Soma."
+      },
+      "beta": {
+        "question": "¿Soma es gratuita durante la beta?",
+        "answer": "Sí. En la beta pública el acceso al servicio se ofrece sin pago, sin publicidad y sin suscripción según los textos legales vigentes. El alta general no está abierta: hace falta una invitación. La gratuidad de la beta no promete una duración indefinida ni un resultado de recuperación."
+      }
+    }
   },
   "closing": {
     "eyebrow": "Tu siguiente capítulo",
