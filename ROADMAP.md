@@ -29,7 +29,7 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12; correcciones documentales C1–C3 desplegadas con PR #112); sigue sin cierre formal ni valoración jurídica especializada. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); **PERF-01C** (imágenes landing, local pendiente de revisión; **PERF-01B** desplegado PR #122). **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A** completado y aprobado; **SUP-01B** (página base) completado y desplegado (PR #113); **SUP-01B.1** (fidelidad visual) completado y publicado (PR #114); **SUP-01C** (respiración guiada) completado y publicado (PR #115); **SUP-ASSET-01** (ilustraciones) publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1** FAQ desplegada (PR #120); **SEO-02B2-B2** implementación local pendiente de revisión. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); **PERF-01E** (desacoplar LCP del intro; implementación local pendiente de revisión; **PERF-01C** desplegado PR #123; **PERF-01D** auditoría completada; **PERF-01B** desplegado PR #122). **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A** completado y aprobado; **SUP-01B** (página base) completado y desplegado (PR #113); **SUP-01B.1** (fidelidad visual) completado y publicado (PR #114); **SUP-01C** (respiración guiada) completado y publicado (PR #115); **SUP-ASSET-01** (ilustraciones) publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1** FAQ desplegada (PR #120); **SEO-02B2-B2** implementación local pendiente de revisión. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
 Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
@@ -40,8 +40,10 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **P
 | 1 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
 | 2 | **BETA-01D.3** | **En revisión.** Comprobación puntual hecha (2026-11-12). C1–C3 completados y desplegados (BETA-01D.3-FIX, PR #112); C4 aplazado. Identificación y domicilio del responsable, y demás puntos jurídicos, pendientes de asesoramiento profesional. |
 | 3 | **PERF-01B** | Desacoplar paint de `/` del bootstrap auth. **Desplegado** (PR #122, merge `ee1d868`). Sucede a **UX-BOOT** / **PERF-01A**. |
-| 4 | **PERF-01C** | Imágenes landing + lazy below-fold. **Implementación local pendiente de revisión.** Code-splitting de rutas privadas **pospuesto**. |
-| 5 | **WEB-02** | Solo si hay necesidades reales. |
+| 4 | **PERF-01C** | Imágenes landing + lazy below-fold. **Desplegado** (PR #123, merge `7a77e42`; producto `5db598b`). Code-splitting de rutas privadas **pospuesto**. |
+| 5 | **PERF-01D** | Auditoría arranque React / LCP. **Completado** (doc `perf-01d-react-startup-audit.md`). Sin código. |
+| 6 | **PERF-01E** | Desacoplar LCP del intro (R1). **Implementación local pendiente de revisión.** |
+| 7 | **WEB-02** | Solo si hay necesidades reales. |
 
 **Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** están publicados (PR #113–#119). **SEO-02B1** FAQ publicada (PR #120). **SEO-02B2-B2** páginas `/learn` en implementación local (sin publicar). **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
@@ -750,7 +752,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** MKT-PR-01D; valoración jurídica de BETA-01D.3 (BETA-01D.3-FIX desplegado, PR #112); revisión de **PERF-01C** (01B desplegado); WEB-02 si procede. SUP-01B–E2 y SUP-ASSET-01 publicados (PR #113–#119). Relapse pendiente. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
+- **Siguiente trabajo (prioridad):** MKT-PR-01D; valoración jurídica de BETA-01D.3 (BETA-01D.3-FIX desplegado, PR #112); revisión de **PERF-01E** (01C/01D hechos; 01B desplegado); WEB-02 si procede. SUP-01B–E2 y SUP-ASSET-01 publicados (PR #113–#119). Relapse pendiente. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -1025,8 +1027,19 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
 ##### PERF-01C — Imágenes y carga diferida
 
-- **Estado:** **Implementación local pendiente de revisión** (2026-11-13). WebP + `LandingPhotoImg` para hero/fondos/medallas showcase/atlas de landing; PNG masters conservados; doc `docs/review/performance/perf-01c-image-optimization.md`. Sin commit/push/PR/despliegue en este hito.
+- **Estado:** **Completado e integrado** (PR #123, merge `7a77e42` en `main`; producto `5db598b`). WebP + `LandingPhotoImg` para hero/fondos/medallas showcase/atlas de landing; PNG masters conservados; doc `docs/review/performance/perf-01c-image-optimization.md`.
 - **Code-splitting** de rutas privadas/demo: **pospuesto** hasta nueva evaluación tras PERF-01B/01C.
+
+##### PERF-01D — Diagnóstico arranque React / LCP
+
+- **Objetivo:** Confirmar la causa del retraso de renderizado del LCP tras PERF-01B/01C (auth, imágenes, intro, bundle).
+- **Estado:** **Completado** (2026-11-13). Documento `docs/review/performance/perf-01d-react-startup-audit.md`. Sin cambios de código. Recomendación R1 → PERF-01E.
+
+##### PERF-01E — Desacoplar el LCP de la introducción visual
+
+- **Objetivo:** Pintar el arte del hero (LCP) sin `opacity: 0` hasta `introComplete`; conservar intro SOMA, Skip y `prefers-reduced-motion`.
+- **Estado:** **Implementación local pendiente de revisión** (2026-11-13). Doc `docs/review/performance/perf-01e-intro-lcp.md`. Sin commit/push/PR/despliegue en este hito.
+- **Fuera de alcance:** auth, backend, WebP, code-splitting, SEO, Vite.
 
 #### WEB-02 — Identidad y filosofía
 
@@ -1587,8 +1600,9 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). Q-E2E aparte (no instalar Playwright sin autorización).
 1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
 2. **BETA-01D.3:** **en revisión**. C1–C3 desplegados (BETA-01D.3-FIX, PR #112). C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
-3. **PERF-01C:** imágenes/lazy landing (local, pendiente de revisión). **PERF-01B** desplegado (PR #122). Code-splitting pospuesto.
-4. **WEB-02:** solo si hay necesidades reales.
+3. **PERF-01C / PERF-01D:** 01C desplegado (PR #123); 01D auditoría completada. Code-splitting pospuesto.
+4. **PERF-01E:** desacoplar LCP del intro (local, pendiente de revisión). **PERF-01B** desplegado (PR #122).
+5. **WEB-02:** solo si hay necesidades reales.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
 - **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
@@ -1829,4 +1843,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-12 | **SUP-01D-B2** publicado mediante PR #117 (commit `c06595e`, merge `e21be40`); despliegue según propietario. **SUP-01E1-A** investigación aprobada. **SUP-01E1-B** (local, sin commit): recursos externos 112, 024, PNSD «Ayuda cerca de ti», Find A Helpline; selector España/Otros sin geo ni persistencia; Fad/SIOF excluido. QA pendiente en el informe del hito. E2/relapse pendientes. |
 | 2026-11-12 | **SUP-01E1-B** publicado mediante PR #118 (commit `11337a0`, merge `8bdca1c`); despliegue según propietario. **SUP-01E2-A** diseño/privacidad aprobado (alternativa A). **SUP-01E2-B** (local, sin commit): «Mi guía de apoyo» con cuatro apartados, casillas en memoria, sin datos personales ni persistencia; B/C y contactos almacenados fuera del MVP. Relapse pendiente. |
 | 2026-11-13 | **SUP-01E2-B** publicado mediante PR #119 (commit `7c71620`, merge `04820c9`). **SEO-02A** auditoría completada (`docs/review/seo/seo-02a-audit-and-growth-plan.md`). **SEO-02B1-A** propuesta FAQ aprobada (`seo-02b1-a-landing-faq-proposal.md`). **SEO-02B1-B** (local, sin commit): FAQ de cinco preguntas en la landing (ES/EN), meta description con demo sin cuenta; sin rutas nuevas ni `FAQPage` JSON-LD. **SEO-02B2** / **SEO-02C** pendientes. Fast-forward local `develop` → `04820c9`. Relapse pendiente. |
-| 2026-11-13 | **PERF-01A** auditoría de rendimiento móvil de la landing (`docs/review/performance/perf-01a-landing-audit.md`): gate de `/` tras `/auth/refresh`, peso de imágenes y JS monolítico. **PERF-01B** integrado y desplegado (PR #122, merge `ee1d868`; producto `851279d`): `RootRoute` pinta la landing mientras `loading`; `AppBootScreen` solo en rutas protegidas. **PERF-01C** (local, sin commit): WebP hero/fondos/medallas showcase/atlas landing + `LandingPhotoImg` + lazy below-fold; doc `perf-01c-image-optimization.md`. Code-splitting de rutas privadas pospuesto. |
+| 2026-11-13 | **PERF-01A** auditoría de rendimiento móvil de la landing (`docs/review/performance/perf-01a-landing-audit.md`): gate de `/` tras `/auth/refresh`, peso de imágenes y JS monolítico. **PERF-01B** integrado y desplegado (PR #122, merge `ee1d868`; producto `851279d`): `RootRoute` pinta la landing mientras `loading`; `AppBootScreen` solo en rutas protegidas. **PERF-01C** desplegado (PR #123, merge `7a77e42`; producto `5db598b`): WebP + `LandingPhotoImg` + lazy below-fold. **PERF-01D** auditoría completada (`perf-01d-react-startup-audit.md`): LCP bloqueado por opacity 0 del hero hasta intro. **PERF-01E** (local, sin commit): arte del hero siempre opacity 1; copy gated; `FADE_AT_MS` alineado a fin de marca (~2170 ms); doc `perf-01e-intro-lcp.md`. Code-splitting de rutas privadas pospuesto. |

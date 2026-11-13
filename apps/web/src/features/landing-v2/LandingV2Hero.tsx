@@ -13,16 +13,19 @@ export function LandingV2Hero() {
   const { introComplete } = useLandingV2Intro();
   const reduceMotion = useReducedMotion();
   const enter = reduceMotion ? { duration: 0 } : { duration: 0.8, ease };
-  const shown = introComplete || Boolean(reduceMotion);
+  /** Copy/CTA may wait for intro; LCP art must not (PERF-01E). */
+  const copyShown = introComplete || Boolean(reduceMotion);
 
   return (
     <section className="landing-v2-hero relative isolate flex min-h-[calc(100svh-var(--landing-v2-header))] flex-col overflow-x-hidden bg-[#081018] xl:block">
-      <motion.div
+      {/*
+        PERF-01E: keep the LCP photograph painted at full opacity from mount.
+        The SomaIntro overlay may cover it visually; do not gate this layer on
+        introComplete or animate it from opacity 0.
+      */}
+      <div
         aria-hidden="true"
         className="landing-v2-hero__art pointer-events-none absolute inset-0 overflow-hidden md:relative md:order-2 md:min-h-[26rem] md:flex-1 lg:absolute lg:inset-y-0 lg:left-[40%] lg:right-0 lg:min-h-0 xl:inset-0"
-        initial={reduceMotion ? false : { opacity: 0, scale: 1.03 }}
-        animate={shown ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.03 }}
-        transition={enter}
       >
         <LandingPhotoImg
           src={HERO_ART}
@@ -51,17 +54,17 @@ export function LandingV2Hero() {
         <motion.div
           className="absolute inset-0 bg-[radial-gradient(ellipse_at_18%_42%,rgba(8,16,24,0.12),transparent_48%)]"
           animate={
-            reduceMotion || !shown
+            reduceMotion || !copyShown
               ? { opacity: 1 }
               : { opacity: [0.88, 1, 0.88] }
           }
           transition={
-            reduceMotion || !shown
+            reduceMotion || !copyShown
               ? { duration: 0 }
               : { duration: 10, repeat: Infinity, ease: "easeInOut" }
           }
         />
-      </motion.div>
+      </div>
 
       <div className="landing-v2-hero__copy relative z-10 flex min-h-[calc(100svh-var(--landing-v2-header))] w-full flex-col justify-start px-4 pb-16 pt-10 sm:px-6 md:order-1 md:min-h-0 md:px-8 md:pb-8 md:pt-12 lg:min-h-[calc(100svh-var(--landing-v2-header))] lg:w-[40%] lg:justify-center lg:px-10 lg:pb-16 xl:absolute xl:inset-0 xl:w-full xl:max-w-none xl:justify-center xl:px-16">
         <div className="landing-v2-hero__copy-inner w-full max-w-xl xl:max-w-[27.5rem]">
@@ -70,7 +73,7 @@ export function LandingV2Hero() {
           <motion.p
             className="text-[11px] font-medium uppercase tracking-[0.22em] text-soma-action"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            animate={copyShown ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.08 }}
           >
             {t("hero.eyebrow")}
@@ -78,7 +81,7 @@ export function LandingV2Hero() {
           <motion.h1
             className="landing-v2-hero__title soma-photo-copy mt-3 text-4xl font-semibold leading-tight tracking-tight text-soma-ink sm:text-5xl md:text-[2.65rem] lg:text-[2.75rem] xl:text-[3.15rem]"
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={copyShown ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.14 }}
           >
             <span className="block">{t("hero.titleLead")}</span>
@@ -89,7 +92,7 @@ export function LandingV2Hero() {
           <motion.p
             className="landing-v2-hero__subtitle soma-photo-copy mt-5 text-base leading-relaxed text-soma-ink-secondary sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            animate={copyShown ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.24 }}
           >
             {t("hero.subtitle")}
@@ -97,7 +100,7 @@ export function LandingV2Hero() {
           </div>
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            animate={copyShown ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ ...enter, delay: reduceMotion ? 0 : 0.34 }}
           >
             <LandingRegistrationActions
