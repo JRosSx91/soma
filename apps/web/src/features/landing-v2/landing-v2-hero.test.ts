@@ -62,6 +62,22 @@ test("landing intro first-paint gate is unchanged", () => {
   assert.equal(page.includes("shouldPlayLandingV2Intro,"), false);
 });
 
+test("PERF-01E: hero art is painted without introComplete opacity gate", () => {
+  assert.match(hero, /landing-v2-hero__art/);
+  assert.match(hero, /copyShown/);
+  assert.match(hero, /PERF-01E/);
+  assert.equal(hero.includes("const shown = introComplete"), false);
+  assert.equal(
+    hero.includes("initial={reduceMotion ? false : { opacity: 0, scale: 1.03 }}"),
+    false,
+  );
+  assert.equal(
+    hero.includes("animate={shown ? { opacity: 1, scale: 1 }"),
+    false,
+  );
+  assert.match(hero, /animate=\{copyShown \? \{ opacity: 1, y: 0 \}/);
+});
+
 test("landing still mounts the existing page tree", () => {
   assert.match(page, /<LandingV2Header \/>/);
   assert.match(page, /<LandingV2Hero \/>/);

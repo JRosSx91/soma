@@ -91,13 +91,24 @@ test("LandingV2Page first-paint calls shouldPlayLandingV2Intro()", () => {
   assert.equal(page.includes("shouldPlayLandingV2Intro,"), false);
 });
 
-test("first visit plays intro and keeps the hero gated until complete", () => {
+test("first visit plays intro while hero art stays ungated for LCP", () => {
   installLandingEnv({ seen: false });
 
   const flags = landingV2IntroFirstPaint(false);
   assert.equal(shouldPlayLandingV2Intro(), true);
   assert.equal(flags.showIntro, true);
   assert.equal(flags.introComplete, false);
+
+  const hero = readFileSync(
+    fileURLToPath(new URL("./LandingV2Hero.tsx", import.meta.url)),
+    "utf8",
+  );
+  assert.match(hero, /copyShown/);
+  assert.equal(hero.includes("animate={shown ? { opacity: 1, scale: 1 }"), false);
+  assert.equal(
+    /landing-v2-hero__art[\s\S]*?animate=\{[^}]*opacity:\s*0/.test(hero),
+    false,
+  );
 
   markLandingV2IntroSeen();
   const afterComplete = landingV2IntroFirstPaint(false);
@@ -129,11 +140,32 @@ test("SomaIntro exposes a localized skip control and keeps Escape", () => {
   assert.equal(es.intro.skipAria.includes("Saltar"), true);
 });
 
+test("SomaIntro fade start is derived from brand motion constants", () => {
+  const intro = readFileSync(
+    fileURLToPath(new URL("./SomaIntro.tsx", import.meta.url)),
+    "utf8",
+  );
+  assert.match(intro, /const FADE_AT_MS = Math\.round\(/);
+  assert.match(intro, /WORD_DELAY_S/);
+  assert.match(intro, /LETTER_STAGGER_S/);
+  assert.match(intro, /LETTER_FADE_S/);
+  assert.equal(intro.includes("const FADE_AT_MS = 3000"), false);
+});
+
 test("return visit with intro seen skips overlay and shows the hero immediately", () => {
   installLandingEnv({ seen: true });
 
   const flags = landingV2IntroFirstPaint(false);
   assert.equal(shouldPlayLandingV2Intro(), false);
+  assert.equal(flags.showIntro, false);
+  assert.equal(flags.introComplete, true);
+});
+
+test("reduced motion skips playing the intro overlay", () => {
+  installLandingEnv({ seen: false, reduceMotion: true });
+
+  assert.equal(shouldPlayLandingV2Intro(), false);
+  const flags = landingV2IntroFirstPaint(false);
   assert.equal(flags.showIntro, false);
   assert.equal(flags.introComplete, true);
 });

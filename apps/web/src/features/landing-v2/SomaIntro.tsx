@@ -26,10 +26,22 @@ const LETTER_FADE_S = 0.5;
 const LETTERS = ["s", "o", "m", "a"] as const;
 const FADE_S = 0.8;
 const SKIP_FADE_S = 0.22;
-const FADE_AT_MS = 3000;
+/**
+ * Start the overlay fade once the brand letters have finished entering.
+ * Derived from the same motion constants — not a separate intro timer.
+ * PERF-01E: an opaque full-viewport overlay still delays LCP attribution until
+ * this fade begins; keep the hold aligned to the mark animation, not idle.
+ */
+const FADE_AT_MS = Math.round(
+  (WORD_DELAY_S + (LETTERS.length - 1) * LETTER_STAGGER_S + LETTER_FADE_S) *
+    1000,
+);
 
 type IntroContextValue = {
-  /** True after the overlay finishes, is skipped, or is not shown. Gate Hero entrance on this. */
+  /**
+   * True after the overlay begins fading, is skipped, or is not shown.
+   * Gates hero copy/CTA — not the LCP photograph (PERF-01E).
+   */
   introComplete: boolean;
 };
 
