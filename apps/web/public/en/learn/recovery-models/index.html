@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recovery curves: educational models | Soma</title>
+    <meta
+      name="description"
+      content="How to read Soma’s educational recovery curves: catalog progress, uncertainty, and what they do not measure. Not diagnoses."
+    />
+    <link rel="canonical" href="https://somarecovery.app/en/learn/recovery-models/" />
+    <meta name="robots" content="index,follow" />
+    <link rel="alternate" hreflang="en" href="https://somarecovery.app/en/learn/recovery-models/" />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://somarecovery.app/es/learn/modelos-de-recuperacion/"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Soma" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:title" content="Recovery curves: educational models | Soma" />
+    <meta
+      property="og:description"
+      content="How to read Soma’s educational recovery curves: catalog progress, uncertainty, and what they do not measure. Not diagnoses."
+    />
+    <meta property="og:url" content="https://somarecovery.app/en/learn/recovery-models/" />
+    <link rel="stylesheet" href="/learn/learn.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-mark">Soma</span>
+        <span class="brand-sub">Learn</span>
+      </a>
+      <nav class="top-nav" aria-label="Educational sections">
+        <a href="/en/learn/neuroadaptation/">Neuroadaptation</a>
+        <a href="/en/learn/recovery-models/" aria-current="page">Recovery models</a>
+        <a href="/es/learn/modelos-de-recuperacion/" lang="es" hreflang="es">Español</a>
+        <a href="/">Home</a>
+        <a href="/preview">Demo</a>
+      </nav>
+    </header>
+
+    <main id="content" class="page-main">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Soma</a></li>
+          <li><span>Learn</span></li>
+          <li><span aria-current="page">Recovery models</span></li>
+        </ol>
+      </nav>
+
+      <h1>Physiological recovery curves: educational models, not diagnoses</h1>
+      <p class="lead">
+        Soma shows trajectories called <strong>educational recovery curves</strong>. They help you
+        explore how a catalog describes, in an orientative way, a model’s progress over time. They
+        do <strong>not</strong> measure your body, read biomarkers, or provide a diagnosis.
+      </p>
+      <p>
+        This page explains what those curves represent in the product, how to read them carefully,
+        and what falls outside their scope. It complements the short answers in the
+        <a href="/#landing-v2-faq">FAQ</a> on the home page.
+      </p>
+
+      <h2>What an educational curve represents</h2>
+      <p>
+        In Soma, each curve is an <strong>educational trajectory parameterized</strong> from the
+        <strong>catalog</strong> (for example, an interpolation shape, a model time horizon, and a
+        model ceiling) and placed on a timeline. The product computes
+        <strong>progress along that trajectory</strong>: a fraction between 0 and 1 for how far the
+        model has “travelled,” not how much “health” you have recovered.
+      </p>
+      <p>
+        A second quantity — that progress multiplied by the model ceiling — is used in relative
+        baseline estimates. The educational UI emphasizes
+        <strong>trajectory progress of the model</strong>, not a medical percentage of a recovered
+        organ.
+      </p>
+      <p>
+        Curves are tied to catalog pairs (structures and substances covered by the model). We do not
+        publish parameter tables here: those values live in the internal catalog and appear in-app
+        with uncertainty notices.
+      </p>
+
+      <h2>How to read axes, shapes, and estimates (as implemented)</h2>
+      <p>
+        On the recovery chart, the product uses <strong>model reference</strong> time labels (for
+        example, orientative marks such as 1 month, 3 months, 6 months, or 365 days) and a vertical
+        axis for <strong>educational curve progress (%)</strong>. That percentage is the model’s
+        mathematical progress at that reference point — <strong>not</strong> a physiological
+        measurement or a neurotransmitter concentration.
+      </p>
+      <p>
+        The “Today” column or point, when shown in account contexts, places progress using days
+        elapsed from the use date recorded in the product. It remains the same kind of model: an
+        educational clock on the catalog, not a lab result.
+      </p>
+      <p>Soma’s public landing describes three curve <strong>shapes</strong>:</p>
+      <ul>
+        <li><strong>Logarithmic:</strong> stronger change early, then flattening.</li>
+        <li><strong>Sigmoidal:</strong> slow start, acceleration, then flattening again.</li>
+        <li>
+          <strong>Linear:</strong> steady advance in the model when another shape is not justified.
+        </li>
+      </ul>
+      <p>
+        These are educational interpolation patterns, not clinical traces scaled to a patient.
+      </p>
+      <p>
+        <strong>Confidence</strong> levels in the catalog are an
+        <strong>internal classification</strong>. They reflect how the product team has labeled the
+        relative strength of sources used when modeling; they do <strong>not</strong> guarantee
+        complete bibliographic verification against every primary source, and they are
+        <strong>not</strong> a probability that your individual outcome matches the line.
+      </p>
+
+      <h2>General trends and uncertainty</h2>
+      <p>
+        These trajectories are <strong>not</strong> personal measurements and
+        <strong>not</strong> a statistical average of “everyone under standard conditions.” They
+        are <strong>educational estimates</strong> built from catalog parameters. By design, the
+        model does <strong>not</strong> fully incorporate individual variability, comorbidities, or
+        real polysubstance synergies. Internal scales are for visualization; they are not medical
+        percentages.
+      </p>
+      <p>
+        So an estimate can help you <strong>learn the model’s language</strong> and still be a poor
+        guide for decisions about your health. We distinguish three planes:
+        <strong>educational estimate</strong> (catalog), <strong>personal measurement</strong>
+        (which Soma does not perform), and <strong>clinical prognosis</strong> (which Soma does not
+        offer). Uncertainty is not a fine print detail: it is part of Soma’s declared public
+        methodology.
+      </p>
+
+      <h2>Why they do not necessarily describe your path</h2>
+      <p>
+        Two people with the same substance and a similar day count need not share biology,
+        environment, or history. The product can place the catalog on <strong>your</strong>
+        timeline (last-use date) but does <strong>not</strong> personalize clinical parameters of
+        the model to your body.
+      </p>
+      <p>
+        A point on the line is not a study data point about you. It is also not proof that an organ
+        has recovered.
+      </p>
+
+      <h2>What Soma does not measure</h2>
+      <p>Soma does <strong>not</strong> measure:</p>
+      <ul>
+        <li>biomarkers or clinical imaging;</li>
+        <li>real neurotransmitter concentrations in your body;</li>
+        <li>a “percent health recovered” score;</li>
+        <li>treatment effectiveness;</li>
+        <li>emergencies or individual clinical risk.</li>
+      </ul>
+      <p>
+        The app also includes educational <strong>qualitative</strong> neurotransmitter profiles
+        (illustrative catalog phases). They are not personal concentration curves.
+      </p>
+
+      <h2>Why they must not drive medical decisions</h2>
+      <p>
+        They are visualization heuristics and educational product rules (for example, achievement
+        thresholds tied to model progress), not healthcare instruments validated for diagnosis,
+        prognosis, or treatment. If you need clinical guidance, contact professionals or local
+        services. In immediate danger, use local emergency resources.
+      </p>
+
+      <h2>Exploring the demo without an account</h2>
+      <p>
+        You can open the <a href="/preview">Soma demo</a> without registering. Figures there are
+        examples or illustrative catalog values depending on the screen; they do not belong to a
+        real account. Creating an account (when an invite is available in the beta) enables
+        personalized use under the product’s features and consents; it is not required to understand
+        what an educational curve is.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="/preview">Open the demo</a>
+        <a class="btn btn-secondary" href="/">Back to home</a>
+        <a class="btn btn-secondary" href="/en/learn/neuroadaptation/">Neuroadaptation</a>
+      </div>
+
+      <h2>Educational limits (summary)</h2>
+      <ul>
+        <li>
+          Educational catalog estimate ≠ personal measurement or clinical prognosis.
+        </li>
+        <li>
+          Not every internal catalog reference is verified against the primary source.
+        </li>
+        <li>Engine formulas and internal parameter tables are not published here.</li>
+        <li>
+          Clinical content that is not yet ready for educational publication (for example, symptom
+          lists or advice still awaiting review) is not part of this page.
+        </li>
+      </ul>
+    </main>
+
+    <footer class="site-footer">
+      <nav aria-label="Footer links">
+        <a href="/">Soma</a>
+        <a href="/en/learn/neuroadaptation/">Neuroadaptation</a>
+        <a href="/es/learn/modelos-de-recuperacion/" lang="es" hreflang="es">Versión en español</a>
+        <a href="/preview">Demo</a>
+      </nav>
+      <p>Educational content. Not a diagnosis or treatment.</p>
+    </footer>
+  </body>
+</html>

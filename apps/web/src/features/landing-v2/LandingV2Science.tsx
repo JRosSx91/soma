@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { previewFocus } from "../recovery-dashboard/focus.js";
+import { resolveInterfaceLanguage } from "../../i18n/interface-languages.js";
 import { LANDING_METHODOLOGY_ID } from "./LandingV2Methodology.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -80,12 +81,17 @@ function scrollToMethodology(reduceMotion: boolean) {
 }
 
 export function LandingV2Science() {
-  const { t } = useTranslation("landing-v2", {
+  const { t, i18n } = useTranslation("landing-v2", {
     bindI18n: "languageChanged loaded added",
   });
   const reduceMotion = Boolean(useReducedMotion());
   const enter = reduceMotion ? { duration: 0 } : { duration: 0.55, ease };
   const fadeUp = reduceMotion ? false : { opacity: 0, y: 12 };
+  const learnLang = resolveInterfaceLanguage(i18n.language);
+  const recoveryModelsHref =
+    learnLang === "es"
+      ? "/es/learn/modelos-de-recuperacion/"
+      : "/en/learn/recovery-models/";
 
   return (
     <section
@@ -195,16 +201,24 @@ export function LandingV2Science() {
           <p className="max-w-2xl text-[11px] leading-relaxed text-soma-ink-muted">
             {t("science.notice")}
           </p>
-          <a
-            href={`#${LANDING_METHODOLOGY_ID}`}
-            className={`${previewFocus} shrink-0 rounded-full border border-soma-action/70 bg-soma-action/10 px-4 py-2 text-sm text-soma-ink transition-colors hover:border-soma-action`}
-            onClick={(event) => {
-              event.preventDefault();
-              scrollToMethodology(reduceMotion);
-            }}
-          >
-            {t("science.exploreMethod")}
-          </a>
+          <div className="flex shrink-0 flex-col gap-2 sm:items-end">
+            <a
+              href={`#${LANDING_METHODOLOGY_ID}`}
+              className={`${previewFocus} shrink-0 rounded-full border border-soma-action/70 bg-soma-action/10 px-4 py-2 text-center text-sm text-soma-ink transition-colors hover:border-soma-action`}
+              onClick={(event) => {
+                event.preventDefault();
+                scrollToMethodology(reduceMotion);
+              }}
+            >
+              {t("science.exploreMethod")}
+            </a>
+            <a
+              href={recoveryModelsHref}
+              className={`${previewFocus} text-center text-sm text-soma-action underline-offset-4 hover:underline`}
+            >
+              {t("science.readModels")}
+            </a>
+          </div>
         </div>
       </div>
     </section>

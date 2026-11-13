@@ -166,7 +166,8 @@
     },
     "notice": "Educational catalog models. They are not clinical measurements or the end of recovery.",
     "exploreMethod": "Explore the methodology",
-    "limits": "The model represents averages under standard conditions: it does not include individual variability, comorbidities, or interactions between substances. Internal scales are for visualization, not medical percentages. Not every catalog reference has been verified against the primary source. Soma is not a medical device."
+    "readModels": "Read more: recovery models",
+    "limits": "The curves are educational trajectories parameterized from the catalog: they are not validated clinical averages, and they are not personal measurements or individual prognoses. The model does not fully incorporate individual variability, comorbidities, or interactions between substances. Internal scales are for visualization, not medical percentages. Not every catalog reference has been verified against the primary source. Soma is not a medical device."
   },
   "methodology": {
     "eyebrow": "Methodology",
@@ -259,7 +260,8 @@
       },
       "curves": {
         "question": "Do the curves represent my personal recovery?",
-        "answer": "No. The curves and clocks are educational catalog models: orientative estimates grounded in literature and product rules, placed on a timeline. They do not measure your body, read biomarkers, or guarantee an individual outcome. A point on a curve is not a clinical data point about you."
+        "answer": "No. The curves and clocks are educational catalog models: orientative estimates grounded in literature and product rules, placed on a timeline. They do not measure your body, read biomarkers, or guarantee an individual outcome. A point on a curve is not a clinical data point about you.",
+        "learnMore": "More detail on the educational models"
       },
       "care": {
         "question": "Does Soma replace medical or psychological care?",
@@ -284,7 +286,10 @@
     "ctaInviteNote": "General sign-up is not open: an invitation is required. Soma remains in public beta.",
     "ctaSecondary": "Explore the demo",
     "note": "Orientative educational models. They do not replace a medical evaluation.",
-    "tagline": "Understanding recovery, one day at a time."
+    "tagline": "Understanding recovery, one day at a time.",
+    "learnNavLabel": "Learn",
+    "learnNeuroadaptation": "Neuroadaptation",
+    "learnRecoveryModels": "Recovery models"
   },
   "notFound": {
     "eyebrow": "Signal interrupted",

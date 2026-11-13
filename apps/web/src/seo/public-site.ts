@@ -8,8 +8,13 @@
  * Private/demo/auth/legal paths: Render `X-Robots-Tag: noindex, nofollow`
  * (Headers on the static site; not applied from this repo) plus the
  * parser-blocking head script and DocumentSeo. robots.txt allows crawling
- * so those tags can be fetched. Sitemap: `/` only. Locale is client-only;
- * no hreflang.
+ * so those tags can be fetched.
+ *
+ * SEO-02B2-B2: educational `/es|en/learn/.../` pages are **static HTML**
+ * under `public/` (own `index,follow` + hreflang). They must be served as
+ * files, not as the SPA shell. The SPA `isIndexablePublicPath` / head
+ * script stay root-only so a rewrite fallback cannot index the landing
+ * document at a learn URL.
  *
  * Legal routes (`/legal`, `/privacy`, `/terms`, `/cookies`) must be listed
  * as exact Header paths in Render. A missing header leaves only the JS
@@ -19,6 +24,19 @@
 export const PUBLIC_SITE_ORIGIN = "https://somarecovery.app";
 export const PUBLIC_LANDING_URL = `${PUBLIC_SITE_ORIGIN}/`;
 export const PUBLIC_SITEMAP_URL = `${PUBLIC_SITE_ORIGIN}/sitemap.xml`;
+
+/** Trailing-slash paths for static learn documents (SEO-02B2-B2). */
+export const PUBLIC_LEARN_PAGE_PATHS = [
+  "/es/learn/neuroadaptacion/",
+  "/en/learn/neuroadaptation/",
+  "/es/learn/modelos-de-recuperacion/",
+  "/en/learn/recovery-models/",
+] as const;
+
+export const PUBLIC_SITEMAP_LOCS = [
+  PUBLIC_LANDING_URL,
+  ...PUBLIC_LEARN_PAGE_PATHS.map((path) => `${PUBLIC_SITE_ORIGIN}${path}`),
+] as const;
 
 export const DEFAULT_DOCUMENT_TITLE =
   "Soma — Educational models of physiological recovery";
@@ -106,6 +124,10 @@ export function normalizePathname(pathname: string): string {
   return raw || "/";
 }
 
+/**
+ * SPA document policy: only `/` is indexable when the Vite shell is served.
+ * Static learn HTML is indexable on its own; it is not gated here.
+ */
 export function isIndexablePublicPath(pathname: string): boolean {
   return normalizePathname(pathname) === "/";
 }

@@ -6,11 +6,12 @@ import { SomaMark } from "../recovery-dashboard/components/SomaMark.js";
 import { LandingPulseWave } from "./LandingPulseWave.js";
 import { InstallSomaControl } from "../pwa/InstallSomaControl.js";
 import { LandingRegistrationActions } from "./LandingRegistrationActions.js";
+import { resolveInterfaceLanguage } from "../../i18n/interface-languages.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export function LandingV2Closing() {
-  const { t } = useTranslation(["landing-v2", "legal"], {
+  const { t, i18n } = useTranslation(["landing-v2", "legal"], {
     bindI18n: "languageChanged loaded added",
   });
   const reduceMotion = Boolean(useReducedMotion());
@@ -18,6 +19,15 @@ export function LandingV2Closing() {
   const year = new Date().getFullYear();
   const sectionRef = useRef<HTMLElement>(null);
   const [pulseLive, setPulseLive] = useState(false);
+  const learnLang = resolveInterfaceLanguage(i18n.language);
+  const neuroHref =
+    learnLang === "es"
+      ? "/es/learn/neuroadaptacion/"
+      : "/en/learn/neuroadaptation/";
+  const modelsHref =
+    learnLang === "es"
+      ? "/es/learn/modelos-de-recuperacion/"
+      : "/en/learn/recovery-models/";
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -123,8 +133,19 @@ export function LandingV2Closing() {
             <p className="text-xs tabular-nums text-soma-ink-muted">© {year}</p>
           </div>
           <nav
-            aria-label={t("legal:nav.label")}
+            aria-label={t("closing.learnNavLabel")}
             className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-soma-ink-muted"
+          >
+            <a className="hover:text-soma-action" href={neuroHref}>
+              {t("closing.learnNeuroadaptation")}
+            </a>
+            <a className="hover:text-soma-action" href={modelsHref}>
+              {t("closing.learnRecoveryModels")}
+            </a>
+          </nav>
+          <nav
+            aria-label={t("legal:nav.label")}
+            className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-soma-ink-muted"
           >
             <Link className="hover:text-soma-action" to="/legal">
               {t("legal:nav.notice")}
