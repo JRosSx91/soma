@@ -19,7 +19,9 @@ import {
   estimateCurve,
   evaluateAchievement,
   planAchievementUnlocks,
+  platinumRequirementIds,
   type CurveModel,
+  type UnlockCandidate,
 } from "./recovery-math.ts";
 
 const day = (iso: string) => new Date(iso);
@@ -558,4 +560,171 @@ test("the web calculator and the api facade match the shared estimate", () => {
   close(web.absoluteRecovery, shared.estimatedRecovery);
   close(api, shared.curveProgress);
   assert.equal(web.daysAbstinent, 90);
+});
+
+const vtaCurve = {
+  organId: "brain-vta",
+  substanceId: "alcohol",
+  shape: "linear" as const,
+  daysTo95Recovery: 95,
+  recoveryCeiling: 1,
+};
+const liverCurve = {
+  organId: "liver",
+  substanceId: "alcohol",
+  shape: "linear" as const,
+  daysTo95Recovery: 95,
+  recoveryCeiling: 1,
+};
+
+function alcoholCatalog(): UnlockCandidate[] {
+  return [
+    {
+      id: "alcohol-vta-bronze",
+      organId: "brain-vta",
+      substanceId: "alcohol",
+      threshold: 0.25,
+      family: "curve",
+      tier: "bronze",
+    },
+    {
+      id: "alcohol-liver-gold",
+      organId: "liver",
+      substanceId: "alcohol",
+      threshold: 0.5,
+      family: "curve",
+      tier: "gold",
+    },
+    {
+      id: "alcohol-vta-missing-curve-gold",
+      organId: "brain-hippocampus",
+      substanceId: "alcohol",
+      threshold: 0.75,
+      family: "curve",
+      tier: "gold",
+    },
+    {
+      id: "alcohol-temporal-7",
+      organId: null,
+      substanceId: "alcohol",
+      threshold: null,
+      family: "temporal",
+      abstinenceDays: 7,
+      tier: "bronze",
+    },
+    {
+      id: "alcohol-sovereignty-platinum",
+      organId: "brain-vta",
+      substanceId: "alcohol",
+      threshold: 0.99,
+      family: "curve",
+      tier: "platinum",
+    },
+    {
+      id: "nicotine-lungs-bronze",
+      organId: "lungs",
+      substanceId: "nicotine",
+      threshold: 0.1,
+      family: "curve",
+      tier: "bronze",
+    },
+  ];
+}
+
+test("ACH-02B: platinumRequirementIds excludes platinum, temporals, other substances, and missing curves", () => {
+  const required = platinumRequirementIds(alcoholCatalog(), [vtaCurve, liverCurve], "alcohol");
+  assert.deepEqual(required.slice().sort(), [
+    "alcohol-liver-gold",
+    "alcohol-vta-bronze",
+  ]);
+  assert.equal(required.includes("alcohol-sovereignty-platinum"), false);
+  assert.equal(required.includes("alcohol-temporal-7"), false);
+  assert.equal(required.includes("alcohol-vta-missing-curve-gold"), false);
+  assert.equal(required.includes("nicotine-lungs-bronze"), false);
+});
+
+test("ACH-02B: crossing VTA thresholds without the full collection does not grant platinum", () => {
+  const lastUse = day("2020-01-01T00:00:00.000Z");
+  const now = day("2026-01-01T00:00:00.000Z");
+  // Liver curve exists so liver-gold stays required, but the user has not earned it yet
+  // and we freeze further grants via active use after only the VTA bronze is owned.
+  const blocked = planAchievementUnlocks({
+    achievements: alcoholCatalog(),
+    curves: [vtaCurve, liverCurve],
+    usages: [{ substanceId: "alcohol", status: "active", lastUseDate: null }],
+    alreadyUnlockedIds: new Set(["alcohol-vta-bronze"]),
+    now,
+  });
+  assert.deepEqual(blocked, []);
+});
+
+test("ACH-02B: complete curve collection grants platinum without a second threshold", () => {
+  const lastUse = day("2020-01-01T00:00:00.000Z");
+  const now = day("2026-01-01T00:00:00.000Z");
+  const planned = planAchievementUnlocks({
+    achievements: alcoholCatalog(),
+    curves: [vtaCurve, liverCurve],
+    usages: [{ substanceId: "alcohol", status: "abstinent", lastUseDate: lastUse }],
+    alreadyUnlockedIds: new Set([
+      "alcohol-vta-bronze",
+      "alcohol-liver-gold",
+      "alcohol-temporal-7",
+    ]),
+    now,
+  });
+  assert.deepEqual(
+    planned.map((item) => item.id),
+    ["alcohol-sovereignty-platinum"],
+  );
+});
+
+test("ACH-02B: platinum unlocks in the same pass as the final requirement", () => {
+  const lastUse = day("2020-01-01T00:00:00.000Z");
+  const now = day("2026-01-01T00:00:00.000Z");
+  const planned = planAchievementUnlocks({
+    achievements: alcoholCatalog(),
+    curves: [vtaCurve, liverCurve],
+    usages: [{ substanceId: "alcohol", status: "abstinent", lastUseDate: lastUse }],
+    alreadyUnlockedIds: new Set(["alcohol-vta-bronze", "alcohol-temporal-7"]),
+    now,
+  });
+  const ids = planned.map((item) => item.id).sort();
+  assert.deepEqual(ids, ["alcohol-liver-gold", "alcohol-sovereignty-platinum"]);
+});
+
+test("ACH-02B: already-persisted platinum is not re-planned", () => {
+  const lastUse = day("2020-01-01T00:00:00.000Z");
+  const now = day("2026-01-01T00:00:00.000Z");
+  const planned = planAchievementUnlocks({
+    achievements: alcoholCatalog(),
+    curves: [vtaCurve, liverCurve],
+    usages: [{ substanceId: "alcohol", status: "abstinent", lastUseDate: lastUse }],
+    alreadyUnlockedIds: new Set([
+      "alcohol-vta-bronze",
+      "alcohol-liver-gold",
+      "alcohol-temporal-7",
+      "alcohol-sovereignty-platinum",
+    ]),
+    now,
+  });
+  assert.deepEqual(planned, []);
+});
+
+test("ACH-02B: missing-curve medals are not required and do not block platinum", () => {
+  const lastUse = day("2020-01-01T00:00:00.000Z");
+  const now = day("2026-01-01T00:00:00.000Z");
+  // Without the liver curve, required(S) shrinks to VTA bronze only.
+  const required = platinumRequirementIds(alcoholCatalog(), [vtaCurve], "alcohol");
+  assert.deepEqual(required, ["alcohol-vta-bronze"]);
+  const planned = planAchievementUnlocks({
+    achievements: alcoholCatalog(),
+    curves: [vtaCurve],
+    usages: [{ substanceId: "alcohol", status: "abstinent", lastUseDate: lastUse }],
+    alreadyUnlockedIds: new Set(["alcohol-vta-bronze", "alcohol-temporal-7"]),
+    now,
+  });
+  assert.deepEqual(
+    planned.map((item) => item.id),
+    ["alcohol-sovereignty-platinum"],
+  );
 });

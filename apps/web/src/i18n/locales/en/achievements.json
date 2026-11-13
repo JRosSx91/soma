@@ -77,6 +77,8 @@
     "curveProgressDetail": "Current progress {{current}}% toward the {{threshold}}% educational threshold. It is the model, not recovered health.",
     "hiddenLocked": "Pending.",
     "hiddenLabel": "Hidden",
+    "platinumCollectionDetail": "Culmination of the educational-curve collection for {{substance}}: {{owned}} of {{required}} reachable medals. No extra model threshold is required.",
+    "platinumCollectionHint": "Unlocks when every reachable curve medal for {{substance}} is earned (excluding medals pending a definition and time medals).",
     "gapMissingRow": "This achievement did not arrive in the response, so no percentage is shown.",
     "gapNotTracked": "This substance is not on your profile, so there is no progress to calculate.",
     "gapActiveUse": "Use is still active. The milestone measures abstinence and has no progress yet.",

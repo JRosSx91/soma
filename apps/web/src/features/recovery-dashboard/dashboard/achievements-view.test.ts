@@ -12,7 +12,9 @@ import {
   isSealedAchievement,
   matchesSearch,
   pickAchievementHighlights,
+  platinumCollectionProgress,
   platinumIdsOf,
+  platinumRequirementItems,
   sortCatalog,
   temporalProgressForItem,
   type CatalogItem,
@@ -82,6 +84,40 @@ test("secret bronzes stay sealed and platinums stay visible", () => {
   const view = describeAchievement(item("alcohol-sovereignty-platinum"), null, null);
   assert.equal(view.sealed, false);
   assert.equal(view.unlocked, false);
+  assert.equal(view.curveProgress, null);
+  assert.equal(item("alcohol-sovereignty-platinum").hidden, false);
+  assert.equal(item("nicotine-sovereignty-platinum").hidden, false);
+  assert.equal(item("cannabis-sovereignty-platinum").hidden, false);
+  assert.equal(item("cocaine-sovereignty-platinum").hidden, false);
+});
+
+test("ACH-02B: platinum requirements match reachable curve medals per substance", () => {
+  const expected: Record<string, number> = {
+    alcohol: 28,
+    nicotine: 20,
+    cannabis: 19,
+    cocaine: 26,
+  };
+  for (const [substanceId, size] of Object.entries(expected)) {
+    const required = platinumRequirementItems(
+      achievementCatalog,
+      substanceId as CatalogItem["substanceId"],
+    );
+    assert.equal(required.length, size, substanceId);
+    assert.equal(
+      required.some((row) => row.tier === "platinum" || row.family === "temporal" || row.ruleReview),
+      false,
+      substanceId,
+    );
+    const progress = platinumCollectionProgress(
+      achievementCatalog,
+      substanceId as CatalogItem["substanceId"],
+      new Set(required.map((row) => row.id)),
+    );
+    assert.equal(progress.complete, true);
+    assert.equal(progress.owned, size);
+  }
+  assert.equal(platinumRequirementItems(achievementCatalog, "caffeine").length, 2);
 });
 
 test("search does not match sealed secret titles", () => {

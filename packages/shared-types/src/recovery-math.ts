@@ -65,6 +65,9 @@ export interface AchievementEvaluation {
 
 export type AchievementFamily = "curve" | "temporal";
 
+/** Medal rarity used by unlock planning (ACH-02B platinum gate). */
+export type UnlockTier = "bronze" | "silver" | "gold" | "platinum";
+
 export interface UnlockCandidate {
   id: string;
   organId: string | null;
@@ -72,6 +75,8 @@ export interface UnlockCandidate {
   threshold: number | null;
   family?: AchievementFamily;
   abstinenceDays?: number | null;
+  /** When omitted, the candidate is treated as non-platinum. */
+  tier?: UnlockTier | null;
 }
 
 export interface CurveRecord extends CurveModel {
@@ -172,9 +177,43 @@ export function evaluateAchievement(input: AchievementEvaluationInput): Achievem
   };
 }
 
+export function isSovereigntyPlatinum(
+  achievement: Pick<UnlockCandidate, "tier">,
+): boolean {
+  return achievement.tier === "platinum";
+}
+
 /**
- * Pure copy of the historical unlock scan. Already-unlocked ids are
- * skipped, and a missing curve never produces an unlock.
+ * ACH-02B / D1-A: curve medals of substance S that are reachable (have a
+ * curve), excluding platinum itself. Temporals and missing-curve
+ * (`ruleReview`) rows are never required.
+ */
+export function platinumRequirementIds(
+  achievements: readonly UnlockCandidate[],
+  curves: readonly Pick<CurveRecord, "organId" | "substanceId">[],
+  substanceId: string,
+): string[] {
+  const curvePairs = new Set(
+    curves.map((curve) => `${curve.organId}:${curve.substanceId}`),
+  );
+  const ids: string[] = [];
+  for (const achievement of achievements) {
+    if (achievement.substanceId !== substanceId) continue;
+    if ((achievement.family ?? "curve") !== "curve") continue;
+    if (isSovereigntyPlatinum(achievement)) continue;
+    if (achievement.organId == null) continue;
+    if (!curvePairs.has(`${achievement.organId}:${achievement.substanceId}`)) {
+      continue;
+    }
+    ids.push(achievement.id);
+  }
+  return ids;
+}
+
+/**
+ * Pure unlock scan. Already-unlocked ids are skipped. Missing curves never
+ * unlock. ACH-02B: sovereignty platinums unlock only when required(S) is
+ * owned (persisted ∪ planned in this pass); VTA 0.99 is not sufficient.
  */
 export function planAchievementUnlocks(input: {
   achievements: readonly UnlockCandidate[];
@@ -193,8 +232,11 @@ export function planAchievementUnlocks(input: {
   }
 
   const planned: PlannedUnlock[] = [];
+  const plannedAt = new Map<string, Date>();
+
   for (const achievement of input.achievements) {
     if (input.alreadyUnlockedIds.has(achievement.id)) continue;
+    if (isSovereigntyPlatinum(achievement)) continue;
 
     const usage = usageBySubstance.get(achievement.substanceId);
     if (!usage || usage.status === "active" || !usage.lastUseDate) continue;
@@ -205,10 +247,9 @@ export function planAchievementUnlocks(input: {
       if (needed == null || needed <= 0) continue;
       const daysAbstinent = daysBetween(usage.lastUseDate, input.now);
       if (daysAbstinent < needed) continue;
-      planned.push({
-        id: achievement.id,
-        unlockedAt: dateAfterDays(usage.lastUseDate, needed),
-      });
+      const unlockedAt = dateAfterDays(usage.lastUseDate, needed);
+      planned.push({ id: achievement.id, unlockedAt });
+      plannedAt.set(achievement.id, unlockedAt);
       continue;
     }
 
@@ -231,7 +272,37 @@ export function planAchievementUnlocks(input: {
       ? dateAfterDays(usage.lastUseDate, daysAtThreshold)
       : input.now;
     planned.push({ id: achievement.id, unlockedAt });
+    plannedAt.set(achievement.id, unlockedAt);
   }
+
+  const owned = new Set<string>(input.alreadyUnlockedIds);
+  for (const item of planned) owned.add(item.id);
+
+  for (const achievement of input.achievements) {
+    if (!isSovereigntyPlatinum(achievement)) continue;
+    if (input.alreadyUnlockedIds.has(achievement.id)) continue;
+    if (owned.has(achievement.id)) continue;
+
+    const usage = usageBySubstance.get(achievement.substanceId);
+    if (!usage || usage.status === "active" || !usage.lastUseDate) continue;
+
+    const required = platinumRequirementIds(
+      input.achievements,
+      input.curves,
+      achievement.substanceId,
+    );
+    if (required.length === 0) continue;
+    if (!required.every((id) => owned.has(id))) continue;
+
+    let unlockedAt = input.now;
+    for (const id of required) {
+      const at = plannedAt.get(id);
+      if (at && at.getTime() > unlockedAt.getTime()) unlockedAt = at;
+    }
+    planned.push({ id: achievement.id, unlockedAt });
+    owned.add(achievement.id);
+  }
+
   return planned;
 }
 

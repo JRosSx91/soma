@@ -119,9 +119,9 @@ Cuatro capas (no se mezclan):
 | UX-04 recuperación DEMO | Completado y validado DEMO (PR #50). LIVE `/app` no retestado |
 | UX-05–07 Explorar | Completados y validados DEMO (PR #49). LIVE no reauditado aquí. Explorador 2.0 en `main` (PR #61, REL-01) |
 | UX-08–09 atlas editorial | Pendiente (contenido / evidencia) |
-| UX-10 logros en revisión | Cubierto en ACH-01 (7 no disponibles). UX-11/12 siguen abiertos |
-| UX-11 platino | Pendiente (umbral 0,99 insuficiente) |
-| UX-12 secretos y platinos | Parcialmente implementado |
+| UX-10 logros en revisión | Cubierto en ACH-01 (7 no disponibles). Residual: validación LIVE de comprensión |
+| UX-11 platino | **ACH-02B local** (colección de curvas; D1-A / D2-No / D3-A). Pendiente revisión/publicación |
+| UX-12 secretos y platinos | **ACH-02B local** (`hidden: false` en platinos; secretos sellados sin tramo). Pendiente revisión/publicación |
 | Neurotransmisores educativos | Publicados como MVP educativo (PR #49). REC-VIS-01 añade panel cualitativo en Recuperación. No son mediciones. Ilustraciones NT siguen en PNG (fuera de IMG-PERF-01B). LIVE `/app` no reauditado aquí |
 | Síntomas / Consejos | Bloqueado por revisión clínica; catálogos **publicados vacíos** |
 | LIVE `/app` | **AUTH-01** y **LIVE-01** completados: validación funcional en local (2026-10-25, cuenta sintética) y en producción (confirmación del propietario; sin fecha ni detalle registrados aquí). Pendientes como validaciones específicas nuevas, no como LIVE-01: recaídas, múltiples pestañas, Expedición LIVE en Safari/PWA |
@@ -345,21 +345,22 @@ El catálogo de **106** ítems debe distinguirse así: **existencia** (seed/gene
 
 #### UX-11 — Lógica de platino
 
-- **Estado:** Pendiente
+- **Estado:** **Implementación local ACH-02B pendiente de revisión** (2026-11-13). Decisiones aprobadas: **D1-A**, **D2-No**, **D3-A** (`docs/review/achievements/ach-02a-platinum-secrets-audit.md`).
 - **Prioridad:** P1
 - **Descripción:** El platino debe exigir los demás logros pertinentes, no un umbral arbitrario de progreso.
 - **Criterio:** Un platino no se desbloquea solo con `threshold` de curva (p. ej. 0,99); requiere el conjunto de logros acordado de esa sustancia.
-- **Evidencia:** Cuatro platinos de soberanía (`alcohol|nicotine|cannabis|cocaine-sovereignty-platinum`): `threshold: 0.99`, `organId: brain-vta`, `hidden: true`. `planAchievementUnlocks` usa el mismo umbral que el resto. Cafeína no tiene platino. Este roadmap **no** autoriza cambiar el seed.
-- **Dependencias:** Diseño de reglas + autorización para catálogo/API. Relacionado con UX-12.
+- **Regla ACH-02B:** `required(S)` = curvas alcanzables de S con `tier ≠ platinum` y sin `ruleReview`; temporales fuera; **no** se exige 0,99 adicional; platinos ya persistidos **no** se revocan.
+- **Evidencia previa:** umbral VTA 0,99. **Tras ACH-02B (local):** `planAchievementUnlocks` concede platino por colección (mismo pase anti-carrera). Cafeína sin platino.
+- **Dependencias:** ACH-02A (diseño). Relacionado con UX-12.
 
 #### UX-12 — Secretos y platinos
 
-- **Estado:** Parcialmente implementado
+- **Estado:** **Implementación local ACH-02B pendiente de revisión** (2026-11-13). Decisión **D4-Sí** aprobada.
 - **Prioridad:** P1
 - **Descripción:** Los secretos no deben revelar bronce/plata/oro de antemano. Los platinos **no** son secretos.
 - **Criterio:** Ficha sellada de un secreto no muestra el tramo; los platinos son visibles como platino y no usan el patrón «???».
-- **Evidencia:** 8 `hidden` (incluidos los 4 platinos). `achievementHiddenCopy` / «???». Ficha sellada: `Bloqueado. {tierLabel}` (filtra Platino/Bronce). `b5dadaf` oculta el tramo solo en la medalla destacada de Inicio **desbloqueada**. Landing muestra un disco de platino sellado.
-- **Dependencias:** UX-11 (definición de platino). I18N-02.
+- **Evidencia ACH-02B (local):** 4 secretos bronce `hidden: true`; 4 platinos `hidden: false`. UI: `isSealedAchievement` excluye platino; ficha secreta sin tramo; copy de colección ES/EN.
+- **Dependencias:** UX-11. I18N-02.
 
 ---
 
@@ -517,9 +518,19 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
   - Historial permanente; las recaídas **no** revocan medallas.
   - `/achievements` redirige a `/app/achievements`.
   - Traducciones ES/EN de la superficie 2.0.
-- **Pendiente de diseño:** UX-11 (platino como conjunto). UX-12 (secretos vs platinos visibles). Economía XP y misiones **no** forman parte de este ID (GAM-01 / GAM-02).
+- **Pendiente residual:** validación LIVE de comprensión UX-10; publicación de **ACH-02B** (UX-11/12). Economía XP y misiones **no** forman parte de este ID (GAM-01 / GAM-02).
 - **Dependencias:** GAME-01, GAME-03C, UX-10, ACH-REV (recaída), LEG-01.
 - **Criterio:** La galería 2.0 es la única experiencia principal; el porcentaje de colección no cuenta medallas inalcanzables; el historial sobrevive a una recaída.
+
+#### ACH-02A — Auditoría platinos / secretos
+
+- **Estado:** **Completado** (2026-11-13). Doc `docs/review/achievements/ach-02a-platinum-secrets-audit.md`. Sin código. Decisiones D1–D4 aprobadas para ACH-02B.
+
+#### ACH-02B — Platino por colección + higiene UX-12
+
+- **Estado:** **Implementación local pendiente de revisión** (2026-11-13). Doc `docs/review/achievements/ach-02b-implementation.md`.
+- **Alcance:** gate de platino (D1-A/D2-No/D3-A); `hidden: false` en platinos (D4); sin revocación; sin migración de `UserAchievement`.
+- **Fuera de alcance:** XP, temporales como requisito, curvas científicas nuevas, seed/migración en producción.
 
 ---
 
@@ -1607,7 +1618,7 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 - **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
 7. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
-8. **XP sin Bitácora / GAM-02 bienestar / UX-11–12 / GAME-08 / WEB-02 / resto de MKT-01:** P3 o diseño, no el siguiente código. **SEO-01B** y **MKT-01C** cerrados.
+8. **ACH-02B:** platino/secretos (local, pendiente de revisión; UX-11/12). Luego XP sin Bitácora / GAM-02 bienestar / GAME-08 / WEB-02 / resto de MKT-01 según prioridad. **SEO-01B** y **MKT-01C** cerrados.
 9. **ACH-REV residual:** fecha errónea. Bloquea GAME-08.
 10. **UX-08 / UX-09** y síntomas: revisión clínica humana. Baja prioridad; **no** inventar.
 11. **VIS-01, I18N-04, FBK-02.** Q-CI: PG en Actions (PR #105); residual cobertura / scripts raíz / Q-05.
@@ -1843,4 +1854,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-12 | **SUP-01D-B2** publicado mediante PR #117 (commit `c06595e`, merge `e21be40`); despliegue según propietario. **SUP-01E1-A** investigación aprobada. **SUP-01E1-B** (local, sin commit): recursos externos 112, 024, PNSD «Ayuda cerca de ti», Find A Helpline; selector España/Otros sin geo ni persistencia; Fad/SIOF excluido. QA pendiente en el informe del hito. E2/relapse pendientes. |
 | 2026-11-12 | **SUP-01E1-B** publicado mediante PR #118 (commit `11337a0`, merge `8bdca1c`); despliegue según propietario. **SUP-01E2-A** diseño/privacidad aprobado (alternativa A). **SUP-01E2-B** (local, sin commit): «Mi guía de apoyo» con cuatro apartados, casillas en memoria, sin datos personales ni persistencia; B/C y contactos almacenados fuera del MVP. Relapse pendiente. |
 | 2026-11-13 | **SUP-01E2-B** publicado mediante PR #119 (commit `7c71620`, merge `04820c9`). **SEO-02A** auditoría completada (`docs/review/seo/seo-02a-audit-and-growth-plan.md`). **SEO-02B1-A** propuesta FAQ aprobada (`seo-02b1-a-landing-faq-proposal.md`). **SEO-02B1-B** (local, sin commit): FAQ de cinco preguntas en la landing (ES/EN), meta description con demo sin cuenta; sin rutas nuevas ni `FAQPage` JSON-LD. **SEO-02B2** / **SEO-02C** pendientes. Fast-forward local `develop` → `04820c9`. Relapse pendiente. |
-| 2026-11-13 | **PERF-01A** auditoría de rendimiento móvil de la landing (`docs/review/performance/perf-01a-landing-audit.md`): gate de `/` tras `/auth/refresh`, peso de imágenes y JS monolítico. **PERF-01B** integrado y desplegado (PR #122, merge `ee1d868`; producto `851279d`): `RootRoute` pinta la landing mientras `loading`; `AppBootScreen` solo en rutas protegidas. **PERF-01C** desplegado (PR #123, merge `7a77e42`; producto `5db598b`): WebP + `LandingPhotoImg` + lazy below-fold. **PERF-01D** auditoría completada (`perf-01d-react-startup-audit.md`): LCP bloqueado por opacity 0 del hero hasta intro. **PERF-01E** (local, sin commit): arte del hero siempre opacity 1; copy gated; `FADE_AT_MS` alineado a fin de marca (~2170 ms); doc `perf-01e-intro-lcp.md`. Code-splitting de rutas privadas pospuesto. |
+| 2026-11-13 | **PERF-01A** auditoría de rendimiento móvil de la landing (`docs/review/performance/perf-01a-landing-audit.md`): gate de `/` tras `/auth/refresh`, peso de imágenes y JS monolítico. **PERF-01B** integrado y desplegado (PR #122, merge `ee1d868`; producto `851279d`): `RootRoute` pinta la landing mientras `loading`; `AppBootScreen` solo en rutas protegidas. **PERF-01C** desplegado (PR #123, merge `7a77e42`; producto `5db598b`): WebP + `LandingPhotoImg` + lazy below-fold. **PERF-01D** auditoría completada (`perf-01d-react-startup-audit.md`): LCP bloqueado por opacity 0 del hero hasta intro. **PERF-01E** desplegado (PR #124, merge `cf33d1a`; producto `a02adf2`): arte del hero siempre opacity 1; copy gated; `FADE_AT_MS` alineado a fin de marca. Code-splitting de rutas privadas pospuesto. |
+| 2026-11-13 | **ACH-02A** auditoría platinos/secretos aprobada (`ach-02a-platinum-secrets-audit.md`); decisiones **D1-A / D2-No / D3-A / D4-Sí**. **ACH-02B** (local, sin commit): platino por colección de curvas alcanzables; temporales y `ruleReview` fuera; sin umbral 0,99 adicional; platinos `hidden: false`; sin revocación de filas existentes; doc `ach-02b-implementation.md`. |

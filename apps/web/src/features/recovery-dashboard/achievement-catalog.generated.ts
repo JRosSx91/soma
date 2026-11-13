@@ -318,7 +318,7 @@ export const achievementCatalog = [
     "organName": "Área tegmental ventral",
     "threshold": 0.99,
     "abstinenceDays": null,
-    "hidden": true,
+    "hidden": false,
     "ruleReview": false,
     "title": "Cada sistema, devuelto",
     "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
@@ -753,7 +753,7 @@ export const achievementCatalog = [
     "organName": "Área tegmental ventral",
     "threshold": 0.99,
     "abstinenceDays": null,
-    "hidden": true,
+    "hidden": false,
     "ruleReview": false,
     "title": "La chimenea ha desaparecido",
     "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
@@ -1053,7 +1053,7 @@ export const achievementCatalog = [
     "organName": "Área tegmental ventral",
     "threshold": 0.99,
     "abstinenceDays": null,
-    "hidden": true,
+    "hidden": false,
     "ruleReview": false,
     "title": "La bruma se ha disipado",
     "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
@@ -1473,7 +1473,7 @@ export const achievementCatalog = [
     "organName": "Área tegmental ventral",
     "threshold": 0.99,
     "abstinenceDays": null,
-    "hidden": true,
+    "hidden": false,
     "ruleReview": false,
     "title": "El dictador ha caído",
     "description": "Hito de la curva educativa del circuito de recompensa. Marca un umbral del modelo, no una medición de tu cuerpo ni de neurotransmisores."
