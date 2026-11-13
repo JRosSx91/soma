@@ -107,6 +107,8 @@ test("ACH-02B PG: collection gate, same-pass grant, concurrency, preserve prior 
         id: createId(),
         userId: incompleteUser,
         substanceId: "alcohol",
+        yearStarted: 2015,
+        frequency: "daily",
         status: "active",
         lastUseDate: null,
       },
@@ -137,6 +139,8 @@ test("ACH-02B PG: collection gate, same-pass grant, concurrency, preserve prior 
         id: createId(),
         userId: completeUser,
         substanceId: "alcohol",
+        yearStarted: 2015,
+        frequency: "daily",
         status: "abstinent",
         lastUseDate: lastUse,
       },
@@ -150,18 +154,54 @@ test("ACH-02B PG: collection gate, same-pass grant, concurrency, preserve prior 
         unlockedAt: lastUse,
       })),
     });
-    const completeIds = await service.detectAndPersistUnlocks(completeUser);
-    assert.ok(
-      completeIds.includes(lastRequired) || completeIds.includes("alcohol-sovereignty-platinum"),
-    );
-    assert.ok(completeIds.includes("alcohol-sovereignty-platinum"));
+    const lastRequiredBefore = await prisma.userAchievement.findUnique({
+      where: {
+        userId_achievementId: {
+          userId: completeUser,
+          achievementId: lastRequired,
+        },
+      },
+    });
+    assert.equal(lastRequiredBefore, null);
+    const platinumBefore = await prisma.userAchievement.findUnique({
+      where: {
+        userId_achievementId: {
+          userId: completeUser,
+          achievementId: "alcohol-sovereignty-platinum",
+        },
+      },
+    });
+    assert.equal(platinumBefore, null);
 
-    const [a, b] = await Promise.all([
+    const completeIds = await service.detectAndPersistUnlocks(completeUser);
+    assert.equal(completeIds.includes(lastRequired), true);
+    assert.equal(completeIds.includes("alcohol-sovereignty-platinum"), true);
+    const lastRequiredAfter = await prisma.userAchievement.findUnique({
+      where: {
+        userId_achievementId: {
+          userId: completeUser,
+          achievementId: lastRequired,
+        },
+      },
+    });
+    const platinumAfter = await prisma.userAchievement.findUnique({
+      where: {
+        userId_achievementId: {
+          userId: completeUser,
+          achievementId: "alcohol-sovereignty-platinum",
+        },
+      },
+    });
+    assert.ok(lastRequiredAfter);
+    assert.ok(platinumAfter);
+
+    // Idempotency after same-pass grant (platino already persisted).
+    const [idemA, idemB] = await Promise.all([
       service.detectAndPersistUnlocks(completeUser),
       service.detectAndPersistUnlocks(completeUser),
     ]);
-    assert.deepEqual(a, []);
-    assert.deepEqual(b, []);
+    assert.deepEqual(idemA, []);
+    assert.deepEqual(idemB, []);
     const platinumCount = await prisma.userAchievement.count({
       where: {
         userId: completeUser,
@@ -170,12 +210,87 @@ test("ACH-02B PG: collection gate, same-pass grant, concurrency, preserve prior 
     });
     assert.equal(platinumCount, 1);
 
+    // Real concurrency: eligible collection, platinum not yet persisted.
+    const raceUser = await createUser(prisma, "race-platinum");
+    await prisma.substanceUsage.create({
+      data: {
+        id: createId(),
+        userId: raceUser,
+        substanceId: "alcohol",
+        yearStarted: 2015,
+        frequency: "daily",
+        status: "abstinent",
+        lastUseDate: lastUse,
+      },
+    });
+    await prisma.userAchievement.createMany({
+      data: required.map((achievementId) => ({
+        id: createId(),
+        userId: raceUser,
+        achievementId,
+        unlockedAt: lastUse,
+      })),
+    });
+    const racePlatinumBefore = await prisma.userAchievement.findUnique({
+      where: {
+        userId_achievementId: {
+          userId: raceUser,
+          achievementId: "alcohol-sovereignty-platinum",
+        },
+      },
+    });
+    assert.equal(racePlatinumBefore, null);
+    const [raceA, raceB] = await Promise.all([
+      service.detectAndPersistUnlocks(raceUser),
+      service.detectAndPersistUnlocks(raceUser),
+    ]);
+    assert.ok(Array.isArray(raceA));
+    assert.ok(Array.isArray(raceB));
+    const raceGranted = [...raceA, ...raceB].filter(
+      (id) => id === "alcohol-sovereignty-platinum",
+    );
+    assert.equal(raceGranted.length, 1);
+    const racePlatinumCount = await prisma.userAchievement.count({
+      where: {
+        userId: raceUser,
+        achievementId: "alcohol-sovereignty-platinum",
+      },
+    });
+    assert.equal(racePlatinumCount, 1);
+    const raceOwned = await prisma.userAchievement.findMany({
+      where: { userId: raceUser },
+      select: { achievementId: true },
+    });
+    const raceOwnedIds = new Set(raceOwned.map((row) => row.achievementId));
+    assert.equal(raceOwned.length, raceOwnedIds.size);
+    for (const id of required) {
+      assert.equal(raceOwnedIds.has(id), true);
+    }
+    assert.equal(raceOwnedIds.has("alcohol-sovereignty-platinum"), true);
+    // Service may also insert temporals / other non-required medals in the
+    // same call; collection is consistent iff required ∪ {platinum} ⊆ owned
+    // and platinum appears exactly once.
+    assert.ok(raceOwnedIds.size >= required.length + 1);
+    const raceAgain = await service.detectAndPersistUnlocks(raceUser);
+    assert.equal(raceAgain.includes("alcohol-sovereignty-platinum"), false);
+    assert.equal(
+      await prisma.userAchievement.count({
+        where: {
+          userId: raceUser,
+          achievementId: "alcohol-sovereignty-platinum",
+        },
+      }),
+      1,
+    );
+
     const legacyUser = await createUser(prisma, "legacy-platinum");
     await prisma.substanceUsage.create({
       data: {
         id: createId(),
         userId: legacyUser,
         substanceId: "alcohol",
+        yearStarted: 2015,
+        frequency: "daily",
         status: "abstinent",
         lastUseDate: lastUse,
       },
