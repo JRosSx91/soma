@@ -95,14 +95,38 @@
     }
   },
   "plan": {
-    "title": "Tu plan de apoyo",
-    "body": "Un espacio previsto para reunir, a tu manera, los recursos y estrategias que te resulten útiles.",
-    "status": "En desarrollo",
-    "statusHint": "Todavía no está disponible y no guarda ningún dato.",
-    "parts": {
-      "resources": "Recursos",
-      "strategies": "Estrategias",
-      "habits": "Hábitos"
+    "title": "Mi guía de apoyo",
+    "body": "Una orientación educativa breve. No es atención clínica ni un documento guardado.",
+    "intro": "Repasa estos cuatro apartados a tu ritmo. Las casillas son opcionales y solo sirven para marcar lo que ya has leído en esta visita.",
+    "privacy": "Las marcas viven solo en esta pantalla. No se guardan, no se envían y desaparecen al recargar la página. Soma no pide datos personales aquí.",
+    "optional": "No hace falta marcar nada para usar la guía.",
+    "reset": "Borrar marcas",
+    "stepLabel": "Apartado {{step}}",
+    "sections": {
+      "moments": {
+        "title": "Momentos cotidianos para una pausa",
+        "body": "Hay situaciones del día a día en las que una pausa breve puede ayudar a recuperar el ritmo: antes de una conversación difícil, al notar tensión o cuando el día se acumula.",
+        "hint": "No es una evaluación de tu estado. Solo una invitación a reconocer cuándo podría venir bien detenerte un momento.",
+        "linkBreathing": "Abrir la respiración guiada"
+      },
+      "tools": {
+        "title": "Herramientas educativas en Soma",
+        "body": "En este Centro de Apoyo hay estrategias breves sobre estrés, emociones y hábitos, además de la respiración guiada.",
+        "hint": "Son contenidos educativos. No sustituyen terapia ni miden si «vas bien» o «vas mal».",
+        "linkStrategies": "Ver las estrategias de apoyo"
+      },
+      "people": {
+        "title": "Personas de confianza",
+        "body": "Hablar con alguien de confianza fuera de Soma puede ser un apoyo. Quién sea esa persona lo decides tú.",
+        "hint": "No registres nombres ni teléfonos aquí. Soma no guarda contactos ni envía mensajes a terceros."
+      },
+      "professional": {
+        "title": "Ayuda profesional y emergencias",
+        "body": "Cuando necesites orientación profesional o haya peligro inmediato, usa los recursos oficiales del panel de ayuda de esta misma página.",
+        "hint": "Autocuidado, personas de confianza, atención profesional y emergencias son cosas distintas. Esta guía no sustituye a ninguna de ellas.",
+        "linkHelp": "Ir al panel «Si necesitas ayuda ahora»",
+        "linkTerms": "Leer el apartado sobre situaciones que requieren ayuda profesional"
+      }
     }
   }
 }

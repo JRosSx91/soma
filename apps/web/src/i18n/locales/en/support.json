@@ -95,14 +95,38 @@
     }
   },
   "plan": {
-    "title": "Your support plan",
-    "body": "A planned space for gathering, your own way, the resources and strategies you find helpful.",
-    "status": "In development",
-    "statusHint": "Not available yet, and it does not store any data.",
-    "parts": {
-      "resources": "Resources",
-      "strategies": "Strategies",
-      "habits": "Habits"
+    "title": "My support guide",
+    "body": "A short educational orientation. It is not clinical care and it is not a saved document.",
+    "intro": "Review these four sections at your own pace. The checkboxes are optional and only mark what you have read on this visit.",
+    "privacy": "Marks live only on this screen. They are not saved, not sent anywhere, and disappear when you reload the page. Soma does not ask for personal data here.",
+    "optional": "You do not need to tick anything to use the guide.",
+    "reset": "Clear marks",
+    "stepLabel": "Section {{step}}",
+    "sections": {
+      "moments": {
+        "title": "Everyday moments for a pause",
+        "body": "There are ordinary situations when a short pause can help you regain pace: before a difficult conversation, when tension rises, or when the day piles up.",
+        "hint": "This is not an assessment of how you are. It is only an invitation to notice when a brief stop might help.",
+        "linkBreathing": "Open guided breathing"
+      },
+      "tools": {
+        "title": "Educational tools in Soma",
+        "body": "This Support centre includes short strategies on stress, emotions and habits, plus guided breathing.",
+        "hint": "They are educational materials. They do not replace therapy and they do not score whether you are «doing well» or «doing poorly».",
+        "linkStrategies": "View support strategies"
+      },
+      "people": {
+        "title": "People you trust",
+        "body": "Talking with someone you trust outside Soma can be a form of support. Who that person is remains your choice.",
+        "hint": "Do not enter names or phone numbers here. Soma does not store contacts and does not send messages to third parties."
+      },
+      "professional": {
+        "title": "Professional help and emergencies",
+        "body": "When you need professional guidance or there is immediate danger, use the official resources in the help panel on this same page.",
+        "hint": "Self-care, trusted people, professional care and emergencies are different things. This guide does not replace any of them.",
+        "linkHelp": "Go to «If you need help now»",
+        "linkTerms": "Read the section on situations that need professional help"
+      }
     }
   }
 }
