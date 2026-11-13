@@ -17,6 +17,7 @@ import {
   settlePlateLayers,
   type PlateLayer,
 } from "../recovery-dashboard/anatomy/plate-crossfade.js";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 
 const FEATURED_SYSTEM_IDS = [
   "nervous-central",
@@ -216,13 +217,14 @@ export function LandingV2Atlas() {
       }`}
       aria-labelledby="landing-v2-atlas-title"
     >
-      <img
+      <LandingPhotoImg
         src="/images/landing-v2/soma-atlas-bg.png"
         alt=""
-        width={1920}
-        height={800}
+        width={1821}
+        height={864}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-center opacity-45"
       />
@@ -288,14 +290,15 @@ export function LandingV2Atlas() {
               {layers.map((layer) => {
                 const scale = plateScale(layer.src);
                 return (
-                  <img
+                  <LandingPhotoImg
                     key={layer.id}
                     src={layer.src}
                     alt=""
                     width={1024}
                     height={1536}
                     decoding="async"
-                    draggable={false}
+                    loading="lazy"
+                    sizes="(max-width: 1024px) 70vw, 28rem"
                     onLoad={() => onIncomingLoad(layer.id)}
                     className="absolute inset-0 h-full w-full object-contain object-center"
                     style={{

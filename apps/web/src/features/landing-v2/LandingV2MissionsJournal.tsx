@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 import { MISSION_XP_AMOUNT } from "@soma/shared-types";
 import { previewFocus } from "../recovery-dashboard/focus.js";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 import "./landing-v2-missions-journal.css";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -36,13 +37,14 @@ export function LandingV2MissionsJournal() {
       className="landing-v2-path relative isolate overflow-x-hidden bg-[#081018] px-4 py-12 sm:px-6 lg:flex lg:min-h-svh lg:flex-col lg:px-12 lg:py-6 xl:px-16"
       aria-labelledby="landing-v2-path-title"
     >
-      <img
+      <LandingPhotoImg
         src={PATH_BG}
         alt=""
-        width={1920}
-        height={800}
+        width={2079}
+        height={756}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[center_80%]"
       />

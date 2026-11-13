@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 import "./landing-v2-origin.css";
 
 const ORIGIN_BG = "/images/landing-v2/soma-origin-bg.png";
@@ -19,13 +20,14 @@ export function LandingV2Origin() {
       className="landing-v2-origin relative isolate overflow-x-hidden bg-[#081018] px-4 py-16 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-6 xl:px-16 scroll-mt-[var(--landing-v2-header)]"
       aria-labelledby="landing-v2-origin-title"
     >
-      <img
+      <LandingPhotoImg
         src={ORIGIN_BG}
         alt=""
-        width={1920}
-        height={800}
+        width={2103}
+        height={748}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="landing-v2-origin__bg pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-[96%_center] sm:object-[94%_center] md:object-[92%_center] lg:translate-x-[7%] lg:object-[100%_center] xl:translate-x-0 xl:object-right"
       />

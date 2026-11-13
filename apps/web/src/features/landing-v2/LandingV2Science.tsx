@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { previewFocus } from "../recovery-dashboard/focus.js";
 import { resolveInterfaceLanguage } from "../../i18n/interface-languages.js";
 import { LANDING_METHODOLOGY_ID } from "./LandingV2Methodology.js";
+import { LandingPhotoImg } from "./LandingPhotoImg.js";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -98,13 +99,14 @@ export function LandingV2Science() {
       className="relative isolate overflow-x-hidden bg-[#081018] px-4 py-8 sm:px-6 lg:flex lg:h-svh lg:flex-col lg:px-12 lg:py-5 xl:px-16"
       aria-labelledby="landing-v2-science-title"
     >
-      <img
+      <LandingPhotoImg
         src="/images/landing-v2/soma-science-bg.png"
         alt=""
-        width={1920}
-        height={800}
+        width={1821}
+        height={864}
         decoding="async"
-        draggable={false}
+        loading="lazy"
+        sizes="100vw"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full max-w-none object-cover object-center opacity-80"
       />

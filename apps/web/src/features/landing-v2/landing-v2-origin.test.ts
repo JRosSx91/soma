@@ -57,7 +57,11 @@ test("origin reuses landing motion once and skips motion on the anatomy image", 
   assert.match(origin, /useReducedMotion/);
   assert.match(origin, /whileInView=\{\{ opacity: 1, y: 0 \}\}/);
   assert.match(origin, /viewport=\{\{ once: true/);
-  const imgBlock = origin.slice(origin.indexOf("<img"), origin.indexOf("/>") + 2);
+  assert.match(origin, /LandingPhotoImg/);
+  const imgBlock = origin.slice(
+    origin.indexOf("<LandingPhotoImg"),
+    origin.indexOf("/>", origin.indexOf("<LandingPhotoImg")) + 2,
+  );
   assert.doesNotMatch(imgBlock, /motion/);
 });
 
