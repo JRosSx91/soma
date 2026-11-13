@@ -119,7 +119,7 @@ test("meta description mentions demo without account across sources", () => {
   assert.equal(html.includes("hreflang"), false);
 });
 
-test("FAQ does not change SEO-01 indexation contracts", () => {
+test("FAQ does not weaken private-route SEO contracts", () => {
   assert.equal(isIndexablePublicPath("/"), true);
   assert.equal(robotsContentForPath("/"), "index,follow");
   assert.equal(isIndexablePublicPath("/preview"), false);
@@ -128,10 +128,12 @@ test("FAQ does not change SEO-01 indexation contracts", () => {
   const sitemap = readFileSync(join(webRoot, "public/sitemap.xml"), "utf8");
   assert.match(robots, /^Allow: \/$/m);
   assert.equal(/^Disallow:/m.test(robots), false);
-  assert.deepEqual(
-    [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]),
-    ["https://somarecovery.app/"],
-  );
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  assert.equal(locs[0], "https://somarecovery.app/");
+  assert.equal(locs.includes("https://somarecovery.app/preview"), false);
+  assert.equal(locs.includes("https://somarecovery.app/app"), false);
   const faqSource = readFileSync(new URL("./LandingV2Faq.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(faqSource, /FAQPage|gtag|analytics|plausible|posthog/i);
+  assert.match(faqSource, /faq\.items\.curves\.learnMore/);
+  assert.match(faqSource, /\/es\/learn\/modelos-de-recuperacion\/|\/en\/learn\/recovery-models\//);
 });

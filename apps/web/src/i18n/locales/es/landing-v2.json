@@ -166,7 +166,8 @@
     },
     "notice": "Modelos educativos del catálogo. No son mediciones clínicas ni el final de una recuperación.",
     "exploreMethod": "Explorar la metodología",
-    "limits": "El modelo representa promedios en condiciones estándar: no incorpora variabilidad individual, comorbilidades ni interacciones entre sustancias. Las escalas internas sirven para visualizar, no son porcentajes médicos. No todas las referencias del catálogo están verificadas frente a la fuente primaria. Soma no es un dispositivo médico."
+    "readModels": "Leer más: modelos de recuperación",
+    "limits": "Las curvas son trayectorias educativas parametrizadas desde el catálogo: no son promedios clínicos validados, ni mediciones ni pronósticos individuales. El modelo no incorpora de forma completa la variabilidad individual, las comorbilidades ni las interacciones entre sustancias. Las escalas internas sirven para visualizar, no son porcentajes médicos. No todas las referencias del catálogo están verificadas frente a la fuente primaria. Soma no es un dispositivo médico."
   },
   "methodology": {
     "eyebrow": "Metodología",
@@ -259,7 +260,8 @@
       },
       "curves": {
         "question": "¿Las curvas representan mi recuperación personal?",
-        "answer": "No. Las curvas y relojes son modelos educativos del catálogo: estimaciones orientativas a partir de literatura y de reglas del producto, situadas en una línea temporal. No miden tu cuerpo, no leen biomarcadores y no garantizan un resultado individual. Un punto en la curva no es un dato clínico tuyo."
+        "answer": "No. Las curvas y relojes son modelos educativos del catálogo: estimaciones orientativas a partir de literatura y de reglas del producto, situadas en una línea temporal. No miden tu cuerpo, no leen biomarcadores y no garantizan un resultado individual. Un punto en la curva no es un dato clínico tuyo.",
+        "learnMore": "Más detalle sobre los modelos educativos"
       },
       "care": {
         "question": "¿Soma sustituye la atención médica o psicológica?",
@@ -284,7 +286,10 @@
     "ctaInviteNote": "El alta no está abierta de forma general: hace falta una invitación. Soma sigue en beta pública.",
     "ctaSecondary": "Explorar la demo",
     "note": "Modelos educativos orientativos. No sustituyen una evaluación médica.",
-    "tagline": "Comprender la recuperación, un día a la vez."
+    "tagline": "Comprender la recuperación, un día a la vez.",
+    "learnNavLabel": "Aprender",
+    "learnNeuroadaptation": "Neuroadaptación",
+    "learnRecoveryModels": "Modelos de recuperación"
   },
   "notFound": {
     "eyebrow": "Señal interrumpida",

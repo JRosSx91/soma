@@ -1,4 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { resolveInterfaceLanguage } from "../../i18n/interface-languages.js";
+import { previewFocus } from "../recovery-dashboard/focus.js";
 
 export const LANDING_FAQ_ID = "landing-v2-faq";
 
@@ -16,9 +18,14 @@ export type LandingFaqItemId = (typeof LANDING_FAQ_ITEM_IDS)[number];
  * Public FAQ on the landing (SEO-02B1-B). Static Q&A; answers always visible; no telemetry.
  */
 export function LandingV2Faq() {
-  const { t } = useTranslation("landing-v2", {
+  const { t, i18n } = useTranslation("landing-v2", {
     bindI18n: "languageChanged loaded added",
   });
+  const learnLang = resolveInterfaceLanguage(i18n.language);
+  const recoveryModelsHref =
+    learnLang === "es"
+      ? "/es/learn/modelos-de-recuperacion/"
+      : "/en/learn/recovery-models/";
 
   return (
     <section
@@ -56,6 +63,16 @@ export function LandingV2Faq() {
               <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary sm:text-base">
                 {t(`faq.items.${id}.answer`)}
               </p>
+              {id === "curves" ? (
+                <p className="mt-2 text-sm">
+                  <a
+                    href={recoveryModelsHref}
+                    className={`${previewFocus} text-soma-action underline-offset-4 hover:underline`}
+                  >
+                    {t("faq.items.curves.learnMore")}
+                  </a>
+                </p>
+              ) : null}
             </div>
           ))}
         </div>

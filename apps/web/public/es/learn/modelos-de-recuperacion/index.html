@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curvas de recuperación: modelos educativos | Soma</title>
+    <meta
+      name="description"
+      content="Cómo interpretar las curvas educativas de Soma: avance del catálogo, incertidumbre y lo que no miden. No son diagnósticos."
+    />
+    <link rel="canonical" href="https://somarecovery.app/es/learn/modelos-de-recuperacion/" />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://somarecovery.app/es/learn/modelos-de-recuperacion/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://somarecovery.app/en/learn/recovery-models/"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Soma" />
+    <meta property="og:locale" content="es" />
+    <meta property="og:title" content="Curvas de recuperación: modelos educativos | Soma" />
+    <meta
+      property="og:description"
+      content="Cómo interpretar las curvas educativas de Soma: avance del catálogo, incertidumbre y lo que no miden. No son diagnósticos."
+    />
+    <meta property="og:url" content="https://somarecovery.app/es/learn/modelos-de-recuperacion/" />
+    <link rel="stylesheet" href="/learn/learn.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-mark">Soma</span>
+        <span class="brand-sub">Aprender</span>
+      </a>
+      <nav class="top-nav" aria-label="Secciones educativas">
+        <a href="/es/learn/neuroadaptacion/">Neuroadaptación</a>
+        <a href="/es/learn/modelos-de-recuperacion/" aria-current="page">Modelos de recuperación</a>
+        <a href="/en/learn/recovery-models/" lang="en" hreflang="en">English</a>
+        <a href="/">Inicio</a>
+        <a href="/preview">Demo</a>
+      </nav>
+    </header>
+
+    <main id="contenido" class="page-main">
+      <nav class="breadcrumb" aria-label="Miga de pan">
+        <ol>
+          <li><a href="/">Soma</a></li>
+          <li><span>Aprender</span></li>
+          <li><span aria-current="page">Modelos de recuperación</span></li>
+        </ol>
+      </nav>
+
+      <h1>Curvas de recuperación fisiológica: modelos educativos, no diagnósticos</h1>
+      <p class="lead">
+        Soma muestra trayectorias llamadas <strong>curvas educativas de recuperación</strong>.
+        Sirven para explorar cómo un catálogo describe, de forma orientativa, el avance de un
+        modelo a lo largo del tiempo. <strong>No</strong> miden tu cuerpo, <strong>no</strong> leen
+        biomarcadores y <strong>no</strong> son un diagnóstico.
+      </p>
+      <p>
+        Esta página explica qué representan esas curvas en el producto, cómo leerlas con cautela y
+        qué queda fuera de su alcance. Complementa las respuestas breves de las
+        <a href="/#landing-v2-faq">preguntas frecuentes</a> en la página de inicio.
+      </p>
+
+      <h2>Qué representa una curva educativa</h2>
+      <p>
+        En Soma, cada curva es una <strong>trayectoria educativa parametrizada</strong> desde el
+        <strong>catálogo</strong> (por ejemplo, una forma de interpolación, un horizonte temporal
+        del modelo y un techo del propio modelo) y se sitúa sobre una línea de tiempo. El producto
+        calcula un <strong>avance a lo largo de esa trayectoria</strong>: una fracción entre 0 y 1
+        que indica cuánto ha «recorrido» el modelo, no cuánta «salud» has recuperado.
+      </p>
+      <p>
+        Hay una segunda magnitud —ese avance multiplicado por el techo del modelo— usada en
+        estimaciones relativas a una línea base del catálogo. La interfaz educativa insiste en el
+        <strong>avance de la trayectoria del modelo</strong>, no en un porcentaje médico de órgano
+        recuperado.
+      </p>
+      <p>
+        Las curvas se asocian a pares del catálogo (estructuras y sustancias cubiertas por el
+        modelo). No inventamos aquí tablas de parámetros: esos valores viven en el catálogo interno
+        y se presentan en la app con avisos de incertidumbre.
+      </p>
+
+      <h2>Cómo leer ejes, formas y estimaciones (según el producto)</h2>
+      <p>
+        En la gráfica de recuperación, el producto usa etiquetas de tiempo de
+        <strong>referencia del modelo</strong> (por ejemplo, marcas orientativas como 1 mes, 3
+        meses, 6 meses o 365 días) y un eje vertical de
+        <strong>avance de la curva educativa (%)</strong>. Ese porcentaje es el avance matemático
+        del modelo en ese punto de referencia, <strong>no</strong> una medición fisiológica ni una
+        concentración de neurotransmisores.
+      </p>
+      <p>
+        La columna o punto «Hoy», cuando aparece en contextos con cuenta, sitúa el avance según los
+        días transcurridos desde la fecha de uso registrada en el producto. Sigue siendo el mismo
+        tipo de modelo: un reloj educativo sobre el catálogo, no un laboratorio.
+      </p>
+      <p>Soma describe tres <strong>formas</strong> de curva en la landing pública:</p>
+      <ul>
+        <li>
+          <strong>Logarítmica:</strong> cambio más marcado al inicio y luego se aplana.
+        </li>
+        <li>
+          <strong>Sigmoidea:</strong> empieza despacio, acelera y vuelve a aplanarse.
+        </li>
+        <li>
+          <strong>Lineal:</strong> avance constante en el modelo cuando no se justifica otra forma.
+        </li>
+      </ul>
+      <p>
+        Son patrones de interpolación educativa, no trazados clínicos a escala de un paciente.
+      </p>
+      <p>
+        Los niveles de <strong>confianza</strong> del catálogo son una
+        <strong>clasificación interna</strong> del producto. Orientan sobre cómo el equipo ha
+        etiquetado la solidez relativa de las fuentes usadas al modelar; <strong>no</strong>
+        garantizan una verificación bibliográfica completa frente a cada fuente primaria y
+        <strong>no</strong> son una probabilidad de que tu resultado individual coincida con el
+        trazo.
+      </p>
+
+      <h2>Tendencias generales e incertidumbre</h2>
+      <p>
+        Estas trayectorias <strong>no</strong> son mediciones personales ni un promedio estadístico
+        de «todas las personas en condiciones estándar». Son
+        <strong>estimaciones educativas</strong> construidas con parámetros del catálogo. Por
+        diseño, el modelo <strong>no</strong> incorpora de forma completa la variabilidad
+        individual, las comorbilidades ni las sinergias reales del policonsumo. Las escalas internas
+        sirven para visualizar; no son porcentajes médicos.
+      </p>
+      <p>
+        Por eso una estimación puede ser útil para
+        <strong>aprender el lenguaje del modelo</strong> y, al mismo tiempo, ser una mala guía para
+        decidir sobre tu salud. Distinguimos tres planos:
+        <strong>estimación educativa</strong> (catálogo), <strong>medición personal</strong> (que
+        Soma no realiza) y <strong>pronóstico clínico</strong> (que Soma no ofrece). La
+        incertidumbre no es un detalle fino: forma parte del diseño declarado en la metodología
+        pública de Soma.
+      </p>
+
+      <h2>Por qué no describen necesariamente tu evolución</h2>
+      <p>
+        Dos personas con la misma sustancia y un número parecido de días no tienen por qué compartir
+        la misma biología, el mismo entorno ni el mismo historial. El producto puede situar el
+        catálogo en <strong>tu</strong> línea temporal (fecha de último uso), pero
+        <strong>no personaliza</strong> los parámetros clínicos del modelo a tu organismo.
+      </p>
+      <p>
+        Un punto del trazo no es un dato de un estudio hecho sobre ti. Tampoco es la prueba de que
+        un órgano se haya recuperado.
+      </p>
+
+      <h2>Qué no mide Soma</h2>
+      <p>Soma <strong>no</strong> mide:</p>
+      <ul>
+        <li>biomarcadores ni imágenes clínicas;</li>
+        <li>concentraciones reales de neurotransmisores en tu cuerpo;</li>
+        <li>un «porcentaje de salud recuperada»;</li>
+        <li>la eficacia de un tratamiento;</li>
+        <li>urgencias ni riesgo clínico individual.</li>
+      </ul>
+      <p>
+        Existen en la app perfiles <strong>cualitativos</strong> educativos sobre neurotransmisores
+        (fases ilustrativas del catálogo). No son curvas de concentración personal ni un
+        electromiógrafo del ánimo.
+      </p>
+
+      <h2>Por qué no deben usarse para decisiones médicas</h2>
+      <p>
+        Porque son heurísticas de visualización y de reglas educativas del producto (por ejemplo,
+        umbrales de logros ligados al avance del modelo), no instrumentos sanitarios validados para
+        diagnóstico, pronóstico o tratamiento. Si necesitas orientación clínica, contacta con
+        profesionales o servicios de tu zona. En peligro inmediato, usa los recursos de emergencia
+        locales.
+      </p>
+
+      <h2>Cómo explorar la demo sin cuenta</h2>
+      <p>
+        Puedes abrir la <a href="/preview">demo de Soma</a> sin registro. Allí las cifras son de
+        ejemplo o de catálogo ilustrativo según la pantalla; no pertenecen a una cuenta real. Crear
+        una cuenta (cuando haya invitación en la beta) permite un uso personalizado según las
+        funciones y consentimientos del producto; no es obligatorio para comprender qué es una curva
+        educativa.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="/preview">Abrir la demo</a>
+        <a class="btn btn-secondary" href="/">Volver al inicio</a>
+        <a class="btn btn-secondary" href="/es/learn/neuroadaptacion/">Neuroadaptación</a>
+      </div>
+
+      <h2>Limitaciones educativas (resumen)</h2>
+      <ul>
+        <li>
+          Estimación educativa del catálogo ≠ medición personal ni pronóstico clínico.
+        </li>
+        <li>
+          No todas las referencias internas del catálogo están verificadas frente a la fuente
+          primaria.
+        </li>
+        <li>No se publican aquí fórmulas del motor ni tablas de parámetros internas.</li>
+        <li>
+          Contenidos clínicos que aún no están listos para publicación educativa (por ejemplo,
+          listas de síntomas o consejos pendientes de revisión) no forman parte de esta página.
+        </li>
+      </ul>
+    </main>
+
+    <footer class="site-footer">
+      <nav aria-label="Enlaces del pie">
+        <a href="/">Soma</a>
+        <a href="/es/learn/neuroadaptacion/">Neuroadaptación</a>
+        <a href="/en/learn/recovery-models/" lang="en" hreflang="en">English version</a>
+        <a href="/preview">Demo</a>
+      </nav>
+      <p>Contenido educativo. No es diagnóstico ni tratamiento.</p>
+    </footer>
+  </body>
+</html>

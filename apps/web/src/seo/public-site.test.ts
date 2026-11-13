@@ -11,6 +11,8 @@ import {
   DEFAULT_OG_IMAGE_WIDTH,
   LANDING_JSON_LD_SCRIPT_ID,
   PUBLIC_LANDING_URL,
+  PUBLIC_LEARN_PAGE_PATHS,
+  PUBLIC_SITEMAP_LOCS,
   PUBLIC_SITEMAP_URL,
   RENDER_X_ROBOTS_NOINDEX_PATHS,
   isIndexablePublicPath,
@@ -105,12 +107,20 @@ test("robots.txt allows crawling and Render header paths stay off a global /*", 
   }
 });
 
-test("sitemap.xml lists only the public landing", () => {
+test("sitemap.xml lists landing plus static learn pages only", () => {
   const sitemap = readFileSync(join(webRoot, "public/sitemap.xml"), "utf8");
   const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  assert.deepEqual(locs, [PUBLIC_LANDING_URL]);
+  assert.deepEqual(locs, [...PUBLIC_SITEMAP_LOCS]);
+  assert.equal(PUBLIC_LEARN_PAGE_PATHS.length, 4);
   for (const leak of ["/app", "/preview", "/login", "/journal", "/missions"]) {
     assert.equal(sitemap.includes(leak), false, leak);
+  }
+});
+
+test("SPA shell indexability stays root-only (learn pages are static HTML)", () => {
+  for (const path of PUBLIC_LEARN_PAGE_PATHS) {
+    assert.equal(isIndexablePublicPath(path), false, path);
+    assert.equal(robotsContentForPath(path), "noindex,nofollow", path);
   }
 });
 
