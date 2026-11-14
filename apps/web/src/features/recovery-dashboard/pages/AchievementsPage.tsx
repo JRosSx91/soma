@@ -583,7 +583,9 @@ function cardLabels(item: CatalogItem, t: ReturnType<typeof useTranslation>[0]) 
     family:
       item.family === "temporal"
         ? t("achievements:ui.familyBadgeTemporal")
-        : t("achievements:ui.familyBadgeCurve"),
+        : item.tier === "platinum"
+          ? t("achievements:ui.familyBadgePlatinumCollection")
+          : t("achievements:ui.familyBadgeCurve"),
   };
 }
 
