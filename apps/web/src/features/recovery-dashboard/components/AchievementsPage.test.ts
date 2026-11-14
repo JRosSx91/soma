@@ -54,6 +54,8 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.match(page, /"unavailable"/);
   assert.match(page, /familyBadgeTemporal/);
   assert.match(page, /familyBadgeCurve/);
+  assert.match(page, /familyBadgePlatinumCollection/);
+  assert.match(page, /item\.tier === "platinum"/);
   assert.match(page, /liveEnabled = Boolean\(user\) && base === "\/app"/);
   assert.match(page, /achievements:ui\.historyNote/);
   assert.match(page, /ui\.hiddenLabel/);
@@ -68,6 +70,22 @@ test("achievements page composition matches GAME-03C regions", () => {
   assert.equal(
     typeof (esAchievements as { ui: Record<string, string> }).ui.platinumCollectionDetail,
     "string",
+  );
+  assert.equal(
+    (enAchievements as { ui: Record<string, string> }).ui.familyBadgePlatinumCollection,
+    "Complete collection",
+  );
+  assert.equal(
+    (esAchievements as { ui: Record<string, string> }).ui.familyBadgePlatinumCollection,
+    "Colección completa",
+  );
+  assert.equal(
+    (enAchievements as { ui: Record<string, string> }).ui.familyBadgeCurve,
+    "Educational curve",
+  );
+  assert.equal(
+    (esAchievements as { ui: Record<string, string> }).ui.familyBadgeCurve,
+    "Curva educativa",
   );
   assert.match(
     (enAchievements as { ui: Record<string, string> }).ui.platinumCollectionHint,

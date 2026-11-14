@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-13 (**SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3-FIX** completado y **desplegado** (PR #112); **BETA-01D.3** en revisión jurídica; **SUP-01A** completado y aprobado; **SUP-01B** completado y desplegado (PR #113); **SUP-01B.1** completado y publicado (PR #114); **SUP-01C** completado y publicado (PR #115); **SUP-ASSET-01** publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118, merge `8bdca1c`); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119, merge `04820c9`); **SEO-02A** auditoría completada; **SEO-02B1-A** propuesta FAQ aprobada; **SEO-02B1-B** FAQ de landing implementada en local (pendiente de revisión); **SEO-02B2** / **SEO-02C** pendientes). Git: `origin/main` = `04820c99724495644cb6f4a778e2072106c6a7d7` (merge PR #119); `develop` local alineable con `main`. **SPA Live:** el propietario confirma el despliegue de PR #112; el bundle público (`index-BzTb-IBq.js`) contiene los textos legales corregidos (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
+Última actualización editorial: 2026-11-14 (**ACH-02B** integrado y desplegado PR #125, merge `97946dc`; validación PostgreSQL OK incluida concurrencia real; **ACH-02C** pendiente de revisión — etiquetas de platino + propuesta SQL `hidden=false`; **PERF-01B–01E** cerrados y desplegados PR #122–#124; **SEO-02B2** publicado PR #121; **ACH-02A** completado; **SEO-01B** y **MKT-01C** cerrados; **AUTH-01** / **LIVE-01** completados según confirmación del propietario; **WEB-01** y **WEB-01-FIX** integrados (PR #108, #109) y **desplegados en producción** según el propietario; **PWA-01D** **aplazado**; **MKT-PR-01D** en seguimiento; **UX-POLISH** A/B/C completado (PR #110) y **desplegado** según el propietario; **Q-05** y **Q-OBS** completados (PR #111) y **desplegados** según el propietario; **BETA-01D.3-FIX** completado y **desplegado** (PR #112); **BETA-01D.3** en revisión jurídica; **SUP-01A** completado y aprobado; **SUP-01B** completado y desplegado (PR #113); **SUP-01B.1** completado y publicado (PR #114); **SUP-01C** completado y publicado (PR #115); **SUP-ASSET-01** publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118, merge `8bdca1c`); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119, merge `04820c9`); **SEO-02A** auditoría completada; **SEO-02B1-A** propuesta FAQ aprobada; **SEO-02B1-B** FAQ de landing implementada en local (pendiente de revisión); **SEO-02B2** / **SEO-02C** pendientes). Git: `origin/main` = `04820c99724495644cb6f4a778e2072106c6a7d7` (merge PR #119); `develop` local alineable con `main`. **SPA Live:** el propietario confirma el despliegue de PR #112; el bundle público (`index-BzTb-IBq.js`) contiene los textos legales corregidos (lectura 2026-11-12); SHA de panel **no** recopiado (último inventario SPA: `c519bb3`, 2026-11-11). **API Live** documentada: `4520530` (PR #101, inventario 2026-11-10); SHA del deploy de API posterior a #105 **no** recopiado — **no** se afirma aquí. **GAME-07** / **GAME-07F** / **IMG-PERF-01A** (PR #106) e **IMG-PERF-01B** (PR #107) integrados y desplegados en SPA; QA **DEMO Chromium** (no Safari, no PWA iOS, no LIVE `/app`). **PWA-01D** aplazado (instalación iPhone comprobada; resto de pruebas iOS sin dispositivo; no bloquea la beta). **MOB-01** pospuesto. **JRN-01R** y **BETA-COPY-01** en `main` (PR #101); JRN-01R también en inventario API Live `4520530`. Bloqueador abierto: **BETA-01D.3**. Una auditoría sin P0 evidenciado **no** es prueba de seguridad completa.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -29,7 +29,7 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12; correcciones documentales C1–C3 desplegadas con PR #112); sigue sin cierre formal ni valoración jurídica especializada. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); **PERF-01E** (desacoplar LCP del intro; implementación local pendiente de revisión; **PERF-01C** desplegado PR #123; **PERF-01D** auditoría completada; **PERF-01B** desplegado PR #122). **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A** completado y aprobado; **SUP-01B** (página base) completado y desplegado (PR #113); **SUP-01B.1** (fidelidad visual) completado y publicado (PR #114); **SUP-01C** (respiración guiada) completado y publicado (PR #115); **SUP-ASSET-01** (ilustraciones) publicado (PR #116); **SUP-01D** completado y desplegado (PR #117); **SUP-01E1** completado y desplegado (PR #118); **SUP-01E2-A** / **SUP-01E2-B** publicados (PR #119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1** FAQ desplegada (PR #120); **SEO-02B2-B2** implementación local pendiente de revisión. **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112); revisión de **ACH-02C** (etiquetas de platino + propuesta SQL; sin ejecutar en prod). **PERF-01B–01E** cerrados y desplegados (PR #122–#124). **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** publicados (PR #113–#119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1** FAQ desplegada (PR #120); **SEO-02B2** publicado (PR #121). **ACH-02A** completado; **ACH-02B** integrado y desplegado (PR #125). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
 Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
@@ -42,10 +42,11 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **P
 | 3 | **PERF-01B** | Desacoplar paint de `/` del bootstrap auth. **Desplegado** (PR #122, merge `ee1d868`). Sucede a **UX-BOOT** / **PERF-01A**. |
 | 4 | **PERF-01C** | Imágenes landing + lazy below-fold. **Desplegado** (PR #123, merge `7a77e42`; producto `5db598b`). Code-splitting de rutas privadas **pospuesto**. |
 | 5 | **PERF-01D** | Auditoría arranque React / LCP. **Completado** (doc `perf-01d-react-startup-audit.md`). Sin código. |
-| 6 | **PERF-01E** | Desacoplar LCP del intro (R1). **Implementación local pendiente de revisión.** |
-| 7 | **WEB-02** | Solo si hay necesidades reales. |
+| 6 | **PERF-01E** | Desacoplar LCP del intro (R1). **Desplegado** (PR #124, merge `cf33d1a`; producto `a02adf2`). |
+| 7 | **ACH-02C** | Etiquetas editoriales de platino + propuesta SQL `hidden=false`. **Pendiente de revisión** (local). |
+| 8 | **WEB-02** | Solo si hay necesidades reales. |
 
-**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** están publicados (PR #113–#119). **SEO-02B1** FAQ publicada (PR #120). **SEO-02B2-B2** páginas `/learn` en implementación local (sin publicar). **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
+**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** están publicados (PR #113–#119). **SEO-02B1** FAQ publicada (PR #120). **SEO-02B2** publicado (PR #121). **ACH-02B** desplegado (PR #125). **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
@@ -120,8 +121,8 @@ Cuatro capas (no se mezclan):
 | UX-05–07 Explorar | Completados y validados DEMO (PR #49). LIVE no reauditado aquí. Explorador 2.0 en `main` (PR #61, REL-01) |
 | UX-08–09 atlas editorial | Pendiente (contenido / evidencia) |
 | UX-10 logros en revisión | Cubierto en ACH-01 (7 no disponibles). Residual: validación LIVE de comprensión |
-| UX-11 platino | **ACH-02B local** (colección de curvas; D1-A / D2-No / D3-A). Pendiente revisión/publicación |
-| UX-12 secretos y platinos | **ACH-02B local** (`hidden: false` en platinos; secretos sellados sin tramo). Pendiente revisión/publicación |
+| UX-11 platino | **ACH-02B desplegado** (PR #125). Colección de curvas; D1-A / D2-No / D3-A. **ACH-02C** etiquetas editoriales pendiente de revisión |
+| UX-12 secretos y platinos | **ACH-02B desplegado** (PR #125). Platinos visibles; secretos sellados. Metadatos BD: propuesta SQL ACH-02C (sin ejecutar) |
 | Neurotransmisores educativos | Publicados como MVP educativo (PR #49). REC-VIS-01 añade panel cualitativo en Recuperación. No son mediciones. Ilustraciones NT siguen en PNG (fuera de IMG-PERF-01B). LIVE `/app` no reauditado aquí |
 | Síntomas / Consejos | Bloqueado por revisión clínica; catálogos **publicados vacíos** |
 | LIVE `/app` | **AUTH-01** y **LIVE-01** completados: validación funcional en local (2026-10-25, cuenta sintética) y en producción (confirmación del propietario; sin fecha ni detalle registrados aquí). Pendientes como validaciones específicas nuevas, no como LIVE-01: recaídas, múltiples pestañas, Expedición LIVE en Safari/PWA |
@@ -148,7 +149,7 @@ Cuatro capas (no se mezclan):
 | WEB-01 landing Soma 2.0 | Landing original en `main`. Actualización 2026-11-12 (funcionalidades actuales + Centro de Expedición, PR #108) y **WEB-01-FIX** (PR #109): integrados en `main` y **desplegados en producción** (propietario; SHA de panel no recopiado). WEB-02 pendiente. **SEO-01B** completado |
 | UX-POLISH | **Completado** (A pantalla de carga, B Expedición desde Inicio, C mención en ONB-01). PR #110 (merge `cf17b47`) y **desplegado** (propietario) |
 | SEO-01 visibilidad | SEO-01A en `main` (PR #75 / #93). **SEO-01B** Completado (2026-11-12): GSC, canonical, `robots.txt`/`sitemap.xml`, landing indexada, `noindex` en rutas funcionales |
-| SEO-02 crecimiento orgánico | **SEO-02A** completada. **SEO-02B1** FAQ desplegada (PR #120). **SEO-02B2-A/B1** arquitectura y borradores aprobados. **SEO-02B2-B2** implementación local pendiente de revisión. **SEO-02C** medición pendiente |
+| SEO-02 crecimiento orgánico | **SEO-02A** completada. **SEO-02B1** FAQ desplegada (PR #120). **SEO-02B2** publicado (PR #121). **SEO-02C** medición pendiente |
 | FAV-01 favicon | Completado. En `main` (PR #92). Favicon + Apple Touch 180. **Manifest e iconos 192/512:** PWA-01B (desplegados). **Sin** service worker (PWA-01A) |
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `c519bb3` |
 | FBK-01 centro de feedback | Completado. En `main` |
@@ -345,21 +346,21 @@ El catálogo de **106** ítems debe distinguirse así: **existencia** (seed/gene
 
 #### UX-11 — Lógica de platino
 
-- **Estado:** **Implementación local ACH-02B pendiente de revisión** (2026-11-13). Decisiones aprobadas: **D1-A**, **D2-No**, **D3-A** (`docs/review/achievements/ach-02a-platinum-secrets-audit.md`).
-- **Prioridad:** P1
+- **Estado:** **ACH-02B integrado y desplegado** (PR #125, merge `97946dc`, 2026-11-14). Decisiones **D1-A**, **D2-No**, **D3-A**.
+- **Prioridad:** P1 (cerrado en producto; residual editorial en ACH-02C)
 - **Descripción:** El platino debe exigir los demás logros pertinentes, no un umbral arbitrario de progreso.
 - **Criterio:** Un platino no se desbloquea solo con `threshold` de curva (p. ej. 0,99); requiere el conjunto de logros acordado de esa sustancia.
 - **Regla ACH-02B:** `required(S)` = curvas alcanzables de S con `tier ≠ platinum` y sin `ruleReview`; temporales fuera; **no** se exige 0,99 adicional; platinos ya persistidos **no** se revocan.
-- **Evidencia previa:** umbral VTA 0,99. **Tras ACH-02B (local):** `planAchievementUnlocks` concede platino por colección (mismo pase anti-carrera). Cafeína sin platino.
-- **Dependencias:** ACH-02A (diseño). Relacionado con UX-12.
+- **Evidencia:** PG real (`soma_ach02b_pg`): same-pass, concurrencia e idempotencia OK. Cafeína sin platino.
+- **Dependencias:** ACH-02A (diseño). Relacionado con UX-12 / ACH-02C.
 
 #### UX-12 — Secretos y platinos
 
-- **Estado:** **Implementación local ACH-02B pendiente de revisión** (2026-11-13). Decisión **D4-Sí** aprobada.
+- **Estado:** **ACH-02B desplegado** (PR #125). Residual metadatos BD + etiquetas editoriales en **ACH-02C** (pendiente de revisión).
 - **Prioridad:** P1
 - **Descripción:** Los secretos no deben revelar bronce/plata/oro de antemano. Los platinos **no** son secretos.
 - **Criterio:** Ficha sellada de un secreto no muestra el tramo; los platinos son visibles como platino y no usan el patrón «???».
-- **Evidencia ACH-02B (local):** 4 secretos bronce `hidden: true`; 4 platinos `hidden: false`. UI: `isSealedAchievement` excluye platino; ficha secreta sin tramo; copy de colección ES/EN.
+- **Evidencia ACH-02B:** 4 secretos bronce `hidden: true`; 4 platinos `hidden: false` en snapshot web/seed. UI: `isSealedAchievement` excluye platino. Propuesta SQL ACH-02C para BD (sin ejecutar).
 - **Dependencias:** UX-11. I18N-02.
 
 ---
@@ -518,7 +519,7 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
   - Historial permanente; las recaídas **no** revocan medallas.
   - `/achievements` redirige a `/app/achievements`.
   - Traducciones ES/EN de la superficie 2.0.
-- **Pendiente residual:** validación LIVE de comprensión UX-10; publicación de **ACH-02B** (UX-11/12). Economía XP y misiones **no** forman parte de este ID (GAM-01 / GAM-02).
+- **Pendiente residual:** validación LIVE de comprensión UX-10; **ACH-02C** (etiquetas + SQL `hidden`). Economía XP y misiones **no** forman parte de este ID (GAM-01 / GAM-02).
 - **Dependencias:** GAME-01, GAME-03C, UX-10, ACH-REV (recaída), LEG-01.
 - **Criterio:** La galería 2.0 es la única experiencia principal; el porcentaje de colección no cuenta medallas inalcanzables; el historial sobrevive a una recaída.
 
@@ -528,9 +529,16 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
 
 #### ACH-02B — Platino por colección + higiene UX-12
 
-- **Estado:** **Implementación local pendiente de revisión** (2026-11-13). Doc `docs/review/achievements/ach-02b-implementation.md`.
-- **Alcance:** gate de platino (D1-A/D2-No/D3-A); `hidden: false` en platinos (D4); sin revocación; sin migración de `UserAchievement`.
+- **Estado:** **Integrado y desplegado** (PR #125, merge `97946dc`, 2026-11-14). Producto `61ab9e7` + test PG `5effb03`. Doc `docs/review/achievements/ach-02b-implementation.md`.
+- **Alcance:** gate de platino (D1-A/D2-No/D3-A); `hidden: false` en platinos (D4, snapshot/seed); sin revocación; sin migración de `UserAchievement`.
+- **PostgreSQL:** validación real en `soma_ach02b_pg` (same-pass, concurrencia, idempotencia). **No** se ejecutó `seedAchievements` sobre bases con datos valorados.
 - **Fuera de alcance:** XP, temporales como requisito, curvas científicas nuevas, seed/migración en producción.
+
+#### ACH-02C — Coherencia editorial y metadatos de platinos
+
+- **Estado:** **Pendiente de revisión** (local, 2026-11-14). Propuesta SQL `docs/review/achievements/ach-02c-platinum-hidden-update.sql.md` (**no ejecutada**).
+- **Alcance:** etiqueta de familia en platinos («Colección completa» / «Complete collection»); verificación de secretos sellados; UPDATE idempotente `hidden=false` solo en los cuatro IDs de soberanía (autorización futura).
+- **Fuera de alcance:** reglas de desbloqueo, migraciones, `seedAchievements`, cambios a `UserAchievement`, ejecución en producción en este hito.
 
 ---
 
@@ -1049,7 +1057,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 ##### PERF-01E — Desacoplar el LCP de la introducción visual
 
 - **Objetivo:** Pintar el arte del hero (LCP) sin `opacity: 0` hasta `introComplete`; conservar intro SOMA, Skip y `prefers-reduced-motion`.
-- **Estado:** **Implementación local pendiente de revisión** (2026-11-13). Doc `docs/review/performance/perf-01e-intro-lcp.md`. Sin commit/push/PR/despliegue en este hito.
+- **Estado:** **Completado y desplegado** (PR #124, merge `cf33d1a`; producto `a02adf2`). Doc `docs/review/performance/perf-01e-intro-lcp.md`.
 - **Fuera de alcance:** auth, backend, WebP, code-splitting, SEO, Vite.
 
 #### WEB-02 — Identidad y filosofía
@@ -1134,10 +1142,10 @@ Visibilidad y comprensión de la landing indexable, sin ampliar arquitectura SPA
 - **Objetivo:** Redacción y revisión científica de neuroadaptación y modelos/curvas.
 - **Estado:** **Borradores aprobados con correcciones** (B1-REV, 2026-11-13). Documento `seo-02b2-b1-editorial-drafts.md`. Infra estática auditada (B1-FINAL).
 
-##### SEO-02B2-B2 — Implementación local de páginas educativas
+##### SEO-02B2-B2 — Implementación de páginas educativas
 
 - **Objetivo:** Cuatro HTML estáticos bajo `public/{es|en}/learn/.../`, CSS compartido, sitemap, enlaces landing, corrección `science.limits`; SPA shell sigue sin indexar learn por fallback.
-- **Estado:** **Implementación local pendiente de revisión** (2026-11-13). Sin commit/push/PR/despliegue en este hito.
+- **Estado:** **Publicado** (PR #121, merge `f85979c`; producto `093cd2a`).
 - **Comprobación manual Render (antes/tras deploy autorizado):** rewrite archivo→`/index.html`; Headers sin noindex en `/es`/`/en`/`/learn`; curl de las 4 URLs sin JS (H1 propio, no shell landing).
 
 ##### SEO-02C — Medición y seguimiento
@@ -1611,14 +1619,14 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). Q-E2E aparte (no instalar Playwright sin autorización).
 1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
 2. **BETA-01D.3:** **en revisión**. C1–C3 desplegados (BETA-01D.3-FIX, PR #112). C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
-3. **PERF-01C / PERF-01D:** 01C desplegado (PR #123); 01D auditoría completada. Code-splitting pospuesto.
-4. **PERF-01E:** desacoplar LCP del intro (local, pendiente de revisión). **PERF-01B** desplegado (PR #122).
+3. **PERF-01B–01E:** cerrados y desplegados (PR #122–#124). Code-splitting pospuesto.
+4. **ACH-02C:** etiquetas de platino + propuesta SQL `hidden=false` (local, pendiente de revisión; **no** ejecutar en prod sin autorización).
 5. **WEB-02:** solo si hay necesidades reales.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
 - **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 6. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
 7. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
-8. **ACH-02B:** platino/secretos (local, pendiente de revisión; UX-11/12). Luego XP sin Bitácora / GAM-02 bienestar / GAME-08 / WEB-02 / resto de MKT-01 según prioridad. **SEO-01B** y **MKT-01C** cerrados.
+8. **ACH-02B:** integrado y desplegado (PR #125). **SEO-02B2** publicado (PR #121). Luego XP sin Bitácora / GAM-02 bienestar / GAME-08 / WEB-02 / resto de MKT-01 según prioridad. **SEO-01B** y **MKT-01C** cerrados.
 9. **ACH-REV residual:** fecha errónea. Bloquea GAME-08.
 10. **UX-08 / UX-09** y síntomas: revisión clínica humana. Baja prioridad; **no** inventar.
 11. **VIS-01, I18N-04, FBK-02.** Q-CI: PG en Actions (PR #105); residual cobertura / scripts raíz / Q-05.
@@ -1856,3 +1864,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-13 | **SUP-01E2-B** publicado mediante PR #119 (commit `7c71620`, merge `04820c9`). **SEO-02A** auditoría completada (`docs/review/seo/seo-02a-audit-and-growth-plan.md`). **SEO-02B1-A** propuesta FAQ aprobada (`seo-02b1-a-landing-faq-proposal.md`). **SEO-02B1-B** (local, sin commit): FAQ de cinco preguntas en la landing (ES/EN), meta description con demo sin cuenta; sin rutas nuevas ni `FAQPage` JSON-LD. **SEO-02B2** / **SEO-02C** pendientes. Fast-forward local `develop` → `04820c9`. Relapse pendiente. |
 | 2026-11-13 | **PERF-01A** auditoría de rendimiento móvil de la landing (`docs/review/performance/perf-01a-landing-audit.md`): gate de `/` tras `/auth/refresh`, peso de imágenes y JS monolítico. **PERF-01B** integrado y desplegado (PR #122, merge `ee1d868`; producto `851279d`): `RootRoute` pinta la landing mientras `loading`; `AppBootScreen` solo en rutas protegidas. **PERF-01C** desplegado (PR #123, merge `7a77e42`; producto `5db598b`): WebP + `LandingPhotoImg` + lazy below-fold. **PERF-01D** auditoría completada (`perf-01d-react-startup-audit.md`): LCP bloqueado por opacity 0 del hero hasta intro. **PERF-01E** desplegado (PR #124, merge `cf33d1a`; producto `a02adf2`): arte del hero siempre opacity 1; copy gated; `FADE_AT_MS` alineado a fin de marca. Code-splitting de rutas privadas pospuesto. |
 | 2026-11-13 | **ACH-02A** auditoría platinos/secretos aprobada (`ach-02a-platinum-secrets-audit.md`); decisiones **D1-A / D2-No / D3-A / D4-Sí**. **ACH-02B** (local, sin commit): platino por colección de curvas alcanzables; temporales y `ruleReview` fuera; sin umbral 0,99 adicional; platinos `hidden: false`; sin revocación de filas existentes; doc `ach-02b-implementation.md`. |
+| 2026-11-14 | **ACH-02B** integrado y desplegado (PR #125, merge `97946dc`; producto `61ab9e7` + test PG `5effb03`). Validación PostgreSQL en `soma_ach02b_pg` (same-pass, concurrencia real, idempotencia). **SEO-02B2** publicado (PR #121). **PERF-01B–01E** cerrados (PR #122–#124). **ACH-02C** (local, pendiente de revisión): etiqueta «Colección completa» / «Complete collection» solo en platinos; propuesta SQL idempotente `hidden=false` (`ach-02c-platinum-hidden-update.sql.md`, **no ejecutada**); secretos sellados verificados en DEMO. Sin commit/push/PR/despliegue/SQL en prod en este hito. |
