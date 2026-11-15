@@ -29,6 +29,10 @@ Thumbs.db
 
 # Testing
 coverage/
+**/playwright-report/
+**/test-results/
+**/blob-report/
+**/playwright/.cache/
 
 # Prisma
 *.db

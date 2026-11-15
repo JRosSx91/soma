@@ -20,6 +20,9 @@ const apiProxy = {
   "/substances": { target: "http://localhost:3000", changeOrigin: true },
 } as const;
 
+/** Set by Playwright webServer during Q-E2E runs; keeps preview off the Nest proxy. */
+const e2ePreview = process.env.SOMA_E2E_PREVIEW === "1";
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -27,6 +30,6 @@ export default defineConfig({
     proxy: { ...apiProxy },
   },
   preview: {
-    proxy: { ...apiProxy },
+    proxy: e2ePreview ? undefined : { ...apiProxy },
   },
 });

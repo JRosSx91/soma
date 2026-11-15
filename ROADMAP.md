@@ -31,7 +31,7 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112). **ACH-02** (A/B/C + DB) **cerrado** (PR #125–#126; SQL Supabase 2026-11-15 según propietario). **PERF-01B–01E** cerrados y desplegados (PR #122–#124). **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** publicados (PR #113–#119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1** FAQ desplegada (PR #120); **SEO-02B2** publicado (PR #121). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
 
-Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** pendiente (hito aparte). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** en curso (hito aparte: **Q-E2E-0** / **Q-E2E-1** cerrados; auth staging y CI pendientes — no cierra el hito global). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
 
 ### Próximos hitos (orden)
 
@@ -1480,11 +1480,11 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### Q-E2E — Pruebas de navegador de recorridos críticos
 
 - **Descripción:** Cubrir DEMO recovery/explore y, cuando se autorice un entorno, login→`/app` (sin datos reales de producción).
-- **Estado:** Pendiente (no hay Playwright/Cypress de proyecto)
+- **Estado:** **En curso** (hito global **no** cerrado). **Q-E2E-0** **cerrado** (auditoría / autorización). **Q-E2E-1** **cerrado** (infra Chromium + smoke DEMO `/preview` → Recuperación → Explorar, fail-closed local; `docs/review/e2e/q-e2e-1.md`). Pendiente: auth staging (**Q-E2E-2+**), CI, Firefox/WebKit.
 - **Prioridad:** P2
-- **Evidencia:** Tests web mayoritariamente de contrato de fuente. AUTH-01/LIVE-01 son el humo manual previo.
-- **Dependencias:** AUTH-01 (definir el recorrido). No instalar dependencias hasta autorización de implementación.
-- **Criterio:** Al menos un flujo DEMO y un flujo auth de staging pasan en CI o script documentado.
+- **Evidencia:** `@playwright/test` en `@soma/web`; `apps/web/playwright.config.ts`; `apps/web/e2e/`; guards `e2e/lib/safe-env.ts`; scripts `test:e2e` / `test:e2e:headed` / `test:e2e:debug` / `test:e2e:guards`. Suite web `pnpm test` sin cambios de descubrimiento (no incluye `e2e/`).
+- **Dependencias:** AUTH-01 (recorrido auth). Staging y cuentas sintéticas solo con autorización expresa (**Q-E2E-2+**).
+- **Criterio:** Al menos un flujo DEMO y un flujo auth de staging pasan en CI o script documentado. **Parcial:** smoke DEMO local cerrado (Q-E2E-1); auth staging y CI **pendientes**.
 
 #### Q-OBS — Errores y observabilidad
 
@@ -1621,7 +1621,7 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 ## Próximos pasos (por dependencia)
 
-0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). Q-E2E aparte (no instalar Playwright sin autorización).
+0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). **Q-E2E:** Q-E2E-0 / Q-E2E-1 cerrados (Chromium + smoke DEMO fail-closed); hito global aún abierto (auth staging / CI).
 1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
 2. **BETA-01D.3:** **en revisión**. C1–C3 desplegados (BETA-01D.3-FIX, PR #112). C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
 3. **PERF-01B–01E:** cerrados y desplegados (PR #122–#124). Code-splitting pospuesto.
@@ -1742,7 +1742,7 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
 UX-08, UX-09  →  editorial con fuentes; sin inventar; P3
 
 Q-CI: PG validado (PR #105); PR a develop y main; Q-05 shared-types en CI (PR #111); residual ESLint / scripts raíz
-Q-E2E pendiente; Q-OBS Error Boundary (PR #111; desplegado)
+Q-E2E en curso (0/1 cerrados; auth staging y CI pendientes); Q-OBS Error Boundary (PR #111; desplegado)
 R-SHA: SPA `c519bb3` (2026-11-11); API `4520530` (2026-11-10)
 VIS-01 (no reabre UX-03)
 ```
@@ -1872,3 +1872,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-13 | **ACH-02A** auditoría platinos/secretos aprobada (`ach-02a-platinum-secrets-audit.md`); decisiones **D1-A / D2-No / D3-A / D4-Sí**. **ACH-02B** (local, sin commit): platino por colección de curvas alcanzables; temporales y `ruleReview` fuera; sin umbral 0,99 adicional; platinos `hidden: false`; sin revocación de filas existentes; doc `ach-02b-implementation.md`. |
 | 2026-11-14 | **ACH-02B** integrado y desplegado (PR #125, merge `97946dc`; producto `61ab9e7` + test PG `5effb03`). Validación PostgreSQL en `soma_ach02b_pg` (same-pass, concurrencia real, idempotencia). **SEO-02B2** publicado (PR #121). **PERF-01B–01E** cerrados (PR #122–#124). **ACH-02C** (entonces local): etiqueta «Colección completa» / «Complete collection»; propuesta SQL `hidden=false`. |
 | 2026-11-15 | **ACH-02 cerrado.** **ACH-02C** PR #126 merge `8e502e8` (producto `78ffe9e`) desplegado en producción según propietario. **ACH-02C-DB:** UPDATE transaccional en Supabase — cuatro platinos `hidden=true` → `hidden=false` (confirmado por el propietario); sin `UserAchievement`, sin seed wipe. **UX-11** / **UX-12** completados. Residual: validación LIVE de comprensión **UX-10**. Sin SHA Render inventado. |
+| 2026-11-15 | **Q-E2E-0** aprobado. **Q-E2E-1** implementación local (sin commit): Playwright Chromium en `@soma/web`, fail-closed loopback, smoke DEMO `/preview`→Recuperación→Explorar, docs `docs/review/e2e/q-e2e-1.md`. Hito global **Q-E2E** no cerrado (sin auth staging ni CI). |
+| 2026-11-15 | **Q-E2E-1 cerrado** (commit local): Playwright Chromium, `reuseExistingServer: false`, `serviceWorkers: block`, `context.route`, preview sin proxy Nest (`SOMA_E2E_PREVIEW`), smoke DEMO + guards. Hito global **Q-E2E** sigue abierto (Q-E2E-2+ / CI). |
