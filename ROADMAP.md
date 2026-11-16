@@ -47,7 +47,7 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **P
 
 | Orden | ID / trabajo | Prioridad | Notas |
 | --- | --- | --- | --- |
-| P1 | **SUP-02** | Alta | Prevención de recaídas (continúa SUP-01). **SUP-02A** aprobado; **SUP-02B** implementación + revisión editorial **completadas**; clínica pendiente; **publicación pendiente** (unpublished / fuera de allow-list; no bloquea SUP-02C). |
+| P1 | **SUP-02** | Alta | Prevención de recaídas (continúa SUP-01). **02A** aprobado; **02B** editorial hecha / clínica y publicación pendientes; **02C** implementación local **unpublished** (editorial/clínica/publicación pendientes). |
 | P2 | **GAM-XP** | Alta | Progresión sostenible **sin** depender de la Bitácora. Continuidad de **GAM-01** y residual **GAME-06** (techo misiones ≈ 14×12 XP). **No** reabre **R-JXP**. Sin segundo motor de XP. |
 | P3 | **GAM-02B** | Media | Misiones de bienestar y objetivos personales (residual de **GAM-02**; no reabre el catálogo educativo de 14 `reading_check`). |
 | P4 | **Q-E2E** | Media | Continuar desde **Q-E2E-2** (auth staging / CI). Hito global abierto. |
@@ -1375,21 +1375,23 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 #### SUP-02 — Prevención de recaídas
 
 - **Descripción:** Continúa el Centro de Apoyo (**SUP-01**) con contenido y herramientas educativas sobre prevención de recaídas y afrontamiento no punitivo. **No** es terapia, predicción clínica ni servicio de emergencias.
-- **Estado:** **En curso.** **SUP-02A** **aprobado**. **SUP-02B:** implementación y revisión **editorial completadas** (2026-11-16, v0.1.1); validación **clínica externa pendiente** (**no** bloquea SUP-02C); **publicación en producto pendiente** de autorización independiente (`unpublished`, fuera de allow-list). Hub `relapse` sigue «Prevista».
+- **Estado:** **En curso.** **SUP-02A** **aprobado**. **SUP-02B:** implementación + editorial **completadas**; clínica y publicación pendientes (`unpublished`). **SUP-02C:** desarrollo **cerrado** (v0.1.2); clínica externa y publicación **pendientes**; `SUPPORT_CRAVING_TOOL_ENABLED = false` (no bloquea 02D). Hub craving y relapse siguen «Prevista».
 - **Prioridad:** Alta (vía producto).
 - **Subhitos:**
   | ID | Alcance | Estado |
   | --- | --- | --- |
   | **SUP-02A** | Auditoría + propuesta de roadmap | **Aprobado** |
   | **SUP-02B** | Ficha educativa ES/EN `relapse.prevention` + referencias | **Implementación + editorial completadas**; clínica pendiente; **publicación pendiente** |
-  | **SUP-02C** | Herramienta interactiva de craving (sin persistencia prevista en el tramo) | No iniciado (no bloqueado por clínica externa de 02B) |
+  | **SUP-02C** | Herramienta interactiva de craving (sin persistencia; sin id en URL) | **Desarrollo cerrado** (impl. + editorial + visual v0.1.2); clínica pendiente; **publicación pendiente** |
   | **SUP-02D** | Acceso rápido a Apoyo (p. ej. enlace desde Inicio / anclas) | No iniciado |
   | **SUP-02E** | Acompañamiento después de una recaída (copy / checklist; sin castigo XP) | No iniciado |
   | **SUP-02F** | Plan personal de prevención | Sujeto a **autorización independiente** (privacidad / persistencia) |
-- **Evidencia SUP-02B:** `docs/review/support/sup-02b-relapse-prevention.md`, `sup-02b-references.md` (v0.1.1); runtime borrador `support-relapse-draft-content.ts` (+ tests). Allow-list y `SUPPORT_STRATEGY_BY_TOPIC.relapse` **sin** cambios.
+- **Evidencia SUP-02B:** `docs/review/support/sup-02b-relapse-prevention.md`, `sup-02b-references.md` (v0.1.1); runtime borrador `support-relapse-draft-content.ts` (+ tests). Allow-list relapse **sin** cambios.
+- **Evidencia SUP-02C:** `docs/review/support/sup-02c-craving-companion.md`, `sup-02c-references.md`, `sup-02c-screens/`; runtime `support-craving-tool.ts` + `CravingCompanionTool.tsx` (+ tests / E2E block / script QA local). Apertura por estado de `SupportPage`; `?tool=` legacy no abre. `SUPPORT_CRAVING_TOOL_ENABLED = false`.
 - **Dependencias:** SUP-01 (patrón editorial). **No** Bitácora obligatoria. **No** API/XP. GAM-XP / GAM-02B no bloquean SUP-02B.
 - **Principios:** no culpabilizar; no predecir; no garantizar; no desintoxicación; no inventar emergencias; editorial ≠ clínica.
 - **Criterio (SUP-02B):** ficha revisable ES/EN con referencias verificables; queries `?strategy=relapse*` siguen sin abrir contenido hasta autorización de publicación.
+- **Criterio (SUP-02C):** acompañamiento in-memory ES/EN sin id en URL; gate `false` hasta autorización de publicación; clínica externa independiente.
 
 #### GAM-XP — Progresión sostenible sin Bitácora
 
@@ -1683,7 +1685,7 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). **Q-E2E:** Q-E2E-0 / Q-E2E-1 cerrados; continuar **Q-E2E-2+** (Media; no bloquea SUP-02).
 1. **MKT-PR-01D** + **BETA-01D.3:** bloqueos externos (prensa / jurídica).
-2. **SUP-02** (Alta): 02A aprobado; 02B implementación + editorial **completadas**; clínica pendiente (no bloquea 02C); **publicación pendiente** (unpublished); 02C–F no iniciados.
+2. **SUP-02** (Alta): 02A aprobado; 02B editorial hecha / clínica+publicación pendientes; 02C implementación local unpublished (editorial/clínica/publicación pendientes); 02D–F no iniciados.
 3. **GAM-XP** (Alta) → **GAM-02B** (Media): sostenibilidad XP sin Bitácora; luego bienestar/objetivos.
 4. **WEB-02** (Media); **MKT-02** (Alta, paralelo). **INST-01** / **MOB-01** / locales / GAME-07 mapa: aplazados.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
@@ -1935,4 +1937,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-15 | **Q-E2E-0** aprobado. **Q-E2E-1** implementación local (sin commit): Playwright Chromium en `@soma/web`, fail-closed loopback, smoke DEMO `/preview`→Recuperación→Explorar, docs `docs/review/e2e/q-e2e-1.md`. Hito global **Q-E2E** no cerrado (sin auth staging ni CI). |
 | 2026-11-15 | **Q-E2E-1 cerrado** (commit local): Playwright Chromium, `reuseExistingServer: false`, `serviceWorkers: block`, `context.route`, preview sin proxy Nest (`SOMA_E2E_PREVIEW`), smoke DEMO + guards. Hito global **Q-E2E** sigue abierto (Q-E2E-2+ / CI). |
 | 2026-11-15 | **SUP-02A** aprobado. Roadmap reconciliado: **SUP-02** / **GAM-XP** / **GAM-02B** / **Q-E2E** / **WEB-02** / **MKT-02**; **INST-01** aplazado. **SUP-02B** borrador ES/EN unpublished (`relapse.prevention` fuera de allow-list; docs `sup-02b-*.md`). Sin commit en este registro. |
-| 2026-11-16 | **SUP-02B** implementación + revisión editorial **completadas** (commit local autorizado; **sin** publicación): ficha ES/EN v0.1.1 unpublished (`support-relapse-draft-content.ts` + tests; docs `sup-02b-*.md`); correcciones de seguridad (opción post-consumo / tolerancia-opioides; refs WHO/CDC + TIP 65 HTML). Clínica externa **pendiente** (no bloquea SUP-02C). Publicación en producto **pendiente** de autorización independiente; allow-list intacta. SUP-02C no iniciado. |
+| 2026-11-16 | **SUP-02B** implementación + revisión editorial **completadas** (commit local autorizado; **sin** publicación): ficha ES/EN v0.1.1 unpublished (`support-relapse-draft-content.ts` + tests; docs `sup-02b-*.md`); correcciones de seguridad (opción post-consumo / tolerancia-opioides; refs WHO/CDC + TIP 65 HTML). Clínica externa **pendiente** (no bloquea SUP-02C). Publicación en producto **pendiente** de autorización independiente; allow-list intacta. |
+| 2026-11-16 | **SUP-02C** desarrollo **cerrado** (commit local autorizado; **sin** publicación): acompañamiento 5 pasos + Somi + ola SVG; v0.1.1 editorial/privacidad; **v0.1.2** refinamiento visual; gate `false`; docs `sup-02c-*.md` + capturas; E2E de bloqueo. Clínica externa y publicación **pendientes**. SUP-02B intacto. SUP-02D–F no iniciados. |

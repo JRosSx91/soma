@@ -308,22 +308,27 @@ test("support copy has ES/EN parity and is registered", () => {
 });
 
 test("no fake actions, phone numbers or efficacy claims", async () => {
+  // SupportSections may declare a gated craving <button>; it must not invent tel: or storage.
   for (const source of [page, sections]) {
-    assert.equal(source.includes("<button"), false);
-    assert.equal(source.includes("onClick"), false);
     assert.equal(source.includes("tel:"), false);
     assert.equal(source.includes("localStorage"), false);
     assert.equal(source.includes("sessionStorage"), false);
     assert.equal(source.includes("fetch("), false);
   }
+  assert.equal(page.includes("<button"), false);
   assert.match(page, /resolveSupportStrategyQueryParam/);
   assert.match(page, /SupportStrategySheet/);
+  assert.match(page, /cravingOpen/);
+  assert.match(sections, /isSupportCravingToolEnabled/);
   for (const lng of ["es", "en"] as const) {
     const markup = await render("/app", lng);
     const breathing = blockFor(markup, "data-tool", "breathing");
-    // Breathing start + coverage chooser (Spain / Other) + guide reset. No tel: until coverage is chosen.
+    const craving = blockFor(markup, "data-tool", "craving");
+    // Breathing start + coverage chooser (Spain / Other) + guide reset. Craving stays planned (no button).
     assert.equal((markup.match(/<button/g) ?? []).length, 4);
     assert.equal((breathing.match(/<button/g) ?? []).length, 1);
+    assert.equal(craving.includes("<button"), false);
+    assert.match(craving, /data-tool-state="planned"/);
     assert.match(markup, /data-support-guide-reset/);
     assert.match(markup, /data-help-coverage="spain"/);
     assert.match(markup, /data-help-coverage="other"/);

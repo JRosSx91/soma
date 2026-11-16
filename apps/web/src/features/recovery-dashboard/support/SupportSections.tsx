@@ -27,6 +27,7 @@ import {
   supportResourceGroups,
   type SupportStrategyTopic,
 } from "./support-links.js";
+import { isSupportCravingToolEnabled } from "./support-craving-tool.js";
 import { supportStrategyHrefForTopic } from "./support-strategies.js";
 import { supportResourceIllustrations, supportToolIllustrations } from "./support-visuals.js";
 
@@ -43,11 +44,17 @@ const strategyIcons: Record<SupportStrategyTopic, LucideIcon> = {
   habits: Sprout,
 };
 
+interface SupportSectionsProps {
+  /** Opens the craving companion in SupportPage memory (no URL id). */
+  onOpenCraving?: () => void;
+}
+
 /** Content below the hero, laid out after `apoyo-2.0`. Card art is SUP-ASSET-01; only breathing is interactive. */
-export function SupportSections() {
+export function SupportSections({ onOpenCraving }: SupportSectionsProps = {}) {
   const { t } = useTranslation(["support", "explore-edu"]);
   const base = useShellBase();
   const resourceGroups = supportResourceGroups(base);
+  const cravingAvailable = Boolean(onOpenCraving) && isSupportCravingToolEnabled();
 
   return (
     <>
@@ -60,10 +67,38 @@ export function SupportSections() {
         <ul className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {SUPPORT_TOOLS.map((tool) => {
             if (tool === SUPPORT_AVAILABLE_TOOL) return <BreathingTool key={tool} />;
+            if (tool === "craving" && cravingAvailable && onOpenCraving) {
+              return (
+                <li key={tool} data-tool={tool} data-tool-state="available" className="min-w-0">
+                  <button
+                    type="button"
+                    onClick={onOpenCraving}
+                    className={`${previewFocus} flex h-full min-w-0 w-full items-start gap-3 overflow-hidden rounded-2xl border border-soma-line bg-soma-surface/90 p-3 text-left motion-safe:transition-colors motion-reduce:transition-none hover:bg-soma-raised/40 sm:flex-col sm:items-stretch sm:p-0`}
+                  >
+                    <div className="relative aspect-[3/2] w-28 shrink-0 overflow-hidden rounded-xl sm:aspect-[8/5] sm:w-full sm:rounded-none sm:border-b sm:border-soma-line">
+                      <SupportIllustration name={supportToolIllustrations[tool]} loading="eager" />
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pb-4">
+                      <h3 className="text-base font-semibold leading-snug text-soma-ink">
+                        {t(`support:tools.${tool}.title`)}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-soma-ink-secondary">
+                        {t(`support:tools.${tool}.body`)}
+                      </p>
+                      <p className="mt-auto pt-3 text-sm font-medium text-soma-action">
+                        {t("support:tools.craving.open")}
+                        <ChevronRight className="ml-1 inline h-4 w-4" aria-hidden="true" />
+                      </p>
+                    </div>
+                  </button>
+                </li>
+              );
+            }
             return (
               <li
                 key={tool}
                 data-tool={tool}
+                data-tool-state="planned"
                 className="flex min-w-0 items-start gap-3 overflow-hidden rounded-2xl border border-soma-line bg-soma-surface/90 p-3 sm:flex-col sm:items-stretch sm:p-0"
               >
                 <div className="relative aspect-[3/2] w-28 shrink-0 overflow-hidden rounded-xl sm:aspect-[8/5] sm:w-full sm:rounded-none sm:border-b sm:border-soma-line">
