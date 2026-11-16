@@ -170,7 +170,7 @@ test("SUP-ASSET-01 maps each card to its illustration and keeps PNG masters with
     mindfulness: "support-mindfulness",
     movement: "support-activity",
     craving: "support-craving",
-    afterUse: "support-mindfulness",
+    afterUse: "support-after-use",
   });
   assert.deepEqual(supportResourceIllustrations, {
     processes: "support-learning",
@@ -183,8 +183,8 @@ test("SUP-ASSET-01 maps each card to its illustration and keeps PNG masters with
     ...Object.values(supportToolIllustrations),
     ...Object.values(supportResourceIllustrations),
   ];
-  // afterUse reuses support-mindfulness; uniqueness is by asset name, not tool id.
-  assert.equal(new Set(names).size, 7);
+  assert.equal(new Set(names).size, 8);
+  assert.notEqual(supportToolIllustrations.afterUse, supportToolIllustrations.mindfulness);
   const uniqueNames = [...new Set(names)];
   const dir = join(publicDir, "images/support");
   for (const name of uniqueNames) {

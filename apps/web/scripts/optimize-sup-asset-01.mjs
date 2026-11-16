@@ -28,6 +28,7 @@ const illustrations = [
   "support-mindfulness",
   "support-activity",
   "support-craving",
+  "support-after-use",
   "support-learning",
   "support-reading",
   "support-audio",
