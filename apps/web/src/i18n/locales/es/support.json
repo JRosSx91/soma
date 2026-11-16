@@ -33,8 +33,14 @@
       "body": "Propuestas de movimiento suave para el día a día."
     },
     "craving": {
-      "title": "Manejo del craving",
-      "body": "Recursos para atravesar las ganas de consumir."
+      "title": "Afrontar el impulso de consumir",
+      "body": "Una pausa guiada y voluntaria para momentos de deseo intenso o impulso de consumir.",
+      "open": "Abrir acompañamiento"
+    },
+    "afterUse": {
+      "title": "Después de volver a consumir",
+      "body": "Una pausa voluntaria y sin juicio si quieres acompañamiento tras actualizar tu perfil o tras volver a consumir.",
+      "open": "Abrir acompañamiento"
     }
   },
   "learn": {

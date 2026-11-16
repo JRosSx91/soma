@@ -2,12 +2,18 @@ import type { ShellBase } from "../shell-base.js";
 import type { SupportStrategyTopic } from "./support-links.js";
 
 /**
- * Support strategy catalog (SUP-01D-B2).
+ * Support strategy catalog (SUP-01D-B2 + SUP-02B draft gate).
  *
  * Editorial Markdown in `docs/review/support/` remains the review register.
- * Runtime copy lives in `support-strategy-content.ts` and must stay aligned
- * with those sheets. Only IDs listed in `SUPPORT_ENABLED_STRATEGY_IDS` resolve
- * from `?strategy=`; unknown or blocked values never open content.
+ * Runtime copy for **published** sheets lives in `support-strategy-content.ts`
+ * and must stay aligned with those sheets. Only IDs listed in
+ * `SUPPORT_ENABLED_STRATEGY_IDS` resolve from `?strategy=`; unknown or blocked
+ * values never open content.
+ *
+ * SUP-02B relapse prevention (`relapse.prevention`) is on the allow-list for
+ * the joint SUP-02 release. Content lives in `support-relapse-draft-content.ts`
+ * and is re-exported via `support-strategy-content.ts`. Production deploy still
+ * needs express authorization.
  */
 export const SUPPORT_STRATEGY_QUERY_KEY = "strategy";
 
@@ -16,19 +22,21 @@ export const SUPPORT_STRATEGY_IDS = [
   "stress.pause",
   "habits.small-routines",
   "emotions.naming",
+  "relapse.prevention",
 ] as const;
 export type SupportStrategyId = (typeof SUPPORT_STRATEGY_IDS)[number];
 
-/** Explicit allow-list. Relapse and any draft clinical tips stay out. */
+/** Explicit allow-list of published strategy sheets. */
 export const SUPPORT_ENABLED_STRATEGY_IDS = [
   "stress.pause",
   "habits.small-routines",
   "emotions.naming",
+  "relapse.prevention",
 ] as const satisfies readonly SupportStrategyId[];
 
 export type SupportEnabledStrategyId = (typeof SUPPORT_ENABLED_STRATEGY_IDS)[number];
 
-export const SUPPORT_STRATEGY_CONTENT_VERSION = "0.1.0" as const;
+export const SUPPORT_STRATEGY_CONTENT_VERSION = "0.2.0" as const;
 
 export const SUPPORT_BREATHING_ANCHOR_ID = "support-breathing";
 
@@ -37,7 +45,7 @@ export const SUPPORT_STRATEGY_BY_TOPIC = {
   stress: "stress.pause",
   habits: "habits.small-routines",
   emotions: "emotions.naming",
-  relapse: null,
+  relapse: "relapse.prevention",
 } as const satisfies Record<SupportStrategyTopic, SupportStrategyId | null>;
 
 const enabledSet = new Set<string>(SUPPORT_ENABLED_STRATEGY_IDS);

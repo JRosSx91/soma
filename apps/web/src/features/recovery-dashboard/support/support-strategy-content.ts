@@ -1,4 +1,5 @@
 import { SUPPORT_TERMS_EMERGENCY_HREF } from "./support-links.js";
+import { relapsePreventionDraftContent } from "./support-relapse-draft-content.js";
 import type { SupportStrategyId } from "./support-strategies.js";
 
 /**
@@ -487,6 +488,10 @@ export const supportStrategyContent = {
         refSo01.en,
       ],
     },
+  },
+  "relapse.prevention": {
+    es: relapsePreventionDraftContent.es,
+    en: relapsePreventionDraftContent.en,
   },
 } as const satisfies SupportStrategyContentMap;
 

@@ -80,4 +80,4 @@ Complementa las tres fichas. Las citas aquí deben poder comprobarse; si no, se 
 ## 5. Prevención de recaídas (solo registro)
 
 Categoría `relapse`: **sin ficha en B1.**
-Cualquier contenido futuro exigirá alcance, evidencia y seguridad propios (probable nivel **C** si incluye afrontamiento de lapsos o craving intenso). No se proponen protocolos aquí.
+**SUP-02B (2026-11-16):** revisión editorial realizada; validación clínica pendiente; borrador **unpublished** (`sup-02b-relapse-prevention.md`, `sup-02b-references.md`, `support-relapse-draft-content.ts` v0.1.1). Allow-list sin cambios; publicación pendiente de autorización independiente (no bloquea SUP-02C).

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Award, ChevronLeft, ChevronRight, Mountain, Route } from "lucide-react";
+import { Award, ChevronLeft, ChevronRight, HeartHandshake, Mountain, Route } from "lucide-react";
 import { HomeProgressIdentity, useProgress } from "../../progress/index.js";
 import type { TemporalMilestoneState } from "@soma/shared-types";
 import { useAuth } from "../../auth/index.js";
@@ -92,6 +92,7 @@ export function PreviewHome() {
   const anatomyTo = `${base}/anatomy`;
   const achievementsTo = `${base}/achievements`;
   const expeditionTo = `${base}/expedition`;
+  const supportTo = `${base}/support`;
   const dailyPool = readDailyMessages(t("recovery:homeDailyMessages", { returnObjects: true }));
   const dailyMessage = pickDailyMessage(dailyPool);
   const horizonMessage = pickDailyMessage(dailyPool, new Date(), 1);
@@ -149,6 +150,7 @@ export function PreviewHome() {
             {t("recovery:retry")}
           </button>
         </div>
+        <SupportAccessCard supportTo={supportTo} />
       </div>
     );
   }
@@ -179,6 +181,7 @@ export function PreviewHome() {
             </Link>
           </>
         )}
+        <SupportAccessCard supportTo={supportTo} />
       </div>
     );
   }
@@ -193,6 +196,7 @@ export function PreviewHome() {
           unlockedCount={unlockedCount}
           progression={progression}
         />
+        <SupportAccessCard supportTo={supportTo} />
       </div>
     );
   }
@@ -217,6 +221,8 @@ export function PreviewHome() {
         recoveryTo={recoveryTo}
         basePath={base}
       />
+
+      <SupportAccessCard supportTo={supportTo} />
 
       <div
         className="relative z-10 grid min-w-0 items-stretch gap-3 lg:grid-cols-3"
@@ -763,6 +769,39 @@ function AdviceCard({ anatomyTo }: { anatomyTo: string }) {
         <ChevronRight className="h-4 w-4" aria-hidden="true" />
       </Link>
     </SectionFrame>
+  );
+}
+
+/** SUP-02D — compact hub entry; cyan/teal, never alarm rose. Hub only (no unpublished tools). */
+function SupportAccessCard({ supportTo }: { supportTo: string }) {
+  const { t } = useTranslation("recovery");
+  return (
+    <Link
+      to={supportTo}
+      data-home-support
+      className={`${previewFocus} relative z-10 flex min-w-0 flex-col gap-3 rounded-2xl border border-cyan-400/30 bg-gradient-to-r from-cyan-400/12 via-soma-surface/85 to-teal-400/12 px-4 py-3.5 hover:border-cyan-300/45 hover:from-cyan-400/16 hover:to-teal-400/16 sm:flex-row sm:items-center sm:gap-4 sm:px-5`}
+    >
+      <span className="flex min-w-0 flex-1 items-start gap-3 sm:items-center">
+        <span
+          aria-hidden="true"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-cyan-300/35 bg-cyan-400/10 text-cyan-200"
+        >
+          <HeartHandshake className="h-5 w-5" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-sm font-semibold leading-snug text-soma-ink">
+            {t("homeSupportTitle")}
+          </span>
+          <span className="mt-0.5 block text-xs leading-relaxed text-soma-ink-secondary">
+            {t("homeSupportBody")}
+          </span>
+        </span>
+      </span>
+      <span className="inline-flex min-h-10 w-full shrink-0 items-center justify-center gap-1 self-stretch rounded-xl border border-cyan-300/35 bg-cyan-400/10 px-3 text-sm font-medium text-soma-action sm:w-auto sm:justify-start sm:border-0 sm:bg-transparent sm:px-0">
+        {t("homeSupportCta")}
+        <ChevronRight className="h-4 w-4" aria-hidden="true" />
+      </span>
+    </Link>
   );
 }
 

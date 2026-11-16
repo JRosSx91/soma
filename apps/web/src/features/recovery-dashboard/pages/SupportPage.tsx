@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
+import { AfterUseCompanionTool } from "../support/AfterUseCompanionTool.js";
+import { CravingCompanionTool } from "../support/CravingCompanionTool.js";
 import { SupportSections } from "../support/SupportSections.js";
 import { SupportStrategySheet } from "../support/SupportStrategySheet.js";
 import {
@@ -10,6 +12,15 @@ import {
   SUPPORT_HELP_PANEL_HASH,
   SUPPORT_STRATEGIES_PANEL_HASH,
 } from "../support/support-guide.js";
+import {
+  consumeAfterUseCompanionOpenRequest,
+  isSupportAfterUseToolEnabled,
+} from "../support/support-after-use-tool.js";
+import {
+  SUPPORT_TOOL_QUERY_KEY,
+  isSupportCravingToolEnabled,
+  writeSupportToolSearchParams,
+} from "../support/support-craving-tool.js";
 import {
   SUPPORT_BREATHING_ANCHOR_ID,
   SUPPORT_STRATEGY_QUERY_KEY,
@@ -33,15 +44,21 @@ const SUPPORT_HASH_SCROLL_IDS = new Set<string>([
 ]);
 
 export function SupportPage() {
-  const { t } = useTranslation("support");
+  const { t, i18n } = useTranslation("support");
   const base = useShellBase();
   const demo = base === "/preview";
   const { hash } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const strategyParam = searchParams.get(SUPPORT_STRATEGY_QUERY_KEY);
   const strategyId = resolveSupportStrategyQueryParam(strategyParam);
+  const toolParam = searchParams.get(SUPPORT_TOOL_QUERY_KEY);
+  /** In-memory only; never mirrored to the URL. */
+  const [cravingOpen, setCravingOpen] = useState(false);
+  const [afterUseOpen, setAfterUseOpen] = useState(false);
+  const cravingActive = cravingOpen && isSupportCravingToolEnabled();
+  const afterUseActive = afterUseOpen && isSupportAfterUseToolEnabled();
 
-  // Unknown or blocked IDs never open content; strip the param without stacking history.
+  // Unknown or blocked strategy IDs never open content; strip without stacking history.
   useEffect(() => {
     if (!strategyParam || strategyId) return;
     setSearchParams((current) => writeSupportStrategySearchParams(current, null), {
@@ -49,9 +66,32 @@ export function SupportPage() {
     });
   }, [strategyParam, strategyId, setSearchParams]);
 
+  // Legacy `?tool=` never opens companions; always strip it from the URL.
+  useEffect(() => {
+    if (!toolParam) return;
+    setSearchParams((current) => writeSupportToolSearchParams(current), { replace: true });
+  }, [toolParam, setSearchParams]);
+
+  // One-shot invite hand-off (module memory). Always consume/discard the flag so
+  // it cannot leak into a later visit when the gate is off.
+  useEffect(() => {
+    const requested = consumeAfterUseCompanionOpenRequest();
+    if (!requested || !isSupportAfterUseToolEnabled()) return;
+    setAfterUseOpen(true);
+    setCravingOpen(false);
+  }, []);
+
+  // Strategy sheet and companions are mutually exclusive surfaces.
+  useEffect(() => {
+    if (strategyId) {
+      setCravingOpen(false);
+      setAfterUseOpen(false);
+    }
+  }, [strategyId]);
+
   // Deep-links from strategies / the support guide: scroll allow-listed hashes; focus breathing only.
   useEffect(() => {
-    if (strategyId) return;
+    if (strategyId || cravingActive || afterUseActive) return;
     if (!hash.startsWith("#") || hash.length < 2) return;
     let id = hash.slice(1);
     try {
@@ -66,7 +106,49 @@ export function SupportPage() {
     if (id === SUPPORT_BREATHING_ANCHOR_ID) {
       target.focus({ preventScroll: true });
     }
-  }, [hash, strategyId]);
+  }, [hash, strategyId, cravingActive, afterUseActive]);
+
+  let body = (
+    <SupportSections
+      onOpenCraving={
+        isSupportCravingToolEnabled()
+          ? () => {
+              setAfterUseOpen(false);
+              setCravingOpen(true);
+            }
+          : undefined
+      }
+      onOpenAfterUse={
+        isSupportAfterUseToolEnabled()
+          ? () => {
+              setCravingOpen(false);
+              setAfterUseOpen(true);
+            }
+          : undefined
+      }
+    />
+  );
+  if (afterUseActive) {
+    body = (
+      <AfterUseCompanionTool
+        language={i18n.language}
+        onExitToHub={() => {
+          setAfterUseOpen(false);
+        }}
+      />
+    );
+  } else if (cravingActive) {
+    body = (
+      <CravingCompanionTool
+        language={i18n.language}
+        onExitToHub={() => {
+          setCravingOpen(false);
+        }}
+      />
+    );
+  } else if (strategyId) {
+    body = <SupportStrategySheet strategyId={strategyId} />;
+  }
 
   return (
     <div className="flex min-w-0 flex-col gap-6 pb-8">
@@ -81,7 +163,7 @@ export function SupportPage() {
         overlay={SUPPORT_HERO_OVERLAY}
         fetchPriority="high"
       />
-      {strategyId ? <SupportStrategySheet strategyId={strategyId} /> : <SupportSections />}
+      {body}
     </div>
   );
 }

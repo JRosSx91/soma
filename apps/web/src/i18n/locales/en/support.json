@@ -33,8 +33,14 @@
       "body": "Gentle movement ideas for everyday life."
     },
     "craving": {
-      "title": "Managing cravings",
-      "body": "Resources for riding out the urge to use."
+      "title": "Coping with cravings",
+      "body": "A guided, voluntary pause for moments of strong urge or craving to use.",
+      "open": "Open accompaniment"
+    },
+    "afterUse": {
+      "title": "After returning to use",
+      "body": "A voluntary, non-judgmental pause if you want support after updating your profile or after returning to use.",
+      "open": "Open accompaniment"
     }
   },
   "learn": {

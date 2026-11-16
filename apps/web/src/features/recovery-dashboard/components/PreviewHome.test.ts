@@ -16,6 +16,7 @@ test("home 2.0 answers where I am, what I earned, and what comes next", () => {
   assert.match(home, /homeActivityTitle/);
   assert.match(home, /homeAdviceTitle/);
   assert.match(home, /HorizonCard/);
+  assert.match(home, /SupportAccessCard/);
   assert.match(home, /pickNextLockedAchievement/);
   assert.match(home, /pickRecentUnlockedAchievements\(achievements\.rows, 4\)/);
   assert.equal(home.includes("quantifiableAchievementProgress"), false);
@@ -109,6 +110,9 @@ test("home 2.0 copy exists in spanish and english", () => {
     "homeActivityEmptyDemo",
     "homeAdviceTitle",
     "homeAdviceEyebrow",
+    "homeSupportTitle",
+    "homeSupportBody",
+    "homeSupportCta",
     "homeHorizonCaption",
     "homeRecoveryTitle",
     "homeRecoveryScroller",

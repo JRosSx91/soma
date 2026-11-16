@@ -41,6 +41,12 @@ import {
   authTitleClass,
 } from "../features/auth/components/AuthShell.js";
 import { previewFocus } from "../features/recovery-dashboard/focus.js";
+import { shouldOfferAfterUseSupport } from "../features/recovery-dashboard/support/after-use-offer.js";
+import { getSupportAfterUseContent } from "../features/recovery-dashboard/support/support-after-use-content.js";
+import {
+  isSupportAfterUseInviteEnabled,
+  requestAfterUseCompanionOpen,
+} from "../features/recovery-dashboard/support/support-after-use-tool.js";
 
 type UsageMode = "abstinent" | "active";
 
@@ -77,8 +83,11 @@ function toDateInputValue(isoDate: string): string {
 }
 
 export function OnboardingPage() {
-  const { t } = useTranslation(["onboarding", "substances", "common"]);
+  const { t, i18n } = useTranslation(["onboarding", "substances", "common"]);
   const navigate = useNavigate();
+  const afterUseInviteCopy = getSupportAfterUseContent(
+    i18n.language?.toLowerCase().startsWith("es") ? "es" : "en",
+  );
   const {
     data: substances,
     loading: loadingSubstances,
@@ -106,6 +115,8 @@ export function OnboardingPage() {
   const [skipping, setSkipping] = useState(false);
   const [awaitingStatusRetry, setAwaitingStatusRetry] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
+  /** Soft SUP-02E invite after a successful LIVE save (gate + heuristic). */
+  const [afterUseInvite, setAfterUseInvite] = useState(false);
   const [formState, setFormState] = useState<
     Record<string, SubstanceFormState>
   >({});
@@ -245,6 +256,28 @@ export function OnboardingPage() {
       setConfirmClear(false);
       confirmedClearFingerprint.current = null;
       confirmedClearUsages.current = null;
+
+      // Invite only when editing an existing tracking profile (never first-time
+      // onboarding). Heuristic still does not classify a relapse.
+      const previous = (profile?.usages ?? []).map((usage) => ({
+        substanceId: usage.substanceId,
+        status: usage.status,
+        lastUseDate: usage.lastUseDate,
+      }));
+      const editingExistingTracking =
+        profile?.onboardingStatus === "completed" ||
+        profile?.onboardingStatus === "skipped" ||
+        previous.length > 0;
+      const offerInvite =
+        isSupportAfterUseInviteEnabled() &&
+        editingExistingTracking &&
+        shouldOfferAfterUseSupport(previous, usages);
+
+      if (offerInvite) {
+        setAfterUseInvite(true);
+        return;
+      }
+
       navigate("/app", { replace: true });
     } catch {
       // Keep draft; do not invent completed.
@@ -767,6 +800,54 @@ export function OnboardingPage() {
           <p className="text-xs text-soma-ink-muted">{t("skipHint")}</p>
         </div>
       </div>
+
+      {afterUseInvite ? (
+        <div
+          data-after-use-invite
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="after-use-invite-title"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/55 p-4 sm:items-center"
+        >
+          <div className="w-full max-w-md rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-xl">
+            <p
+              id="after-use-invite-title"
+              className="text-base font-semibold text-soma-ink"
+            >
+              {afterUseInviteCopy.invitePrompt}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-soma-ink-secondary">
+              {afterUseInviteCopy.inviteNote}
+            </p>
+            <div className="mt-5 flex flex-col gap-2 sm:flex-row-reverse">
+              <button
+                type="button"
+                data-after-use-invite-accept
+                className={`${authPrimaryButtonClass} sm:flex-1`}
+                onClick={() => {
+                  setAfterUseInvite(false);
+                  // Generic /app/support URL; companion open via module memory only.
+                  requestAfterUseCompanionOpen();
+                  navigate("/app/support", { replace: true });
+                }}
+              >
+                {afterUseInviteCopy.inviteAccept}
+              </button>
+              <button
+                type="button"
+                data-after-use-invite-dismiss
+                className={`${authSecondaryButtonClass} sm:flex-1`}
+                onClick={() => {
+                  setAfterUseInvite(false);
+                  navigate("/app", { replace: true });
+                }}
+              >
+                {afterUseInviteCopy.inviteDismiss}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </OnboardingShell>
   );
 }

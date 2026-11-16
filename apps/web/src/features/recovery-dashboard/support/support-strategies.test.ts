@@ -69,17 +69,21 @@ async function renderSheet(base: ShellBase, id: SupportEnabledStrategyId, lng: "
   );
 }
 
-test("only the three approved strategy sheets are enabled", () => {
+test("four approved strategy sheets are enabled including relapse prevention", () => {
   assert.deepEqual([...SUPPORT_STRATEGY_IDS], [
     "stress.pause",
     "habits.small-routines",
     "emotions.naming",
+    "relapse.prevention",
   ]);
   assert.deepEqual([...SUPPORT_ENABLED_STRATEGY_IDS], [...SUPPORT_STRATEGY_IDS]);
-  assert.equal(SUPPORT_STRATEGY_CONTENT_VERSION, "0.1.0");
-  assert.equal(SUPPORT_STRATEGY_BY_TOPIC.relapse, null);
+  assert.equal(SUPPORT_STRATEGY_CONTENT_VERSION, "0.2.0");
+  assert.equal(SUPPORT_STRATEGY_BY_TOPIC.relapse, "relapse.prevention");
   assert.equal(supportStrategyHref("/app", "stress.pause"), "/app/support?strategy=stress.pause");
-  assert.equal(supportStrategyHrefForTopic("/preview", "relapse"), null);
+  assert.equal(
+    supportStrategyHrefForTopic("/preview", "relapse"),
+    "/preview/support?strategy=relapse.prevention",
+  );
   assert.equal(
     supportStrategyHrefForTopic("/preview", "emotions"),
     "/preview/support?strategy=emotions.naming",
@@ -91,12 +95,13 @@ test("unknown or blocked strategy query values never resolve", () => {
   assert.equal(resolveSupportStrategyQueryParam(null), null);
   assert.equal(resolveSupportStrategyQueryParam(""), null);
   assert.equal(resolveSupportStrategyQueryParam("relapse"), null);
-  assert.equal(resolveSupportStrategyQueryParam("relapse.prevention"), null);
+  assert.equal(resolveSupportStrategyQueryParam("relapse.prevention"), "relapse.prevention");
   assert.equal(resolveSupportStrategyQueryParam("consejos.draft"), null);
   assert.equal(resolveSupportStrategyQueryParam("../secrets"), null);
   assert.equal(resolveSupportStrategyQueryParam("stress.pause"), "stress.pause");
   assert.equal(isEnabledSupportStrategyId("emotions.naming"), true);
   assert.equal(isEnabledSupportStrategyId("relapse"), false);
+  assert.equal(isEnabledSupportStrategyId("relapse.prevention"), true);
 
   const cleaned = writeSupportStrategySearchParams(
     new URLSearchParams("strategy=relapse&x=1"),
@@ -166,12 +171,12 @@ test("strategy sheets open with shareable content in DEMO and LIVE, ES and EN", 
   }
 });
 
-test("relapse stays planned and unauthorized content never appears", async () => {
+test("relapse prevention is available; bare relapse query still never resolves", async () => {
   for (const base of ["/app", "/preview"] as const) {
     const hub = await renderHub(base, "es");
     assert.match(hub, /data-strategy="relapse"/);
-    assert.match(hub, /data-strategy-state="planned"/);
-    assert.equal(hub.includes("strategy=relapse"), false);
+    assert.match(hub, /data-strategy-state="available"/);
+    assert.ok(hub.includes(`strategy=relapse.prevention`));
     assert.doesNotMatch(hub, /data-strategy-sheet=/);
   }
   assert.equal(resolveSupportStrategyQueryParam("relapse"), null);
@@ -210,17 +215,16 @@ test("back link and breathing deep-link clear strategy query and preserve the sh
 
 test("enabled strategy rows are links; no clinical tip drafts are wired", async () => {
   const markup = await renderHub("/preview", "en");
-  for (const topic of ["emotions", "stress", "habits"] as const) {
+  for (const topic of ["emotions", "stress", "habits", "relapse"] as const) {
     assert.match(markup, new RegExp(`data-strategy="${topic}"`));
     assert.match(markup, /data-strategy-state="available"/);
     const href = supportStrategyHrefForTopic("/preview", topic);
     assert.ok(href);
     assert.ok(markup.includes(`href="${href}"`));
   }
-  assert.match(markup, /data-strategy="relapse"/);
-  assert.match(markup, /data-strategy-state="planned"/);
   assert.doesNotMatch(markup, /consejos|clinical tip|borrador clínico/i);
 
   const contentSource = readFileSync(new URL("./support-strategy-content.ts", import.meta.url), "utf8");
-  assert.doesNotMatch(contentSource, /"relapse\.|"relapse"/);
+  assert.match(contentSource, /"relapse\.prevention"/);
+  assert.doesNotMatch(contentSource, /consejos\.draft|clinical tip draft/i);
 });
