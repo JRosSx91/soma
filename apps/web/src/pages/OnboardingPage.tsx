@@ -44,7 +44,7 @@ import { previewFocus } from "../features/recovery-dashboard/focus.js";
 import { shouldOfferAfterUseSupport } from "../features/recovery-dashboard/support/after-use-offer.js";
 import { getSupportAfterUseContent } from "../features/recovery-dashboard/support/support-after-use-content.js";
 import {
-  isSupportAfterUseToolEnabled,
+  isSupportAfterUseInviteEnabled,
   requestAfterUseCompanionOpen,
 } from "../features/recovery-dashboard/support/support-after-use-tool.js";
 
@@ -269,7 +269,7 @@ export function OnboardingPage() {
         profile?.onboardingStatus === "skipped" ||
         previous.length > 0;
       const offerInvite =
-        isSupportAfterUseToolEnabled() &&
+        isSupportAfterUseInviteEnabled() &&
         editingExistingTracking &&
         shouldOfferAfterUseSupport(previous, usages);
 

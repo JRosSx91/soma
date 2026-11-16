@@ -25,11 +25,12 @@ async function installRequestGuard(context: BrowserContext): Promise<string[]> {
 }
 
 /**
- * SUP-02E publication + privacy gate:
- * - afterUse stays planned while unpublished
+ * SUP-02E enablement + privacy:
+ * - afterUse card is available from the hub
+ * - full step path keeps emergency access
  * - legacy `?tool=after.use.companion` never opens the companion
  */
-test.describe("Support after-use publication block", () => {
+test.describe("Support after-use companion release", () => {
   let blocked: string[] = [];
 
   test.beforeEach(async ({ context, page }) => {
@@ -39,7 +40,7 @@ test.describe("Support after-use publication block", () => {
     }, INTERFACE_LANGUAGE_STORAGE_KEY);
   });
 
-  test("after-use card stays planned and legacy tool query never opens the companion", async ({
+  test("after-use opens from hub, walks steps, and legacy tool query never opens", async ({
     page,
   }) => {
     await page.goto("/preview/support");
@@ -47,8 +48,32 @@ test.describe("Support after-use publication block", () => {
 
     const afterUseCard = page.locator('[data-tool="afterUse"]');
     await expect(afterUseCard).toBeVisible();
-    await expect(afterUseCard).toHaveAttribute("data-tool-state", "planned");
-    await expect(afterUseCard.getByText("Prevista")).toBeVisible();
+    await expect(afterUseCard).toHaveAttribute("data-tool-state", "available");
+    await expect(afterUseCard.getByText("Después de volver a consumir")).toBeVisible();
+    await afterUseCard.getByRole("button", { name: /Abrir acompañamiento/i }).click();
+
+    await expect(page.locator("[data-after-use-companion]")).toBeVisible();
+    await expect(page.locator("[data-after-use-emergency]")).toBeVisible();
+    await expect(page).not.toHaveURL(/tool=/);
+    await expect(page).not.toHaveURL(/after\.use\.companion/);
+    await expect(page.getByText("Tu camino no empieza de cero")).toBeVisible();
+
+    await page.locator('[data-after-use-nav="continue"]').click();
+    await expect(page.locator('[data-after-use-step="care"]')).toBeVisible();
+    await expect(page.getByText("Un momento para cuidarte")).toBeVisible();
+    await expect(page.getByText(/Prioriza tu seguridad/)).toBeVisible();
+
+    await page.locator('[data-after-use-nav="continue"]').click();
+    await expect(page.locator('[data-after-use-step="recognize"]')).toBeVisible();
+    await expect(page.getByText("Reconocer lo ocurrido sin juzgarte")).toBeVisible();
+
+    await page.locator('[data-after-use-nav="continue"]').click();
+    await expect(page.locator('[data-after-use-step="forward"]')).toBeVisible();
+    await expect(page.getByText("Un pequeño paso hacia adelante")).toBeVisible();
+
+    await page.locator('[data-after-use-nav="continue"]').click();
+    await expect(page.locator('[data-after-use-step="close"]')).toBeVisible();
+    await page.locator('[data-after-use-nav="hub"]').click();
     await expect(page.locator("[data-after-use-companion]")).toHaveCount(0);
 
     await page.goto("/preview/support?tool=after.use.companion");
@@ -58,7 +83,7 @@ test.describe("Support after-use publication block", () => {
     await expect(page).not.toHaveURL(/after\.use\.companion/);
     await expect(page.locator('[data-tool="afterUse"]')).toHaveAttribute(
       "data-tool-state",
-      "planned",
+      "available",
     );
 
     for (const url of blocked) {

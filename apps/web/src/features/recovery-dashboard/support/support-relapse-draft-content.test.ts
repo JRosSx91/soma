@@ -8,28 +8,42 @@ import {
   RELAPSE_PREVENTION_EDITORIAL_STATUS,
   RELAPSE_PREVENTION_PUBLICATION_GATE,
   RELAPSE_PREVENTION_PUBLICATION_STATUS,
+  RELAPSE_PREVENTION_SAFETY_STATUS,
   getRelapsePreventionDraftContent,
   relapsePreventionDraftContent,
 } from "./support-relapse-draft-content.js";
-import { resolveSupportStrategyQueryParam } from "./support-strategies.js";
+import {
+  resolveSupportStrategyQueryParam,
+  SUPPORT_ENABLED_STRATEGY_IDS,
+  SUPPORT_STRATEGY_BY_TOPIC,
+} from "./support-strategies.js";
+import { getSupportStrategyContent } from "./support-strategy-content.js";
 
-test("relapse prevention draft stays unpublished and off the query allow-list", () => {
+test("relapse prevention is on the query allow-list pending production release", () => {
   assert.equal(RELAPSE_PREVENTION_DRAFT_ID, "relapse.prevention");
   assert.equal(RELAPSE_PREVENTION_CONTENT_VERSION, "0.1.1");
-  assert.equal(RELAPSE_PREVENTION_PUBLICATION_STATUS, "unpublished");
-  assert.equal(RELAPSE_PREVENTION_PUBLICATION_GATE, "pending_independent_authorization");
+  assert.equal(RELAPSE_PREVENTION_PUBLICATION_STATUS, "enabled_pending_production");
+  assert.equal(RELAPSE_PREVENTION_PUBLICATION_GATE, "awaiting_express_production_release");
   assert.equal(RELAPSE_PREVENTION_EDITORIAL_STATUS, "editorial_review_done");
-  assert.equal(RELAPSE_PREVENTION_CLINICAL_STATUS, "pending");
-  assert.equal(resolveSupportStrategyQueryParam(RELAPSE_PREVENTION_DRAFT_ID), null);
+  assert.equal(RELAPSE_PREVENTION_SAFETY_STATUS, "safety_review_done");
+  assert.equal(RELAPSE_PREVENTION_CLINICAL_STATUS, "external_clinical_validation_not_done");
+  assert.equal(resolveSupportStrategyQueryParam(RELAPSE_PREVENTION_DRAFT_ID), "relapse.prevention");
   assert.equal(resolveSupportStrategyQueryParam("relapse"), null);
-  assert.equal(resolveSupportStrategyQueryParam("relapse.prevention"), null);
+  assert.equal(SUPPORT_STRATEGY_BY_TOPIC.relapse, "relapse.prevention");
+  assert.equal(
+    (SUPPORT_ENABLED_STRATEGY_IDS as readonly string[]).includes("relapse.prevention"),
+    true,
+  );
 
   const publishedCatalog = readFileSync(
     new URL("./support-strategy-content.ts", import.meta.url),
     "utf8",
   );
-  assert.doesNotMatch(publishedCatalog, /relapse\.prevention/);
-  assert.doesNotMatch(publishedCatalog, /"relapse"/);
+  assert.match(publishedCatalog, /relapse\.prevention/);
+  assert.equal(
+    getSupportStrategyContent("relapse.prevention", "es").title,
+    relapsePreventionDraftContent.es.title,
+  );
 });
 
 test("draft sheet has ES/EN parity and required educational sections", () => {
@@ -80,7 +94,7 @@ test("draft sheet has ES/EN parity and required educational sections", () => {
   );
 });
 
-test("editorial register documents unpublished status after editorial review", () => {
+test("editorial register documents local enablement and pending production", () => {
   const sheet = readFileSync(
     new URL(
       "../../../../../../docs/review/support/sup-02b-relapse-prevention.md",
@@ -95,12 +109,12 @@ test("editorial register documents unpublished status after editorial review", (
     ),
     "utf8",
   );
-  assert.match(sheet, /publicationStatus.*unpublished/i);
+  assert.match(sheet, /publicationStatus.*enabled_pending_production/i);
   assert.match(sheet, /editorial_review_done/);
   assert.match(sheet, /Cómo prevenir y afrontar una recaída/);
   assert.match(sheet, /How to prevent and cope with relapse/);
   assert.match(refs, /REF-RP-05/);
   assert.match(refs, /REF-RP-06/);
-  assert.match(refs, /Validación clínica.*pendiente/i);
-  assert.match(refs, /Revisión editorial.*realizada/i);
+  assert.match(refs, /Validación clínica.*no realizada|pendiente/i);
+  assert.match(refs, /Revisión editorial.*realizada|completada/i);
 });

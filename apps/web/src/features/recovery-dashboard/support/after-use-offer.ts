@@ -3,10 +3,11 @@ import type { UsageStatus } from "@soma/shared-types";
 /**
  * Client-side heuristic for a soft support invite after a LIVE profile save.
  *
- * Detects data transitions that *may* reflect returning to use OR correcting a
- * date toward a more recent consumption. It does **not** classify a relapse:
- * the same diffs appear when fixing a typo, clarifying a date, or first
- * correcting a wrong abstinence clock. Never label the invite as “recaída”.
+ * Detects data transitions that *may* warrant a voluntary support offer
+ * (status active after abstinence, or a newer lastUseDate). The same diffs
+ * appear when fixing a typo or clarifying a date. It does **not** assume
+ * recent consumption, does **not** classify a relapse, and must never label
+ * the invite as “recaída”.
  *
  * Skips: identical payloads, failed saves (caller), brand-new substances with
  * no prior row, active→abstinent, and older lastUseDate corrections.

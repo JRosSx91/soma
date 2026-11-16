@@ -7,15 +7,16 @@
 | `category` | `relapse` |
 | `contentVersion` | `0.1.1` |
 | `editorialStatus` | `editorial_review_done` (2026-11-16) |
-| `clinicalStatus` | `pending` |
-| `publicationStatus` | `unpublished` (fuera de allow-list; hub sigue «Prevista») |
-| `publicationGate` | `pending_independent_authorization` (no bloquea SUP-02C) |
+| `safetyStatus` | `safety_review_done` |
+| `clinicalStatus` | `external_clinical_validation_not_done` |
+| `publicationStatus` | `enabled_pending_production` (en allow-list local) |
+| `publicationGate` | `awaiting_express_production_release` |
 | Nivel de seguridad | **B/C** (precaución de tolerancia / sobredosis; remisión a emergencias) |
-| Runtime | `apps/web/src/features/recovery-dashboard/support/support-relapse-draft-content.ts` |
+| Runtime | `support-relapse-draft-content.ts` → catálogo `support-strategy-content.ts` |
 
 Referencias: REF-RP-01 … REF-RP-06, REF-SO-01 — ver `sup-02b-references.md`.
 
-Las actividades de esta ficha son orientaciones educativas voluntarias. **No** se presentan como intervenciones clínicamente validadas. **Revisión editorial realizada. Validación clínica pendiente.**
+Las actividades de esta ficha son orientaciones educativas voluntarias. **No** se presentan como intervenciones clínicamente validadas. **Revisión editorial completada. Revisión de seguridad completada. Validación clínica externa no realizada. Habilitada en árbol local; publicación en producción pendiente.** Política: `editorial-policy.md`.
 
 ---
 

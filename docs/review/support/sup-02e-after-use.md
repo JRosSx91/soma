@@ -4,38 +4,54 @@
 |---|---|
 | Product id (interno) | `after.use.companion` |
 | Apertura hub | Estado en memoria de `SupportPage` |
-| Invitación post-guardado | Solo LIVE + gate `true` + perfil con seguimiento existente + heurística de diff |
+| Invitación post-guardado | **Deshabilitada en esta release** (`SUPPORT_AFTER_USE_INVITE_ENABLED = false`); hub voluntario activo |
 | Hand-off invite → companion | Flag en memoria de módulo (sin `location.state` / URL) |
 | Query `?tool=` | Siempre se elimina; **nunca** abre la herramienta |
-| `contentVersion` | `0.1.0` |
+| `contentVersion` | `0.2.0` |
 | `implementationStatus` | `implemented` |
-| `editorialStatus` | `pending` |
-| `clinicalStatus` | `pending` |
-| `publicationStatus` | `unpublished` |
-| `publicationGate` | `pending_independent_authorization` |
-| Allow-list | `SUPPORT_AFTER_USE_TOOL_ENABLED = false` |
+| `editorialStatus` | `editorial_review_done` |
+| `safetyStatus` | `safety_review_done` |
+| `clinicalStatus` | `external_clinical_validation_not_done` |
+| `publicationStatus` | `enabled_pending_production` |
+| `publicationGate` | `awaiting_express_production_release` |
+| Allow-list | `SUPPORT_AFTER_USE_TOOL_ENABLED = true` |
 
 ## Decisiones
 
-1. **No clasificar recaída.** La API hace replace ciego de `SubstanceUsage`. Un diff abstinent→active o `lastUseDate` más reciente también puede ser una corrección. La invitación dice explícitamente que **no** clasifica el cambio.
-2. **Acceso voluntario desde Apoyo** (tarjeta distinta de craving / hub genérico) es el canal principal mientras el gate esté cerrado (tarjeta «Prevista»).
-3. **Invitación post-save** (secundaria): solo tras PUT LIVE OK, gate habilitado, **seguimiento ya existente** (no onboarding inicial) y heurística positiva; descartable; hand-off por flag en memoria + URL genérica `/app/support`.
-4. **XP / logros:** verificados en producto (insert-only; sin revoke por cambio de uso). El copy afirma conservación conforme a reglas actuales.
-5. **Somi** `supportive`; ilustración de tarjeta reutiliza `support-mindfulness` (sin nuevos assets).
-6. **SUP-02B / SUP-02C** intactos y unpublished.
+1. **No clasificar recaída ni asumir consumo reciente.** La API hace replace ciego de `SubstanceUsage`. Un diff abstinent→active o `lastUseDate` más reciente también puede ser una corrección. La invitación lo dice explícitamente.
+2. **Acceso voluntario desde Apoyo** (tarjeta «Después de volver a consumir») es el canal principal.
+3. **Invitación post-save** (secundaria): cableada pero **apagada** en esta release (`SUPPORT_AFTER_USE_INVITE_ENABLED = false`) hasta validación LIVE autenticada. El hub voluntario permanece habilitado.
+4. **XP / logros:** el copy afirma conservación conforme a las reglas actuales del producto.
+5. **Seguridad primero** en el paso «Un momento para cuidarte»: sobredosis / síntomas graves / peligro inmediato → emergencias; sin recomendar agua ni respiración como respuesta inmediata al consumo.
+6. **Somi** `supportive`; ilustración de tarjeta reutiliza `support-mindfulness`.
 
-## Flujo
+## Flujo renderizado (fuente tipada)
 
-1. Hub Apoyo → tarjeta «Después de volver a consumir» (planned mientras gate false).
-2. Con gate true: abrir companion (2 pasos: acogida → cierre con hub / respiración / ayuda).
-3. LIVE edición de perfil existente: tras guardado OK + heurística → diálogo «¿Te gustaría recibir apoyo…?» → `/app/support` (memoria) o Inicio.
+Pasos reales en `AFTER_USE_COMPANION_STEPS` / `support-after-use-content.ts`:
+
+1. **welcome** — «Tu camino no empieza de cero» (+ conservación XP/logros)
+2. **care** — «Un momento para cuidarte» (prioridad de seguridad)
+3. **recognize** — «Reconocer lo ocurrido sin juzgarte»
+4. **forward** — «Un pequeño paso hacia adelante»
+5. **close** — «Estamos aquí si lo necesitas» (hub / respiración opcional / ayuda)
+
+Banner de emergencia + enlaces de ayuda presentes en **todos** los pasos.
 
 ## Capturas
 
-`docs/review/support/sup-02e-screens/` — mobile-375 y desktop-1440, pasos welcome/close (regeneradas con gate temporal `true`).
+`docs/review/support/sup-02e-screens/` — regenerar con gate `true` tras la release local.
 
 ## Limitaciones
 
 - Sin historial servidor de usos previos; la heurística es solo cliente.
-- DEMO no edita perfil; la invitación no aplica en DEMO.
-- Editorial y clínica externa pendientes de cierre formal.
+- DEMO no edita perfil; la invitación automática no aplica en DEMO ni en esta release.
+- Validación clínica externa no realizada.
+- Publicación en producción pendiente de autorización expresa.
+
+## QA final (2026-11-16)
+
+- Acompañamiento 5 pasos verificado en DEMO (E2E + script controlado).
+- Invitación LIVE automática **no** verificada de extremo a extremo → **deshabilitada**.
+- Validación clínica externa: **no realizada**.
+
+Política: `editorial-policy.md`.

@@ -30,6 +30,8 @@ import {
   supportLearnLinks,
   supportResourceGroups,
 } from "../support/support-links.js";
+import { isSupportAfterUseToolEnabled } from "../support/support-after-use-tool.js";
+import { isSupportCravingToolEnabled } from "../support/support-craving-tool.js";
 import {
   SUPPORT_ENABLED_STRATEGY_IDS,
   supportStrategyHrefForTopic,
@@ -63,6 +65,7 @@ async function render(base: ShellBase, lng: "es" | "en") {
     },
     interpolation: { escapeValue: false },
   });
+  const noop = () => {};
   return renderToStaticMarkup(
     createElement(
       I18nextProvider,
@@ -70,7 +73,14 @@ async function render(base: ShellBase, lng: "es" | "en") {
       createElement(
         MemoryRouter,
         { initialEntries: [`${base}/support`] },
-        createElement(ShellBaseProvider, { base }, createElement(SupportSections)),
+        createElement(
+          ShellBaseProvider,
+          { base },
+          createElement(SupportSections, {
+            onOpenCraving: isSupportCravingToolEnabled() ? noop : undefined,
+            onOpenAfterUse: isSupportAfterUseToolEnabled() ? noop : undefined,
+          }),
+        ),
       ),
     ),
   );
@@ -119,7 +129,7 @@ function blockFor(markup: string, attribute: string, id: string): string {
   return markup.slice(start, Math.min(...ends));
 }
 
-test("quick tools: breathing works in DEMO and LIVE, gated tools stay planned", async () => {
+test("quick tools: breathing, craving and after-use available; mindfulness/movement stay planned", async () => {
   assert.deepEqual(
     [...SUPPORT_TOOLS],
     ["breathing", "mindfulness", "movement", "craving", "afterUse"],
@@ -138,6 +148,11 @@ test("quick tools: breathing works in DEMO and LIVE, gated tools stay planned", 
           assert.equal((card.match(/<button/g) ?? []).length, 1);
           assert.ok(card.includes(copy.tools.breathing.start));
           assert.equal(card.includes(copy.tools.status.planned), false);
+        } else if (tool === "craving" || tool === "afterUse") {
+          assert.match(card, /data-tool-state="available"/);
+          assert.equal((card.match(/<button/g) ?? []).length, 1, tool);
+          assert.ok(card.includes(copy.tools[tool].open), `${lng} ${tool}`);
+          assert.equal(card.includes(copy.tools.status.planned), false, tool);
         } else {
           assert.ok(card.includes(copy.tools.status.planned), `${lng} ${tool}`);
           assert.equal(card.includes("<button"), false, tool);
@@ -208,12 +223,13 @@ test("resource cards group published articles and mark audio as unavailable", as
   }
 });
 
-test("three strategy topics are navigable; relapse and the personal plan stay unavailable", async () => {
+test("four strategy topics are navigable; the personal plan stays local-only", async () => {
   assert.deepEqual([...SUPPORT_STRATEGY_TOPICS], ["emotions", "relapse", "stress", "habits"]);
   assert.deepEqual([...SUPPORT_ENABLED_STRATEGY_IDS], [
     "stress.pause",
     "habits.small-routines",
     "emotions.naming",
+    "relapse.prevention",
   ]);
   for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
     const markup = await render("/app", lng);
@@ -221,17 +237,10 @@ test("three strategy topics are navigable; relapse and the personal plan stay un
       const row = blockFor(markup, "data-strategy", topic);
       assert.ok(row.includes(copy.strategies.topics[topic]), topic);
       const href = supportStrategyHrefForTopic("/app", topic);
-      if (topic === "relapse") {
-        assert.equal(href, null);
-        assert.match(row, /data-strategy-state="planned"/);
-        assert.ok(row.includes(copy.strategies.status), topic);
-        assert.equal(row.includes("href="), false, topic);
-      } else {
-        assert.ok(href);
-        assert.match(row, /data-strategy-state="available"/);
-        assert.ok(row.includes(`href="${href}"`), topic);
-        assert.equal(row.includes(copy.strategies.status), false, topic);
-      }
+      assert.ok(href, topic);
+      assert.match(row, /data-strategy-state="available"/);
+      assert.ok(row.includes(`href="${href}"`), topic);
+      assert.equal(row.includes(copy.strategies.status), false, topic);
     }
     const plan = markup.slice(markup.indexOf('id="support-plan-title"'));
     assert.ok(plan.includes(copy.plan.title));
@@ -334,13 +343,13 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
     const breathing = blockFor(markup, "data-tool", "breathing");
     const craving = blockFor(markup, "data-tool", "craving");
     const afterUse = blockFor(markup, "data-tool", "afterUse");
-    // Breathing start + coverage chooser (Spain / Other) + guide reset. Gated tools stay planned.
-    assert.equal((markup.match(/<button/g) ?? []).length, 4);
+    // Breathing start + craving + afterUse + coverage chooser (Spain / Other) + guide reset.
+    assert.equal((markup.match(/<button/g) ?? []).length, 6);
     assert.equal((breathing.match(/<button/g) ?? []).length, 1);
-    assert.equal(craving.includes("<button"), false);
-    assert.match(craving, /data-tool-state="planned"/);
-    assert.equal(afterUse.includes("<button"), false);
-    assert.match(afterUse, /data-tool-state="planned"/);
+    assert.equal((craving.match(/<button/g) ?? []).length, 1);
+    assert.match(craving, /data-tool-state="available"/);
+    assert.equal((afterUse.match(/<button/g) ?? []).length, 1);
+    assert.match(afterUse, /data-tool-state="available"/);
     assert.match(markup, /data-support-guide-reset/);
     assert.match(markup, /data-help-coverage="spain"/);
     assert.match(markup, /data-help-coverage="other"/);

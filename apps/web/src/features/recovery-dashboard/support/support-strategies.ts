@@ -10,9 +10,10 @@ import type { SupportStrategyTopic } from "./support-links.js";
  * `SUPPORT_ENABLED_STRATEGY_IDS` resolve from `?strategy=`; unknown or blocked
  * values never open content.
  *
- * SUP-02B relapse prevention draft (`relapse.prevention`) lives in
- * `support-relapse-draft-content.ts` until express publication approval.
- * Keep `SUPPORT_STRATEGY_BY_TOPIC.relapse = null` until then.
+ * SUP-02B relapse prevention (`relapse.prevention`) is on the allow-list for
+ * the joint SUP-02 release. Content lives in `support-relapse-draft-content.ts`
+ * and is re-exported via `support-strategy-content.ts`. Production deploy still
+ * needs express authorization.
  */
 export const SUPPORT_STRATEGY_QUERY_KEY = "strategy";
 
@@ -21,19 +22,21 @@ export const SUPPORT_STRATEGY_IDS = [
   "stress.pause",
   "habits.small-routines",
   "emotions.naming",
+  "relapse.prevention",
 ] as const;
 export type SupportStrategyId = (typeof SUPPORT_STRATEGY_IDS)[number];
 
-/** Explicit allow-list. Relapse and any draft clinical tips stay out. */
+/** Explicit allow-list of published strategy sheets. */
 export const SUPPORT_ENABLED_STRATEGY_IDS = [
   "stress.pause",
   "habits.small-routines",
   "emotions.naming",
+  "relapse.prevention",
 ] as const satisfies readonly SupportStrategyId[];
 
 export type SupportEnabledStrategyId = (typeof SUPPORT_ENABLED_STRATEGY_IDS)[number];
 
-export const SUPPORT_STRATEGY_CONTENT_VERSION = "0.1.0" as const;
+export const SUPPORT_STRATEGY_CONTENT_VERSION = "0.2.0" as const;
 
 export const SUPPORT_BREATHING_ANCHOR_ID = "support-breathing";
 
@@ -42,7 +45,7 @@ export const SUPPORT_STRATEGY_BY_TOPIC = {
   stress: "stress.pause",
   habits: "habits.small-routines",
   emotions: "emotions.naming",
-  relapse: null,
+  relapse: "relapse.prevention",
 } as const satisfies Record<SupportStrategyTopic, SupportStrategyId | null>;
 
 const enabledSet = new Set<string>(SUPPORT_ENABLED_STRATEGY_IDS);

@@ -17,14 +17,14 @@ import {
   writeSupportToolSearchParams,
 } from "./support-craving-tool.js";
 
-test("craving companion stays unpublished and never opens from the URL", () => {
-  assert.equal(SUPPORT_CRAVING_TOOL_ENABLED, false);
-  assert.equal(isSupportCravingToolEnabled(), false);
-  assert.equal(SUPPORT_CRAVING_PUBLICATION_STATUS, "unpublished");
-  assert.equal(SUPPORT_CRAVING_PUBLICATION_GATE, "pending_independent_authorization");
+test("craving companion is enabled locally and never opens from the URL", () => {
+  assert.equal(SUPPORT_CRAVING_TOOL_ENABLED, true);
+  assert.equal(isSupportCravingToolEnabled(), true);
+  assert.equal(SUPPORT_CRAVING_PUBLICATION_STATUS, "enabled_pending_production");
+  assert.equal(SUPPORT_CRAVING_PUBLICATION_GATE, "awaiting_express_production_release");
   assert.equal(SUPPORT_CRAVING_IMPLEMENTATION_STATUS, "implemented");
   assert.equal(SUPPORT_CRAVING_EDITORIAL_STATUS, "editorial_review_done");
-  assert.equal(SUPPORT_CRAVING_CLINICAL_STATUS, "pending");
+  assert.equal(SUPPORT_CRAVING_CLINICAL_STATUS, "external_clinical_validation_not_done");
   assert.equal(SUPPORT_CRAVING_CONTENT_VERSION, "0.1.2");
   assert.equal(resolveSupportToolQueryParam(SUPPORT_CRAVING_COMPANION_ID), null);
   assert.equal(resolveSupportToolQueryParam("craving"), null);
@@ -37,13 +37,13 @@ test("craving companion stays unpublished and never opens from the URL", () => {
   assert.equal(params.has(SUPPORT_TOOL_QUERY_KEY), false);
 });
 
-test("SUP-02B relapse draft gates stay intact", () => {
+test("SUP-02B relapse prevention is on the allow-list with production still pending", () => {
   const relapse = readFileSync(new URL("./support-relapse-draft-content.ts", import.meta.url), "utf8");
   assert.match(relapse, /editorial_review_done/);
-  assert.match(relapse, /pending_independent_authorization/);
-  assert.match(relapse, /RELAPSE_PREVENTION_PUBLICATION_STATUS = "unpublished"/);
+  assert.match(relapse, /awaiting_express_production_release/);
+  assert.match(relapse, /RELAPSE_PREVENTION_PUBLICATION_STATUS = "enabled_pending_production"/);
   const strategies = readFileSync(new URL("./support-strategies.ts", import.meta.url), "utf8");
-  assert.match(strategies, /relapse: null/);
+  assert.match(strategies, /relapse: "relapse\.prevention"/);
   assert.doesNotMatch(strategies, /craving\.companion/);
 });
 
@@ -125,11 +125,11 @@ test("hub copy and editorial register stay aligned", () => {
     new URL("../../../../../../docs/review/support/sup-02c-references.md", import.meta.url),
     "utf8",
   );
-  assert.match(doc, /publicationStatus.*unpublished/i);
+  assert.match(doc, /publicationStatus.*enabled_pending_production/i);
   assert.match(doc, /0\.1\.2|contentVersion.*0\.1/);
   assert.match(doc, /in-memory|memoria|sin URL|URL/i);
   assert.match(doc, /editorialStatus.*editorial_review_done/i);
-  assert.match(doc, /clinicalStatus.*pending/i);
+  assert.match(doc, /clinicalStatus.*external_clinical_validation_not_done/i);
   assert.match(refs, /REF-CR-01/);
   assert.match(refs, /alcohol/i);
   assert.match(refs, /Ninguna fuente se presenta como evidencia de eficacia clínica de SOMA/);

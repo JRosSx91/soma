@@ -5,11 +5,12 @@ import type {
 } from "./support-strategy-content.js";
 
 /**
- * SUP-02B draft sheet: relapse prevention (educational).
+ * SUP-02B sheet: relapse prevention (educational).
  *
- * Held **outside** `support-strategy-content.ts` and the enabled allow-list
- * (`SUPPORT_ENABLED_STRATEGY_IDS`). Query `?strategy=relapse.prevention`
- * must keep resolving to null until publication is expressly authorized.
+ * Source module for the published catalog entry `relapse.prevention`
+ * (re-exported from `support-strategy-content.ts` onto the allow-list).
+ * Local enablement is on for the joint SUP-02 release; production deploy
+ * still needs express authorization.
  *
  * Editorial register: `docs/review/support/sup-02b-relapse-prevention.md`
  * and `sup-02b-references.md`.
@@ -17,11 +18,11 @@ import type {
 
 export const RELAPSE_PREVENTION_DRAFT_ID = "relapse.prevention" as const;
 export const RELAPSE_PREVENTION_CONTENT_VERSION = "0.1.1" as const;
-export const RELAPSE_PREVENTION_PUBLICATION_STATUS = "unpublished" as const;
-/** Product publication still needs an independent authorization; does not block SUP-02C. */
-export const RELAPSE_PREVENTION_PUBLICATION_GATE = "pending_independent_authorization" as const;
+export const RELAPSE_PREVENTION_PUBLICATION_STATUS = "enabled_pending_production" as const;
+export const RELAPSE_PREVENTION_PUBLICATION_GATE = "awaiting_express_production_release" as const;
 export const RELAPSE_PREVENTION_EDITORIAL_STATUS = "editorial_review_done" as const;
-export const RELAPSE_PREVENTION_CLINICAL_STATUS = "pending" as const;
+export const RELAPSE_PREVENTION_SAFETY_STATUS = "safety_review_done" as const;
+export const RELAPSE_PREVENTION_CLINICAL_STATUS = "external_clinical_validation_not_done" as const;
 
 const refSo01 = {
   es: {

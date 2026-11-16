@@ -25,11 +25,11 @@ async function installRequestGuard(context: BrowserContext): Promise<string[]> {
 }
 
 /**
- * SUP-02C publication + privacy gate:
- * - craving stays planned while unpublished
+ * SUP-02C enablement + privacy:
+ * - craving card is available from the hub
  * - legacy `?tool=craving.companion` never opens the companion
  */
-test.describe("Support craving publication block", () => {
+test.describe("Support craving companion release", () => {
   let blocked: string[] = [];
 
   test.beforeEach(async ({ context, page }) => {
@@ -39,7 +39,7 @@ test.describe("Support craving publication block", () => {
     }, INTERFACE_LANGUAGE_STORAGE_KEY);
   });
 
-  test("craving card stays planned and legacy tool query never opens the companion", async ({
+  test("craving opens from hub and legacy tool query never opens the companion", async ({
     page,
   }) => {
     await page.goto("/preview/support");
@@ -47,8 +47,13 @@ test.describe("Support craving publication block", () => {
 
     const cravingCard = page.locator('[data-tool="craving"]');
     await expect(cravingCard).toBeVisible();
-    await expect(cravingCard).toHaveAttribute("data-tool-state", "planned");
-    await expect(cravingCard.getByText("Prevista")).toBeVisible();
+    await expect(cravingCard).toHaveAttribute("data-tool-state", "available");
+    await cravingCard.getByRole("button", { name: /Abrir acompañamiento/i }).click();
+    await expect(page.locator("[data-craving-companion]")).toBeVisible();
+    await expect(page).not.toHaveURL(/tool=/);
+    await expect(page).not.toHaveURL(/craving\.companion/);
+
+    await page.locator('[data-craving-nav="exit"]').click();
     await expect(page.locator("[data-craving-companion]")).toHaveCount(0);
 
     await page.goto("/preview/support?tool=craving.companion");
@@ -58,7 +63,7 @@ test.describe("Support craving publication block", () => {
     await expect(page).not.toHaveURL(/craving\.companion/);
     await expect(page.locator('[data-tool="craving"]')).toHaveAttribute(
       "data-tool-state",
-      "planned",
+      "available",
     );
 
     for (const url of blocked) {

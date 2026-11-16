@@ -38,7 +38,12 @@ assert((await page.locator("[data-after-use-companion]").count()) === 0, "exit m
 await page.locator('[data-tool="afterUse"][data-tool-state="available"] button').click();
 await page.waitForSelector('[data-after-use-step="welcome"]');
 await page.locator('[data-after-use-nav="continue"]').click();
-await page.waitForSelector('[data-after-use-step="close"]');
+await page.waitForSelector('[data-after-use-step="care"]');
+assert(await page.getByText(/Prioriza tu seguridad/).count(), "care safety copy missing");
+for (const step of ["recognize", "forward", "close"]) {
+  await page.locator('[data-after-use-nav="continue"]').click();
+  await page.waitForSelector(`[data-after-use-step="${step}"]`);
+}
 await page.locator('[data-after-use-nav="help"]').click();
 await page.waitForURL(/\/preview\/support/);
 assert((await page.locator("[data-after-use-companion]").count()) === 0, "help must return to hub");

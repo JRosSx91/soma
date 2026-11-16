@@ -1,8 +1,8 @@
 /**
  * SUP-02C craving companion tool (educational, in-memory only).
  *
- * Publication gate: `SUPPORT_CRAVING_TOOL_ENABLED` must stay false until
- * independent publication authorization.
+ * Publication: `SUPPORT_CRAVING_TOOL_ENABLED` is on in the local tree for the
+ * joint SUP-02 release; production deploy still needs express authorization.
  *
  * Privacy: the companion opens via SupportPage in-memory state only.
  * Query `?tool=` (including legacy `craving.companion`) never opens the
@@ -17,15 +17,16 @@ export const SUPPORT_TOOL_QUERY_KEY = "tool" as const;
 export const SUPPORT_CRAVING_COMPANION_ID = "craving.companion" as const;
 export const SUPPORT_CRAVING_ANCHOR_ID = "support-craving" as const;
 
-/** Independent publication switch. Do not flip without express authorization. */
-export const SUPPORT_CRAVING_TOOL_ENABLED: boolean = false;
+/** Local enablement for SUP-02 joint release. Production still pending express auth. */
+export const SUPPORT_CRAVING_TOOL_ENABLED: boolean = true;
 
 export const SUPPORT_CRAVING_CONTENT_VERSION = "0.1.2" as const;
 export const SUPPORT_CRAVING_IMPLEMENTATION_STATUS = "implemented" as const;
 export const SUPPORT_CRAVING_EDITORIAL_STATUS = "editorial_review_done" as const;
-export const SUPPORT_CRAVING_CLINICAL_STATUS = "pending" as const;
-export const SUPPORT_CRAVING_PUBLICATION_STATUS = "unpublished" as const;
-export const SUPPORT_CRAVING_PUBLICATION_GATE = "pending_independent_authorization" as const;
+export const SUPPORT_CRAVING_SAFETY_STATUS = "safety_review_done" as const;
+export const SUPPORT_CRAVING_CLINICAL_STATUS = "external_clinical_validation_not_done" as const;
+export const SUPPORT_CRAVING_PUBLICATION_STATUS = "enabled_pending_production" as const;
+export const SUPPORT_CRAVING_PUBLICATION_GATE = "awaiting_express_production_release" as const;
 
 export const CRAVING_COMPANION_STEPS = [
   "welcome",

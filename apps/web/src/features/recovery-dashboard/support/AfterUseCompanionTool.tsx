@@ -145,12 +145,15 @@ export function AfterUseCompanionTool({
         ))}
       </div>
 
-      {step === "welcome" ? (
+      {step !== "close" ? (
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <button
             type="button"
             data-after-use-nav="continue"
-            onClick={() => setStep("close")}
+            onClick={() => {
+              const next = AFTER_USE_COMPANION_STEPS[stepIndex + 1];
+              if (next) setStep(next);
+            }}
             className={`${previewFocus} inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-soma-action/50 bg-soma-action/10 px-4 text-sm font-semibold text-soma-action hover:bg-soma-action/15 sm:flex-1`}
           >
             {stepCopy.primaryCta ?? copy.continueLabel}

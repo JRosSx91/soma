@@ -8,21 +8,22 @@
 | `contentVersion` | `0.1.2` |
 | `implementationStatus` | `implemented` |
 | `editorialStatus` | `editorial_review_done` |
-| `clinicalStatus` | `pending` |
-| `publicationStatus` | `unpublished` |
-| `publicationGate` | `pending_independent_authorization` |
-| Allow-list | `SUPPORT_CRAVING_TOOL_ENABLED = false` |
+| `safetyStatus` | `safety_review_done` |
+| `clinicalStatus` | `external_clinical_validation_not_done` |
+| `publicationStatus` | `enabled_pending_production` |
+| `publicationGate` | `awaiting_express_production_release` |
+| Allow-list | `SUPPORT_CRAVING_TOOL_ENABLED = true` |
 | Runtime | `support-craving-tool.ts`, `support-craving-content.ts`, `craving-companion-session.ts`, `CravingCompanionTool.tsx`, `UrgeWaveVisual.tsx` |
 
-**Implementación técnica:** completada (local, sin publicación).
+**Implementación técnica:** completada.
 **Revisión editorial interna:** completada (copy 0.1.1).
-**Refinamiento visual:** completado (layout íntimo 0.1.2: columna ~720px, Somi centrado, progreso de 5 segmentos, ola refinada).
-**Validación clínica externa:** **pendiente**.
-**Autorización de publicación:** **pendiente** (independiente).
+**Refinamiento visual:** completado (layout íntimo 0.1.2).
+**Revisión de seguridad:** completada.
+**Validación clínica externa:** **no realizada**.
+**Habilitación local:** gate `true` (release conjunta SUP-02).
+**Publicación en producción:** **pendiente** de autorización expresa.
 
-**Nota sobre capturas previas:** el texto estrecho junto a Somi y los espacios oscuros eran sobre todo defectos reales de layout/captura (Somi en fila con el párrafo; crop con dock fijo). v0.1.2 corrige composición y regenera PNG.
-
-No es una intervención clínicamente validada. SUP-02B permanece unpublished e intacto.
+No es una intervención clínicamente validada. Política: `editorial-policy.md`.
 
 ---
 
@@ -36,47 +37,17 @@ No es una intervención clínicamente validada. SUP-02B permanece unpublished e 
 
 ### Limitaciones (infraestructura / hosting)
 
-Aunque la app no envíe telemetría propia, un proveedor de hosting, CDN, proxy o el historial del navegador podrían registrar rutas genéricas (`/preview/support`, `/app/support`) o errores de red. Eso **no** incluye el id `craving.companion` en query si el gate y el strip funcionan. Si en el futuro se añade observabilidad que serialice el DOM, los `data-craving-*` de testing podrían filtrar paso/elección: vigilar ese riesgo.
+Aunque la app no envíe telemetría propia, un proveedor de hosting, CDN, proxy o el historial del navegador podrían registrar rutas genéricas (`/preview/support`, `/app/support`) o errores de red. Eso **no** incluye el id `craving.companion` en query si el strip funciona.
 
 ---
 
-## Decisiones arquitectónicas
+## Flujo
 
-1. Gate `SUPPORT_CRAVING_TOOL_ENABLED` + tarjeta «Prevista» mientras sea `false`.
-2. Apertura in-memory; `resolveSupportToolQueryParam` siempre `null`.
-3. Somi: assets existentes; tamaño `medium`, composición centrada sobre el encabezado.
-4. Ola SVG + CSS (capas cian/violeta); `prefers-reduced-motion`.
-5. Ayuda/emergencias visibles en todos los pasos; salida nunca bloqueada.
-6. Referencias educativas en `<details>` discreto, con notas de alcance (p. ej. alcohol vs general).
-7. Columna de contenido ~720px centrada; progreso de 5 segmentos + label accesible.
+1. Hub Apoyo → tarjeta «Afrontar el impulso de consumir» → abrir.
+2. Cinco pasos: welcome → ground → observe → choose → close.
+3. Salida / reinicio: Salir vuelve al hub; reabrir reinicia el flujo en memoria.
+4. Recursos de ayuda y emergencias visibles durante la experiencia.
 
----
+## Capturas
 
-## Flujo (5 pasos)
-
-1. Acogida → comenzar
-2. Presente → continuar / omitir
-3. Observar (ola) → continuar / omitir
-4. Elegir (6 alternativas o continuar sin elegir)
-5. Cierre → repetir / estrategias / hub / ayuda
-
----
-
-## Texto
-
-Fuente tipada: `support-craving-content.ts` v0.1.2 (copy editorial 0.1.1 + presentación 0.1.2).
-Hub: `support.json` → títulos «Afrontar el impulso de consumir» / «Coping with cravings».
-
----
-
-## Capturas / QA
-
-- Capturas definitivas v0.1.2: `docs/review/support/sup-02c-screens/` (10 PNG: mobile-375 + desktop-1440 × 5 pasos). Regeneradas 2026-11-16 con gate temporal `true`; crop del artículo companion (dock fijo oculto solo en captura de revisión).
-- Validación controlada del flujo habilitado: `apps/web/scripts/validate-sup-02c-flow.mjs` (bundle con gate `true`, sin bypass público). Ejecutada 2026-11-16: recorrido, skip/back, 6 alternativas, respiración/ayuda, foco teclado, salida, sin id en URL, sin storage/red sensible. Comprobación móvil con dock visible: CTAs scrollables por encima de la barra inferior (nav en flujo flex, no overlay).
-- Cierre desarrollo: gate restaurado a `false`; suite web; `tsc`/build convencional; guards E2E; smoke + block E2E; `git diff --check` OK.
-
----
-
-## Referencias
-
-Ver `sup-02c-references.md`.
+`docs/review/support/sup-02c-screens/` — mobile-375 y desktop-1440.

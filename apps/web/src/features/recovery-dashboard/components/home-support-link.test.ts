@@ -49,10 +49,12 @@ test("home support copy exists in spanish and english", () => {
   assert.equal(enRecovery.homeSupportCta, "Go to Support");
 });
 
-test("SUP-02D does not publish SUP-02B or SUP-02C", () => {
-  assert.equal(SUPPORT_CRAVING_TOOL_ENABLED, false);
+test("SUP-02D remains hub-only while SUP-02B/C stay independently gated", () => {
+  assert.equal(SUPPORT_CRAVING_TOOL_ENABLED, true);
   assert.equal(
     (SUPPORT_ENABLED_STRATEGY_IDS as readonly string[]).includes("relapse.prevention"),
-    false,
+    true,
   );
+  assert.match(home, /data-home-support/);
+  assert.doesNotMatch(home, /craving\.companion|after\.use\.companion|relapse\.prevention/);
 });

@@ -1,11 +1,12 @@
 # SUP-02B — Registro de referencias (prevención de recaídas)
 
-Documento de trabajo. **No publicado** en la app.
-Complementa `sup-02b-relapse-prevention.md` y el módulo borrador `support-relapse-draft-content.ts`.
+Documento de trabajo. Complementa `sup-02b-relapse-prevention.md` y `support-relapse-draft-content.ts` (cableado al catálogo publicado localmente).
 
-**Revisión editorial:** realizada (2026-11-16, correcciones de seguridad y copy).
-**Validación clínica:** **pendiente**. Editorial ≠ clínica.
-**Publicación en producto:** pendiente de autorización independiente (allow-list sin cambios; no bloquea SUP-02C).
+**Revisión editorial:** completada (2026-11-16, correcciones de seguridad y copy).
+**Revisión de seguridad:** completada.
+**Validación clínica externa:** **no realizada**. Editorial ≠ clínica.
+**Habilitación local:** `relapse.prevention` en allow-list.
+**Publicación en producción:** pendiente de autorización expresa (`develop` → `main`).
 
 ---
 
