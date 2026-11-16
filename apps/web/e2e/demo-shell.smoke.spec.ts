@@ -88,4 +88,30 @@ test.describe("DEMO shell smoke", () => {
       "DEMO smoke must not attempt production hosts",
     ).toBe(false);
   });
+
+  test("home support card opens DEMO Apoyo hub", async ({ page }) => {
+    await page.goto("/preview");
+    await expect(page).toHaveURL(/\/preview\/?$/);
+
+    const supportCard = page.locator("[data-home-support]");
+    await expect(supportCard).toBeVisible();
+    await expect(supportCard).toContainText("¿Necesitas un momento para ti?");
+    await expect(supportCard).toContainText("Ir a Apoyo");
+
+    await supportCard.click();
+    await expect(page).toHaveURL(/\/preview\/support\/?$/);
+    await expect(page).not.toHaveURL(/tool=|craving\.companion|relapse\.prevention/);
+    await expect(
+      page.getByRole("heading", { name: "Apoyo y herramientas." }),
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: /DEMO/ }).first()).toBeVisible();
+    await expect(page.locator("[data-craving-companion]")).toHaveCount(0);
+
+    for (const url of blocked) {
+      expect(
+        isAllowedE2eRequestUrl(url, safe.origin),
+        `allowlist leaked for ${url}`,
+      ).toBe(false);
+    }
+  });
 });

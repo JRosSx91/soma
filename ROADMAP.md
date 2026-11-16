@@ -1366,8 +1366,7 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 - **SUP-01E2-B — publicado (PR #119):** «Mi guía de apoyo» / «My support guide»; cuatro apartados con casillas solo en memoria; enlaces a respiración, estrategias y panel de ayuda; sin texto libre ni teléfonos de terceros.
 - **Pendientes (tras SUP-01; ver SUP-02):**
   - Publicación de la ficha `relapse.prevention` (**SUP-02B**, borrador unpublished).
-  - Herramienta craving, acceso rápido, acompañamiento post-recaída, plan personal (**SUP-02C–F**).
-  - Enlace desde Inicio (**SUP-02D**).
+  - Publicación de craving (**SUP-02C**), acompañamiento post-recaída y plan personal (**SUP-02E–F**).
   - Revisión de **SEO-02B1-B** (FAQ landing; no es SUP).
 
 - **Criterio (MVP):** la página abre en DEMO y LIVE desde «Más», la respiración guiada funciona sin conexión a la API y sin guardar nada, no hay tarjetas que aparenten funciones inexistentes ni números sin verificar, y los textos ES/EN no prometen resultados ni se presentan como terapia.
@@ -1375,7 +1374,7 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 #### SUP-02 — Prevención de recaídas
 
 - **Descripción:** Continúa el Centro de Apoyo (**SUP-01**) con contenido y herramientas educativas sobre prevención de recaídas y afrontamiento no punitivo. **No** es terapia, predicción clínica ni servicio de emergencias.
-- **Estado:** **En curso.** **SUP-02A** **aprobado**. **SUP-02B:** implementación + editorial **completadas**; clínica y publicación pendientes (`unpublished`). **SUP-02C:** desarrollo **cerrado** (v0.1.2); clínica externa y publicación **pendientes**; `SUPPORT_CRAVING_TOOL_ENABLED = false` (no bloquea 02D). Hub craving y relapse siguen «Prevista».
+- **Estado:** **En curso.** **SUP-02A** **aprobado**. **SUP-02B / SUP-02C:** desarrollo cerrado; clínica externa y publicación pendientes (`unpublished`). **SUP-02D:** desarrollo **cerrado** (tarjeta Inicio → hub Apoyo; sin publicar 02B/02C). Hub craving y relapse siguen «Prevista».
 - **Prioridad:** Alta (vía producto).
 - **Subhitos:**
   | ID | Alcance | Estado |
@@ -1383,15 +1382,17 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
   | **SUP-02A** | Auditoría + propuesta de roadmap | **Aprobado** |
   | **SUP-02B** | Ficha educativa ES/EN `relapse.prevention` + referencias | **Implementación + editorial completadas**; clínica pendiente; **publicación pendiente** |
   | **SUP-02C** | Herramienta interactiva de craving (sin persistencia; sin id en URL) | **Desarrollo cerrado** (impl. + editorial + visual v0.1.2); clínica pendiente; **publicación pendiente** |
-  | **SUP-02D** | Acceso rápido a Apoyo (p. ej. enlace desde Inicio / anclas) | No iniciado |
+  | **SUP-02D** | Acceso rápido a Apoyo desde Inicio | **Desarrollo cerrado**; **apto para futura publicación** (no habilita 02B/02C) |
   | **SUP-02E** | Acompañamiento después de una recaída (copy / checklist; sin castigo XP) | No iniciado |
   | **SUP-02F** | Plan personal de prevención | Sujeto a **autorización independiente** (privacidad / persistencia) |
 - **Evidencia SUP-02B:** `docs/review/support/sup-02b-relapse-prevention.md`, `sup-02b-references.md` (v0.1.1); runtime borrador `support-relapse-draft-content.ts` (+ tests). Allow-list relapse **sin** cambios.
 - **Evidencia SUP-02C:** `docs/review/support/sup-02c-craving-companion.md`, `sup-02c-references.md`, `sup-02c-screens/`; runtime `support-craving-tool.ts` + `CravingCompanionTool.tsx` (+ tests / E2E block / script QA local). Apertura por estado de `SupportPage`; `?tool=` legacy no abre. `SUPPORT_CRAVING_TOOL_ENABLED = false`.
+- **Evidencia SUP-02D:** `docs/review/support/sup-02d-home-access.md`, `sup-02d-screens/`; `SupportAccessCard` en `PreviewHome.tsx` + i18n `homeSupport*` + tests / smoke E2E.
 - **Dependencias:** SUP-01 (patrón editorial). **No** Bitácora obligatoria. **No** API/XP. GAM-XP / GAM-02B no bloquean SUP-02B.
 - **Principios:** no culpabilizar; no predecir; no garantizar; no desintoxicación; no inventar emergencias; editorial ≠ clínica.
 - **Criterio (SUP-02B):** ficha revisable ES/EN con referencias verificables; queries `?strategy=relapse*` siguen sin abrir contenido hasta autorización de publicación.
 - **Criterio (SUP-02C):** acompañamiento in-memory ES/EN sin id en URL; gate `false` hasta autorización de publicación; clínica externa independiente.
+- **Criterio (SUP-02D):** tarjeta Inicio visible en DEMO/LIVE; navega solo al hub Apoyo; no habilita ni anuncia herramientas unpublished.
 
 #### GAM-XP — Progresión sostenible sin Bitácora
 
@@ -1939,3 +1940,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-15 | **SUP-02A** aprobado. Roadmap reconciliado: **SUP-02** / **GAM-XP** / **GAM-02B** / **Q-E2E** / **WEB-02** / **MKT-02**; **INST-01** aplazado. **SUP-02B** borrador ES/EN unpublished (`relapse.prevention` fuera de allow-list; docs `sup-02b-*.md`). Sin commit en este registro. |
 | 2026-11-16 | **SUP-02B** implementación + revisión editorial **completadas** (commit local autorizado; **sin** publicación): ficha ES/EN v0.1.1 unpublished (`support-relapse-draft-content.ts` + tests; docs `sup-02b-*.md`); correcciones de seguridad (opción post-consumo / tolerancia-opioides; refs WHO/CDC + TIP 65 HTML). Clínica externa **pendiente** (no bloquea SUP-02C). Publicación en producto **pendiente** de autorización independiente; allow-list intacta. |
 | 2026-11-16 | **SUP-02C** desarrollo **cerrado** (commit local autorizado; **sin** publicación): acompañamiento 5 pasos + Somi + ola SVG; v0.1.1 editorial/privacidad; **v0.1.2** refinamiento visual; gate `false`; docs `sup-02c-*.md` + capturas; E2E de bloqueo. Clínica externa y publicación **pendientes**. SUP-02B intacto. SUP-02D–F no iniciados. |
+| 2026-11-16 | **SUP-02D** desarrollo **cerrado** (commit local autorizado; **sin** push/PR): tarjeta Inicio → hub Apoyo (`SupportAccessCard`, copy ES/EN, smoke E2E); **apto para futura publicación**; no habilita SUP-02B/02C (gates intactos). SUP-02E/F y GAM-XP no iniciados. |
