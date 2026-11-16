@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useShellBase } from "../context/ShellBaseContext.js";
 import { RecoveryHero } from "../components/RecoveryHero.js";
+import { AfterUseCompanionTool } from "../support/AfterUseCompanionTool.js";
 import { CravingCompanionTool } from "../support/CravingCompanionTool.js";
 import { SupportSections } from "../support/SupportSections.js";
 import { SupportStrategySheet } from "../support/SupportStrategySheet.js";
@@ -11,6 +12,10 @@ import {
   SUPPORT_HELP_PANEL_HASH,
   SUPPORT_STRATEGIES_PANEL_HASH,
 } from "../support/support-guide.js";
+import {
+  consumeAfterUseCompanionOpenRequest,
+  isSupportAfterUseToolEnabled,
+} from "../support/support-after-use-tool.js";
 import {
   SUPPORT_TOOL_QUERY_KEY,
   isSupportCravingToolEnabled,
@@ -49,7 +54,9 @@ export function SupportPage() {
   const toolParam = searchParams.get(SUPPORT_TOOL_QUERY_KEY);
   /** In-memory only; never mirrored to the URL. */
   const [cravingOpen, setCravingOpen] = useState(false);
+  const [afterUseOpen, setAfterUseOpen] = useState(false);
   const cravingActive = cravingOpen && isSupportCravingToolEnabled();
+  const afterUseActive = afterUseOpen && isSupportAfterUseToolEnabled();
 
   // Unknown or blocked strategy IDs never open content; strip without stacking history.
   useEffect(() => {
@@ -59,20 +66,32 @@ export function SupportPage() {
     });
   }, [strategyParam, strategyId, setSearchParams]);
 
-  // Legacy `?tool=` never opens the companion; always strip it from the URL.
+  // Legacy `?tool=` never opens companions; always strip it from the URL.
   useEffect(() => {
     if (!toolParam) return;
     setSearchParams((current) => writeSupportToolSearchParams(current), { replace: true });
   }, [toolParam, setSearchParams]);
 
-  // Strategy sheet and companion are mutually exclusive surfaces.
+  // One-shot invite hand-off (module memory). Always consume/discard the flag so
+  // it cannot leak into a later visit when the gate is off.
   useEffect(() => {
-    if (strategyId) setCravingOpen(false);
+    const requested = consumeAfterUseCompanionOpenRequest();
+    if (!requested || !isSupportAfterUseToolEnabled()) return;
+    setAfterUseOpen(true);
+    setCravingOpen(false);
+  }, []);
+
+  // Strategy sheet and companions are mutually exclusive surfaces.
+  useEffect(() => {
+    if (strategyId) {
+      setCravingOpen(false);
+      setAfterUseOpen(false);
+    }
   }, [strategyId]);
 
   // Deep-links from strategies / the support guide: scroll allow-listed hashes; focus breathing only.
   useEffect(() => {
-    if (strategyId || cravingActive) return;
+    if (strategyId || cravingActive || afterUseActive) return;
     if (!hash.startsWith("#") || hash.length < 2) return;
     let id = hash.slice(1);
     try {
@@ -87,20 +106,38 @@ export function SupportPage() {
     if (id === SUPPORT_BREATHING_ANCHOR_ID) {
       target.focus({ preventScroll: true });
     }
-  }, [hash, strategyId, cravingActive]);
+  }, [hash, strategyId, cravingActive, afterUseActive]);
 
   let body = (
     <SupportSections
       onOpenCraving={
         isSupportCravingToolEnabled()
           ? () => {
+              setAfterUseOpen(false);
               setCravingOpen(true);
+            }
+          : undefined
+      }
+      onOpenAfterUse={
+        isSupportAfterUseToolEnabled()
+          ? () => {
+              setCravingOpen(false);
+              setAfterUseOpen(true);
             }
           : undefined
       }
     />
   );
-  if (cravingActive) {
+  if (afterUseActive) {
+    body = (
+      <AfterUseCompanionTool
+        language={i18n.language}
+        onExitToHub={() => {
+          setAfterUseOpen(false);
+        }}
+      />
+    );
+  } else if (cravingActive) {
     body = (
       <CravingCompanionTool
         language={i18n.language}

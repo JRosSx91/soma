@@ -36,6 +36,11 @@
       "title": "Coping with cravings",
       "body": "A guided, voluntary pause for moments of strong urge or craving to use.",
       "open": "Open accompaniment"
+    },
+    "afterUse": {
+      "title": "After returning to use",
+      "body": "A voluntary, non-judgmental pause if you have returned to use or updated your profile.",
+      "open": "Open accompaniment"
     }
   },
   "learn": {

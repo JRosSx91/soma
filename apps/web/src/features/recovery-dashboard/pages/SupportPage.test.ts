@@ -119,8 +119,11 @@ function blockFor(markup: string, attribute: string, id: string): string {
   return markup.slice(start, Math.min(...ends));
 }
 
-test("quick tools: breathing works in DEMO and LIVE, the other three stay planned", async () => {
-  assert.deepEqual([...SUPPORT_TOOLS], ["breathing", "mindfulness", "movement", "craving"]);
+test("quick tools: breathing works in DEMO and LIVE, gated tools stay planned", async () => {
+  assert.deepEqual(
+    [...SUPPORT_TOOLS],
+    ["breathing", "mindfulness", "movement", "craving", "afterUse"],
+  );
   assert.equal(SUPPORT_AVAILABLE_TOOL, "breathing");
   for (const base of ["/app", "/preview"] as const) {
     for (const [lng, copy] of [["es", esSupport], ["en", enSupport]] as const) {
@@ -141,6 +144,7 @@ test("quick tools: breathing works in DEMO and LIVE, the other three stay planne
         }
       }
       assert.ok(markup.indexOf('data-tool="breathing"') < markup.indexOf('data-tool="craving"'));
+      assert.ok(markup.indexOf('data-tool="craving"') < markup.indexOf('data-tool="afterUse"'));
     }
   }
 });
@@ -151,6 +155,7 @@ test("SUP-ASSET-01 maps each card to its illustration and keeps PNG masters with
     mindfulness: "support-mindfulness",
     movement: "support-activity",
     craving: "support-craving",
+    afterUse: "support-mindfulness",
   });
   assert.deepEqual(supportResourceIllustrations, {
     processes: "support-learning",
@@ -163,9 +168,11 @@ test("SUP-ASSET-01 maps each card to its illustration and keeps PNG masters with
     ...Object.values(supportToolIllustrations),
     ...Object.values(supportResourceIllustrations),
   ];
+  // afterUse reuses support-mindfulness; uniqueness is by asset name, not tool id.
   assert.equal(new Set(names).size, 7);
+  const uniqueNames = [...new Set(names)];
   const dir = join(publicDir, "images/support");
-  for (const name of names) {
+  for (const name of uniqueNames) {
     const png = join(dir, `${name}.png`);
     const webp = join(dir, `${name}.webp`);
     assert.equal(existsSync(png), true, png);
@@ -175,7 +182,7 @@ test("SUP-ASSET-01 maps each card to its illustration and keeps PNG masters with
   }
   assert.deepEqual(
     readdirSync(dir).filter((file) => file.endsWith(".png")).sort(),
-    names.map((name) => `${name}.png`).sort(),
+    uniqueNames.map((name) => `${name}.png`).sort(),
   );
 });
 
@@ -319,16 +326,21 @@ test("no fake actions, phone numbers or efficacy claims", async () => {
   assert.match(page, /resolveSupportStrategyQueryParam/);
   assert.match(page, /SupportStrategySheet/);
   assert.match(page, /cravingOpen/);
+  assert.match(page, /afterUseOpen/);
   assert.match(sections, /isSupportCravingToolEnabled/);
+  assert.match(sections, /isSupportAfterUseToolEnabled/);
   for (const lng of ["es", "en"] as const) {
     const markup = await render("/app", lng);
     const breathing = blockFor(markup, "data-tool", "breathing");
     const craving = blockFor(markup, "data-tool", "craving");
-    // Breathing start + coverage chooser (Spain / Other) + guide reset. Craving stays planned (no button).
+    const afterUse = blockFor(markup, "data-tool", "afterUse");
+    // Breathing start + coverage chooser (Spain / Other) + guide reset. Gated tools stay planned.
     assert.equal((markup.match(/<button/g) ?? []).length, 4);
     assert.equal((breathing.match(/<button/g) ?? []).length, 1);
     assert.equal(craving.includes("<button"), false);
     assert.match(craving, /data-tool-state="planned"/);
+    assert.equal(afterUse.includes("<button"), false);
+    assert.match(afterUse, /data-tool-state="planned"/);
     assert.match(markup, /data-support-guide-reset/);
     assert.match(markup, /data-help-coverage="spain"/);
     assert.match(markup, /data-help-coverage="other"/);

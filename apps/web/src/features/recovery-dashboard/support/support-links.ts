@@ -8,7 +8,13 @@ import type { ExploreEduSheetId } from "../explore/explore-edu.js";
  * rewritten here. Planned tools and the audio group stay unavailable.
  * Strategy topics resolve through `support-strategies.ts` (enabled allow-list).
  */
-export const SUPPORT_TOOLS = ["breathing", "mindfulness", "movement", "craving"] as const;
+export const SUPPORT_TOOLS = [
+  "breathing",
+  "mindfulness",
+  "movement",
+  "craving",
+  "afterUse",
+] as const;
 export type SupportTool = (typeof SUPPORT_TOOLS)[number];
 
 /** The only working tool (SUP-01C); the rest are planned. */

@@ -17,6 +17,8 @@ export const supportToolIllustrations: Record<SupportTool, string> = {
   mindfulness: "support-mindfulness",
   movement: "support-activity",
   craving: "support-craving",
+  /** Reuses an existing SUP-ASSET-01 plate; no new asset for SUP-02E. */
+  afterUse: "support-mindfulness",
 };
 
 export const supportResourceIllustrations: Record<SupportResourceGroupId, string> = {
