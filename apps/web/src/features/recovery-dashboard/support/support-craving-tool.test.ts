@@ -104,7 +104,11 @@ test("companion source uses in-memory open path and avoids URL product id", () =
   const waveSource = readFileSync(new URL("./UrgeWaveVisual.tsx", import.meta.url), "utf8");
   assert.match(waveSource, /data-craving-wave/);
   assert.match(waveSource, /prefers-reduced-motion/);
-  assert.match(waveSource, /soma-craving-wave/);
+  assert.match(waveSource, /@keyframes soma-ripple/);
+  assert.match(waveSource, /transform-origin:\s*center/);
+  assert.match(waveSource, /prefers-reduced-motion:\s*reduce/);
+  assert.match(waveSource, /animation:\s*none/);
+  assert.doesNotMatch(waveSource, /\baxis\b|chart|predict|countdown|seconds|percent/i);
 });
 
 test("hub copy and editorial register stay aligned", () => {
