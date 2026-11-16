@@ -29,27 +29,35 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12; correcciones documentales C1–C3 desplegadas con PR #112); sigue sin cierre formal ni valoración jurídica especializada. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (no ampliar producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112). **ACH-02** (A/B/C + DB) **cerrado** (PR #125–#126; SQL Supabase 2026-11-15 según propietario). **PERF-01B–01E** cerrados y desplegados (PR #122–#124). **SUP-01** (Centro de Apoyo y Herramientas): **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** publicados (PR #113–#119); prevención de recaídas pendiente. **SEO-02A** completada; **SEO-02B1** FAQ desplegada (PR #120); **SEO-02B2** publicado (PR #121). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** integrados y desplegados (propietario). **PWA-01D** **aplazado**: no bloquea la beta. **AUTH-01** / **LIVE-01** completados (local y producción, según confirmación del propietario): **no** se repiten salvo regresión o cambio funcional relevante. Instalación PWA Android/iOS básica ya comprobada. No es empaquetado nativo (**MOB-01**, pospuesto). No es offline completo ni push.
+**Prioridad inmediata (bloqueos externos, no cerrar por producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3** (C1–C3 ya desplegados con PR #112). **ACH-02** y **Q-E2E-1** cerrados. **SUP-01** A–E2 + SUP-ASSET publicados; la prevención de recaídas continúa como **SUP-02**. **PERF-01B–01E**, **WEB-01** / **WEB-01-FIX** / **UX-POLISH** / **Q-05** / **Q-OBS** / **BETA-01D.3-FIX** / **SEO-02B*** según estados previos. **PWA-01D** **aplazado**. **AUTH-01** / **LIVE-01** completados: no se repiten salvo regresión. **MOB-01** pospuesto. **INST-01** (iniciativa institucional) **aplazado** — sin ejecución.
 
-Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** en curso (hito aparte: **Q-E2E-0** / **Q-E2E-1** cerrados; auth staging y CI pendientes — no cierra el hito global). **R-SHA** cerrado como procedimiento (2026-11-10); inventario SPA recopiado 2026-11-11 (`c519bb3`); API Live post-#105 **sin** SHA de panel. **No** nuevas obligaciones diarias ni un segundo motor de XP. Gamificación extra, nativo y expansión editorial: **P3 / posterior**.
+Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** en curso (**Q-E2E-0** / **Q-E2E-1** cerrados; continúa en **Q-E2E-2+**). **R-SHA** cerrado como procedimiento. **No** nuevas obligaciones diarias ni un segundo motor de XP.
 
 ### Próximos hitos (orden)
 
-| Orden | ID / trabajo | Notas |
-| --- | --- | --- |
-| 1 | **MKT-PR-01D** | Seguimiento de prensa (seis medios). El Referente: requisito editorial de sociedad/CIF; respuesta aclaratoria enviada. Sin cobertura confirmada. |
-| 2 | **BETA-01D.3** | **En revisión.** Comprobación puntual hecha (2026-11-12). C1–C3 completados y desplegados (BETA-01D.3-FIX, PR #112); C4 aplazado. Identificación y domicilio del responsable, y demás puntos jurídicos, pendientes de asesoramiento profesional. |
-| 3 | **PERF-01B** | Desacoplar paint de `/` del bootstrap auth. **Desplegado** (PR #122, merge `ee1d868`). Sucede a **UX-BOOT** / **PERF-01A**. |
-| 4 | **PERF-01C** | Imágenes landing + lazy below-fold. **Desplegado** (PR #123, merge `7a77e42`; producto `5db598b`). Code-splitting de rutas privadas **pospuesto**. |
-| 5 | **PERF-01D** | Auditoría arranque React / LCP. **Completado** (doc `perf-01d-react-startup-audit.md`). Sin código. |
-| 6 | **PERF-01E** | Desacoplar LCP del intro (R1). **Desplegado** (PR #124, merge `cf33d1a`; producto `a02adf2`). |
-| 7 | **WEB-02** | Solo si hay necesidades reales. |
+#### Vía externa (bloqueos / difusión)
 
-**Q-05** y **Q-OBS** completados y desplegados (PR #111): ya no figuran en la lista. **SUP-01** no se inserta en la lista: **SUP-01A**–**SUP-01E2-B** y **SUP-ASSET-01** están publicados (PR #113–#119). **SEO-02B1** FAQ publicada (PR #120). **SEO-02B2** publicado (PR #121). **ACH-02** (A/B/C + DB) cerrado (PR #125–#126; SQL 2026-11-15). **PWA-01D** **aplazado**: no figura en la lista; se retoma solo con acceso a dispositivo o ante una incidencia real. **BETA-01D.3** (jurídica: responsable, proveedores, transferencias) **en revisión**; los avisos en código **no** se marcan revisados por un jurista. **R-SHA recopy API:** procedimiento cerrado; falta SHA Live de API tras #105 (no inventar). **AUTH-01** / **LIVE-01** completados: no se proponen como validación pendiente.
+| Orden | ID / trabajo | Prioridad | Notas |
+| --- | --- | --- | --- |
+| E1 | **MKT-PR-01D** | Alta (externa) | Seguimiento de prensa (seis medios). El Referente: CIF/sociedad; sin cobertura confirmada. |
+| E2 | **BETA-01D.3** | Alta (externa) | **En revisión** jurídica. C1–C3 FIX desplegados (PR #112); C4 aplazado. |
+| E3 | **MKT-02** | Alta (paralela) | Difusión entre profesionales y asociaciones. Distinto de **MKT-PR-01D** (prensa). Puede avanzar en paralelo (regla L54). Continuidad posible del resto de **MKT-01** canales. |
+
+#### Vía producto / calidad (paralela a externa)
+
+| Orden | ID / trabajo | Prioridad | Notas |
+| --- | --- | --- | --- |
+| P1 | **SUP-02** | Alta | Prevención de recaídas (continúa SUP-01). **SUP-02A** aprobado; **SUP-02B** implementación + revisión editorial **completadas**; clínica pendiente; **publicación pendiente** (unpublished / fuera de allow-list; no bloquea SUP-02C). |
+| P2 | **GAM-XP** | Alta | Progresión sostenible **sin** depender de la Bitácora. Continuidad de **GAM-01** y residual **GAME-06** (techo misiones ≈ 14×12 XP). **No** reabre **R-JXP**. Sin segundo motor de XP. |
+| P3 | **GAM-02B** | Media | Misiones de bienestar y objetivos personales (residual de **GAM-02**; no reabre el catálogo educativo de 14 `reading_check`). |
+| P4 | **Q-E2E** | Media | Continuar desde **Q-E2E-2** (auth staging / CI). Hito global abierto. |
+| P5 | **WEB-02** | Media | Identidad y filosofía de SOMA. |
+
+**PERF-01B–E** cerrados (PR #122–#124): **retirados** de esta tabla ordenada (trazabilidad en el cuerpo histórico). **SUP-01** A–E2 / SUP-ASSET publicados; no se reabren salvo regresión. **PWA-01D** / **MOB-01** / **INST-01** / nuevas localizaciones / mapa **GAME-07**: aplazados o residual QA — no son el siguiente código de producto. **SEO-02B1/B2**, **ACH-02**, **AUTH-01** / **LIVE-01** según estados previos.
 
 **JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
 
-Después, según diseño: sostenibilidad XP **sin** Bitácora (catálogo de misiones finito: 14×12 XP), categorías GAM-02 bienestar/objetivos, WEB-02, resto de **MKT-01** (canales; **MKT-01C** medición básica ya cerrada). **FBK-02**, **GAME-08**, **MOB-01** e **I18N-04** no son el siguiente código. **SEO-01B** cerrado.
+**FBK-02**, **GAME-08**, **I18N-04** no son el siguiente código. **SEO-01B** cerrado.
 
 **Regla de avance:** un bloqueo externo (clínico, jurídico D.3) no impide trabajo técnico independiente. El hito bloqueado **no** se marca cerrado.
 
@@ -776,7 +784,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 - **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
 - **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** MKT-PR-01D; valoración jurídica de BETA-01D.3 (BETA-01D.3-FIX desplegado, PR #112); revisión de **PERF-01E** (01C/01D hechos; 01B desplegado); WEB-02 si procede. SUP-01B–E2 y SUP-ASSET-01 publicados (PR #113–#119). Relapse pendiente. Q-05 + Q-OBS desplegados (PR #111). **No** más mapa ni catálogo educativo de procesos.
+- **Siguiente trabajo (prioridad):** vía externa MKT-PR-01D + BETA-01D.3; vía producto **SUP-02** (02B → 02C…) y **GAM-XP**; **GAM-02B** / **WEB-02** Media; **MKT-02** paralelo. SUP-01B–E2 y SUP-ASSET-01 publicados (PR #113–#119). Q-05 + Q-OBS desplegados (PR #111). **No** más mapa GAME-07 ni catálogo educativo de procesos.
 - **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
@@ -1356,12 +1364,64 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 - **SUP-01E1-B — completado y desplegado (PR #118; merge `8bdca1c`):** allow-list `ext.es.112`, `ext.es.024`, `ext.es.pnsd.ayuda-cerca`, `ext.int.iasp.find-a-helpline`; selector España/Otros sin persistencia.
 - **SUP-01E2-A — diseño aprobado:** alternativa A (guía orientativa sin datos personales); B/C pospuestas; contactos fuera del MVP. Documento `sup-01e2-a-design-privacy.md`.
 - **SUP-01E2-B — publicado (PR #119):** «Mi guía de apoyo» / «My support guide»; cuatro apartados con casillas solo en memoria; enlaces a respiración, estrategias y panel de ayuda; sin texto libre ni teléfonos de terceros.
-- **Pendientes:**
-  - Prevención de recaídas (categoría `relapse`).
-  - Revisión de **SEO-02B1-B** (FAQ landing local; no es SUP).
-  - Enlace desde Inicio.
+- **Pendientes (tras SUP-01; ver SUP-02):**
+  - Publicación de la ficha `relapse.prevention` (**SUP-02B**, borrador unpublished).
+  - Herramienta craving, acceso rápido, acompañamiento post-recaída, plan personal (**SUP-02C–F**).
+  - Enlace desde Inicio (**SUP-02D**).
+  - Revisión de **SEO-02B1-B** (FAQ landing; no es SUP).
 
 - **Criterio (MVP):** la página abre en DEMO y LIVE desde «Más», la respiración guiada funciona sin conexión a la API y sin guardar nada, no hay tarjetas que aparenten funciones inexistentes ni números sin verificar, y los textos ES/EN no prometen resultados ni se presentan como terapia.
+
+#### SUP-02 — Prevención de recaídas
+
+- **Descripción:** Continúa el Centro de Apoyo (**SUP-01**) con contenido y herramientas educativas sobre prevención de recaídas y afrontamiento no punitivo. **No** es terapia, predicción clínica ni servicio de emergencias.
+- **Estado:** **En curso.** **SUP-02A** **aprobado**. **SUP-02B:** implementación y revisión **editorial completadas** (2026-11-16, v0.1.1); validación **clínica externa pendiente** (**no** bloquea SUP-02C); **publicación en producto pendiente** de autorización independiente (`unpublished`, fuera de allow-list). Hub `relapse` sigue «Prevista».
+- **Prioridad:** Alta (vía producto).
+- **Subhitos:**
+  | ID | Alcance | Estado |
+  | --- | --- | --- |
+  | **SUP-02A** | Auditoría + propuesta de roadmap | **Aprobado** |
+  | **SUP-02B** | Ficha educativa ES/EN `relapse.prevention` + referencias | **Implementación + editorial completadas**; clínica pendiente; **publicación pendiente** |
+  | **SUP-02C** | Herramienta interactiva de craving (sin persistencia prevista en el tramo) | No iniciado (no bloqueado por clínica externa de 02B) |
+  | **SUP-02D** | Acceso rápido a Apoyo (p. ej. enlace desde Inicio / anclas) | No iniciado |
+  | **SUP-02E** | Acompañamiento después de una recaída (copy / checklist; sin castigo XP) | No iniciado |
+  | **SUP-02F** | Plan personal de prevención | Sujeto a **autorización independiente** (privacidad / persistencia) |
+- **Evidencia SUP-02B:** `docs/review/support/sup-02b-relapse-prevention.md`, `sup-02b-references.md` (v0.1.1); runtime borrador `support-relapse-draft-content.ts` (+ tests). Allow-list y `SUPPORT_STRATEGY_BY_TOPIC.relapse` **sin** cambios.
+- **Dependencias:** SUP-01 (patrón editorial). **No** Bitácora obligatoria. **No** API/XP. GAM-XP / GAM-02B no bloquean SUP-02B.
+- **Principios:** no culpabilizar; no predecir; no garantizar; no desintoxicación; no inventar emergencias; editorial ≠ clínica.
+- **Criterio (SUP-02B):** ficha revisable ES/EN con referencias verificables; queries `?strategy=relapse*` siguen sin abrir contenido hasta autorización de publicación.
+
+#### GAM-XP — Progresión sostenible sin Bitácora
+
+- **Descripción:** Hacer viable la progresión (nivel/XP) cuando la persona **no** usa la Bitácora a diario. Continuidad documental de **GAM-01** y del residual **GAME-06** (techo actual ≈ 14×12 XP por misiones educativas).
+- **Estado:** Pendiente de diseño/autorización de implementación. **No** iniciado en este hito.
+- **Prioridad:** Alta.
+- **Fuera de alcance:** segundo motor de XP; obligaciones/rachas diarias; reabrir **R-JXP** (bug de carrera ya cerrado).
+- **Dependencias:** ledger único GAM-01; posible acoplamiento futuro con **GAM-02B** si las misiones de bienestar otorgan XP.
+- **Criterio (cuando se implemente):** un usuario sin Journal puede progresar de forma comprensible sin sentirse castigado por no escribir en Bitácora.
+
+#### GAM-02B — Misiones de bienestar y objetivos personales
+
+- **Descripción:** Residual de **GAM-02**: categorías bienestar/habilidades y objetivos personales. **No** reabre ni sustituye las 14 `reading_check` publicadas.
+- **Estado:** Pendiente. **No** iniciado.
+- **Prioridad:** Media.
+- **Dependencias:** Preferible alinear con **GAM-XP** si otorgan XP. No bloquea SUP-02B.
+- **Criterio:** misiones voluntarias, no punitivas, sin exigir Bitácora.
+
+#### MKT-02 — Difusión entre profesionales y asociaciones
+
+- **Descripción:** Difusión dirigida a profesionales sanitarios/sociales y asociaciones (distinto de **MKT-PR-01D** prensa a medios).
+- **Estado:** Pendiente. Ejecución **paralela** autorizada respecto a la vía producto.
+- **Prioridad:** Alta (paralela).
+- **Relación:** puede absorber o coordinar el resto de canales de **MKT-01**; **no** confundir con MKT-PR.
+- **Criterio:** plan o materiales acordados sin afirmar eficacia clínica no respaldada.
+
+#### INST-01 — Iniciativa institucional
+
+- **Descripción:** Iniciativa institucional (alcance a definir cuando se retome).
+- **Estado:** **Aplazado.** Registrado para trazabilidad; **sin** ejecución ni diseño activo en esta etapa.
+- **Prioridad:** Aplazada.
+- **Criterio:** solo se retoma con autorización expresa.
 
 #### UX-GLO-01 — Experiencia global (consolidación funcional, visual y responsive)
 
@@ -1621,11 +1681,11 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 
 ## Próximos pasos (por dependencia)
 
-0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). **Q-E2E:** Q-E2E-0 / Q-E2E-1 cerrados (Chromium + smoke DEMO fail-closed); hito global aún abierto (auth staging / CI).
-1. **MKT-PR-01D:** seguimiento de prensa (seis medios; El Referente pendiente tras la aclaración sobre CIF; sin cobertura confirmada).
-2. **BETA-01D.3:** **en revisión**. C1–C3 desplegados (BETA-01D.3-FIX, PR #112). C4 aplazado. Revisión jurídica profesional de los puntos abiertos (identificación y domicilio en primer lugar).
-3. **PERF-01B–01E:** cerrados y desplegados (PR #122–#124). Code-splitting pospuesto.
-4. **WEB-02:** solo si hay necesidades reales.
+0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). **Q-E2E:** Q-E2E-0 / Q-E2E-1 cerrados; continuar **Q-E2E-2+** (Media; no bloquea SUP-02).
+1. **MKT-PR-01D** + **BETA-01D.3:** bloqueos externos (prensa / jurídica).
+2. **SUP-02** (Alta): 02A aprobado; 02B implementación + editorial **completadas**; clínica pendiente (no bloquea 02C); **publicación pendiente** (unpublished); 02C–F no iniciados.
+3. **GAM-XP** (Alta) → **GAM-02B** (Media): sostenibilidad XP sin Bitácora; luego bienestar/objetivos.
+4. **WEB-02** (Media); **MKT-02** (Alta, paralelo). **INST-01** / **MOB-01** / locales / GAME-07 mapa: aplazados.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
 - **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
 5. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
@@ -1742,7 +1802,7 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
 UX-08, UX-09  →  editorial con fuentes; sin inventar; P3
 
 Q-CI: PG validado (PR #105); PR a develop y main; Q-05 shared-types en CI (PR #111); residual ESLint / scripts raíz
-Q-E2E en curso (0/1 cerrados; auth staging y CI pendientes); Q-OBS Error Boundary (PR #111; desplegado)
+Q-E2E en curso (0/1 cerrados; Q-E2E-2+ pendiente); SUP-02 en curso (02B unpublished); GAM-XP / GAM-02B / MKT-02 registrados; Q-OBS (PR #111)
 R-SHA: SPA `c519bb3` (2026-11-11); API `4520530` (2026-11-10)
 VIS-01 (no reabre UX-03)
 ```
@@ -1874,3 +1934,5 @@ VIS-01 (no reabre UX-03)
 | 2026-11-15 | **ACH-02 cerrado.** **ACH-02C** PR #126 merge `8e502e8` (producto `78ffe9e`) desplegado en producción según propietario. **ACH-02C-DB:** UPDATE transaccional en Supabase — cuatro platinos `hidden=true` → `hidden=false` (confirmado por el propietario); sin `UserAchievement`, sin seed wipe. **UX-11** / **UX-12** completados. Residual: validación LIVE de comprensión **UX-10**. Sin SHA Render inventado. |
 | 2026-11-15 | **Q-E2E-0** aprobado. **Q-E2E-1** implementación local (sin commit): Playwright Chromium en `@soma/web`, fail-closed loopback, smoke DEMO `/preview`→Recuperación→Explorar, docs `docs/review/e2e/q-e2e-1.md`. Hito global **Q-E2E** no cerrado (sin auth staging ni CI). |
 | 2026-11-15 | **Q-E2E-1 cerrado** (commit local): Playwright Chromium, `reuseExistingServer: false`, `serviceWorkers: block`, `context.route`, preview sin proxy Nest (`SOMA_E2E_PREVIEW`), smoke DEMO + guards. Hito global **Q-E2E** sigue abierto (Q-E2E-2+ / CI). |
+| 2026-11-15 | **SUP-02A** aprobado. Roadmap reconciliado: **SUP-02** / **GAM-XP** / **GAM-02B** / **Q-E2E** / **WEB-02** / **MKT-02**; **INST-01** aplazado. **SUP-02B** borrador ES/EN unpublished (`relapse.prevention` fuera de allow-list; docs `sup-02b-*.md`). Sin commit en este registro. |
+| 2026-11-16 | **SUP-02B** implementación + revisión editorial **completadas** (commit local autorizado; **sin** publicación): ficha ES/EN v0.1.1 unpublished (`support-relapse-draft-content.ts` + tests; docs `sup-02b-*.md`); correcciones de seguridad (opción post-consumo / tolerancia-opioides; refs WHO/CDC + TIP 65 HTML). Clínica externa **pendiente** (no bloquea SUP-02C). Publicación en producto **pendiente** de autorización independiente; allow-list intacta. SUP-02C no iniciado. |

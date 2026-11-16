@@ -2,12 +2,17 @@ import type { ShellBase } from "../shell-base.js";
 import type { SupportStrategyTopic } from "./support-links.js";
 
 /**
- * Support strategy catalog (SUP-01D-B2).
+ * Support strategy catalog (SUP-01D-B2 + SUP-02B draft gate).
  *
  * Editorial Markdown in `docs/review/support/` remains the review register.
- * Runtime copy lives in `support-strategy-content.ts` and must stay aligned
- * with those sheets. Only IDs listed in `SUPPORT_ENABLED_STRATEGY_IDS` resolve
- * from `?strategy=`; unknown or blocked values never open content.
+ * Runtime copy for **published** sheets lives in `support-strategy-content.ts`
+ * and must stay aligned with those sheets. Only IDs listed in
+ * `SUPPORT_ENABLED_STRATEGY_IDS` resolve from `?strategy=`; unknown or blocked
+ * values never open content.
+ *
+ * SUP-02B relapse prevention draft (`relapse.prevention`) lives in
+ * `support-relapse-draft-content.ts` until express publication approval.
+ * Keep `SUPPORT_STRATEGY_BY_TOPIC.relapse = null` until then.
  */
 export const SUPPORT_STRATEGY_QUERY_KEY = "strategy";
 
