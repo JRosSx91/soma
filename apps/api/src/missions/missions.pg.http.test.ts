@@ -35,6 +35,14 @@ const GABA = "edu-gaba-01";
 const SEROTONIN = "edu-serotonin-01";
 const RECEPTORS = "edu-receptors-01";
 const TOLERANCE = "edu-tolerance-01";
+const GAM_XP_MISSION_IDS = [
+  "edu-receptors-02",
+  "edu-neuroadaptation-02",
+  "edu-metabolism-02",
+  "edu-dopamine-02",
+  "edu-gaba-02",
+  "edu-adenosine-02",
+] as const;
 
 function loadLocalEnvFile(): void {
   const here = dirname(fileURLToPath(import.meta.url));
@@ -177,7 +185,7 @@ test("pg http: GET returns published catalog in stable order without private key
   assert.equal(res.status, 200);
   const expected = listPublishedMissions();
   assert.equal(res.body.missions.length, expected.length);
-  assert.equal(res.body.missions.length, 14);
+  assert.equal(res.body.missions.length, 20);
   assert.deepEqual(
     res.body.missions.map((row: { id: string }) => row.id),
     expected.map((row) => row.id),
@@ -186,6 +194,12 @@ test("pg http: GET returns published catalog in stable order without private key
     res.body.missions.some((row: { id: string }) => row.id === "edu-unpublished-01"),
     false,
   );
+  for (const missionId of GAM_XP_MISSION_IDS) {
+    assert.equal(
+      res.body.missions.some((row: { id: string }) => row.id === missionId),
+      true,
+    );
+  }
   for (const row of res.body.missions) {
     assert.equal(row.state, "available");
     assert.equal(row.completedAt, null);

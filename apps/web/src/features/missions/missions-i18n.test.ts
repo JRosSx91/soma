@@ -37,7 +37,7 @@ function lookup(bundle: unknown, key: string): unknown {
   }, bundle);
 }
 
-const GAM_XP_B3_DRAFT_IDS = [
+const GAM_XP_MISSION_IDS = [
   "edu-receptors-02",
   "edu-neuroadaptation-02",
   "edu-metabolism-02",
@@ -45,7 +45,7 @@ const GAM_XP_B3_DRAFT_IDS = [
   "edu-gaba-02",
   "edu-adenosine-02",
 ] as const;
-const gamXpB3DraftIdSet = new Set<string>(GAM_XP_B3_DRAFT_IDS);
+const gamXpMissionIdSet = new Set<string>(GAM_XP_MISSION_IDS);
 
 test("ES and EN mission catalogs share the same keys and cover the pilot", () => {
   assert.deepEqual(flattenKeys(esMissions).sort(), flattenKeys(enMissions).sort());
@@ -97,11 +97,11 @@ test("mission sheet ids match published Explore educational sheets", () => {
   }
 });
 
-test("GAM-XP-B3 drafts have complete equivalent ES and EN copy", () => {
-  for (const id of GAM_XP_B3_DRAFT_IDS) {
+test("published GAM-XP missions have complete equivalent ES and EN copy", () => {
+  for (const id of GAM_XP_MISSION_IDS) {
     const row = getMissionById(id);
     assert.ok(row);
-    assert.equal(row.status, "draft");
+    assert.equal(row.status, "published");
     assert.deepEqual(row.options.map((option) => option.id), ["option_a", "option_b", "option_c"]);
     for (const key of [row.titleKey, row.summaryKey, row.goalKey, row.promptKey, row.explainKey]) {
       const path = key.replace(/^missions\./, "");
@@ -118,10 +118,10 @@ test("GAM-XP-B3 drafts have complete equivalent ES and EN copy", () => {
       assert.equal(typeof lookup(enMissions, path), "string", `${id}: ${option.id} EN`);
     }
   }
-  assert.equal(listPublishedMissions().length, 14);
+  assert.equal(listPublishedMissions().length, 20);
   assert.equal(
-    MISSION_CATALOG.filter((row) => gamXpB3DraftIdSet.has(row.id)).every(
-      (row) => row.status === "draft",
+    MISSION_CATALOG.filter((row) => gamXpMissionIdSet.has(row.id)).every(
+      (row) => row.status === "published",
     ),
     true,
   );
@@ -151,7 +151,7 @@ test("locale copy does not encode the correct option or level locks", () => {
   assert.equal(es.includes("minLevel"), false);
   assert.equal(en.includes("minLevel"), false);
   assert.equal(es.includes("in_progress"), false);
-  for (const id of GAM_XP_B3_DRAFT_IDS) {
-    assert.equal(demoSource.includes(id), false);
+  for (const id of GAM_XP_MISSION_IDS) {
+    assert.equal(demoSource.includes(id), true);
   }
 });

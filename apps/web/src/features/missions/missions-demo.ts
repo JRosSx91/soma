@@ -28,6 +28,12 @@ export const DEMO_MISSION_CORRECT_OPTION_ID = {
   "edu-adenosine-01": "antagonist",
   "edu-endorphin-01": "own_peptides",
   "edu-endocannabinoid-01": "not_the_ligands",
+  "edu-receptors-02": "option_b",
+  "edu-neuroadaptation-02": "option_c",
+  "edu-metabolism-02": "option_a",
+  "edu-dopamine-02": "option_b",
+  "edu-gaba-02": "option_a",
+  "edu-adenosine-02": "option_c",
 } as const satisfies Readonly<Partial<Record<MissionId, string>>>;
 
 export function buildDemoMissions(

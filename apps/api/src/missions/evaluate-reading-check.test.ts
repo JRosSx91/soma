@@ -19,7 +19,7 @@ const sharedPackage = JSON.parse(
   readFileSync(new URL("../../../../packages/shared-types/package.json", import.meta.url), "utf8"),
 ) as { exports?: Record<string, unknown> };
 
-const GAM_XP_B3_CORRECT_OPTIONS = {
+const GAM_XP_CORRECT_OPTIONS = {
   "edu-receptors-02": "option_b",
   "edu-neuroadaptation-02": "option_c",
   "edu-metabolism-02": "option_a",
@@ -27,14 +27,10 @@ const GAM_XP_B3_CORRECT_OPTIONS = {
   "edu-gaba-02": "option_a",
   "edu-adenosine-02": "option_c",
 } as const;
-const gamXpB3DraftIdSet = new Set<string>(Object.keys(GAM_XP_B3_CORRECT_OPTIONS));
 
-test("answer keys cover every published mission and the six approved drafts", () => {
+test("answer keys cover exactly every published mission, including the six GAM-XP missions", () => {
   const published = listPublishedMissions();
-  const expectedIds = [
-    ...published.map((row) => row.id),
-    ...Object.keys(GAM_XP_B3_CORRECT_OPTIONS),
-  ].sort();
+  const expectedIds = published.map((row) => row.id).sort();
   assert.deepEqual(
     Object.keys(MISSION_CORRECT_OPTION_ID).sort(),
     expectedIds,
@@ -47,22 +43,24 @@ test("answer keys cover every published mission and the six approved drafts", ()
     assert.ok(other);
     assert.equal("correctOptionId" in mission, false);
   }
-  const draftSlots = [0, 0, 0];
-  for (const [id, expectedCorrect] of Object.entries(GAM_XP_B3_CORRECT_OPTIONS)) {
+  const gamXpSlots = [0, 0, 0];
+  for (const [id, expectedCorrect] of Object.entries(GAM_XP_CORRECT_OPTIONS)) {
     const mission = getMissionById(id);
     assert.ok(mission);
-    assert.equal(mission.status, "draft");
+    assert.equal(mission.status, "published");
     assert.deepEqual(mission.options.map((option) => option.id), ["option_a", "option_b", "option_c"]);
     assert.equal(MISSION_CORRECT_OPTION_ID[mission.id], expectedCorrect);
     assert.equal(isMissionOptionId(mission, expectedCorrect), true);
     const correctIndex = mission.options.findIndex((option) => option.id === expectedCorrect);
     assert.ok(correctIndex >= 0 && correctIndex <= 2);
-    draftSlots[correctIndex] += 1;
+    gamXpSlots[correctIndex] += 1;
+    assert.deepEqual(
+      evaluateReadingCheckAnswer({ missionId: id, selectedOptionId: expectedCorrect }),
+      { ok: true, missionId: id, selectedOptionId: expectedCorrect, correct: true },
+    );
   }
-  assert.deepEqual(draftSlots, [2, 2, 2]);
-  for (const draft of MISSION_CATALOG.filter(
-    (row) => row.status === "draft" && !gamXpB3DraftIdSet.has(row.id),
-  )) {
+  assert.deepEqual(gamXpSlots, [2, 2, 2]);
+  for (const draft of MISSION_CATALOG.filter((row) => row.status === "draft")) {
     assert.equal(MISSION_CORRECT_OPTION_ID[draft.id], undefined);
   }
   assert.equal(MISSION_CATALOG.some((row) => "correctOptionId" in row), false);
@@ -118,8 +116,8 @@ test("unknown mission or option is rejected", () => {
   );
   assert.deepEqual(
     evaluateReadingCheckAnswer({
-      missionId: "edu-receptors-02",
-      selectedOptionId: "option_b",
+      missionId: "edu-unpublished-01",
+      selectedOptionId: "wanting",
     }),
     { ok: false, reason: "unknown_mission" },
   );
@@ -167,10 +165,10 @@ test("published correct options are not concentrated in one visual slot", () => 
       assert.equal(firstVerdict.correct, first.id === correct);
     }
   }
-  assert.equal(counts.reduce((sum, n) => sum + n, 0), 14);
-  assert.ok(counts.every((n) => n >= 4));
+  assert.equal(counts.reduce((sum, n) => sum + n, 0), 20);
+  assert.ok(counts.every((n) => n >= 6));
   assert.ok(Math.max(...counts) - Math.min(...counts) <= 1);
-  assert.ok(counts[0]! < 14);
+  assert.ok(counts[0]! < 20);
 });
 
 test("a correct option is scored by id even when it is not first", () => {
