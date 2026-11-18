@@ -80,4 +80,4 @@ Complementa las tres fichas. Las citas aquí deben poder comprobarse; si no, se 
 ## 5. Prevención de recaídas (solo registro)
 
 Categoría `relapse`: **sin ficha en B1.**
-**SUP-02B (2026-11-16):** revisión editorial realizada; validación clínica pendiente; borrador **unpublished** (`sup-02b-relapse-prevention.md`, `sup-02b-references.md`, `support-relapse-draft-content.ts` v0.1.1). Allow-list sin cambios; publicación pendiente de autorización independiente (no bloquea SUP-02C).
+**SUP-02B (actualizado 2026-11-18):** revisión editorial y de seguridad completadas; validación clínica externa no realizada. `relapse.prevention` v0.1.1 está en allow-list desde PR #127 y desplegada según confirmación visual del propietario tras PR #128; SHA Render no verificado independientemente.

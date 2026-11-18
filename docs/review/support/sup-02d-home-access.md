@@ -6,9 +6,9 @@
 | DEMO | `/preview/support` |
 | LIVE | `/app/support` |
 | Persistencia / analítica | Ninguna |
-| SUP-02B / SUP-02C | Siguen `unpublished` (sin anuncio ni habilitación; gates intactos) |
+| SUP-02B / SUP-02C / SUP-02E | Habilitados mediante PR #127; PR #128 desplegada según propietario; invite SUP-02E off |
 | Estado desarrollo | **Cerrado** |
-| Publicación de la tarjeta | Apto para futura publicación (hub Apoyo ya disponible; no habilita 02B/02C) |
+| Publicación de la tarjeta | Desplegada según confirmación visual del propietario; SHA Render no verificado |
 
 ## Ubicación
 

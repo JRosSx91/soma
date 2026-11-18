@@ -12,6 +12,7 @@
 | `clinicalStatus` | `external_clinical_validation_not_done` |
 | `publicationStatus` | `enabled_pending_production` |
 | `publicationGate` | `awaiting_express_production_release` |
+| Evidencia de producción | PR #128 visible en Render según propietario; SHA no verificado independientemente |
 | Allow-list | `SUPPORT_CRAVING_TOOL_ENABLED = true` |
 | Runtime | `support-craving-tool.ts`, `support-craving-content.ts`, `craving-companion-session.ts`, `CravingCompanionTool.tsx`, `UrgeWaveVisual.tsx` |
 
@@ -21,7 +22,7 @@
 **Revisión de seguridad:** completada.
 **Validación clínica externa:** **no realizada**.
 **Habilitación local:** gate `true` (release conjunta SUP-02).
-**Publicación en producción:** **pendiente** de autorización expresa.
+**Publicación en producción:** confirmada visualmente por el propietario tras PR #128; SHA Render no verificado independientemente.
 
 No es una intervención clínicamente validada. Política: `editorial-policy.md`.
 
