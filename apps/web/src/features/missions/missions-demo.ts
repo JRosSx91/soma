@@ -28,10 +28,7 @@ export const DEMO_MISSION_CORRECT_OPTION_ID = {
   "edu-adenosine-01": "antagonist",
   "edu-endorphin-01": "own_peptides",
   "edu-endocannabinoid-01": "not_the_ligands",
-} as const satisfies Record<
-  Exclude<MissionId, "edu-unpublished-01">,
-  string
->;
+} as const satisfies Readonly<Partial<Record<MissionId, string>>>;
 
 export function buildDemoMissions(
   completedIds: ReadonlySet<string>,

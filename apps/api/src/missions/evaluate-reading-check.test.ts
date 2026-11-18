@@ -3,9 +3,9 @@ import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
   MISSION_CATALOG,
-  MISSION_IDS,
   getMissionById,
   isMissionOptionId,
+  listPublishedMissions,
 } from "@soma/shared-types";
 import { MISSION_CORRECT_OPTION_ID } from "./mission-answers.js";
 import { evaluateReadingCheckAnswer } from "./evaluate-reading-check.js";
@@ -19,16 +19,51 @@ const sharedPackage = JSON.parse(
   readFileSync(new URL("../../../../packages/shared-types/package.json", import.meta.url), "utf8"),
 ) as { exports?: Record<string, unknown> };
 
-test("correct option keys cover every catalog mission and valid options", () => {
-  assert.deepEqual(Object.keys(MISSION_CORRECT_OPTION_ID).sort(), [...MISSION_IDS].sort());
-  for (const id of MISSION_IDS) {
-    const mission = getMissionById(id);
-    assert.ok(mission);
-    const correct = MISSION_CORRECT_OPTION_ID[id];
-    assert.equal(isMissionOptionId(mission, correct), true);
+const GAM_XP_B3_CORRECT_OPTIONS = {
+  "edu-receptors-02": "option_b",
+  "edu-neuroadaptation-02": "option_c",
+  "edu-metabolism-02": "option_a",
+  "edu-dopamine-02": "option_b",
+  "edu-gaba-02": "option_a",
+  "edu-adenosine-02": "option_c",
+} as const;
+const gamXpB3DraftIdSet = new Set<string>(Object.keys(GAM_XP_B3_CORRECT_OPTIONS));
+
+test("answer keys cover every published mission and the six approved drafts", () => {
+  const published = listPublishedMissions();
+  const expectedIds = [
+    ...published.map((row) => row.id),
+    ...Object.keys(GAM_XP_B3_CORRECT_OPTIONS),
+  ].sort();
+  assert.deepEqual(
+    Object.keys(MISSION_CORRECT_OPTION_ID).sort(),
+    expectedIds,
+  );
+  for (const mission of published) {
+    const correct = MISSION_CORRECT_OPTION_ID[mission.id];
+    assert.equal(typeof correct, "string");
+    assert.equal(isMissionOptionId(mission, correct!), true);
     const other = mission.options.find((option) => option.id !== correct);
     assert.ok(other);
     assert.equal("correctOptionId" in mission, false);
+  }
+  const draftSlots = [0, 0, 0];
+  for (const [id, expectedCorrect] of Object.entries(GAM_XP_B3_CORRECT_OPTIONS)) {
+    const mission = getMissionById(id);
+    assert.ok(mission);
+    assert.equal(mission.status, "draft");
+    assert.deepEqual(mission.options.map((option) => option.id), ["option_a", "option_b", "option_c"]);
+    assert.equal(MISSION_CORRECT_OPTION_ID[mission.id], expectedCorrect);
+    assert.equal(isMissionOptionId(mission, expectedCorrect), true);
+    const correctIndex = mission.options.findIndex((option) => option.id === expectedCorrect);
+    assert.ok(correctIndex >= 0 && correctIndex <= 2);
+    draftSlots[correctIndex] += 1;
+  }
+  assert.deepEqual(draftSlots, [2, 2, 2]);
+  for (const draft of MISSION_CATALOG.filter(
+    (row) => row.status === "draft" && !gamXpB3DraftIdSet.has(row.id),
+  )) {
+    assert.equal(MISSION_CORRECT_OPTION_ID[draft.id], undefined);
   }
   assert.equal(MISSION_CATALOG.some((row) => "correctOptionId" in row), false);
 });
@@ -81,6 +116,13 @@ test("unknown mission or option is rejected", () => {
     }),
     { ok: false, reason: "unknown_option" },
   );
+  assert.deepEqual(
+    evaluateReadingCheckAnswer({
+      missionId: "edu-receptors-02",
+      selectedOptionId: "option_b",
+    }),
+    { ok: false, reason: "unknown_mission" },
+  );
 });
 
 test("original six published missions keep a 2-2-2 visual split", () => {
@@ -96,7 +138,9 @@ test("original six published missions keep a 2-2-2 visual split", () => {
   for (const id of original) {
     const mission = getMissionById(id);
     assert.ok(mission);
-    const index = mission.options.findIndex((option) => option.id === MISSION_CORRECT_OPTION_ID[id]);
+    const correct = MISSION_CORRECT_OPTION_ID[id];
+    assert.equal(typeof correct, "string");
+    const index = mission.options.findIndex((option) => option.id === correct);
     assert.ok(index >= 0 && index <= 2);
     counts[index] += 1;
   }
@@ -108,6 +152,7 @@ test("published correct options are not concentrated in one visual slot", () => 
   const counts = [0, 0, 0];
   for (const row of published) {
     const correct = MISSION_CORRECT_OPTION_ID[row.id];
+    assert.equal(typeof correct, "string");
     const index = row.options.findIndex((option) => option.id === correct);
     assert.ok(index >= 0 && index <= 2);
     counts[index] += 1;

@@ -15,17 +15,22 @@ export function evaluateReadingCheckAnswer(input: {
   selectedOptionId: string;
 }): MissionReadingCheckEvaluation {
   const mission = getMissionById(input.missionId);
-  if (!mission) {
+  if (!mission || mission.status !== "published") {
     return { ok: false, reason: "unknown_mission" };
   }
   if (!isMissionOptionId(mission, input.selectedOptionId)) {
     return { ok: false, reason: "unknown_option" };
   }
 
+  const correctOptionId = MISSION_CORRECT_OPTION_ID[mission.id];
+  if (correctOptionId === undefined) {
+    return { ok: false, reason: "unknown_mission" };
+  }
+
   return {
     ok: true,
     missionId: mission.id,
     selectedOptionId: input.selectedOptionId,
-    correct: MISSION_CORRECT_OPTION_ID[mission.id] === input.selectedOptionId,
+    correct: correctOptionId === input.selectedOptionId,
   };
 }

@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
+  MISSION_CATALOG,
   MISSION_CATEGORY_IDS,
   MISSION_EXPLORE_SHEET_IDS,
+  getMissionById,
   listPublishedMissions,
   optionLabelKey,
 } from "@soma/shared-types";
@@ -16,6 +18,7 @@ const publicContract = readFileSync(
   new URL("../../../../../packages/shared-types/src/missions.ts", import.meta.url),
   "utf8",
 );
+const demoSource = readFileSync(new URL("./missions-demo.ts", import.meta.url), "utf8");
 const sharedPackage = JSON.parse(
   readFileSync(new URL("../../../../../packages/shared-types/package.json", import.meta.url), "utf8"),
 ) as { exports?: Record<string, unknown> };
@@ -33,6 +36,16 @@ function lookup(bundle: unknown, key: string): unknown {
     return (acc as Record<string, unknown>)[part];
   }, bundle);
 }
+
+const GAM_XP_B3_DRAFT_IDS = [
+  "edu-receptors-02",
+  "edu-neuroadaptation-02",
+  "edu-metabolism-02",
+  "edu-dopamine-02",
+  "edu-gaba-02",
+  "edu-adenosine-02",
+] as const;
+const gamXpB3DraftIdSet = new Set<string>(GAM_XP_B3_DRAFT_IDS);
 
 test("ES and EN mission catalogs share the same keys and cover the pilot", () => {
   assert.deepEqual(flattenKeys(esMissions).sort(), flattenKeys(enMissions).sort());
@@ -84,6 +97,36 @@ test("mission sheet ids match published Explore educational sheets", () => {
   }
 });
 
+test("GAM-XP-B3 drafts have complete equivalent ES and EN copy", () => {
+  for (const id of GAM_XP_B3_DRAFT_IDS) {
+    const row = getMissionById(id);
+    assert.ok(row);
+    assert.equal(row.status, "draft");
+    assert.deepEqual(row.options.map((option) => option.id), ["option_a", "option_b", "option_c"]);
+    for (const key of [row.titleKey, row.summaryKey, row.goalKey, row.promptKey, row.explainKey]) {
+      const path = key.replace(/^missions\./, "");
+      const es = lookup(esMissions, path);
+      const en = lookup(enMissions, path);
+      assert.equal(typeof es, "string", `${id}: ${key} ES`);
+      assert.equal(typeof en, "string", `${id}: ${key} EN`);
+      assert.ok((es as string).trim().length > 0, `${id}: ${key} ES`);
+      assert.ok((en as string).trim().length > 0, `${id}: ${key} EN`);
+    }
+    for (const option of row.options) {
+      const path = optionLabelKey(row.id, option.id).replace(/^missions\./, "");
+      assert.equal(typeof lookup(esMissions, path), "string", `${id}: ${option.id} ES`);
+      assert.equal(typeof lookup(enMissions, path), "string", `${id}: ${option.id} EN`);
+    }
+  }
+  assert.equal(listPublishedMissions().length, 14);
+  assert.equal(
+    MISSION_CATALOG.filter((row) => gamXpB3DraftIdSet.has(row.id)).every(
+      (row) => row.status === "draft",
+    ),
+    true,
+  );
+});
+
 test("i18n config registers missions in ES/EN without importing answer keys", () => {
   assert.match(config, /"missions"/);
   assert.match(config, /enMissions/);
@@ -108,4 +151,7 @@ test("locale copy does not encode the correct option or level locks", () => {
   assert.equal(es.includes("minLevel"), false);
   assert.equal(en.includes("minLevel"), false);
   assert.equal(es.includes("in_progress"), false);
+  for (const id of GAM_XP_B3_DRAFT_IDS) {
+    assert.equal(demoSource.includes(id), false);
+  }
 });
