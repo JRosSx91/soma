@@ -3,7 +3,7 @@
 Documento de planificación permanente. Se consulta **antes** de abrir un hito nuevo.  
 **No otorga permiso** para commit, push, PR, merge ni despliegue.
 
-Última actualización editorial: 2026-11-19. **SUP-02B/C/D/E** integrados mediante PR #127; pulido visual SUP-02C/E mediante PR #128. El propietario confirma visualmente PR #128 desplegada en Render, pero el SHA del servicio no se ha recopiado ni verificado de forma independiente. QA comunicado para PR #128: **1133/1133 tests web** y **4/4 recorridos E2E**. La invitación automática SUP-02E sigue apagada (`SUPPORT_AFTER_USE_INVITE_ENABLED=false`) y sin validación LIVE autenticada; el acceso voluntario desde Apoyo está habilitado. Validación clínica externa no realizada. Referencias tras fetch de solo lectura: `HEAD=0a5b6d8` en `develop`, `origin/develop=44fab88` y `origin/main=09f381e`; producción no se equipara a ninguna de esas refs sin SHA de panel. **GAM-XP-A, B1–B5 y B6-A–B6-B4** completados o validados en local: el catálogo local contiene 20 misiones `published` y 1 `draft`, pero PR, CI remoto, merge, despliegue y smoke de producción siguen pendientes. El catálogo efectivamente desplegado no está verificado. El historial detallado anterior permanece en el registro cronológico.
+Última actualización editorial: 2026-11-19. **SUP-02B/C/D/E** integrados mediante PR #127; pulido visual SUP-02C/E mediante PR #128. El propietario confirma visualmente PR #128 desplegada en Render. QA comunicado para PR #128: **1133/1133 tests web** y **4/4 recorridos E2E**. La invitación automática SUP-02E sigue apagada (`SUPPORT_AFTER_USE_INVITE_ENABLED=false`) y sin validación LIVE autenticada; el acceso voluntario desde Apoyo está habilitado. Validación clínica externa no realizada. **GAM-XP está completado, integrado y desplegado:** PR #129 a `develop` y PR #130 a `main`, CI #35/#36 satisfactorios, SPA y API en `b91d637cba521507882e13529742a54ae960014d` según confirmación del propietario y smoke de producción 7/7 el 2026-11-19. Catálogo LIVE/DEMO: 20 misiones `published` + 1 `draft` histórico oculto, 240 XP educativos finitos; sin migraciones, backfill ni cambios en la economía XP. La confirmación de Render procede del propietario, no de inspección independiente del panel. El historial detallado anterior permanece en el registro cronológico.
 
 Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso **no** es este roadmap de producto.
 
@@ -11,7 +11,7 @@ Hay documentación científica y editorial en `docs/` (curvas, 9B Consejos). Eso
 
 ## Objetivo y alcance
 
-Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. Está identificada como **beta pública** (`README.md`; somarecovery.app). **Soma Expeditions** está en `main` (`c519bb3`): shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, **14** misiones educativas publicadas, atlas 2.0 (UX-GLO-01), landing (WEB-01), Somi (CHR-01), tutorial (ONB-01) y **Centro de Expedición (GAME-07)** (`/expedition`, GAME-07F, IMG-PERF-01A/01B). SPA Live sirve ese SHA (confirmación de panel, 2026-11-11). Safari iOS, PWA standalone y LIVE autenticado de Expedición **no** se dan por validados. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. **Integrado en `main` no equivale por sí solo a SHA Render verificado** (hoy SPA Live sí coincide). DEMO `/preview` no equivale a LIVE `/app`.
+Soma 2.0 es un compañero **educativo** para explorar la recuperación fisiológica tras el consumo de sustancias: dashboard personal, atlas anatómico, catálogo de sustancias y logros. Está identificada como **beta pública** (`README.md`; somarecovery.app). **Soma Expeditions** está en `main` y producción (`b91d637cba521507882e13529742a54ae960014d`, confirmación del propietario): shell, Inicio/Recuperación/Logros 2.0, hitos temporales, Bitácora, XP/niveles/títulos, **20** misiones educativas publicadas, atlas 2.0 (UX-GLO-01), landing (WEB-01), Somi (CHR-01), tutorial (ONB-01) y **Centro de Expedición (GAME-07)** (`/expedition`, GAME-07F, IMG-PERF-01A/01B). Safari iOS y PWA standalone **no** se dan por validados. El usuario es protagonista de una expedición personal; **no** es ranking, clínica ni obligación de uso diario. **Integrado en `main` no equivale por sí solo a SHA Render verificado**; la coincidencia actual de SPA/API con `main` consta por confirmación del propietario, no por inspección independiente del panel. DEMO `/preview` no equivale a LIVE `/app`.
 
 No es un dispositivo médico. Las curvas son modelos ilustrativos (`curveProgress` / avance de curva), **no** un porcentaje de salud recuperada ni una medición clínica. No se miden neurotransmisores. Las estimaciones de recuperación **no** se presentan como mediciones fisiológicas individuales. Las fases educativas se eligen para comparar; no se calculan a partir de los días de abstinencia salvo que un hito futuro lo autorice con evidencia.
 
@@ -29,7 +29,7 @@ La secuencia **CHR-01 → ONB-01 → UX-PRE-BETA → BETA-01** se usó para **ab
 
 **BETA-01D.3** (validación jurídica: responsable, proveedores, transferencias) **en revisión** (comprobación puntual 2026-11-12; correcciones documentales C1–C3 desplegadas con PR #112); sigue sin cierre formal ni valoración jurídica especializada. No se inventa esa autorización aquí.
 
-**Prioridad inmediata (bloqueos externos, no cerrar por producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3**. **SUP-02B/C/D/E** están publicados según confirmación del propietario (PR #127/#128), con clínica externa no realizada e invite LIVE de SUP-02E apagada; no se reabren salvo regresión. La siguiente vía de producto es **GAM-XP → GAM-02B → GAM-03B**; GAM-04/05 quedan sujetos a validación posterior. **PWA-01D** e **INST-01** aplazados; **MOB-01** pospuesto.
+**Prioridad inmediata (bloqueos externos, no cerrar por producto):** seguimiento de prensa (**MKT-PR-01D**); valoración jurídica especializada de **BETA-01D.3**. **SUP-02B/C/D/E** están publicados según confirmación del propietario (PR #127/#128), con clínica externa no realizada e invite LIVE de SUP-02E apagada; no se reabren salvo regresión. Cerrado GAM-XP, la siguiente vía de producto aprobada es **GAM-02B → GAM-03B**; GAM-04/05 quedan sujetos a validación posterior. **PWA-01D** e **INST-01** aplazados; **MOB-01** pospuesto.
 
 Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **PWA-01D** (aplazado); **MKT-PR-01D**; residual de Q-CI (ESLint con deuda previa; **no** el PG). **Q-E2E** en curso (**Q-E2E-0** / **Q-E2E-1** cerrados; continúa en **Q-E2E-2+**). **R-SHA** cerrado como procedimiento. **No** nuevas obligaciones diarias ni un segundo motor de XP.
 
@@ -47,15 +47,14 @@ Siguen visibles, y **no** se marcan cerrados: **BETA-01D.3** (en revisión); **P
 
 | Orden | ID / trabajo | Prioridad | Notas |
 | --- | --- | --- | --- |
-| P1 | **GAM-XP** | Alta | A, B1–B5 y B6-A–B6-B4 completados o validados en local. Catálogo local: 20 `published` + 1 `draft`, 240 XP educativos máximos sin Bitácora. Commit local B6-B3 `0a5b6d8`; entrega remota y producción pendientes. |
-| P2 | **GAM-02B** | Media | Misiones de bienestar y objetivos personales; debe alinearse con GAM-XP antes de decidir si concede XP. |
-| P3 | **GAM-03B** | Media | Propuesta futura: árbol interactivo del conocimiento científico sobre la arquitectura existente. No reabre GAM-03 ni GAME-07. |
-| P4 | **Q-E2E** | Media | Continuar desde **Q-E2E-2** (auth staging / CI). Hito global abierto. |
-| P5 | **WEB-02** | Media | Identidad y filosofía de SOMA. GAM-04/05 quedan posteriores a validar GAM-03B. |
+| P1 | **GAM-02B** | Media | Siguiente hito de producto aprobado: misiones de bienestar y objetivos personales; debe respetar la política cerrada en GAM-XP antes de decidir si concede XP. |
+| P2 | **GAM-03B** | Media | Propuesta futura: árbol interactivo del conocimiento científico sobre la arquitectura existente. No reabre GAM-03 ni GAME-07. |
+| P3 | **Q-E2E** | Media | Continuar desde **Q-E2E-2** (auth staging / CI). Hito global abierto. |
+| P4 | **WEB-02** | Media | Identidad y filosofía de SOMA. GAM-04/05 quedan posteriores a validar GAM-03B. |
 
 **SUP-02B/C/D/E** y **PERF-01B–E** se retiran de esta tabla: están cerrados en producto según PR y confirmación del propietario; SUP-02 conserva clínica externa pendiente e invite automática 02E off. **SUP-01** A–E2 / SUP-ASSET publicados; no se reabren salvo regresión. **PWA-01D** / **MOB-01** / **INST-01** / nuevas localizaciones: aplazados o residual QA.
 
-**JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** (`4520530`, panel Render 2026-11-10). Commits de producto `4967da2` + `996af6c`.
+**JRN-01R** (POST `/me/journal` idempotente) está **en `origin/main`** (PR #101) y en la **API Live** actual (`b91d637`, confirmación del propietario 2026-11-19). Commits de producto `4967da2` + `996af6c`.
 
 **FBK-02**, **GAME-08**, **I18N-04** no son el siguiente código. **SEO-01B** cerrado.
 
@@ -120,7 +119,7 @@ Cuatro capas (no se mezclan):
 
 | Superficie | Estado |
 | --- | --- |
-| Producto Soma 2.0 en `develop` / `main` | Refs locales sin fetch (2026-11-18): `origin/develop=44fab88`, `origin/main=4c674c7`; esta última contiene PR #127 pero no refleja localmente el merge de PR #128. El propietario confirma visualmente PR #128 desplegada en Render; SHA Live no recopiado ni verificado independientemente. API Live: último inventario documentado `4520530` (2026-11-10) |
+| Producto Soma 2.0 en `develop` / `main` | Fetch 2026-11-19: `origin/develop=1b73541`, `origin/main=b91d637`; `develop` es ancestro de `main` y ambos árboles coinciden. El propietario confirma SPA y API desplegadas en `b91d637cba521507882e13529742a54ae960014d`; smoke GAM-XP 7/7. No se inspeccionó directamente el panel Render en este cierre documental. |
 | UX-01 orientación corporal | Completado (PR #45). Orientación exacta en prod no reauditada el 2026-10-25 |
 | UX-02 mensajes diarios × 60 | Completado y validado (tests) |
 | UX-03 figura móvil | Completado y validado DEMO 320/375/430 |
@@ -136,16 +135,16 @@ Cuatro capas (no se mezclan):
 | ACH-NOTIF-01 campana | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | ACH-CELEB-01 celebraciones | Completado y validado (LIVE producción). PR #51 + pulido #52 |
 | SHELL-01 shell autenticado | Completado y validado (LIVE producción). PR #52 |
-| Soma Expeditions (GAME-*) | GAME-01–03, NAV-01–02, Explorador, EXP-EDU, GAM-01/02, GAME-07 en `main` `c519bb3` y SPA Live. QA DEMO Chromium de Expedición e IMG-PERF-01B. LIVE `/app` y Safari **no** validados aquí |
+| Soma Expeditions (GAME-*) | GAME-01–03, NAV-01–02, Explorador, EXP-EDU, GAM-01/02, GAME-07 y GAM-XP en `main` y SPA/API Live `b91d637` según el propietario. Smoke de producción GAM-XP 7/7, incluida Expedición; Safari y PWA standalone **no** validados aquí. |
 | I18N-2.0 dashboards ES/EN | En `main` git (PR #60, REL-01). Atlas: ANAT-I18N-01 (PR #68). LIVE autenticado: falta comprobación de navegador antes del despliegue |
 | Explorador 2.0 | En `main` git (`559df95`, PR #61, REL-01). Cabecera, búsqueda ES/EN, filtros, 5 sustancias, 12 sistemas, 9 NT educativos |
-| EXP-EDU fichas educativas | En `main` (PR #62–#67, REL-01). GAME-05 educativa cubierta por **GAM-02** (14 publicadas, PR #96) |
+| EXP-EDU fichas educativas | En `main` (PR #62–#67, REL-01). GAME-05 educativa partió de 14 publicadas (PR #96) y GAM-XP añade 6: 20 publicadas en LIVE/DEMO. |
 | REC-VIS-01 visualización de recuperación | En `main` git (`f346709`, PR #69, REL-01). Curvas educativas + NT cualitativos. **No** medición fisiológica individual |
 | ACH-01 sistema de logros y medallas | En `main` git (`c28b31e`, PR #70, REL-01). Galería 2.0; 156 IDs; 149 alcanzables; 7 no disponibles; recaídas no revocan |
 | HOME-UI-01 layout | En `main` git (PR #66, REL-01). No reabre UX-03 |
-| JRN-01 Bitácora | En `main` (PR #72 + BETA-02C). **JRN-01R** en `main` y API Live `4520530` (PR #101). Recorrido Bitácora LIVE en producción **no** reauditado aquí |
-| GAM-01 XP, niveles, títulos | En `main`. Ledger `XpGrant`. Medallas no conceden XP. El catálogo local GAM-XP permite 20×12 = 240 XP educativos sin Bitácora; el catálogo desplegado no está verificado |
-| GAM-02 / GAME-05 Misiones | En `main`: **14** `reading_check` publicadas (PR #96) + 1 draft histórico. En local GAM-XP: **20** publicadas + `edu-unpublished-01` en draft. Entrega remota y despliegue pendientes; bienestar/objetivos personales pendientes |
+| JRN-01 Bitácora | En `main` (PR #72 + BETA-02C). **JRN-01R** en `main` y en la API Live actual `b91d637` (funcionalidad originada en PR #101). Recorrido Bitácora LIVE en producción **no** reauditado aquí. |
+| GAM-01 XP, niveles, títulos | En `main` y producción. Ledger `XpGrant`; medallas no conceden XP. GAM-XP permite 20×12 = 240 XP educativos finitos sin Bitácora. Primera finalización sintética: 12 XP; repetición: 0 XP adicional (propietario, 2026-11-19). |
+| GAM-02 / GAME-05 Misiones | En `main` y producción: **20** `reading_check` publicadas + `edu-unpublished-01` como draft histórico oculto. DEMO no concede XP real; LIVE evalúa en API sin exponer respuestas. Bienestar/objetivos personales continúan en GAM-02B. |
 | GAM-03 integración | Cerrado técnicamente. En `main`. Sin segunda economía. Copy educativa vs participación: residual UX. No confundir con la propuesta futura GAM-03B |
 | CHR-01 Somi | Cerrado técnicamente. En `main`. Seis WebP; no en Cuenta; solo ONB-01 |
 | ONB-01 tutorial | Completado en git (A/B/C). En `main`. Distinto de AUTH-01. Nueve pasos; **sin** Expedición |
@@ -161,11 +160,11 @@ Cuatro capas (no se mezclan):
 | REL-01 release git | Completado (`8155554`, PR #76). Superado por merges posteriores hasta `c519bb3` |
 | FBK-01 centro de feedback | Completado. En `main` |
 | R-JXP carrera XP | Cerrado. En `main` (`a26585e`, PR #78). No reabre GAM-03 |
-| BETA-01 beta pública | Apertura de producto ejecutada. Código `LEGAL_NOTICE_STATUS=published`. Residual: **D.3 jurídica** (abierta). R-SHA: procedimiento cerrado; recopia API pendiente |
+| BETA-01 beta pública | Apertura de producto ejecutada. Código `LEGAL_NOTICE_STATUS=published`. Residual: **D.3 jurídica** (abierta). R-SHA: procedimiento cerrado; SPA/API `b91d637` confirmadas por el propietario el 2026-11-19. |
 | BETA-02A/B/C | Completado en git. En `main` (PR #94, #95) |
 | UX-REC-01 tarjetas Inicio | Completado. En `main` (PR #97, `4ca43af`) |
 | I18N-JOURNAL-01 sustancias Bitácora | Completado. En `main` (PR #98, `e04e3aa`). Preview vacío ≠ LIVE |
-| GAME-07 Centro de Expedición | Integrado (PR #106, `8ee1ee8` en `main` vía `f27cc2e`) y **SPA Live** `c519bb3`. QA DEMO Chromium. Incluye GAME-07F e IMG-PERF-01A. Safari / PWA / LIVE **no** validados |
+| GAME-07 Centro de Expedición | Integrado (PR #106, `8ee1ee8` en `main` vía `f27cc2e`) y **SPA Live** actual `b91d637` según el propietario. QA DEMO Chromium y smoke GAM-XP de producción sobre Expedición. Safari / PWA no validados. |
 | IMG-PERF-01A cabeceras naturaleza | Integrado con GAME-07 (PR #106). WebP de plates de paisaje. Desplegado SPA Live |
 | IMG-PERF-01B ilustraciones educativas | Integrado (PR #107, `d24f032`) y **SPA Live**. QA DEMO Chromium: `process-*-240.webp` y `educational-missions-960.webp`. Catálogo: **dependence**, no `withdrawal`. NT siguen PNG |
 | FBK-02 feedback comunitario | Futuro. Después de WEB-01/WEB-02. No implementar en FBK-01 |
@@ -174,7 +173,7 @@ Cuatro capas (no se mezclan):
 | MKT-01 presencia digital | **MKT-01C** Completado (medición básica, 2026-11-12). Canales/campañas/perfiles: pendiente. Sin analítica de producto ni campañas automáticas |
 | MKT-PR-01 prensa | Dos rondas enviadas: VIA Empresa, NacióDigital, El Referente; Genbeta, Salud a Diario, Xataka (seis medios). **MKT-PR-01D** en curso: El Referente pidió sociedad/CIF; se envió aclaración (persona física); pendiente de respuesta. Ni rechazo ni aceptación. Sin cobertura confirmada |
 | I18N-04 selector banderas | Pendiente (documentado; no implementar aún; solo ES/EN) |
-| SHA desplegado por Render | Procedimiento **R-SHA** cerrado. Inventario **2026-11-11:** SPA `c519bb3` (PR #107, propietario). Inventario API **2026-11-10:** `4520530` (PR #101). SHA API post-#105 **no** copiado. Fechas UTC **no** comunicadas |
+| SHA desplegado por Render | Procedimiento **R-SHA** cerrado. Inventario actual comunicado por el propietario el **2026-11-19**: SPA y API `b91d637cba521507882e13529742a54ae960014d`; smoke GAM-XP 7/7. No hubo inspección independiente del panel en este cierre; horas UTC no comunicadas. |
 
 ---
 
@@ -211,6 +210,9 @@ Cuatro capas (no se mezclan):
 | Inventario SPA Live (**2026-11-11**) | Propietario: Render Live SPA = `c519bb3`. QA DEMO Chromium GAME-07 + IMG-PERF-01B. **No** es QA LIVE `/app` ni Safari. |
 | SPA vs `main` (2026-11-11) | Coinciden (`c519bb3`). |
 | API vs `main` (2026-11-11) | Inventario API sigue `4520530` hasta recopia de panel. `main` adelanta con #105–#107. **No** afirmar SHA Live de API distinto de `4520530`. | |
+| PR #129 `release/gam-xp-b6` → `develop` | Fusionada; merge `1b73541fd6788039ec90dec44d6759310d0d5695`. CI #35 satisfactorio. Conservó los cinco commits GAM-XP revisados. |
+| PR #130 `develop` → `main` | Fusionada mediante merge normal; merge `b91d637cba521507882e13529742a54ae960014d`. CI #36 satisfactorio. |
+| SPA + API Live GAM-XP (2026-11-19) | El propietario confirma ambos servicios en `b91d637cba521507882e13529742a54ae960014d`; smoke 7/7: 20 publicadas, 1 draft oculto, DEMO 0 XP real, LIVE sin claves, primera finalización sintética +12 XP y repetición +0, Expedición/ES-EN/SUP-02 sin regresiones observadas. Confirmación del propietario; panel no inspeccionado independientemente en este cierre. |
 
 Despliegues en Render han sido **manuales** cuando el usuario los autorizó. Un merge en `main` **no** equivale a un despliegue. Este documento no autoriza despliegues.
 
@@ -557,7 +559,7 @@ Separación conceptual (ACH-NOTIF-01 / ACH-CELEB-01 / `TrophyToastStack` / ACH-R
 
 ## Soma Expeditions — Gamificación de la recuperación
 
-Línea de producto **implementada** en `main` (`c519bb3`) y servida por SPA Live (mismo SHA): GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02 (14 misiones), GAM-03, UX-GLO-01, CHR-01, ONB-01, **GAME-07** (mapa `/expedition`, GAME-07F, IMG-PERF-01A/01B). QA **DEMO Chromium** de Expedición e ilustraciones educativas. Safari, PWA standalone y LIVE `/app` **no** se dan por validados. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**. Sin racha diaria obligatoria ni penalización por descanso o recaída.
+Línea de producto **implementada** en `main` y servida por SPA/API Live `b91d637` según el propietario: GAME-01–03, NAV-01–02, Explorador 2.0, EXP-EDU, REC-VIS-01, ACH-01, JRN-01, GAM-01, GAM-02/GAM-XP (20 misiones), GAM-03, UX-GLO-01, CHR-01, ONB-01, **GAME-07** (mapa `/expedition`, GAME-07F, IMG-PERF-01A/01B). QA **DEMO Chromium** de Expedición e ilustraciones educativas y smoke GAM-XP LIVE 7/7. Safari, PWA standalone y el recorrido LIVE completo ajeno al smoke GAM-XP **no** se dan por validados. Combina mecánicas de RPG científico con una aventura **personal** de recuperación. El usuario es el protagonista de su expedición. El progreso debe ser comprensible, motivador y **voluntario**. Sin racha diaria obligatoria ni penalización por descanso o recaída.
 
 Principios (no negociables hasta que un hito los reabra por escrito):
 
@@ -692,10 +694,10 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
   - Nueve neurotransmisores educativos (cinco destacados + expansión).
   - Selector manual de fases conservado.
   - Procesos clave y neurotransmisores con fichas EXP-EDU (PR #62–#67).
-  - Panel de misiones educativas: teaser hacia `/missions` (GAM-02 en `main`; 14 publicadas).
+  - Panel de misiones educativas: teaser hacia `/missions` (GAM-02/GAM-XP en `main` y producción; 20 publicadas).
   - Diseño responsive (sin overflow horizontal a 1440, 390 y 320 px).
   - Reutilización de los contratos existentes.
-- **Producción:** GAM-01/02 y atlas 2.0 están **integrados en `main`**. En SPA Live `c519bb3`; LIVE `/app` no reauditado aquí. Síntomas no publicados.
+- **Producción:** GAM-01/02/GAM-XP y atlas 2.0 están **integrados en `main`**. SPA/API Live `b91d637` según el propietario; smoke GAM-XP 7/7. Síntomas no publicados.
 - **Dependencias:** UX-05–07. I18N-2.0 (chrome de dashboards 2.0). No GAME-01/02.
 - **Criterio:** Explorar usable en DEMO y LIVE local; NT educativos no se presentan como medición; procesos y misiones no fingen catálogo publicado.
 
@@ -730,7 +732,7 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 #### GAME-06 — XP y niveles
 
 - **Descripción:** Intención original: estudiar experiencia a partir de logros (fisiológicos y temporales) y de aprendizaje. El «Nivel 12 / Explorador neuronal» de `inicio-2.0.png` es **ilustrativo**.
-- **Estado:** Economía **implementada e integrada en `main`** vía **GAM-01**. Este ID no se reabre como segunda economía. Usuarios **sin** Bitácora no reciben `journal_create_day` (12 XP/día UTC). Siguen disponibles misiones (12 XP, una vez) e hitos personales (10). Fuentes `onboarding_complete`, `achievement_eligible` y `referral_qualified` **reservadas y no concedidas**. El catálogo local GAM-XP eleva el techo educativo sin diario a **20×12 = 240 XP**; la cifra desplegada no está verificada.
+- **Estado:** Economía **implementada, integrada y desplegada** vía **GAM-01/GAM-XP**. Este ID no se reabre como segunda economía. Usuarios **sin** Bitácora no reciben `journal_create_day` (12 XP/día UTC). Siguen disponibles misiones (12 XP, una vez) e hitos personales (10). Fuentes `onboarding_complete`, `achievement_eligible` y `referral_qualified` **reservadas y no concedidas**. GAM-XP eleva el techo educativo finito sin diario a **20×12 = 240 XP** en LIVE/DEMO; despliegue `b91d637` y smoke confirmados por el propietario.
 - **Prioridad:** P1 (vía GAM-01)
 - **Dependencias:** ACH-01 (qué medallas existen). GAM-02 (aprendizaje). ACH-REV: el XP histórico **no** se borra en recaída.
 - **Criterio:** Los de GAM-01. Nada de recompensas repetibles ilimitadas ni mecánicas de uso compulsivo (racha diaria obligatoria, FOMO de login).
@@ -777,22 +779,22 @@ No hay una segunda imagen de expedición en el inventario versionado. Las mision
 
 ## Siguiente bloque de producto (ROADMAP-02)
 
-Hitos del siguiente bloque. JRN-01, GAM-01, GAM-02, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, GAM-03, CHR-01, ONB-01, **GAME-07** e **IMG-PERF-01A/01B** están **en `main`** y en SPA Live `c519bb3`. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. **UX-01** sigue siendo orientación anatómica; **UX-GLO-01** es la consolidación; **UX-PRE-BETA** es hito **histórico de apertura** (cerrado ROADMAP-SYNC-01).
+Hitos del siguiente bloque. JRN-01, GAM-01, GAM-02, GAM-XP, FBK-01, R-JXP, UX-GLO-01, CLEAN-01, WEB-01, GAM-03, CHR-01, ONB-01, **GAME-07** e **IMG-PERF-01A/01B** están **en `main`** y en la release SPA/API `b91d637` según el propietario. Los IDs `GAM-*` no sustituyen a `GAME-01`–`GAME-08`. **UX-01** sigue siendo orientación anatómica; **UX-GLO-01** es la consolidación; **UX-PRE-BETA** es hito **histórico de apertura** (cerrado ROADMAP-SYNC-01).
 
 Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
 
-- **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107).
-- **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA Live: `c519bb3` (2026-11-11). API Live copiada: `4520530` (2026-11-10).
+- **Hecho e integrado en `main`:** FBK-01 → R-JXP → UX-GLO-01 → CLEAN-01 → WEB-01 → GAM-03 → CHR-01 → ONB-01 → BETA-02 → GAM-02 (14 misiones iniciales) → UX-REC-01 → I18N-JOURNAL-01 → JRN-01R / BETA-COPY-01 (PR #101) → PWA-01A–C → GAME-07 / 07F / IMG-PERF-01A (PR #106) → IMG-PERF-01B (PR #107) → GAM-XP (20 misiones; PR #129/#130).
+- **Apertura:** ejecutada en producto. Avisos `published` en código (**no** equivale a D.3). SPA y API Live: `b91d637` (2026-11-19, confirmación del propietario; panel no inspeccionado independientemente).
 - **Paralelo abierto:** BETA-01D.3 jurídica (no cerrada aquí). MKT-PR-01D seguimiento de prensa. PWA-01D **aplazado**. WEB-01 / WEB-01-FIX / UX-POLISH integrados (PR #108, #109, #110) y desplegados (propietario).
-- **Siguiente trabajo (prioridad):** vía externa MKT-PR-01D + BETA-01D.3; vía producto **GAM-XP → GAM-02B → GAM-03B**. **GAM-04/05** quedan sujetos a validación posterior; **WEB-02** Media y **MKT-02** paralelo. SUP-02B/C/D/E publicados según propietario (PR #127/#128); no reabrir salvo regresión. No duplicar GAME-07 ni el catálogo educativo.
-- **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz); recopia SHA Live de **API** tras #105: **pendiente**.
+- **Siguiente trabajo (prioridad):** vía externa MKT-PR-01D + BETA-01D.3; vía producto **GAM-02B → GAM-03B** tras cerrar GAM-XP. **GAM-04/05** quedan sujetos a validación posterior; **WEB-02** Media y **MKT-02** paralelo. SUP-02B/C/D/E publicados según propietario (PR #127/#128); no reabrir salvo regresión. No duplicar GAME-07 ni el catálogo educativo.
+- **Paralelo / ops:** Q-CI residual (**Q-05**, cobertura, scripts raíz). R-SHA actual: SPA/API `b91d637` según confirmación del propietario.
 - **Residual / posterior (P3):** WEB-02; resto de MKT-01 (no MKT-01C); FBK-02; GAME-08 (tras ACH-REV residual); bienestar GAM-02; MOB-01 (tiendas, no PWA); NT WebP opcional. **SEO-01B** y **MKT-01C** cerrados (2026-11-12).
 
 #### JRN-01 — Bitácora personal
 
 - **Objetivo:** Ampliar GAME-04: diario privado y voluntario que conserva los campos históricos y añade registro emocional opcional, intensidad del deseo de consumir, desencadenantes y consulta de la evolución personal.
 - **Prioridad:** P1
-- **Estado:** Completado e integrado en `main` (PR #72 + BETA-02C). No es un segundo diario: implementa GAME-04 más los campos nuevos. **JRN-01R** (idempotencia de alta LIVE) en `main` (PR #101, `996af6c` cherry-pick) y en API Live `4520530` (R-SHA, 2026-11-10). Residual: nota de privacidad / retención GDPR. Preview usa `GET /substances` (lista vacía si el catálogo no carga); **I18N-JOURNAL-01-FIX cancelado** (no era LIVE).
+- **Estado:** Completado e integrado en `main` (PR #72 + BETA-02C). No es un segundo diario: implementa GAME-04 más los campos nuevos. **JRN-01R** (idempotencia de alta LIVE) en `main` (PR #101, `996af6c` cherry-pick) y en la API Live actual `b91d637` según el propietario. Residual: nota de privacidad / retención GDPR. Preview usa `GET /substances` (lista vacía si el catálogo no carga); **I18N-JOURNAL-01-FIX cancelado** (no era LIVE).
 - **Dependencias:** AUTH-01 (cuenta LIVE). GAME-DESIGN-01 (navegación; Bitácora en secundario / «Más», no 8 pestañas). Nota de privacidad **antes** de Prisma/API (criterio GAME-04). No depende de GAM-01 ni de CHR-01.
 - **Criterios acordados (GAME-04, vigentes):** ánimo, sueño, energía, ansiedad/estrés, notas, calendario, tendencias, reflexiones destacadas por el usuario; sin racha; sin «bienestar medio» clínico; sin causalidad automática con la abstinencia; no diagnóstico.
 - **Decisiones confirmadas (ampliación):**
@@ -890,7 +892,7 @@ Orden vigente **después** de la apertura (ROADMAP-SYNC-01, 2026-11-11):
   - Protección frente a acumulación abusiva.
   - Sin pérdida de XP por recaídas.
   - Sin pérdida de XP por inactividad en la app.
-- **Pendiente de diseño (residual):** Copy de nombres de nivel y si exploración pura puntúa. En el catálogo local GAM-XP, quien no usa Bitácora dispone de 20 misiones × 12 XP = 240 XP finitos. Las cantidades ya catalogadas **no** se reabren aquí. **No** introducir racha diaria ni penalizar inactividad.
+- **Pendiente de diseño (residual):** Copy de nombres de nivel y si exploración pura puntúa. En el catálogo GAM-XP desplegado, quien no usa Bitácora dispone de 20 misiones × 12 XP = 240 XP finitos. Las cantidades ya catalogadas **no** se reabren aquí. **No** introducir racha diaria ni penalizar inactividad.
 - **Criterio:** Fuentes y techos viven en `@soma/shared-types` (`PROGRESS_XP_AMOUNT`, `T(L)`). No hay granja ilimitada ni FOMO de racha diaria. Recaída no borra XP.
 
 #### GAM-02 — Misiones
@@ -1375,7 +1377,7 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 #### SUP-02 — Prevención de recaídas
 
 - **Descripción:** Continúa el Centro de Apoyo (**SUP-01**) con contenido y herramientas educativas sobre prevención de recaídas y afrontamiento no punitivo. **No** es terapia, predicción clínica ni servicio de emergencias.
-- **Estado:** **SUP-02B/C/D/E implementados, habilitados y publicados** mediante PR #127/#128 según confirmación visual del propietario en Render. No se dispone de SHA Render recopiado ni verificación independiente del despliegue. Validación clínica externa **no realizada**; aplica la política editorial proporcional al riesgo. `SUPPORT_AFTER_USE_INVITE_ENABLED=false` permanece obligatorio hasta E2E LIVE autenticada. Política: `docs/review/support/editorial-policy.md`. Registro de release: `sup-02-release-plan.md`. SUP-02F no iniciado; GAM-XP está preparado en local y pendiente de entrega remota independiente.
+- **Estado:** **SUP-02B/C/D/E implementados, habilitados y publicados** mediante PR #127/#128 según confirmación visual del propietario en Render. La release actual SPA/API `b91d637` fue confirmada por el propietario y el smoke GAM-XP no observó regresiones en SUP-02; no hubo inspección independiente del panel en este cierre. Validación clínica externa **no realizada**; aplica la política editorial proporcional al riesgo. `SUPPORT_AFTER_USE_INVITE_ENABLED=false` permanece obligatorio hasta E2E LIVE autenticada. Política: `docs/review/support/editorial-policy.md`. Registro de release: `sup-02-release-plan.md`. SUP-02F no iniciado; GAM-XP está cerrado.
 - **Prioridad:** Alta (vía producto).
 - **Subhitos:**
   | ID | Alcance | Estado |
@@ -1401,15 +1403,15 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
 
 #### GAM-XP — Progresión sostenible sin Bitácora
 
-- **Descripción:** Hacer viable la progresión (nivel/XP) cuando la persona **no** usa la Bitácora a diario. Continuidad documental de **GAM-01** y del residual **GAME-06**. El catálogo local preparado ofrece 20×12 = 240 XP educativos finitos; no se infiere de ello el catálogo desplegado.
-- **Estado:** **GAM-XP-A, GAM-XP-B1–B5 y B6-A–B6-B4 completados o validados en local; entrega remota pendiente.** B1 editorial aprobado; B2/B3 contratos, copy ES/EN y respuestas privadas del backend implementados; B4 revisión pedagógica y accesibilidad estática aprobada; B5 persistencia validada en PostgreSQL aislado. B6-A cerró QA funcional, B6-A2 la previsualización real, B6-B1/B2 la activación local y su validación, B6-B3 el commit local `0a5b6d8`, y B6-B4 el preflight de entrega. El catálogo local contiene 20 `published` y 1 `draft`; PR, CI remoto, merge, despliegue y smoke de producción siguen pendientes. El catálogo efectivamente desplegado no está confirmado.
-- **Prioridad:** Alta.
+- **Descripción:** Hacer viable la progresión (nivel/XP) cuando la persona **no** usa la Bitácora a diario. Continuidad documental de **GAM-01** y del residual **GAME-06**. El catálogo desplegado ofrece 20×12 = 240 XP educativos finitos.
+- **Estado:** **COMPLETADO Y DESPLEGADO. GAM-XP-A y GAM-XP-B1–B9 finalizados.** B1 editorial aprobado; B2/B3 contratos, copy ES/EN y respuestas privadas del backend; B4 revisión pedagógica y accesibilidad estática; B5 persistencia PostgreSQL aislada; B6 validación, activación, entrega e integración. PR #129 fusionada en `develop` (merge `1b73541`, CI #35) y PR #130 fusionada en `main` (merge `b91d637`, CI #36). El propietario confirma SPA/API en `b91d637cba521507882e13529742a54ae960014d` y smoke de producción 7/7 el 2026-11-19. LIVE/DEMO contienen 20 `published`; `edu-unpublished-01` permanece como draft histórico oculto. Ninguna incidencia bloqueante conocida.
+- **Prioridad:** Completado; fuera de la cola activa.
 - **Fuera de alcance:** segundo motor de XP; obligaciones/rachas diarias; reabrir **R-JXP** (bug de carrera ya cerrado).
 - **Dependencias:** ledger único GAM-01; posible acoplamiento futuro con **GAM-02B** si las misiones de bienestar otorgan XP.
 - **Diagnóstico GAM-XP-A (2026-11-18):**
   - Único ledger: `XpGrant`, con unicidad `(userId, source, sourceKey)`; agregado `UserProgression.totalXp`; nivel derivado por `T(L)=10(L−1)(3(L−1)+4)`.
   - Concesiones reales: `journal_create_day` (12, una por día UTC de creación), `personal_milestone` (10, una por cada uno de 6 tipos) y `mission_complete` (12, una por misión publicada). `onboarding_complete`, `achievement_eligible` y `referral_qualified` están reservadas y no concedidas.
-  - En el diagnóstico inicial, las 14 misiones publicadas permitían **168 XP no recurrentes**: nivel 2 (umbral nivel 2 = 70; nivel 3 = 200), 32 XP por debajo del nivel 3. El catálogo local final contiene 20 misiones publicadas y permite **240 XP** finitos sin Bitácora; no se añadió una fuente recurrente.
+  - En el diagnóstico inicial, las 14 misiones publicadas permitían **168 XP no recurrentes**: nivel 2 (umbral nivel 2 = 70; nivel 3 = 200), 32 XP por debajo del nivel 3. El catálogo final desplegado contiene 20 misiones publicadas y permite **240 XP** finitos sin Bitácora; no se añadió una fuente recurrente.
   - Con Bitácora, `journal_create_day` es recurrente por día UTC; los hitos personales suman como máximo 60 XP no recurrentes. PATCH/DELETE no conceden ni revocan.
   - Misiones, medallas y Centro de Expedición consumen la misma economía: `MissionCompletion` y `XpGrant` se escriben en una transacción; las medallas no conceden XP; GAME-07 solo compone progreso, misiones y logros.
   - DEMO usa fixture local (4435 XP, nivel 12); completar misiones DEMO devuelve `xpGranted: 0` y no llama a la API. LIVE lee `GET /me/progress`; no existe endpoint público para conceder XP.
@@ -1418,13 +1420,13 @@ Preparación y autorización siguen siendo fases distintas. Este sync **no** cam
   1. **Ampliar misiones educativas con `mission_complete` (recomendada inicialmente):** reutiliza contratos, evaluator, `MissionCompletion`, ledger y concurrencia; no exige nueva tabla ni endpoint. Límite: progreso ligado a contenido finito y a actividades representables como misión.
   2. **Fuente genérica de actividad educativa:** flexible para árbol, colecciones y expediciones, pero exige contrato, persistencia, API, migración y nuevas defensas antiabuso; riesgo de segunda economía semántica.
   3. **XP recurrente por frecuencia/tiempo:** rechazada para este diseño por FOMO, granja, temporizadores artificiales y dependencia compulsiva.
-- **Dirección aplicada:** seis actividades educativas finitas reutilizan los contratos `reading_check`, `MissionCompletion`, `XpGrant` y `mission_complete=12`; no hay tabla, endpoint, fuente de XP ni dependencia nueva. Están `published` únicamente en el código local; no existe backfill ni concesión automática a usuarios existentes. No se modificaron niveles, medallas, persistencia ni la fuente de XP. DEMO conserva claves inspeccionables y devuelve siempre `xpGranted: 0`; LIVE evalúa en la API.
-- **Subhitos vigentes:** GAM-XP-A auditoría (cerrado) → GAM-XP-B1 editorial (aprobado) → B2 contratos draft (implementado) → B3 contenido ES/EN y respuestas privadas (implementado) → B4 revisión pedagógica y accesibilidad estática (aprobada) → B5 persistencia PostgreSQL aislada (28/28, sin skips) → B6-A validación final local (50/50 tests focalizados y tres typechecks) → B6-A2 preview Chromium en escritorio y móvil → B6-B1 activación local (69/69 tests focalizados) → B6-B2 PostgreSQL aislado (29/29, sin skips) → B6-B3 commit local `0a5b6d8` → B6-B4 preflight favorable, entrega remota pendiente.
+- **Dirección aplicada:** seis actividades educativas finitas reutilizan los contratos `reading_check`, `MissionCompletion`, `XpGrant` y `mission_complete=12`; no hay tabla, endpoint, fuente de XP ni dependencia nueva. Están `published` en código y producción; no existe backfill ni concesión automática a usuarios existentes. No se modificaron niveles, medallas, persistencia ni la fuente de XP. DEMO conserva claves inspeccionables y devuelve siempre `xpGranted: 0`; LIVE evalúa en la API sin exponer respuestas.
+- **Subhitos cerrados:** GAM-XP-A auditoría → GAM-XP-B1 editorial → B2 contratos draft → B3 contenido ES/EN y respuestas privadas → B4 revisión pedagógica/accesibilidad estática → B5 persistencia PostgreSQL aislada (28/28) → B6-A validación local (50/50 y tres typechecks) → B6-A2 preview Chromium escritorio/móvil → B6-B1 activación local (69/69) → B6-B2 PostgreSQL aislado (29/29) → B6-B3/B4 commits y preflight → B6-B5/B6 entrega e integración en `develop` (PR #129, CI #35) → B6-B7/B8 promoción e integración en `main` (PR #130, CI #36) → B6-B9 despliegue manual coordinado y smoke 7/7. El cierre agregado se registra como GAM-XP-B1–B9 finalizado.
 - **QA GAM-XP-B5 (2026-11-18):** PostgreSQL 16 temporal con `tmpfs`, base/usuario/credenciales/puerto exclusivos y bind solo a `127.0.0.1`; 27 migraciones aplicadas mediante `prisma migrate deploy`, incluida `20261109140000_journal_entry_idempotency`. Resultados: `missions.service.pg.integration.test.ts` 10/10, `missions.pg.http.test.ts` 11/11 y `progress.pg.http.test.ts` 7/7. Se comprobaron primera concesión, repetición, concurrencia, rollback, aislamiento, límite global, conservación de `contentVersion` y bloqueo de misiones unpublished. Se usaron misiones publicadas históricas para persistencia; las seis nuevas no cambiaron de estado. El contenedor fue destruido y el entorno restaurado. Dos intentos previos se detuvieron antes de migrar por incompatibilidad de quoting en consultas `docker inspect`; ambos limpiaron su contenedor.
-- **QA GAM-XP-B6 (2026-11-19):** B6-A, 50/50 tests focalizados y tres typechecks; B6-A2, preview Chromium real de las seis misiones en escritorio y móvil; B6-B1, 69/69 tests focalizados sobre la activación local; B6-B2, 29/29 tests PostgreSQL aislados sin skips. B6-B3 quedó en el commit local `0a5b6d8`. B6-B4 confirmó un preflight Git favorable tras fetch: los tres commits locales son fast-forward limpio sobre `origin/develop`; la configuración y los SHA Live de Render no se verificaron directamente.
-- **Límites de validación:** B6-A2 verificó Chromium real en escritorio y móvil. No se ha ejecutado una prueba con lector de pantalla real ni una comprobación con zoom nativo al 200 %. Las pruebas locales y PostgreSQL no autorizan entrega remota ni equivalen a QA LIVE o producción.
+- **QA GAM-XP-B6 (2026-11-19):** B6-A, 50/50 tests focalizados y tres typechecks; B6-A2, preview Chromium real de las seis misiones en escritorio y móvil; B6-B1, 69/69 tests focalizados sobre la activación local; B6-B2, 29/29 tests PostgreSQL aislados sin skips. CI #35 y #36 satisfactorios. El propietario confirma despliegue SPA/API común `b91d637` y smoke 7/7: 20 misiones LIVE/DEMO, draft oculto, DEMO sin XP real, LIVE sin claves, primera finalización sintética +12 XP, repetición +0 XP y sin regresiones observadas en Expedición, ES/EN o SUP-02. La idempotencia de producción se comprobó con cuenta sintética autorizada.
+- **Límites de validación:** B6-A2 verificó Chromium real en escritorio y móvil. No se ha ejecutado una prueba con lector de pantalla real ni una comprobación con zoom nativo al 200 %; quedan como comprobaciones complementarias no bloqueantes y **no reabren GAM-XP**. La coincidencia de los SHA de Render y el smoke de producción proceden de confirmación del propietario, no de inspección independiente del panel durante este cierre.
 - **Compatibilidad:** conservar todas las filas `XpGrant`, `MissionCompletion` y `UserProgression`; no backfill retroactivo sin decisión expresa; no revocar XP/niveles/medallas; IDs/versiones nuevas deben ser deterministas; el nivel sigue derivado del total existente.
-- **Criterio (cuando se implemente):** un usuario sin Journal puede progresar de forma comprensible mediante aprendizaje voluntario, sin XP por recaída, craving, sufrimiento, ayuda, abstinencia declarada o conexión diaria; no hay grants duplicados ni datos sensibles nuevos.
+- **Criterio cumplido:** un usuario sin Journal puede progresar de forma comprensible mediante aprendizaje voluntario, sin XP por recaída, craving, sufrimiento, ayuda, abstinencia declarada o conexión diaria; no hay grants duplicados ni datos sensibles nuevos.
 
 #### GAM-02B — Misiones de bienestar y objetivos personales
 
@@ -1625,12 +1627,12 @@ Este es el hito de consolidación UX de Soma 2.0. **No** reabre ni sustituye **U
 #### R-SHA — Trazabilidad del commit desplegado
 
 - **Descripción:** Poder comprobar qué git SHA sirve producción (SPA `https://somarecovery.app` y API `https://api.somarecovery.app`) sin inferirlo solo por el copy visible.
-- **Estado:** **Cerrado** como procedimiento (2026-11-10). Inventarios en **Publicación (Git ≠ Render)**. Recopia **SPA** 2026-11-11 (`c519bb3`). Recopia **API** post-#105 **pendiente**.
+- **Estado:** **Cerrado** como procedimiento (2026-11-10). Inventarios en **Publicación (Git ≠ Render)**. Inventario actual comunicado por el propietario el 2026-11-19: SPA/API `b91d637`; no se inspeccionó independientemente el panel en este cierre.
 - **Prioridad:** P2 (cerrado; recopia operativa).
-- **Evidencia:** panel Render, propietario. **2026-11-10:** SPA `4c67c2b` (PR #103), API `4520530` (PR #101); `main` era `d37a818` luego `455cdf5`. **2026-11-11:** SPA Live `c519bb3` (PR #107) = `origin/main`. API copiada sigue `4520530`; **no** se afirma otro SHA de API. El HTML público **sigue** sin exponer el commit; GitHub Deployments **no** es la fuente. Fechas UTC **no** comunicadas.
+- **Evidencia:** panel Render, propietario. **2026-11-10:** SPA `4c67c2b` (PR #103), API `4520530` (PR #101). **2026-11-11:** SPA Live `c519bb3` (PR #107). **2026-11-19:** propietario confirma SPA/API `b91d637cba521507882e13529742a54ae960014d` tras GAM-XP. El HTML público **sigue** sin exponer el commit; GitHub Deployments **no** es la fuente. Horas UTC no comunicadas.
 - **Dependencias:** Acceso al panel Render. Este roadmap no autoriza cambiar el deploy ni añadir meta/endpoints de diagnóstico.
-- **Criterio:** Un operador documenta el SHA de un deploy y coincide con `main` o se explica la diferencia. **Cumplido** para SPA el 2026-11-11. API: diferencia con `main` explicada (sin SHA de panel post-#105).
-- **Residual (no reabre el hito):** fecha UTC si el panel la muestra; SHA Live de API tras #105. **No** asumir `455cdf5`, `5eaa05c` ni `c519bb3` como SHA de API.
+- **Criterio:** Un operador documenta el SHA de un deploy y coincide con `main` o se explica la diferencia. **Cumplido** para SPA/API el 2026-11-19 por confirmación del propietario: `b91d637` coincide con `origin/main`.
+- **Residual (no reabre el hito):** horas UTC e identificadores de deploy si el panel los muestra; verificación independiente del panel opcional.
 
 #### Deuda ESLint conocida (sin ID de producto)
 
@@ -1687,12 +1689,12 @@ UI de síntomas: cuando se autorice, leer **únicamente** el catálogo publicado
 5. Platinos: **UX-11 cerrado** (ACH-02B): colección de curvas alcanzables, no umbral 0,99 solo.
 6. Fichas de anatomía EN (I18N-03): entregadas en PR #68; residual de validación LIVE.
 7. Destino de `/achievements` legacy (LEG-01): **redirige** a `/app/achievements` (ACH-01).
-8. Soma Expeditions: Expedición propia (**GAME-07**) en `main` y SPA Live `c519bb3` (QA DEMO Chromium). Capítulos (**GAME-08**) pendientes (P3). XP (**GAM-01**), bitácora (**JRN-01**), misiones (**GAM-02**, 14 publicadas), atlas 2.0, GAM-03, CHR-01 y ONB-01 en `main`. DEMO ≠ LIVE. Apertura de beta ejecutada; D.3 jurídica abierta.
+8. Soma Expeditions: Expedición propia (**GAME-07**) en `main` y SPA/API Live `b91d637` según el propietario (QA DEMO Chromium; smoke GAM-XP LIVE). Capítulos (**GAME-08**) pendientes (P3). XP (**GAM-01**), bitácora (**JRN-01**), misiones (**GAM-02/GAM-XP**, 20 publicadas), atlas 2.0, GAM-03, CHR-01 y ONB-01 en `main`. DEMO ≠ LIVE. Apertura de beta ejecutada; D.3 jurídica abierta.
 9. Naming de GAME-01: la tabla de este roadmap y los nombres frikis de los PNG son **propuestas históricas**, no catálogo a renombrar. Los 106 fisiológicos **no** se renombran.
 10. Arte Horizonte / mapa: los PNG no otorgan licencia. Somi (CHR-01) está en `main` (WebP estáticos, solo ONB-01); animación avanzada pospuesta.
-11. **GAM-01 residual:** copy público de niveles; fuentes de XP adicionales (exploración). Fórmulas del ledger **cerradas** en `main`. El catálogo local GAM-XP eleva el techo sin Bitácora a 20×12 = 240 XP; entrega remota pendiente.
+11. **GAM-01 residual:** copy público de niveles; fuentes de XP adicionales (exploración). Fórmulas del ledger **cerradas** en `main`. GAM-XP está desplegado y eleva el techo finito sin Bitácora a 20×12 = 240 XP.
 12. **JRN-01 residual:** retención/exportación/borrado (detalle GDPR) y nota pública de privacidad.
-13. **GAM-02 residual:** catálogo de bienestar y objetivos personales (14 educativas publicadas en `main`).
+13. **GAM-02 residual:** GAM-02B, catálogo de bienestar y objetivos personales (20 educativas publicadas en `main` y producción mediante GAM-XP).
 14. **CHR-01:** cerrado técnicamente en `main`. Animación avanzada pospuesta. Somi solo en ONB-01.
 15. **ONB-01 / CHR-01:** en `main`.
 16. **UX-PRE-BETA:** **cerrado** (histórico de apertura). Residual en VIS-01, I18N-04, PWA-01D (AUTH-01/LIVE-01 completados). **MKT-01C** cerrado (medición básica). **MKT-PR-01D** (prensa) en curso. Resto de **MKT-01** pendiente (P3). **SEO-01B** cerrado. **GAME-07** en origin y SPA Live. **PWA-01** instalación básica Android/iOS hecha; **PWA-01D** aplazado (sin dispositivo iOS); **MOB-01** pospuesto (tiendas).
@@ -1712,8 +1714,8 @@ Este documento **no** autoriza seeds, commits ni despliegue. Las decisiones ya c
 | R-NT | NT no son medición. SPA Live `c519bb3` (2026-11-11). Ilustraciones NT siguen PNG. | Producto educativo OK |
 | R-DUP | Duplicar párrafos NT como lista de síntomas. | Mitigado en catálogo; falta UI de síntomas |
 | R-I18N | DEMO/Logros en ES con UI EN. | Mitigado en Inicio, Recuperación, Logros 2.0 (PR #60), Explorar (PR #61) y atlas (PR #68). LEG-01 redirige |
-| R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en GAM-01 (`main`). GAM-XP amplía localmente el techo finito sin Bitácora a 20×12 = 240 XP, sin racha; entrega remota pendiente |
-| R-LOG | Nota de privacidad / retención detallada de Bitácora. | Residual GDPR. **JRN-01R** en API Live `4520530` (PR #101) |
+| R-GAME | Rankings, rachas obligatorias o XP que castigue recaídas / inactividad. | Mitigado en GAM-01/GAM-XP (`main` y producción). Techo educativo finito sin Bitácora: 20×12 = 240 XP, sin racha ni FOMO. |
+| R-LOG | Nota de privacidad / retención detallada de Bitácora. | Residual GDPR. **JRN-01R** en la API Live actual `b91d637` (originado en PR #101). |
 | R-JXP | Carrera en `UserProgression.upsert`. | **Cerrado en `main`** (`a26585e`, PR #78). **No** es GAM-03 |
 | R-PREV | Confundir Preview (`/preview`) con LIVE. | I18N-JOURNAL-01-FIX cancelado. Preview no se iguala a LIVE sin autorización |
 | R-NAV | Ocho destinos en mockups vs cinco huecos del bottom nav. | Mitigado en NAV-01 (Más). GAME-07 añade Expedición en «Más», no en el dock |
@@ -1729,11 +1731,11 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 0. **Q-05 + Q-OBS:** completados y desplegados (PR #111). **Q-E2E:** Q-E2E-0 / Q-E2E-1 cerrados; continuar **Q-E2E-2+** (Media; no bloquea SUP-02).
 1. **MKT-PR-01D** + **BETA-01D.3:** bloqueos externos (prensa / jurídica).
 2. **SUP-02B/C/D/E:** publicados según propietario mediante PR #127/#128; clínica externa no realizada; 02E invite LIVE off y E2E autenticada pendiente. **SUP-02F** futuro.
-3. **GAM-XP** (Alta) → **GAM-02B** (Media) → **GAM-03B** (Media): economía sostenible sin Bitácora, luego bienestar/objetivos y después árbol científico. **GAM-04/05** solo tras validación.
+3. **GAM-XP cerrado** → siguiente **GAM-02B** (Media) → **GAM-03B** (Media): bienestar/objetivos y después árbol científico. **GAM-04/05** solo tras validación.
 4. **WEB-02** (Media); **MKT-02** (Alta, paralelo). **INST-01** / **MOB-01** / locales / GAME-07 mapa: aplazados.
 - **Aplazado:** **PWA-01D** (pruebas Safari/iOS sin dispositivo; no bloquea la beta). **WEB-01** / **WEB-01-FIX** / **UX-POLISH** integrados y desplegados (PR #108, #109, #110).
-- **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA recopy API:** falta SHA Live de API tras #105 (no inventar). **AUTH-01 / LIVE-01** completados: no se reproponen.
-5. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y API inventario `4520530`. Preview ≠ LIVE.
+- **En paralelo:** **BETA-01D.3** validación jurídica formal (responsable, proveedores, transferencias), en revisión; los avisos `published` **no** están revisados por un jurista en este documento. **R-SHA:** SPA/API `b91d637` confirmadas por el propietario; panel no inspeccionado independientemente en este cierre. **AUTH-01 / LIVE-01** completados: no se reproponen.
+5. **JRN-01R / BETA-COPY-01:** en `main` (PR #101) y en la API Live actual `b91d637`. Preview ≠ LIVE.
 6. **GAME-07 / IMG-PERF-01B:** integrados y SPA Live; residual Safari / LIVE / NT PNG (opcional).
 7. **ACH-02:** cerrado (A/B/C + DB; PR #125–#126; SQL Supabase 2026-11-15). Residual: validación LIVE de comprensión **UX-10**. Luego XP sin Bitácora / GAM-02 bienestar / GAME-08 / WEB-02 / resto de MKT-01 según prioridad. **SEO-02B2** / **SEO-01B** / **MKT-01C** cerrados.
 8. **ACH-REV residual:** fecha errónea. Bloquea GAME-08.
@@ -1806,6 +1808,8 @@ Ninguno de estos es un **incidente P0 evidenciado** en esta auditoría. Eso **no
 | #107 | IMG-PERF-01B | Merge `c519bb3`. SPA Live. QA DEMO Chromium |
 | #125 | ACH-02B | Merge `97946dc`. Platino por colección + higiene UX-12. Desplegado según propietario |
 | #126 | ACH-02C | Merge `8e502e8`. Etiquetas platino. Desplegado según propietario. **ACH-02C-DB** SQL Supabase 2026-11-15 |
+| #129 | GAM-XP → `develop` | Merge `1b73541`. Cinco commits preservados. CI #35 satisfactorio. |
+| #130 | GAM-XP `develop` → `main` | Merge normal `b91d637`. CI #36 satisfactorio. SPA/API desplegadas en ese SHA según propietario; smoke 7/7. |
 
 ---
 
@@ -1825,18 +1829,18 @@ AUTH-01 + LIVE-01 (completados: local + producción según propietario)
   → ACH-NOTIF-01 / ACH-CELEB-01 / SHELL-01 (main + validado LIVE producción)
   → I18N-04 (selector banderas; no implementar aún; no nuevos idiomas)
 
-Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
+Soma Expeditions (dirección visual OK; en `main` y SPA/API Live `b91d637` según propietario)
   Fase A–E  GAME-01–03, NAV, Explorador, EXP-EDU, REC-VIS, ACH-01, JRN-01, GAM-01 — en `main`
   Fase C    GAME-07 Expedición (mapa + nav Más) — PR #106; SPA Live; QA DEMO Chromium
             GAME-07F + IMG-PERF-01A con #106; IMG-PERF-01B PR #107
             Residual: Safari / PWA standalone / LIVE `/app`
   Fase D    Atlas 2.0 UX-GLO-01 — en `main`
-  Fase E    GAM-02: 6 (PR #74) luego 14 (PR #96) — en `main`
+  Fase E    GAM-02: 6 (PR #74), luego 14 (PR #96), GAM-XP: 20 (PR #129/#130) — en `main` y producción
   Fase E2   REL-01 y trenes #77–#107 hasta `c519bb3`
   Fase F    GAM-03, CHR-01, ONB-01, BETA-02, avisos `published` — en `main`
             BETA-01D.3 jurídica — **en revisión** (comprobación puntual 2026-11-12; C1–C3 en local, sin publicar)
             AUTH-01 / LIVE-01 — completados (local + producción según propietario)
-            PWA-01 instalación Android/iOS hecha; PWA-01D **aplazado** (sin dispositivo iOS). R-SHA procedimiento cerrado. SPA Live recopiada `c519bb3`. API copiada `4520530`; recopia post-#105 pendiente. Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
+            PWA-01 instalación Android/iOS hecha; PWA-01D **aplazado** (sin dispositivo iOS). R-SHA procedimiento cerrado. SPA/API Live `b91d637` según propietario (2026-11-19). Q-CI PG en Actions (PR #105). JRN-01R + BETA-COPY-01 (PR #101)
   Fase G    WEB-01 + WEB-01-FIX (PR #108, #109) → UX-POLISH (PR #110) → Q-05 + Q-OBS (PR #111) — desplegados
             MKT-PR-01: 2 rondas / 6 medios; MKT-PR-01D seguimiento en curso (El Referente: CIF)
             WEB-02 → resto de MKT-01 → FBK-02  (P3 / cuando se autorice)
@@ -1847,8 +1851,8 @@ Soma Expeditions (dirección visual OK; en `main` `c519bb3` + SPA Live)
 UX-08, UX-09  →  editorial con fuentes; sin inventar; P3
 
 Q-CI: PG validado (PR #105); PR a develop y main; Q-05 shared-types en CI (PR #111); residual ESLint / scripts raíz
-Q-E2E en curso (0/1 cerrados; Q-E2E-2+ pendiente); SUP-02B/C/D/E publicados según propietario (PR #127/#128; invite 02E off); GAM-XP-A/B1–B5/B6-A–B6-B4 completados o validados en local, entrega remota y producción pendientes; orden GAM-XP → GAM-02B → GAM-03B; GAM-04/05 futuros; MKT-02 registrado; Q-OBS (PR #111)
-R-SHA: SPA `c519bb3` (2026-11-11); API `4520530` (2026-11-10)
+Q-E2E en curso (0/1 cerrados; Q-E2E-2+ pendiente); SUP-02B/C/D/E publicados según propietario (PR #127/#128; invite 02E off); GAM-XP-A/B1–B9 completado y desplegado (PR #129/#130, CI #35/#36, smoke producción 7/7); siguiente orden GAM-02B → GAM-03B; GAM-04/05 futuros; MKT-02 registrado; Q-OBS (PR #111)
+R-SHA: SPA/API `b91d637` (2026-11-19, confirmación del propietario; panel no inspeccionado independientemente en este cierre)
 VIS-01 (no reabre UX-03)
 ```
 
@@ -1990,3 +1994,4 @@ VIS-01 (no reabre UX-03)
 | 2026-11-18 | **GAM-XP-A cerrado como auditoría, sin implementación:** ledger único `XpGrant`; fuentes reales journal diario 12, hito personal 10 y misión 12; sin Bitácora = 14×12 = 168 XP no recurrentes (nivel 2, a 32 del nivel 3). Recomendación: reutilizar misiones/ledger y aprobar política antes de importes o fuentes nuevas. Orden: GAM-XP → GAM-02B → GAM-03B; GAM-04/05 posteriores. Sin tests ejecutados ni código funcional modificado. |
 | 2026-11-18 | **GAM-XP-B1–B5 completados en local, sin publicación:** seis misiones educativas aprobadas e implementadas como `draft`, ES/EN y claves correctas solo API; B4 favorable por revisión pedagógica/accesibilidad estática (132 tests focalizados, tres typechecks; sin lector de pantalla); B5 PostgreSQL 16 efímero `tmpfs`, 27 migraciones y 28/28 tests PG sin skips (servicio misiones 10, HTTP misiones 11, progreso 7). Concurrencia, idempotencia, rollback, aislamiento, límite y conservación histórica verificados. Contenedor destruido; entorno restaurado. **GAM-XP-B6 pendiente de autorización.** |
 | 2026-11-19 | **GAM-XP-B6-A–B4 completado o validado en local; entrega remota pendiente:** B6-A 50/50 tests focalizados + 3 typechecks; B6-A2 preview Chromium escritorio/móvil; B6-B1 69/69 tests focalizados; B6-B2 29/29 PostgreSQL aislados; B6-B3 commit local `0a5b6d8`; B6-B4 preflight Git favorable. Catálogo local: 20 `published` + 1 `draft`, 240 XP educativos finitos. Sin backfill ni cambios de niveles, medallas, fuente XP o persistencia. DEMO usa claves inspeccionables y concede 0 XP real; LIVE evalúa en API. PR, CI remoto, merge, despliegue, smoke de producción, lector de pantalla real y zoom nativo al 200 % pendientes. Catálogo y SHA desplegados no verificados. |
+| 2026-11-19 | **GAM-XP CERRADO — completado y desplegado:** GAM-XP-A y B1–B9 finalizados. PR #129 fusionada en `develop` (`1b73541`, CI #35) y PR #130 fusionada en `main` (`b91d637`, CI #36). El propietario confirma SPA/API en `b91d637cba521507882e13529742a54ae960014d` y smoke de producción 7/7: LIVE/DEMO con 20 publicadas, draft histórico oculto, 240 XP educativos, DEMO sin XP real, LIVE sin claves, primera finalización sintética +12 XP, repetición +0 y sin regresiones observadas en Expedición, ES/EN o SUP-02. Sin migraciones, backfill ni cambios de niveles, medallas, fuentes XP o persistencia. Confirmación del propietario; panel Render no inspeccionado independientemente en este cierre. Lector de pantalla real y zoom nativo al 200 % siguen como comprobaciones complementarias no bloqueantes y no reabren GAM-XP. Siguiente hito de producto aprobado: **GAM-02B**. |
