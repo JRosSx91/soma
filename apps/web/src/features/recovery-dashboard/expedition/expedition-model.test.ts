@@ -46,6 +46,8 @@ function upcoming(
 
 test("knowledge nodes use published mission counts and never invent 6/12 or 6/18", () => {
   const missions = buildDemoMissions(new Set(["edu-dopamine-01"]));
+  const neuroMissions = missions.filter((row) => row.categoryId === "neurotransmitters");
+  const processMissions = missions.filter((row) => row.categoryId === "processes");
   const nodes = buildKnowledgeNodes("/app", missions, 2);
   assert.deepEqual(
     nodes.map((node) => node.id),
@@ -56,10 +58,10 @@ test("knowledge nodes use published mission counts and never invent 6/12 or 6/18
   const anatomy = nodes.find((node) => node.id === "orientation");
   const substances = nodes.find((node) => node.id === "substances");
   const recovery = nodes.find((node) => node.id === "recovery");
-  assert.equal(neuro?.total, 9);
+  assert.equal(neuro?.total, neuroMissions.length);
   assert.equal(neuro?.completed, 1);
   assert.equal(neuro?.status, "in_progress");
-  assert.equal(processes?.total, 5);
+  assert.equal(processes?.total, processMissions.length);
   assert.equal(processes?.completed, 0);
   assert.equal(processes?.status, "available");
   assert.equal(anatomy?.completed, null);
@@ -149,7 +151,7 @@ test("board stats prefer real XP, mission and medal denominators", () => {
   assert.equal(level?.level, DEMO_PROGRESS.level);
   assert.equal(level?.titleId, DEMO_PROGRESS.equippedTitleId);
   assert.equal(knowledge?.completed, 2);
-  assert.equal(knowledge?.total, 14);
+  assert.equal(knowledge?.total, missions.length);
   assert.equal(perseverance?.completed, 2);
   assert.equal(perseverance?.total, 2);
   assert.equal(medals?.completed, 18);

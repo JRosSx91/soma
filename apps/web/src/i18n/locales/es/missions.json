@@ -222,6 +222,78 @@
         "not_the_ligands": "El THC no es anandamida ni 2-AG: ocupa receptores CB1 que ya tenían sus propios ligandos",
         "makes_anandamide": "El cannabis primero inunda el cerebro de anandamida"
       }
+    },
+    "edu-receptors-02": {
+      "title": "Canal directo o cascada",
+      "summary": "Una segunda comprobación de la ficha de receptores: dos maneras de convertir una unión en una señal.",
+      "goal": "Distinguir receptores ionotrópicos y metabotrópicos sin confundir el tipo de receptor con el tipo de ligando.",
+      "prompt": "¿Qué diferencia presenta la ficha entre receptores ionotrópicos y metabotrópicos?",
+      "explain": "Los ionotrópicos son receptor y canal en uno: la unión abre o modula un poro en milisegundos. Los metabotrópicos no son el canal; suelen acoplarse a proteínas G e iniciar una cascada más lenta y, a menudo, más duradera.",
+      "options": {
+        "option_a": "Los ionotrópicos activan primero una cascada de proteínas G; los metabotrópicos forman directamente el poro por el que pasan iones",
+        "option_b": "Los ionotrópicos son receptor y canal y suelen actuar rápido; los metabotrópicos activan una cascada mediante proteínas asociadas y suelen ser más lentos",
+        "option_c": "Los ionotrópicos responden a neurotransmisores propios, mientras que los metabotrópicos responden únicamente a fármacos u hormonas"
+      }
+    },
+    "edu-neuroadaptation-02": {
+      "title": "La adaptación ocurre a varias escalas",
+      "summary": "Una segunda comprobación de neuroadaptación: la plasticidad no cabe en una sola cifra de un mensajero.",
+      "goal": "Reconocer cambios posibles en sinapsis y circuitos sin convertirlos en una medición individual.",
+      "prompt": "¿Por qué la ficha no resume la neuroadaptación como «más o menos dopamina»?",
+      "explain": "La ficha sitúa cambios posibles tanto en la sinapsis —receptores, desensibilización, liberación y fuerza de conexión— como en redes de recompensa, estrés y control. No los reduce a un único mensajero ni afirma que sean iguales entre sustancias o personas.",
+      "options": {
+        "option_a": "Porque toda adaptación consiste únicamente en que cambia una concentración de dopamina",
+        "option_b": "Porque todas las sustancias producen exactamente la misma adaptación en todas las personas",
+        "option_c": "Porque pueden cambiar receptores, liberación de mensajeros, fuerza de las conexiones y el funcionamiento de varios circuitos"
+      }
+    },
+    "edu-metabolism-02": {
+      "title": "Lo que hace el cuerpo y lo que hace la sustancia",
+      "summary": "Una segunda comprobación de metabolismo: farmacocinética y farmacodinámica no son intercambiables.",
+      "goal": "Diferenciar el recorrido de una sustancia por el organismo de su acción en receptores, enzimas o canales.",
+      "prompt": "¿Qué emparejamiento coincide con la ficha?",
+      "explain": "La farmacocinética describe absorción, distribución, metabolismo y eliminación. La farmacodinámica describe la acción de la sustancia en sus blancos. Están relacionadas, pero no son intercambiables.",
+      "options": {
+        "option_a": "Farmacocinética: lo que el cuerpo hace con la sustancia; farmacodinámica: lo que la sustancia hace en receptores, enzimas o canales",
+        "option_b": "Farmacocinética: lo que la sustancia hace en receptores; farmacodinámica: cómo la elimina el cuerpo",
+        "option_c": "Ambas expresiones significan únicamente que el hígado elimina la sustancia"
+      }
+    },
+    "edu-dopamine-02": {
+      "title": "Recaptar no es degradar",
+      "summary": "Una segunda comprobación de dopamina: devolver el mensajero a la neurona no es destruirlo.",
+      "goal": "Diferenciar la recaptación mediante DAT de la degradación enzimática.",
+      "prompt": "Según la ficha, ¿en qué se diferencian la recaptación y la degradación de dopamina?",
+      "explain": "El DAT retira dopamina de la sinapsis y la devuelve a la neurona que la liberó, donde puede reciclarse. MAO y COMT participan en su degradación. Recaptar y degradar son procesos distintos.",
+      "options": {
+        "option_a": "El DAT degrada químicamente la dopamina en la sinapsis, mientras MAO y COMT la transportan intacta de vuelta a la neurona",
+        "option_b": "El DAT devuelve dopamina a la neurona que la liberó, donde puede reciclarse; enzimas como MAO y COMT participan en degradarla",
+        "option_c": "Recaptación y degradación son dos nombres para el mismo proceso: retirar dopamina de la sinapsis sin cambiar qué ocurre después con la molécula"
+      }
+    },
+    "edu-gaba-02": {
+      "title": "GABA-A y GABA-B no actúan igual",
+      "summary": "Una segunda comprobación de GABA: inhibición rápida e inhibición lenta no son el mismo mecanismo.",
+      "goal": "Distinguir un receptor-canal rápido de una señal más lenta acoplada a proteínas G.",
+      "prompt": "¿Qué diferencia describe la ficha entre GABA-A y GABA-B?",
+      "explain": "GABA-A abre o modula un poro por el que puede circular cloruro y actúa en milisegundos. GABA-B no es el canal: se acopla a proteínas G y cambia más despacio canales de potasio o calcio. Es una descripción general del mecanismo, no una valoración clínica individual.",
+      "options": {
+        "option_a": "GABA-A es receptor y canal de acción rápida; GABA-B se acopla a proteínas G y modula canales más lentamente",
+        "option_b": "Ambos son el mismo canal de cloruro y actúan a idéntica velocidad",
+        "option_c": "GABA-B abre directamente el poro de cloruro, mientras GABA-A solo activa una cascada lenta"
+      }
+    },
+    "edu-adenosine-02": {
+      "title": "Adenosina no es ATP ni cafeína",
+      "summary": "Una segunda comprobación de adenosina: moléculas relacionadas no son la misma señal.",
+      "goal": "Diferenciar la adenosina del ATP y de la cafeína sin convertir la presión de sueño en una medición personal.",
+      "prompt": "¿Cómo describe la ficha la adenosina?",
+      "explain": "La adenosina está relacionada con el ATP, pero no es idéntica a él. Puede formarse por varias rutas, incluida la degradación de ATP, y se describe como neuromodulador. La cafeína es una molécula externa que bloquea receptores de adenosina.",
+      "options": {
+        "option_a": "Es ATP liberado como neurotransmisor clásico desde vesículas; «adenosina» es otro nombre para esa misma molécula en la sinapsis",
+        "option_b": "Es el metabolito activo en el que se convierte la cafeína y, por eso, activa directamente los receptores A1 y A2A",
+        "option_c": "Es un nucleósido relacionado con el metabolismo energético, distinto del ATP, que actúa como neuromodulador"
+      }
     }
   }
 }

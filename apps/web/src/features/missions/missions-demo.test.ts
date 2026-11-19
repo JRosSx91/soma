@@ -8,9 +8,18 @@ import {
   evaluateDemoAnswer,
 } from "./missions-demo.ts";
 
-test("DEMO catalog is the fourteen published missions and starts available", () => {
+const GAM_XP_MISSIONS = [
+  ["edu-receptors-02", "option_b"],
+  ["edu-neuroadaptation-02", "option_c"],
+  ["edu-metabolism-02", "option_a"],
+  ["edu-dopamine-02", "option_b"],
+  ["edu-gaba-02", "option_a"],
+  ["edu-adenosine-02", "option_c"],
+] as const;
+
+test("DEMO catalog is the twenty published missions and starts available", () => {
   const rows = buildDemoMissions(new Set());
-  assert.equal(rows.length, 14);
+  assert.equal(rows.length, 20);
   assert.ok(rows.every((row) => row.state === "available"));
   assert.equal(
     rows.some((row) => row.id === "edu-unpublished-01"),
@@ -42,6 +51,33 @@ test("DEMO does not grant XP or mutate the Home progression fixture", () => {
   assert.equal(DEMO_PROGRESS_TOTAL_XP, 4435);
 });
 
+test("DEMO evaluates all six GAM-XP missions in memory without granting XP", () => {
+  const before = DEMO_PROGRESS_TOTAL_XP;
+  for (const [missionId, correctOptionId] of GAM_XP_MISSIONS) {
+    assert.equal(DEMO_MISSION_CORRECT_OPTION_ID[missionId], correctOptionId);
+    const correct = evaluateDemoAnswer(missionId, correctOptionId, false);
+    assert.deepEqual(
+      {
+        correct: correct.correct,
+        completed: correct.completed,
+        alreadyCompleted: correct.alreadyCompleted,
+        xpGranted: correct.xpGranted,
+      },
+      { correct: true, completed: true, alreadyCompleted: false, xpGranted: 0 },
+    );
+    const repeated = evaluateDemoAnswer(missionId, correctOptionId, true);
+    assert.equal(repeated.completed, true);
+    assert.equal(repeated.alreadyCompleted, true);
+    assert.equal(repeated.xpGranted, 0);
+    const wrongOptionId = correctOptionId === "option_a" ? "option_b" : "option_a";
+    const wrong = evaluateDemoAnswer(missionId, wrongOptionId, false);
+    assert.equal(wrong.correct, false);
+    assert.equal(wrong.completed, false);
+    assert.equal(wrong.xpGranted, 0);
+  }
+  assert.equal(DEMO_PROGRESS_TOTAL_XP, before);
+});
+
 test("DEMO answer keys never emit a simulated XP grant", () => {
   const source = readFileSync(new URL("./missions-demo.ts", import.meta.url), "utf8");
   assert.equal(source.includes("xpGranted: 12"), false);
@@ -62,7 +98,7 @@ test("DEMO scores by option id and does not treat the first option as always cor
     const index = row.options.findIndex((option) => option.id === correct);
     counts[index] += 1;
   }
-  assert.ok(counts.every((n) => n >= 4));
+  assert.ok(counts.every((n) => n >= 6));
   assert.ok(counts[0]! < rows.length);
 });
 

@@ -1,14 +1,15 @@
 # SUP-02C — Referencias (afrontar el impulso de consumir)
 
-Documento de trabajo. **No publicado** en producto.
+Registro de referencias de una herramienta publicada según confirmación visual del propietario; SHA Render no verificado independientemente.
 Complementa `sup-02c-craving-companion.md`.
 
 | Gate | Estado |
 |---|---|
 | Implementación técnica | realizada |
-| Revisión editorial | correcciones 0.1.1 + visual 0.1.2; cierre formal pendiente |
-| Validación clínica | pendiente |
-| Publicación | pendiente de autorización independiente |
+| Revisión editorial | completada (copy 0.1.1 + visual 0.1.2) |
+| Revisión de seguridad | completada |
+| Validación clínica externa | no realizada |
+| Publicación | desplegada según propietario tras PR #128; SHA no verificado |
 
 **Ninguna fuente se presenta como evidencia de eficacia clínica de SOMA.**
 El acompañamiento **no** se presenta como intervención clínicamente validada.

@@ -222,6 +222,78 @@
         "not_the_ligands": "THC is not anandamide or 2-AG: it occupies CB1 receptors that already had their own ligands",
         "makes_anandamide": "Cannabis first floods the brain with anandamide"
       }
+    },
+    "edu-receptors-02": {
+      "title": "Direct channel or signalling cascade",
+      "summary": "A second receptors check: two ways binding can be turned into a signal.",
+      "goal": "Distinguish ionotropic from metabotropic receptors without confusing receptor type with ligand type.",
+      "prompt": "How does the sheet distinguish ionotropic from metabotropic receptors?",
+      "explain": "Ionotropic receptors are receptor and channel in one: binding opens or modulates a pore within milliseconds. Metabotropic receptors are not the channel; they commonly couple to G proteins and start a slower, often longer-lasting cascade.",
+      "options": {
+        "option_a": "Ionotropic receptors first activate a G-protein cascade; metabotropic receptors directly form the pore through which ions flow",
+        "option_b": "Ionotropic receptors are receptor and channel in one and usually act quickly; metabotropic receptors start a cascade through partner proteins and are usually slower",
+        "option_c": "Ionotropic receptors respond to native neurotransmitters, while metabotropic receptors respond only to drugs or hormones"
+      }
+    },
+    "edu-neuroadaptation-02": {
+      "title": "Adaptation happens at several scales",
+      "summary": "A second neuroadaptation check: plasticity cannot be reduced to one messenger reading.",
+      "goal": "Recognise possible changes at synapses and circuits without turning them into an individual measurement.",
+      "prompt": "Why does the sheet not summarise neuroadaptation as “more or less dopamine”?",
+      "explain": "The sheet places possible changes both at the synapse — receptors, desensitisation, release and connection strength — and across reward, stress and control networks. It does not reduce them to one messenger or claim that they are identical across substances or people.",
+      "options": {
+        "option_a": "Because every adaptation consists only of a change in one dopamine concentration",
+        "option_b": "Because every substance produces exactly the same adaptation in every person",
+        "option_c": "Because receptors, transmitter release, connection strength and the behaviour of several circuits can all change"
+      }
+    },
+    "edu-metabolism-02": {
+      "title": "What the body does and what the substance does",
+      "summary": "A second metabolism check: pharmacokinetics and pharmacodynamics are not interchangeable.",
+      "goal": "Distinguish a substance’s journey through the body from its action at receptors, enzymes or channels.",
+      "prompt": "Which pairing matches the sheet?",
+      "explain": "Pharmacokinetics covers absorption, distribution, metabolism and elimination. Pharmacodynamics covers the substance’s action at its targets. They are related, but they are not interchangeable.",
+      "options": {
+        "option_a": "Pharmacokinetics: what the body does with the substance; pharmacodynamics: what the substance does at receptors, enzymes or channels",
+        "option_b": "Pharmacokinetics: what the substance does at receptors; pharmacodynamics: how the body clears it",
+        "option_c": "Both terms mean only that the liver clears the substance"
+      }
+    },
+    "edu-dopamine-02": {
+      "title": "Reuptake is not breakdown",
+      "summary": "A second dopamine check: returning the messenger to the neuron is not the same as destroying it.",
+      "goal": "Distinguish DAT-mediated reuptake from enzymatic breakdown.",
+      "prompt": "According to the sheet, how do dopamine reuptake and breakdown differ?",
+      "explain": "DAT removes dopamine from the synapse and returns it to the neuron that released it, where it can be recycled. MAO and COMT take part in breaking it down. Reuptake and breakdown are different processes.",
+      "options": {
+        "option_a": "DAT chemically breaks dopamine down in the synapse, while MAO and COMT carry it intact back into the neuron",
+        "option_b": "DAT returns dopamine to the neuron that released it, where it can be recycled; enzymes such as MAO and COMT take part in breaking it down",
+        "option_c": "Reuptake and breakdown are two names for the same process: removing dopamine from the synapse without changing what then happens to the molecule"
+      }
+    },
+    "edu-gaba-02": {
+      "title": "GABA-A and GABA-B do not work the same way",
+      "summary": "A second GABA check: fast and slow inhibition are not the same mechanism.",
+      "goal": "Distinguish a fast receptor-channel from slower G-protein-coupled signalling.",
+      "prompt": "What difference does the sheet describe between GABA-A and GABA-B?",
+      "explain": "GABA-A opens or modulates a pore through which chloride can flow and acts within milliseconds. GABA-B is not the channel: it couples to G proteins and more slowly changes potassium or calcium channels. This is a general description of the mechanism, not an individual clinical assessment.",
+      "options": {
+        "option_a": "GABA-A is a fast receptor-and-channel; GABA-B couples to G proteins and modulates channels more slowly",
+        "option_b": "Both are the same chloride channel and act at exactly the same speed",
+        "option_c": "GABA-B directly opens the chloride pore, while GABA-A only starts a slow cascade"
+      }
+    },
+    "edu-adenosine-02": {
+      "title": "Adenosine is not ATP or caffeine",
+      "summary": "A second adenosine check: related molecules are not the same signal.",
+      "goal": "Distinguish adenosine from ATP and caffeine without turning sleep pressure into a personal measurement.",
+      "prompt": "How does the sheet describe adenosine?",
+      "explain": "Adenosine is related to ATP but is not identical to it. It can form through several routes, including ATP breakdown, and is described as a neuromodulator. Caffeine is an external molecule that blocks adenosine receptors.",
+      "options": {
+        "option_a": "It is ATP released as a classic vesicular neurotransmitter; “adenosine” is another name for that same molecule at the synapse",
+        "option_b": "It is the active metabolite into which caffeine is converted and therefore directly activates A1 and A2A receptors",
+        "option_c": "It is a nucleoside related to energy metabolism, distinct from ATP, that acts as a neuromodulator"
+      }
     }
   }
 }
