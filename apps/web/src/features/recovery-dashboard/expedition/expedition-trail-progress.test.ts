@@ -40,10 +40,6 @@ const progressSource = readFileSync(
   "utf8",
 );
 
-function knowledgeFromDemo(completedIds: string[] = []): ExpeditionNode[] {
-  return buildKnowledgeNodes("/preview", buildDemoMissions(new Set(completedIds)), 2);
-}
-
 test("0/0 and upcoming categories do not light the trail", () => {
   const empty: ExpeditionNode[] = [
     {
@@ -70,9 +66,17 @@ test("0/0 and upcoming categories do not light the trail", () => {
 });
 
 test("published neuro and processes fill independently; anatomy is ignored", () => {
-  const partial = knowledgeFromDemo(["edu-dopamine-01"]);
+  const missions = buildDemoMissions(new Set(["edu-dopamine-01"]));
+  const neuroMissionCount = missions.filter(
+    (row) => row.categoryId === "neurotransmitters",
+  ).length;
+  const partial = buildKnowledgeNodes("/preview", missions, 2);
   const fill = knowledgeTrailFill(partial);
-  assert.equal(fill.neurotransmitters, Math.round((1 * 100) / 9));
+  assert.equal(
+    partial.find((node) => node.id === "neurotransmitters")?.total,
+    neuroMissionCount,
+  );
+  assert.equal(fill.neurotransmitters, Math.round((1 * 100) / neuroMissionCount));
   assert.equal(fill.processes, 0);
   const anatomy = partial.find((node) => node.id === "orientation");
   const substances = partial.find((node) => node.id === "substances");

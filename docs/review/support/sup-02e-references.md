@@ -9,4 +9,4 @@ Fuentes de inspiración para el acompañamiento tras volver a consumir. **No** d
 
 Emergencias: reutilizar `SUPPORT_TERMS_EMERGENCY_HREF` y el panel de ayuda de SUP-01 (sin inventar números).
 
-**Limitación:** editorial interna y validación clínica externa permanecen pendientes.
+**Estado:** revisión editorial y de seguridad completadas. Validación clínica externa **no realizada**. Hub publicado según confirmación del propietario; invite LIVE automática permanece deshabilitada.

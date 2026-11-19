@@ -1,8 +1,8 @@
-# SUP-02 — Plan de despliegue y rollback
+# SUP-02 — Registro de release y rollback
 
 ## Alcance
 
-Publicación conjunta (cuando se autorice):
+Publicación conjunta ejecutada mediante PR #127 (enablement) y PR #128 (pulido visual), según confirmación del propietario:
 
 - SUP-02B — `relapse.prevention`
 - SUP-02C — craving companion
@@ -26,19 +26,24 @@ Publicación conjunta (cuando se autorice):
 
 ### Producto
 
-- SUP-02B/C/E gates locales on; SUP-02D operativo.
+- SUP-02B/C/E gates on; SUP-02D operativo; invite automática SUP-02E off.
 - Companion 5 pasos + emergencia verificados (Playwright + script DEMO).
+- QA comunicado para PR #128: **1133/1133 tests web** y **4/4 recorridos E2E** satisfactorios. Este sync no repite las baterías.
 - Validación clínica externa: **no realizada**.
 
-## Pipeline
+### Producción
 
-1. Revisión final humana del diff de enablement.
-2. Commit autorizado.
-3. Push a `origin/develop` + PR habitual (solo con autorización expresa).
-4. CI verde.
-5. Merge a `main` según pipeline del repo.
-6. Deploy de producción.
-7. Smoke post-deploy (hub Apoyo, Inicio→Apoyo, craving, after-use, ficha relapse, ES/EN, emergencia, sin `?tool=`; sin invite automática).
+- El propietario confirma visualmente que PR #128 aparece desplegada en Render.
+- No se recopió el SHA del panel ni se realizó verificación independiente; la confirmación del propietario es la evidencia disponible.
+- La validación E2E LIVE autenticada de la invitación no se realizó; el switch debe permanecer `false`.
+
+## Pipeline ejecutado / evidencia pendiente
+
+1. Enablement: PR #127 fusionada.
+2. Pulido visual: PR #128 fusionada.
+3. QA comunicado: web 1133/1133; E2E 4/4.
+4. Deploy: confirmado visualmente por el propietario, sin SHA Render independiente.
+5. Pendiente específico: E2E LIVE autenticada de invite antes de considerar encenderla.
 
 ## Rollback
 
@@ -50,7 +55,7 @@ Publicación conjunta (cuando se autorice):
 
 | Pieza | Editorial | Seguridad | Clínica externa | Local | Producción |
 |---|---|---|---|---|---|
-| 02B | Completada | Completada | No realizada | Habilitada | Pendiente |
-| 02C | Completada | Completada | No realizada | Habilitada | Pendiente |
-| 02D | Completada | Completada | N/A (UI acceso) | En árbol | Pendiente de release conjunta |
-| 02E | Completada | Completada | No realizada | Hub on / invite off | Pendiente |
+| 02B | Completada | Completada | No realizada | Habilitada | Desplegada según propietario; SHA no verificado |
+| 02C | Completada | Completada | No realizada | Habilitada | Desplegada según propietario; SHA no verificado |
+| 02D | Completada | Completada | N/A (UI acceso) | En árbol | Desplegada según propietario; SHA no verificado |
+| 02E | Completada | Completada | No realizada | Hub on / invite off | Hub desplegado según propietario; invite off |

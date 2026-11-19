@@ -24,6 +24,14 @@ const PASSWORD = "missions-api-pass-1";
 const DOPAMINE = "edu-dopamine-01";
 const GABA = "edu-gaba-01";
 const SEROTONIN = "edu-serotonin-01";
+const GAM_XP_MISSIONS = [
+  ["edu-receptors-02", "option_b"],
+  ["edu-neuroadaptation-02", "option_c"],
+  ["edu-metabolism-02", "option_a"],
+  ["edu-dopamine-02", "option_b"],
+  ["edu-gaba-02", "option_a"],
+  ["edu-adenosine-02", "option_c"],
+] as const;
 
 function loadLocalEnvFile(): void {
   const here = dirname(fileURLToPath(import.meta.url));
@@ -317,6 +325,59 @@ test("pg service: concurrent correct answers complete and grant XP once", async 
       assert.equal(await completionCount(prisma, user.id, SEROTONIN), 1);
       assert.equal(await grantCount(prisma, user.id, SEROTONIN), 1);
       assert.equal(await totalXp(prisma, user.id), 12);
+    } finally {
+      await prisma.user.delete({ where: { id: user.id } }).catch(() => undefined);
+    }
+  });
+  if (result === "skipped") {
+    t.skip("DATABASE_URL unavailable or mission completion migration not applied");
+  }
+});
+
+test("pg service: all six GAM-XP identities grant once under concurrency and then stay idempotent", async (t) => {
+  const result = await withLiveDb(async (missions, prisma) => {
+    const user = await createTestUser(prisma, "gam-xp-six");
+    try {
+      for (const [missionId, selectedOptionId] of GAM_XP_MISSIONS) {
+        const [a, b] = await Promise.all([
+          missions.submitAnswer(user.id, { missionId, selectedOptionId }),
+          missions.submitAnswer(user.id, { missionId, selectedOptionId }),
+        ]);
+        assert.equal(a.ok, true);
+        assert.equal(b.ok, true);
+        if (a.ok && b.ok) {
+          const results = [a.result, b.result];
+          assert.equal(results.filter((row) => row.xpGranted === 12).length, 1);
+          assert.equal(results.filter((row) => row.alreadyCompleted).length, 1);
+          assert.ok(results.every((row) => row.correct && row.completed));
+        }
+
+        const third = await missions.submitAnswer(user.id, { missionId, selectedOptionId });
+        assert.deepEqual(third, {
+          ok: true,
+          result: {
+            correct: true,
+            completed: true,
+            alreadyCompleted: true,
+            xpGranted: 0,
+          },
+        });
+        assert.equal(await completionCount(prisma, user.id, missionId), 1);
+        assert.equal(await grantCount(prisma, user.id, missionId), 1);
+        const completion = await prisma.missionCompletion.findUniqueOrThrow({
+          where: { userId_missionId: { userId: user.id, missionId } },
+        });
+        assert.equal(completion.contentVersion, 1);
+      }
+
+      assert.equal(await completionCount(prisma, user.id), 6);
+      assert.equal(
+        await prisma.xpGrant.count({
+          where: { userId: user.id, source: "mission_complete" },
+        }),
+        6,
+      );
+      assert.equal(await totalXp(prisma, user.id), 72);
     } finally {
       await prisma.user.delete({ where: { id: user.id } }).catch(() => undefined);
     }

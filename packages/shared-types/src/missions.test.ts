@@ -51,12 +51,17 @@ test("shared-types has no answers subpath or answer-key module", () => {
   assert.equal(existsSync(new URL("./missions-answers.ts", import.meta.url)), false);
 });
 
-test("catalog has fourteen unique published reading-check missions", () => {
+test("catalog keeps twenty published missions and one unique draft", () => {
   const published = listPublishedMissions();
-  assert.equal(published.length, 14);
+  const drafts = MISSION_CATALOG.filter((row) => row.status === "draft");
+  assert.equal(published.length, 20);
+  assert.equal(drafts.length, 1);
   assert.deepEqual(MISSION_CATALOG.map((row) => row.id), [...MISSION_IDS]);
   assert.deepEqual(new Set(MISSION_CATALOG.map((row) => row.id)).size, MISSION_IDS.length);
-  assert.equal(getMissionById("edu-unpublished-01")?.status, "draft");
+  assert.deepEqual(
+    drafts.map((row) => row.id),
+    ["edu-unpublished-01"],
+  );
   for (const row of published) {
     assert.equal(row.type, "reading_check");
     assert.equal(row.status, "published");
@@ -65,6 +70,31 @@ test("catalog has fourteen unique published reading-check missions", () => {
     assert.equal(MISSION_XP_AMOUNT, 12);
     assert.equal(MISSION_XP_AMOUNT, PROGRESS_XP_AMOUNT.mission_complete);
     assert.equal(MISSION_XP_SOURCE, "mission_complete");
+    assert.equal("correctOptionId" in row, false);
+  }
+});
+
+test("GAM-XP missions are stable published contracts on published sheets", () => {
+  const expected = {
+    "edu-receptors-02": { categoryId: "processes", sheetId: "receptors" },
+    "edu-neuroadaptation-02": { categoryId: "processes", sheetId: "neuroadaptation" },
+    "edu-metabolism-02": { categoryId: "processes", sheetId: "metabolism" },
+    "edu-dopamine-02": { categoryId: "neurotransmitters", sheetId: "dopamine" },
+    "edu-gaba-02": { categoryId: "neurotransmitters", sheetId: "gaba" },
+    "edu-adenosine-02": { categoryId: "neurotransmitters", sheetId: "adenosine" },
+  } as const;
+
+  for (const [id, contract] of Object.entries(expected)) {
+    const row = getMissionById(id);
+    assert.ok(row);
+    assert.equal(row.status, "published");
+    assert.equal(row.type, "reading_check");
+    assert.equal(row.contentVersion, 1);
+    assert.equal(row.categoryId, contract.categoryId);
+    assert.equal(row.sheetId, contract.sheetId);
+    assert.deepEqual(row.options.map((option) => option.id), ["option_a", "option_b", "option_c"]);
+    assert.equal(isMissionExploreSheetId(row.sheetId), true);
+    assert.equal(listPublishedMissions().some((published) => published.id === id), true);
     assert.equal("correctOptionId" in row, false);
   }
 });
@@ -88,7 +118,10 @@ test("categories, types and user states stay minimal", () => {
 test("sort order is stable and unique", () => {
   const listed = listPublishedMissions();
   const orders = listed.map((row) => row.sortOrder);
-  assert.deepEqual(orders, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]);
+  assert.deepEqual(
+    orders,
+    [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 910, 920, 930, 940, 950, 960],
+  );
   assert.deepEqual(new Set(orders).size, orders.length);
   assert.deepEqual(
     listed.map((row) => row.id),
@@ -107,6 +140,12 @@ test("sort order is stable and unique", () => {
       "edu-adenosine-01",
       "edu-endorphin-01",
       "edu-endocannabinoid-01",
+      "edu-receptors-02",
+      "edu-neuroadaptation-02",
+      "edu-metabolism-02",
+      "edu-dopamine-02",
+      "edu-gaba-02",
+      "edu-adenosine-02",
     ],
   );
 });
@@ -127,21 +166,29 @@ test("published missions use published explore sheets and split categories", () 
     "edu-adenosine-01": { categoryId: "neurotransmitters", sheetId: "adenosine" },
     "edu-endorphin-01": { categoryId: "neurotransmitters", sheetId: "endorphin" },
     "edu-endocannabinoid-01": { categoryId: "neurotransmitters", sheetId: "endocannabinoid" },
+    "edu-receptors-02": { categoryId: "processes", sheetId: "receptors" },
+    "edu-neuroadaptation-02": { categoryId: "processes", sheetId: "neuroadaptation" },
+    "edu-metabolism-02": { categoryId: "processes", sheetId: "metabolism" },
+    "edu-dopamine-02": { categoryId: "neurotransmitters", sheetId: "dopamine" },
+    "edu-gaba-02": { categoryId: "neurotransmitters", sheetId: "gaba" },
+    "edu-adenosine-02": { categoryId: "neurotransmitters", sheetId: "adenosine" },
   } as const;
 
   for (const row of listPublishedMissions()) {
-    assert.equal(row.categoryId, expected[row.id].categoryId);
-    assert.equal(row.sheetId, expected[row.id].sheetId);
+    const contract = expected[row.id as keyof typeof expected];
+    assert.ok(contract);
+    assert.equal(row.categoryId, contract.categoryId);
+    assert.equal(row.sheetId, contract.sheetId);
     assert.equal(isMissionExploreSheetId(row.sheetId), true);
     assert.ok((MISSION_EXPLORE_SHEET_IDS as readonly string[]).includes(row.sheetId));
   }
 
   const sheets = listPublishedMissions().map((row) => row.sheetId);
-  assert.deepEqual(new Set(sheets).size, sheets.length);
-  assert.equal(sheets.length, MISSION_EXPLORE_SHEET_IDS.length);
+  assert.equal(new Set(sheets).size, MISSION_EXPLORE_SHEET_IDS.length);
+  assert.equal(sheets.length, 20);
 
-  assert.equal(listMissionsByCategory("neurotransmitters").length, 9);
-  assert.equal(listMissionsByCategory("processes").length, 5);
+  assert.equal(listMissionsByCategory("neurotransmitters").length, 12);
+  assert.equal(listMissionsByCategory("processes").length, 8);
   assert.equal(listMissionsByCategory("substances").length, 0);
   assert.equal(listMissionsByCategory("orientation").length, 0);
 });
@@ -161,6 +208,7 @@ test("option ids are unique per mission and i18n keys are stable", () => {
     assert.equal(isMissionOptionId(row, "missing"), false);
   }
   assert.equal(isMissionId("edu-dopamine-01"), true);
+  assert.equal(isMissionId("edu-dopamine-02"), true);
   assert.equal(isMissionId("edu-unknown-01"), false);
   assert.equal(getMissionById("edu-gaba-01")?.sheetId, "gaba");
 });

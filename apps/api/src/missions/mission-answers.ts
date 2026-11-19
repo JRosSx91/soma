@@ -5,7 +5,7 @@
 
 import type { MissionId } from "@soma/shared-types";
 
-export const MISSION_CORRECT_OPTION_ID = {
+export const MISSION_CORRECT_OPTION_ID: Readonly<Partial<Record<MissionId, string>>> = {
   "edu-dopamine-01": "wanting",
   "edu-serotonin-01": "many_systems",
   "edu-gaba-01": "network_brake",
@@ -20,5 +20,10 @@ export const MISSION_CORRECT_OPTION_ID = {
   "edu-adenosine-01": "antagonist",
   "edu-endorphin-01": "own_peptides",
   "edu-endocannabinoid-01": "not_the_ligands",
-  "edu-unpublished-01": "wanting",
-} as const satisfies Record<MissionId, string>;
+  "edu-receptors-02": "option_b",
+  "edu-neuroadaptation-02": "option_c",
+  "edu-metabolism-02": "option_a",
+  "edu-dopamine-02": "option_b",
+  "edu-gaba-02": "option_a",
+  "edu-adenosine-02": "option_c",
+};

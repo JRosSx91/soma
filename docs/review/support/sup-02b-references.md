@@ -6,7 +6,7 @@ Documento de trabajo. Complementa `sup-02b-relapse-prevention.md` y `support-rel
 **Revisión de seguridad:** completada.
 **Validación clínica externa:** **no realizada**. Editorial ≠ clínica.
 **Habilitación local:** `relapse.prevention` en allow-list.
-**Publicación en producción:** pendiente de autorización expresa (`develop` → `main`).
+**Publicación en producción:** desplegada según confirmación visual del propietario tras PR #127/#128; SHA Render no verificado independientemente.
 
 ---
 
@@ -66,7 +66,7 @@ PDF TIP 65 (mismo documento): https://library.samhsa.gov/sites/default/files/pep
 | Campo | Valor |
 |---|---|
 | ID previsto | `relapse.prevention` |
-| Allow-list | **Sin cambios** |
-| `SUPPORT_STRATEGY_BY_TOPIC.relapse` | `null` |
-| Runtime publicado | No |
+| Allow-list | `relapse.prevention` habilitada |
+| `SUPPORT_STRATEGY_BY_TOPIC.relapse` | `relapse.prevention` |
+| Runtime publicado | Sí, según confirmación del propietario; SHA no verificado |
 | SUP-02C | **No** bloqueado por esta dependencia externa |

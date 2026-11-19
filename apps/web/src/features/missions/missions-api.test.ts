@@ -37,8 +37,8 @@ test("LIVE GET is authenticated and shares a single in-flight request", async ()
   try {
     const [a, b] = await Promise.all([fetchMyMissions(), fetchMyMissions()]);
     assert.equal(calls, 1);
-    assert.equal(a.missions.length, 14);
-    assert.equal(b.missions.length, 14);
+    assert.equal(a.missions.length, 20);
+    assert.equal(b.missions.length, 20);
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -99,4 +99,6 @@ test("DEMO module never calls mission HTTP or GAM-01 progress", () => {
   assert.equal(hook.includes("DEMO_PROGRESS"), false);
   assert.equal(hook.includes("fetchMyProgress"), false);
   assert.equal(hook.includes("mission-answers"), false);
+  assert.equal(api.includes("DEMO_MISSION_CORRECT_OPTION_ID"), false);
+  assert.equal(hook.includes("DEMO_MISSION_CORRECT_OPTION_ID"), false);
 });

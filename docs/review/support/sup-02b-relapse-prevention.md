@@ -11,12 +11,13 @@
 | `clinicalStatus` | `external_clinical_validation_not_done` |
 | `publicationStatus` | `enabled_pending_production` (en allow-list local) |
 | `publicationGate` | `awaiting_express_production_release` |
+| Evidencia de producción | PR #128 visible en Render según propietario; SHA no verificado independientemente |
 | Nivel de seguridad | **B/C** (precaución de tolerancia / sobredosis; remisión a emergencias) |
 | Runtime | `support-relapse-draft-content.ts` → catálogo `support-strategy-content.ts` |
 
 Referencias: REF-RP-01 … REF-RP-06, REF-SO-01 — ver `sup-02b-references.md`.
 
-Las actividades de esta ficha son orientaciones educativas voluntarias. **No** se presentan como intervenciones clínicamente validadas. **Revisión editorial completada. Revisión de seguridad completada. Validación clínica externa no realizada. Habilitada en árbol local; publicación en producción pendiente.** Política: `editorial-policy.md`.
+Las actividades de esta ficha son orientaciones educativas voluntarias. **No** se presentan como intervenciones clínicamente validadas. **Revisión editorial completada. Revisión de seguridad completada. Validación clínica externa no realizada. Habilitada mediante PR #127 y desplegada según confirmación visual del propietario para PR #128; SHA Render no verificado independientemente.** Política: `editorial-policy.md`.
 
 ---
 
