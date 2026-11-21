@@ -37,6 +37,7 @@ import enOnboardingTour from "./locales/en/onboarding-tour.json";
 import enPwa from "./locales/en/pwa.json";
 import enExpedition from "./locales/en/expedition.json";
 import enSupport from "./locales/en/support.json";
+import enKnowledge from "./locales/en/knowledge.json";
 
 // Spanish
 import esSubstances from "./locales/es/substances.json";
@@ -65,6 +66,7 @@ import esOnboardingTour from "./locales/es/onboarding-tour.json";
 import esPwa from "./locales/es/pwa.json";
 import esExpedition from "./locales/es/expedition.json";
 import esSupport from "./locales/es/support.json";
+import esKnowledge from "./locales/es/knowledge.json";
 
 // Catalan
 import caSubstances from "./locales/ca/substances.json";
@@ -228,6 +230,7 @@ i18n
       "pwa",
       "expedition",
       "support",
+      "knowledge",
     ],
     defaultNS: "common",
     interpolation: {
@@ -271,6 +274,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
       es: {
         common: esCommon,
@@ -299,6 +303,7 @@ i18n
         pwa: esPwa,
         expedition: esExpedition,
         support: esSupport,
+        knowledge: esKnowledge,
       },
       ca: {
         common: caCommon,
@@ -326,6 +331,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
       gl: {
         common: glCommon,
@@ -353,6 +359,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
       eu: {
         common: euCommon,
@@ -380,6 +387,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
       fr: {
         common: frCommon,
@@ -407,6 +415,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
       it: {
         common: itCommon,
@@ -434,6 +443,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
       de: {
         common: deCommon,
@@ -461,6 +471,7 @@ i18n
         pwa: enPwa,
         expedition: enExpedition,
         support: enSupport,
+        knowledge: enKnowledge,
       },
     },
   }, () => {
