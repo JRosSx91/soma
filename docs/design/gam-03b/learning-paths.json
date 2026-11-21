@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "gam-03b-learning-paths",
+  "catalogStatus": "candidate",
+  "runtimeIntegrated": false,
+  "prerequisiteSemantics": {
+    "direction": "prerequisite_to_concept",
+    "blocksAccess": false,
+    "scientificCausality": false,
+    "mustBeAcyclic": true
+  },
+  "paths": [
+    {
+      "id": "path:physical-principles-to-neuronal-communication-v1",
+      "labels": {
+        "es": "De los principios físicos a la comunicación neuronal",
+        "en": "From physical principles to neuronal communication"
+      },
+      "editorialStatus": "candidate",
+      "description": {
+        "es": "Recorrido multidisciplinar de 100 conceptos organizado en subramas convergentes.",
+        "en": "A multidisciplinary path of 100 concepts organised as converging sub-branches."
+      },
+      "accessPolicy": "all_concepts_consultable_without_prerequisite_completion",
+      "groups": [
+        {
+          "id": "branch:physical-foundations",
+          "labels": { "es": "Fundamentos físicos", "en": "Physical foundations" },
+          "conceptIds": ["soma:K000001", "soma:K000002", "soma:K000003", "soma:K000004", "soma:K000005", "soma:K000006", "soma:K000007", "soma:K000008", "soma:K000009", "soma:K000010"]
+        },
+        {
+          "id": "branch:matter-and-chemistry",
+          "labels": { "es": "Materia, iones y química", "en": "Matter, ions and chemistry" },
+          "conceptIds": ["soma:K000011", "soma:K000012", "soma:K000013", "soma:K000014", "soma:K000015", "soma:K000016", "soma:K000017", "soma:K000018", "soma:K000019"]
+        },
+        {
+          "id": "branch:biomolecules-and-membranes",
+          "labels": { "es": "Biomoléculas y membranas", "en": "Biomolecules and membranes" },
+          "conceptIds": ["soma:K000020", "soma:K000021", "soma:K000022", "soma:K000023", "soma:K000024", "soma:K000025", "soma:K000026", "soma:K000027", "soma:K000028", "soma:K000029", "soma:K000030", "soma:K000031", "soma:K000032", "soma:K000033", "soma:K000034", "soma:K000035"]
+        },
+        {
+          "id": "branch:transport-and-bioelectricity",
+          "labels": { "es": "Transporte y bioelectricidad", "en": "Transport and bioelectricity" },
+          "conceptIds": ["soma:K000036", "soma:K000096", "soma:K000037", "soma:K000038", "soma:K000039", "soma:K000040", "soma:K000041", "soma:K000042"]
+        },
+        {
+          "id": "branch:neural-cells-and-tissue",
+          "labels": { "es": "Células y tejido nervioso", "en": "Neural cells and tissue" },
+          "conceptIds": ["soma:K000091", "soma:K000043", "soma:K000044", "soma:K000045", "soma:K000046", "soma:K000047", "soma:K000048", "soma:K000049", "soma:K000050", "soma:K000051", "soma:K000052", "soma:K000099", "soma:K000053"]
+        },
+        {
+          "id": "branch:synapses-and-signalling",
+          "labels": { "es": "Sinapsis y señalización", "en": "Synapses and signalling" },
+          "conceptIds": ["soma:K000054", "soma:K000055", "soma:K000056", "soma:K000057", "soma:K000058", "soma:K000097", "soma:K000059", "soma:K000100", "soma:K000060", "soma:K000061", "soma:K000098", "soma:K000062", "soma:K000063", "soma:K000064", "soma:K000065", "soma:K000066"]
+        },
+        {
+          "id": "branch:nervous-system-anatomy",
+          "labels": { "es": "Anatomía del sistema nervioso", "en": "Nervous system anatomy" },
+          "conceptIds": ["soma:K000067", "soma:K000068", "soma:K000069", "soma:K000070", "soma:K000071", "soma:K000092", "soma:K000093", "soma:K000072", "soma:K000073", "soma:K000094", "soma:K000074", "soma:K000075", "soma:K000076", "soma:K000077", "soma:K000078", "soma:K000079", "soma:K000095", "soma:K000080", "soma:K000081", "soma:K000082", "soma:K000083", "soma:K000084", "soma:K000085", "soma:K000086"]
+        },
+        {
+          "id": "branch:integrated-functions",
+          "labels": { "es": "Funciones integradas", "en": "Integrated functions" },
+          "conceptIds": ["soma:K000087", "soma:K000088", "soma:K000089", "soma:K000090"]
+        }
+      ]
+    }
+  ],
+  "prerequisites": [
+    { "id": "soma:P000001", "prerequisite": "soma:K000004", "concept": "soma:K000005", "strength": "recommended", "rationale": { "es": "La carga ayuda a interpretar el campo eléctrico.", "en": "Charge helps explain electric field." } },
+    { "id": "soma:P000002", "prerequisite": "soma:K000004", "concept": "soma:K000006", "strength": "recommended", "rationale": { "es": "La carga aporta contexto a la diferencia de potencial.", "en": "Charge provides context for potential difference." } },
+    { "id": "soma:P000003", "prerequisite": "soma:K000005", "concept": "soma:K000006", "strength": "recommended", "rationale": { "es": "El campo facilita comprender el potencial.", "en": "Field helps explain potential." } },
+    { "id": "soma:P000004", "prerequisite": "soma:K000004", "concept": "soma:K000007", "strength": "recommended", "rationale": { "es": "La corriente se expresa como flujo de carga.", "en": "Current is expressed as flow of charge." } },
+    { "id": "soma:P000005", "prerequisite": "soma:K000008", "concept": "soma:K000009", "strength": "important", "rationale": { "es": "El gradiente permite explicar el transporte difusivo neto.", "en": "A gradient helps explain net diffusive transport." } },
+    { "id": "soma:P000006", "prerequisite": "soma:K000006", "concept": "soma:K000010", "strength": "important", "rationale": { "es": "El potencial electroquímico incluye una contribución eléctrica.", "en": "Electrochemical potential includes an electrical contribution." } },
+    { "id": "soma:P000007", "prerequisite": "soma:K000008", "concept": "soma:K000010", "strength": "important", "rationale": { "es": "El potencial electroquímico incluye una contribución química.", "en": "Electrochemical potential includes a chemical contribution." } },
+    { "id": "soma:P000008", "prerequisite": "soma:K000011", "concept": "soma:K000012", "strength": "recommended", "rationale": { "es": "Las moléculas se introducen después de los átomos.", "en": "Molecules are introduced after atoms." } },
+    { "id": "soma:P000010", "prerequisite": "soma:K000004", "concept": "soma:K000013", "strength": "important", "rationale": { "es": "La carga neta define la condición iónica.", "en": "Net charge defines the ionic condition." } },
+    { "id": "soma:P000011", "prerequisite": "soma:K000013", "concept": "soma:K000014", "strength": "recommended", "rationale": { "es": "Sodio es un caso de ion.", "en": "Sodium is introduced as an ion case." } },
+    { "id": "soma:P000012", "prerequisite": "soma:K000013", "concept": "soma:K000015", "strength": "recommended", "rationale": { "es": "Potasio es un caso de ion.", "en": "Potassium is introduced as an ion case." } },
+    { "id": "soma:P000013", "prerequisite": "soma:K000013", "concept": "soma:K000016", "strength": "recommended", "rationale": { "es": "Calcio es un caso de ion.", "en": "Calcium is introduced as an ion case." } },
+    { "id": "soma:P000014", "prerequisite": "soma:K000013", "concept": "soma:K000017", "strength": "recommended", "rationale": { "es": "Cloruro es un caso de ion.", "en": "Chloride is introduced as an ion case." } },
+    { "id": "soma:P000015", "prerequisite": "soma:K000012", "concept": "soma:K000018", "strength": "recommended", "rationale": { "es": "Agua se introduce como molécula relevante.", "en": "Water is introduced as a relevant molecule." } },
+    { "id": "soma:P000017", "prerequisite": "soma:K000012", "concept": "soma:K000020", "strength": "recommended", "rationale": { "es": "Las proteínas son entidades moleculares complejas.", "en": "Proteins are complex molecular entities." } },
+    { "id": "soma:P000018", "prerequisite": "soma:K000012", "concept": "soma:K000021", "strength": "recommended", "rationale": { "es": "Los lípidos se presentan como entidades moleculares.", "en": "Lipids are presented as molecular entities." } },
+    { "id": "soma:P000019", "prerequisite": "soma:K000021", "concept": "soma:K000022", "strength": "important", "rationale": { "es": "La bicapa requiere comprender lípidos anfipáticos.", "en": "The bilayer requires understanding amphipathic lipids." } },
+    { "id": "soma:P000020", "prerequisite": "soma:K000022", "concept": "soma:K000023", "strength": "important", "rationale": { "es": "La bicapa precede a la membrana completa.", "en": "The bilayer precedes the complete membrane." } },
+    { "id": "soma:P000021", "prerequisite": "soma:K000001", "concept": "soma:K000024", "strength": "recommended", "rationale": { "es": "Evita describir ATP como si fuera la energía misma.", "en": "It prevents describing ATP as energy itself." } },
+    { "id": "soma:P000022", "prerequisite": "soma:K000019", "concept": "soma:K000025", "strength": "important", "rationale": { "es": "La hidrólisis de ATP es una reacción química.", "en": "ATP hydrolysis is a chemical reaction." } },
+    { "id": "soma:P000023", "prerequisite": "soma:K000024", "concept": "soma:K000025", "strength": "important", "rationale": { "es": "ATP es el participante químico central de su hidrólisis.", "en": "ATP is the central chemical participant in its hydrolysis." } },
+    { "id": "soma:P000024", "prerequisite": "soma:K000023", "concept": "soma:K000026", "strength": "important", "rationale": { "es": "La membrana plasmática es una membrana biológica específica.", "en": "The plasma membrane is a specific biological membrane." } },
+    { "id": "soma:P000025", "prerequisite": "soma:K000020", "concept": "soma:K000027", "strength": "important", "rationale": { "es": "Los receptores del recorrido son proteínas.", "en": "The receptors in this path are proteins." } },
+    { "id": "soma:P000026", "prerequisite": "soma:K000026", "concept": "soma:K000027", "strength": "recommended", "rationale": { "es": "Sitúa el receptor en su contexto de membrana.", "en": "It places the receptor in its membrane context." } },
+    { "id": "soma:P000027", "prerequisite": "soma:K000020", "concept": "soma:K000028", "strength": "important", "rationale": { "es": "Los canales se presentan como proteínas.", "en": "Channels are presented as proteins." } },
+    { "id": "soma:P000028", "prerequisite": "soma:K000028", "concept": "soma:K000029", "strength": "important", "rationale": { "es": "El canal activado por ligando es un subtipo de canal.", "en": "A ligand-gated channel is a channel subtype." } },
+    { "id": "soma:P000029", "prerequisite": "soma:K000027", "concept": "soma:K000029", "strength": "recommended", "rationale": { "es": "Permite entender su doble papel de receptor y canal.", "en": "It supports understanding its dual receptor-channel role." } },
+    { "id": "soma:P000030", "prerequisite": "soma:K000028", "concept": "soma:K000030", "strength": "important", "rationale": { "es": "Es un subtipo de canal iónico.", "en": "It is an ion-channel subtype." } },
+    { "id": "soma:P000031", "prerequisite": "soma:K000027", "concept": "soma:K000031", "strength": "important", "rationale": { "es": "Es un subtipo de receptor de membrana.", "en": "It is a membrane-receptor subtype." } },
+    { "id": "soma:P000032", "prerequisite": "soma:K000020", "concept": "soma:K000032", "strength": "recommended", "rationale": { "es": "Los transportadores del recorrido son proteínas.", "en": "The transporters in this path are proteins." } },
+    { "id": "soma:P000033", "prerequisite": "soma:K000032", "concept": "soma:K000033", "strength": "important", "rationale": { "es": "Una bomba iónica es un transportador especializado.", "en": "An ion pump is a specialised transporter." } },
+    { "id": "soma:P000034", "prerequisite": "soma:K000033", "concept": "soma:K000034", "strength": "important", "rationale": { "es": "La bomba sodio-potasio es un caso de bomba iónica.", "en": "The sodium-potassium pump is an ion-pump case." } },
+    { "id": "soma:P000036", "prerequisite": "soma:K000025", "concept": "soma:K000096", "strength": "recommended", "rationale": { "es": "La hidrólisis de ATP aporta contexto a los casos de transporte activo primario acoplados a ATP.", "en": "ATP hydrolysis provides context for ATP-coupled cases of primary active transport." } },
+    { "id": "soma:P000037", "prerequisite": "soma:K000023", "concept": "soma:K000036", "strength": "important", "rationale": { "es": "El transporte transmembrana ocurre a través de una membrana biológica.", "en": "Transmembrane transport occurs across a biological membrane." } },
+    { "id": "soma:P000038", "prerequisite": "soma:K000006", "concept": "soma:K000037", "strength": "important", "rationale": { "es": "El potencial de membrana es una diferencia de potencial.", "en": "Membrane potential is a potential difference." } },
+    { "id": "soma:P000039", "prerequisite": "soma:K000010", "concept": "soma:K000037", "strength": "important", "rationale": { "es": "Integra gradientes químicos y eléctricos.", "en": "It integrates chemical and electrical gradients." } },
+    { "id": "soma:P000040", "prerequisite": "soma:K000023", "concept": "soma:K000037", "strength": "important", "rationale": { "es": "El potencial de membrana general se presenta sobre una membrana biológica.", "en": "General membrane potential is presented on a biological membrane." } },
+    { "id": "soma:P000041", "prerequisite": "soma:K000037", "concept": "soma:K000038", "strength": "important", "rationale": { "es": "El reposo es un estado del potencial de membrana.", "en": "Resting potential is a membrane-potential state." } },
+    { "id": "soma:P000042", "prerequisite": "soma:K000037", "concept": "soma:K000039", "strength": "important", "rationale": { "es": "Despolarización describe un cambio de esa cualidad.", "en": "Depolarisation describes a change in that quality." } },
+    { "id": "soma:P000043", "prerequisite": "soma:K000037", "concept": "soma:K000040", "strength": "important", "rationale": { "es": "Repolarización describe un cambio de esa cualidad.", "en": "Repolarisation describes a change in that quality." } },
+    { "id": "soma:P000044", "prerequisite": "soma:K000030", "concept": "soma:K000041", "strength": "important", "rationale": { "es": "Los canales dependientes de voltaje participan en el proceso.", "en": "Voltage-gated channels participate in the process." } },
+    { "id": "soma:P000047", "prerequisite": "soma:K000023", "concept": "soma:K000042", "strength": "recommended", "rationale": { "es": "Exocitosis requiere comprender membranas.", "en": "Exocytosis requires understanding membranes." } },
+    { "id": "soma:P000050", "prerequisite": "soma:K000043", "concept": "soma:K000044", "strength": "recommended", "rationale": { "es": "El soma es una parte neuronal.", "en": "The soma is a neuronal part." } },
+    { "id": "soma:P000051", "prerequisite": "soma:K000043", "concept": "soma:K000045", "strength": "recommended", "rationale": { "es": "La dendrita es una parte neuronal.", "en": "A dendrite is a neuronal part." } },
+    { "id": "soma:P000052", "prerequisite": "soma:K000043", "concept": "soma:K000046", "strength": "recommended", "rationale": { "es": "El axón es una parte neuronal.", "en": "An axon is a neuronal part." } },
+    { "id": "soma:P000053", "prerequisite": "soma:K000046", "concept": "soma:K000047", "strength": "important", "rationale": { "es": "La terminal es una región del axón.", "en": "The terminal is an axonal region." } },
+    { "id": "soma:P000054", "prerequisite": "soma:K000091", "concept": "soma:K000043", "strength": "important", "rationale": { "es": "Neurona se presenta como una clase de célula neural.", "en": "Neuron is presented as a neural-cell class." } },
+    { "id": "soma:P000055", "prerequisite": "soma:K000048", "concept": "soma:K000049", "strength": "important", "rationale": { "es": "Astrocito es un subtipo glial.", "en": "Astrocyte is a glial subtype." } },
+    { "id": "soma:P000056", "prerequisite": "soma:K000048", "concept": "soma:K000050", "strength": "important", "rationale": { "es": "Oligodendrocito es un subtipo glial.", "en": "Oligodendrocyte is a glial subtype." } },
+    { "id": "soma:P000057", "prerequisite": "soma:K000048", "concept": "soma:K000051", "strength": "important", "rationale": { "es": "Célula de Schwann es un subtipo glial.", "en": "Schwann cell is a glial subtype." } },
+    { "id": "soma:P000058", "prerequisite": "soma:K000023", "concept": "soma:K000052", "strength": "recommended", "rationale": { "es": "La mielina es una envoltura membranosa especializada.", "en": "Myelin is a specialised membranous sheath." } },
+    { "id": "soma:P000059", "prerequisite": "soma:K000091", "concept": "soma:K000053", "strength": "recommended", "rationale": { "es": "La categoría celular aporta contexto opcional al nivel de organización tisular.", "en": "The cell category provides optional context for the tissue level of organisation." } },
+    { "id": "soma:P000061", "prerequisite": "soma:K000043", "concept": "soma:K000054", "strength": "recommended", "rationale": { "es": "La neurona aporta contexto útil, pero la sinapsis sigue siendo un punto de entrada independiente.", "en": "Neuron provides useful context, but synapse remains an independent entry point." } },
+    { "id": "soma:P000062", "prerequisite": "soma:K000054", "concept": "soma:K000055", "strength": "important", "rationale": { "es": "La sinapsis química es un subtipo.", "en": "Chemical synapse is a subtype." } },
+    { "id": "soma:P000063", "prerequisite": "soma:K000054", "concept": "soma:K000056", "strength": "important", "rationale": { "es": "La sinapsis eléctrica es otro subtipo.", "en": "Electrical synapse is another subtype." } },
+    { "id": "soma:P000064", "prerequisite": "soma:K000055", "concept": "soma:K000057", "strength": "recommended", "rationale": { "es": "La hendidura pertenece al contexto de la sinapsis química.", "en": "The cleft belongs to the chemical-synapse context." } },
+    { "id": "soma:P000065", "prerequisite": "soma:K000047", "concept": "soma:K000058", "strength": "recommended", "rationale": { "es": "Sitúa las vesículas en la terminal presináptica.", "en": "It locates vesicles in the presynaptic terminal." } },
+    { "id": "soma:P000066", "prerequisite": "soma:K000055", "concept": "soma:K000059", "strength": "important", "rationale": { "es": "El rol se explica dentro de comunicación química.", "en": "The role is explained within chemical communication." } },
+    { "id": "soma:P000067", "prerequisite": "soma:K000097", "concept": "soma:K000060", "strength": "important", "rationale": { "es": "La liberación vesicular utiliza la forma sináptica específica de exocitosis.", "en": "Vesicular release uses the specific synaptic form of exocytosis." } },
+    { "id": "soma:P000068", "prerequisite": "soma:K000058", "concept": "soma:K000060", "strength": "important", "rationale": { "es": "La vesícula participa en liberación.", "en": "The vesicle participates in release." } },
+    { "id": "soma:P000069", "prerequisite": "soma:K000098", "concept": "soma:K000061", "strength": "important", "rationale": { "es": "La recaptación mediada por transportadores requiere el subtipo transportador pertinente.", "en": "Transporter-mediated reuptake requires the relevant transporter subtype." } },
+    { "id": "soma:P000076", "prerequisite": "soma:K000067", "concept": "soma:K000068", "strength": "important", "rationale": { "es": "SNC es una división del sistema nervioso.", "en": "CNS is a nervous-system division." } },
+    { "id": "soma:P000077", "prerequisite": "soma:K000067", "concept": "soma:K000069", "strength": "important", "rationale": { "es": "SNP es una división del sistema nervioso.", "en": "PNS is a nervous-system division." } },
+    { "id": "soma:P000078", "prerequisite": "soma:K000068", "concept": "soma:K000070", "strength": "important", "rationale": { "es": "El encéfalo es parte del SNC.", "en": "The brain is part of the CNS." } },
+    { "id": "soma:P000079", "prerequisite": "soma:K000068", "concept": "soma:K000071", "strength": "important", "rationale": { "es": "La médula espinal es parte del SNC.", "en": "The spinal cord is part of the CNS." } },
+    { "id": "soma:P000080", "prerequisite": "soma:K000092", "concept": "soma:K000072", "strength": "recommended", "rationale": { "es": "Sitúa la corteza cerebral en el telencéfalo.", "en": "It places the cerebral cortex in the telencephalon." } },
+    { "id": "soma:P000081", "prerequisite": "soma:K000072", "concept": "soma:K000073", "strength": "important", "rationale": { "es": "La corteza prefrontal es una región cortical.", "en": "The prefrontal cortex is a cortical region." } },
+    { "id": "soma:P000082", "prerequisite": "soma:K000094", "concept": "soma:K000074", "strength": "recommended", "rationale": { "es": "Sitúa el hipocampo dentro de la formación hipocampal sin tratarlos como sinónimos.", "en": "It places the hippocampus within the hippocampal formation without treating them as synonyms." } },
+    { "id": "soma:P000083", "prerequisite": "soma:K000092", "concept": "soma:K000075", "strength": "recommended", "rationale": { "es": "Sitúa el complejo amigdalino en el telencéfalo.", "en": "It places the amygdaloid complex in the telencephalon." } },
+    { "id": "soma:P000084", "prerequisite": "soma:K000093", "concept": "soma:K000076", "strength": "recommended", "rationale": { "es": "Sitúa el hipotálamo en el diencéfalo antes de abordar sus funciones.", "en": "It places the hypothalamus in the diencephalon before addressing its functions." } },
+    { "id": "soma:P000085", "prerequisite": "soma:K000082", "concept": "soma:K000077", "strength": "important", "rationale": { "es": "El mesencéfalo forma parte del tronco encefálico.", "en": "The midbrain is part of the brainstem." } },
+    { "id": "soma:P000086", "prerequisite": "soma:K000077", "concept": "soma:K000078", "strength": "important", "rationale": { "es": "El área tegmental ventral es mesencefálica.", "en": "The ventral tegmental area is in the midbrain." } },
+    { "id": "soma:P000087", "prerequisite": "soma:K000092", "concept": "soma:K000079", "strength": "recommended", "rationale": { "es": "Sitúa los ganglios basales en la rama telencefálica antes de sus subdivisiones.", "en": "It places the basal ganglia in the telencephalic branch before their subdivisions." } },
+    { "id": "soma:P000088", "prerequisite": "soma:K000095", "concept": "soma:K000080", "strength": "important", "rationale": { "es": "El estriado ventral se presenta como subdivisión del estriado.", "en": "The ventral striatum is presented as a subdivision of the striatum." } },
+    { "id": "soma:P000089", "prerequisite": "soma:K000080", "concept": "soma:K000081", "strength": "important", "rationale": { "es": "Núcleo accumbens se distingue de todo el estriado ventral.", "en": "Nucleus accumbens is distinguished from the whole ventral striatum." } },
+    { "id": "soma:P000090", "prerequisite": "soma:K000070", "concept": "soma:K000082", "strength": "important", "rationale": { "es": "El tronco encefálico es una parte del encéfalo.", "en": "The brainstem is a part of the brain." } },
+    { "id": "soma:P000091", "prerequisite": "soma:K000070", "concept": "soma:K000083", "strength": "important", "rationale": { "es": "El cerebelo es parte del encéfalo, no del tronco.", "en": "The cerebellum is part of the brain, not the brainstem." } },
+    { "id": "soma:P000092", "prerequisite": "soma:K000067", "concept": "soma:K000084", "strength": "recommended", "rationale": { "es": "La organización autónoma se contrasta con la anatomía global.", "en": "Autonomic organisation is contrasted with global anatomy." } },
+    { "id": "soma:P000093", "prerequisite": "soma:K000084", "concept": "soma:K000085", "strength": "important", "rationale": { "es": "Simpática es una división autónoma.", "en": "Sympathetic is an autonomic division." } },
+    { "id": "soma:P000094", "prerequisite": "soma:K000084", "concept": "soma:K000086", "strength": "important", "rationale": { "es": "Parasimpática es una división autónoma.", "en": "Parasympathetic is an autonomic division." } },
+    { "id": "soma:P000095", "prerequisite": "soma:K000067", "concept": "soma:K000087", "strength": "recommended", "rationale": { "es": "La función integrada se sitúa en el sistema, sin asignarla a una única región.", "en": "The integrated function is placed in the system without assigning it to one region." } },
+    { "id": "soma:P000096", "prerequisite": "soma:K000067", "concept": "soma:K000088", "strength": "recommended", "rationale": { "es": "La función integrada se sitúa en el sistema.", "en": "The integrated function is placed in the system." } },
+    { "id": "soma:P000097", "prerequisite": "soma:K000067", "concept": "soma:K000089", "strength": "recommended", "rationale": { "es": "Aprendizaje y memoria son procesos distribuidos.", "en": "Learning and memory are distributed processes." } },
+    { "id": "soma:P000098", "prerequisite": "soma:K000089", "concept": "soma:K000090", "strength": "important", "rationale": { "es": "Aprendizaje por recompensa se presenta como caso específico, no como dopamina o placer.", "en": "Reward learning is presented as a specific case, not as dopamine or pleasure." } },
+    { "id": "soma:P000100", "prerequisite": "soma:K000036", "concept": "soma:K000096", "strength": "important", "rationale": { "es": "El transporte activo primario se presenta como subtipo del transporte activo.", "en": "Primary active transport is presented as an active-transport subtype." } },
+    { "id": "soma:P000101", "prerequisite": "soma:K000091", "concept": "soma:K000048", "strength": "important", "rationale": { "es": "La célula glial se presenta como una clase de célula neural paralela a la neurona.", "en": "Glial cell is presented as a neural-cell class parallel to neuron." } },
+    { "id": "soma:P000102", "prerequisite": "soma:K000042", "concept": "soma:K000097", "strength": "important", "rationale": { "es": "La exocitosis vesicular sináptica se presenta como un subtipo de exocitosis.", "en": "Synaptic vesicle exocytosis is presented as an exocytosis subtype." } },
+    { "id": "soma:P000103", "prerequisite": "soma:K000032", "concept": "soma:K000098", "strength": "important", "rationale": { "es": "El transportador de neurotransmisor se presenta como un subtipo de transportador de membrana.", "en": "Neurotransmitter transporter is presented as a membrane-transporter subtype." } },
+    { "id": "soma:P000104", "prerequisite": "soma:K000070", "concept": "soma:K000092", "strength": "important", "rationale": { "es": "El telencéfalo se sitúa como división del encéfalo.", "en": "The telencephalon is placed as a brain division." } },
+    { "id": "soma:P000105", "prerequisite": "soma:K000092", "concept": "soma:K000094", "strength": "important", "rationale": { "es": "La formación hipocampal se sitúa en la rama telencefálica.", "en": "The hippocampal formation is placed in the telencephalic branch." } },
+    { "id": "soma:P000106", "prerequisite": "soma:K000070", "concept": "soma:K000093", "strength": "important", "rationale": { "es": "El diencéfalo se sitúa como división del encéfalo.", "en": "The diencephalon is placed as a brain division." } },
+    { "id": "soma:P000107", "prerequisite": "soma:K000079", "concept": "soma:K000095", "strength": "important", "rationale": { "es": "El estriado se presenta dentro de los ganglios basales antes de sus subdivisiones.", "en": "The striatum is presented within the basal ganglia before its subdivisions." } },
+    { "id": "soma:P000108", "prerequisite": "soma:K000048", "concept": "soma:K000099", "strength": "recommended", "rationale": { "es": "La glía aporta contexto celular al proceso de mielinización.", "en": "Glia provides cellular context for the myelination process." } }
+  ],
+  "presentationMetadata": {
+    "semantic": false,
+    "coordinatesPersisted": false,
+    "suggestedLayout": "converging_branches",
+    "visualGroupingMayChangeWithoutOntologyVersion": true,
+    "colourEncodesOnlyFacetOrEditorialState": true,
+    "colourMustNotBeTheOnlyCarrierOfMeaning": true,
+    "reducedMotionRequired": true,
+    "mobileAlternative": "linearised_branch_navigation",
+    "notes": "Coordinates, colours and expansion state must never be interpreted as scientific relationships."
+  }
+}
