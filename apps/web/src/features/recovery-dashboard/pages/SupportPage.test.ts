@@ -318,7 +318,12 @@ test("support copy has ES/EN parity and is registered", () => {
   assert.equal(esSupport.eyebrow, "Apoyo");
   assert.match(i18nConfig, /import esSupport from "\.\/locales\/es\/support\.json"/);
   assert.match(i18nConfig, /import enSupport from "\.\/locales\/en\/support\.json"/);
-  assert.match(i18nConfig, /"support",\s*\n\s*\],/);
+  const namespacesStart = i18nConfig.indexOf("    ns: [");
+  const namespacesEnd = i18nConfig.indexOf("    ],", namespacesStart);
+  assert.notEqual(namespacesStart, -1);
+  assert.notEqual(namespacesEnd, -1);
+  const namespaces = i18nConfig.slice(namespacesStart, namespacesEnd);
+  assert.equal(namespaces.includes('"support",'), true);
   assert.equal((i18nConfig.match(/support: enSupport,/g) ?? []).length, 7);
   assert.equal((i18nConfig.match(/support: esSupport,/g) ?? []).length, 1);
 });
