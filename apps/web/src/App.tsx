@@ -10,6 +10,7 @@ import { PreviewShell } from "./features/recovery-dashboard/components/PreviewSh
 import { PreviewHome } from "./features/recovery-dashboard/components/PreviewHome.js";
 import { RecoveryPage } from "./features/recovery-dashboard/pages/RecoveryPage.js";
 import { ExplorePage } from "./features/recovery-dashboard/pages/ExplorePage.js";
+import { KnowledgePage } from "./features/recovery-dashboard/pages/KnowledgePage.js";
 import { AnatomyExplorerPage } from "./features/recovery-dashboard/pages/AnatomyExplorerPage.js";
 import { AchievementsPage as Soma2AchievementsPage } from "./features/recovery-dashboard/pages/AchievementsPage.js";
 import { JournalPage } from "./features/recovery-dashboard/pages/JournalPage.js";
@@ -52,6 +53,7 @@ const soma2Pages = (
     <Route index element={<PreviewHome />} />
     <Route path="recovery" element={<RecoveryPage />} />
     <Route path="explore" element={<ExplorePage />} />
+    <Route path="explore/knowledge" element={<KnowledgePage />} />
     <Route path="missions" element={<MissionsPage />} />
     <Route path="expedition" element={<ExpeditionPage />} />
     <Route path="anatomy" element={<AnatomyExplorerPage />} />
