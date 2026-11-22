@@ -11,6 +11,7 @@ Archivos:
 - `concepts.json`: vocabularios globales y catálogo canónico de conceptos.
 - `relations.json`: catálogo independiente de relaciones científicas.
 - `learning-paths.json`: recorrido pedagógico, prerrequisitos y metadatos no semánticos de presentación.
+- `economy-status.md`: decisiones conceptuales del árbol jugable y lo que el código implementa. No forma parte de la ontología.
 
 ## Separación de capas
 
