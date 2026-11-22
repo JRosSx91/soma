@@ -2,7 +2,12 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-const runtimeSources = ["knowledge-types.ts", "knowledge-catalog.ts"].map(
+const runtimeSources = [
+  "knowledge-types.ts",
+  "knowledge-catalog.ts",
+  "public-knowledge-catalog.generated.ts",
+  "public-knowledge-catalog.ts",
+].map(
   (name) => readFileSync(new URL(name, import.meta.url), "utf8"),
 );
 

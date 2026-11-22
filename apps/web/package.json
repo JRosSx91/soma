@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && vite",
-    "build": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && tsc -b && vite build",
+    "dev": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && node scripts/build-public-knowledge-catalog.mjs && vite",
+    "build": "node scripts/build-achievement-catalog.mjs && node scripts/build-recovery-catalog.mjs && node scripts/build-public-knowledge-catalog.mjs && tsc -b && vite build",
+    "build:knowledge": "node scripts/build-public-knowledge-catalog.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "node scripts/run-web-tests.cjs",

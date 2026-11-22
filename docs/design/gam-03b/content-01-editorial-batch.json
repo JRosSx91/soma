@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "batchId": "gam-03b-content-01",
+  "title": {
+    "es": "De la electricidad a la comunicación neuronal",
+    "en": "From electricity to neuronal communication"
+  },
+  "proposalStatus": "editorial_proposal",
+  "runtimeIntegrated": false,
+  "publicationAuthorized": false,
+  "scientificEditorialReview": {
+    "reviewId": "gam-03b-content-02",
+    "reviewedOn": "2026-11-21",
+    "outcome": "selective_editorial_approval_proposed",
+    "conceptClassification": {
+      "ready_for_editorial_approval": [
+        "soma:K000004", "soma:K000006", "soma:K000008", "soma:K000010", "soma:K000013",
+        "soma:K000020", "soma:K000023", "soma:K000028", "soma:K000030", "soma:K000032",
+        "soma:K000037", "soma:K000041", "soma:K000043", "soma:K000046", "soma:K000047",
+        "soma:K000054", "soma:K000055", "soma:K000058", "soma:K000060"
+      ],
+      "minor_correction_required": [],
+      "scientific_review_required": [],
+      "excluded_from_first_release": []
+    },
+    "appliedCorrections": [
+      {
+        "conceptId": "soma:K000004",
+        "field": "shortDefinition",
+        "reason": "Electric charge is more precisely attributed to a particle or physical system than to matter as an undifferentiated whole."
+      },
+      {
+        "conceptId": "soma:K000054",
+        "field": "explanation",
+        "reason": "Distinct presynaptic and postsynaptic sides describe chemical synapses well but should not be generalised to every electrical synapse."
+      }
+    ],
+    "residualConceptRisks": [],
+    "note": "These classifications are audit results for this proposal only. They do not change source-catalog or runtime editorial states."
+  },
+  "editorialPolicy": {
+    "sourceCatalogsRemainCanonical": true,
+    "usesExistingConceptIdsOnly": true,
+    "usesExistingRelationIdsOnly": true,
+    "changesSourceEditorialStates": false,
+    "blocksAccess": false,
+    "grantsXp": false,
+    "clinicalPersonalization": false,
+    "notes": {
+      "es": "Este archivo es una propuesta editorial independiente. No constituye aprobación científica final ni contenido de runtime.",
+      "en": "This file is an independent editorial proposal. It does not constitute final scientific approval or runtime content."
+    }
+  },
+  "pedagogicalRoute": [
+    {
+      "stage": 1,
+      "title": { "es": "Magnitudes eléctricas", "en": "Electrical quantities" },
+      "conceptIds": ["soma:K000004", "soma:K000006"],
+      "rationale": {
+        "es": "Introduce carga y diferencia de potencial sin equiparar electricidad biológica con una corriente metálica.",
+        "en": "Introduces charge and potential difference without equating bioelectricity with current in a metal wire."
+      }
+    },
+    {
+      "stage": 2,
+      "title": { "es": "Gradientes e iones", "en": "Gradients and ions" },
+      "conceptIds": ["soma:K000008", "soma:K000010", "soma:K000013"],
+      "rationale": {
+        "es": "Distingue concentración, contribución eléctrica e identidad química antes de abordar membranas.",
+        "en": "Separates concentration, electrical contribution and chemical identity before addressing membranes."
+      }
+    },
+    {
+      "stage": 3,
+      "title": { "es": "Maquinaria de membrana", "en": "Membrane machinery" },
+      "conceptIds": ["soma:K000020", "soma:K000023", "soma:K000028", "soma:K000030", "soma:K000032"],
+      "rationale": {
+        "es": "Presenta la membrana como interfaz selectiva y diferencia canales de la categoría más amplia de transportadores.",
+        "en": "Presents the membrane as a selective interface and distinguishes channels from the broader transporter category."
+      }
+    },
+    {
+      "stage": 4,
+      "title": { "es": "Bioelectricidad celular", "en": "Cellular bioelectricity" },
+      "conceptIds": ["soma:K000037", "soma:K000041"],
+      "rationale": {
+        "es": "Conecta las propiedades de membrana con cambios rápidos de voltaje en células excitables.",
+        "en": "Connects membrane properties with rapid voltage changes in excitable cells."
+      }
+    },
+    {
+      "stage": 5,
+      "title": { "es": "Geometría neuronal", "en": "Neuronal geometry" },
+      "conceptIds": ["soma:K000043", "soma:K000046", "soma:K000047"],
+      "rationale": {
+        "es": "Sitúa la propagación en una célula y en componentes concretos sin presentar una morfología única como universal.",
+        "en": "Places propagation in a cell and concrete components without presenting one morphology as universal."
+      }
+    },
+    {
+      "stage": 6,
+      "title": { "es": "Comunicación sináptica", "en": "Synaptic communication" },
+      "conceptIds": ["soma:K000054", "soma:K000055", "soma:K000058", "soma:K000060"],
+      "rationale": {
+        "es": "Distingue la categoría general de sinapsis de la transmisión química y de su maquinaria vesicular.",
+        "en": "Distinguishes the general synapse category from chemical transmission and its vesicular machinery."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "SRC-BIPM-SI-9",
+      "title": "The International System of Units (SI), 9th edition",
+      "publisher": "Bureau International des Poids et Mesures",
+      "url": "https://www.bipm.org/documents/20126/41483022/SI-Brochure-9.pdf/fcf090b2-04e6-88cc-1149-c3e029ad8232",
+      "accessedOn": "2026-11-21",
+      "scope": "SI quantities and units for electric charge and electric potential difference"
+    },
+    {
+      "id": "SRC-IUPAC-E01945",
+      "title": "Electrochemical potential (E01945)",
+      "publisher": "IUPAC Compendium of Chemical Terminology (Gold Book)",
+      "url": "https://goldbook.iupac.org/terms/view/E01945",
+      "doi": "10.1351/goldbook.E01945",
+      "accessedOn": "2026-11-21",
+      "scope": "Exact definition of electrochemical potential"
+    },
+    {
+      "id": "SRC-OPENSTAX-BIO-5-1",
+      "title": "Biology 2e, 5.1 Components and Structure",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/biology-2e/pages/5-1-components-and-structure",
+      "accessedOn": "2026-11-21",
+      "scope": "Plasma-membrane structure, integral proteins and channels"
+    },
+    {
+      "id": "SRC-OPENSTAX-BIO-5-2",
+      "title": "Biology 2e, 5.2 Passive Transport",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport",
+      "accessedOn": "2026-11-21",
+      "scope": "Concentration gradients, selective permeability, channels and carriers"
+    },
+    {
+      "id": "SRC-OPENSTAX-BIO-5-3",
+      "title": "Biology 2e, 5.3 Active Transport",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/biology-2e/pages/5-3-active-transport",
+      "accessedOn": "2026-11-21",
+      "scope": "Electrochemical gradients and membrane transporters"
+    },
+    {
+      "id": "SRC-OPENSTAX-AANDP-12-2",
+      "title": "Anatomy and Physiology 2e, 12.2 Nervous Tissue",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "accessedOn": "2026-11-21",
+      "scope": "Neuron structure, axons and nervous tissue"
+    },
+    {
+      "id": "SRC-OPENSTAX-AANDP-12-4",
+      "title": "Anatomy and Physiology 2e, 12.4 The Action Potential",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential",
+      "accessedOn": "2026-11-21",
+      "scope": "Membrane potential, voltage-gated channels and action potentials"
+    },
+    {
+      "id": "SRC-OPENSTAX-AANDP-12-5",
+      "title": "Anatomy and Physiology 2e, 12.5 Communication Between Neurons",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-5-communication-between-neurons",
+      "accessedOn": "2026-11-21",
+      "scope": "Chemical and electrical synapses, presynaptic calcium entry and vesicular release"
+    },
+    {
+      "id": "SRC-PURVES-NERVE-CELLS",
+      "title": "Neuroscience, 2nd edition: Nerve Cells",
+      "publisher": "NCBI Bookshelf; Sinauer Associates",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK11103/",
+      "accessedOn": "2026-11-21",
+      "scope": "Neuron, axon and axon terminal structure"
+    },
+    {
+      "id": "SRC-PURVES-CHEMICAL-SYNAPSES",
+      "title": "Neuroscience, 2nd edition: Chemical Synapses",
+      "publisher": "NCBI Bookshelf; Sinauer Associates",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK11009/",
+      "accessedOn": "2026-11-21",
+      "scope": "Chemical synapses, synaptic vesicles and calcium-dependent transmitter release"
+    },
+    {
+      "id": "SRC-PURVES-RELEASE",
+      "title": "Neuroscience, 2nd edition: Neurotransmitter Release and Removal",
+      "publisher": "NCBI Bookshelf; Sinauer Associates",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK11106/",
+      "accessedOn": "2026-11-21",
+      "scope": "Vesicular neurotransmitter release and removal"
+    },
+    {
+      "id": "SRC-NLM-MESH-SYNAPSES",
+      "title": "Medical Subject Headings: Synapses (D013569)",
+      "publisher": "U.S. National Library of Medicine",
+      "url": "https://www.ncbi.nlm.nih.gov/mesh/68013569",
+      "accessedOn": "2026-11-21",
+      "scope": "Synapse definition, classical chemical synapses and non-synaptic signalling caveat"
+    },
+    {
+      "id": "SRC-NLM-MESH-SYNAPTIC-VESICLES",
+      "title": "Medical Subject Headings: Synaptic Vesicles (D013572)",
+      "publisher": "U.S. National Library of Medicine",
+      "url": "https://www.ncbi.nlm.nih.gov/mesh/D013572",
+      "accessedOn": "2026-11-21",
+      "scope": "Membrane-bound transmitter compartments concentrated at presynaptic terminals"
+    },
+    {
+      "id": "SRC-GO-0007269",
+      "title": "Gene Ontology: neurotransmitter secretion (GO:0007269)",
+      "publisher": "Gene Ontology Consortium",
+      "url": "https://amigo.geneontology.org/amigo/term/GO%3A0007269",
+      "accessedOn": "2026-11-21",
+      "scope": "Scoped synaptic neurotransmitter secretion via calcium-regulated exocytosis; candidate mapping evidence only"
+    },
+    {
+      "id": "SRC-GO-0016079",
+      "title": "Gene Ontology: synaptic vesicle exocytosis (GO:0016079)",
+      "publisher": "Gene Ontology Consortium",
+      "url": "https://amigo.geneontology.org/amigo/term/GO%3A0016079",
+      "accessedOn": "2026-11-21",
+      "scope": "Synaptic-vesicle fusion at the presynaptic membrane and its part-of relation to neurotransmitter secretion; candidate mapping evidence only"
+    },
+    {
+      "id": "SRC-GO-DOCS",
+      "title": "Gene Ontology documentation",
+      "publisher": "Gene Ontology Consortium",
+      "url": "https://geneontology.org/docs/ontology-documentation/",
+      "accessedOn": "2026-11-21",
+      "scope": "Ontology semantics and future exact term mapping; no unverified identifier is asserted"
+    },
+    {
+      "id": "SRC-CL-DOCS",
+      "title": "Cell Ontology documentation",
+      "publisher": "OBO Foundry / Cell Ontology",
+      "url": "https://obophenotype.github.io/cell-ontology/",
+      "accessedOn": "2026-11-21",
+      "scope": "Cell-type scope and future exact neuron mapping; no unverified identifier is asserted"
+    }
+  ],
+  "conceptCards": [
+    {
+      "id": "soma:K000004",
+      "title": { "es": "Carga eléctrica", "en": "Electric charge" },
+      "shortDefinition": { "es": "Propiedad física de una partícula o sistema que determina su participación en interacciones electromagnéticas.", "en": "A physical property of a particle or system that determines its participation in electromagnetic interactions." },
+      "explanation": { "es": "La carga puede ser positiva o negativa y se mide en culombios. En células nerviosas, partículas cargadas como los iones contribuyen a los fenómenos eléctricos; la carga no es por sí misma una señal ni una forma de progreso biológico.", "en": "Charge can be positive or negative and is measured in coulombs. In nerve cells, charged particles such as ions contribute to electrical phenomena; charge is not by itself a signal or a measure of biological progress." },
+      "example": { "es": "Na+ y Cl− tienen cargas netas de signo opuesto.", "en": "Na+ and Cl− have net charges with opposite signs." },
+      "existingRelationIds": [],
+      "relatedConceptIds": ["soma:K000006", "soma:K000013"],
+      "sourceIds": ["SRC-BIPM-SI-9", "SRC-OPENSTAX-AANDP-12-4"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "Exact external ontology mapping remains pending in the source catalog." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "electricity-gradients-ions", "description": "Schematic positive and negative charges with an explicit legend; not an anatomical image." }
+    },
+    {
+      "id": "soma:K000006",
+      "title": { "es": "Diferencia de potencial eléctrico", "en": "Electric potential difference" },
+      "shortDefinition": { "es": "Diferencia de energía potencial eléctrica por unidad de carga entre dos puntos.", "en": "The difference in electric potential energy per unit charge between two points." },
+      "explanation": { "es": "También se denomina voltaje y se mide en voltios. Siempre compara dos puntos: el potencial de membrana, por ejemplo, compara ambos lados de una membrana; no describe una cantidad absoluta de electricidad almacenada.", "en": "It is also called voltage and is measured in volts. It always compares two points: membrane potential, for example, compares the two sides of a membrane; it does not describe an absolute amount of stored electricity." },
+      "example": { "es": "Un voltio equivale a un julio por culombio.", "en": "One volt equals one joule per coulomb." },
+      "existingRelationIds": [],
+      "relatedConceptIds": ["soma:K000004", "soma:K000037"],
+      "sourceIds": ["SRC-BIPM-SI-9", "SRC-OPENSTAX-AANDP-12-4"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "The wording preserves the distinction between potential and potential difference." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "electricity-gradients-ions", "description": "Two points with an energy-per-charge difference and a clear reference direction." }
+    },
+    {
+      "id": "soma:K000008",
+      "title": { "es": "Gradiente de concentración", "en": "Concentration gradient" },
+      "shortDefinition": { "es": "Variación espacial de la concentración de una especie.", "en": "A spatial variation in the concentration of a species." },
+      "explanation": { "es": "Un gradiente indica que una sustancia no está distribuida por igual. Puede favorecer difusión neta, pero no determina por sí solo el movimiento de un ion a través de una membrana selectiva: también importan la carga, la permeabilidad y otras fuerzas.", "en": "A gradient indicates that a substance is not distributed evenly. It can favour net diffusion, but it does not by itself determine an ion's movement across a selective membrane: charge, permeability and other forces also matter." },
+      "example": { "es": "Puede haber más iones de una especie a un lado de una membrana que al otro.", "en": "There may be more ions of one species on one side of a membrane than on the other." },
+      "existingRelationIds": [],
+      "relatedConceptIds": ["soma:K000010", "soma:K000013", "soma:K000023"],
+      "sourceIds": ["SRC-OPENSTAX-BIO-5-2", "SRC-OPENSTAX-BIO-5-3"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_pedagogical_scope", "notes": "An exact IUPAC term mapping remains pending; the educational definition is narrower and explicit." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "electricity-gradients-ions", "description": "Particles distributed at different concentrations across space and across a membrane." }
+    },
+    {
+      "id": "soma:K000010",
+      "title": { "es": "Potencial electroquímico", "en": "Electrochemical potential" },
+      "shortDefinition": { "es": "Potencial termodinámico de una especie en una fase a un potencial eléctrico determinado.", "en": "The thermodynamic potential of a species in a phase at a specified electric potential." },
+      "explanation": { "es": "El potencial electroquímico describe el estado termodinámico de una especie en un entorno donde importan tanto la composición química como el potencial eléctrico. Para un ion, la contribución química depende de su actividad o concentración efectiva, mientras que la eléctrica depende de su carga y del voltaje local. Una diferencia de potencial electroquímico indica una dirección termodinámicamente favorable de transferencia cuando existe una vía adecuada. No garantiza que el ion pueda cruzar una membrana: también cuentan la permeabilidad, la apertura de canales y la velocidad de los transportadores. Este concepto permite comprender por qué concentración y voltaje deben analizarse juntos al estudiar movimiento iónico y bioelectricidad.", "en": "Electrochemical potential describes the thermodynamic state of a species in an environment where both chemical composition and electric potential matter. For an ion, the chemical contribution depends on its activity or effective concentration, whereas the electrical contribution depends on its charge and the local voltage. A difference in electrochemical potential indicates a thermodynamically favourable direction of transfer when a suitable pathway exists. It does not guarantee that the ion can cross a membrane: permeability, channel opening and transporter rates also matter. This concept explains why concentration and voltage must be considered together when studying ion movement and bioelectricity." },
+      "example": { "es": "Un ion puede encontrar una contribución química favorable y una contribución eléctrica opuesta.", "en": "An ion can face a favourable chemical contribution and an opposing electrical contribution." },
+      "existingRelationIds": [],
+      "relatedConceptIds": ["soma:K000006", "soma:K000008", "soma:K000013", "soma:K000028"],
+      "sourceIds": ["SRC-IUPAC-E01945", "SRC-OPENSTAX-BIO-5-3"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_pedagogical_simplification", "notes": "The short definition follows IUPAC; the expanded text explains the cell-biology use without reducing it to concentration plus voltage alone." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "electricity-gradients-ions", "description": "Two aligned arrows for chemical and electrical contributions, with no claim that they always point together." }
+    },
+    {
+      "id": "soma:K000013",
+      "title": { "es": "Ion", "en": "Ion" },
+      "shortDefinition": { "es": "Entidad atómica o molecular con carga eléctrica neta.", "en": "An atomic or molecular entity with a net electric charge." },
+      "explanation": { "es": "Un ion puede tener carga positiva o negativa. En biología, distintas especies iónicas se distribuyen de manera desigual y atraviesan membranas mediante vías selectivas; no todos los iones cumplen la misma función.", "en": "An ion can carry a positive or negative charge. In biology, different ionic species are distributed unevenly and cross membranes through selective pathways; ions do not all have the same function." },
+      "example": { "es": "Na+, K+, Ca2+ y Cl− son iones relevantes para numerosos procesos celulares.", "en": "Na+, K+, Ca2+ and Cl− are ions relevant to many cellular processes." },
+      "existingRelationIds": [],
+      "relatedConceptIds": ["soma:K000004", "soma:K000008", "soma:K000010", "soma:K000028"],
+      "sourceIds": ["SRC-OPENSTAX-BIO-5-2", "SRC-OPENSTAX-AANDP-12-4"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "Exact ChEBI/IUPAC identifier mapping remains pending and is intentionally not asserted here." },
+      "visualProposal": { "kind": "molecular_or_structural", "assetGroup": "electricity-gradients-ions", "description": "Small set of labelled ions with charge notation; avoid implying literal colours or scales." }
+    },
+    {
+      "id": "soma:K000020",
+      "title": { "es": "Proteína", "en": "Protein" },
+      "shortDefinition": { "es": "Macromolécula formada por una o más cadenas polipeptídicas que adquieren una organización funcional.", "en": "A macromolecule made of one or more polypeptide chains that acquire a functional organisation." },
+      "explanation": { "es": "Las proteínas realizan funciones muy diversas según su secuencia, estructura y contexto. Canales y muchos transportadores de membrana son proteínas, pero la categoría proteína es mucho más amplia.", "en": "Proteins perform many different functions depending on their sequence, structure and context. Channels and many membrane transporters are proteins, but the protein category is much broader." },
+      "example": { "es": "Un canal iónico es una proteína especializada; una proteína estructural puede cumplir una función distinta.", "en": "An ion channel is a specialised protein; a structural protein can perform a different function." },
+      "existingRelationIds": ["soma:R000009", "soma:R000015"],
+      "relatedConceptIds": ["soma:K000028", "soma:K000032"],
+      "sourceIds": ["SRC-OPENSTAX-BIO-5-1", "SRC-OPENSTAX-BIO-5-2"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "Exact external chemical-entity mapping remains pending." },
+      "visualProposal": { "kind": "molecular_or_structural", "assetGroup": "membrane-machinery", "description": "Abstract folded protein alongside membrane proteins; not an atomic-resolution claim." }
+    },
+    {
+      "id": "soma:K000023",
+      "title": { "es": "Membrana biológica", "en": "Biological membrane" },
+      "shortDefinition": { "es": "Estructura organizada de lípidos, proteínas y otros componentes que delimita células o compartimentos celulares.", "en": "An organised structure of lipids, proteins and other components that bounds cells or cellular compartments." },
+      "explanation": { "es": "Una membrana biológica es una estructura dinámica basada en una bicapa de lípidos, con proteínas y otros componentes asociados. Delimita la célula o sus compartimentos y permite mantener condiciones internas distintas de las externas. No es una pared completamente cerrada: su permeabilidad es selectiva. Algunas moléculas pequeñas atraviesan la bicapa con relativa facilidad, mientras que los iones y muchas moléculas polares necesitan canales o transportadores; ciertos movimientos requieren además energía celular. Las proteínas de membrana también participan en comunicación y reconocimiento. Comprender esta organización es esencial para explicar cómo se conservan gradientes, cómo aparece un potencial de membrana y cómo las células intercambian señales y sustancias.", "en": "A biological membrane is a dynamic structure built around a lipid bilayer, with proteins and other associated components. It bounds a cell or its compartments and allows internal conditions to differ from the surroundings. It is not a completely sealed wall: its permeability is selective. Some small molecules cross the bilayer relatively easily, whereas ions and many polar molecules require channels or transporters; some movements also require cellular energy. Membrane proteins also participate in communication and recognition. Understanding this organisation is essential for explaining how gradients are maintained, how membrane potential arises, and how cells exchange signals and substances." },
+      "example": { "es": "La membrana plasmática separa el interior celular del entorno; los orgánulos también pueden tener membranas.", "en": "The plasma membrane separates the cell interior from its environment; organelles can also have membranes." },
+      "existingRelationIds": ["soma:R000010", "soma:R000016", "soma:R000023"],
+      "relatedConceptIds": ["soma:K000020", "soma:K000028", "soma:K000032", "soma:K000037"],
+      "sourceIds": ["SRC-OPENSTAX-BIO-5-1", "SRC-OPENSTAX-BIO-5-2"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "Relations using located_in and inheres_in remain under predicate-level review." },
+      "visualProposal": { "kind": "molecular_or_structural", "assetGroup": "membrane-machinery", "description": "Realistic bilayer cross-section with embedded proteins and a scale disclaimer." }
+    },
+    {
+      "id": "soma:K000028",
+      "title": { "es": "Canal iónico", "en": "Ion channel" },
+      "shortDefinition": { "es": "Proteína transmembrana que forma una vía selectiva para el paso de iones.", "en": "A transmembrane protein that forms a selective pathway for ions to pass." },
+      "explanation": { "es": "Un canal iónico es una proteína transmembrana que forma un poro acuoso y selectivo. Cuando el canal está abierto, determinados iones pueden atravesar la membrana pasivamente en la dirección favorecida por su gradiente electroquímico. La estructura del poro contribuye a decidir qué iones pasan, y distintos mecanismos controlan la apertura: algunos canales responden al voltaje, otros a ligandos, fuerzas mecánicas u otras señales. Un canal no es una bomba y no impulsa por sí mismo iones contra su gradiente; los gradientes que aprovecha suelen mantenerse mediante transporte activo. Esta distinción prepara el estudio de cómo cambios coordinados de permeabilidad producen señales eléctricas celulares.", "en": "An ion channel is a transmembrane protein that forms a selective, water-filled pore. When the channel is open, selected ions can cross the membrane passively in the direction favoured by their electrochemical gradient. The pore's structure helps determine which ions pass, and different mechanisms control opening: some channels respond to voltage, others to ligands, mechanical forces or other signals. A channel is not a pump and does not by itself drive ions against their gradient; the gradients it uses are often maintained by active transport. This distinction prepares the study of how coordinated changes in permeability produce cellular electrical signals." },
+      "example": { "es": "Un canal puede ser selectivo para potasio y permanecer cerrado hasta recibir una señal concreta.", "en": "A channel can be selective for potassium and remain closed until it receives a particular signal." },
+      "existingRelationIds": ["soma:R000009", "soma:R000010", "soma:R000013"],
+      "relatedConceptIds": ["soma:K000013", "soma:K000020", "soma:K000023", "soma:K000030"],
+      "sourceIds": ["SRC-OPENSTAX-BIO-5-1", "SRC-OPENSTAX-BIO-5-2", "SRC-OPENSTAX-AANDP-12-4"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "The is_a relation to protein is approvable; the spatial predicate requires exact mapping." },
+      "visualProposal": { "kind": "molecular_or_structural", "assetGroup": "membrane-machinery", "description": "Membrane-spanning pore shown open and closed, with ion selectivity indicated by labels." }
+    },
+    {
+      "id": "soma:K000030",
+      "title": { "es": "Canal iónico dependiente de voltaje", "en": "Voltage-gated ion channel" },
+      "shortDefinition": { "es": "Canal iónico cuya probabilidad de apertura cambia con el potencial de membrana.", "en": "An ion channel whose probability of opening changes with membrane potential." },
+      "explanation": { "es": "Estos canales detectan cambios de voltaje mediante regiones sensibles al campo eléctrico. Diferentes tipos se activan e inactivan con propiedades distintas; no todos responden al mismo voltaje ni permanecen abiertos del mismo modo.", "en": "These channels detect voltage changes through regions sensitive to the electric field. Different types activate and inactivate with different properties; they do not all respond at the same voltage or remain open in the same way." },
+      "example": { "es": "Canales de sodio y potasio dependientes de voltaje participan en distintas fases de muchos potenciales de acción neuronales.", "en": "Voltage-gated sodium and potassium channels participate in different phases of many neuronal action potentials." },
+      "existingRelationIds": ["soma:R000013", "soma:R000032"],
+      "relatedConceptIds": ["soma:K000028", "soma:K000037", "soma:K000041"],
+      "sourceIds": ["SRC-OPENSTAX-AANDP-12-4"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_scope", "notes": "The explanation avoids implying that every action potential uses an identical channel set." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "membrane-potential-action-potential", "description": "Channel conformations aligned with a voltage trace, avoiding a literal mechanical gate metaphor." }
+    },
+    {
+      "id": "soma:K000032",
+      "title": { "es": "Transportador de membrana", "en": "Membrane transporter" },
+      "shortDefinition": { "es": "Proteína que media el movimiento de una sustancia a través de una membrana.", "en": "A protein that mediates movement of a substance across a membrane." },
+      "explanation": { "es": "Los transportadores reconocen sustancias concretas y cambian de conformación o acoplan movimientos para trasladarlas. Algunos facilitan transporte pasivo y otros participan en transporte activo; no deben confundirse todos con canales abiertos.", "en": "Transporters recognise particular substances and change conformation or couple movements to carry them. Some facilitate passive transport and others participate in active transport; they should not all be treated as open channels." },
+      "example": { "es": "Un cotransportador puede aprovechar el gradiente de un ion para mover otra sustancia.", "en": "A cotransporter can use an ion gradient to move another substance." },
+      "existingRelationIds": ["soma:R000015", "soma:R000016"],
+      "relatedConceptIds": ["soma:K000020", "soma:K000023", "soma:K000028"],
+      "sourceIds": ["SRC-OPENSTAX-BIO-5-2", "SRC-OPENSTAX-BIO-5-3"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_category_scope", "notes": "The batch uses the catalog's protein scope; exact GO class mapping remains pending." },
+      "visualProposal": { "kind": "molecular_or_structural", "assetGroup": "membrane-machinery", "description": "Side-by-side carrier conformations, explicitly contrasted with a channel pore." }
+    },
+    {
+      "id": "soma:K000037",
+      "title": { "es": "Potencial de membrana", "en": "Membrane potential" },
+      "shortDefinition": { "es": "Diferencia de potencial eléctrico entre los dos lados de una membrana biológica.", "en": "The electric potential difference between the two sides of a biological membrane." },
+      "explanation": { "es": "El potencial de membrana es el voltaje entre los dos lados de una membrana biológica. Surge de separaciones muy pequeñas de carga, sostenidas por distribuciones iónicas desiguales y por la permeabilidad selectiva de la membrana. El interior y el exterior permanecen casi eléctricamente neutros en conjunto: no es necesario que toda la célula acumule una gran carga neta. Su valor depende de qué iones pueden cruzar y de sus gradientes electroquímicos, por lo que puede cambiar cuando se abren o cierran canales. Existe en muchas células y orgánulos, no solo en neuronas. En células excitables proporciona el estado eléctrico sobre el que se desarrollan cambios rápidos como el potencial de acción.", "en": "Membrane potential is the voltage between the two sides of a biological membrane. It arises from very small charge separations sustained by unequal ion distributions and the membrane's selective permeability. The inside and outside remain nearly electrically neutral overall: the whole cell does not need to accumulate a large net charge. Its value depends on which ions can cross and on their electrochemical gradients, so it can change when channels open or close. Membrane potential exists in many cells and organelles, not only in neurons. In excitable cells, it provides the electrical state on which rapid changes such as an action potential develop." },
+      "example": { "es": "Al abrirse un canal selectivo cambia la permeabilidad y puede cambiar el potencial de membrana.", "en": "Opening a selective channel changes permeability and can change membrane potential." },
+      "existingRelationIds": ["soma:R000023"],
+      "relatedConceptIds": ["soma:K000006", "soma:K000010", "soma:K000023", "soma:K000030", "soma:K000041"],
+      "sourceIds": ["SRC-OPENSTAX-AANDP-12-4", "SRC-OPENSTAX-BIO-5-3"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "The inheres_in relation is held for formal predicate review; the educational statement is independently supported." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "membrane-potential-action-potential", "description": "Membrane cross-section with local charge separation and a voltage annotation, not a fully charged cell." }
+    },
+    {
+      "id": "soma:K000041",
+      "title": { "es": "Potencial de acción", "en": "Action potential" },
+      "shortDefinition": { "es": "Cambio rápido y transitorio del potencial de membrana en una célula excitable, con despolarización y repolarización.", "en": "A rapid, transient change in membrane potential in an excitable cell, involving depolarisation and repolarisation." },
+      "explanation": { "es": "Un potencial de acción es un cambio breve y regenerativo del potencial de membrana en una célula excitable. Cuando la membrana alcanza determinadas condiciones, la apertura e inactivación coordinadas de canales dependientes de voltaje producen una fase de despolarización seguida de repolarización. En muchos axones, este patrón se regenera a lo largo de la membrana y permite que la señal alcance regiones alejadas sin comportarse como una corriente pasiva en un cable metálico. Su amplitud típica no aumenta de manera proporcional a la intensidad del estímulo; la frecuencia y el momento de los potenciales pueden transportar información. Entenderlo conecta la bioelectricidad de membrana con la organización funcional de la neurona.", "en": "An action potential is a brief, regenerative change in membrane potential in an excitable cell. When the membrane reaches suitable conditions, the coordinated opening and inactivation of voltage-gated channels produce a depolarising phase followed by repolarisation. In many axons, this pattern is regenerated along the membrane, allowing the signal to reach distant regions without behaving like passive current in a metal wire. Its typical amplitude does not increase in proportion to stimulus intensity; the frequency and timing of action potentials can carry information. Understanding this process connects membrane bioelectricity with the neuron's functional organisation." },
+      "example": { "es": "La apertura e inactivación de canales de sodio y la apertura de canales de potasio contribuyen a fases distintas de un potencial de acción neuronal típico.", "en": "Opening and inactivation of sodium channels and opening of potassium channels contribute to different phases of a typical neuronal action potential." },
+      "existingRelationIds": ["soma:R000032"],
+      "relatedConceptIds": ["soma:K000030", "soma:K000037", "soma:K000046", "soma:K000060"],
+      "sourceIds": ["SRC-OPENSTAX-AANDP-12-4", "SRC-PURVES-CHEMICAL-SYNAPSES"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_cell_type_scope", "notes": "The source catalog's GO:0001508 mapping is already marked exact_identifier_checked. No direct graph edge to release is asserted." },
+      "visualProposal": { "kind": "process_diagram", "assetGroup": "membrane-potential-action-potential", "description": "Accessible voltage-versus-time trace paired with channel states and a non-colour-only legend." }
+    },
+    {
+      "id": "soma:K000043",
+      "title": { "es": "Neurona", "en": "Neuron" },
+      "shortDefinition": { "es": "Tipo de célula del tejido nervioso especializada en recibir, integrar y transmitir señales.", "en": "A cell type in nervous tissue specialised in receiving, integrating and transmitting signals." },
+      "explanation": { "es": "Una neurona es una célula especializada del tejido nervioso que recibe, integra y transmite señales mediante propiedades eléctricas y químicas. Muchas neuronas presentan un cuerpo celular, dendritas que reciben numerosas entradas y un axón que conduce señales hacia otras células, pero su forma y organización varían ampliamente. Algunas configuraciones no encajan en el dibujo neuronal canónico, por lo que ese esquema debe entenderse como una guía y no como una regla universal. Las neuronas tampoco funcionan aisladas: interactúan continuamente con células gliales y con redes de otras neuronas. Reconocer sus componentes y diversidad permite situar después el axón, las terminales y las sinapsis dentro de una célula completa.", "en": "A neuron is a specialised cell in nervous tissue that receives, integrates and transmits signals through electrical and chemical properties. Many neurons have a cell body, dendrites that receive numerous inputs, and an axon that conducts signals towards other cells, but their shape and organisation vary widely. Some configurations do not fit the canonical neuron drawing, so that diagram should be treated as a guide rather than a universal rule. Neurons also do not function in isolation: they continuously interact with glial cells and networks of other neurons. Recognising their components and diversity makes it possible to place axons, terminals and synapses within a complete cell." },
+      "example": { "es": "Una neurona puede integrar numerosas entradas y comunicar una salida a través de su axón.", "en": "A neuron can integrate many inputs and communicate an output through its axon." },
+      "existingRelationIds": ["soma:R000037"],
+      "relatedConceptIds": ["soma:K000046", "soma:K000047", "soma:K000054"],
+      "sourceIds": ["SRC-OPENSTAX-AANDP-12-2", "SRC-PURVES-NERVE-CELLS", "SRC-CL-DOCS"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_diversity_caveat", "notes": "Exact Cell Ontology mapping remains pending and no CL identifier is invented." },
+      "visualProposal": { "kind": "realistic_anatomical", "assetGroup": "neuron-structure", "description": "Scientifically plausible neuron with labelled components and an explicit note that morphology varies." }
+    },
+    {
+      "id": "soma:K000046",
+      "title": { "es": "Axón", "en": "Axon" },
+      "shortDefinition": { "es": "Prolongación neuronal especializada en conducir señales desde una región de la neurona hacia otras células o regiones.", "en": "A neuronal projection specialised in conducting signals from one region of the neuron towards other cells or regions." },
+      "explanation": { "es": "El axón puede ramificarse y variar mucho en longitud y diámetro. En muchas neuronas conduce potenciales de acción hacia terminales, pero la frase «lejos del soma» es una orientación general y no una geometría universal.", "en": "An axon can branch and vary greatly in length and diameter. In many neurons it conducts action potentials towards terminals, but 'away from the soma' is a general orientation rather than a universal geometry." },
+      "example": { "es": "Las ramas de un axón pueden permitir que una neurona contacte con varios objetivos.", "en": "Branches of an axon can allow one neuron to contact several targets." },
+      "existingRelationIds": ["soma:R000037", "soma:R000038"],
+      "relatedConceptIds": ["soma:K000041", "soma:K000043", "soma:K000047"],
+      "sourceIds": ["SRC-OPENSTAX-AANDP-12-2", "SRC-PURVES-NERVE-CELLS"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_existential_partonomy", "notes": "The part_of relation is existential: an axon is part of some neuron, not every neuron is asserted to have a canonical axon." },
+      "visualProposal": { "kind": "realistic_anatomical", "assetGroup": "neuron-structure", "description": "Neuron overview plus axonal branch detail, maintaining a consistent scale legend." }
+    },
+    {
+      "id": "soma:K000047",
+      "title": { "es": "Terminal axónica", "en": "Axon terminal" },
+      "shortDefinition": { "es": "Región terminal especializada de un axón que participa en la comunicación con una célula diana.", "en": "A specialised terminal region of an axon that participates in communication with a target cell." },
+      "explanation": { "es": "En una sinapsis química, la terminal presináptica contiene maquinaria de liberación y vesículas sinápticas. No todas las comunicaciones neuronales se reducen a una única forma de terminal química.", "en": "At a chemical synapse, the presynaptic terminal contains release machinery and synaptic vesicles. Not all neuronal communication can be reduced to a single form of chemical terminal." },
+      "example": { "es": "La llegada de un potencial de acción a una terminal presináptica puede iniciar liberación vesicular dependiente de calcio.", "en": "Arrival of an action potential at a presynaptic terminal can initiate calcium-dependent vesicular release." },
+      "existingRelationIds": ["soma:R000038", "soma:R000052"],
+      "relatedConceptIds": ["soma:K000041", "soma:K000046", "soma:K000055", "soma:K000058"],
+      "sourceIds": ["SRC-PURVES-NERVE-CELLS", "SRC-PURVES-CHEMICAL-SYNAPSES"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_synapse_scope", "notes": "The synaptic-vesicle location relation remains scoped to presynaptic axon terminals." },
+      "visualProposal": { "kind": "realistic_anatomical", "assetGroup": "chemical-synapse", "description": "Zoom transition from axon branch to presynaptic terminal without conflating scales." }
+    },
+    {
+      "id": "soma:K000054",
+      "title": { "es": "Sinapsis", "en": "Synapse" },
+      "shortDefinition": { "es": "Unión funcional especializada mediante la que una célula se comunica con otra célula diana.", "en": "A specialised functional junction through which a cell communicates with a target cell." },
+      "explanation": { "es": "Una sinapsis conecta regiones especializadas de células que se comunican y puede ser química o eléctrica. Las sinapsis químicas tienen lados pre y postsinápticos diferenciados; algunas sinapsis eléctricas permiten comunicación bidireccional. El término describe una organización de comunicación, no una sustancia ni una neurona completa.", "en": "A synapse connects specialised regions of communicating cells and may be chemical or electrical. Chemical synapses have distinct pre- and postsynaptic sides; some electrical synapses permit bidirectional communication. The term describes a communication arrangement, not a substance or an entire neuron." },
+      "example": { "es": "En una sinapsis química, una señal liberada en el lado presináptico actúa sobre receptores del lado postsináptico.", "en": "At a chemical synapse, a signal released on the presynaptic side acts on receptors on the postsynaptic side." },
+      "existingRelationIds": ["soma:R000049"],
+      "relatedConceptIds": ["soma:K000043", "soma:K000055"],
+      "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-OPENSTAX-AANDP-12-5", "SRC-NLM-MESH-SYNAPSES"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "Exact GO/UBERON mapping remains pending; the category/subtype distinction is preserved." },
+      "visualProposal": { "kind": "shared_process_diagram", "assetGroup": "chemical-synapse", "description": "Overview contrasting chemical and electrical synapse at a high level, with chemical detail in the next card." }
+    },
+    {
+      "id": "soma:K000055",
+      "title": { "es": "Sinapsis química", "en": "Chemical synapse" },
+      "shortDefinition": { "es": "Sinapsis en la que una célula presináptica libera mensajeros químicos que actúan sobre receptores de una célula diana.", "en": "A synapse in which a presynaptic cell releases chemical messengers that act on receptors of a target cell." },
+      "explanation": { "es": "Una sinapsis química organiza la comunicación entre una región presináptica y una célula diana mediante mensajeros químicos. La región presináptica libera neurotransmisor, este atraviesa la hendidura sináptica y se une a receptores de la membrana postsináptica. La respuesta depende del tipo de receptor, de los canales o vías de señalización asociados y del estado de la célula receptora. Por ello, la identidad del neurotransmisor por sí sola no determina siempre si el efecto será excitador, inhibidor o modulador. Esta organización introduce una dirección funcional y un pequeño retraso respecto a la comunicación eléctrica directa. Comprenderla permite distinguir la estructura de la sinapsis de los procesos concretos de almacenamiento y liberación.", "en": "A chemical synapse organises communication between a presynaptic region and a target cell through chemical messengers. The presynaptic region releases a neurotransmitter, which crosses the synaptic cleft and binds to receptors in the postsynaptic membrane. The response depends on the receptor type, the associated channels or signalling pathways, and the state of the receiving cell. The neurotransmitter's identity alone therefore does not always determine whether the effect is excitatory, inhibitory or modulatory. This organisation introduces functional direction and a short delay compared with direct electrical communication. Understanding it separates the structure of the synapse from the specific processes of transmitter storage and release." },
+      "example": { "es": "La liberación vesicular puede cambiar la conductancia de la membrana postsináptica al activar receptores.", "en": "Vesicular release can change postsynaptic membrane conductance by activating receptors." },
+      "existingRelationIds": ["soma:R000049", "soma:R000054"],
+      "relatedConceptIds": ["soma:K000047", "soma:K000054", "soma:K000058", "soma:K000060"],
+      "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-OPENSTAX-AANDP-12-5", "SRC-NLM-MESH-SYNAPSES"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established", "notes": "The release occurs_in relation remains held for exact scope review." },
+      "visualProposal": { "kind": "realistic_anatomical", "assetGroup": "chemical-synapse", "description": "Realistic synaptic ultrastructure with pre/post orientation, cleft, vesicles and receptors labelled." }
+    },
+    {
+      "id": "soma:K000058",
+      "title": { "es": "Vesícula sináptica", "en": "Synaptic vesicle" },
+      "shortDefinition": { "es": "Pequeño orgánulo membranoso presináptico que almacena neurotransmisores y participa en su liberación regulada.", "en": "A small presynaptic membrane-bound organelle that stores neurotransmitters and participates in their regulated release." },
+      "explanation": { "es": "Las vesículas se cargan, se organizan cerca de zonas de liberación y pueden fusionarse con la membrana presináptica. Esta ficha describe la transmisión vesicular típica y no afirma que toda señal neuronal use exactamente la misma vesícula o ruta.", "en": "Vesicles are filled, organised near release sites and can fuse with the presynaptic membrane. This card describes typical vesicular transmission and does not claim that every neuronal signal uses exactly the same vesicle or pathway." },
+      "example": { "es": "El aumento local de Ca2+ puede activar la maquinaria que fusiona vesículas preparadas con la membrana.", "en": "A local rise in Ca2+ can activate machinery that fuses primed vesicles with the membrane." },
+      "existingRelationIds": ["soma:R000052", "soma:R000053"],
+      "relatedConceptIds": ["soma:K000047", "soma:K000055", "soma:K000060"],
+      "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-PURVES-RELEASE", "SRC-NLM-MESH-SYNAPTIC-VESICLES", "SRC-GO-0016079"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_vesicular_scope", "notes": "Location and participation relations are supported but retain their existing candidate status and scope checks." },
+      "visualProposal": { "kind": "molecular_or_structural", "assetGroup": "chemical-synapse", "description": "Synaptic vesicle at an active zone, with membrane fusion shown as a sequence rather than a static identity." }
+    },
+    {
+      "id": "soma:K000060",
+      "title": { "es": "Liberación de neurotransmisor", "en": "Neurotransmitter release" },
+      "shortDefinition": { "es": "Proceso regulado por el que una neurona libera un mensajero químico al espacio extracelular.", "en": "A regulated process by which a neuron releases a chemical messenger into extracellular space." },
+      "explanation": { "es": "La liberación de neurotransmisor es el proceso regulado que pone un mensajero químico neuronal en contacto con el espacio extracelular. En la transmisión sináptica rápida típica, la despolarización presináptica abre canales de calcio dependientes de voltaje. La entrada local de Ca2+ activa proteínas que favorecen la fusión de vesículas sinápticas con la membrana y la exocitosis de su contenido hacia la hendidura. Después, el transmisor puede alcanzar receptores de la célula diana y debe eliminarse, recaptarse o degradarse para limitar la señal. Este modelo explica la liberación vesicular sináptica, pero no todas las modalidades de liberación neuronal son idénticas ni ocurren exclusivamente en una sinapsis química clásica.", "en": "Neurotransmitter release is the regulated process that brings a neuronal chemical messenger into contact with extracellular space. In typical fast synaptic transmission, presynaptic depolarisation opens voltage-gated calcium channels. Local Ca2+ entry activates proteins that promote synaptic-vesicle fusion with the membrane and exocytosis of their contents into the cleft. The transmitter can then reach receptors on the target cell and must be removed, taken up again or degraded to limit the signal. This model explains vesicular synaptic release, but not every mode of neuronal release is identical or occurs exclusively at a classical chemical synapse." },
+      "example": { "es": "Tras fusionarse una vesícula con la membrana presináptica, su contenido se libera hacia la hendidura sináptica.", "en": "After a vesicle fuses with the presynaptic membrane, its contents are released into the synaptic cleft." },
+      "existingRelationIds": ["soma:R000053", "soma:R000054"],
+      "relatedConceptIds": ["soma:K000041", "soma:K000047", "soma:K000055", "soma:K000058"],
+      "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-PURVES-RELEASE", "SRC-OPENSTAX-AANDP-12-5", "SRC-GO-0007269", "SRC-GO-0016079"],
+      "editorialAssessment": { "status": "ready_for_scientific_review", "certainty": "well_established_with_explicit_typical_scope", "notes": "The narrative transition from action potential to release is sourced, but no direct ontology edge is added." },
+      "visualProposal": { "kind": "process_diagram", "assetGroup": "chemical-synapse", "description": "Numbered sequence: depolarisation, calcium entry, vesicle fusion and extracellular release; non-colour-only labels." }
+    }
+  ],
+  "relationReviews": [
+    { "id": "soma:R000009", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-BIO-5-1", "SRC-OPENSTAX-BIO-5-2"], "reason": "Within this catalog's protein-scoped concept, an ion channel is a pore-forming transmembrane protein. Exact external class mapping can remain a later interoperability task." },
+    { "id": "soma:R000010", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-BIO-5-1"], "reason": "located_in is a defensible coarse relation for a transmembrane channel and the catalog explicitly defines it as location rather than composition. A more specific membrane-integration predicate could refine it later." },
+    { "id": "soma:R000013", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-AANDP-12-4"], "reason": "Voltage-gated channels are a subtype of ion channel." },
+    { "id": "soma:R000015", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-BIO-5-2", "SRC-OPENSTAX-BIO-5-3"], "reason": "The catalog deliberately defines membrane transporter as a protein-mediated category; exact external class mapping is not required for this elementary educational statement." },
+    { "id": "soma:R000016", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-BIO-5-2", "SRC-OPENSTAX-BIO-5-3"], "reason": "located_in is a defensible coarse relation for a membrane transporter under the catalog's non-compositional semantics. It must not be inferred as part_of." },
+    { "id": "soma:R000023", "auditClassification": "scientific_review_required", "includeInFirstRelease": false, "sourceIds": ["SRC-OPENSTAX-AANDP-12-4"], "reason": "Membrane potential is a potential difference across a membrane. Treating that relational quality as inhering in the membrane is plausible but needs a formal bearer/predicate decision before publication." },
+    { "id": "soma:R000032", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-AANDP-12-4"], "reason": "Voltage-gated ion channels participate in action potentials; this participation statement neither universalises every subtype nor asserts sole causation." },
+    { "id": "soma:R000037", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-OPENSTAX-AANDP-12-2", "SRC-PURVES-NERVE-CELLS"], "reason": "An axon is a neuronal component under the catalog's documented existential partonomy." },
+    { "id": "soma:R000038", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-PURVES-NERVE-CELLS"], "reason": "An axon terminal is a terminal region of an axon." },
+    { "id": "soma:R000049", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-NLM-MESH-SYNAPSES"], "reason": "Chemical synapse is a subtype of synapse." },
+    { "id": "soma:R000052", "auditClassification": "excluded_from_first_release", "includeInFirstRelease": false, "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-NLM-MESH-SYNAPTIC-VESICLES"], "reason": "Synaptic vesicles are concentrated at presynaptic terminals, but the authored relation is scoped specifically to presynaptic axon terminals. The current runtime relation contract cannot carry that scope, so publishing it would overgeneralise." },
+    { "id": "soma:R000053", "auditClassification": "ready_for_editorial_approval", "includeInFirstRelease": true, "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-PURVES-RELEASE", "SRC-GO-0016079"], "reason": "Synaptic vesicles participate in vesicular neurotransmitter release; participation does not assert that all release modes are vesicular." },
+    { "id": "soma:R000054", "auditClassification": "excluded_from_first_release", "includeInFirstRelease": false, "sourceIds": ["SRC-PURVES-CHEMICAL-SYNAPSES", "SRC-NLM-MESH-SYNAPSES", "SRC-GO-0007269"], "reason": "The relation is defensible only for chemical synaptic release, while the concept definition is broader and the runtime contract drops the authored scope. Publishing the unscoped edge would conflate synaptic and non-synaptic release." }
+  ],
+  "connectivityReview": {
+    "allThirteenCandidateRelations": {
+      "relationCount": 13,
+      "connectedComponents": 7,
+      "isolatedConceptIds": ["soma:K000004", "soma:K000006", "soma:K000008", "soma:K000010", "soma:K000013"],
+      "componentSizesDescending": [7, 7, 1, 1, 1, 1, 1]
+    },
+    "selectiveFirstReleaseRelations": {
+      "relationIds": [
+        "soma:R000009", "soma:R000010", "soma:R000013", "soma:R000015", "soma:R000016",
+        "soma:R000032", "soma:R000037", "soma:R000038", "soma:R000049", "soma:R000053"
+      ],
+      "relationCount": 10,
+      "connectedComponents": 10,
+      "isolatedConceptIds": ["soma:K000004", "soma:K000006", "soma:K000008", "soma:K000010", "soma:K000013", "soma:K000037"],
+      "componentSizesDescending": [6, 3, 2, 2, 1, 1, 1, 1, 1, 1]
+    },
+    "pedagogicalOnlyTransitions": [
+      { "from": "soma:K000004", "to": "soma:K000006", "reason": "Learning order, not an authored scientific edge." },
+      { "from": "soma:K000006", "to": "soma:K000010", "reason": "Learning order, not an authored scientific edge." },
+      { "from": "soma:K000008", "to": "soma:K000010", "reason": "Learning order, not an authored scientific edge." },
+      { "from": "soma:K000010", "to": "soma:K000037", "reason": "Learning order, not an authored scientific edge." },
+      { "from": "soma:K000041", "to": "soma:K000060", "reason": "The mechanism is explained in prose, but no sufficiently scoped catalog relation currently connects these concepts." }
+    ],
+    "mapConsequence": "The first release is a scientifically selective forest, not one connected causal tree. The contextual map must present pedagogical route steps separately and must not synthesize missing scientific edges."
+  },
+  "intermediateConceptReview": {
+    "conceptIds": ["soma:K000016", "soma:K000097"],
+    "recommendation": "do_not_add_to_this_batch_for_connectivity_alone",
+    "assessment": "Calcium and synaptic-vesicle exocytosis materially improve the mechanistic explanation of release, and existing relations R000003, R000034 and R000055 support part of that route. Adding them does not, however, connect action potential K000041 to release K000060 because the catalog still lacks a sufficiently scoped edge through presynaptic depolarisation or voltage-gated calcium-channel opening.",
+    "nextStep": "Review both concepts together with a scoped presynaptic mechanism in a later content increment. Do not use their addition to imply a causal connection that the graph does not encode."
+  },
+  "pedagogicalPrerequisiteIds": [
+    "soma:P000002", "soma:P000006", "soma:P000007", "soma:P000010", "soma:P000027", "soma:P000030",
+    "soma:P000032", "soma:P000038", "soma:P000039", "soma:P000040", "soma:P000044", "soma:P000052",
+    "soma:P000053", "soma:P000061", "soma:P000062", "soma:P000065", "soma:P000068"
+  ],
+  "knownGaps": [
+    {
+      "id": "GAP-CONTENT-01-ACTION-TO-RELEASE",
+      "severity": "editorial_non_blocking_if_disclosed",
+      "description": {
+        "es": "El catálogo no contiene una relación directa y acotada entre potencial de acción y liberación de neurotransmisor. Una relación causal amplia fue retirada previamente para evitar una generalización incorrecta.",
+        "en": "The catalog has no direct, scoped relation between action potential and neurotransmitter release. A broad causal relation was previously retired to avoid an incorrect generalisation."
+      },
+      "existingConceptsThatCouldSupportFutureReview": ["soma:K000016", "soma:K000097"],
+      "requiredAction": "Review a scoped route through calcium and synaptic-vesicle exocytosis in a separate ontology change; do not add an edge in this batch."
+    },
+    {
+      "id": "GAP-CONTENT-01-EXTERNAL-MAPPINGS",
+      "severity": "blocks_final_ontology_approval_not_editorial_drafting",
+      "description": {
+        "es": "La mayoría de los mapeos exactos a GO, CL, ChEBI o UBERON siguen pendientes en el catálogo fuente.",
+        "en": "Most exact mappings to GO, CL, ChEBI or UBERON remain pending in the source catalog."
+      },
+      "requiredAction": "Confirm exact identifiers and predicate semantics before promoting affected entities or relations; do not infer them from source-family names."
+    }
+  ],
+  "visualInventory": [
+    { "assetGroup": "electricity-gradients-ions", "conceptCount": 5, "kind": "shared_process_and_structural_diagram", "priority": "high", "scientificReviewNeeded": true },
+    { "assetGroup": "membrane-machinery", "conceptCount": 5, "kind": "molecular_or_structural", "priority": "high", "scientificReviewNeeded": true },
+    { "assetGroup": "membrane-potential-action-potential", "conceptCount": 2, "kind": "process_diagram", "priority": "high", "scientificReviewNeeded": true },
+    { "assetGroup": "neuron-structure", "conceptCount": 3, "kind": "realistic_anatomical", "priority": "high", "scientificReviewNeeded": true },
+    { "assetGroup": "chemical-synapse", "conceptCount": 4, "kind": "realistic_anatomical_and_process_diagram", "priority": "high", "scientificReviewNeeded": true }
+  ],
+  "selectivePublicationProposal": {
+    "implemented": false,
+    "recommendedMechanism": "reviewed_manifest_build_projection",
+    "description": {
+      "es": "Tras revisiones científica y bilingüe independientes, un manifiesto versionado enumeraría únicamente IDs aprobados. Una proyección de build generaría el catálogo público solo con conceptos publicados, relaciones aprobadas cuyos dos extremos estén publicados y prerrequisitos no bloqueantes. El JSON candidato completo no se importaría al runtime.",
+      "en": "After independent scientific and bilingual reviews, a versioned manifest would list approved IDs only. A build projection would generate the public catalog using only published concepts, approved relations whose two endpoints are published, and non-blocking prerequisites. The full candidate JSON would not be imported into runtime."
+    },
+    "requiredGates": [
+      "scientific_review_per_concept_and_relation",
+      "exact_mapping_review_where_claimed",
+      "bilingual_editorial_review",
+      "accessibility_review_of_text_and_visual_alternatives",
+      "runtime_projection_tests",
+      "explicit_publication_authorization"
+    ],
+    "invariants": [
+      "no_candidate_content_in_public_bundle",
+      "no_dangling_relation_endpoints",
+      "no_access_blocking",
+      "no_xp_or_rewards",
+      "no_runtime_import_from_docs_design"
+    ]
+  }
+}
