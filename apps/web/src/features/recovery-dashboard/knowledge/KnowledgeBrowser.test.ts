@@ -24,6 +24,32 @@ const one: KnowledgeConcept = {
     es: "Fixture explícita para probar la interfaz.",
     en: "Explicit fixture for interface testing.",
   },
+  explanation: {
+    es: "Explicación sintética suficientemente larga para comprobar una lectura cómoda y el ajuste de texto sin introducir contenido científico real.",
+    en: "A sufficiently long synthetic explanation used to verify comfortable reading and text wrapping without introducing real scientific content.",
+  },
+  example: {
+    es: "Ejemplo educativo sintético.",
+    en: "Synthetic educational example.",
+  },
+  references: [
+    {
+      id: "SRC-SYNTHETIC",
+      title: "Fuente sintética consultable",
+      publisher: "Editorial de pruebas",
+      url: "https://example.test/scientific-source",
+    },
+  ],
+  clarifications: [
+    {
+      es: "Esta es una aclaración científica sintética.",
+      en: "This is a synthetic scientific clarification.",
+    },
+  ],
+  illustration: {
+    kind: "process_diagram",
+    assetGroup: "synthetic-fixture",
+  },
   ontologyType: "cell_type",
   families: ["cell_biology", "physiology"],
   scale: "cellular",
@@ -136,6 +162,17 @@ test("synthetic published concepts render semantic controls and a deep-linked sh
   assert.ok(markup.includes(esKnowledge.detail.outgoing));
   assert.ok(markup.includes(esKnowledge.detail.incoming));
   assert.ok(markup.includes(esKnowledge.detail.prerequisitesNotice));
+  assert.ok(markup.includes(esKnowledge.detail.explanation));
+  assert.ok(markup.includes(esKnowledge.detail.example));
+  assert.ok(markup.includes(esKnowledge.detail.clarifications));
+  assert.ok(markup.includes(esKnowledge.detail.sources));
+  assert.ok(markup.includes(esKnowledge.detail.futureIllustration));
+  assert.ok(markup.includes("Explicación sintética suficientemente larga"));
+  assert.ok(markup.includes("Ejemplo educativo sintético"));
+  assert.ok(markup.includes("Esta es una aclaración científica sintética"));
+  assert.ok(markup.includes("https://example.test/scientific-source"));
+  assert.ok(markup.includes('target="_blank"'));
+  assert.ok(markup.includes('rel="noreferrer"'));
   assert.ok(markup.includes("Sinapsis sintética"));
   assert.ok(markup.includes('/preview/missions'));
   assert.ok(markup.includes('data-knowledge-map="contextual"'));
@@ -143,6 +180,36 @@ test("synthetic published concepts render semantic controls and a deep-linked sh
   assert.ok(markup.includes(esKnowledge.predicates.related_to));
   assert.ok(markup.includes('marker-end="url(#'));
   assert.equal((markup.match(/name="knowledge-map-depth-/g) ?? []).length, 2);
+});
+
+test("optional educational sections do not render empty controls", async () => {
+  const minimal: KnowledgeConcept = {
+    id: "soma:K000003",
+    labels: { es: "Concepto mínimo", en: "Minimal concept" },
+    definition: { es: "Definición mínima.", en: "Minimal definition." },
+    ontologyType: "process",
+    families: ["physiology"],
+    scale: "cellular",
+    strata: ["S9"],
+    editorialStatus: "published",
+    bindings: [],
+  };
+  const minimalCatalog = projectPublishedKnowledge({
+    concepts: [minimal],
+    relations: [],
+    prerequisites: [],
+    prerequisitePolicy: source.prerequisitePolicy,
+  });
+  const markup = await render(
+    "/preview",
+    "es",
+    minimalCatalog,
+    "?concept=soma%3AK000003",
+  );
+  assert.equal(markup.includes(esKnowledge.detail.example), false);
+  assert.equal(markup.includes(esKnowledge.detail.clarifications), false);
+  assert.equal(markup.includes(esKnowledge.detail.sources), false);
+  assert.equal(markup.includes(esKnowledge.detail.futureIllustration), false);
 });
 
 test("DEMO and LIVE related links remain inside their active shell base", async () => {

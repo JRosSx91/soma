@@ -106,6 +106,32 @@ test("validation rejects missing required fields and incomplete ES/EN copy", () 
   assert.ok(codes.includes("missing_field"));
 });
 
+test("validation accepts complete educational fields and rejects unsafe source URLs", () => {
+  const complete = {
+    ...concept("soma:K000001"),
+    explanation: { es: "Explicación ampliada.", en: "Expanded explanation." },
+    example: { es: "Ejemplo.", en: "Example." },
+    references: [
+      {
+        id: "SRC-1",
+        title: "Fuente sintética",
+        publisher: "Editorial sintética",
+        url: "https://example.test/source",
+      },
+    ],
+    clarifications: [{ es: "Aclaración.", en: "Clarification." }],
+    illustration: { kind: "process_diagram", assetGroup: "synthetic" },
+  };
+  const parsed = parseKnowledgeCatalog(catalog([complete]));
+  assert.equal(parsed.ok, true);
+
+  const unsafe = {
+    ...complete,
+    references: [{ ...complete.references[0], url: "file:///private/source" }],
+  };
+  assert.ok(issueCodes(catalog([unsafe])).includes("invalid_url"));
+});
+
 test("validation rejects unknown scientific predicates", () => {
   const one = concept("soma:K000001");
   const two = concept("soma:K000002");

@@ -255,7 +255,7 @@ function KnowledgeSelect({
   );
 }
 
-function KnowledgeConceptDetail({
+export function KnowledgeConceptDetail({
   concept,
   catalog,
   language,
@@ -289,10 +289,60 @@ function KnowledgeConceptDetail({
         <div className="overflow-hidden rounded-xl border border-soma-line bg-soma-canvas">
           {illustration}
         </div>
+      ) : concept.illustration ? (
+        <section
+          aria-labelledby={`knowledge-illustration-${concept.id}`}
+          data-knowledge-illustration={concept.illustration.kind}
+          className="rounded-xl border border-dashed border-soma-line bg-gradient-to-br from-soma-canvas to-soma-raised/40 p-4"
+        >
+          <h3 id={`knowledge-illustration-${concept.id}`} className="text-sm font-semibold text-soma-ink">
+            {t("detail.futureIllustration")}
+          </h3>
+          <p className="mt-1 text-xs leading-relaxed text-soma-ink-muted">
+            {t("detail.futureIllustrationBody")}
+          </p>
+        </section>
       ) : null}
-      <p className="text-sm leading-relaxed text-soma-ink-secondary">
+      <p className="break-words text-sm leading-relaxed text-soma-ink-secondary">
         {concept.definition[language]}
       </p>
+
+      {concept.explanation ? (
+        <section aria-labelledby={`knowledge-explanation-${concept.id}`}>
+          <h3 id={`knowledge-explanation-${concept.id}`} className="text-sm font-semibold text-soma-ink">
+            {t("detail.explanation")}
+          </h3>
+          <p className="mt-2 break-words text-sm leading-7 text-soma-ink-secondary">
+            {concept.explanation[language]}
+          </p>
+        </section>
+      ) : null}
+
+      {concept.example ? (
+        <section aria-labelledby={`knowledge-example-${concept.id}`}>
+          <h3 id={`knowledge-example-${concept.id}`} className="text-sm font-semibold text-soma-ink">
+            {t("detail.example")}
+          </h3>
+          <blockquote className="mt-2 break-words rounded-xl border-l-2 border-soma-action bg-soma-canvas/60 px-4 py-3 text-sm leading-7 text-soma-ink-secondary">
+            {concept.example[language]}
+          </blockquote>
+        </section>
+      ) : null}
+
+      {concept.clarifications && concept.clarifications.length > 0 ? (
+        <section aria-labelledby={`knowledge-clarifications-${concept.id}`} className="rounded-xl border border-soma-line bg-soma-raised/30 p-4">
+          <h3 id={`knowledge-clarifications-${concept.id}`} className="text-sm font-semibold text-soma-ink">
+            {t("detail.clarifications")}
+          </h3>
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-soma-ink-secondary">
+            {concept.clarifications.map((clarification, index) => (
+              <li key={`${concept.id}:clarification:${index}`} className="break-words">
+                {clarification[language]}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       <dl className="grid gap-3 rounded-xl border border-soma-line bg-soma-canvas/40 p-3 sm:grid-cols-2">
         <Metadata label={t("detail.type")} value={vocabularyLabel(t, "ontologyTypes", concept.ontologyType)} />
         <Metadata label={t("detail.scale")} value={vocabularyLabel(t, "scales", concept.scale)} />
@@ -307,6 +357,29 @@ function KnowledgeConceptDetail({
         language={language}
         onSelect={onSelect}
       />
+
+      {concept.references && concept.references.length > 0 ? (
+        <section aria-labelledby={`knowledge-sources-${concept.id}`}>
+          <h3 id={`knowledge-sources-${concept.id}`} className="text-sm font-semibold text-soma-ink">
+            {t("detail.sources")}
+          </h3>
+          <ul className="mt-2 space-y-2">
+            {concept.references.map((reference) => (
+              <li key={reference.id}>
+                <a
+                  href={reference.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`${previewFocus} block min-h-11 break-words rounded-xl border border-soma-line px-3 py-2 text-sm text-soma-action hover:border-soma-line-strong`}
+                >
+                  <span className="block font-medium">{reference.title}</span>
+                  <span className="mt-1 block text-xs text-soma-ink-muted">{reference.publisher}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <RelationSection
         title={t("detail.outgoing")}

@@ -59,10 +59,28 @@ export interface KnowledgeBinding {
   id: string;
 }
 
+export interface KnowledgeReference {
+  id: string;
+  title: string;
+  publisher: string;
+  url: string;
+}
+
+export interface KnowledgeIllustrationHint {
+  kind: string;
+  assetGroup: string;
+}
+
 export interface KnowledgeConcept {
   id: KnowledgeConceptId;
   labels: BilingualText;
   definition: BilingualText;
+  /** Reviewed long-form copy. Required by the publication exporter. */
+  explanation?: BilingualText;
+  example?: BilingualText;
+  references?: readonly KnowledgeReference[];
+  clarifications?: readonly BilingualText[];
+  illustration?: KnowledgeIllustrationHint;
   ontologyType: string;
   families: readonly string[];
   scale: string;

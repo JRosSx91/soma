@@ -9,6 +9,7 @@ import {
   type KnowledgeConcept,
   type KnowledgeConceptId,
   type KnowledgeEditorialStatus,
+  type KnowledgeIllustrationHint,
   type KnowledgeNeighborhood,
   type KnowledgePredicate,
   type KnowledgePrerequisite,
@@ -16,6 +17,7 @@ import {
   type KnowledgeRelation,
   type KnowledgeRelationId,
   type KnowledgeRelationTraversal,
+  type KnowledgeReference,
   type PublicKnowledgeCatalog,
 } from "./knowledge-types.js";
 
@@ -34,6 +36,7 @@ export const knowledgeCatalogIssueCodes = [
   "unknown_predicate",
   "unknown_prerequisite_strength",
   "missing_reference",
+  "invalid_url",
   "invalid_prerequisite_policy",
 ] as const;
 
@@ -329,6 +332,23 @@ function parseConcept(
     `${path}.definition`,
     issues,
   );
+  const explanation = readOptionalBilingual(
+    raw.explanation,
+    `${path}.explanation`,
+    issues,
+  );
+  const example = readOptionalBilingual(raw.example, `${path}.example`, issues);
+  const references = readReferences(raw.references, `${path}.references`, issues);
+  const clarifications = readClarifications(
+    raw.clarifications,
+    `${path}.clarifications`,
+    issues,
+  );
+  const illustration = readIllustration(
+    raw.illustration,
+    `${path}.illustration`,
+    issues,
+  );
   const ontologyType = readString(raw.ontologyType, `${path}.ontologyType`, issues);
   const families = readStringArray(raw.families, `${path}.families`, issues);
   const scale = readString(raw.scale, `${path}.scale`, issues);
@@ -343,6 +363,11 @@ function parseConcept(
     !id ||
     !labels ||
     !definition ||
+    explanation === null ||
+    example === null ||
+    references === null ||
+    clarifications === null ||
+    illustration === null ||
     !ontologyType ||
     !families ||
     !scale ||
@@ -356,6 +381,11 @@ function parseConcept(
     id: id as KnowledgeConceptId,
     labels,
     definition,
+    ...(explanation ? { explanation } : {}),
+    ...(example ? { example } : {}),
+    ...(references.length > 0 ? { references } : {}),
+    ...(clarifications.length > 0 ? { clarifications } : {}),
+    ...(illustration ? { illustration } : {}),
     ontologyType,
     families,
     scale,
@@ -507,6 +537,101 @@ function readBilingual(
     }
   }
   return valid ? { es: raw.es as string, en: raw.en as string } : null;
+}
+
+function readOptionalBilingual(
+  raw: unknown,
+  path: string,
+  issues: KnowledgeCatalogIssue[],
+): BilingualText | undefined | null {
+  if (raw === undefined) return undefined;
+  return readBilingual(raw, path, issues);
+}
+
+function readReferences(
+  raw: unknown,
+  path: string,
+  issues: KnowledgeCatalogIssue[],
+): KnowledgeReference[] | null {
+  if (raw === undefined) return [];
+  if (!Array.isArray(raw)) {
+    issues.push(issue("missing_field", path, "References must be an array."));
+    return null;
+  }
+  const references: KnowledgeReference[] = [];
+  const ids = new Set<string>();
+  for (const [index, value] of raw.entries()) {
+    if (!isRecord(value)) {
+      issues.push(issue("missing_field", `${path}[${index}]`, "Reference must be an object."));
+      continue;
+    }
+    const id = readString(value.id, `${path}[${index}].id`, issues);
+    const title = readString(value.title, `${path}[${index}].title`, issues);
+    const publisher = readString(
+      value.publisher,
+      `${path}[${index}].publisher`,
+      issues,
+    );
+    const url = readPublicUrl(value.url, `${path}[${index}].url`, issues);
+    if (!id || !title || !publisher || !url) continue;
+    if (ids.has(id)) {
+      issues.push(issue("duplicate_id", `${path}[${index}].id`, `Duplicate reference id "${id}".`));
+      continue;
+    }
+    ids.add(id);
+    references.push({ id, title, publisher, url });
+  }
+  return references;
+}
+
+function readClarifications(
+  raw: unknown,
+  path: string,
+  issues: KnowledgeCatalogIssue[],
+): BilingualText[] | null {
+  if (raw === undefined) return [];
+  if (!Array.isArray(raw)) {
+    issues.push(issue("missing_field", path, "Clarifications must be an array."));
+    return null;
+  }
+  return raw.flatMap((value, index) => {
+    const parsed = readBilingual(value, `${path}[${index}]`, issues);
+    return parsed ? [parsed] : [];
+  });
+}
+
+function readIllustration(
+  raw: unknown,
+  path: string,
+  issues: KnowledgeCatalogIssue[],
+): KnowledgeIllustrationHint | undefined | null {
+  if (raw === undefined) return undefined;
+  if (!isRecord(raw)) {
+    issues.push(issue("missing_field", path, "Illustration hint must be an object."));
+    return null;
+  }
+  const kind = readString(raw.kind, `${path}.kind`, issues);
+  const assetGroup = readString(raw.assetGroup, `${path}.assetGroup`, issues);
+  return kind && assetGroup ? { kind, assetGroup } : null;
+}
+
+function readPublicUrl(
+  raw: unknown,
+  path: string,
+  issues: KnowledgeCatalogIssue[],
+): string | null {
+  if (typeof raw !== "string" || !raw.trim()) {
+    issues.push(issue("missing_field", path, "A public URL is required."));
+    return null;
+  }
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error();
+    return parsed.toString();
+  } catch {
+    issues.push(issue("invalid_url", path, `Invalid public URL "${raw}".`));
+    return null;
+  }
 }
 
 function readBindings(
