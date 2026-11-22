@@ -11,30 +11,14 @@ export function stableLayoutSeed(id: string, slot: number) {
   return ((hash >>> 0) % 10_000) / 10_000;
 }
 
-const branchId = (sequence: number): KnowledgeConceptId =>
-  `soma:K9${String(sequence).padStart(5, "0")}` as KnowledgeConceptId;
-
-const BRANCH_CHAIN_DEPTH = new Map<KnowledgeConceptId, number>([
-  [branchId(8), 0],
-  [branchId(9), 1],
-  [branchId(10), 2],
-  [branchId(11), 3],
-  [branchId(12), 0],
-  [branchId(13), 1],
-]);
-
-export function branchChainDepth(nodeId: KnowledgeConceptId) {
-  return BRANCH_CHAIN_DEPTH.get(nodeId) ?? 0;
-}
-
 export function spineSerpentineX(tier: number, metrics: PrototypeCanvasMetrics) {
   const mobile = metrics.width < 720;
   const center = metrics.width / 2;
-  const amplitude = mobile ? 46 : 128;
+  const amplitude = mobile ? 18 : 42;
   const wave = Math.sin(tier * 0.58 + 0.25);
   const drift = Math.sin(tier * 0.27 + 1.05) * amplitude * 0.18;
-  const earlyRamp = tier <= 3 ? (tier - 1) * (mobile ? 18 : 34) : 0;
-  const micro = (stableLayoutSeed(`spine-tier-${tier}`, 0) - 0.5) * (mobile ? 10 : 18);
+  const earlyRamp = 0;
+  const micro = (stableLayoutSeed(`spine-tier-${tier}`, 0) - 0.5) * (mobile ? 8 : 14);
   return center + wave * amplitude + drift + earlyRamp + micro;
 }
 
@@ -61,9 +45,9 @@ export function branchClusterPosition(
   clusterOrigin: { x: number; y: number },
   metrics: PrototypeCanvasMetrics,
   dropRows: number,
+  chainDepth: number,
 ) {
   const mobile = metrics.width < 720;
-  const chainDepth = BRANCH_CHAIN_DEPTH.get(nodeId) ?? 0;
   const micro = organicNodeOffset(nodeId, metrics, "branch");
   const direction = side === "left" ? -1 : 1;
   if (mobile) {
@@ -77,7 +61,7 @@ export function branchClusterPosition(
     };
   }
   const lateralReach =
-    metrics.rowGap * (chainDepth === 0 ? 1.14 : 0.64 + chainDepth * 0.24);
+    metrics.rowGap * (chainDepth === 0 ? 1.14 : 1.05 + chainDepth * 0.16);
   const verticalReach =
     metrics.rowGap *
     (chainDepth === 0 ? 0.94 + dropRows * 0.12 : 0.52 + dropRows * 0.36 + chainDepth * 0.16);
@@ -116,6 +100,7 @@ type SeparationPoint = {
   y: number;
   spine?: boolean;
   side?: "left" | "right";
+  cluster?: number;
 };
 
 export function enforceCardSeparation(
@@ -146,7 +131,7 @@ export function enforceCardSeparation(
         const moveA = Boolean(b.spine && !a.spine);
         const branchPair = !a.spine && !b.spine;
         const sameBranchLane =
-          branchPair && Boolean(a.side && b.side && a.side === b.side);
+          branchPair && Boolean(a.side && b.side && a.side === b.side && a.cluster === b.cluster);
         const preferVertical = (mobile && (!a.spine || !b.spine)) || sameBranchLane;
         if (!preferVertical && overlapX <= overlapY) {
           const shift = overlapX / 2 + pad;
@@ -168,7 +153,10 @@ export function enforceCardSeparation(
           }
         } else {
           const shift = overlapY / 2 + pad;
-          if (moveB) {
+          if (sameBranchLane) {
+            const lower = a.y <= b.y ? b : a;
+            lower.y += overlapY + pad;
+          } else if (moveB) {
             b.y += b.y >= a.y ? shift : -shift;
           } else if (moveA) {
             a.y += a.y >= b.y ? shift : -shift;

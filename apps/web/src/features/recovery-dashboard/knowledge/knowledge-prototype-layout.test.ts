@@ -5,7 +5,7 @@ import {
   KNOWLEDGE_PROTOTYPE_NODES,
   prototypeNodesForScenario,
 } from "./knowledge-prototype-fixture.js";
-import { buildPrototypeLayout, mergeLayoutScenarioNodes } from "./knowledge-prototype-layout.js";
+import { buildPrototypeLayout, mergeLayoutScenarioNodes, visibleFrameHeight } from "./knowledge-prototype-layout.js";
 import { cardsOverlap } from "./knowledge-prototype-organic-layout.js";
 
 const DESKTOP = {
@@ -28,7 +28,7 @@ test("layout is deterministic for repeated builds", () => {
   const nodes = KNOWLEDGE_PROTOTYPE_NODES.map((node) => ({ ...node, state: "discovered" as const }));
   const first = buildPrototypeLayout(nodes, KNOWLEDGE_PROTOTYPE_DEPENDENCIES, DESKTOP);
   const second = buildPrototypeLayout(nodes, KNOWLEDGE_PROTOTYPE_DEPENDENCIES, DESKTOP);
-  assert.equal(first.nodes.length, 19);
+  assert.equal(first.nodes.length, 28);
   assert.deepEqual(
     first.nodes.map((item) => [item.node.id, item.x, item.y]),
     second.nodes.map((item) => [item.node.id, item.x, item.y]),
@@ -51,15 +51,15 @@ test("visible-only updates do not move positions of discovered nodes", () => {
 test("mergeLayoutScenarioNodes pads hidden slots without dropping geometry", () => {
   const start = prototypeNodesForScenario("start");
   const merged = mergeLayoutScenarioNodes(start);
-  assert.equal(merged.length, 19);
-  assert.equal(merged.filter((node) => node.state === "hidden").length, 17);
+  assert.equal(merged.length, 28);
+  assert.equal(merged.filter((node) => node.state === "hidden").length, 25);
 });
 
 test("organic topology avoids card overlap across the full chapter", () => {
   const nodes = KNOWLEDGE_PROTOTYPE_NODES.map((node) => ({ ...node, state: "discovered" as const }));
   for (const metrics of [DESKTOP, MOBILE]) {
     const layout = buildPrototypeLayout(nodes, KNOWLEDGE_PROTOTYPE_DEPENDENCIES, metrics);
-    assert.equal(layout.nodes.length, 19);
+    assert.equal(layout.nodes.length, 28);
     for (let left = 0; left < layout.nodes.length; left += 1) {
       for (let right = left + 1; right < layout.nodes.length; right += 1) {
         const a = layout.nodes[left]!;
@@ -78,13 +78,30 @@ test("branch clusters stay near pedagogical anchors on desktop", () => {
   const nodes = KNOWLEDGE_PROTOTYPE_NODES.map((node) => ({ ...node, state: "discovered" as const }));
   const layout = buildPrototypeLayout(nodes, KNOWLEDGE_PROTOTYPE_DEPENDENCIES, DESKTOP);
   const byId = new Map(layout.nodes.map((item) => [item.node.id, item]));
-  const membrane = byId.get(KNOWLEDGE_PROTOTYPE_NODES[3]!.id)!;
-  const solution = byId.get(KNOWLEDGE_PROTOTYPE_NODES[7]!.id)!;
-  const potential = byId.get(KNOWLEDGE_PROTOTYPE_NODES[5]!.id)!;
-  const capacitance = byId.get(KNOWLEDGE_PROTOTYPE_NODES[11]!.id)!;
-  assert.ok(solution.y - membrane.y < 620, "chem branch should stay closer to membrane");
-  assert.ok(capacitance.y - potential.y < 520, "electrical branch should stay closer to potential");
-  assert.ok(Math.abs(solution.x - membrane.x) > 120, "chem branch keeps lateral cluster separation");
+  const space = byId.get(KNOWLEDGE_PROTOTYPE_NODES[1]!.id)!;
+  const field = byId.get(KNOWLEDGE_PROTOTYPE_NODES[22]!.id)!;
+  const spacetime = byId.get(KNOWLEDGE_PROTOTYPE_NODES[4]!.id)!;
+  const special = byId.get(KNOWLEDGE_PROTOTYPE_NODES[5]!.id)!;
+  assert.ok(field.y > space.y, "the field sits below space");
+  assert.ok(field.y - space.y < 620, "the field stays near space");
+  assert.ok(special.y - spacetime.y < 520, "special relativity stays near spacetime");
+  assert.equal(cardsOverlap(space, field, DESKTOP), false);
+});
+
+test("the opening frame stops before hidden constellations", () => {
+  const start = buildPrototypeLayout(prototypeNodesForScenario("start"), KNOWLEDGE_PROTOTYPE_DEPENDENCIES, DESKTOP);
+  const full = buildPrototypeLayout(
+    KNOWLEDGE_PROTOTYPE_NODES.map((node) => ({ ...node, state: "discovered" as const })),
+    KNOWLEDGE_PROTOTYPE_DEPENDENCIES,
+    DESKTOP,
+  );
+  const frame = visibleFrameHeight(start, DESKTOP);
+  const door = start.nodes.find((item) => item.node.sequence === 26)!;
+  const universe = start.nodes.find((item) => item.node.sequence === 1)!;
+  const fullUniverse = full.nodes.find((item) => item.node.sequence === 1)!;
+  assert.ok(frame < full.height * 0.62);
+  assert.ok(door.y > frame);
+  assert.deepEqual([universe.x, universe.y], [fullUniverse.x, fullUniverse.y]);
 });
 
 test("early spine nodes use distinct horizontal progression", () => {

@@ -28,7 +28,7 @@ import {
 import type { KnowledgeConceptId } from "../knowledge/knowledge-types.js";
 import { discoveryCost, formatMilliPerSecond } from "../knowledge/knowledge-prototype-game-engine.js";
 import type { PrototypeGeneratorOffer, PrototypeManualOffer, PrototypeNextDiscovery } from "../knowledge/knowledge-prototype-game-engine.js";
-import type { PublicKnowledgeCatalog } from "../knowledge/knowledge-types.js";
+import type { KnowledgeCatalog } from "../knowledge/knowledge-types.js";
 import type { KnowledgePrototypeScenarioNode } from "../knowledge/knowledge-prototype-fixture.js";
 import { useKnowledgePrototypeGame } from "../knowledge/useKnowledgePrototypeGame.js";
 
@@ -69,7 +69,7 @@ export function KnowledgePrototypePage() {
 
   return (
     <div
-      data-knowledge-prototype="game-01f"
+      data-knowledge-prototype="game-02b"
       className={`${collapsed ? SHELL_HERO_BLEED_COLLAPSED_CLASS : SHELL_HERO_BLEED_EXPANDED_CLASS} flex h-[calc(100dvh-7.25rem)] min-h-[36rem] min-w-0 flex-col overflow-hidden border-y border-soma-line/40 bg-[#050d15] lg:h-[calc(100dvh-0.75rem)] lg:min-h-[44rem] lg:border`}
     >
       <PrototypePlayHeader
@@ -92,6 +92,7 @@ export function KnowledgePrototypePage() {
         catalog={KNOWLEDGE_PROTOTYPE_CATALOG}
         onBuyManual={game.buyManual}
         onBuyGenerator={game.buyGenerator}
+        doorOpen={!qaScenario && game.nodes.some((node) => node.sequence === 26 && node.state === "discovered")}
         statusMessage={game.discoveryPulse > 0 ? copy.game.discoveryDone : game.lastError ? copy.game.errors[game.lastError] : null}
       />
 
@@ -123,6 +124,11 @@ export function KnowledgePrototypePage() {
             language={language}
             onSelect={selectConcept}
             illustration={<PrototypeIllustration kind={selectedNode.illustration} label={selected.labels[language]} language={language} />}
+            devFixture={{
+              code: selectedNode.provisionalCode,
+              codeLabel: copy.game.fixtureCodeLabel,
+              note: copy.game.fixtureMetadataNote,
+            }}
           />
         </DetailSheet>
       ) : null}
@@ -133,7 +139,7 @@ export function KnowledgePrototypePage() {
 function nextDiscoveryLabel(
   language: "es" | "en",
   next: PrototypeNextDiscovery,
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
   nodes: readonly KnowledgePrototypeScenarioNode[],
 ) {
   const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
@@ -167,6 +173,7 @@ function PrototypePlayHeader({
   catalog,
   onBuyManual,
   onBuyGenerator,
+  doorOpen,
   statusMessage,
 }: {
   language: "es" | "en";
@@ -181,9 +188,10 @@ function PrototypePlayHeader({
   onQaScenarioChange: (value: KnowledgePrototypeScenario | null) => void;
   manual: PrototypeManualOffer;
   generators: readonly PrototypeGeneratorOffer[];
-  catalog: PublicKnowledgeCatalog;
+  catalog: KnowledgeCatalog;
   onBuyManual: () => void;
   onBuyGenerator: (id: PrototypeGeneratorOffer["id"]) => void;
+  doorOpen: boolean;
   statusMessage: string | null;
 }) {
   const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
@@ -262,6 +270,11 @@ function PrototypePlayHeader({
           {statusMessage}
         </p>
       ) : null}
+      {playing && doorOpen ? (
+        <p role="status" className="mt-2 rounded-lg border border-soma-line/60 bg-[#0b1b28] px-3 py-1.5 text-xs text-soma-ink-secondary">
+          {copy.game.stratumPending}
+        </p>
+      ) : null}
     </header>
   );
 }
@@ -291,7 +304,7 @@ function PrototypeUpgradePanel({
   language: "es" | "en";
   manual: PrototypeManualOffer;
   generators: readonly PrototypeGeneratorOffer[];
-  catalog: PublicKnowledgeCatalog;
+  catalog: KnowledgeCatalog;
   onBuyManual: () => void;
   onBuyGenerator: (id: PrototypeGeneratorOffer["id"]) => void;
   playing: boolean;
@@ -302,8 +315,8 @@ function PrototypeUpgradePanel({
       <p className="leading-relaxed text-soma-ink-muted">{copy.game.provisionalNote}</p>
       <section>
         <p className="font-semibold text-soma-ink">{copy.game.manualTitle}</p>
-        <p className="mt-1 text-soma-ink">{copy.game.perTapStep(manual.yieldSparks, manual.nextYieldSparks ?? manual.yieldSparks)}</p>
-        {playing ? (
+        <p className="mt-1 text-soma-ink">{manual.lockReason === "later-stratum" ? copy.game.laterStratum : copy.game.perTapStep(manual.yieldSparks, manual.nextYieldSparks ?? manual.yieldSparks)}</p>
+        {playing && manual.lockReason !== "later-stratum" ? (
           <button
             type="button"
             disabled={manual.maxed || manual.locked || !manual.affordable}

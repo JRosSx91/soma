@@ -5,7 +5,7 @@ import { buildKnowledgeMapModel } from "./knowledge-map-model.js";
 import type {
   KnowledgeConceptId,
   KnowledgePredicate,
-  PublicKnowledgeCatalog,
+  KnowledgeCatalog,
 } from "./knowledge-types.js";
 
 export function KnowledgeContextMap({
@@ -14,7 +14,7 @@ export function KnowledgeContextMap({
   language,
   onSelect,
 }: {
-  catalog: PublicKnowledgeCatalog;
+  catalog: KnowledgeCatalog;
   rootId: KnowledgeConceptId;
   language: "es" | "en";
   onSelect: (id: KnowledgeConceptId) => void;

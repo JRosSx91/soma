@@ -10,6 +10,8 @@ import {
   PROTOTYPE_BALANCE_ID,
   PROTOTYPE_CHAPTER_DISCOVERY_SPARK_TOTAL,
   PROTOTYPE_DISCOVERY_COST_SPARKS,
+  PROTOTYPE_ESSENTIAL_DISCOVERY_SPARK_TOTAL,
+  PROTOTYPE_ESSENTIAL_SEQUENCES,
   PROTOTYPE_SAVE_KEY,
   PROTOTYPE_TAP_EVENTS_PER_SECOND,
   prototypeConceptId,
@@ -35,7 +37,7 @@ import { isBackgroundTapKey, keyboardTapTargetsBackground, pointerDragCancelsTap
 
 const ion = prototypeConceptId(2);
 const membrane = prototypeConceptId(4);
-const neuron = prototypeConceptId(7);
+const energy = prototypeConceptId(15);
 const HOUR_MS = 3_600_000;
 const DAY_MS = 86_400_000;
 
@@ -119,7 +121,7 @@ test("discoveries spend the provisional price once and respect playable dependen
   assert.equal(poor.error, "insufficient_sparks");
   assert.equal(poor.state.sparksMilli, 0n);
   assert.equal(canPurchaseDiscovery(withSparks(state, 12_000n), ion), true);
-  assert.equal(canPurchaseDiscovery(state, neuron), false);
+  assert.equal(canPurchaseDiscovery(state, energy), false);
   assert.equal(discoveryCost(ion), 12);
 });
 
@@ -137,24 +139,24 @@ test("manual power and generator levels settle the previous rate before they cha
 
   const upgraded = reducePrototypeGame(withSparks(hourAfterManual.state, 100_000n), {
     type: "buy_generator",
-    generatorId: "bench-charge",
+    generatorId: "f00-universe",
     now: HOUR_MS * 2,
   });
   assert.equal(upgraded.error, undefined);
-  assert.equal(upgraded.state.generatorLevels["bench-charge"], 2);
+  assert.equal(upgraded.state.generatorLevels["f00-universe"], 2);
   assert.equal(upgraded.state.sparksMilli, 60_000n);
   const hourAtNextRate = reducePrototypeGame(upgraded.state, { type: "tick", now: HOUR_MS * 3 });
   assert.equal(hourAtNextRate.state.sparksMilli, 60_000n + 14n * 3_600n);
-  const lockedGenerator = reducePrototypeGame(state, { type: "buy_generator", generatorId: "bench-channel", now: HOUR_MS });
+  const lockedGenerator = reducePrototypeGame(state, { type: "buy_generator", generatorId: "f00-spacetime", now: HOUR_MS });
   assert.equal(lockedGenerator.error, "upgrade_locked");
   const repeat = reducePrototypeGame(
-    { ...upgraded.state, sparksMilli: 1_000_000n, generatorLevels: { ...upgraded.state.generatorLevels, "bench-charge": 5 } },
-    { type: "buy_generator", generatorId: "bench-charge", now: HOUR_MS * 2 },
+    { ...upgraded.state, sparksMilli: 1_000_000n, generatorLevels: { ...upgraded.state.generatorLevels, "f00-universe": 5 } },
+    { type: "buy_generator", generatorId: "f00-universe", now: HOUR_MS * 2 },
   );
   assert.equal(repeat.error, "upgrade_maxed");
 });
 
-test("the neuron stand-in opens the next tap range and does not change offline production", () => {
+test("owning energy opens the next tap range and does not change offline production", () => {
   let state = withSparks(createInitialPrototypeGameState(0), 200_000n);
   state = reducePrototypeGame(state, { type: "buy_manual", now: 1 }).state;
   state = reducePrototypeGame(state, { type: "buy_manual", now: 2 }).state;
@@ -164,8 +166,8 @@ test("the neuron stand-in opens the next tap range and does not change offline p
   state = {
     ...locked.state,
     sparksMilli: 1_000_000n,
-    discoveredIds: [...locked.state.discoveredIds, neuron],
-    generatorLevels: { ...locked.state.generatorLevels, "bench-neuron": 1 },
+    discoveredIds: [...locked.state.discoveredIds, energy],
+    generatorLevels: { ...locked.state.generatorLevels, "f00-energy": 1 },
   };
   const rateBefore = productionMilliPerSecond(state);
   const opened = reducePrototypeGame(state, { type: "buy_manual", now: 4 });
@@ -175,6 +177,16 @@ test("the neuron stand-in opens the next tap range and does not change offline p
   const before = opened.state.sparksMilli;
   const produced = reducePrototypeGame(opened.state, { type: "tick", now: 4 + HOUR_MS });
   assert.equal(produced.state.sparksMilli - before, rateBefore * 3_600n);
+  const second = reducePrototypeGame({ ...produced.state, sparksMilli: 10_000_000n }, { type: "buy_manual", now: 4 + HOUR_MS + 1 });
+  assert.equal(currentTapYieldSparks(second.state), 8);
+  const everything = {
+    ...second.state,
+    sparksMilli: 10_000_000n,
+    discoveredIds: KNOWLEDGE_PROTOTYPE_NODES.map((node) => node.id),
+  };
+  const later = reducePrototypeGame(everything, { type: "buy_manual", now: 4 + HOUR_MS + 2 });
+  assert.equal(later.error, "upgrade_locked");
+  assert.equal(derivePrototypeGameView(later.state).manual.lockReason, "later-stratum");
 });
 
 test("offline production is exact for an hour, a day and thirty days, and a repeated settlement adds nothing", () => {
@@ -225,7 +237,7 @@ test("a saved bench reloads the same levels and then credits only the new absenc
     assert.ok(loaded);
     assert.equal(loaded.sparksMilli, played.sparksMilli);
     assert.equal(loaded.manualStep, 1);
-    assert.equal(loaded.generatorLevels["bench-charge"], 1);
+    assert.equal(loaded.generatorLevels["f00-universe"], 1);
     assert.deepEqual(loaded.discoveredIds, played.discoveredIds);
     const resumed = reducePrototypeGame(loaded, { type: "tick", now: 1_000 + HOUR_MS }).state;
     assert.equal(resumed.sparksMilli, played.sparksMilli + 28_800n);
@@ -237,7 +249,7 @@ test("a saved bench reloads the same levels and then credits only the new absenc
     assert.equal(loadPrototypeEconomy(), null);
     clearPrototypeEconomy();
     assert.equal(storage.getItem(PROTOTYPE_SAVE_KEY), null);
-    assert.equal(PROTOTYPE_BALANCE_ID, "b2-econ-01d-provisional-19");
+    assert.equal(PROTOTYPE_BALANCE_ID, "b2-econ-01d-s00-28");
   } finally {
     if (previous === undefined) {
       delete (globalThis as { localStorage?: Storage }).localStorage;
@@ -249,23 +261,40 @@ test("a saved bench reloads the same levels and then credits only the new absenc
 
 test("the nineteen-node graph stays acyclic and every node can be bought when the balance allows it", () => {
   const validation = validatePrototypeChapterGraph();
-  assert.equal(validation.ordering.length, 19);
+  assert.equal(validation.ordering.length, 28);
   assert.equal(validation.edgeCount, KNOWLEDGE_PROTOTYPE_DEPENDENCIES.length);
-  assert.equal(PROTOTYPE_DISCOVERY_COST_SPARKS.length, 19);
-  assert.equal(PROTOTYPE_CHAPTER_DISCOVERY_SPARK_TOTAL, 29_812);
+  assert.equal(PROTOTYPE_DISCOVERY_COST_SPARKS.length, 28);
+  assert.equal(PROTOTYPE_CHAPTER_DISCOVERY_SPARK_TOTAL, 49_702);
+  assert.equal(PROTOTYPE_ESSENTIAL_DISCOVERY_SPARK_TOTAL, 18_564);
   let state = withSparks(createInitialPrototypeGameState(0), 100_000_000n);
   let guard = 0;
-  while (state.discoveredIds.length < 19 && guard < 40) {
+  while (state.discoveredIds.length < 28 && guard < 40) {
     const discovered = new Set(state.discoveredIds);
     const next = KNOWLEDGE_PROTOTYPE_NODES.find((node) => resolveVisibility(node.id, discovered) === "available");
-    assert.ok(next, "the bench deadlocked before 19 discoveries");
+    assert.ok(next, "the bench deadlocked before 28 discoveries");
     const result = reducePrototypeGame(state, { type: "discover", conceptId: next.id, now: guard + 1 });
     assert.equal(result.error, undefined);
     state = result.state;
     guard += 1;
   }
-  assert.equal(state.discoveredIds.length, 19);
+  assert.equal(state.discoveredIds.length, 28);
   assert.equal(derivePrototypeGameView(state).nextDiscovery.status, "complete");
+  const essentialIds = new Set(PROTOTYPE_ESSENTIAL_SEQUENCES.map((sequence) => prototypeConceptId(sequence)));
+  let essential = withSparks(createInitialPrototypeGameState(0), 100_000_000n);
+  let spent = 0;
+  let essentialGuard = 0;
+  while (essential.discoveredIds.filter((id) => essentialIds.has(id)).length < essentialIds.size && essentialGuard < 20) {
+    const next = KNOWLEDGE_PROTOTYPE_NODES.find(
+      (node) => essentialIds.has(node.id) && resolveVisibility(node.id, new Set(essential.discoveredIds)) === "available",
+    );
+    assert.ok(next, "an optional blocked an essential discovery");
+    spent += discoveryCost(next.id) ?? 0;
+    essential = reducePrototypeGame(essential, { type: "discover", conceptId: next.id, now: essentialGuard + 1 }).state;
+    essentialGuard += 1;
+  }
+  assert.equal(spent, 18_564);
+  assert.equal(essential.discoveredIds.includes(prototypeConceptId(26)), true);
+  assert.equal(essential.discoveredIds.some((id) => !essentialIds.has(id)), false);
 });
 
 test("the prototype economy does not touch XP, recovery, missions or the network", () => {

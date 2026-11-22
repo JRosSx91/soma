@@ -5,7 +5,7 @@ import {
   type KnowledgePrototypeScenarioNode,
   type KnowledgePrototypeState,
 } from "./knowledge-prototype-fixture.js";
-import type { KnowledgeConceptId, PublicKnowledgeCatalog } from "./knowledge-types.js";
+import type { KnowledgeCatalog, KnowledgeConceptId } from "./knowledge-types.js";
 import {
   PROTOTYPE_BALANCE_ID,
   PROTOTYPE_DISCOVERY_COSTS,
@@ -15,6 +15,7 @@ import {
   PROTOTYPE_TAP_EVENTS_PER_SECOND,
   PROTOTYPE_TAP_STEPS,
   SPARKS_MILLI_SCALE,
+  tapGateOpen,
   generatorById,
   generatorForConcept,
   prototypeConceptId,
@@ -69,7 +70,7 @@ export interface PrototypeManualOffer {
   locked: boolean;
   maxed: boolean;
   affordable: boolean;
-  gateSequence: number | null;
+  lockReason: "concept" | "later-stratum" | null;
 }
 
 export interface PrototypeGeneratorOffer {
@@ -102,7 +103,7 @@ export interface PrototypeGameView {
   discoveredCount: number;
   totalDiscoveries: number;
   nodes: readonly KnowledgePrototypeScenarioNode[];
-  playableCatalog: PublicKnowledgeCatalog;
+  playableCatalog: KnowledgeCatalog;
   manual: PrototypeManualOffer;
   generators: readonly PrototypeGeneratorOffer[];
   nextDiscovery: PrototypeNextDiscovery;
@@ -111,12 +112,10 @@ export interface PrototypeGameView {
 }
 
 function emptyGeneratorLevels(): Record<PrototypeGeneratorId, number> {
-  return {
-    "bench-charge": 0,
-    "bench-channel": 0,
-    "bench-neuron": 0,
-    "bench-synapse": 0,
-  };
+  return Object.fromEntries(PROTOTYPE_GENERATORS.map((generator) => [generator.id, 0])) as Record<
+    PrototypeGeneratorId,
+    number
+  >;
 }
 
 export function createInitialPrototypeGameState(now: number): PrototypeGameState {
@@ -238,7 +237,7 @@ function buyManual(state: PrototypeGameState, now: number): PrototypeGameResult 
   if (next.yieldSparks <= currentTapYieldSparks(settled)) {
     return { state: settled, error: "upgrade_maxed" };
   }
-  if (next.gateSequence !== null && !settled.discoveredIds.includes(prototypeConceptId(next.gateSequence))) {
+  if (!tapGateOpen(settled.discoveredIds, next.gate)) {
     return { state: settled, error: "upgrade_locked" };
   }
   const cost = BigInt(next.costSparks) * SPARKS_MILLI_SCALE;
@@ -323,7 +322,7 @@ export function projectPrototypeNodes(state: PrototypeGameState): readonly Knowl
   }));
 }
 
-export function prototypeCatalogForGame(state: PrototypeGameState): PublicKnowledgeCatalog {
+export function prototypeCatalogForGame(state: PrototypeGameState): KnowledgeCatalog {
   const identifiable = new Set(
     projectPrototypeNodes(state)
       .filter((node) => node.state !== "hinted" && node.state !== "hidden")
@@ -375,10 +374,10 @@ export function manualOffer(state: PrototypeGameState): PrototypeManualOffer {
       locked: false,
       maxed: true,
       affordable: false,
-      gateSequence: null,
+      lockReason: null,
     };
   }
-  const locked = next.gateSequence !== null && !state.discoveredIds.includes(prototypeConceptId(next.gateSequence));
+  const locked = !tapGateOpen(state.discoveredIds, next.gate);
   const cost = BigInt(next.costSparks) * SPARKS_MILLI_SCALE;
   return {
     stepId: next.id,
@@ -388,7 +387,7 @@ export function manualOffer(state: PrototypeGameState): PrototypeManualOffer {
     locked,
     maxed: false,
     affordable: !locked && state.sparksMilli >= cost,
-    gateSequence: next.gateSequence,
+    lockReason: next.gate.kind === "open" ? null : next.gate.kind === "concept" ? "concept" : "later-stratum",
   };
 }
 

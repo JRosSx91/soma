@@ -81,15 +81,14 @@ export function connectionStrokeStyle(
   const availablePath = fromState === "available" || toState === "available";
   if (kind === "game") {
     return {
-      width: researching ? 3.15 : sharesProgressWeight(availablePath, 2.75, 2.55),
-      opacity: researching ? 0.94 : sharesProgressWeight(availablePath, 0.86, 0.82),
-      dash: "10 7",
+      width: researching ? 3.1 : sharesProgressWeight(availablePath, 2.7, 2.45),
+      opacity: researching ? 0.95 : sharesProgressWeight(availablePath, 0.88, 0.8),
     };
   }
   return {
-    width: researching ? 2.65 : 2.4,
-    opacity: researching ? 0.78 : sharesProgressWeight(availablePath, 0.7, 0.64),
-    dash: undefined,
+    width: 1.25,
+    opacity: researching ? 0.42 : 0.32,
+    dash: "2 8",
   };
 }
 

@@ -1,46 +1,30 @@
 import {
   KNOWLEDGE_PROTOTYPE_DEPENDENCIES,
   KNOWLEDGE_PROTOTYPE_NODES,
-  type KnowledgePrototypeIllustration,
   type KnowledgePrototypeScenarioNode,
 } from "./knowledge-prototype-fixture.js";
 import { buildPrototypeLayout, type PrototypeCanvasMetrics } from "./knowledge-prototype-layout.js";
 import type { KnowledgeConceptId } from "./knowledge-types.js";
 
 export type PrototypeStratumId =
-  | "physics_fundamentals"
-  | "chemistry_gradients"
-  | "cell_biology"
-  | "neurophysiology";
+  | "cluster_start"
+  | "cluster_spacetime"
+  | "cluster_symmetry"
+  | "cluster_quantum";
 
 export const PROTOTYPE_STRATUM_ORDER: readonly PrototypeStratumId[] = [
-  "physics_fundamentals",
-  "chemistry_gradients",
-  "cell_biology",
-  "neurophysiology",
+  "cluster_start",
+  "cluster_spacetime",
+  "cluster_symmetry",
+  "cluster_quantum",
 ];
 
-const STRATUM_BY_ILLUSTRATION: Record<KnowledgePrototypeIllustration, PrototypeStratumId> = {
-  charge: "physics_fundamentals",
-  gradient: "physics_fundamentals",
-  capacitance: "physics_fundamentals",
-  impulse: "physics_fundamentals",
-  ion: "chemistry_gradients",
-  solution: "chemistry_gradients",
-  equilibrium: "chemistry_gradients",
-  osmosis: "chemistry_gradients",
-  neurotransmitter: "chemistry_gradients",
-  membrane: "cell_biology",
-  channel: "cell_biology",
-  pump: "cell_biology",
-  dendrite: "cell_biology",
-  axon: "cell_biology",
-  potential: "neurophysiology",
-  neuron: "neurophysiology",
-  synapse: "neurophysiology",
-  receptor: "neurophysiology",
-  network: "neurophysiology",
-};
+function veilFor(node: { cluster: 1 | 2 | 3 | 4 }): PrototypeStratumId {
+  if (node.cluster === 1) return "cluster_start";
+  if (node.cluster === 2) return "cluster_spacetime";
+  if (node.cluster === 3) return "cluster_symmetry";
+  return "cluster_quantum";
+}
 
 export interface PrototypeStratumZone {
   id: PrototypeStratumId;
@@ -57,25 +41,25 @@ const STRATUM_PALETTE: Record<
   PrototypeStratumId,
   Pick<PrototypeStratumZone, "accent" | "veilTop" | "veilBottom" | "glow">
 > = {
-  physics_fundamentals: {
+  cluster_start: {
     accent: "#3d9ec4",
     veilTop: "#0a1c2b",
     veilBottom: "#07131e",
     glow: "#256f94",
   },
-  chemistry_gradients: {
+  cluster_spacetime: {
     accent: "#68d8c0",
     veilTop: "#0b1b24",
     veilBottom: "#0d1628",
     glow: "#6b5fa8",
   },
-  cell_biology: {
+  cluster_symmetry: {
     accent: "#4fa88a",
     veilTop: "#0a1f22",
     veilBottom: "#0c1824",
     glow: "#3d8f78",
   },
-  neurophysiology: {
+  cluster_quantum: {
     accent: "#a78bfa",
     veilTop: "#121528",
     veilBottom: "#160f22",
@@ -83,12 +67,8 @@ const STRATUM_PALETTE: Record<
   },
 };
 
-const ILLUSTRATION_BY_ID = new Map(
-  KNOWLEDGE_PROTOTYPE_NODES.map((node) => [node.id, node.illustration]),
-);
-
-export function prototypeStratumForNode(node: Pick<KnowledgePrototypeScenarioNode, "id" | "illustration">) {
-  return STRATUM_BY_ILLUSTRATION[node.illustration];
+export function prototypeStratumForNode(node: KnowledgePrototypeScenarioNode) {
+  return veilFor(node);
 }
 
 export function referenceLayoutNodes(): readonly KnowledgePrototypeScenarioNode[] {
@@ -110,6 +90,7 @@ export function buildStratumZones(
 
   const byStratum = new Map<PrototypeStratumId, number[]>();
   for (const item of layout.nodes) {
+    if (item.node.progression.track !== "spine") continue;
     const stratum = prototypeStratumForNode(item.node);
     byStratum.set(stratum, [...(byStratum.get(stratum) ?? []), item.y]);
   }
@@ -156,7 +137,7 @@ export function stratumPatternNodes(
   const cy = (zone.y0 + zone.y1) / 2;
   const h = zone.y1 - zone.y0;
 
-  if (zone.id === "physics_fundamentals") {
+  if (zone.id === "cluster_start") {
     return [56, 92, 128].map((radius, index) => ({
       key: `${prefix}-physics-ring-${index}`,
       element: "circle" as const,
@@ -164,7 +145,7 @@ export function stratumPatternNodes(
     }));
   }
 
-  if (zone.id === "chemistry_gradients") {
+  if (zone.id === "cluster_spacetime") {
     const dots: Array<{ key: string; element: "circle"; attrs: Record<string, string | number> }> = [];
     for (let row = 0; row < 4; row += 1) {
       for (let column = 0; column < 7; column += 1) {
@@ -184,7 +165,7 @@ export function stratumPatternNodes(
     return dots;
   }
 
-  if (zone.id === "cell_biology") {
+  if (zone.id === "cluster_symmetry") {
     return [
       {
         key: `${prefix}-cell-membrane-a`,
@@ -242,6 +223,6 @@ export function stratumLabelForTests(id: PrototypeStratumId) {
 }
 
 export function stratumForConceptId(id: KnowledgeConceptId) {
-  const illustration = ILLUSTRATION_BY_ID.get(id);
-  return illustration ? STRATUM_BY_ILLUSTRATION[illustration] : null;
+  const node = KNOWLEDGE_PROTOTYPE_NODES.find((item) => item.id === id);
+  return node ? veilFor(node) : null;
 }

@@ -6,7 +6,6 @@ import {
 } from "./knowledge-prototype-fixture.js";
 import type { KnowledgeConceptId } from "./knowledge-types.js";
 import {
-  branchChainDepth,
   branchClusterPosition,
   cardsOverlap,
   clampNodePosition,
@@ -54,6 +53,7 @@ export function buildPrototypeLayout(
     y: metrics.top,
     spine: node.progression.track === "spine",
     side: node.progression.track === "branch" ? node.progression.side : undefined,
+    cluster: node.cluster,
   }));
 
   for (const item of drafts) {
@@ -78,134 +78,55 @@ export function buildPrototypeLayout(
         (b.node.progression.track === "spine" ? b.node.progression.tier : 0),
     );
   let previousSpineY = metrics.top;
+  let previousCluster = 0;
   for (const row of spineRows) {
     const tier = row.node.progression.track === "spine" ? row.node.progression.tier : 0;
+    const clusterGap = previousCluster !== 0 && row.node.cluster !== previousCluster ? halfHeight * 1.45 : 0;
     row.x = spineSerpentineX(tier, metrics) + organicNodeOffset(row.id, metrics, "spine").dx;
-    row.y = Math.max(spineTierY(tier, metrics), previousSpineY + halfHeight * 2.28);
+    row.y = Math.max(spineTierY(tier, metrics), previousSpineY + halfHeight * 2.28 + clusterGap);
     previousSpineY = row.y;
+    previousCluster = row.node.cluster;
     const clamped = clampNodePosition(row.x, row.y, metrics, cardHalfWidth);
     row.x = clamped.x;
     row.y = clamped.y;
   }
 
-  const membraneId = KNOWLEDGE_PROTOTYPE_NODES[3]!.id;
-  const potentialId = KNOWLEDGE_PROTOTYPE_NODES[5]!.id;
   const draftsById = new Map<KnowledgeConceptId, (typeof drafts)[number]>(drafts.map((item) => [item.id, item]));
   for (const item of drafts) {
     const progression = item.node.progression;
     if (progression.track !== "branch") continue;
     const yAnchor = draftsById.get(progression.anchor);
     if (!yAnchor) continue;
-    const clusterOrigin =
-      progression.side === "left"
-        ? draftsById.get(membraneId) ?? yAnchor
-        : draftsById.get(potentialId) ?? yAnchor;
     const cluster = branchClusterPosition(
       item.id,
       progression.side,
       yAnchor,
-      clusterOrigin,
+      yAnchor,
       metrics,
       progression.dropRows,
+      progression.chainDepth,
     );
     const placed = clampNodePosition(cluster.x, cluster.y, metrics, cardHalfWidth);
     item.x = placed.x;
     item.y = placed.y;
   }
 
-  const potentialDraft = draftsById.get(potentialId);
   const mobile = metrics.width < 720;
-  const branchStepY = halfHeight * (mobile ? 2.14 : 2.06);
-  for (const item of drafts) {
-    const progression = item.node.progression;
-    if (progression.track !== "branch") continue;
-    const anchor = draftsById.get(progression.anchor);
-    if (!anchor) continue;
-    const chainDepth = branchChainDepth(item.id);
-    const gap = (mobile ? 2.42 : 1.62 + chainDepth * 0.22) * halfHeight;
-    item.y = Math.max(item.y, anchor.y + gap);
-  }
-
-  const desktop = !mobile;
-  const branchLane = cardHalfWidth * 2.12;
-  const pinBranchLanes = () => {
-    if (!desktop || !potentialDraft) return;
+  if (mobile) {
+    placeMobileConstellations(drafts, metrics, halfHeight, cardHalfWidth);
+  } else {
     for (const item of drafts) {
       const progression = item.node.progression;
       if (progression.track !== "branch") continue;
-      if (progression.side === "left") {
-        item.x = Math.min(item.x, potentialDraft.x - branchLane);
-      } else {
-        item.x = Math.max(item.x, potentialDraft.x + branchLane);
-      }
-      const clamped = clampNodePosition(item.x, item.y, metrics, cardHalfWidth);
-      item.x = clamped.x;
-      item.y = clamped.y;
-    }
-  };
-
-  pinBranchLanes();
-
-  for (const item of drafts) {
-    if (item.spine) continue;
-    for (let pass = 0; pass < 16; pass += 1) {
-      const blocker = drafts.find((candidate) => candidate.spine && cardsOverlap(item, candidate, metrics));
-      if (!blocker) break;
-      item.y = Math.max(item.y, blocker.y + halfHeight * 2.06);
-      const clamped = clampNodePosition(item.x, item.y, metrics, cardHalfWidth);
-      item.x = clamped.x;
-      item.y = clamped.y;
-    }
-  }
-
-  if (desktop) {
-    const stackBranchChain = (side: "left" | "right") => {
-      const chain = drafts
-        .filter(
-          (item) =>
-            item.node.progression.track === "branch" && item.node.progression.side === side,
-        )
-        .sort((a, b) => branchChainDepth(a.id) - branchChainDepth(b.id));
-      let cursor = metrics.top;
-      for (const item of chain) {
-        cursor = Math.max(cursor + branchStepY, item.y);
-        item.y = cursor;
-        cursor = item.y;
-      }
-    };
-    stackBranchChain("left");
-    stackBranchChain("right");
-  }
-
-  relaxNodeOverlaps(drafts, metrics);
-  pinBranchLanes();
-  enforceCardSeparation(drafts, metrics);
-  pinBranchLanes();
-  enforceCardSeparation(drafts, metrics);
-
-  if (mobile) {
-    const center = metrics.width / 2;
-    const progressionRank = (item: (typeof drafts)[number]) => {
-      const progression = item.node.progression;
-      if (progression.track === "spine") return progression.tier * 100;
       const anchor = draftsById.get(progression.anchor);
-      const anchorTier =
-        anchor?.node.progression.track === "spine" ? anchor.node.progression.tier : 0;
-      const depth = branchChainDepth(item.id);
-      return anchorTier * 100 + (progression.side === "left" ? 20 : 30) + depth * 3;
-    };
-    const ordered = [...drafts].sort((a, b) => progressionRank(a) - progressionRank(b));
-    let yCursor = metrics.top;
-    for (const item of ordered) {
-      yCursor = Math.max(yCursor + branchStepY, item.y);
-      item.y = yCursor;
-      const sway = item.spine ? organicNodeOffset(item.id, metrics, "spine").dx * 0.42 : 0;
-      item.x = center + sway;
-      const clamped = clampNodePosition(item.x, item.y, metrics, cardHalfWidth);
-      item.x = clamped.x;
-      item.y = clamped.y;
-      yCursor = item.y;
+      if (!anchor) continue;
+      const gap = (1.35 + progression.chainDepth * 0.72 + progression.dropRows * 0.28) * halfHeight;
+      item.y = Math.max(item.y, anchor.y + gap);
     }
+    nudgeBranchesOffSpine(drafts, metrics, halfHeight, cardHalfWidth);
+    relaxNodeOverlaps(drafts, metrics);
+    enforceCardSeparation(drafts, metrics);
+    separateUntilClear(drafts, metrics, halfHeight, cardHalfWidth);
   }
 
   const positioned = drafts.map(({ node, x, y }) => {
@@ -222,4 +143,105 @@ export function buildPrototypeLayout(
     height: maxY + metrics.cardHalfHeight + 72,
     nodes: positioned,
   };
+}
+
+type LayoutDraft = {
+  id: KnowledgeConceptId;
+  node: KnowledgePrototypeScenarioNode;
+  x: number;
+  y: number;
+  spine: boolean;
+  side?: "left" | "right";
+  cluster: number;
+};
+
+/** Canvas height that stops after the last revealed card. Hidden constellations stay below the frame. */
+export function visibleFrameHeight(
+  layout: { height: number; nodes: readonly { y: number; node: { state: KnowledgePrototypeState } }[] },
+  metrics: Pick<PrototypeCanvasMetrics, "top" | "cardHalfHeight">,
+) {
+  const visible = layout.nodes.filter((item) => item.node.state !== "hidden");
+  if (visible.length === 0) return layout.height;
+  const bottom = Math.max(...visible.map((item) => item.y));
+  return Math.min(layout.height, Math.max(metrics.top + metrics.cardHalfHeight, bottom + metrics.cardHalfHeight + 96));
+}
+
+function separateUntilClear(
+  drafts: readonly LayoutDraft[],
+  metrics: PrototypeCanvasMetrics,
+  halfHeight: number,
+  cardHalfWidth: number,
+) {
+  for (let pass = 0; pass < 40; pass += 1) {
+    let moved = false;
+    for (let left = 0; left < drafts.length; left += 1) {
+      for (let right = left + 1; right < drafts.length; right += 1) {
+        const a = drafts[left]!;
+        const b = drafts[right]!;
+        if (!cardsOverlap(a, b, metrics)) continue;
+        const upper = a.y <= b.y ? a : b;
+        const lower = upper === a ? b : a;
+        lower.y = upper.y + halfHeight * 2 + 10;
+        const clamped = clampNodePosition(lower.x, lower.y, metrics, cardHalfWidth);
+        lower.x = clamped.x;
+        lower.y = clamped.y;
+        moved = true;
+      }
+    }
+    if (!moved) break;
+  }
+}
+
+function nudgeBranchesOffSpine(
+  drafts: readonly LayoutDraft[],
+  metrics: PrototypeCanvasMetrics,
+  halfHeight: number,
+  cardHalfWidth: number,
+) {
+  for (const item of drafts) {
+    if (item.spine) continue;
+    const blocker = drafts.find((candidate) => candidate.spine && cardsOverlap(item, candidate, metrics));
+    if (!blocker) continue;
+    const direction = item.side === "left" ? -1 : 1;
+    item.x += direction * (cardHalfWidth * 0.85);
+    item.y = Math.max(item.y, blocker.y + halfHeight * 0.35);
+    const clamped = clampNodePosition(item.x, item.y, metrics, cardHalfWidth);
+    item.x = clamped.x;
+    item.y = clamped.y;
+  }
+}
+
+function placeMobileConstellations(
+  drafts: readonly LayoutDraft[],
+  metrics: PrototypeCanvasMetrics,
+  halfHeight: number,
+  cardHalfWidth: number,
+) {
+  const center = metrics.width / 2;
+  const row = halfHeight * 2.22;
+  let y = metrics.top;
+  const field = drafts.find((item) => item.node.sequence === 23);
+  for (const cluster of [1, 2, 3, 4] as const) {
+    const members = drafts
+      .filter((item) => item.node.cluster === cluster && item.node.sequence !== 23)
+      .sort((a, b) => a.node.sequence - b.node.sequence);
+    for (const item of members) {
+      const sway = organicNodeOffset(item.id, metrics, item.spine ? "spine" : "branch").dx * 0.2;
+      item.x = center + sway;
+      item.y = y;
+      const clamped = clampNodePosition(item.x, item.y, metrics, cardHalfWidth);
+      item.x = clamped.x;
+      item.y = clamped.y;
+      y += row;
+    }
+    if (cluster === 1 && field) {
+      field.x = center + organicNodeOffset(field.id, metrics, "branch").dx * 0.2;
+      field.y = y;
+      const clamped = clampNodePosition(field.x, field.y, metrics, cardHalfWidth);
+      field.x = clamped.x;
+      field.y = clamped.y;
+      y += row;
+    }
+    y += halfHeight * 1.35;
+  }
 }

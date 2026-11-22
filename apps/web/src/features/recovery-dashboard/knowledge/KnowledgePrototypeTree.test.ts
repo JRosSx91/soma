@@ -82,7 +82,7 @@ async function renderTree(lng: "es" | "en", scenario: KnowledgePrototypeScenario
 
 test("playable prototype exposes spark rates and isolated QA scenarios", async () => {
   const markup = await renderPage("es");
-  assert.ok(markup.includes('data-knowledge-prototype="game-01f"'));
+  assert.ok(markup.includes('data-knowledge-prototype="game-02b"'));
   assert.ok(markup.includes('data-prototype-layout-organic="true"'));
   assert.ok(markup.includes('data-prototype-map-tap-surface="true"'));
   assert.ok(markup.includes('data-prototype-map-connections="true"'));
@@ -125,12 +125,12 @@ test("development-only copy keeps equivalent ES and EN contracts", () => {
 
 test("hinted and hidden discoveries do not leak identity or expose a detail control", async () => {
   const markup = await renderTree("es", "middle");
-  const hinted = KNOWLEDGE_PROTOTYPE_NODES[15]!;
-  const hidden = KNOWLEDGE_PROTOTYPE_NODES[7]!;
+  const hinted = KNOWLEDGE_PROTOTYPE_NODES[7]!;
+  const hidden = KNOWLEDGE_PROTOTYPE_NODES[8]!;
   assert.ok(markup.includes("Descubrimiento desconocido"));
   assert.ok(markup.includes('data-prototype-mystery="true"'));
-  assert.equal(markup.includes(KNOWLEDGE_PROTOTYPE_CATALOG.concepts[15]!.labels.es), false);
   assert.equal(markup.includes(KNOWLEDGE_PROTOTYPE_CATALOG.concepts[7]!.labels.es), false);
+  assert.equal(markup.includes(KNOWLEDGE_PROTOTYPE_CATALOG.concepts[8]!.labels.es), false);
   assert.equal(markup.includes(hinted.id), false);
   assert.equal(markup.includes(hidden.id), false);
   assert.equal(markup.includes('data-prototype-state="hidden"'), false);
@@ -153,8 +153,13 @@ test("connections stop at hidden nodes and fade towards hinted discoveries", asy
   const advancedDependencies = KNOWLEDGE_PROTOTYPE_DEPENDENCIES.filter(
     (item) => advancedVisible.has(item.from) && advancedVisible.has(item.to),
   ).length;
-  assert.equal((advanced.match(/data-prototype-connection="scientific"/g) ?? []).length, advancedRelations * 2);
-  assert.equal((advanced.match(/data-prototype-connection="game"/g) ?? []).length, advancedDependencies * 2);
+  const mobileAt = advanced.indexOf('data-prototype-canvas="mobile"');
+  const desktopMarkup = advanced.slice(0, mobileAt);
+  const mobileMarkup = advanced.slice(mobileAt);
+  assert.equal((desktopMarkup.match(/data-prototype-connection="scientific"/g) ?? []).length, advancedRelations);
+  assert.equal((desktopMarkup.match(/data-prototype-connection="game"/g) ?? []).length, advancedDependencies);
+  assert.ok((mobileMarkup.match(/data-prototype-connection="game"/g) ?? []).length < advancedDependencies);
+  assert.ok(mobileMarkup.includes('data-prototype-cluster-tabs="true"'));
 });
 
 test("stratum zones follow the synthetic pedagogical regions", async () => {
@@ -168,25 +173,29 @@ test("stratum zones follow the synthetic pedagogical regions", async () => {
     1200,
   );
   assert.equal(zones.length, 4);
-  assert.equal(zones[0]!.id, "physics_fundamentals");
-  assert.equal(zones.at(-1)!.id, "neurophysiology");
+  assert.equal(zones[0]!.id, "cluster_start");
+  assert.equal(zones.at(-1)!.id, "cluster_quantum");
   assert.ok(zones[0]!.y1 > zones[0]!.y0);
   assert.ok(zones[1]!.y0 < zones[1]!.y1);
-  assert.equal(referenceLayoutNodes().length, 19);
+  assert.equal(referenceLayoutNodes().length, 28);
 });
 
 test("paired scientific and game edges keep separate lanes on the same nodes", () => {
   const from = { x: 420, y: 120 };
   const to = { x: 560, y: 420 };
+  const space = KNOWLEDGE_PROTOTYPE_NODES[1]!.id;
+  const spacetime = KNOWLEDGE_PROTOTYPE_NODES[4]!.id;
   const positions = new Map([
-    [KNOWLEDGE_PROTOTYPE_NODES[0]!.id, from],
-    [KNOWLEDGE_PROTOTYPE_NODES[1]!.id, to],
+    [space, from],
+    [spacetime, to],
   ]);
-  const connections = buildRenderedConnections(
-    KNOWLEDGE_PROTOTYPE_CATALOG.relations.slice(0, 1),
-    KNOWLEDGE_PROTOTYPE_DEPENDENCIES.slice(0, 1),
-    positions,
+  const sharedRelation = KNOWLEDGE_PROTOTYPE_CATALOG.relations.filter(
+    (item) => item.subject === space && item.object === spacetime,
   );
+  const sharedDependency = KNOWLEDGE_PROTOTYPE_DEPENDENCIES.filter(
+    (item) => item.from === space && item.to === spacetime,
+  );
+  const connections = buildRenderedConnections(sharedRelation, sharedDependency, positions);
   assert.equal(connections.length, 2);
   const science = connections.find((item) => item.kind === "scientific");
   const game = connections.find((item) => item.kind === "game");
@@ -247,10 +256,10 @@ test("deterministic layout progresses downward and represents branch convergence
   const byId = new Map(layout.nodes.map((item) => [item.node.id, item]));
   assert.ok(byId.get(KNOWLEDGE_PROTOTYPE_NODES[0]!.id)!.y < byId.get(KNOWLEDGE_PROTOTYPE_NODES[6]!.id)!.y);
   assert.ok(byId.get(KNOWLEDGE_PROTOTYPE_NODES[6]!.id)!.y < byId.get(KNOWLEDGE_PROTOTYPE_NODES[13]!.id)!.y);
-  const membrane = byId.get(KNOWLEDGE_PROTOTYPE_NODES[3]!.id)!;
-  const solution = byId.get(KNOWLEDGE_PROTOTYPE_NODES[7]!.id)!;
-  assert.notEqual(membrane.x, solution.x);
-  assert.ok(solution.y > membrane.y);
+  const universe = byId.get(KNOWLEDGE_PROTOTYPE_NODES[0]!.id)!;
+  const time = byId.get(KNOWLEDGE_PROTOTYPE_NODES[2]!.id)!;
+  assert.notEqual(Math.round(universe.x), Math.round(time.x));
+  assert.ok(time.y > universe.y);
 });
 
 test("identified concepts still open the existing scientific detail sheet", async () => {
@@ -258,15 +267,21 @@ test("identified concepts still open the existing scientific detail sheet", asyn
   const markup = await renderPage("en", `?concept=${encodeURIComponent(selected.id)}`);
   assert.ok(markup.includes('role="dialog"'));
   assert.ok(markup.includes(`data-knowledge-concept="${selected.id}"`));
-  assert.ok(markup.includes("Synthetic copy used to test"));
+  assert.ok(markup.includes("not an authorized editorial publication"));
+  assert.ok(markup.includes('data-knowledge-dev-fixture="true"'));
+  assert.ok(markup.includes("F00.01"));
+  assert.equal(markup.includes("dev_fixture"), false);
+  assert.equal(markup.includes("DEV-S00"), false);
+  assert.equal(markup.includes("quality_or_state"), false);
+  assert.equal(KNOWLEDGE_PROTOTYPE_CATALOG.concepts.every((concept) => concept.editorialStatus === "candidate"), true);
   assert.ok(markup.includes('data-knowledge-map="contextual"'));
 });
 
 test("scenario projection never turns game state into a library access policy", () => {
-  assert.equal(KNOWLEDGE_PROTOTYPE_CATALOG.concepts.length, 19);
-  assert.equal(prototypeCatalogForScenario("start").concepts.length, 2);
-  assert.equal(prototypeCatalogForScenario("middle").concepts.length, 9);
-  assert.equal(prototypeCatalogForScenario("advanced").concepts.length, 18);
+  assert.equal(KNOWLEDGE_PROTOTYPE_CATALOG.concepts.length, 28);
+  assert.equal(prototypeCatalogForScenario("start").concepts.length, 3);
+  assert.equal(prototypeCatalogForScenario("middle").concepts.length, 12);
+  assert.equal(prototypeCatalogForScenario("advanced").concepts.length, 20);
   assert.equal(KNOWLEDGE_PROTOTYPE_CATALOG.prerequisitePolicy.blocksAccess, false);
   assert.equal(KNOWLEDGE_PROTOTYPE_CATALOG.prerequisitePolicy.grantsXp, false);
 });

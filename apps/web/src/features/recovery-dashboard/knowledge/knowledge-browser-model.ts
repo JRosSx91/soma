@@ -2,7 +2,7 @@ import type { InterfaceLanguage } from "../../../i18n/interface-languages.js";
 import type {
   KnowledgeConcept,
   KnowledgeConceptId,
-  PublicKnowledgeCatalog,
+  KnowledgeCatalog,
 } from "./knowledge-types.js";
 
 export const KNOWLEDGE_CONCEPT_QUERY_KEY = "concept";
@@ -29,7 +29,7 @@ export const EMPTY_KNOWLEDGE_FILTERS: KnowledgeBrowserFilters = {
 };
 
 export function knowledgeFilterOptions(
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
 ): KnowledgeFilterOptions {
   return {
     families: uniqueSorted(catalog.concepts.flatMap((item) => item.families)),
@@ -41,7 +41,7 @@ export function knowledgeFilterOptions(
 }
 
 export function filterKnowledgeConcepts(
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
   filters: KnowledgeBrowserFilters,
   language: InterfaceLanguage,
 ): readonly KnowledgeConcept[] {
@@ -85,7 +85,7 @@ export function knowledgeSearchTerms(
 }
 
 export function resolveKnowledgeConceptParam(
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
   value: string | null | undefined,
 ): KnowledgeConceptId | null {
   if (!value || !/^soma:K\d{6}$/.test(value)) return null;
@@ -97,7 +97,7 @@ export function resolveKnowledgeConceptParam(
 export function writeKnowledgeConceptSearchParams(
   _current: URLSearchParams,
   conceptId: KnowledgeConceptId | null,
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
 ): URLSearchParams {
   const next = new URLSearchParams();
   if (conceptId && resolveKnowledgeConceptParam(catalog, conceptId)) {
@@ -113,7 +113,7 @@ export function writeKnowledgeConceptSearchParams(
  */
 export function sanitizeKnowledgeSearchParams(
   current: URLSearchParams,
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
 ): URLSearchParams {
   return writeKnowledgeConceptSearchParams(
     current,

@@ -36,8 +36,9 @@ test("rendered connections mirror catalog relations and game dependencies withou
   for (const edge of rendered) {
     kindsByPair.set(edge.pairKey, new Set([...(kindsByPair.get(edge.pairKey) ?? []), edge.kind]));
   }
-  assert.ok(kindsByPair.get(`${KNOWLEDGE_PROTOTYPE_NODES[5]!.id}→${KNOWLEDGE_PROTOTYPE_NODES[11]!.id}`)?.has("scientific"));
-  assert.ok(kindsByPair.get(`${KNOWLEDGE_PROTOTYPE_NODES[5]!.id}→${KNOWLEDGE_PROTOTYPE_NODES[11]!.id}`)?.has("game"));
+  const shared = `${KNOWLEDGE_PROTOTYPE_NODES[1]!.id}→${KNOWLEDGE_PROTOTYPE_NODES[4]!.id}`;
+  assert.ok(kindsByPair.get(shared)?.has("scientific"));
+  assert.ok(kindsByPair.get(shared)?.has("game"));
 });
 
 test("lateral connections prefer compact routing over shallow anchors", () => {
@@ -67,9 +68,9 @@ test("sampled connection paths avoid foreign card centers on representative edge
   const byId = new Map(layout.nodes.map((item) => [item.node.id, item]));
 
   const focusPairs = [
-    [KNOWLEDGE_PROTOTYPE_NODES[3]!.id, KNOWLEDGE_PROTOTYPE_NODES[7]!.id],
-    [KNOWLEDGE_PROTOTYPE_NODES[5]!.id, KNOWLEDGE_PROTOTYPE_NODES[11]!.id],
-    [KNOWLEDGE_PROTOTYPE_NODES[6]!.id, KNOWLEDGE_PROTOTYPE_NODES[11]!.id],
+    [KNOWLEDGE_PROTOTYPE_NODES[0]!.id, KNOWLEDGE_PROTOTYPE_NODES[1]!.id],
+    [KNOWLEDGE_PROTOTYPE_NODES[1]!.id, KNOWLEDGE_PROTOTYPE_NODES[4]!.id],
+    [KNOWLEDGE_PROTOTYPE_NODES[4]!.id, KNOWLEDGE_PROTOTYPE_NODES[5]!.id],
   ] as const;
 
   for (const [fromId, toId] of focusPairs) {
@@ -88,8 +89,8 @@ test("sampled connection paths avoid foreign card centers on representative edge
     }
   }
 
-  const membrane = byId.get(KNOWLEDGE_PROTOTYPE_NODES[3]!.id)!;
-  const solution = byId.get(KNOWLEDGE_PROTOTYPE_NODES[7]!.id)!;
-  assert.ok(Math.hypot(solution.x - membrane.x, solution.y - membrane.y) < 780);
-  assert.equal(cardsOverlap(membrane, solution, DESKTOP), false);
+  const space = byId.get(KNOWLEDGE_PROTOTYPE_NODES[1]!.id)!;
+  const field = byId.get(KNOWLEDGE_PROTOTYPE_NODES[22]!.id)!;
+  assert.ok(Math.hypot(field.x - space.x, field.y - space.y) < 780);
+  assert.equal(cardsOverlap(space, field, DESKTOP), false);
 });

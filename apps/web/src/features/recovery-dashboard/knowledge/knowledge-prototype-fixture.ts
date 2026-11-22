@@ -1,15 +1,14 @@
 /**
- * Development-only fixture for GAM-03B-VISUAL-01/02 and GAME-01D (19-node demo chapter).
- *
- * These records are synthetic and deliberately use the K900xxx range. They
- * are not sourced from docs/design, are not editorially approved, and must
- * never be imported by the public knowledge catalog.
+ * DEV-only fixture for Stratum 00. Provisional codes F00.01–F00.28 come from
+ * the playable specification. Runtime ids stay in the soma:K###### shape so
+ * they could later pass the public catalog checker, and they do not reuse the
+ * ontology's K000xxx concepts. Nothing here is editorially authorized.
  */
 import type {
+  KnowledgeCatalog,
   KnowledgeConcept,
   KnowledgeConceptId,
   KnowledgeRelation,
-  PublicKnowledgeCatalog,
 } from "./knowledge-types.js";
 
 export type KnowledgePrototypeState =
@@ -22,32 +21,41 @@ export type KnowledgePrototypeState =
 export type KnowledgePrototypeScenario = "start" | "middle" | "advanced";
 
 export type KnowledgePrototypeIllustration =
-  | "charge"
-  | "ion"
-  | "gradient"
-  | "membrane"
-  | "channel"
-  | "potential"
-  | "neuron"
-  | "solution"
-  | "equilibrium"
-  | "osmosis"
-  | "pump"
-  | "capacitance"
-  | "impulse"
-  | "dendrite"
-  | "axon"
-  | "synapse"
-  | "neurotransmitter"
-  | "receptor"
-  | "network";
+  | "root"
+  | "frame"
+  | "spacetime"
+  | "milestone"
+  | "compact"
+  | "field"
+  | "quantum"
+  | "bridge"
+  | "door"
+  | "open";
+
+export type PrototypeCluster = 1 | 2 | 3 | 4;
+
+export type PrototypeVisualRole = "milestone" | "compact" | "convergence" | "bridge" | "door" | "open";
 
 export type KnowledgePrototypeProgression =
   | { track: "spine"; tier: number }
-  | { track: "branch"; side: "left" | "right"; anchor: KnowledgeConceptId; dropRows: number };
+  | {
+      track: "branch";
+      side: "left" | "right";
+      anchor: KnowledgeConceptId;
+      dropRows: number;
+      chainDepth: number;
+    };
 
 export interface KnowledgePrototypeNode {
   id: KnowledgeConceptId;
+  provisionalCode: string;
+  sequence: number;
+  cluster: PrototypeCluster;
+  visualRole: PrototypeVisualRole;
+  essential: boolean;
+  generator: boolean;
+  /** Visual only. Field stays in cluster IV and keeps its playable parent. */
+  visualCue?: "forward-field";
   illustration: KnowledgePrototypeIllustration;
   progression: KnowledgePrototypeProgression;
 }
@@ -73,308 +81,451 @@ export interface KnowledgePrototypeDependency {
   to: KnowledgeConceptId;
 }
 
-const concept = (
-  sequence: number,
-  labels: { es: string; en: string },
-  definition: { es: string; en: string },
-  ontologyType: string,
-  families: readonly string[],
-  scale: string,
-  strata: readonly string[],
-): KnowledgeConcept & { editorialStatus: "published" } => ({
-  id: `soma:K9${String(sequence).padStart(5, "0")}`,
-  labels,
-  definition,
-  explanation: {
-    es: "Texto sintético para probar la jerarquía visual, la lectura y la apertura de fichas. No constituye contenido científico revisado ni una publicación editorial.",
-    en: "Synthetic copy used to test visual hierarchy, reading and card opening. It is neither reviewed scientific content nor an editorial publication.",
+/** Playable parents. Every multi-parent gate is AND. This is not the scientific graph. */
+export const STRATUM_PLAYABLE_PARENTS: Readonly<Record<number, readonly number[]>> = {
+  1: [],
+  2: [1],
+  3: [1],
+  4: [2, 3],
+  5: [2, 3],
+  6: [5],
+  7: [5],
+  8: [6, 7],
+  9: [8],
+  10: [2, 3],
+  11: [10],
+  12: [10],
+  13: [10],
+  14: [13],
+  15: [14],
+  16: [14, 11],
+  17: [14, 11],
+  18: [15],
+  19: [18],
+  20: [19],
+  21: [19],
+  22: [19, 20],
+  23: [2],
+  24: [4, 23],
+  25: [19, 23],
+  26: [6, 19, 23],
+  27: [8, 26],
+  28: [7],
+};
+
+const ESSENTIAL = new Set([1, 2, 3, 5, 6, 10, 13, 14, 15, 18, 19, 23, 26]);
+
+export function stratumRuntimeId(sequence: number): KnowledgeConceptId {
+  return `soma:K9${String(100 + sequence).padStart(5, "0")}` as KnowledgeConceptId;
+}
+
+export function stratumProvisionalCode(sequence: number) {
+  return `F00.${String(sequence).padStart(2, "0")}`;
+}
+
+interface NodeSeed {
+  sequence: number;
+  es: string;
+  en: string;
+  definitionEs: string;
+  definitionEn: string;
+  cluster: PrototypeCluster;
+  visualRole: PrototypeVisualRole;
+  illustration: KnowledgePrototypeIllustration;
+  progression:
+    | { track: "spine"; tier: number }
+    | { track: "branch"; side: "left" | "right"; anchor: number; dropRows: number; chainDepth: number };
+}
+
+const SEEDS: readonly NodeSeed[] = [
+  {
+    sequence: 1,
+    es: "Universo físico",
+    en: "Physical universe",
+    definitionEs: "Punto de partida del juego: la física estudia regularidades del mundo físico con magnitudes, modelos y límites de validez. No explica el origen del universo.",
+    definitionEn: "The game's starting point: physics studies regularities of the physical world with quantities, models and limits of validity. It does not explain the origin of the universe.",
+    cluster: 1,
+    visualRole: "milestone",
+    illustration: "root",
+    progression: { track: "spine", tier: 0 },
   },
-  ontologyType,
-  families,
-  scale,
-  strata,
-  editorialStatus: "published",
-  bindings: [],
-});
+  {
+    sequence: 2,
+    es: "Espacio",
+    en: "Space",
+    definitionEs: "Sirve para situar distancias y posiciones.",
+    definitionEn: "It is used to locate distances and positions.",
+    cluster: 1,
+    visualRole: "compact",
+    illustration: "frame",
+    progression: { track: "branch", side: "left", anchor: 1, dropRows: 0, chainDepth: 0 },
+  },
+  {
+    sequence: 3,
+    es: "Tiempo",
+    en: "Time",
+    definitionEs: "Ordena los cambios y permite hablar de antes y después.",
+    definitionEn: "It orders change and makes before and after meaningful.",
+    cluster: 1,
+    visualRole: "compact",
+    illustration: "frame",
+    progression: { track: "branch", side: "right", anchor: 1, dropRows: 0, chainDepth: 0 },
+  },
+  {
+    sequence: 4,
+    es: "Causalidad",
+    en: "Causality",
+    definitionEs: "Dos sucesos solo pueden influirse si el orden entre ellos lo permite. No es un requisito del espacio-tiempo.",
+    definitionEn: "Two events can influence each other only when the order between them allows it. It is not a requirement for spacetime.",
+    cluster: 1,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "right", anchor: 3, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 5,
+    es: "Espacio-tiempo",
+    en: "Spacetime",
+    definitionEs: "Espacio y tiempo se describen juntos. La separación entre sucesos depende del movimiento de quien mide.",
+    definitionEn: "Space and time are described together. The separation between events depends on the motion of whoever measures.",
+    cluster: 2,
+    visualRole: "convergence",
+    illustration: "spacetime",
+    progression: { track: "spine", tier: 1 },
+  },
+  {
+    sequence: 6,
+    es: "Relatividad especial",
+    en: "Special relativity",
+    definitionEs: "Las leyes adoptan la misma forma para observadores en movimiento uniforme, con un límite invariante para la luz en el vacío.",
+    definitionEn: "The laws take the same form for observers in uniform motion, with an invariant limit for light in vacuum.",
+    cluster: 2,
+    visualRole: "milestone",
+    illustration: "milestone",
+    progression: { track: "spine", tier: 2 },
+  },
+  {
+    sequence: 7,
+    es: "Gravitación",
+    en: "Gravitation",
+    definitionEs: "Los cuerpos se atraen. Es un hecho medido, anterior al modelo que lo explica.",
+    definitionEn: "Bodies attract one another. That is a measured fact, prior to the model that explains it.",
+    cluster: 2,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "right", anchor: 5, dropRows: 1, chainDepth: 0 },
+  },
+  {
+    sequence: 8,
+    es: "Relatividad general",
+    en: "General relativity",
+    definitionEs: "El modelo vigente describe la gravitación como geometría del espacio-tiempo. No es un requisito para estudiar partículas.",
+    definitionEn: "The current model describes gravitation as spacetime geometry. It is not a requirement for studying particles.",
+    cluster: 2,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 6, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 9,
+    es: "Geometría del espacio-tiempo",
+    en: "Spacetime geometry",
+    definitionEs: "Cerca de una masa, relojes y trayectorias siguen una geometría distinta de la del aula.",
+    definitionEn: "Near a mass, clocks and trajectories follow a geometry unlike the one of a classroom.",
+    cluster: 2,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 8, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 10,
+    es: "Simetría",
+    en: "Symmetry",
+    definitionEs: "Un cambio deja las leyes con la misma forma.",
+    definitionEn: "A change leaves the laws in the same form.",
+    cluster: 3,
+    visualRole: "milestone",
+    illustration: "milestone",
+    progression: { track: "spine", tier: 3 },
+  },
+  {
+    sequence: 11,
+    es: "Simetrías espaciales",
+    en: "Spatial symmetries",
+    definitionEs: "Trasladar o girar el experimento no cambia las leyes.",
+    definitionEn: "Translating or rotating the experiment does not change the laws.",
+    cluster: 3,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "right", anchor: 10, dropRows: 0, chainDepth: 0 },
+  },
+  {
+    sequence: 12,
+    es: "Simetría temporal",
+    en: "Time symmetry",
+    definitionEs: "Desplazar el instante de inicio no cambia las leyes.",
+    definitionEn: "Shifting the starting instant does not change the laws.",
+    cluster: 3,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 10, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 13,
+    es: "Teorema de Noether",
+    en: "Noether's theorem",
+    definitionEs: "Si la acción tiene una simetría continua, y las condiciones de contorno son las adecuadas, hay una magnitud que se conserva. No cubre cualquier parecido informal.",
+    definitionEn: "If the action has a continuous symmetry, and the boundary conditions are suitable, a quantity is conserved. It does not cover every informal resemblance.",
+    cluster: 3,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 10, dropRows: 0, chainDepth: 0 },
+  },
+  {
+    sequence: 14,
+    es: "Conservación",
+    en: "Conservation",
+    definitionEs: "En el dominio de aplicación de esa simetría, la magnitud asociada se mantiene.",
+    definitionEn: "Within the domain where that symmetry applies, the associated quantity is unchanged.",
+    cluster: 3,
+    visualRole: "milestone",
+    illustration: "milestone",
+    progression: { track: "spine", tier: 4 },
+  },
+  {
+    sequence: 15,
+    es: "Energía",
+    en: "Energy",
+    definitionEs: "Cuando las leyes no cambian al desplazar el tiempo, la energía de un sistema aislado se conserva y puede cambiar de forma.",
+    definitionEn: "When the laws do not change under a shift in time, the energy of an isolated system is conserved and can change form.",
+    cluster: 3,
+    visualRole: "compact",
+    illustration: "field",
+    progression: { track: "branch", side: "left", anchor: 14, dropRows: 0, chainDepth: 1 },
+  },
+  {
+    sequence: 16,
+    es: "Momento",
+    en: "Momentum",
+    definitionEs: "La invariancia ante traslaciones espaciales se corresponde con la conservación del momento.",
+    definitionEn: "Invariance under spatial translations corresponds to conservation of momentum.",
+    cluster: 3,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "right", anchor: 11, dropRows: 1, chainDepth: 2 },
+  },
+  {
+    sequence: 17,
+    es: "Momento angular",
+    en: "Angular momentum",
+    definitionEs: "La invariancia ante giros se corresponde con la conservación del momento angular. No es una rotación literal de una partícula puntual.",
+    definitionEn: "Invariance under rotations corresponds to conservation of angular momentum. It is not the literal spinning of a point particle.",
+    cluster: 3,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 14, dropRows: 1, chainDepth: 2 },
+  },
+  {
+    sequence: 18,
+    es: "Cuantización",
+    en: "Quantization",
+    definitionEs: "En muchos sistemas ligados, o al emitir y absorber luz, la energía cambia en cuantos. Un sistema libre puede tener un espectro continuo.",
+    definitionEn: "In many bound systems, or when light is emitted and absorbed, energy changes in quanta. A free system can have a continuous spectrum.",
+    cluster: 4,
+    visualRole: "compact",
+    illustration: "quantum",
+    progression: { track: "branch", side: "left", anchor: 15, dropRows: 1, chainDepth: 2 },
+  },
+  {
+    sequence: 19,
+    es: "Estado cuántico",
+    en: "Quantum state",
+    definitionEs: "El estado permite calcular probabilidades de resultados. No asigna a la vez una trayectoria clásica segura.",
+    definitionEn: "The state lets us calculate probabilities of outcomes. It does not also assign one certain classical trajectory.",
+    cluster: 4,
+    visualRole: "milestone",
+    illustration: "quantum",
+    progression: { track: "spine", tier: 5 },
+  },
+  {
+    sequence: 20,
+    es: "Superposición",
+    en: "Superposition",
+    definitionEs: "El estado puede combinar posibilidades que la experiencia cotidiana presenta por separado.",
+    definitionEn: "The state can combine possibilities that everyday experience presents separately.",
+    cluster: 4,
+    visualRole: "compact",
+    illustration: "quantum",
+    progression: { track: "branch", side: "left", anchor: 19, dropRows: 0, chainDepth: 0 },
+  },
+  {
+    sequence: 21,
+    es: "Incertidumbre",
+    en: "Uncertainty",
+    definitionEs: "Ciertos pares de magnitudes no quedan tan determinados a la vez como en la física clásica.",
+    definitionEn: "Certain pairs of quantities are not jointly as definite as in classical physics.",
+    cluster: 4,
+    visualRole: "compact",
+    illustration: "quantum",
+    progression: { track: "branch", side: "left", anchor: 19, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 22,
+    es: "Probabilidad de los resultados",
+    en: "Outcome probability",
+    definitionEs: "La teoría predice probabilidades. Cómo hablar de lo que ocurre entre la preparación y el resultado admite interpretaciones distintas.",
+    definitionEn: "The theory predicts probabilities. How to talk about what happens between preparation and outcome allows different interpretations.",
+    cluster: 4,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 20, dropRows: 1, chainDepth: 2 },
+  },
+  {
+    sequence: 23,
+    es: "Campo físico",
+    en: "Physical field",
+    definitionEs: "Un campo asigna una magnitud a cada lugar y describe una influencia sin exigir un contacto instantáneo a distancia.",
+    definitionEn: "A field assigns a quantity to each place and describes an influence without requiring instantaneous contact at a distance.",
+    cluster: 4,
+    visualRole: "milestone",
+    illustration: "field",
+    progression: { track: "branch", side: "left", anchor: 2, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 24,
+    es: "Interacción",
+    en: "Interaction",
+    definitionEs: "Un sistema cambia el comportamiento posible de otro solo dentro del orden causal permitido.",
+    definitionEn: "One system changes what another can do only within the causal order that is allowed.",
+    cluster: 4,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "left", anchor: 23, dropRows: 1, chainDepth: 2 },
+  },
+  {
+    sequence: 25,
+    es: "Teoría cuántica de campos",
+    en: "Quantum field theory",
+    definitionEs: "Las partículas se describen como excitaciones de campos cuánticos. Este marco no se deduce del espacio-tiempo y no es una teoría de gravedad cuántica.",
+    definitionEn: "Particles are described as excitations of quantum fields. This framework is not deduced from spacetime and is not a theory of quantum gravity.",
+    cluster: 4,
+    visualRole: "bridge",
+    illustration: "bridge",
+    progression: { track: "branch", side: "right", anchor: 19, dropRows: 1, chainDepth: 0 },
+  },
+  {
+    sequence: 26,
+    es: "Hacia el mundo subatómico",
+    en: "Toward the subatomic world",
+    definitionEs: "Puerta del estrato. Relatividad y física cuántica están bien comprobadas en sus dominios, y un marco único con la gravedad no está establecido. El estrato siguiente todavía no se puede jugar.",
+    definitionEn: "The stratum door. Relativity and quantum physics are well tested in their domains, and a single framework that includes gravity is not established. The next stratum cannot be played yet.",
+    cluster: 4,
+    visualRole: "door",
+    illustration: "door",
+    progression: { track: "spine", tier: 6 },
+  },
+  {
+    sequence: 27,
+    es: "Gravedad cuántica",
+    en: "Quantum gravity",
+    definitionEs: "Nombre de un problema teórico abierto. Esta ficha no contiene una solución.",
+    definitionEn: "The name of an open theoretical problem. This card does not contain a solution.",
+    cluster: 4,
+    visualRole: "open",
+    illustration: "open",
+    progression: { track: "branch", side: "right", anchor: 26, dropRows: 1, chainDepth: 1 },
+  },
+  {
+    sequence: 28,
+    es: "Principio de equivalencia",
+    en: "Equivalence principle",
+    definitionEs: "Caer en un campo gravitatorio y estar acelerado se parecen localmente.",
+    definitionEn: "Falling in a gravitational field and being accelerated are locally alike.",
+    cluster: 2,
+    visualRole: "compact",
+    illustration: "compact",
+    progression: { track: "branch", side: "right", anchor: 7, dropRows: 1, chainDepth: 1 },
+  },
+];
 
-const concepts = [
-  concept(
-    1,
-    { es: "Carga eléctrica", en: "Electric charge" },
-    {
-      es: "Concepto ilustrativo para iniciar el recorrido visual de prueba.",
-      en: "Illustrative concept used to start the prototype visual path.",
-    },
-    "physical_quantity",
-    ["physics"],
-    "scale_independent",
-    ["S1"],
-  ),
-  concept(
-    2,
-    { es: "Ion", en: "Ion" },
-    {
-      es: "Entidad sintética para comprobar una primera bifurcación del mapa.",
-      en: "Synthetic entity used to test the first branch of the map.",
-    },
-    "chemical_entity",
-    ["chemistry"],
-    "atomic",
-    ["S3"],
-  ),
-  concept(
-    3,
-    { es: "Gradiente", en: "Gradient" },
-    {
-      es: "Estado ilustrativo que forma la segunda rama del prototipo.",
-      en: "Illustrative state forming the second branch of the prototype.",
-    },
-    "quality_or_state",
-    ["physics", "chemistry"],
-    "scale_independent",
-    ["S1"],
-  ),
-  concept(
-    4,
-    { es: "Membrana", en: "Membrane" },
-    {
-      es: "Estructura sintética utilizada para visualizar la convergencia de ramas.",
-      en: "Synthetic structure used to visualise branches converging.",
-    },
-    "cellular_component",
-    ["cell_biology"],
-    "subcellular",
-    ["S6"],
-  ),
-  concept(
-    5,
-    { es: "Canal iónico", en: "Ion channel" },
-    {
-      es: "Componente ilustrativo disponible para probar estados interactivos.",
-      en: "Illustrative component available for testing interactive states.",
-    },
-    "cellular_component",
-    ["biochemistry", "cell_biology"],
-    "molecular",
-    ["S7"],
-  ),
-  concept(
-    6,
-    { es: "Potencial de membrana", en: "Membrane potential" },
-    {
-      es: "Estado sintético pendiente dentro del recorrido visual.",
-      en: "Synthetic pending state within the visual path.",
-    },
-    "quality_or_state",
-    ["physics", "physiology"],
-    "cellular",
-    ["S7"],
-  ),
-  concept(
-    7,
-    { es: "Neurona", en: "Neuron" },
-    {
-      es: "Nodo ilustrativo de convergencia bioeléctrica en la demo.",
-      en: "Illustrative bioelectric convergence node in the demo.",
-    },
-    "cell_type",
-    ["histology", "physiology"],
-    "cellular",
-    ["S8"],
-  ),
-  concept(
-    8,
-    { es: "Solución iónica", en: "Ionic solution" },
-    {
-      es: "Mezcla demostrativa para ampliar la rama química del capítulo.",
-      en: "Demonstration mixture extending the chapter's chemistry branch.",
-    },
-    "chemical_entity",
-    ["chemistry"],
-    "molecular",
-    ["S3"],
-  ),
-  concept(
-    9,
-    { es: "Equilibrio iónico", en: "Ionic equilibrium" },
-    {
-      es: "Estado ilustrativo de transición entre ramas convergentes.",
-      en: "Illustrative transition state between converging branches.",
-    },
-    "quality_or_state",
-    ["chemistry", "physics"],
-    "molecular",
-    ["S4"],
-  ),
-  concept(
-    10,
-    { es: "Ósmosis", en: "Osmosis" },
-    {
-      es: "Proceso sintético para enlazar gradientes y membranas en la demo.",
-      en: "Synthetic process linking gradients and membranes in the demo.",
-    },
-    "biological_process",
-    ["cell_biology", "chemistry"],
-    "cellular",
-    ["S5"],
-  ),
-  concept(
-    11,
-    { es: "Bomba iónica", en: "Ion pump" },
-    {
-      es: "Mecanismo demostrativo de transporte activo en el árbol.",
-      en: "Demonstration active-transport mechanism on the tree.",
-    },
-    "cellular_component",
-    ["cell_biology", "biochemistry"],
-    "molecular",
-    ["S7"],
-  ),
-  concept(
-    12,
-    { es: "Capacitancia", en: "Capacitance" },
-    {
-      es: "Magnitud ilustrativa que une electrónica y membrana en la demo.",
-      en: "Illustrative quantity linking electronics and membrane in the demo.",
-    },
-    "physical_quantity",
-    ["physics", "physiology"],
-    "cellular",
-    ["S2"],
-  ),
-  concept(
-    13,
-    { es: "Impulso eléctrico", en: "Electrical impulse" },
-    {
-      es: "Evento sintético para probar picos visuales tardíos.",
-      en: "Synthetic event for testing late visual peaks.",
-    },
-    "quality_or_state",
-    ["physiology", "physics"],
-    "cellular",
-    ["S8"],
-  ),
-  concept(
-    14,
-    { es: "Dendrita", en: "Dendrite" },
-    {
-      es: "Extensión neuronal demostrativa en la rama de comunicación.",
-      en: "Demonstration neuronal extension on the communication branch.",
-    },
-    "cellular_component",
-    ["histology"],
-    "cellular",
-    ["S8"],
-  ),
-  concept(
-    15,
-    { es: "Axón", en: "Axon" },
-    {
-      es: "Vía conductora ilustrativa hacia sinapsis en el capítulo demo.",
-      en: "Illustrative conducting path towards synapses in the demo chapter.",
-    },
-    "cellular_component",
-    ["histology", "physiology"],
-    "cellular",
-    ["S8"],
-  ),
-  concept(
-    16,
-    { es: "Sinapsis", en: "Synapse" },
-    {
-      es: "Zona de contacto sintética entre canales y vías neurales.",
-      en: "Synthetic contact zone between channels and neural paths.",
-    },
-    "cellular_component",
-    ["physiology", "cell_biology"],
-    "subcellular",
-    ["S9"],
-  ),
-  concept(
-    17,
-    { es: "Neurotransmisor", en: "Neurotransmitter" },
-    {
-      es: "Mensajero químico demostrativo; no constituye fármaco ni consejo clínico.",
-      en: "Demonstration chemical messenger; not a drug or clinical advice.",
-    },
-    "chemical_entity",
-    ["biochemistry", "physiology"],
-    "molecular",
-    ["S9"],
-  ),
-  concept(
-    18,
-    { es: "Receptor", en: "Receptor" },
-    {
-      es: "Componente ilustrativo de acoplamiento en la fase tardía del capítulo.",
-      en: "Illustrative coupling component in the late chapter phase.",
-    },
-    "cellular_component",
-    ["biochemistry", "physiology"],
-    "molecular",
-    ["S9"],
-  ),
-  concept(
-    19,
-    { es: "Red neuronal", en: "Neural network" },
-    {
-      es: "Cierre demostrativo del cuaderno de 19 descubrimientos del prototipo.",
-      en: "Demonstration finale of the prototype's 19-discovery notebook.",
-    },
-    "anatomical_structure",
-    ["physiology", "neuroscience"],
-    "organ",
-    ["S10"],
-  ),
-] as const;
+const DISCLAIMER = {
+  es: "Texto de prototipo DEV. No es una publicación editorial autorizada.",
+  en: "DEV prototype copy. This is not an authorized editorial publication.",
+};
 
-const relation = (
-  sequence: number,
-  subject: KnowledgeConceptId,
-  object: KnowledgeConceptId,
-): KnowledgeRelation & { editorialStatus: "published" } => ({
-  id: `soma:R9${String(sequence).padStart(5, "0")}`,
-  subject,
-  predicate: "related_to",
-  object,
-  editorialStatus: "published",
-});
+/**
+ * KnowledgeConcept requires these slots. They are compatibility values for the
+ * DEV fixture, not editorial or ontological decisions. The public catalog
+ * builder admits only editorialStatus "published", so these records stay out
+ * of PUBLIC_KNOWLEDGE_CATALOG. The detail sheet hides them and shows F00.
+ */
+const DEV_FIXTURE_COMPATIBILITY = {
+  ontologyType: "dev_fixture",
+  families: ["dev_fixture"],
+  scale: "dev_fixture",
+  strata: ["DEV-S00"],
+  editorialStatus: "candidate",
+} as const;
 
-const bySequence = (sequence: number) => concepts[sequence - 1]!.id;
+function toConcept(seed: NodeSeed): KnowledgeConcept {
+  return {
+    id: stratumRuntimeId(seed.sequence),
+    labels: { es: seed.es, en: seed.en },
+    definition: { es: seed.definitionEs, en: seed.definitionEn },
+    explanation: DISCLAIMER,
+    ...DEV_FIXTURE_COMPATIBILITY,
+    families: DEV_FIXTURE_COMPATIBILITY.families,
+    strata: DEV_FIXTURE_COMPATIBILITY.strata,
+    bindings: [],
+  };
+}
 
-export const KNOWLEDGE_PROTOTYPE_CATALOG = {
+function toNode(seed: NodeSeed): KnowledgePrototypeNode {
+  const id = stratumRuntimeId(seed.sequence);
+  const progression: KnowledgePrototypeProgression =
+    seed.progression.track === "spine"
+      ? { track: "spine", tier: seed.progression.tier }
+      : {
+          track: "branch",
+          side: seed.progression.side,
+          anchor: stratumRuntimeId(seed.progression.anchor),
+          dropRows: seed.progression.dropRows,
+          chainDepth: seed.progression.chainDepth,
+        };
+  return {
+    id,
+    provisionalCode: stratumProvisionalCode(seed.sequence),
+    sequence: seed.sequence,
+    cluster: seed.cluster,
+    visualRole: seed.visualRole,
+    essential: ESSENTIAL.has(seed.sequence),
+    generator: seed.sequence === 1 || seed.sequence === 5 || seed.sequence === 15 || seed.sequence === 23,
+    visualCue: seed.sequence === 23 ? "forward-field" : undefined,
+    illustration: seed.illustration,
+    progression,
+  };
+}
+
+export const KNOWLEDGE_PROTOTYPE_NODES: readonly KnowledgePrototypeNode[] = SEEDS.map(toNode);
+
+export const KNOWLEDGE_PROTOTYPE_SPINE_IDS: readonly KnowledgeConceptId[] = KNOWLEDGE_PROTOTYPE_NODES.filter(
+  (node) => node.progression.track === "spine",
+).sort((left, right) => {
+  const leftTier = left.progression.track === "spine" ? left.progression.tier : 0;
+  const rightTier = right.progression.track === "spine" ? right.progression.tier : 0;
+  return leftTier - rightTier;
+}).map((node) => node.id);
+
+const concepts = SEEDS.map(toConcept);
+
+export const KNOWLEDGE_PROTOTYPE_CATALOG: KnowledgeCatalog = {
   concepts,
   relations: [
-    relation(1, bySequence(1), bySequence(2)),
-    relation(2, bySequence(1), bySequence(3)),
-    relation(3, bySequence(1), bySequence(12)),
-    relation(4, bySequence(2), bySequence(4)),
-    relation(5, bySequence(2), bySequence(8)),
-    relation(6, bySequence(3), bySequence(10)),
-    relation(7, bySequence(3), bySequence(4)),
-    relation(8, bySequence(4), bySequence(5)),
-    relation(9, bySequence(4), bySequence(11)),
-    relation(10, bySequence(4), bySequence(6)),
-    relation(11, bySequence(5), bySequence(16)),
-    relation(12, bySequence(6), bySequence(7)),
-    relation(13, bySequence(6), bySequence(13)),
-    relation(14, bySequence(6), bySequence(12)),
-    relation(15, bySequence(5), bySequence(7)),
-    relation(16, bySequence(7), bySequence(14)),
-    relation(17, bySequence(7), bySequence(15)),
-    relation(18, bySequence(8), bySequence(9)),
-    relation(19, bySequence(9), bySequence(10)),
-    relation(20, bySequence(10), bySequence(11)),
-    relation(21, bySequence(12), bySequence(13)),
-    relation(22, bySequence(14), bySequence(15)),
-    relation(23, bySequence(15), bySequence(16)),
-    relation(24, bySequence(16), bySequence(17)),
-    relation(25, bySequence(17), bySequence(18)),
-    relation(26, bySequence(13), bySequence(19)),
-    relation(27, bySequence(15), bySequence(19)),
-    relation(28, bySequence(18), bySequence(19)),
-    relation(29, bySequence(11), bySequence(6)),
-    relation(30, bySequence(16), bySequence(18)),
+    relation(1, 2, 5),
+    relation(2, 1, 2),
+    relation(3, 12, 15),
+    relation(4, 28, 8),
+    relation(5, 23, 25),
   ],
   prerequisites: [],
   prerequisitePolicy: {
@@ -382,152 +533,64 @@ export const KNOWLEDGE_PROTOTYPE_CATALOG = {
     grantsXp: false,
     incomingAreCumulative: false,
   },
-} satisfies PublicKnowledgeCatalog;
+};
 
-export const KNOWLEDGE_PROTOTYPE_SPINE_IDS: readonly KnowledgeConceptId[] = [
-  bySequence(1),
-  bySequence(2),
-  bySequence(3),
-  bySequence(4),
-  bySequence(5),
-  bySequence(6),
-  bySequence(7),
-  bySequence(14),
-  bySequence(15),
-  bySequence(16),
-  bySequence(17),
-  bySequence(18),
-  bySequence(19),
-];
-
-export const KNOWLEDGE_PROTOTYPE_NODES: readonly KnowledgePrototypeNode[] = [
-  { id: bySequence(1), illustration: "charge", progression: { track: "spine", tier: 0 } },
-  { id: bySequence(2), illustration: "ion", progression: { track: "spine", tier: 1 } },
-  { id: bySequence(3), illustration: "gradient", progression: { track: "spine", tier: 2 } },
-  { id: bySequence(4), illustration: "membrane", progression: { track: "spine", tier: 3 } },
-  { id: bySequence(5), illustration: "channel", progression: { track: "spine", tier: 4 } },
-  { id: bySequence(6), illustration: "potential", progression: { track: "spine", tier: 5 } },
-  { id: bySequence(7), illustration: "neuron", progression: { track: "spine", tier: 6 } },
-  {
-    id: bySequence(8),
-    illustration: "solution",
-    progression: { track: "branch", side: "left", anchor: bySequence(4), dropRows: 0.55 },
-  },
-  {
-    id: bySequence(9),
-    illustration: "equilibrium",
-    progression: { track: "branch", side: "left", anchor: bySequence(8), dropRows: 0.55 },
-  },
-  {
-    id: bySequence(10),
-    illustration: "osmosis",
-    progression: { track: "branch", side: "left", anchor: bySequence(9), dropRows: 0.55 },
-  },
-  {
-    id: bySequence(11),
-    illustration: "pump",
-    progression: { track: "branch", side: "left", anchor: bySequence(10), dropRows: 0.55 },
-  },
-  {
-    id: bySequence(12),
-    illustration: "capacitance",
-    progression: { track: "branch", side: "right", anchor: bySequence(6), dropRows: 0.55 },
-  },
-  {
-    id: bySequence(13),
-    illustration: "impulse",
-    progression: { track: "branch", side: "right", anchor: bySequence(12), dropRows: 0.55 },
-  },
-  { id: bySequence(14), illustration: "dendrite", progression: { track: "spine", tier: 7 } },
-  { id: bySequence(15), illustration: "axon", progression: { track: "spine", tier: 8 } },
-  { id: bySequence(16), illustration: "synapse", progression: { track: "spine", tier: 9 } },
-  { id: bySequence(17), illustration: "neurotransmitter", progression: { track: "spine", tier: 10 } },
-  { id: bySequence(18), illustration: "receptor", progression: { track: "spine", tier: 11 } },
-  { id: bySequence(19), illustration: "network", progression: { track: "spine", tier: 12 } },
-];
-
-/** Game-only prerequisites: spine chain plus delayed lateral branches. */
-export const KNOWLEDGE_PROTOTYPE_DEPENDENCIES: readonly KnowledgePrototypeDependency[] = [
-  { id: "game-spine-01", from: bySequence(1), to: bySequence(2) },
-  { id: "game-spine-02", from: bySequence(2), to: bySequence(3) },
-  { id: "game-spine-03", from: bySequence(3), to: bySequence(4) },
-  { id: "game-spine-04", from: bySequence(4), to: bySequence(5) },
-  { id: "game-spine-05", from: bySequence(5), to: bySequence(6) },
-  { id: "game-spine-06", from: bySequence(6), to: bySequence(7) },
-  { id: "game-spine-07", from: bySequence(7), to: bySequence(14) },
-  { id: "game-spine-08", from: bySequence(14), to: bySequence(15) },
-  { id: "game-spine-09", from: bySequence(15), to: bySequence(16) },
-  { id: "game-spine-10", from: bySequence(16), to: bySequence(17) },
-  { id: "game-spine-11", from: bySequence(17), to: bySequence(18) },
-  { id: "game-spine-12", from: bySequence(18), to: bySequence(19) },
-  { id: "game-branch-01", from: bySequence(4), to: bySequence(8) },
-  { id: "game-branch-02", from: bySequence(8), to: bySequence(9) },
-  { id: "game-branch-03", from: bySequence(4), to: bySequence(10) },
-  { id: "game-branch-04", from: bySequence(9), to: bySequence(10) },
-  { id: "game-branch-05", from: bySequence(10), to: bySequence(11) },
-  { id: "game-branch-06", from: bySequence(6), to: bySequence(12) },
-  { id: "game-branch-07", from: bySequence(12), to: bySequence(13) },
-  { id: "game-branch-08", from: bySequence(7), to: bySequence(13) },
-];
-
-function scenarioStates(
-  values: readonly (KnowledgePrototypeState | { state: KnowledgePrototypeState; progress: number })[],
-): KnowledgePrototypeScenarioDefinition["states"] {
-  return Object.fromEntries(
-    KNOWLEDGE_PROTOTYPE_NODES.map((node, index) => {
-      const value = values[index]!;
-      return [node.id, typeof value === "string" ? { state: value } : value];
-    }),
-  );
+function relation(index: number, subject: number, object: number): KnowledgeRelation {
+  return {
+    id: `soma:R9${String(100 + index).padStart(5, "0")}` as KnowledgeRelation["id"],
+    subject: stratumRuntimeId(subject),
+    predicate: "related_to",
+    object: stratumRuntimeId(object),
+    editorialStatus: "candidate",
+  };
 }
 
-export const KNOWLEDGE_PROTOTYPE_SCENARIOS: Readonly<
-  Record<KnowledgePrototypeScenario, KnowledgePrototypeScenarioDefinition>
-> = {
+export const KNOWLEDGE_PROTOTYPE_DEPENDENCIES: readonly KnowledgePrototypeDependency[] = Object.entries(
+  STRATUM_PLAYABLE_PARENTS,
+).flatMap(([child, parents]) =>
+  parents.map((parent) => ({
+    id: `proto-j-${parent}-${child}`,
+    from: stratumRuntimeId(parent),
+    to: stratumRuntimeId(Number(child)),
+  })),
+);
+
+function visibilityStates(discovered: readonly number[]) {
+  const owned = new Set(discovered.map((sequence) => stratumRuntimeId(sequence)));
+  const states = {} as Record<KnowledgeConceptId, { state: KnowledgePrototypeState; progress?: number }>;
+  for (const sequence of Object.keys(STRATUM_PLAYABLE_PARENTS).map(Number)) {
+    const id = stratumRuntimeId(sequence);
+    const parents = STRATUM_PLAYABLE_PARENTS[sequence] ?? [];
+    const parentIds = parents.map((parent) => stratumRuntimeId(parent));
+    if (owned.has(id)) states[id] = { state: "discovered" };
+    else if (parentIds.every((parent) => owned.has(parent))) states[id] = { state: "available" };
+    else if (parentIds.some((parent) => owned.has(parent))) states[id] = { state: "hinted" };
+    else states[id] = { state: "hidden" };
+  }
+  return states;
+}
+
+const middleStates = visibilityStates([1, 2, 3, 5, 6, 10]);
+middleStates[stratumRuntimeId(7)] = { state: "researching", progress: 58 };
+
+export const KNOWLEDGE_PROTOTYPE_SCENARIOS: Readonly<Record<KnowledgePrototypeScenario, KnowledgePrototypeScenarioDefinition>> = {
   start: {
     id: "start",
-    sparks: 120,
+    sparks: 0,
     productionPerMinute: 0,
-    states: scenarioStates([
-      "discovered",
-      "available",
-      "hidden",
-      ...Array.from({ length: 16 }, () => "hidden" as const),
-    ]),
+    states: visibilityStates([1]),
   },
   middle: {
     id: "middle",
-    sparks: 2480,
-    productionPerMinute: 34,
-    states: scenarioStates([
-      "discovered",
-      "discovered",
-      "discovered",
-      "discovered",
-      "discovered",
-      "discovered",
-      "discovered",
-      "hidden",
-      "hidden",
-      "hidden",
-      "hidden",
-      "hidden",
-      "hidden",
-      { state: "researching", progress: 58 },
-      "available",
-      "hinted",
-      ...Array.from({ length: 3 }, () => "hidden" as const),
-    ]),
+    sparks: 0,
+    productionPerMinute: 0,
+    states: middleStates,
   },
   advanced: {
     id: "advanced",
-    sparks: 14800,
-    productionPerMinute: 112,
-    states: scenarioStates([
-      ...Array.from({ length: 17 }, () => "discovered" as const),
-      { state: "researching", progress: 76 },
-      "hinted",
-    ]),
+    sparks: 0,
+    productionPerMinute: 0,
+    states: visibilityStates([1, 2, 3, 5, 6, 10, 13, 14, 15, 18, 19, 23, 26]),
   },
 };
 
@@ -543,7 +606,7 @@ export function prototypeNodesForScenario(
 
 export function prototypeCatalogForScenario(
   scenario: KnowledgePrototypeScenario,
-): PublicKnowledgeCatalog {
+): KnowledgeCatalog {
   const identifiable = new Set(
     prototypeNodesForScenario(scenario)
       .filter((node) => node.state !== "hinted" && node.state !== "hidden")
@@ -553,15 +616,15 @@ export function prototypeCatalogForScenario(
     ...KNOWLEDGE_PROTOTYPE_CATALOG,
     concepts: KNOWLEDGE_PROTOTYPE_CATALOG.concepts.filter((concept) => identifiable.has(concept.id)),
     relations: KNOWLEDGE_PROTOTYPE_CATALOG.relations.filter(
-      (relation) => identifiable.has(relation.subject) && identifiable.has(relation.object),
+      (item) => identifiable.has(item.subject) && identifiable.has(item.object),
     ),
   };
 }
 
 export function validatePrototypeChapterGraph() {
   const nodeIds = new Set(KNOWLEDGE_PROTOTYPE_NODES.map((node) => node.id));
-  if (nodeIds.size !== 19) {
-    throw new Error(`Expected 19 prototype nodes, found ${nodeIds.size}`);
+  if (nodeIds.size !== 28) {
+    throw new Error(`Expected 28 prototype nodes, found ${nodeIds.size}`);
   }
   const indegree = new Map<KnowledgeConceptId, number>();
   const outgoing = new Map<KnowledgeConceptId, KnowledgeConceptId[]>();
@@ -571,46 +634,25 @@ export function validatePrototypeChapterGraph() {
   }
   for (const edge of KNOWLEDGE_PROTOTYPE_DEPENDENCIES) {
     if (!nodeIds.has(edge.from) || !nodeIds.has(edge.to)) {
-      throw new Error(`Dependency references unknown node: ${edge.id}`);
+      throw new Error(`Playable edge ${edge.id} leaves the fixture.`);
     }
+    outgoing.get(edge.from)?.push(edge.to);
     indegree.set(edge.to, (indegree.get(edge.to) ?? 0) + 1);
-    outgoing.set(edge.from, [...(outgoing.get(edge.from) ?? []), edge.to]);
   }
-  const root = KNOWLEDGE_PROTOTYPE_NODES[0]!.id;
-  if ((indegree.get(root) ?? 0) !== 0) {
-    throw new Error("Chapter root must have zero incoming game dependencies");
-  }
-  for (const node of KNOWLEDGE_PROTOTYPE_NODES.slice(1)) {
-    if ((indegree.get(node.id) ?? 0) === 0) {
-      throw new Error(`Unreachable or floating node without prerequisites: ${node.id}`);
-    }
-  }
-  const visited = new Set<KnowledgeConceptId>();
-  const queue: KnowledgeConceptId[] = [root];
-  while (queue.length > 0) {
-    const id = queue.shift()!;
-    if (visited.has(id)) continue;
-    visited.add(id);
-    for (const next of outgoing.get(id) ?? []) {
-      queue.push(next);
-    }
-  }
-  if (visited.size !== nodeIds.size) {
-    throw new Error("Not all prototype nodes are reachable from the chapter root");
-  }
+  const queue = [...nodeIds].filter((id) => indegree.get(id) === 0);
   const ordering: KnowledgeConceptId[] = [];
-  const scratch = new Map(indegree);
-  const ready = [...nodeIds].filter((id) => (scratch.get(id) ?? 0) === 0);
-  while (ready.length > 0) {
-    const id = ready.shift()!;
-    ordering.push(id);
-    for (const next of outgoing.get(id) ?? []) {
-      scratch.set(next, (scratch.get(next) ?? 1) - 1);
-      if (scratch.get(next) === 0) ready.push(next);
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (!current) break;
+    ordering.push(current);
+    for (const next of outgoing.get(current) ?? []) {
+      const remaining = (indegree.get(next) ?? 0) - 1;
+      indegree.set(next, remaining);
+      if (remaining === 0) queue.push(next);
     }
   }
   if (ordering.length !== nodeIds.size) {
-    throw new Error("Cycle detected in prototype game dependencies");
+    throw new Error("The playable Stratum 00 graph has a cycle.");
   }
   return { ordering, edgeCount: KNOWLEDGE_PROTOTYPE_DEPENDENCIES.length };
 }

@@ -3,7 +3,7 @@ import type {
   KnowledgeConcept,
   KnowledgeConceptId,
   KnowledgeRelation,
-  PublicKnowledgeCatalog,
+  KnowledgeCatalog,
 } from "./knowledge-types.js";
 
 export const KNOWLEDGE_MAP_VIEWBOX = {
@@ -57,7 +57,7 @@ export interface KnowledgeMapModel {
  * remain owned by UI-01A's neighborhood builder.
  */
 export function buildKnowledgeMapModel(
-  catalog: PublicKnowledgeCatalog,
+  catalog: KnowledgeCatalog,
   rootId: KnowledgeConceptId,
   depth: 1 | 2,
 ): KnowledgeMapModel {

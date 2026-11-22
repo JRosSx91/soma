@@ -29,6 +29,7 @@ import type {
   KnowledgeConceptId,
   KnowledgePredicate,
   KnowledgeRelation,
+  KnowledgeCatalog,
   PublicKnowledgeCatalog,
 } from "./knowledge-types.js";
 
@@ -261,12 +262,14 @@ export function KnowledgeConceptDetail({
   language,
   onSelect,
   illustration,
+  devFixture,
 }: {
   concept: KnowledgeConcept;
-  catalog: PublicKnowledgeCatalog;
+  catalog: KnowledgeCatalog;
   language: "es" | "en";
   onSelect: (id: KnowledgeConceptId) => void;
   illustration?: ReactNode;
+  devFixture?: { code: string; codeLabel: string; note: string };
 }) {
   const { t } = useTranslation("knowledge");
   const base = useShellBase();
@@ -343,12 +346,19 @@ export function KnowledgeConceptDetail({
           </ul>
         </section>
       ) : null}
-      <dl className="grid gap-3 rounded-xl border border-soma-line bg-soma-canvas/40 p-3 sm:grid-cols-2">
-        <Metadata label={t("detail.type")} value={vocabularyLabel(t, "ontologyTypes", concept.ontologyType)} />
-        <Metadata label={t("detail.scale")} value={vocabularyLabel(t, "scales", concept.scale)} />
-        <Metadata label={t("detail.families")} value={concept.families.map((id) => vocabularyLabel(t, "families", id)).join(", ")} />
-        <Metadata label={t("detail.strata")} value={concept.strata.map((id) => vocabularyLabel(t, "strata", id)).join(", ")} />
-      </dl>
+      {devFixture ? (
+        <dl className="grid gap-3 rounded-xl border border-dashed border-soma-warning/40 bg-soma-canvas/40 p-3" data-knowledge-dev-fixture="true">
+          <Metadata label={devFixture.codeLabel} value={devFixture.code} />
+          <p className="text-xs leading-relaxed text-soma-ink-muted">{devFixture.note}</p>
+        </dl>
+      ) : (
+        <dl className="grid gap-3 rounded-xl border border-soma-line bg-soma-canvas/40 p-3 sm:grid-cols-2">
+          <Metadata label={t("detail.type")} value={vocabularyLabel(t, "ontologyTypes", concept.ontologyType)} />
+          <Metadata label={t("detail.scale")} value={vocabularyLabel(t, "scales", concept.scale)} />
+          <Metadata label={t("detail.families")} value={concept.families.map((id) => vocabularyLabel(t, "families", id)).join(", ")} />
+          <Metadata label={t("detail.strata")} value={concept.strata.map((id) => vocabularyLabel(t, "strata", id)).join(", ")} />
+        </dl>
+      )}
 
       <KnowledgeContextMap
         key={concept.id}
@@ -467,7 +477,7 @@ function RelationSection({
     relation: KnowledgeRelation;
     otherId: KnowledgeConceptId;
   }[];
-  catalog: PublicKnowledgeCatalog;
+  catalog: KnowledgeCatalog;
   language: "es" | "en";
   onSelect: (id: KnowledgeConceptId) => void;
 }) {

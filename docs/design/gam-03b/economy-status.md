@@ -24,12 +24,27 @@ Estas decisiones describen la dirección vigente. Las cifras del balance B2/ECON
 - El catálogo público está vacío. El manifiesto no autoriza conceptos, relaciones ni prerrequisitos.
 - Las fichas pueden mostrar explicación, ejemplo, aclaraciones y fuentes cuando un concepto publicado las traiga.
 - `/preview/dev/knowledge-prototype` existe solo en desarrollo. La build de producción no debe servir esa ruta.
-- El prototipo de 19 nodos ejecuta el motor B2/ECON-01D: Chispas en milichispas enteras, saldo sin tope, pulsación del fondo, potencia por toque y generadores con producción offline. Sigue siendo un banco de pruebas. No es el catálogo de 28 conceptos del Estrato 00.
+- El prototipo DEV ejecuta el Estrato 00 con los 28 conceptos F00.01–F00.28 y el motor B2/ECON-01D: Chispas en milichispas enteras, saldo sin tope, pulsación del fondo, potencia por toque y generadores con producción offline. Sigue siendo una fixture de desarrollo. No es una publicación editorial.
 - La partida DEV se guarda solo en `soma.dev.knowledge-prototype.economy.v1`. Una versión o un identificador de balance distinto descarta esa partida local y no toca datos de recuperación.
 
-## Correspondencia provisional del banco de 19 nodos
+## Fixture DEV del Estrato 00
 
-No son identificaciones científicas. Sirven para poder jugar las cifras aprobadas sobre la fixture actual.
+La correspondencia neuronal de 19 nodos quedó sustituida. Esta tabla describe la partida actual y no autoriza publicación.
+
+| Pieza B2 | Concepto del Estrato 00 | Identificador de ejecución |
+| --- | --- | --- |
+| Generador, niveles 1 a 5 | F00.01 Universo físico | `f00-universe` |
+| Generador | F00.05 Espacio-tiempo | `f00-spacetime` |
+| Generador | F00.23 Campo físico | `f00-field` |
+| Generador y puerta de la potencia T1 | F00.15 Energía | `f00-energy` |
+| Puerta de la potencia T2 | Estrato posterior, bloqueada | — |
+| Puerta de la potencia T3 | Estrato posterior, bloqueada | — |
+
+Los identificadores de ejecución son `soma:K900101`–`soma:K900128`. No reutilizan la ontología `soma:K000xxx` ni el banco neuronal `soma:K900001`–`soma:K900019`. El balance es `b2-econ-01d-s00-28` y la versión de guardado es 2. Una partida del banco anterior se descarta. Los 13 conceptos esenciales suman 18.564 chispas y los 28 suman 49.702. La puerta F00.26 cuesta 0. T2 y T3 no se compran en este capítulo.
+
+## Historial del banco neuronal
+
+No son identificaciones científicas. Describen el banco de 19 nodos que esta fixture reemplazó.
 
 | Pieza B2 | Sustituto en la fixture | Secuencia |
 | --- | --- | --- |
