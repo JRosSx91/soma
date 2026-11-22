@@ -87,3 +87,47 @@
     transform: translateX(-50%);
   }
 }
+
+@keyframes knowledge-prototype-scenario-enter {
+  from {
+    opacity: 0.92;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.knowledge-prototype-scenario-enter {
+  animation: knowledge-prototype-scenario-enter 280ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-prototype-scenario-enter {
+    animation: none;
+  }
+}
+
+@keyframes knowledge-prototype-tap-ripple {
+  from {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.55);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.1);
+  }
+}
+
+.knowledge-prototype-tap-ripple {
+  animation: knowledge-prototype-tap-ripple 420ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-prototype-tap-ripple {
+    animation: none;
+    opacity: 0.28;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

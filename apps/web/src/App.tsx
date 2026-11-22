@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.js";
 import { RegisterPage } from "./pages/RegisterPage.js";
@@ -30,6 +31,31 @@ import {
   PrivacyPage,
   TermsPage,
 } from "./features/legal/LegalDocumentPage.js";
+
+const DevKnowledgePrototypePage = import.meta.env.DEV
+  ? lazy(() =>
+      import(
+        "./features/recovery-dashboard/pages/KnowledgePrototypePage.js"
+      ).then((module) => ({ default: module.KnowledgePrototypePage })),
+    )
+  : null;
+
+function KnowledgePrototypeDevRoute() {
+  if (!import.meta.env.DEV || !DevKnowledgePrototypePage) {
+    return <NotFoundPage />;
+  }
+  return (
+    <Suspense
+      fallback={
+        <p role="status" className="p-6 text-sm text-soma-ink-secondary">
+          Loading local prototype…
+        </p>
+      }
+    >
+      <DevKnowledgePrototypePage />
+    </Suspense>
+  );
+}
 
 /**
  * Public `/` (PERF-01B): paint the landing while AuthProvider restores the
@@ -85,6 +111,12 @@ function App() {
         <Route path="/preview">
           <Route element={<PreviewShell base="/preview" />}>
             {soma2Pages}
+            {import.meta.env.DEV ? (
+              <Route
+                path="dev/knowledge-prototype"
+                element={<KnowledgePrototypeDevRoute />}
+              />
+            ) : null}
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>

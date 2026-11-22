@@ -1,0 +1,584 @@
+import { useId, useRef, useState } from "react";
+import { previewFocus } from "../focus.js";
+import type {
+  KnowledgePrototypeDependency,
+  KnowledgePrototypeIllustration,
+  KnowledgePrototypeScenarioNode,
+  KnowledgePrototypeState,
+} from "./knowledge-prototype-fixture.js";
+import type { KnowledgeConcept, KnowledgeConceptId, PublicKnowledgeCatalog } from "./knowledge-types.js";
+import {
+  buildPrototypeLayout,
+  type PrototypeCanvasMetrics,
+} from "./knowledge-prototype-layout.js";
+import { prototypeCardFootprint } from "./knowledge-prototype-organic-layout.js";
+import {
+  buildRenderedConnections,
+  connectionStrokeStyle,
+  exploredFrontierY,
+  verticalFlowPath,
+} from "./knowledge-prototype-connections.js";
+import { KNOWLEDGE_PROTOTYPE_COPY } from "./knowledge-prototype-copy.js";
+import {
+  buildStratumZones,
+  stratumPatternNodes,
+  type PrototypeStratumZone,
+} from "./knowledge-prototype-strata.js";
+
+const DESKTOP_METRICS: PrototypeCanvasMetrics = {
+  width: 1000,
+  top: 92,
+  rowGap: 200,
+  sideMargin: 130,
+  cardHalfHeight: 96,
+};
+
+const MOBILE_METRICS: PrototypeCanvasMetrics = {
+  width: 360,
+  top: 84,
+  rowGap: 198,
+  sideMargin: 72,
+  cardHalfHeight: 88,
+};
+
+export function KnowledgePrototypeTree({
+  catalog,
+  nodes,
+  dependencies,
+  language,
+  selectedId,
+  onSelect,
+  onDiscover,
+  discoveryCost,
+  canDiscover,
+  onMapAnalyze,
+  scenarioKey,
+}: {
+  catalog: PublicKnowledgeCatalog;
+  nodes: readonly KnowledgePrototypeScenarioNode[];
+  dependencies: readonly KnowledgePrototypeDependency[];
+  language: "es" | "en";
+  selectedId: KnowledgeConceptId | null;
+  onSelect: (id: KnowledgeConceptId) => void;
+  onDiscover?: (id: KnowledgeConceptId) => void;
+  discoveryCost?: (id: KnowledgeConceptId) => number;
+  canDiscover?: (id: KnowledgeConceptId) => boolean;
+  onMapAnalyze?: () => void;
+  scenarioKey?: string;
+}) {
+  const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
+  const concepts = new Map(catalog.concepts.map((concept) => [concept.id, concept]));
+  const visibleIds = new Set(nodes.filter((node) => node.state !== "hidden").map((node) => node.id));
+  const relations = catalog.relations.filter(
+    (relation) => visibleIds.has(relation.subject) && visibleIds.has(relation.object),
+  );
+  const visibleDependencies = dependencies.filter(
+    (dependency) => visibleIds.has(dependency.from) && visibleIds.has(dependency.to),
+  );
+  const states = new Map(nodes.map((node) => [node.id, node.state]));
+  const labelFor = (id: KnowledgeConceptId) =>
+    states.get(id) === "hinted"
+      ? copy.unknownDiscovery
+      : concepts.get(id)?.labels[language] ?? copy.unknownDiscovery;
+
+  return (
+    <section
+      data-prototype-map="true"
+      data-prototype-layout="vertical"
+      data-prototype-layout-organic="true"
+      data-prototype-background="strata"
+      aria-labelledby="knowledge-prototype-tree-title"
+      className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[#040a11]"
+    >
+      <h2 id="knowledge-prototype-tree-title" className="sr-only">{copy.mapTitle}</h2>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(182deg,#060f18_0%,#051018_38%,#040b12_68%,#060a10_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_52%_at_50%_-4%,rgb(42_132_166_/_0.22),transparent_58%),radial-gradient(ellipse_48%_40%_at_12%_52%,rgb(95_68_150_/_0.14),transparent_62%),radial-gradient(ellipse_42%_36%_at_88%_48%,rgb(56_110_140_/_0.12),transparent_64%)]" />
+        <div className="absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgb(140_210_196_/_0.05)_1px,transparent_1px),linear-gradient(90deg,rgb(140_210_196_/_0.05)_1px,transparent_1px)] [background-size:48px_48px]" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgb(104_216_192_/_0.08),transparent)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(0deg,rgb(74_48_120_/_0.12),transparent)]" />
+      </div>
+
+      <div
+        key={scenarioKey}
+        className={`relative h-full overflow-x-hidden overflow-y-auto overscroll-contain px-2 pb-8 pt-4 [scrollbar-gutter:stable] sm:px-4${scenarioKey ? " knowledge-prototype-scenario-enter" : ""}`}
+      >
+        <PrototypeCanvas variant="desktop" metrics={DESKTOP_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onMapAnalyze={onMapAnalyze} />
+        <PrototypeCanvas variant="mobile" metrics={MOBILE_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onMapAnalyze={onMapAnalyze} />
+
+        <details data-prototype-map-ignore="true" className="relative mx-auto mt-2 max-w-4xl rounded-xl border border-soma-line/60 bg-[#091722]/90 px-4 py-3">
+          <summary className={`${previewFocus} cursor-pointer rounded text-sm font-medium text-soma-action`}>
+            {copy.connectionList}
+          </summary>
+          <ul className="mt-3 grid gap-2 text-xs leading-relaxed text-soma-ink-secondary sm:grid-cols-2">
+            {relations.map((relation) => (
+              <li key={relation.id} className="rounded-lg border border-[#68d8c0]/25 bg-[#68d8c0]/5 px-3 py-2">
+                <strong className="text-[#8ce6d3]">{copy.scientificConnection}:</strong>{" "}
+                {labelFor(relation.subject)} → {labelFor(relation.object)}
+              </li>
+            ))}
+            {visibleDependencies.map((dependency) => (
+              <li key={dependency.id} className="rounded-lg border border-[#a78bfa]/25 bg-[#a78bfa]/5 px-3 py-2">
+                <strong className="text-[#c4b5fd]">{copy.gameConnection}:</strong>{" "}
+                {labelFor(dependency.from)} → {labelFor(dependency.to)}
+              </li>
+            ))}
+          </ul>
+        </details>
+      </div>
+    </section>
+  );
+}
+
+function PrototypeMapTapLayer({ onAnalyze }: { onAnalyze: () => void }) {
+  const pointer = useRef<{ x: number; y: number } | null>(null);
+  const dragged = useRef(false);
+  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
+
+  return (
+    <div
+      data-prototype-map-tap-surface="true"
+      className="absolute inset-0 z-[5] touch-manipulation"
+      aria-hidden="true"
+      onPointerDown={(event) => {
+        if (event.button !== 0) return;
+        pointer.current = { x: event.clientX, y: event.clientY };
+        dragged.current = false;
+      }}
+      onPointerMove={(event) => {
+        if (!pointer.current) return;
+        const dx = event.clientX - pointer.current.x;
+        const dy = event.clientY - pointer.current.y;
+        if (dx * dx + dy * dy > 64) dragged.current = true;
+      }}
+      onPointerUp={(event) => {
+        if (event.button !== 0 || dragged.current || !pointer.current) {
+          pointer.current = null;
+          return;
+        }
+        const rect = event.currentTarget.getBoundingClientRect();
+        const ripple = {
+          id: Date.now(),
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        };
+        setRipples((current) => [...current, ripple]);
+        onAnalyze();
+        pointer.current = null;
+      }}
+      onPointerCancel={() => {
+        pointer.current = null;
+      }}
+    >
+      {ripples.map((ripple) => (
+        <span
+          key={ripple.id}
+          aria-hidden="true"
+          className="knowledge-prototype-tap-ripple pointer-events-none absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border border-soma-shell-accent/70 bg-soma-shell-accent/15"
+          style={{ left: ripple.x, top: ripple.y }}
+          onAnimationEnd={() => {
+            setRipples((current) => current.filter((item) => item.id !== ripple.id));
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function StratumPattern({
+  zone,
+  layoutWidth,
+  canvasPrefix,
+}: {
+  zone: PrototypeStratumZone;
+  layoutWidth: number;
+  canvasPrefix: string;
+}) {
+  const clipId = `${canvasPrefix}-clip-${zone.id}`;
+  const patterns = stratumPatternNodes(zone, layoutWidth, canvasPrefix);
+  return (
+    <g clipPath={`url(#${clipId})`} aria-hidden="true">
+      {patterns.map((item) => {
+        if (item.element === "circle") {
+          return <circle key={item.key} {...item.attrs} />;
+        }
+        if (item.element === "ellipse") {
+          return <ellipse key={item.key} {...item.attrs} />;
+        }
+        return <path key={item.key} {...item.attrs} />;
+      })}
+    </g>
+  );
+}
+
+function PrototypeCanvas({
+  variant,
+  metrics,
+  catalog,
+  nodes,
+  dependencies,
+  relations,
+  language,
+  selectedId,
+  onSelect,
+  onDiscover,
+  discoveryCost,
+  canDiscover,
+  onMapAnalyze,
+}: {
+  variant: "desktop" | "mobile";
+  metrics: PrototypeCanvasMetrics;
+  catalog: PublicKnowledgeCatalog;
+  nodes: readonly KnowledgePrototypeScenarioNode[];
+  dependencies: readonly KnowledgePrototypeDependency[];
+  relations: PublicKnowledgeCatalog["relations"];
+  language: "es" | "en";
+  selectedId: KnowledgeConceptId | null;
+  onSelect: (id: KnowledgeConceptId) => void;
+  onDiscover?: (id: KnowledgeConceptId) => void;
+  discoveryCost?: (id: KnowledgeConceptId) => number;
+  canDiscover?: (id: KnowledgeConceptId) => boolean;
+  onMapAnalyze?: () => void;
+}) {
+  const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
+  const layout = buildPrototypeLayout(nodes, dependencies, metrics);
+  const canvasHeight = layout.height;
+  const positions = new Map(
+    layout.nodes.map((item) => [item.node.id, { x: item.x, y: item.y }]),
+  );
+  const renderedNodes = layout.nodes.filter((item) => item.node.state !== "hidden");
+  const concepts = new Map(catalog.concepts.map((concept) => [concept.id, concept]));
+  const stateById = new Map(nodes.map((node) => [node.id, node.state]));
+  const laneScale = variant === "mobile" ? 0.72 : 1;
+  const cardHalfWidth = prototypeCardFootprint(metrics).halfWidth;
+  const connections = buildRenderedConnections(relations, dependencies, positions, laneScale);
+  const frontierY = exploredFrontierY(
+    renderedNodes.length > 0 ? renderedNodes : layout.nodes,
+    metrics.top,
+  );
+  const stratumZones = buildStratumZones(metrics, frontierY, canvasHeight);
+  const canvasPrefix = `${variant}-visual04`;
+
+  return (
+    <div
+      data-prototype-canvas={variant}
+      className={variant === "desktop" ? "relative mx-auto hidden w-full max-w-[72rem] lg:block" : "relative mx-auto w-full max-w-[24rem] lg:hidden"}
+      style={{ height: `${canvasHeight}px` }}
+    >
+      <svg viewBox={`0 0 ${layout.width} ${canvasHeight}`} preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] h-full w-full" data-prototype-map-connections="true">
+        <defs>
+          {stratumZones.map((zone) => (
+            <linearGradient key={`${zone.id}-veil`} id={`${canvasPrefix}-stratum-${zone.id}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={zone.veilTop} stopOpacity={0.88 * zone.opacity} />
+              <stop offset="42%" stopColor={zone.veilTop} stopOpacity={0.55 * zone.opacity} />
+              <stop offset="100%" stopColor={zone.veilBottom} stopOpacity={0.35 * zone.opacity} />
+            </linearGradient>
+          ))}
+          <linearGradient id={`${canvasPrefix}-explored-wash`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1a4a62" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="#12374a" stopOpacity="0.04" />
+          </linearGradient>
+          <linearGradient id={`${canvasPrefix}-unknown-wash`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1a1630" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#120d1e" stopOpacity="0.2" />
+          </linearGradient>
+          <filter id={`${canvasPrefix}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="18" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <marker id={`${canvasPrefix}-prototype-science-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 10 5 0 10z" fill="#78e2cb" />
+          </marker>
+          <marker id={`${canvasPrefix}-prototype-game-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+            <path d="M0 0 10 5 0 10z" fill="#c4b5fd" />
+          </marker>
+          {connections.map((connection) => {
+            const from = positions.get(connection.from);
+            const to = positions.get(connection.to);
+            if (!from || !to || stateById.get(connection.to) !== "hinted") return null;
+            const color = connection.kind === "scientific" ? "#68d8c0" : "#a78bfa";
+            return (
+              <linearGradient key={`gradient-${connection.kind}-${connection.id}`} id={`${canvasPrefix}-${connection.kind}-fade-${connection.index}`} gradientUnits="userSpaceOnUse" x1={from.x} y1={from.y} x2={to.x} y2={to.y}>
+                <stop offset="0" stopColor={color} stopOpacity={connection.kind === "game" ? "0.88" : "0.72"} />
+                <stop offset="0.68" stopColor={color} stopOpacity="0.34" />
+                <stop offset="1" stopColor={color} stopOpacity="0.04" />
+              </linearGradient>
+            );
+          })}
+          {stratumZones.map((zone) => (
+            <clipPath key={`clip-${zone.id}`} id={`${canvasPrefix}-clip-${zone.id}`}>
+              <rect x={0} y={zone.y0} width={layout.width} height={zone.y1 - zone.y0} />
+            </clipPath>
+          ))}
+        </defs>
+
+        <g data-prototype-stratum-layer="true">
+          {stratumZones.map((zone) => (
+            <g key={zone.id} data-prototype-stratum={zone.id} opacity={zone.opacity}>
+              <rect x={0} y={zone.y0} width={layout.width} height={zone.y1 - zone.y0} fill={`url(#${canvasPrefix}-stratum-${zone.id})`} />
+              <rect
+                x={layout.width * 0.2}
+                y={zone.y0 + 8}
+                width={layout.width * 0.6}
+                height={zone.y1 - zone.y0 - 16}
+                rx={28}
+                fill={zone.glow}
+                opacity={0.06 * zone.opacity}
+              />
+              <StratumPattern zone={zone} layoutWidth={layout.width} canvasPrefix={canvasPrefix} />
+            </g>
+          ))}
+        </g>
+
+        <rect width={layout.width} height={Math.max(frontierY + metrics.cardHalfHeight, metrics.top)} fill={`url(#${canvasPrefix}-explored-wash)`} />
+        <rect y={frontierY - metrics.cardHalfHeight * 0.4} width={layout.width} height={canvasHeight - frontierY + metrics.cardHalfHeight * 0.4} fill={`url(#${canvasPrefix}-unknown-wash)`} />
+
+        {layout.nodes.map(({ node, x, y }) => {
+          if (node.state === "hidden") return null;
+          const haloColor = node.state === "hinted" ? "#a78bfa" : node.state === "discovered" ? "#68d8c0" : "#4f9ed0";
+          const haloOpacity = node.state === "hinted" ? 0.08 : node.state === "discovered" ? 0.12 : 0.07;
+          return (
+            <ellipse
+              key={`halo-${node.id}`}
+              cx={x}
+              cy={y}
+              rx={variant === "desktop" ? 112 : 84}
+              ry={variant === "desktop" ? 54 : 44}
+              fill={haloColor}
+              opacity={haloOpacity}
+              filter={`url(#${canvasPrefix}-glow)`}
+            />
+          );
+        })}
+
+        <g data-prototype-connection-layer="scientific">
+          {connections.filter((connection) => connection.kind === "scientific").map((connection) => {
+            const from = positions.get(connection.from);
+            const to = positions.get(connection.to);
+            if (!from || !to) return null;
+            const fromState = stateById.get(connection.from) ?? "hidden";
+            const toState = stateById.get(connection.to) ?? "hidden";
+            if (fromState === "hidden" || toState === "hidden") return null;
+            const mysteryTarget = toState === "hinted";
+            const stroke = connectionStrokeStyle("scientific", fromState, toState);
+            return (
+              <path
+                key={`${connection.kind}-${connection.id}`}
+                data-prototype-connection="scientific"
+                data-prototype-shared-pair={connection.sharesPair ? "true" : undefined}
+                data-prototype-fades={mysteryTarget ? "true" : undefined}
+                d={verticalFlowPath(
+                  from,
+                  to,
+                  metrics.cardHalfHeight,
+                  connection.laneOffset,
+                  connection.id,
+                  cardHalfWidth,
+                )}
+                fill="none"
+                stroke={mysteryTarget ? `url(#${canvasPrefix}-${connection.kind}-fade-${connection.index})` : "#68d8c0"}
+                strokeWidth={stroke.width}
+                strokeDasharray={stroke.dash}
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                markerEnd={mysteryTarget ? undefined : `url(#${canvasPrefix}-prototype-science-arrow)`}
+                opacity={mysteryTarget ? 1 : stroke.opacity}
+              />
+            );
+          })}
+        </g>
+        <g data-prototype-connection-layer="game">
+          {connections.filter((connection) => connection.kind === "game").map((connection) => {
+            const from = positions.get(connection.from);
+            const to = positions.get(connection.to);
+            if (!from || !to) return null;
+            const fromState = stateById.get(connection.from) ?? "hidden";
+            const toState = stateById.get(connection.to) ?? "hidden";
+            if (fromState === "hidden" || toState === "hidden") return null;
+            const mysteryTarget = toState === "hinted";
+            const stroke = connectionStrokeStyle("game", fromState, toState);
+            return (
+              <path
+                key={`${connection.kind}-${connection.id}`}
+                data-prototype-connection="game"
+                data-prototype-shared-pair={connection.sharesPair ? "true" : undefined}
+                data-prototype-fades={mysteryTarget ? "true" : undefined}
+                d={verticalFlowPath(
+                  from,
+                  to,
+                  metrics.cardHalfHeight,
+                  connection.laneOffset,
+                  connection.id,
+                  cardHalfWidth,
+                )}
+                fill="none"
+                stroke={mysteryTarget ? `url(#${canvasPrefix}-${connection.kind}-fade-${connection.index})` : "#a78bfa"}
+                strokeWidth={stroke.width}
+                strokeDasharray={stroke.dash}
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                markerEnd={mysteryTarget ? undefined : `url(#${canvasPrefix}-prototype-game-arrow)`}
+                opacity={mysteryTarget ? 1 : stroke.opacity}
+              />
+            );
+          })}
+        </g>
+      </svg>
+
+      {onMapAnalyze ? <PrototypeMapTapLayer onAnalyze={onMapAnalyze} /> : null}
+
+      <div className="pointer-events-none absolute inset-0 z-[15]">
+        {renderedNodes.map(({ node, x, y }) => {
+          const concept = concepts.get(node.id);
+          const widthClass = variant === "desktop" ? "w-44" : "w-[8.75rem] sm:w-40";
+          return (
+            <div key={node.id} data-prototype-map-ignore="true" className={`pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 ${widthClass}`} style={{ left: `${(x / layout.width) * 100}%`, top: `${y}px` }}>
+              {node.state === "hinted" ? (
+                <PrototypeMysteryCard language={language} />
+              ) : concept ? (
+                <PrototypeCard concept={concept} node={node} language={language} selected={selectedId === node.id} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} />
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+      <p className="sr-only">{copy.verticalFlowNotice}</p>
+    </div>
+  );
+}
+
+function PrototypeMysteryCard({ language }: { language: "es" | "en" }) {
+  const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
+  return (
+    <div role="img" aria-label={copy.unknownDiscovery} data-prototype-mystery="true" data-prototype-state="hinted" className="relative min-h-40 w-full overflow-hidden rounded-2xl border border-dashed border-soma-line/60 bg-[#09121d]/80 shadow-[0_14px_38px_rgb(1_7_12/0.55)]">
+      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgb(167_139_250_/_0.18),transparent_34%),linear-gradient(135deg,transparent_25%,rgb(104_216_192_/_0.06)_50%,transparent_75%)]" />
+      <div aria-hidden="true" className="absolute inset-x-6 top-6 h-20 rounded-full bg-[#121f2e] blur-md" />
+      <div className="relative flex min-h-40 flex-col items-center justify-center gap-3 px-3 text-center">
+        <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-full border border-dashed border-soma-ink-muted/50 bg-[#08121c] text-2xl font-semibold text-soma-ink-muted">?</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-soma-ink-muted">{copy.unknownDiscovery}</span>
+      </div>
+    </div>
+  );
+}
+
+function PrototypeCard({ concept, node, language, selected, onSelect, onDiscover, discoveryCost, canDiscover }: {
+  concept: KnowledgeConcept;
+  node: KnowledgePrototypeScenarioNode;
+  language: "es" | "en";
+  selected: boolean;
+  onSelect: (id: KnowledgeConceptId) => void;
+  onDiscover?: (id: KnowledgeConceptId) => void;
+  discoveryCost?: (id: KnowledgeConceptId) => number;
+  canDiscover?: (id: KnowledgeConceptId) => boolean;
+}) {
+  const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
+  const label = concept.labels[language];
+  const stateLabel = copy.states[node.state];
+  const cost = discoveryCost?.(node.id) ?? 0;
+  const affordable = canDiscover?.(node.id) ?? false;
+
+  if (node.state === "available" && onDiscover) {
+    return (
+      <div data-prototype-node={node.id} data-prototype-state={node.state} className={`group block w-full min-w-0 overflow-hidden rounded-2xl border text-left shadow-[0_14px_38px_rgb(1_7_12/0.48)] ${stateClasses(node.state, selected)}`}>
+        <PrototypeIllustration kind={node.illustration} label={label} language={language} decorative />
+        <div className="block px-3 pb-3 pt-2">
+          <CardHeading label={label} stateLabel={stateLabel} state={node.state} />
+          <span className="mt-1 block text-[10px] font-medium uppercase tracking-wide text-soma-ink-muted">{stateLabel}</span>
+          <button
+            type="button"
+            onClick={() => onDiscover(node.id)}
+            disabled={!affordable}
+            className={`${previewFocus} mt-2 flex min-h-9 w-full items-center justify-center rounded-lg border px-2 text-[10px] font-semibold uppercase tracking-wide disabled:cursor-not-allowed disabled:opacity-45 ${affordable ? "border-soma-shell-accent/60 bg-soma-shell-accent/15 text-soma-shell-accent hover:bg-soma-shell-accent/25" : "border-soma-line/50 text-soma-ink-muted"}`}
+          >
+            {copy.game.discoverFor(cost)}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <button type="button" data-prototype-node={node.id} data-prototype-state={node.state} aria-current={selected ? "true" : undefined} aria-label={copy.openCard(label, stateLabel)} onClick={() => onSelect(node.id)} className={`${previewFocus} group block w-full min-w-0 overflow-hidden rounded-2xl border text-left shadow-[0_14px_38px_rgb(1_7_12/0.48)] transition motion-reduce:transition-none ${stateClasses(node.state, selected)}`}>
+      <PrototypeIllustration kind={node.illustration} label={label} language={language} decorative />
+      <span className="block px-3 pb-3 pt-2">
+        <CardHeading label={label} stateLabel={stateLabel} state={node.state} />
+        <span className="mt-1 block text-[10px] font-medium uppercase tracking-wide text-soma-ink-muted">{stateLabel}</span>
+        {node.state === "researching" ? (
+          <span className="mt-2 block">
+            <span className="mb-1 flex justify-between text-[10px] text-soma-ink-muted"><span>{copy.progress}</span><span>{node.progress ?? 0}%</span></span>
+            <span role="progressbar" aria-label={copy.progressFor(label)} aria-valuemin={0} aria-valuemax={100} aria-valuenow={node.progress ?? 0} className="block h-1.5 overflow-hidden rounded-full bg-[#07111b]">
+              <span className="block h-full rounded-full bg-soma-action" style={{ width: `${node.progress ?? 0}%` }} />
+            </span>
+          </span>
+        ) : null}
+        {node.state === "discovered" ? (
+          <span className="mt-2 block text-[10px] font-medium uppercase tracking-wide text-soma-action">{copy.game.openSheet}</span>
+        ) : null}
+      </span>
+    </button>
+  );
+}
+
+function CardHeading({ label, stateLabel, state }: { label: string; stateLabel: string; state: KnowledgePrototypeState }) {
+  return (
+    <span className="flex items-start justify-between gap-2">
+      <span className="min-w-0 break-words text-sm font-semibold leading-tight text-soma-ink">{label}</span>
+      <span aria-hidden="true" className={`mt-0.5 h-2.5 w-2.5 shrink-0 rounded-full ${stateDot(state)}`} />
+      <span className="sr-only">{stateLabel}</span>
+    </span>
+  );
+}
+
+export function PrototypeIllustration({ kind, label, language, decorative = false }: { kind: KnowledgePrototypeIllustration; label: string; language: "es" | "en"; decorative?: boolean }) {
+  const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
+  const prefix = useId().replaceAll(":", "");
+  return (
+    <svg viewBox="0 0 240 116" role={decorative ? undefined : "img"} aria-hidden={decorative ? "true" : undefined} aria-label={decorative ? undefined : copy.placeholderAlt(label)} className="block h-20 w-full bg-[#0a1723] sm:h-24">
+      <defs>
+        <linearGradient id={`${prefix}-bg`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#10283a" /><stop offset="0.55" stopColor="#16233c" /><stop offset="1" stopColor="#271b42" /></linearGradient>
+        <filter id={`${prefix}-glow`}><feGaussianBlur stdDeviation="3" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+      </defs>
+      <rect width="240" height="116" fill={`url(#${prefix}-bg)`} />
+      <g filter={`url(#${prefix}-glow)`} fill="none" strokeLinecap="round" strokeLinejoin="round"><IllustrationGlyph kind={kind} /></g>
+      <text x="12" y="104" fill="#9fb1bf" fontSize="9" letterSpacing="1.2">{copy.placeholder}</text>
+    </svg>
+  );
+}
+
+function IllustrationGlyph({ kind }: { kind: KnowledgePrototypeIllustration }) {
+  if (kind === "charge") return <><circle cx="120" cy="52" r="28" stroke="#68d8c0" strokeWidth="3" /><path d="M128 22 109 53h17l-15 29" stroke="#c4b5fd" strokeWidth="5" /></>;
+  if (kind === "ion") return <><circle cx="120" cy="52" r="10" fill="#68d8c0" stroke="#68d8c0" /><ellipse cx="120" cy="52" rx="56" ry="22" stroke="#9b7bd1" strokeWidth="2" /><ellipse cx="120" cy="52" rx="25" ry="55" stroke="#68d8c0" strokeWidth="2" transform="rotate(48 120 52)" /><circle cx="68" cy="52" r="5" fill="#c4b5fd" stroke="none" /></>;
+  if (kind === "gradient") return <>{[0, 1, 2, 3, 4].map((column) => [0, 1, 2].map((row) => <circle key={`${column}-${row}`} cx={62 + column * 30} cy={30 + row * 22} r={7 - column * 0.8} fill={column < 2 ? "#68d8c0" : "#9b7bd1"} opacity={1 - column * 0.14} stroke="none" />))}<path d="m70 95 98-70m0 0-22 4m22-4-6 22" stroke="#d7e5ed" strokeWidth="2" /></>;
+  if (kind === "membrane") return <><path d="M35 40c25-18 42 18 67 0s42 18 67 0 36 7 36 7M35 67c25-18 42 18 67 0s42 18 67 0 36 7 36 7" stroke="#68d8c0" strokeWidth="4" />{[55, 95, 135, 175].map((x) => <circle key={x} cx={x} cy="54" r="6" fill="#9b7bd1" stroke="none" />)}</>;
+  if (kind === "channel") return <><path d="M32 36h70m36 0h70M32 72h70m36 0h70" stroke="#68d8c0" strokeWidth="4" /><path d="M103 23c18 13 18 47 0 62m34-62c-18 13-18 47 0 62" stroke="#c4b5fd" strokeWidth="7" /><circle cx="120" cy="54" r="5" fill="#68d8c0" stroke="none" /></>;
+  if (kind === "potential") return <><path d="M25 70h45l18-5 14-42 14 64 17-38 15 21h67" stroke="#68d8c0" strokeWidth="4" /><path d="M25 91h190" stroke="#516b7d" strokeWidth="2" strokeDasharray="5 6" /></>;
+  if (kind === "solution") return <><rect x="58" y="34" width="124" height="58" rx="14" stroke="#68d8c0" strokeWidth="3" fill="#0f2030" />{[74, 104, 134, 164].map((x, i) => <circle key={x} cx={x} cy={52 + (i % 2) * 10} r="5" fill={i % 2 ? "#c4b5fd" : "#68d8c0"} stroke="none" />)}</>;
+  if (kind === "equilibrium") return <><path d="M55 72h130" stroke="#516b7d" strokeWidth="3" /><path d="M76 56h20v32H76zm88-12h20v44h-20z" stroke="#68d8c0" strokeWidth="3" /><circle cx="86" cy="40" r="8" stroke="#c4b5fd" strokeWidth="2" /><circle cx="152" cy="78" r="8" stroke="#68d8c0" strokeWidth="2" /></>;
+  if (kind === "osmosis") return <><path d="M86 38v44M150 38v44" stroke="#68d8c0" strokeWidth="4" /><path d="M86 60h64" stroke="#c4b5fd" strokeWidth="2" strokeDasharray="4 5" />{[96, 120, 144].map((x) => <circle key={x} cx={x} cy={58} r="4" fill="#9b7bd1" stroke="none" />)}</>;
+  if (kind === "pump") return <><circle cx="120" cy="54" r="26" stroke="#68d8c0" strokeWidth="3" /><path d="M120 22v14M120 72v14M97 54H84m72 0h-13" stroke="#c4b5fd" strokeWidth="3" /><polygon points="120,30 112,46 128,46" fill="#68d8c0" stroke="none" /></>;
+  if (kind === "capacitance") return <><path d="M70 32v48M170 32v48" stroke="#68d8c0" strokeWidth="5" />{[82, 96, 110].map((x) => <line key={x} x1={x} y1={38} x2={x} y2={74} stroke="#9b7bd1" strokeWidth="2" />)}</>;
+  if (kind === "impulse") return <><path d="M34 62h34l12-30 16 62 10-20h72" stroke="#68d8c0" strokeWidth="4" fill="none" /><circle cx="120" cy="54" r="5" fill="#c4b5fd" stroke="none" /></>;
+  if (kind === "dendrite") return <><path d="M120 78V42M120 52 82 62M120 48 98 36M120 50 142 34" stroke="#9b7bd1" strokeWidth="4" /><circle cx="120" cy="78" r="12" fill="#172d43" stroke="#68d8c0" strokeWidth="3" /></>;
+  if (kind === "axon") return <><path d="M48 54h140" stroke="#68d8c0" strokeWidth="8" strokeLinecap="round" /><circle cx="60" cy="54" r="10" fill="#172d43" stroke="#c4b5fd" strokeWidth="3" /></>;
+  if (kind === "synapse") return <><circle cx="96" cy="54" r="14" stroke="#68d8c0" strokeWidth="3" /><circle cx="148" cy="54" r="14" stroke="#c4b5fd" strokeWidth="3" /><path d="M110 54h24" stroke="#d7e5ed" strokeWidth="2" strokeDasharray="3 4" /></>;
+  if (kind === "neurotransmitter") return <>{[0, 1, 2, 3, 4].map((i) => <circle key={i} cx={76 + i * 22} cy={54 - (i % 2) * 6} r="6" fill={i % 2 ? "#c4b5fd" : "#68d8c0"} stroke="none" />)}<path d="M70 72h100" stroke="#516b7d" strokeWidth="2" /></>;
+  if (kind === "receptor") return <><path d="M120 26v60M96 46h48" stroke="#68d8c0" strokeWidth="3" /><ellipse cx="120" cy="54" rx="34" ry="22" stroke="#c4b5fd" strokeWidth="3" /><circle cx="120" cy="54" r="6" fill="#68d8c0" stroke="none" /></>;
+  if (kind === "network") return <>{[0, 1, 2, 3, 4, 5].map((i) => <circle key={i} cx={62 + (i % 3) * 58} cy={34 + Math.floor(i / 3) * 44} r="9" fill="#172d43" stroke="#68d8c0" strokeWidth="2" />)}<path d="M71 42l48 28m22-8 48 18M71 78l50-4m58-12 28 8" stroke="#9b7bd1" strokeWidth="2" /></>;
+  return <><circle cx="116" cy="54" r="19" fill="#172d43" stroke="#68d8c0" strokeWidth="4" /><path d="M98 46 67 24 40 34m59 29-36 21-25-5m95-12 42 18 30-9m-70-31 38-24 30 8" stroke="#9b7bd1" strokeWidth="4" /><path d="M116 73v25" stroke="#68d8c0" strokeWidth="5" /></>;
+}
+
+function stateClasses(state: KnowledgePrototypeState, selected: boolean) {
+  if (selected) return "border-white bg-[#17283a] ring-2 ring-soma-focus ring-offset-2 ring-offset-[#07111b]";
+  if (state === "discovered") return "border-[#68d8c0]/80 bg-[#102531] hover:border-[#8ce6d3]";
+  if (state === "researching") return "border-soma-action bg-[#112638] hover:border-soma-action-hover";
+  return "border-[#a78bfa]/80 bg-[#211b36] hover:border-[#c4b5fd]";
+}
+
+function stateDot(state: KnowledgePrototypeState) {
+  if (state === "discovered") return "bg-[#68d8c0]";
+  if (state === "researching") return "bg-soma-action";
+  return "bg-[#a78bfa]";
+}
