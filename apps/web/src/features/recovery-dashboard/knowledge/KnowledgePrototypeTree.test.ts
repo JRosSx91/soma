@@ -80,9 +80,9 @@ async function renderTree(lng: "es" | "en", scenario: KnowledgePrototypeScenario
   );
 }
 
-test("playable prototype exposes live resources, analyse control and isolated QA scenarios", async () => {
+test("playable prototype exposes spark rates and isolated QA scenarios", async () => {
   const markup = await renderPage("es");
-  assert.ok(markup.includes('data-knowledge-prototype="game-01e.2"'));
+  assert.ok(markup.includes('data-knowledge-prototype="game-01f"'));
   assert.ok(markup.includes('data-prototype-layout-organic="true"'));
   assert.ok(markup.includes('data-prototype-map-tap-surface="true"'));
   assert.ok(markup.includes('data-prototype-map-connections="true"'));
@@ -90,7 +90,8 @@ test("playable prototype exposes live resources, analyse control and isolated QA
   assert.ok(markup.includes('data-prototype-layout="vertical"'));
   assert.ok(markup.includes("Centro de Expedición"));
   assert.ok(markup.includes("Chispas de Curiosidad"));
-  assert.ok(markup.includes("Analizar"));
+  assert.ok(markup.includes("Por toque"));
+  assert.equal(markup.includes("Analizar"), false);
   assert.ok(markup.includes('data-dev-qa-scenarios="true"'));
   assert.equal(markup.includes("DEMO"), false);
   assert.equal(markup.includes("Prueba el futuro mapa científico."), false);
@@ -284,7 +285,7 @@ test("prototype fixtures remain development-only and public runtime stays empty"
   assert.equal(PUBLIC_KNOWLEDGE_CATALOG.prerequisites.length, 0);
 });
 
-test("prototype source has no backend, persistence, timer, XP, mission or medal integration", () => {
+test("prototype source keeps persistence inside the dev save and away from XP", () => {
   const sources = [
     "./KnowledgePrototypeTree.tsx",
     "./knowledge-prototype-connections.ts",
@@ -309,4 +310,7 @@ test("prototype source has no backend, persistence, timer, XP, mission or medal 
   }
   assert.equal(hook.includes("localStorage"), false);
   assert.ok(hook.includes("setInterval"), "dev tick stays in the hook");
+  const save = readFileSync(new URL("./knowledge-prototype-save.ts", import.meta.url), "utf8");
+  assert.match(save, /PROTOTYPE_SAVE_KEY/);
+  assert.equal(save.includes("awardXp"), false);
 });

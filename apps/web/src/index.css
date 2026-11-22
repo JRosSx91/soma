@@ -121,13 +121,17 @@
 }
 
 .knowledge-prototype-tap-ripple {
+  opacity: 0;
+}
+
+.knowledge-prototype-tap-ripple.is-on {
   animation: knowledge-prototype-tap-ripple 420ms ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .knowledge-prototype-tap-ripple {
+  .knowledge-prototype-tap-ripple,
+  .knowledge-prototype-tap-ripple.is-on {
     animation: none;
-    opacity: 0.28;
-    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
   }
 }

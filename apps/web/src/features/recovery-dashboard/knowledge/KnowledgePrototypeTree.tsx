@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef } from "react";
 import { previewFocus } from "../focus.js";
 import type {
   KnowledgePrototypeDependency,
@@ -24,6 +24,7 @@ import {
   stratumPatternNodes,
   type PrototypeStratumZone,
 } from "./knowledge-prototype-strata.js";
+import { isBackgroundTapKey, keyboardTapTargetsBackground, pointerDragCancelsTap } from "./knowledge-prototype-tap.js";
 
 const DESKTOP_METRICS: PrototypeCanvasMetrics = {
   width: 1000,
@@ -51,7 +52,7 @@ export function KnowledgePrototypeTree({
   onDiscover,
   discoveryCost,
   canDiscover,
-  onMapAnalyze,
+  onBackgroundTap,
   scenarioKey,
 }: {
   catalog: PublicKnowledgeCatalog;
@@ -63,7 +64,7 @@ export function KnowledgePrototypeTree({
   onDiscover?: (id: KnowledgeConceptId) => void;
   discoveryCost?: (id: KnowledgeConceptId) => number;
   canDiscover?: (id: KnowledgeConceptId) => boolean;
-  onMapAnalyze?: () => void;
+  onBackgroundTap?: () => void;
   scenarioKey?: string;
 }) {
   const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
@@ -103,8 +104,8 @@ export function KnowledgePrototypeTree({
         key={scenarioKey}
         className={`relative h-full overflow-x-hidden overflow-y-auto overscroll-contain px-2 pb-8 pt-4 [scrollbar-gutter:stable] sm:px-4${scenarioKey ? " knowledge-prototype-scenario-enter" : ""}`}
       >
-        <PrototypeCanvas variant="desktop" metrics={DESKTOP_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onMapAnalyze={onMapAnalyze} />
-        <PrototypeCanvas variant="mobile" metrics={MOBILE_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onMapAnalyze={onMapAnalyze} />
+        <PrototypeCanvas variant="desktop" metrics={DESKTOP_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onBackgroundTap={onBackgroundTap} />
+        <PrototypeCanvas variant="mobile" metrics={MOBILE_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onBackgroundTap={onBackgroundTap} />
 
         <details data-prototype-map-ignore="true" className="relative mx-auto mt-2 max-w-4xl rounded-xl border border-soma-line/60 bg-[#091722]/90 px-4 py-3">
           <summary className={`${previewFocus} cursor-pointer rounded text-sm font-medium text-soma-action`}>
@@ -130,16 +131,44 @@ export function KnowledgePrototypeTree({
   );
 }
 
-function PrototypeMapTapLayer({ onAnalyze }: { onAnalyze: () => void }) {
+const TAP_RIPPLE_POOL = 16;
+
+function PrototypeMapTapLayer({ onTap, label }: { onTap: () => void; label: string }) {
   const pointer = useRef<{ x: number; y: number } | null>(null);
   const dragged = useRef(false);
-  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const pool = useRef<Array<HTMLSpanElement | null>>([]);
+  const poolIndex = useRef(0);
+  const reducedMotion = useRef(false);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return undefined;
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => {
+      reducedMotion.current = query.matches;
+    };
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  function showRipple(x: number, y: number) {
+    if (reducedMotion.current) return;
+    const ripple = pool.current[poolIndex.current];
+    poolIndex.current = (poolIndex.current + 1) % TAP_RIPPLE_POOL;
+    if (!ripple) return;
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    ripple.classList.remove("is-on");
+    void ripple.offsetWidth;
+    ripple.classList.add("is-on");
+  }
 
   return (
     <div
       data-prototype-map-tap-surface="true"
-      className="absolute inset-0 z-[5] touch-manipulation"
-      aria-hidden="true"
+      tabIndex={0}
+      aria-label={label}
+      className="absolute inset-0 z-[5] touch-manipulation outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-soma-shell-accent"
       onPointerDown={(event) => {
         if (event.button !== 0) return;
         pointer.current = { x: event.clientX, y: event.clientY };
@@ -149,36 +178,40 @@ function PrototypeMapTapLayer({ onAnalyze }: { onAnalyze: () => void }) {
         if (!pointer.current) return;
         const dx = event.clientX - pointer.current.x;
         const dy = event.clientY - pointer.current.y;
-        if (dx * dx + dy * dy > 64) dragged.current = true;
+        if (pointerDragCancelsTap(dx, dy)) dragged.current = true;
       }}
       onPointerUp={(event) => {
         if (event.button !== 0 || dragged.current || !pointer.current) {
           pointer.current = null;
+          dragged.current = false;
           return;
         }
         const rect = event.currentTarget.getBoundingClientRect();
-        const ripple = {
-          id: Date.now(),
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        };
-        setRipples((current) => [...current, ripple]);
-        onAnalyze();
+        showRipple(event.clientX - rect.left, event.clientY - rect.top);
+        onTap();
         pointer.current = null;
       }}
       onPointerCancel={() => {
         pointer.current = null;
+        dragged.current = false;
+      }}
+      onKeyDown={(event) => {
+        if (!keyboardTapTargetsBackground(event.target, event.currentTarget)) return;
+        if (!isBackgroundTapKey(event.key)) return;
+        event.preventDefault();
+        const rect = event.currentTarget.getBoundingClientRect();
+        showRipple(rect.width / 2, rect.height / 2);
+        onTap();
       }}
     >
-      {ripples.map((ripple) => (
+      {Array.from({ length: TAP_RIPPLE_POOL }, (_, index) => (
         <span
-          key={ripple.id}
+          key={index}
+          ref={(node) => {
+            pool.current[index] = node;
+          }}
           aria-hidden="true"
           className="knowledge-prototype-tap-ripple pointer-events-none absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border border-soma-shell-accent/70 bg-soma-shell-accent/15"
-          style={{ left: ripple.x, top: ripple.y }}
-          onAnimationEnd={() => {
-            setRipples((current) => current.filter((item) => item.id !== ripple.id));
-          }}
         />
       ))}
     </div>
@@ -224,7 +257,7 @@ function PrototypeCanvas({
   onDiscover,
   discoveryCost,
   canDiscover,
-  onMapAnalyze,
+  onBackgroundTap,
 }: {
   variant: "desktop" | "mobile";
   metrics: PrototypeCanvasMetrics;
@@ -238,7 +271,7 @@ function PrototypeCanvas({
   onDiscover?: (id: KnowledgeConceptId) => void;
   discoveryCost?: (id: KnowledgeConceptId) => number;
   canDiscover?: (id: KnowledgeConceptId) => boolean;
-  onMapAnalyze?: () => void;
+  onBackgroundTap?: () => void;
 }) {
   const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
   const layout = buildPrototypeLayout(nodes, dependencies, metrics);
@@ -428,7 +461,7 @@ function PrototypeCanvas({
         </g>
       </svg>
 
-      {onMapAnalyze ? <PrototypeMapTapLayer onAnalyze={onMapAnalyze} /> : null}
+      {onBackgroundTap ? <PrototypeMapTapLayer onTap={onBackgroundTap} label={copy.game.tapSurface} /> : null}
 
       <div className="pointer-events-none absolute inset-0 z-[15]">
         {renderedNodes.map(({ node, x, y }) => {
