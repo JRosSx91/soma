@@ -18,7 +18,7 @@ export type KnowledgePrototypeState =
   | "hinted"
   | "hidden";
 
-export type KnowledgePrototypeScenario = "start" | "middle" | "advanced";
+export type KnowledgePrototypeScenario = "start" | "middle" | "advanced" | "complete";
 
 export type KnowledgePrototypeIllustration =
   | "root"
@@ -121,6 +121,24 @@ export function stratumRuntimeId(sequence: number): KnowledgeConceptId {
 
 export function stratumProvisionalCode(sequence: number) {
   return `F00.${String(sequence).padStart(2, "0")}`;
+}
+
+/**
+ * Every Stratum 00 concept uses the compact disc on the playable map.
+ * Membership does not change parents, costs or the 28-concept catalog.
+ */
+export const PROTOTYPE_COMPACT_SEQUENCES: ReadonlySet<number> = new Set(
+  Array.from({ length: 28 }, (_, index) => index + 1),
+);
+
+/** Playable parents as the map may show them. Off-map parents stay real and are not drawn. */
+export function prototypeMapRequirements(sequence: number) {
+  return (STRATUM_PLAYABLE_PARENTS[sequence] ?? []).map((parent) => ({
+    sequence: parent,
+    id: stratumRuntimeId(parent),
+    code: stratumProvisionalCode(parent),
+    onMap: PROTOTYPE_COMPACT_SEQUENCES.has(parent),
+  }));
 }
 
 interface NodeSeed {
@@ -591,6 +609,12 @@ export const KNOWLEDGE_PROTOTYPE_SCENARIOS: Readonly<Record<KnowledgePrototypeSc
     sparks: 0,
     productionPerMinute: 0,
     states: visibilityStates([1, 2, 3, 5, 6, 10, 13, 14, 15, 18, 19, 23, 26]),
+  },
+  complete: {
+    id: "complete",
+    sparks: 0,
+    productionPerMinute: 0,
+    states: visibilityStates(Array.from({ length: 28 }, (_, index) => index + 1)),
   },
 };
 

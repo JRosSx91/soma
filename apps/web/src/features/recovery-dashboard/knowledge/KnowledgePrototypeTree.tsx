@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { previewFocus } from "../focus.js";
 import type {
   KnowledgePrototypeDependency,
@@ -6,26 +6,34 @@ import type {
   KnowledgePrototypeScenarioNode,
   KnowledgePrototypeState,
 } from "./knowledge-prototype-fixture.js";
+import { PROTOTYPE_COMPACT_SEQUENCES } from "./knowledge-prototype-fixture.js";
 import type { KnowledgeCatalog, KnowledgeConcept, KnowledgeConceptId } from "./knowledge-types.js";
 import {
   buildPrototypeLayout,
-  visibleFrameHeight,
   type PrototypeCanvasMetrics,
 } from "./knowledge-prototype-layout.js";
-import { prototypeCardFootprint } from "./knowledge-prototype-organic-layout.js";
 import {
   buildRenderedConnections,
-  connectionStrokeStyle,
-  exploredFrontierY,
-  verticalFlowPath,
+  connectionEmphasis,
+  constellationThread,
+  playableConnectionRole,
 } from "./knowledge-prototype-connections.js";
 import { KNOWLEDGE_PROTOTYPE_COPY } from "./knowledge-prototype-copy.js";
-import {
-  buildStratumZones,
-  stratumPatternNodes,
-  type PrototypeStratumZone,
-} from "./knowledge-prototype-strata.js";
+import { PROTOTYPE_STRATUM_ORDER } from "./knowledge-prototype-strata.js";
+import { CURIOSITY_SPARK_URL, STRATUM_NODE_ART } from "./knowledge-prototype-lookdev.js";
 import { isBackgroundTapKey, keyboardTapTargetsBackground, pointerDragCancelsTap } from "./knowledge-prototype-tap.js";
+import { clampMapCamera, clampMapScale, frameMapBounds, frameMapCamera, holdMapFocus, mapPointInView, zoomMapCamera, type MapCamera, type MapSize } from "./knowledge-prototype-camera.js";
+import { introSafeRect, minimapSafeRect, placeClusterTitles, prototypeDiscPixels, shiftCameraClearOf, type ClearanceNode } from "./knowledge-prototype-composition.js";
+import {
+  PRESENTATION_HEIGHT,
+  PRESENTATION_WIDTH,
+  STRATUM_POSITIONS,
+  THREAD_BOW,
+  captionIsVisible,
+  clusterFocusBounds,
+  labelSide,
+  mapDetail,
+} from "./knowledge-prototype-presentation.js";
 
 const DESKTOP_METRICS: PrototypeCanvasMetrics = {
   width: 1000,
@@ -35,13 +43,13 @@ const DESKTOP_METRICS: PrototypeCanvasMetrics = {
   cardHalfHeight: 96,
 };
 
-const MOBILE_METRICS: PrototypeCanvasMetrics = {
-  width: 360,
-  top: 84,
-  rowGap: 198,
-  sideMargin: 72,
-  cardHalfHeight: 88,
-};
+
+function readViewport(viewport: HTMLElement) {
+  return {
+    width: viewport.clientWidth > 20 ? viewport.clientWidth : 360,
+    height: viewport.clientHeight > 20 ? viewport.clientHeight : 448,
+  };
+}
 
 export function KnowledgePrototypeTree({
   catalog,
@@ -70,7 +78,6 @@ export function KnowledgePrototypeTree({
 }) {
   const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
   const [mobileCluster, setMobileCluster] = useState<1 | 2 | 3 | 4>(1);
-  const concepts = new Map(catalog.concepts.map((concept) => [concept.id, concept]));
   const visibleIds = new Set(nodes.filter((node) => node.state !== "hidden").map((node) => node.id));
   const relations = catalog.relations.filter(
     (relation) => visibleIds.has(relation.subject) && visibleIds.has(relation.object),
@@ -78,11 +85,6 @@ export function KnowledgePrototypeTree({
   const visibleDependencies = dependencies.filter(
     (dependency) => visibleIds.has(dependency.from) && visibleIds.has(dependency.to),
   );
-  const states = new Map(nodes.map((node) => [node.id, node.state]));
-  const labelFor = (id: KnowledgeConceptId) =>
-    states.get(id) === "hinted"
-      ? copy.unknownDiscovery
-      : concepts.get(id)?.labels[language] ?? copy.unknownDiscovery;
 
   return (
     <section
@@ -91,43 +93,20 @@ export function KnowledgePrototypeTree({
       data-prototype-layout-organic="true"
       data-prototype-background="strata"
       aria-labelledby="knowledge-prototype-tree-title"
-      className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[#040a11]"
+      className="relative min-h-0 min-w-0 flex-1 overflow-hidden"
     >
       <h2 id="knowledge-prototype-tree-title" className="sr-only">{copy.mapTitle}</h2>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(182deg,#060f18_0%,#051018_38%,#040b12_68%,#060a10_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_52%_at_50%_-4%,rgb(42_132_166_/_0.22),transparent_58%),radial-gradient(ellipse_48%_40%_at_12%_52%,rgb(95_68_150_/_0.14),transparent_62%),radial-gradient(ellipse_42%_36%_at_88%_48%,rgb(56_110_140_/_0.12),transparent_64%)]" />
-        <div className="absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgb(140_210_196_/_0.05)_1px,transparent_1px),linear-gradient(90deg,rgb(140_210_196_/_0.05)_1px,transparent_1px)] [background-size:48px_48px]" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgb(104_216_192_/_0.08),transparent)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(0deg,rgb(74_48_120_/_0.12),transparent)]" />
-      </div>
 
       <div
         key={scenarioKey}
-        className={`relative h-full overflow-x-hidden overflow-y-auto overscroll-contain px-2 pb-8 pt-4 [scrollbar-gutter:stable] sm:px-4${scenarioKey ? " knowledge-prototype-scenario-enter" : ""}`}
+        className={`relative flex h-full min-h-0 flex-col overflow-hidden${scenarioKey ? " knowledge-prototype-scenario-enter" : ""}`}
       >
+        <div className="relative min-h-0 flex-1">
+        <div className="absolute inset-0">
         <PrototypeCanvas variant="desktop" metrics={DESKTOP_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onBackgroundTap={onBackgroundTap} />
-        <PrototypeCanvas variant="mobile" cluster={mobileCluster} onClusterChange={setMobileCluster} metrics={MOBILE_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onBackgroundTap={onBackgroundTap} />
-
-        <details data-prototype-map-ignore="true" className="relative mx-auto mt-2 max-w-4xl rounded-xl border border-soma-line/60 bg-[#091722]/90 px-4 py-3">
-          <summary className={`${previewFocus} cursor-pointer rounded text-sm font-medium text-soma-action`}>
-            {copy.connectionList}
-          </summary>
-          <ul className="mt-3 grid gap-2 text-xs leading-relaxed text-soma-ink-secondary sm:grid-cols-2">
-            {relations.map((relation) => (
-              <li key={relation.id} className="rounded-lg border border-[#68d8c0]/25 bg-[#68d8c0]/5 px-3 py-2">
-                <strong className="text-[#8ce6d3]">{copy.scientificConnection}:</strong>{" "}
-                {labelFor(relation.subject)} → {labelFor(relation.object)}
-              </li>
-            ))}
-            {visibleDependencies.map((dependency) => (
-              <li key={dependency.id} className="rounded-lg border border-[#a78bfa]/25 bg-[#a78bfa]/5 px-3 py-2">
-                <strong className="text-[#c4b5fd]">{copy.gameConnection}:</strong>{" "}
-                {labelFor(dependency.from)} → {labelFor(dependency.to)}
-              </li>
-            ))}
-          </ul>
-        </details>
+        <PrototypeCanvas variant="mobile" cluster={mobileCluster} onClusterChange={setMobileCluster} metrics={DESKTOP_METRICS} catalog={catalog} nodes={nodes} dependencies={visibleDependencies} relations={relations} language={language} selectedId={selectedId} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} onBackgroundTap={onBackgroundTap} />
+        </div>
+        </div>
       </div>
     </section>
   );
@@ -135,12 +114,30 @@ export function KnowledgePrototypeTree({
 
 const TAP_RIPPLE_POOL = 16;
 
-function PrototypeMapTapLayer({ onTap, label }: { onTap: () => void; label: string }) {
-  const pointer = useRef<{ x: number; y: number } | null>(null);
+function PrototypeMapTapLayer({
+  onTap,
+  onPan,
+  onPinch,
+  label,
+}: {
+  onTap: () => void;
+  onPan?: (dx: number, dy: number) => void;
+  onPinch?: (ratio: number, clientX: number, clientY: number) => void;
+  label: string;
+}) {
+  const contacts = useRef(new Map<number, { x: number; y: number }>());
   const dragged = useRef(false);
+  const pinchDistance = useRef<number | null>(null);
   const pool = useRef<Array<HTMLSpanElement | null>>([]);
   const poolIndex = useRef(0);
   const reducedMotion = useRef(false);
+
+  function spanOf(points: Array<{ x: number; y: number }>) {
+    const first = points[0];
+    const second = points[1];
+    if (!first || !second) return 0;
+    return Math.hypot(first.x - second.x, first.y - second.y);
+  }
 
   useEffect(() => {
     if (typeof window.matchMedia !== "function") return undefined;
@@ -173,28 +170,49 @@ function PrototypeMapTapLayer({ onTap, label }: { onTap: () => void; label: stri
       className="absolute inset-0 z-[5] touch-manipulation outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-soma-shell-accent"
       onPointerDown={(event) => {
         if (event.button !== 0) return;
-        pointer.current = { x: event.clientX, y: event.clientY };
-        dragged.current = false;
+        contacts.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        if (contacts.current.size === 1) dragged.current = false;
+        if (contacts.current.size >= 2) {
+          dragged.current = true;
+          pinchDistance.current = spanOf([...contacts.current.values()]);
+        }
       }}
       onPointerMove={(event) => {
-        if (!pointer.current) return;
-        const dx = event.clientX - pointer.current.x;
-        const dy = event.clientY - pointer.current.y;
-        if (pointerDragCancelsTap(dx, dy)) dragged.current = true;
+        const origin = contacts.current.get(event.pointerId);
+        if (!origin) return;
+        contacts.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        const points = [...contacts.current.values()];
+        if (points.length >= 2 && pinchDistance.current) {
+          const next = spanOf(points);
+          if (next > 0) onPinch?.(next / pinchDistance.current, event.clientX, event.clientY);
+          pinchDistance.current = next;
+          dragged.current = true;
+          return;
+        }
+        const dx = event.clientX - origin.x;
+        const dy = event.clientY - origin.y;
+        if (!dragged.current) {
+          if (!pointerDragCancelsTap(dx, dy)) return;
+          dragged.current = true;
+        }
+        onPan?.(dx, dy);
+        contacts.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
       }}
       onPointerUp={(event) => {
-        if (event.button !== 0 || dragged.current || !pointer.current) {
-          pointer.current = null;
-          dragged.current = false;
+        contacts.current.delete(event.pointerId);
+        pinchDistance.current = contacts.current.size >= 2 ? spanOf([...contacts.current.values()]) : null;
+        if (event.button !== 0 || dragged.current || contacts.current.size > 0) {
+          if (contacts.current.size === 0) dragged.current = false;
           return;
         }
         const rect = event.currentTarget.getBoundingClientRect();
         showRipple(event.clientX - rect.left, event.clientY - rect.top);
         onTap();
-        pointer.current = null;
+        dragged.current = false;
       }}
-      onPointerCancel={() => {
-        pointer.current = null;
+      onPointerCancel={(event) => {
+        contacts.current.delete(event.pointerId);
+        pinchDistance.current = null;
         dragged.current = false;
       }}
       onKeyDown={(event) => {
@@ -217,32 +235,6 @@ function PrototypeMapTapLayer({ onTap, label }: { onTap: () => void; label: stri
         />
       ))}
     </div>
-  );
-}
-
-function StratumPattern({
-  zone,
-  layoutWidth,
-  canvasPrefix,
-}: {
-  zone: PrototypeStratumZone;
-  layoutWidth: number;
-  canvasPrefix: string;
-}) {
-  const clipId = `${canvasPrefix}-clip-${zone.id}`;
-  const patterns = stratumPatternNodes(zone, layoutWidth, canvasPrefix);
-  return (
-    <g clipPath={`url(#${clipId})`} aria-hidden="true">
-      {patterns.map((item) => {
-        if (item.element === "circle") {
-          return <circle key={item.key} {...item.attrs} />;
-        }
-        if (item.element === "ellipse") {
-          return <ellipse key={item.key} {...item.attrs} />;
-        }
-        return <path key={item.key} {...item.attrs} />;
-      })}
-    </g>
   );
 }
 
@@ -280,53 +272,159 @@ function PrototypeCanvas({
   onBackgroundTap?: () => void;
 }) {
   const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
-  const layout = buildPrototypeLayout(nodes, dependencies, metrics);
-  const inMobileCluster = (item: (typeof layout.nodes)[number]) => {
-    if (cluster === undefined) return true;
-    if (item.node.sequence === 23) return cluster === 1;
-    return item.node.cluster === cluster;
-  };
-  const framedNodes = layout.nodes.filter(inMobileCluster);
-  const frameOrigin = variant === "mobile" && framedNodes.length > 0
-    ? Math.min(...framedNodes.map((item) => item.y)) - metrics.cardHalfHeight - 28
-    : 0;
-  const shift = (point: { x: number; y: number }) => ({ x: point.x, y: point.y - frameOrigin });
-  const positions = new Map(framedNodes.map((item) => [item.node.id, shift(item)]));
-  const renderedNodes = framedNodes
-    .filter((item) => item.node.state !== "hidden")
-    .map((item) => ({ ...item, ...shift(item) }));
-  if (variant === "mobile") {
-    const packed = [...renderedNodes].sort((a, b) => a.y - b.y || a.node.sequence - b.node.sequence);
-    let cursor = metrics.cardHalfHeight + 28;
-    const step = metrics.cardHalfHeight * 2 + 28;
-    for (const item of packed) {
-      item.y = cursor;
-      positions.set(item.node.id, { x: item.x, y: cursor });
-      cursor += step;
-    }
+  const scene = useMemo(() => {
+    const layout = buildPrototypeLayout(nodes, dependencies, metrics);
+    const renderedNodes = layout.nodes
+      .filter((item) => item.node.state !== "hidden" && PROTOTYPE_COMPACT_SEQUENCES.has(item.node.sequence))
+      .map((item) => {
+        const placed = STRATUM_POSITIONS[item.node.sequence];
+        return placed ? { ...item, x: placed.x, y: placed.y } : item;
+      });
+    const positions = new Map(renderedNodes.map((item) => [item.node.id, { x: item.x, y: item.y }]));
+    return {
+      renderedNodes,
+      positions,
+      canvasHeight: PRESENTATION_HEIGHT,
+      world: { width: PRESENTATION_WIDTH, height: PRESENTATION_HEIGHT },
+    };
+  }, [nodes, dependencies, metrics]);
+  const { renderedNodes, positions, canvasHeight, world } = scene;
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const viewportSizeRef = useRef({ width: 360, height: 448 });
+  const [viewportSize, setViewportSize] = useState({ width: 360, height: 448 });
+  const positionsRef = useRef(positions);
+  const worldRef = useRef(world);
+  const nodesRef = useRef(renderedNodes);
+  const [camera, setCamera] = useState<MapCamera>({ x: 0, y: 0, scale: 1 });
+  const detail = mapDetail(camera.scale);
+  const framedRef = useRef(false);
+  const gestureRef = useRef(false);
+  const modeRef = useRef<"overview" | "opening" | 1 | 2 | 3 | 4>(cluster ?? "overview");
+  const clusterRef = useRef(cluster);
+  const variantRef = useRef(variant);
+
+  useEffect(() => {
+    positionsRef.current = scene.positions;
+    worldRef.current = scene.world;
+    nodesRef.current = scene.renderedNodes;
+    clusterRef.current = cluster;
+    variantRef.current = variant;
+  }, [scene, cluster, variant]);
+
+  function clearanceNodes(): ClearanceNode[] {
+    return nodesRef.current.map((item) => ({
+      sequence: item.node.sequence,
+      x: item.x,
+      y: item.y,
+      r: prototypeDiscPixels(item.node) / 2,
+      role: item.node.visualRole,
+      state: item.node.state,
+    }));
   }
-  const canvasHeight = variant === "mobile"
-    ? renderedNodes.length === 0
-      ? 168
-      : Math.max(...renderedNodes.map((item) => item.y)) + metrics.cardHalfHeight + 96
-    : visibleFrameHeight(layout, metrics);
+
+  function composedCamera(size: MapSize, mode: "overview" | "opening" | 1 | 2 | 3 | 4) {
+    const intro = introSafeRect(variantRef.current, size.width);
+    const bounds = mode === "overview"
+      ? { minX: 40, minY: 40, maxX: PRESENTATION_WIDTH - 40, maxY: PRESENTATION_HEIGHT - 40 }
+      : mode === "opening"
+        ? openingBounds()
+        : clusterFocusBounds(mode);
+    const framed = frameMapBounds(
+      bounds,
+      size,
+      worldRef.current,
+      mode === "overview" ? 1 : mode === "opening" ? 1.15 : 1.05,
+      mode === "overview" ? 0.18 : 0.5,
+    );
+    return shiftCameraClearOf(framed, size, worldRef.current, intro, clearanceNodes());
+  }
+  const composeRef = useRef(composedCamera);
+  useEffect(() => {
+    composeRef.current = composedCamera;
+  });
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport || typeof ResizeObserver === "undefined") return undefined;
+    const observer = new ResizeObserver(() => {
+      if (viewport.clientWidth < 20) return;
+      const next = { width: viewport.clientWidth, height: viewport.clientHeight };
+      const previous = viewportSizeRef.current;
+      viewportSizeRef.current = next;
+      setViewportSize(next);
+      if (!framedRef.current || !gestureRef.current) {
+        framedRef.current = true;
+        setCamera(composeRef.current(next, modeRef.current));
+        return;
+      }
+      if (previous.width === next.width && previous.height === next.height) return;
+      setCamera((current) => holdMapFocus(current, previous, next, worldRef.current));
+    });
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedId) return;
+    const point = positionsRef.current.get(selectedId);
+    const viewport = viewportRef.current;
+    if (!point || !viewport) return;
+    const size = readViewport(viewport);
+    setCamera((current) => (
+      mapPointInView(point, current, size) ? current : frameMapCamera(point, size, worldRef.current, current.scale)
+    ));
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (cluster === undefined) return;
+    modeRef.current = cluster;
+    gestureRef.current = false;
+    const viewport = viewportRef.current;
+    if (!viewport || viewport.clientWidth < 20) return;
+    setCamera(composeRef.current(readViewport(viewport), cluster));
+  }, [cluster]);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return undefined;
+    const onWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      gestureRef.current = true;
+      const rect = viewport.getBoundingClientRect();
+      setCamera((current) => zoomMapCamera(
+        current,
+        { width: viewport.clientWidth, height: viewport.clientHeight },
+        worldRef.current,
+        { x: event.clientX - rect.left, y: event.clientY - rect.top },
+        event.deltaY,
+      ));
+    };
+    viewport.addEventListener("wheel", onWheel, { passive: false });
+    return () => viewport.removeEventListener("wheel", onWheel);
+  }, []);
   const concepts = new Map(catalog.concepts.map((concept) => [concept.id, concept]));
   const stateById = new Map(nodes.map((node) => [node.id, node.state]));
-  const laneScale = variant === "mobile" ? 0.72 : 1;
-  const cardHalfWidth = prototypeCardFootprint(metrics).halfWidth;
-  const connections = buildRenderedConnections(relations, dependencies, positions, laneScale);
-  const frontierY = exploredFrontierY(
-    renderedNodes.length > 0 ? renderedNodes : layout.nodes,
-    metrics.top,
-  );
-  const stratumZones = buildStratumZones(metrics, frontierY, canvasHeight);
+  const clusterById = new Map(nodes.map((node) => [node.id, node.cluster]));
+  const connections = buildRenderedConnections(relations, dependencies, positions, 1);
   const canvasPrefix = `${variant}-visual04`;
+  const introBox = introSafeRect(variant, viewportSize.width);
+  const titleNodes: ClearanceNode[] = renderedNodes.map((item) => ({
+    sequence: item.node.sequence,
+    x: item.x,
+    y: item.y,
+    r: prototypeDiscPixels(item.node) / 2,
+    role: item.node.visualRole,
+    state: item.node.state,
+  }));
+  const constellationTitles = detail === "near"
+    ? null
+    : placeClusterTitles(camera, viewportSize, titleNodes, [introBox, minimapSafeRect(viewportSize)]);
 
   const clusterTabs = variant === "mobile" && cluster !== undefined && onClusterChange ? (
     <div data-prototype-cluster-tabs="true" data-prototype-map-ignore="true" className="mb-3 grid grid-cols-2 gap-1.5">
       {([1, 2, 3, 4] as const).map((item) => {
         const pending = nodes.some((node) => (
-          (node.sequence === 23 ? item === 1 : node.cluster === item)
+          node.cluster === item
           && (node.state === "available" || node.state === "researching")
         ));
         return (
@@ -350,43 +448,62 @@ function PrototypeCanvas({
     <div
       data-prototype-canvas={variant}
       data-prototype-cluster={cluster}
-      className={variant === "desktop" ? "relative mx-auto hidden w-full max-w-[72rem] lg:block" : "relative mx-auto w-full max-w-[24rem] lg:hidden"}
+      className={variant === "desktop" ? "relative hidden h-full w-full lg:flex lg:flex-col" : "relative flex h-full w-full flex-col lg:hidden"}
     >
       {clusterTabs}
       {variant === "mobile" && renderedNodes.length === 0 ? (
         <p className="rounded-xl border border-dashed border-soma-line/60 px-3 py-6 text-center text-sm text-soma-ink-secondary">{copy.game.clusterClosed}</p>
       ) : null}
-      <div className="relative" style={{ height: `${canvasHeight}px` }}>
-      <svg viewBox={`0 0 ${layout.width} ${canvasHeight}`} preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] h-full w-full" data-prototype-map-connections="true">
+      <div
+        ref={viewportRef}
+        data-prototype-camera-viewport="true"
+        className="relative min-h-[22rem] flex-1 overflow-hidden bg-transparent"
+      >
+      <PrototypeMapTapLayer
+        onTap={() => onBackgroundTap?.()}
+        onPan={(dx, dy) => {
+            const viewport = viewportRef.current;
+            if (!viewport) return;
+            gestureRef.current = true;
+            setCamera((current) => clampMapCamera(
+              { ...current, x: current.x + dx, y: current.y + dy },
+              readViewport(viewport),
+              worldRef.current,
+            ));
+          }}
+          onPinch={(ratio, clientX, clientY) => {
+            const viewport = viewportRef.current;
+            if (!viewport) return;
+            gestureRef.current = true;
+            const rect = viewport.getBoundingClientRect();
+            const anchor = { x: clientX - rect.left, y: clientY - rect.top };
+            setCamera((current) => {
+              const scale = clampMapScale(current.scale * ratio);
+              const worldX = (anchor.x - current.x) / current.scale;
+              const worldY = (anchor.y - current.y) / current.scale;
+              return clampMapCamera(
+                { scale, x: anchor.x - worldX * scale, y: anchor.y - worldY * scale },
+                readViewport(viewport),
+                worldRef.current,
+              );
+            });
+          }}
+        label={copy.game.tapSurface}
+      />
+      <div
+        data-prototype-camera-world="true"
+        data-prototype-detail={detail}
+        className="pointer-events-none absolute left-0 top-0 z-[6]"
+        style={{
+          width: `${PRESENTATION_WIDTH}px`,
+          height: `${canvasHeight}px`,
+          transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.scale})`,
+          transformOrigin: "0 0",
+        }}
+      >
+      <div className="relative h-full w-full">
+      <svg viewBox={`0 0 ${PRESENTATION_WIDTH} ${canvasHeight}`} preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] h-full w-full" data-prototype-map-connections="true">
         <defs>
-          {stratumZones.map((zone) => (
-            <linearGradient key={`${zone.id}-veil`} id={`${canvasPrefix}-stratum-${zone.id}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={zone.veilTop} stopOpacity={0.88 * zone.opacity} />
-              <stop offset="42%" stopColor={zone.veilTop} stopOpacity={0.55 * zone.opacity} />
-              <stop offset="100%" stopColor={zone.veilBottom} stopOpacity={0.35 * zone.opacity} />
-            </linearGradient>
-          ))}
-          <linearGradient id={`${canvasPrefix}-explored-wash`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#1a4a62" stopOpacity="0.16" />
-            <stop offset="100%" stopColor="#12374a" stopOpacity="0.04" />
-          </linearGradient>
-          <linearGradient id={`${canvasPrefix}-unknown-wash`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#1a1630" stopOpacity="0.05" />
-            <stop offset="100%" stopColor="#120d1e" stopOpacity="0.2" />
-          </linearGradient>
-          <filter id={`${canvasPrefix}-glow`} x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="18" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <marker id={`${canvasPrefix}-prototype-science-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0 0 10 5 0 10z" fill="#78e2cb" />
-          </marker>
-          <marker id={`${canvasPrefix}-prototype-game-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-            <path d="M0 0 10 5 0 10z" fill="#c4b5fd" />
-          </marker>
           {connections.map((connection) => {
             const from = positions.get(connection.from);
             const to = positions.get(connection.to);
@@ -394,141 +511,96 @@ function PrototypeCanvas({
             const color = connection.kind === "scientific" ? "#68d8c0" : "#a78bfa";
             return (
               <linearGradient key={`gradient-${connection.kind}-${connection.id}`} id={`${canvasPrefix}-${connection.kind}-fade-${connection.index}`} gradientUnits="userSpaceOnUse" x1={from.x} y1={from.y} x2={to.x} y2={to.y}>
-                <stop offset="0" stopColor={color} stopOpacity={connection.kind === "game" ? "0.88" : "0.72"} />
-                <stop offset="0.68" stopColor={color} stopOpacity="0.34" />
-                <stop offset="1" stopColor={color} stopOpacity="0.04" />
+                <stop offset="0" stopColor={color} stopOpacity={connection.kind === "game" ? "1" : "0.84"} />
+                <stop offset="0.68" stopColor={color} stopOpacity="0.58" />
+                <stop offset="1" stopColor={color} stopOpacity="0.16" />
               </linearGradient>
             );
           })}
-          {stratumZones.map((zone) => (
-            <clipPath key={`clip-${zone.id}`} id={`${canvasPrefix}-clip-${zone.id}`}>
-              <rect x={0} y={zone.y0} width={layout.width} height={zone.y1 - zone.y0} />
-            </clipPath>
-          ))}
         </defs>
 
-        <g data-prototype-stratum-layer="true">
-          {stratumZones.map((zone) => (
-            <g key={zone.id} data-prototype-stratum={zone.id} opacity={zone.opacity}>
-              <rect x={0} y={zone.y0} width={layout.width} height={zone.y1 - zone.y0} fill={`url(#${canvasPrefix}-stratum-${zone.id})`} />
-              <rect
-                x={layout.width * 0.2}
-                y={zone.y0 + 8}
-                width={layout.width * 0.6}
-                height={zone.y1 - zone.y0 - 16}
-                rx={28}
-                fill={zone.glow}
-                opacity={0.06 * zone.opacity}
-              />
-              <StratumPattern zone={zone} layoutWidth={layout.width} canvasPrefix={canvasPrefix} />
-            </g>
+        <g data-prototype-stratum-layer="metadata">
+          {PROTOTYPE_STRATUM_ORDER.map((stratum) => (
+            <g key={stratum} data-prototype-stratum={stratum} />
           ))}
         </g>
 
-        <rect width={layout.width} height={Math.max(frontierY + metrics.cardHalfHeight, metrics.top)} fill={`url(#${canvasPrefix}-explored-wash)`} />
-        <rect y={frontierY - metrics.cardHalfHeight * 0.4} width={layout.width} height={canvasHeight - frontierY + metrics.cardHalfHeight * 0.4} fill={`url(#${canvasPrefix}-unknown-wash)`} />
-
-        {layout.nodes.map(({ node, x, y }) => {
-          if (node.state === "hidden") return null;
-          const haloColor = node.state === "hinted" ? "#a78bfa" : node.state === "discovered" ? "#68d8c0" : "#4f9ed0";
-          const haloOpacity = node.state === "hinted" ? 0.08 : node.state === "discovered" ? 0.12 : 0.07;
-          return (
-            <ellipse
-              key={`halo-${node.id}`}
-              cx={x}
-              cy={y}
-              rx={variant === "desktop" ? 112 : 84}
-              ry={variant === "desktop" ? 54 : 44}
-              fill={haloColor}
-              opacity={haloOpacity}
-              filter={`url(#${canvasPrefix}-glow)`}
-            />
-          );
-        })}
-
-        <g data-prototype-connection-layer="scientific">
-          {connections.filter((connection) => connection.kind === "scientific").map((connection) => {
-            const from = positions.get(connection.from);
-            const to = positions.get(connection.to);
-            if (!from || !to) return null;
-            const fromState = stateById.get(connection.from) ?? "hidden";
-            const toState = stateById.get(connection.to) ?? "hidden";
-            if (fromState === "hidden" || toState === "hidden") return null;
-            const mysteryTarget = toState === "hinted";
-            const stroke = connectionStrokeStyle("scientific", fromState, toState);
-            return (
-              <path
-                key={`${connection.kind}-${connection.id}`}
-                data-prototype-connection="scientific"
-                data-prototype-shared-pair={connection.sharesPair ? "true" : undefined}
-                data-prototype-fades={mysteryTarget ? "true" : undefined}
-                d={verticalFlowPath(
-                  from,
-                  to,
-                  metrics.cardHalfHeight,
-                  connection.laneOffset,
-                  connection.id,
-                  cardHalfWidth,
-                )}
-                fill="none"
-                stroke={mysteryTarget ? `url(#${canvasPrefix}-${connection.kind}-fade-${connection.index})` : "#68d8c0"}
-                strokeWidth={stroke.width}
-                strokeDasharray={stroke.dash}
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-                markerEnd={mysteryTarget ? undefined : `url(#${canvasPrefix}-prototype-science-arrow)`}
-                opacity={mysteryTarget ? 1 : stroke.opacity}
-              />
-            );
-          })}
-        </g>
+        <g data-prototype-connection-layer="scientific" />
         <g data-prototype-connection-layer="game">
           {connections.filter((connection) => connection.kind === "game").map((connection) => {
             const from = positions.get(connection.from);
             const to = positions.get(connection.to);
             if (!from || !to) return null;
+            const fromNode = nodes.find((item) => item.id === connection.from);
+            const toNode = nodes.find((item) => item.id === connection.to);
             const fromState = stateById.get(connection.from) ?? "hidden";
             const toState = stateById.get(connection.to) ?? "hidden";
-            if (fromState === "hidden" || toState === "hidden") return null;
+            if (!fromNode || !toNode || fromState === "hidden" || toState === "hidden") return null;
+            const role = playableConnectionRole(fromNode.essential, toNode.essential);
+            const emphasis = connectionEmphasis({
+              kind: "game",
+              from: connection.from,
+              to: connection.to,
+              fromCluster: clusterById.get(connection.from) ?? 0,
+              toCluster: clusterById.get(connection.to) ?? 0,
+              length: Math.hypot(to.x - from.x, to.y - from.y),
+              selectedId,
+              role,
+            });
+            if (emphasis === "hidden") return null;
             const mysteryTarget = toState === "hinted";
-            const stroke = connectionStrokeStyle("game", fromState, toState);
+            const paint = threadPaint(emphasis, role);
+            const quiet = detail === "far" && role === "secondary" && emphasis !== "focus";
+            const thread = constellationThread(
+              from,
+              to,
+              discRadius(fromNode),
+              discRadius(toNode),
+              THREAD_BOW[`${fromNode.sequence}-${toNode.sequence}`],
+            );
             return (
+              <g key={`${connection.kind}-${connection.id}`}>
               <path
-                key={`${connection.kind}-${connection.id}`}
-                data-prototype-connection="game"
-                data-prototype-shared-pair={connection.sharesPair ? "true" : undefined}
-                data-prototype-fades={mysteryTarget ? "true" : undefined}
-                d={verticalFlowPath(
-                  from,
-                  to,
-                  metrics.cardHalfHeight,
-                  connection.laneOffset,
-                  connection.id,
-                  cardHalfWidth,
-                )}
+                d={thread}
                 fill="none"
-                stroke={mysteryTarget ? `url(#${canvasPrefix}-${connection.kind}-fade-${connection.index})` : "#a78bfa"}
-                strokeWidth={stroke.width}
-                strokeDasharray={stroke.dash}
+                stroke={paint.color}
+                strokeWidth={paint.glowWidth}
                 strokeLinecap="round"
                 vectorEffect="non-scaling-stroke"
-                markerEnd={mysteryTarget ? undefined : `url(#${canvasPrefix}-prototype-game-arrow)`}
-                opacity={mysteryTarget ? 1 : stroke.opacity}
+                opacity={quiet ? paint.glow * 0.75 : paint.glow}
               />
+              <path
+                data-prototype-connection="game"
+                data-prototype-connection-id={connection.id}
+                data-prototype-connection-role={role}
+                data-prototype-connection-form="thread"
+                data-prototype-connection-emphasis={emphasis}
+                data-prototype-shared-pair={connection.sharesPair ? "true" : undefined}
+                data-prototype-fades={mysteryTarget ? "true" : undefined}
+                d={thread}
+                fill="none"
+                stroke={mysteryTarget ? `url(#${canvasPrefix}-${connection.kind}-fade-${connection.index})` : paint.color}
+                strokeWidth={paint.width}
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                opacity={mysteryTarget ? 0.92 : quiet ? paint.opacity * 0.78 : paint.opacity}
+              />
+              </g>
             );
           })}
         </g>
       </svg>
 
-      {onBackgroundTap ? <PrototypeMapTapLayer onTap={onBackgroundTap} label={copy.game.tapSurface} /> : null}
-
       <div className="pointer-events-none absolute inset-0 z-[15]">
         {renderedNodes.map(({ node, x, y }) => {
           const concept = concepts.get(node.id);
-          const widthClass = cardWidthClass(node.visualRole, variant);
+          const compact = PROTOTYPE_COMPACT_SEQUENCES.has(node.sequence);
+          const widthClass = compact ? compactWidthClass(node.visualRole) : cardWidthClass(node.visualRole, variant);
           return (
-            <div key={node.id} data-prototype-map-ignore="true" data-prototype-role={node.visualRole} data-prototype-code={node.provisionalCode} className={`pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 ${widthClass}`} style={{ left: `${(x / layout.width) * 100}%`, top: `${y}px` }}>
-              {node.state === "hinted" ? (
+            <div key={node.id} data-prototype-map-ignore="true" data-prototype-role={node.visualRole} data-prototype-code={node.provisionalCode} data-prototype-node-variant={compact ? "compact" : "card"} className={`pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 ${compact ? "" : widthClass}`} style={{ left: `${(x / PRESENTATION_WIDTH) * 100}%`, top: `${y}px`, width: compact ? discPixels(node) : undefined, height: compact ? discPixels(node) : undefined }}>
+              {compact ? (
+                <PrototypeCompactNode concept={concept} node={node} language={language} selected={selectedId === node.id} labelSide={labelSide(node.sequence)} showCaption={captionIsVisible(detail, node.visualRole)} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} />
+              ) : node.state === "hinted" ? (
                 <PrototypeMysteryCard language={language} />
               ) : concept ? (
                 <PrototypeCard concept={concept} node={node} language={language} selected={selectedId === node.id} onSelect={onSelect} onDiscover={onDiscover} discoveryCost={discoveryCost} canDiscover={canDiscover} />
@@ -539,8 +611,284 @@ function PrototypeCanvas({
       </div>
       <p className="sr-only">{copy.verticalFlowNotice}</p>
       </div>
+      </div>
+      {constellationTitles ? (
+        <div className="pointer-events-none absolute inset-0 z-[19]">
+          {([1, 2, 3, 4] as const).map((item) => {
+            const placed = constellationTitles[item];
+            if (!placed.visible) return null;
+            return (
+              <p
+                key={item}
+                data-prototype-cluster-label={item}
+                data-prototype-cluster-label-slot={placed.index}
+                className={`absolute flex items-center gap-2 whitespace-nowrap text-[13px] font-semibold tracking-wide [text-shadow:0_1px_2px_rgb(2_6_12)] ${CLUSTER_TITLE_CLASS[item]}`}
+                style={{ left: placed.left, top: placed.top }}
+              >
+                <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${CLUSTER_DOT_CLASS[item]}`} />
+                {copy.game.clusterTitles[item]}
+              </p>
+            );
+          })}
+        </div>
+      ) : null}
+      <div
+        data-prototype-map-ignore="true"
+        data-prototype-stratum-intro="true"
+        className="pointer-events-none absolute z-20"
+        style={{ left: introBox.x, top: introBox.y, maxWidth: introBox.width }}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7ee0f0]">{copy.game.stratumLabel}</p>
+        <p className="mt-0.5 text-sm font-semibold leading-snug text-white">{copy.game.introTitle}</p>
+        {variant === "desktop" && viewportSize.width >= 1100 ? (
+          <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-[#c5d4e0]">{copy.game.introBody}</p>
+        ) : null}
+        <button type="button" data-prototype-camera-home="true" className={`${previewFocus} pointer-events-auto mt-1 text-left text-[11px] font-semibold text-[#9ad4e0] underline-offset-2 hover:underline`} onClick={() => {
+          const viewport = viewportRef.current;
+          if (!viewport) return;
+          modeRef.current = "opening";
+          gestureRef.current = false;
+          setCamera(composeRef.current(readViewport(viewport), "opening"));
+        }}>{copy.game.goToUniverse}</button>
+      </div>
+      <div data-prototype-map-ignore="true" data-prototype-camera-dock="true" className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-end gap-1.5">
+        <div className="pointer-events-auto">
+          <PrototypeMinimap camera={camera} viewport={viewportSize} label={copy.game.clusters} />
+        </div>
+        <div className="pointer-events-auto flex flex-col gap-1">
+        <button type="button" data-prototype-camera-in="true" aria-label={copy.game.cameraIn} className={`${previewFocus} grid h-9 w-9 place-items-center rounded-md border border-white/15 bg-[#07131e]/80 text-lg leading-none text-soma-ink backdrop-blur-sm`} onClick={() => {
+          const viewport = viewportRef.current;
+          if (!viewport) return;
+          const size = readViewport(viewport);
+          gestureRef.current = true;
+          setCamera((current) => zoomMapCamera(current, size, worldRef.current, { x: size.width / 2, y: size.height / 2 }, -1));
+        }}>+</button>
+        <button type="button" data-prototype-camera-out="true" aria-label={copy.game.cameraOut} className={`${previewFocus} grid h-9 w-9 place-items-center rounded-md border border-white/15 bg-[#07131e]/80 text-lg leading-none text-soma-ink backdrop-blur-sm`} onClick={() => {
+          const viewport = viewportRef.current;
+          if (!viewport) return;
+          gestureRef.current = true;
+          const size = readViewport(viewport);
+          setCamera((current) => zoomMapCamera(current, size, worldRef.current, { x: size.width / 2, y: size.height / 2 }, 1));
+        }}>−</button>
+        </div>
+      </div>
+      </div>
     </div>
   );
+}
+
+function PrototypeMinimap({
+  camera,
+  viewport,
+  label,
+}: {
+  camera: MapCamera;
+  viewport: { width: number; height: number };
+  label: Record<1 | 2 | 3 | 4, string>;
+}) {
+  const width = 132;
+  const height = 84;
+  const sx = width / PRESENTATION_WIDTH;
+  const sy = height / PRESENTATION_HEIGHT;
+  const view = {
+    x: (-camera.x / camera.scale) * sx,
+    y: (-camera.y / camera.scale) * sy,
+    w: (viewport.width / camera.scale) * sx,
+    h: (viewport.height / camera.scale) * sy,
+  };
+  return (
+    <svg
+      data-prototype-minimap="true"
+      viewBox={`0 0 ${width} ${height}`}
+      width={width}
+      height={height}
+      aria-hidden="true"
+      className="shrink-0 rounded-lg border border-white/15 bg-[#07111b]/80"
+    >
+      <title>{label[1]}</title>
+      {Object.entries(STRATUM_POSITIONS).map(([sequence, point]) => (
+        <circle key={sequence} cx={point.x * sx} cy={point.y * sy} r={1.6} fill="#9ad4e0" opacity={0.85} />
+      ))}
+      <rect x={view.x} y={view.y} width={Math.max(4, view.w)} height={Math.max(4, view.h)} fill="none" stroke="#e4d8ff" strokeWidth={1} />
+    </svg>
+  );
+}
+
+const CLUSTER_TITLE_CLASS = {
+  1: "text-[#7ee0f0]",
+  2: "text-[#d7c4ff]",
+  3: "text-[#f5c16c]",
+  4: "text-[#5eead4]",
+} as const;
+
+const CLUSTER_DOT_CLASS = {
+  1: "bg-[#7ee0f0] shadow-[0_0_8px_#7ee0f0]",
+  2: "bg-[#c4b5fd] shadow-[0_0_8px_#c4b5fd]",
+  3: "bg-[#f5c16c] shadow-[0_0_8px_#f5c16c]",
+  4: "bg-[#5eead4] shadow-[0_0_8px_#5eead4]",
+} as const;
+
+function discPixels(node: { sequence: number; visualRole: KnowledgePrototypeScenarioNode["visualRole"]; essential: boolean; state: KnowledgePrototypeState }) {
+  return prototypeDiscPixels(node);
+}
+
+function openingBounds() {
+  const points = [1, 2, 3, 4].map((sequence) => STRATUM_POSITIONS[sequence]).filter((point): point is { x: number; y: number } => Boolean(point));
+  const pad = 96;
+  return {
+    minX: Math.min(...points.map((point) => point.x)) - pad,
+    maxX: Math.max(...points.map((point) => point.x)) + pad,
+    minY: Math.min(...points.map((point) => point.y)) - pad,
+    maxY: Math.max(...points.map((point) => point.y)) + pad,
+  };
+}
+
+function discRadius(node: { sequence: number; visualRole: KnowledgePrototypeScenarioNode["visualRole"]; essential: boolean; state: KnowledgePrototypeState }) {
+  return discPixels(node) / 2;
+}
+
+function threadPaint(
+  emphasis: "regional" | "focus" | "dim" | "context" | "hidden",
+  role: "trunk" | "secondary",
+) {
+  if (emphasis === "focus") return { width: 2.15, opacity: 1, color: "#f4ecff", glow: 0.34, glowWidth: 5.2 };
+  if (emphasis === "dim") {
+    return role === "trunk"
+      ? { width: 1.7, opacity: 0.74, color: "#dff6fb", glow: 0.2, glowWidth: 4.2 }
+      : { width: 1.45, opacity: 0.52, color: "#d0eef6", glow: 0.14, glowWidth: 3.6 };
+  }
+  return role === "trunk"
+    ? { width: 1.9, opacity: 0.94, color: "#eef9ff", glow: 0.28, glowWidth: 4.8 }
+    : { width: 1.55, opacity: 0.76, color: "#dff3f8", glow: 0.18, glowWidth: 3.8 };
+}
+
+function captionPlacement(side: "above" | "below" | "left" | "right") {
+  if (side === "above") return "absolute bottom-full left-1/2 z-10 mb-1 w-max max-w-[7.5rem] -translate-x-1/2 text-center";
+  if (side === "below") return "absolute top-full left-1/2 z-10 mt-1 w-max max-w-[7.5rem] -translate-x-1/2 text-center";
+  if (side === "left") return "absolute right-full top-1/2 z-10 mr-1.5 w-max max-w-[7.5rem] -translate-y-1/2 text-right";
+  return "absolute left-full top-1/2 z-10 ml-1.5 w-max max-w-[7.5rem] -translate-y-1/2 text-left";
+}
+
+function PrototypeCompactNode({ concept, node, language, selected, labelSide, showCaption, onSelect, onDiscover, discoveryCost, canDiscover }: {
+  concept: KnowledgeConcept | undefined;
+  node: KnowledgePrototypeScenarioNode;
+  language: "es" | "en";
+  selected: boolean;
+  labelSide: "above" | "below" | "left" | "right";
+  showCaption: boolean;
+  onSelect: (id: KnowledgeConceptId) => void;
+  onDiscover?: (id: KnowledgeConceptId) => void;
+  discoveryCost?: (id: KnowledgeConceptId) => number;
+  canDiscover?: (id: KnowledgeConceptId) => boolean;
+}) {
+  const copy = KNOWLEDGE_PROTOTYPE_COPY[language];
+  if (node.state === "hinted" || !concept) {
+    return (
+      <div role="img" aria-label={copy.unknownDiscovery} data-prototype-mystery="true" data-prototype-state="hinted" className="flex h-full w-full items-center justify-center rounded-full border border-dashed border-soma-line/70 bg-[#09121d] text-sm text-soma-ink-muted">?</div>
+    );
+  }
+  const label = concept.labels[language];
+  const stateLabel = copy.states[node.state];
+  const cost = discoveryCost?.(node.id) ?? 0;
+  const affordable = canDiscover?.(node.id) ?? false;
+  const prominent = node.visualRole === "milestone" || node.visualRole === "door" || node.visualRole === "convergence" || node.visualRole === "bridge";
+  const nameClass = `${showCaption ? "block" : "sr-only"} font-semibold leading-tight text-soma-ink [text-shadow:0_1px_2px_rgb(2_6_12)] ${prominent ? "text-sm" : node.visualRole === "compact" && !node.essential ? "text-[11px] text-soma-ink-secondary" : "text-xs"}`;
+  const portrait = STRATUM_NODE_ART[node.sequence];
+  const glyph = (
+    <span className={`relative grid h-full w-full place-items-center overflow-hidden rounded-full border bg-[#0c1826]/90 ${portrait ? "shadow-[0_0_16px_rgb(126_224_240_/_0.35)] ring-1 ring-[#9ad4e0]/70" : ""} ${compactFrame(node.visualRole, selected, node.state)}`}>
+      {portrait ? (
+        <img src={portrait} alt="" width={256} height={256} data-prototype-node-art={node.provisionalCode} className="h-full w-full object-cover" />
+      ) : (
+        <NodeSymbol sequence={node.sequence} kind={node.illustration} />
+      )}
+      {node.generator ? <span aria-hidden="true" className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-soma-warning ring-2 ring-[#07111b]" /> : null}
+    </span>
+  );
+  const caption = (
+    <span className={captionPlacement(labelSide)}>
+      <span data-prototype-caption={showCaption ? "visible" : "quiet"} className={nameClass}>{label}</span>
+      {node.generator ? <span className="sr-only">{copy.game.generatorMark}</span> : null}
+      {node.visualCue === "forward-field" ? <span className="mt-0.5 block text-[10px] font-medium leading-tight text-[#c4b5fd]">{copy.game.fieldForward}</span> : null}
+      {node.state === "researching" ? (
+        <span className="mt-1 block h-1 overflow-hidden rounded-full bg-[#07111b]">
+          <span className="block h-full rounded-full bg-soma-action" style={{ width: `${node.progress ?? 0}%` }} />
+        </span>
+      ) : null}
+    </span>
+  );
+
+  if (node.state === "available" && onDiscover) {
+    return (
+      <div data-prototype-node={node.id} data-prototype-state={node.state} data-prototype-cue={node.visualCue} className="relative h-full w-full">
+        {glyph}
+        <span className={captionPlacement(labelSide)}>
+          <span data-prototype-caption={showCaption ? "visible" : "quiet"} className={nameClass}>{label}</span>
+          <button
+            type="button"
+            onClick={() => onDiscover(node.id)}
+            disabled={!affordable}
+            aria-label={cost === 0 ? copy.game.openExit : copy.game.discoverFor(cost)}
+            className={`${previewFocus} mt-1 flex min-h-11 min-w-11 items-center justify-center rounded-full border px-2 text-[11px] font-semibold disabled:cursor-not-allowed disabled:opacity-45 ${affordable ? "border-soma-shell-accent/60 bg-soma-shell-accent/15 text-soma-shell-accent" : "border-soma-line/50 text-soma-ink-muted"}`}
+          >
+            {cost > 0 ? <img src={CURIOSITY_SPARK_URL} alt="" width={16} height={16} className="mr-1 h-4 w-4" /> : null}
+            {cost === 0 ? copy.game.compactExit : copy.game.compactDiscover(cost)}
+          </button>
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <button type="button" data-prototype-node={node.id} data-prototype-state={node.state} data-prototype-cue={node.visualCue} aria-current={selected ? "true" : undefined} aria-label={copy.openCard(label, stateLabel)} onClick={() => onSelect(node.id)} className={`${previewFocus} relative block h-full w-full rounded-full text-center`}>
+      {glyph}
+      {caption}
+    </button>
+  );
+}
+
+function compactWidthClass(role: KnowledgePrototypeScenarioNode["visualRole"]) {
+  if (role === "door" || role === "milestone" || role === "convergence" || role === "bridge") return "w-36";
+  return "w-24";
+}
+
+function compactFrame(role: KnowledgePrototypeScenarioNode["visualRole"], selected: boolean, state: KnowledgePrototypeState) {
+  const selectedRing = selected ? "ring-2 ring-white ring-offset-2 ring-offset-[#07111b]" : "";
+  if (role === "door") return `border-[#5eead4] shadow-[0_0_14px_rgb(94_234_212_/_0.38)] ring-2 ring-[#5eead4]/70 ${selectedRing}`;
+  if (role === "bridge") return `border-[#c4b5fd]/80 ${selectedRing}`;
+  if (role === "milestone" || role === "convergence") return `border-[#7ee0f0] shadow-[0_0_14px_rgb(126_224_240_/_0.32)] ${selectedRing}`;
+  if (state === "discovered") return `border-[#7ddec8]/70 ${selectedRing}`;
+  if (state === "available") return `border-[#c4b5fd]/70 ${selectedRing}`;
+  return `border-white/25 ${selectedRing}`;
+}
+
+function NodeSymbol({ sequence, kind }: { sequence: number; kind: KnowledgePrototypeIllustration }) {
+  const featured = featuredIcon(sequence);
+  if (!featured) {
+    return (
+      <svg viewBox="78 22 84 68" aria-hidden="true" className="h-[52%] w-[52%]">
+        <g fill="none" strokeLinecap="round" strokeLinejoin="round"><IllustrationGlyph kind={kind} /></g>
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" className="h-[58%] w-[58%]">
+      <g fill="none" strokeLinecap="round" strokeLinejoin="round">{featured}</g>
+    </svg>
+  );
+}
+
+function featuredIcon(sequence: number) {
+  if (sequence === 1) return <><ellipse cx="32" cy="32" rx="18" ry="7.5" transform="rotate(-32 32 32)" stroke="#7ee0f0" strokeWidth="1.7" /><ellipse cx="32" cy="32" rx="10" ry="4" transform="rotate(-32 32 32)" stroke="#c4b5fd" strokeWidth="1.4" /><circle cx="32" cy="32" r="2.2" fill="#f6d7a1" stroke="none" /></>;
+  if (sequence === 2) return <><path d="M32 14v22M32 36 16 48M32 36l16 12" stroke="#7ee0f0" strokeWidth="1.7" /><circle cx="32" cy="36" r="2" fill="#7ee0f0" stroke="none" /></>;
+  if (sequence === 3) return <><path d="M20 14h24L32 32 44 50H20L32 32Z" stroke="#7ee0f0" strokeWidth="1.7" /><path d="M24 18h16M24 46h16" stroke="#c4b5fd" strokeWidth="1.3" /></>;
+  if (sequence === 4) return <><circle cx="18" cy="34" r="6" stroke="#7ee0f0" strokeWidth="1.7" /><circle cx="46" cy="30" r="6" stroke="#c4b5fd" strokeWidth="1.7" /><path d="M24 32c6-10 10-10 16-4" stroke="#d7e7f2" strokeWidth="1.6" /></>;
+  if (sequence === 5) return <><path d="M12 24c10-8 30-8 40 2M12 34c12-6 28 8 40-2M12 46c10 6 30 4 40-6" stroke="#7ee0f0" strokeWidth="1.5" /><path d="M24 16c2 12 0 22-4 32M42 16c-2 12 2 22 6 30" stroke="#c4b5fd" strokeWidth="1.4" /></>;
+  if (sequence === 10) return <><path d="M32 12v40M15 22l34 20M49 22 15 42" stroke="#7ee0f0" strokeWidth="1.6" /><circle cx="32" cy="32" r="4" stroke="#c4b5fd" strokeWidth="1.5" /></>;
+  if (sequence === 15) return <path d="M36 12 22 34h10l-6 18 20-24H34Z" fill="#f5c16c" stroke="#f5c16c" strokeWidth="1.2" />;
+  if (sequence === 19) return <><ellipse cx="32" cy="32" rx="18" ry="7" stroke="#7ee0f0" strokeWidth="1.5" /><ellipse cx="32" cy="32" rx="18" ry="7" transform="rotate(60 32 32)" stroke="#c4b5fd" strokeWidth="1.5" /><ellipse cx="32" cy="32" rx="18" ry="7" transform="rotate(120 32 32)" stroke="#9ad4e0" strokeWidth="1.5" /><circle cx="32" cy="32" r="2.4" fill="#e4d8ff" stroke="none" /></>;
+  if (sequence === 23) return <><path d="M10 24c8-8 12 8 22 0s14-8 22 2M10 36c8-8 12 8 22 0s14-8 22 2M10 48c8-8 12 8 22 0s14-8 22 2" stroke="#7ee0f0" strokeWidth="1.5" /></>;
+  if (sequence === 26) return <><path d="M20 18h24a12 12 0 0 1 0 24H20a8 8 0 0 1 0-16h20" stroke="#5eead4" strokeWidth="1.7" /><path d="M22 50h20" stroke="#5eead4" strokeWidth="1.7" /></>;
+  return null;
 }
 
 function PrototypeMysteryCard({ language }: { language: "es" | "en" }) {
@@ -640,7 +988,6 @@ export function PrototypeIllustration({ kind, label, language, decorative = fals
       </defs>
       <rect width="240" height="116" fill={`url(#${prefix}-bg)`} />
       <g filter={`url(#${prefix}-glow)`} fill="none" strokeLinecap="round" strokeLinejoin="round"><IllustrationGlyph kind={kind} /></g>
-      <text x="12" y="104" fill="#9fb1bf" fontSize="9" letterSpacing="1.2">{copy.placeholder}</text>
     </svg>
   );
 }

@@ -72,6 +72,40 @@ export function buildRenderedConnections(
     });
 }
 
+export type ConnectionEmphasis = "regional" | "focus" | "context" | "dim" | "hidden";
+
+export type PlayableConnectionRole = "trunk" | "secondary";
+
+/** Visual class only. It does not add, remove or weaken a playable AND gate. */
+export function playableConnectionRole(fromEssential: boolean, toEssential: boolean): PlayableConnectionRole {
+  return fromEssential && toEssential ? "trunk" : "secondary";
+}
+
+/**
+ * Trunk edges are the essential playable progression. They stay drawn across
+ * constellations and only dim when another concept is selected.
+ * Secondary edges are optional branches: visible inside one constellation,
+ * and drawn across constellations only while one end is selected.
+ * Scientific `related_to` rows stay in the catalog and on the detail sheet.
+ */
+export function connectionEmphasis(input: {
+  kind: PrototypeConnectionKind;
+  from: KnowledgeConceptId;
+  to: KnowledgeConceptId;
+  fromCluster: number;
+  toCluster: number;
+  length: number;
+  selectedId: KnowledgeConceptId | null;
+  role: PlayableConnectionRole;
+}): ConnectionEmphasis {
+  if (input.kind === "scientific") return "hidden";
+  const touches =
+    input.selectedId !== null && (input.from === input.selectedId || input.to === input.selectedId);
+  if (touches) return "focus";
+  if (input.role === "secondary" && input.fromCluster !== input.toCluster) return "hidden";
+  return input.selectedId ? "dim" : "regional";
+}
+
 export function connectionStrokeStyle(
   kind: PrototypeConnectionKind,
   fromState: KnowledgePrototypeState,
@@ -139,6 +173,37 @@ export function connectionAnchors(
     },
     routing: "lateral",
   };
+}
+
+/** A neutral join between two discs. Endpoints sit on the rims; the bow stays small. */
+export function constellationThread(
+  from: { x: number; y: number },
+  to: { x: number; y: number },
+  fromRadius: number,
+  toRadius: number,
+  bowOverride?: number,
+): string {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const span = Math.hypot(dx, dy) || 1;
+  const ux = dx / span;
+  const uy = dy / span;
+  const start = { x: from.x + ux * (fromRadius + 2), y: from.y + uy * (fromRadius + 2) };
+  const end = { x: to.x - ux * (toRadius + 2), y: to.y - uy * (toRadius + 2) };
+  const gap = Math.hypot(end.x - start.x, end.y - start.y);
+  if (gap <= 8) return `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+  const bow = bowOverride ?? Math.min(16, gap * 0.07) * (((Math.round(from.x) + Math.round(to.y)) % 2 === 0) ? 1 : -1);
+  const px = -uy * bow;
+  const py = ux * bow;
+  const c1 = {
+    x: start.x + (end.x - start.x) * 0.35 + px,
+    y: start.y + (end.y - start.y) * 0.35 + py,
+  };
+  const c2 = {
+    x: start.x + (end.x - start.x) * 0.65 + px * 0.65,
+    y: start.y + (end.y - start.y) * 0.65 + py * 0.65,
+  };
+  return `M ${start.x} ${start.y} C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${end.x} ${end.y}`;
 }
 
 export function verticalFlowPath(

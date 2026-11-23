@@ -9,6 +9,9 @@ import { buildPrototypeLayout } from "./knowledge-prototype-layout.js";
 import { cardsOverlap, prototypeCardFootprint } from "./knowledge-prototype-organic-layout.js";
 import {
   buildRenderedConnections,
+  connectionEmphasis,
+  constellationThread,
+  playableConnectionRole,
   sampleCubicPath,
   verticalFlowPath,
 } from "./knowledge-prototype-connections.js";
@@ -39,6 +42,19 @@ test("rendered connections mirror catalog relations and game dependencies withou
   const shared = `${KNOWLEDGE_PROTOTYPE_NODES[1]!.id}→${KNOWLEDGE_PROTOTYPE_NODES[4]!.id}`;
   assert.ok(kindsByPair.get(shared)?.has("scientific"));
   assert.ok(kindsByPair.get(shared)?.has("game"));
+});
+
+test("constellation threads meet the disc rims and do not encode an arrow", () => {
+  const from = { x: 460, y: 280 };
+  const to = { x: 300, y: 390 };
+  const path = constellationThread(from, to, 32, 24);
+  assert.equal(path.includes("marker"), false);
+  const samples = sampleCubicPath(path);
+  const start = samples[0]!;
+  const end = samples.at(-1)!;
+  assert.ok(Math.abs(Math.hypot(start.x - from.x, start.y - from.y) - 34) < 1.5);
+  assert.ok(Math.abs(Math.hypot(end.x - to.x, end.y - to.y) - 26) < 1.5);
+  assert.ok(path.includes("C "));
 });
 
 test("lateral connections prefer compact routing over shallow anchors", () => {
@@ -93,4 +109,101 @@ test("sampled connection paths avoid foreign card centers on representative edge
   const field = byId.get(KNOWLEDGE_PROTOTYPE_NODES[22]!.id)!;
   assert.ok(Math.hypot(field.x - space.x, field.y - space.y) < 780);
   assert.equal(cardsOverlap(space, field, DESKTOP), false);
+});
+
+test("scientific edges stay off the playable map even when a concept is selected", () => {
+  const universe = KNOWLEDGE_PROTOTYPE_NODES[0]!.id;
+  const space = KNOWLEDGE_PROTOTYPE_NODES[1]!.id;
+  const shared = {
+    kind: "scientific" as const,
+    from: universe,
+    to: space,
+    fromCluster: 1,
+    toCluster: 1,
+    length: 180,
+    selectedId: null,
+    role: "trunk" as const,
+  };
+  assert.equal(connectionEmphasis(shared), "hidden");
+  assert.equal(connectionEmphasis({ ...shared, selectedId: universe }), "hidden");
+  assert.equal(connectionEmphasis({
+    kind: "game",
+    from: universe,
+    to: space,
+    fromCluster: 1,
+    toCluster: 1,
+    length: 180,
+    selectedId: null,
+    role: "trunk",
+  }), "regional");
+  assert.equal(connectionEmphasis({
+    kind: "game",
+    from: universe,
+    to: space,
+    fromCluster: 1,
+    toCluster: 2,
+    length: 80,
+    selectedId: null,
+    role: "secondary",
+  }), "hidden");
+  assert.equal(connectionEmphasis({
+    kind: "game",
+    from: universe,
+    to: space,
+    fromCluster: 1,
+    toCluster: 2,
+    length: 900,
+    selectedId: space,
+    role: "secondary",
+  }), "focus");
+});
+
+test("essential playable joins stay visible across constellations", () => {
+  const bySequence = new Map(KNOWLEDGE_PROTOTYPE_NODES.map((node) => [node.sequence, node]));
+  const trunkPairs = [
+    [1, 2],
+    [1, 3],
+    [2, 5],
+    [3, 5],
+    [2, 10],
+    [3, 10],
+    [5, 6],
+    [6, 26],
+    [19, 26],
+  ] as const;
+  const other = bySequence.get(14)!.id;
+  for (const [fromSequence, toSequence] of trunkPairs) {
+    const from = bySequence.get(fromSequence)!;
+    const to = bySequence.get(toSequence)!;
+    const dependency = KNOWLEDGE_PROTOTYPE_DEPENDENCIES.find(
+      (edge) => edge.from === from.id && edge.to === to.id,
+    );
+    assert.ok(dependency, `${fromSequence}→${toSequence}`);
+    assert.equal(playableConnectionRole(from.essential, to.essential), "trunk");
+    const base = {
+      kind: "game" as const,
+      from: from.id,
+      to: to.id,
+      fromCluster: from.cluster,
+      toCluster: to.cluster,
+      length: 640,
+      role: "trunk" as const,
+    };
+    assert.equal(connectionEmphasis({ ...base, selectedId: null }), "regional");
+    assert.equal(connectionEmphasis({ ...base, selectedId: other }), "dim");
+    assert.equal(connectionEmphasis({ ...base, selectedId: to.id }), "focus");
+  }
+
+  const spacetime = bySequence.get(5)!;
+  const gravitation = bySequence.get(7)!;
+  const bridge = bySequence.get(25)!;
+  const quantum = bySequence.get(19)!;
+  assert.equal(playableConnectionRole(spacetime.essential, gravitation.essential), "secondary");
+  assert.equal(playableConnectionRole(quantum.essential, bridge.essential), "secondary");
+  assert.equal(KNOWLEDGE_PROTOTYPE_DEPENDENCIES.some(
+    (edge) => edge.from === spacetime.id && edge.to === bySequence.get(10)!.id,
+  ), false);
+  assert.equal(KNOWLEDGE_PROTOTYPE_DEPENDENCIES.some(
+    (edge) => edge.from === bySequence.get(23)!.id && edge.to === bySequence.get(26)!.id,
+  ), true);
 });
