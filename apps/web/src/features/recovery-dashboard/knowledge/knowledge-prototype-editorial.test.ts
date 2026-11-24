@@ -53,6 +53,26 @@ const FORMULAS = [
   "|\\psi\\rangle=\\sum_i c_i|i\\rangle",
   "P(i)=|c_i|^2,\\qquad\\sum_iP(i)=1",
   "P(i)=\\operatorname{Tr}(\\rho E_i)",
+  "T(\\mathbf{x},t)",
+  "\\mathbf{E}(\\mathbf{x},t)=(E_x,E_y,E_z)",
+  "\\mathbf{F}=q(\\mathbf{E}+\\mathbf{v}\\times\\mathbf{B})",
+  "u=\\frac{\\epsilon_0}{2}|\\mathbf{E}|^2+\\frac{1}{2\\mu_0}|\\mathbf{B}|^2",
+  "F=\\frac{1}{4\\pi\\epsilon_0}\\frac{|q_1q_2|}{r^2}",
+  "\\sum_i\\mathbf{p}_{i,\\mathrm{inicial}}=\\sum_j\\mathbf{p}_{j,\\mathrm{final}}",
+  "E_n=\\hbar\\omega\\left(n+\\frac12\\right)",
+  "a^\\dagger|n\\rangle=\\sqrt{n+1}|n+1\\rangle",
+  "a|n\\rangle=\\sqrt n|n-1\\rangle",
+  "(\\partial_t^2-\\nabla^2+m^2)\\phi=0",
+  "E^2=p^2c^2+m^2c^4",
+  "\\lambda=\\frac{h}{p}",
+  "\\ell_P=\\sqrt{\\frac{\\hbar G}{c^3}}\\approx1.62\\times10^{-35}\\,\\mathrm{m}",
+  "E_P=\\sqrt{\\frac{\\hbar c^5}{G}}",
+  "g_{\\mu\\nu}=\\eta_{\\mu\\nu}+h_{\\mu\\nu}",
+  "m_i\\mathbf{a}=m_g\\mathbf{g}",
+  "\\mathbf{a}=\\frac{m_g}{m_i}\\mathbf{g}",
+  "N=m(g+a)",
+  "g_{\\mu\\nu}(P)=\\eta_{\\mu\\nu}",
+  "\\partial_\\alpha g_{\\mu\\nu}(P)=0",
 ];
 
 function formulasIn(blocks: readonly EditorialBlock[]) {
@@ -68,15 +88,16 @@ function formulasIn(blocks: readonly EditorialBlock[]) {
   });
 }
 
-test("stratum zero publishes twenty-two candidate educational sheets", () => {
-  assert.equal(STRATUM_EDITORIAL_SHEETS.length, 22);
+test("stratum zero publishes twenty-eight candidate educational sheets", () => {
+  assert.equal(STRATUM_EDITORIAL_SHEETS.length, 28);
+  assert.equal(STRATUM_EDITORIAL_SHEETS.reduce((count, sheet) => count + sheet.examples.length, 0), 84);
   assert.deepEqual(
     STRATUM_EDITORIAL_SHEETS.map((sheet) => sheet.code),
-    ["F00.01", "F00.02", "F00.03", "F00.04", "F00.05", "F00.06", "F00.07", "F00.08", "F00.09", "F00.10", "F00.11", "F00.12", "F00.13", "F00.14", "F00.15", "F00.16", "F00.17", "F00.18", "F00.19", "F00.20", "F00.21", "F00.22"],
+    ["F00.01", "F00.02", "F00.03", "F00.04", "F00.05", "F00.06", "F00.07", "F00.08", "F00.09", "F00.10", "F00.11", "F00.12", "F00.13", "F00.14", "F00.15", "F00.16", "F00.17", "F00.18", "F00.19", "F00.20", "F00.21", "F00.22", "F00.23", "F00.24", "F00.25", "F00.26", "F00.27", "F00.28"],
   );
   assert.deepEqual(
     STRATUM_EDITORIAL_SHEETS.map((sheet) => sheet.sequence),
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28],
   );
   for (const sheet of STRATUM_EDITORIAL_SHEETS) {
     assert.equal(sheet.editorialStatus, "candidate");
@@ -96,9 +117,7 @@ test("stratum zero publishes twenty-two candidate educational sheets", () => {
     assert.ok(sheet.narrativeTitle.length > 0);
     assert.ok(sheet.narrative.length > 0);
   }
-  for (let sequence = 23; sequence <= 28; sequence += 1) {
-    assert.equal(editorialSheetForSequence(sequence), null);
-  }
+  assert.equal(editorialSheetForSequence(29), null);
 });
 
 test("editorial formulas stay intact and KaTeX can render them", () => {
@@ -199,6 +218,30 @@ test("visible introductions are paragraph cuts, not rewritten sentences", () => 
     assert.equal(sheet.examples.length, 3);
     assert.equal(sheet.narrativeTitle, "Conexión narrativa");
   }
+  const field = editorialSheetForSequence(23)!;
+  const interaction = editorialSheetForSequence(24)!;
+  const quantumField = editorialSheetForSequence(25)!;
+  const door = editorialSheetForSequence(26)!;
+  const quantumGravity = editorialSheetForSequence(27)!;
+  const equivalence = editorialSheetForSequence(28)!;
+  assert.match(field.intro.at(-1)!, /pueden cambiar con el tiempo\.$/);
+  assert.match(field.details[0]!, /^Imagina un mapa de temperaturas/);
+  assert.match(interaction.intro.at(-1)!, /las posibilidades de transformación\.$/);
+  assert.match(interaction.details[0]!, /^A veces identificamos una interacción/);
+  assert.match(quantumField.intro.at(-1)!, /ni necesitan un soporte mecánico\.$/);
+  assert.match(quantumField.details[0]!, /^En mecánica cuántica elemental/);
+  assert.match(door.intro.at(-1)!, /la materia de la que estamos hechos\.$/);
+  assert.match(door.details[0]!, /^Si observas una gota de agua/);
+  assert.match(quantumGravity.intro.at(-1)!, /haya sido establecida experimentalmente\.$/);
+  assert.match(quantumGravity.details[0]!, /^En relatividad general, la distribución/);
+  assert.match(equivalence.intro.at(-1)!, /comprensión de la gravitación\.$/);
+  assert.match(equivalence.details[0]!, /^Cuando estás de pie sobre la Tierra/);
+  for (const sheet of [field, interaction, quantumField, door, quantumGravity, equivalence]) {
+    assert.equal(sheet.intro.length, 2);
+    assert.equal(sheet.details.length, 5);
+    assert.equal(sheet.examples.length, 3);
+    assert.equal(sheet.narrativeTitle, "Conexión narrativa");
+  }
 });
 
 test("narrative connections do not rewrite the playable graph", () => {
@@ -244,11 +287,20 @@ test("narrative connections do not rewrite the playable graph", () => {
   assert.equal(STRATUM_PLAYABLE_PARENTS[22]?.includes(21), false);
   assert.deepEqual(STRATUM_PLAYABLE_PARENTS[23], [2]);
   assert.equal(STRATUM_PLAYABLE_PARENTS[23]?.includes(22), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[24], [4, 23]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[24]?.includes(25), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[25], [19, 23]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[25]?.includes(24), false);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[25]?.includes(26), false);
   assert.deepEqual(STRATUM_PLAYABLE_PARENTS[26], [6, 19, 23]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[26]?.includes(25), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[27], [8, 26]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[27]?.includes(25), false);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[28]?.includes(27), false);
 });
 
 test("new stratum sheets keep their own panoramic art and map thumbnails", () => {
-  for (let sequence = 1; sequence <= 22; sequence += 1) {
+  for (let sequence = 1; sequence <= 28; sequence += 1) {
     const sheet = fileURLToPath(STRATUM_SHEET_ART[sequence]!);
     const node = fileURLToPath(STRATUM_NODE_ART[sequence]!);
     assert.equal(existsSync(sheet), true, sheet);
@@ -257,6 +309,6 @@ test("new stratum sheets keep their own panoramic art and map thumbnails", () =>
     assert.equal(STRATUM_SHEET_ART[sequence]?.includes(`f00-${code}.webp`), true);
     assert.equal(STRATUM_NODE_ART[sequence]?.includes(`node-f00-${code}.webp`), true);
   }
-  assert.equal(STRATUM_SHEET_ART[23], undefined);
-  assert.equal(STRATUM_NODE_ART[23], undefined);
+  assert.equal(STRATUM_SHEET_ART[29], undefined);
+  assert.equal(STRATUM_NODE_ART[29], undefined);
 });
