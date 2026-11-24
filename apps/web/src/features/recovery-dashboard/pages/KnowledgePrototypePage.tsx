@@ -146,7 +146,7 @@ export function KnowledgePrototypePage() {
       </div>
 
       {sheetOpen && !desktopPanel && selected && selectedNode ? (
-        <DetailSheet title={selected.labels[language]} size="article" onClose={() => selectConcept(null)}>
+        <DetailSheet title={selected.labels[language]} size="article" tone="expedition" onClose={() => selectConcept(null)}>
           <PrototypeConceptSheet
             variant="sheet"
             concept={selected}

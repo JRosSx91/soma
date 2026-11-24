@@ -10,6 +10,8 @@ interface DetailSheetProps {
   panelClassName?: string;
   /** Wider, taller panel for long educational articles. */
   size?: "default" | "article";
+  /** Expedition prototype uses the dark stratum surface. Other sheets stay on the shared chrome. */
+  tone?: "default" | "expedition";
   onClose: () => void;
   children: ReactNode;
 }
@@ -57,6 +59,7 @@ export function DetailSheet({
   accessibleTitle,
   panelClassName,
   size = "default",
+  tone = "default",
   onClose,
   children,
 }: DetailSheetProps) {
@@ -122,7 +125,7 @@ export function DetailSheet({
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-end justify-center bg-[#081018]/70 p-4 sm:items-center"
+      className={`fixed inset-0 z-40 flex items-end justify-center p-3 sm:items-center sm:p-4 ${tone === "expedition" ? "bg-[#040910]/78" : "bg-[#081018]/70"}`}
       onClick={onClose}
     >
       <div
@@ -132,15 +135,19 @@ export function DetailSheet({
         aria-labelledby={titleId}
         tabIndex={-1}
         onKeyDown={onPanelKeyDown}
-        className={`flex w-full flex-col overflow-hidden rounded-2xl border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)] outline-none ${
+        className={`flex w-full flex-col overflow-hidden rounded-2xl outline-none ${
+          tone === "expedition"
+            ? "border border-[#8fd8ea]/25 bg-[#06101c] p-4 text-[#e7eef4] shadow-[0_24px_70px_rgb(1_6_16/0.55),0_0_42px_rgb(126_224_240/0.08)] sm:p-5"
+            : "border border-soma-line bg-soma-surface p-5 shadow-[0_16px_40px_rgb(4_10_16/0.45)]"
+        } ${
           size === "article"
-            ? "max-h-[min(90vh,52rem)] max-w-lg sm:max-w-2xl"
+            ? "max-h-[min(92vh,52rem)] max-w-lg sm:max-w-2xl"
             : "max-h-[min(85vh,46rem)] max-w-md"
         } ${panelClassName ?? ""}`}
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex shrink-0 items-start justify-between gap-3">
-          <h2 id={titleId} className="text-lg font-semibold text-soma-ink">
+          <h2 id={titleId} className={tone === "expedition" ? "text-2xl font-semibold tracking-tight text-white" : "text-lg font-semibold text-soma-ink"}>
             {accessibleTitle ? (
               <>
                 <span className="sr-only">{accessibleTitle}</span>
