@@ -1,6 +1,6 @@
 /**
- * Candidate educational sheets for F00.01–F00.04.
- * Source of truth: docs/content/gam-03b/CONTENT-S00-01.md
+ * Candidate educational sheets for F00.01–F00.09.
+ * Sources: docs/content/gam-03b/CONTENT-S00-01.md and CONTENT-S00-02.md.
  * DEV prototype only. This module does not declare playable requirements.
  */
 
@@ -16,8 +16,8 @@ export interface EditorialExample {
 }
 
 export interface PrototypeEditorialSheet {
-  code: "F00.01" | "F00.02" | "F00.03" | "F00.04";
-  sequence: 1 | 2 | 3 | 4;
+  code: "F00.01" | "F00.02" | "F00.03" | "F00.04" | "F00.05" | "F00.06" | "F00.07" | "F00.08" | "F00.09";
+  sequence: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   editorialStatus: "candidate";
   hookQuestion: string;
   shortSummary: string;
@@ -318,6 +318,286 @@ export const STRATUM_EDITORIAL_SHEETS: readonly PrototypeEditorialSheet[] = [
       paragraph("Generalmente no."),
       paragraph("Para investigar relaciones causales se utilizan modelos, experimentos controlados cuando son posibles y métodos que intentan distinguir explicaciones alternativas."),
       paragraph("La sucesión temporal puede ser necesaria para muchas relaciones causales ordinarias, pero por sí sola no basta para demostrarlas."),
+    ],
+  },
+  {
+    code: "F00.05",
+    sequence: 5,
+    editorialStatus: "candidate",
+    hookQuestion: "¿Y si decir dónde ocurre algo no bastara para describirlo, y también necesitáramos saber cuándo?",
+    shortSummary: "El espacio-tiempo reúne posiciones y tiempos en una estructura de cuatro dimensiones. Distintos observadores pueden separar espacio y tiempo de maneras diferentes, pero pueden describir los mismos acontecimientos físicos.",
+    intro: [
+      "Imagina que quedas con alguien en una cafetería. Le das la dirección exacta, pero olvidas decirle la hora. Aunque llegue al lugar correcto, tal vez no os encontréis.",
+      "En física sucede algo parecido: para identificar un acontecimiento necesitamos describir **dónde** ocurre y **cuándo** ocurre. A esa combinación la llamamos **espacio-tiempo**.",
+    ],
+    details: [
+      "En nuestra experiencia utilizamos tres coordenadas para localizar algo en el espacio y una para situarlo en el tiempo. Un acontecimiento —como el destello de una bombilla— queda definido por esas cuatro coordenadas dentro de un sistema de referencia.",
+      "Antes de la relatividad era habitual tratar el espacio como un escenario fijo y el tiempo como un reloj universal. La relatividad especial mostró que esa separación no funciona de la misma manera para todos los observadores en movimiento relativo.",
+      "Dos observadores pueden discrepar sobre el tiempo transcurrido o la distancia entre determinados sucesos, sin que uno esté midiendo mal. Sus mediciones obedecen relaciones precisas y comparten una estructura física común.",
+      "La relatividad general amplía esta idea: la geometría del espacio-tiempo puede ser curva. La materia y otras formas de energía participan en esa geometría, y esa geometría influye en cómo se mueven los cuerpos y la luz.",
+      "**No imagines el espacio-tiempo como una tela material que flota dentro de otro espacio.** Es una descripción geométrica de relaciones físicas entre acontecimientos, no una sábana que necesite un lugar externo donde apoyarse.",
+    ],
+    narrativeTitle: "Conexión narrativa",
+    narrative: [
+      "Ya podemos describir un acontecimiento mediante espacio y tiempo. El siguiente paso es entender por qué observadores en movimiento relativo pueden medir distancias, duraciones y simultaneidad de maneras distintas: **relatividad especial**.",
+    ],
+    examples: [
+      {
+        title: "1. La cita con coordenadas incompletas",
+        paragraphs: [
+          "Una dirección sin hora puede ser inútil para encontrarse con alguien. En un laboratorio, registrar un destello exige tanto su posición como el instante de emisión. Esto ilustra por qué hablamos de *acontecimientos*, no únicamente de lugares.",
+        ],
+      },
+      {
+        title: "2. Dos cámaras que graban un tren",
+        paragraphs: [
+          "Imagina dos observadores que se mueven uno respecto al otro. Cada uno usa sus propios relojes y reglas para registrar lo que sucede en un tren. Pueden asignar coordenadas diferentes a los mismos destellos, pero ambos describen los mismos sucesos físicos. **La analogía no significa que la percepción visual por sí sola produzca los efectos relativistas:** hablamos de mediciones hechas con reglas y relojes sincronizados.",
+        ],
+      },
+      {
+        title: "3. El dibujo de un mapa y sus coordenadas",
+        paragraphs: [
+          "Puedes representar una misma ciudad con distintos mapas: las coordenadas cambian, pero las calles no se transforman por escoger otro dibujo. En el espacio-tiempo ocurre algo semejante con los sistemas de coordenadas, aunque con una diferencia decisiva: las transformaciones entre observadores inerciales mezclan medidas espaciales y temporales de una forma específica.",
+        ],
+      },
+    ],
+    deepDive: [
+      heading("¿Qué significa «cuatro dimensiones»?"),
+      paragraph("Un acontecimiento puede etiquetarse mediante \\((t,x,y,z)\\). Las tres últimas coordenadas indican posición; la primera, tiempo. Aunque sean cuatro coordenadas, **el tiempo no es simplemente una cuarta dirección espacial intercambiable con las demás**: la geometría relativista distingue entre separaciones temporales, luminosas y espaciales."),
+      heading("El intervalo espacio-temporal"),
+      paragraph("En un sistema inercial del espacio-tiempo plano, y usando la convención de signos \\((+---)\\), el intervalo entre dos acontecimientos es:"),
+      formula("s^2=c^2(\\Delta t)^2-(\\Delta x)^2-(\\Delta y)^2-(\\Delta z)^2"),
+      paragraph("Aquí \\(c\\) es la velocidad de la luz en el vacío. A diferencia de la distancia espacial o del intervalo de tiempo coordenado por separado, \\(s^2\\) tiene el mismo valor para todos los observadores inerciales que describen esos dos acontecimientos."),
+      paragraph("Para sucesos con separación temporal \\((s^2>0)\\), el tiempo propio entre ambos a lo largo de una trayectoria inercial recta está relacionado con \\(s\\) mediante \\(\\Delta\\tau=\\sqrt{s^2}/c\\). En trayectorias generales, el tiempo propio se calcula a lo largo de la línea de mundo."),
+      heading("¿Y en presencia de gravedad?"),
+      paragraph("La relatividad general utiliza una *métrica* más general para describir la geometría local del espacio-tiempo. No podemos aplicar sin más la expresión anterior a regiones extensas donde la curvatura sea relevante."),
+    ],
+  },
+  {
+    code: "F00.06",
+    sequence: 6,
+    editorialStatus: "candidate",
+    hookQuestion: "¿Cómo es posible que dos personas midan duraciones diferentes y que ambas tengan razón?",
+    shortSummary: "La relatividad especial describe la física en sistemas inerciales y establece que la velocidad de la luz en el vacío es la misma para todos ellos. De esa estructura se derivan efectos como la dilatación temporal y la relatividad de la simultaneidad.",
+    intro: [
+      "Imagina que dos viajeros llevan relojes idénticos. Uno permanece en una estación y otro pasa a gran velocidad en un vehículo. Cuando comparan mediciones según un procedimiento bien definido, sus resultados pueden ser diferentes.",
+      "La explicación no está en un reloj defectuoso: **el movimiento relativo influye en cómo se relacionan las medidas de espacio y tiempo**.",
+    ],
+    details: [
+      "A principios del siglo XX, Einstein formuló una teoría a partir de dos ideas: las leyes de la física tienen la misma forma en todos los sistemas de referencia inerciales, y la luz en el vacío se propaga con la misma velocidad \\(c\\) para todos esos observadores, independientemente del movimiento de la fuente.",
+      "Si las velocidades se combinaran siempre como en nuestra intuición cotidiana, estas dos ideas chocarían. La solución es sorprendente: **las medidas del espacio y del tiempo deben relacionarse de otra manera**.",
+      "Un reloj que se mueve respecto a un observador inercial puede acumular menos tiempo propio entre encuentros que el reloj de ese observador, según las trayectorias consideradas. También aparece la contracción de longitudes medidas en la dirección del movimiento y la relatividad de la simultaneidad de acontecimientos separados espacialmente.",
+      "Esto no significa que «todo sea relativo». Las leyes físicas, la velocidad \\(c\\) y ciertas cantidades espacio-temporales son invariantes. La teoría impone relaciones precisas y comprobables, no una libertad para elegir cualquier resultado.",
+      "Además, ningún objeto con masa puede acelerarse hasta alcanzar \\(c\\) mediante un aporte finito de energía. La relatividad especial no dice que no pueda haber movimientos aparentes superlumínicos en una proyección o expansión de distancias cosmológicas; esos casos requieren distinguir cuidadosamente qué velocidad se está describiendo.",
+    ],
+    narrativeTitle: "Conexión narrativa",
+    narrative: [
+      "La relatividad especial nos enseña que espacio y tiempo forman una estructura común. Ahora podemos preguntarnos cómo encaja la **gravitación** en esa imagen y por qué una descripción geométrica resultará tan poderosa.",
+    ],
+    examples: [
+      {
+        title: "1. El reloj de luz",
+        paragraphs: [
+          "Imagina un reloj ideal que marca cada pulso cuando la luz rebota entre dos espejos. Si lo observas pasar lateralmente, la luz sigue un recorrido diagonal respecto a ti. Como su velocidad sigue siendo \\(c\\), el intervalo entre pulsos medido en tu sistema es mayor. Es un recurso útil para visualizar la dilatación temporal en el marco adecuado, no una afirmación de que los relojes reales necesiten espejos.",
+        ],
+      },
+      {
+        title: "2. Dos relámpagos y un tren",
+        paragraphs: [
+          "Una persona situada en el andén puede determinar que dos destellos separados ocurrieron simultáneamente en su sistema. Un observador inercial que se mueve con respecto al andén puede asignarles tiempos distintos. Para comparar correctamente hay que descontar el tiempo que tarda la luz en llegar y utilizar relojes sincronizados en cada sistema; no basta con decir quién vio primero el destello.",
+        ],
+      },
+      {
+        title: "3. Partículas que llegan hasta nosotros",
+        paragraphs: [
+          "Los muones producidos por rayos cósmicos en la atmósfera tienen una vida media breve en reposo. Muchos alcanzan la superficie terrestre porque su movimiento relativista modifica la relación entre el tiempo propio de la partícula y el tiempo medido desde la Tierra. No sobreviven porque «se hagan más resistentes»: sus procesos siguen su tiempo propio.",
+        ],
+      },
+    ],
+    deepDive: [
+      heading("El factor de Lorentz"),
+      paragraph("Para velocidad relativa \\(v\\) entre sistemas inerciales:"),
+      formula("\\gamma=\\frac{1}{\\sqrt{1-v^2/c^2}}"),
+      paragraph("El factor \\(\\gamma\\) es al menos 1 para \\(|v|<c\\). A velocidades muy inferiores a \\(c\\), es prácticamente 1 y los efectos relativistas suelen resultar minúsculos."),
+      heading("Tiempo propio y tiempo coordenado"),
+      paragraph("Para un reloj en movimiento uniforme respecto a un sistema inercial:"),
+      formula("\\Delta t=\\gamma\\,\\Delta\\tau"),
+      paragraph("\\(\\Delta\\tau\\) es el tiempo propio registrado por el reloj entre dos acontecimientos de su trayectoria; \\(\\Delta t\\), el intervalo de tiempo asignado en ese sistema inercial. **Hay que especificar qué sucesos, qué relojes y qué sistemas se comparan**; no es correcto afirmar sin contexto que «el tiempo de uno va más lento»."),
+      heading("Energía y masa"),
+      paragraph("La equivalencia masa-energía en reposo se expresa como:"),
+      formula("E_0=mc^2"),
+      paragraph("Esto no significa que toda la energía de un cuerpo sea siempre solo \\(mc^2\\): para un cuerpo en movimiento hay además energía cinética, y la expresión completa depende de su energía y momento."),
+      heading("¿Qué no incluye esta teoría?"),
+      paragraph("La relatividad especial describe el espacio-tiempo plano. Puede utilizar observadores acelerados y coordenadas no inerciales, pero no constituye por sí sola una teoría dinámica de la gravedad. Para eso necesitaremos la relatividad general."),
+    ],
+  },
+  {
+    code: "F00.07",
+    sequence: 7,
+    editorialStatus: "candidate",
+    hookQuestion: "¿Qué tienen en común una manzana que cae, una marea oceánica y la órbita de la Luna?",
+    shortSummary: "La gravitación es la interacción responsable de la atracción gravitatoria entre cuerpos y de fenómenos como las órbitas. Newton la describió con enorme éxito; la relatividad general ofrece una descripción más profunda mediante la geometría del espacio-tiempo.",
+    intro: [
+      "Dejas caer las llaves y llegan al suelo. Levantas la mirada y descubres que la Luna lleva muchísimo tiempo orbitando la Tierra sin precipitarse directamente sobre ella.",
+      "Detrás de esas escenas aparentemente distintas hay un protagonista compartido: **la gravitación**.",
+    ],
+    details: [
+      "En la vida cotidiana decimos que la gravedad «tira de las cosas hacia abajo». Es una descripción práctica cerca de la superficie terrestre, pero la misma interacción explica por qué los planetas orbitan el Sol y por qué los satélites pueden permanecer alrededor de la Tierra.",
+      "Isaac Newton formuló una ley que relaciona la atracción entre dos masas con su separación. Con ella pudo describirse una enorme cantidad de fenómenos, desde trayectorias de proyectiles hasta movimientos planetarios.",
+      "Una órbita no consiste en que la gravedad haya dejado de actuar. Un satélite sigue cayendo hacia la Tierra, pero tiene suficiente velocidad transversal para que su trayectoria continúe rodeándola en lugar de impactar en la superficie, siempre que otras condiciones lo permitan.",
+      "La gravedad tampoco equivale al peso que sentimos. **El peso aparente es lo que registra, por ejemplo, una báscula cuando el suelo ejerce una fuerza de apoyo sobre nosotros.** Durante una caída libre ideal podemos sentir ingravidez aunque la gravitación siga presente.",
+      "La teoría de Newton funciona extraordinariamente bien en numerosos contextos. Cuando necesitamos mayor precisión o estudiamos campos intensos, la relatividad general describe la gravitación mediante el espacio-tiempo curvo.",
+    ],
+    narrativeTitle: "Conexión narrativa",
+    narrative: [
+      "Con Newton podemos calcular muchísimas trayectorias. Einstein planteó una pregunta aún más profunda: **¿y si la gravedad no se describiera fundamentalmente como una fuerza ordinaria, sino mediante la geometría del espacio-tiempo?** Esa es la puerta hacia la relatividad general.",
+    ],
+    examples: [
+      {
+        title: "1. La pelota y el satélite",
+        paragraphs: [
+          "Lanza una pelota horizontalmente: además de avanzar, desciende. Imagina lanzamientos cada vez más rápidos desde una altura idealizada y sin resistencia del aire. En determinadas condiciones, la trayectoria puede curvarse alrededor de la Tierra. Es la intuición detrás del famoso «cañón de Newton»; no es una propuesta de experimento real.",
+        ],
+      },
+      {
+        title: "2. El ascensor que cae",
+        paragraphs: [
+          "Durante un tramo de caída libre ideal, tú y un objeto que sueltas a tu lado pueden acelerar casi de la misma manera. Por eso el objeto puede parecer flotante respecto a ti. Esto ilustra la diferencia entre gravedad e ingravidez aparente; en un ascensor real las fuerzas de marea y otras condiciones importan.",
+        ],
+      },
+      {
+        title: "3. Las mareas",
+        paragraphs: [
+          "La Luna y el Sol contribuyen a las mareas porque su influencia gravitatoria no es exactamente igual en todos los puntos de la Tierra. La rotación terrestre, la forma de las costas y la dinámica de los océanos modifican las mareas reales. **No basta con imaginar que la Luna simplemente «tira del agua del lado más cercano»**.",
+        ],
+      },
+    ],
+    deepDive: [
+      heading("La ley de gravitación universal"),
+      paragraph("Para dos masas puntuales \\(m_1\\) y \\(m_2\\), separadas por una distancia \\(r\\):"),
+      formula("F=G\\frac{m_1m_2}{r^2}"),
+      paragraph("\\(G\\) es la constante de gravitación universal. La ley da la magnitud de la fuerza atractiva en la teoría newtoniana. Para cuerpos extensos hay que considerar su distribución de masa; la forma puntual solo funciona directamente bajo ciertas aproximaciones o simetrías."),
+      heading("¿Por qué los astronautas flotan?"),
+      paragraph("En la Estación Espacial Internacional la gravedad terrestre sigue siendo significativa. Los astronautas y la estación comparten aproximadamente la misma caída libre orbital, por lo que experimentan microgravedad en su entorno."),
+      heading("Las limitaciones de Newton"),
+      paragraph("La teoría clásica no incorpora la propagación relativista de influencias ni todos los efectos asociados a la curvatura del espacio-tiempo. La relatividad general explica correcciones observables, como el avance del perihelio de Mercurio o la desviación gravitatoria de la luz."),
+      heading("¿La gravedad funciona igual en toda escala?"),
+      paragraph("No tenemos una teoría cuántica de la gravitación confirmada experimentalmente. La descripción clásica de Einstein y las teorías cuánticas actuales son exitosas en sus respectivos dominios, pero su integración fundamental permanece abierta."),
+    ],
+  },
+  {
+    code: "F00.08",
+    sequence: 8,
+    editorialStatus: "candidate",
+    hookQuestion: "¿Y si la Tierra orbitara el Sol no porque una cuerda invisible tirase de ella, sino porque sigue su camino natural en un espacio-tiempo curvo?",
+    shortSummary: "La relatividad general describe la gravitación mediante la geometría del espacio-tiempo. La distribución de energía y momento se relaciona con su curvatura, y esa geometría guía el movimiento libre de cuerpos y luz.",
+    intro: [
+      "Cuando estás de pie, sientes el suelo empujándote hacia arriba. Cuando caes libremente, puedes dejar de sentir ese apoyo, aunque sigas cerca de la Tierra.",
+      "Einstein tomó muy en serio esa diferencia y desarrolló una nueva forma de comprender la gravedad: **la relatividad general**.",
+    ],
+    details: [
+      "En la descripción de Newton, la gravedad aparece como una fuerza de atracción entre masas. En la relatividad general, un cuerpo que cae libremente sigue, idealmente, la trayectoria más natural permitida por la geometría del espacio-tiempo: una *geodésica*.",
+      "Esto no significa que los objetos siempre se muevan en línea recta sobre un mapa del espacio. Una geodésica es una noción geométrica de cuatro dimensiones, y su proyección espacial puede parecer una curva u órbita.",
+      "La materia y la energía están relacionadas con la curvatura del espacio-tiempo. La geometría resultante explica fenómenos que la teoría de Newton no describe con la misma precisión, como determinadas desviaciones de la luz, diferencias entre relojes en distintas alturas y detalles de movimientos orbitales.",
+      "Tal vez hayas visto la representación de una bola pesada hundiendo una sábana elástica. Es sugerente, pero **no es un modelo literal**: utiliza la gravedad terrestre para producir el hundimiento que pretende explicar, reduce las dimensiones y apenas representa la parte temporal de la geometría.",
+      "La relatividad general predice también ondas gravitacionales: perturbaciones de la geometría del espacio-tiempo que se propagan y pueden detectarse cuando las producen acontecimientos astrofísicos suficientemente intensos.",
+    ],
+    narrativeTitle: "Conexión narrativa",
+    narrative: [
+      "Para comprender qué significa que la gravedad sea «geometría», necesitamos una herramienta conceptual más precisa que la sábana elástica: **la geometría del espacio-tiempo**.",
+    ],
+    examples: [
+      {
+        title: "1. Un ascensor cerrado",
+        paragraphs: [
+          "Si estás en una cabina pequeña que acelera uniformemente en el espacio, ciertas experiencias locales pueden parecerse a las de estar en reposo dentro de un campo gravitatorio. Esta intuición conduce al principio de equivalencia. La semejanza es **local**: experimentos suficientemente amplios pueden detectar efectos de marea que distinguen un campo gravitatorio real de una aceleración simple.",
+        ],
+      },
+      {
+        title: "2. Una galaxia como lente",
+        paragraphs: [
+          "La luz de una galaxia distante puede desviarse al pasar cerca de una gran concentración de masa. Desde la Tierra podemos observar imágenes deformadas, ampliadas o múltiples: el fenómeno de lente gravitatoria. No se debe a que la galaxia sea una lente de vidrio, sino a cómo se propaga la luz por esa geometría.",
+        ],
+      },
+      {
+        title: "3. Dos relojes a distinta altura",
+        paragraphs: [
+          "Los relojes situados a diferentes potenciales gravitatorios pueden acumular tiempo a ritmos distintos. Estas diferencias se miden y tienen aplicaciones prácticas en sistemas de navegación por satélite. Es un efecto de la geometría del espacio-tiempo, no un defecto de fabricación.",
+        ],
+      },
+    ],
+    deepDive: [
+      heading("La idea de las geodésicas"),
+      paragraph("En la relatividad general, las trayectorias libres se describen mediante la métrica del espacio-tiempo. Para partículas masivas en caída libre ideal, las líneas de mundo son geodésicas temporales; para la luz, geodésicas nulas, en la aproximación de óptica geométrica."),
+      heading("La ecuación de Einstein"),
+      paragraph("Una forma habitual de expresar la relación entre geometría y contenido de energía-momento es:"),
+      formula("G_{\\mu\\nu}+\\Lambda g_{\\mu\\nu}=\\frac{8\\pi G}{c^4}T_{\\mu\\nu}"),
+      list([
+        "\\(G_{\\mu\\nu}\\) resume propiedades de la curvatura del espacio-tiempo.",
+        "\\(g_{\\mu\\nu}\\) es la métrica, que permite calcular intervalos y relaciones geométricas.",
+        "\\(T_{\\mu\\nu}\\) describe energía, momento y tensiones de la materia y los campos.",
+        "\\(\\Lambda\\) es la constante cosmológica.",
+      ]),
+      paragraph("**No hace falta dominar tensores para captar la idea:** la geometría y el contenido físico están relacionados por una ecuación comprobable. La formulación completa incluye matices y condiciones que esta ficha introductoria no desarrolla."),
+      heading("¿Qué se ha observado?"),
+      paragraph("Entre las pruebas de la relatividad general están la desviación gravitatoria de la luz, el corrimiento gravitatorio al rojo, ciertas variaciones orbitales y la detección de ondas gravitacionales."),
+      heading("¿Es la teoría definitiva?"),
+      paragraph("No lo sabemos. La relatividad general explica numerosos fenómenos con gran precisión, pero no existe todavía una teoría cuántica de la gravedad confirmada que describa todos los regímenes físicos."),
+    ],
+  },
+  {
+    code: "F00.09",
+    sequence: 9,
+    editorialStatus: "candidate",
+    hookQuestion: "¿Cómo puedes saber si un espacio está curvado sin observarlo desde fuera?",
+    shortSummary: "La geometría del espacio-tiempo determina cómo se miden intervalos y cómo se relacionan las trayectorias. Su curvatura puede detectarse mediante efectos físicos, sin imaginar que el universo se dobla necesariamente dentro de un espacio exterior.",
+    intro: [
+      "Imagina una hormiga que vive sobre la superficie de una esfera enorme. Cerca de ella, el suelo puede parecer plano. Pero si mide caminos y construye triángulos suficientemente grandes, descubrirá que su geometría no funciona como la de una hoja de papel.",
+      "En el universo ocurre algo todavía más interesante: **podemos investigar la geometría del espacio-tiempo mediante medidas realizadas desde dentro de él**.",
+    ],
+    details: [
+      "En geometría plana, algunas reglas nos resultan familiares: las líneas paralelas conservan su separación y los ángulos de un triángulo suman 180 grados. En una superficie curva, estas propiedades pueden cambiar al considerar regiones suficientemente grandes.",
+      "La geometría moderna permite estudiar esa curvatura desde dentro, mediante distancias, ángulos y relaciones entre trayectorias. No es necesario colocar la superficie en una dimensión adicional para definir matemáticamente su curvatura.",
+      "El espacio-tiempo relativista añade el tiempo a las tres dimensiones espaciales, con una estructura métrica distinta de la geometría euclídea ordinaria. Por eso la imagen de una cuadrícula doblada sirve para imaginar algunas deformaciones, pero no muestra toda la física.",
+      "Cuando cuerpos en caída libre parten con trayectorias próximas, su separación puede cambiar debido a la curvatura espacio-temporal. Este comportamiento está relacionado con los efectos de marea.",
+      "En relatividad general, la geometría no es solo una forma bonita de dibujar la realidad: interviene en la medida de tiempos, la propagación de la luz y el movimiento de cuerpos libres.",
+    ],
+    narrativeTitle: "Conexión narrativa",
+    narrative: [
+      "Ahora podemos reconocer por qué la relatividad general habla de curvas y geodésicas. Más adelante, el **principio de equivalencia** (F00.28) nos ayudará a comprender la relación entre caída libre, aceleración y la geometría local, sin convertirlo aquí en un prerrequisito jugable que no exista en la fixture.",
+    ],
+    examples: [
+      {
+        title: "1. El triángulo sobre la Tierra",
+        paragraphs: [
+          "Dibuja mentalmente un triángulo sobre una esfera utilizando segmentos de círculos máximos: desde el polo norte, baja por dos meridianos separados 90 grados hasta el ecuador y une sus extremos sobre él. Ese triángulo tiene tres ángulos rectos, cuya suma es 270 grados. **Esta es una propiedad de la superficie esférica**, no una afirmación de que todos los triángulos físicos del universo se comporten así.",
+        ],
+      },
+      {
+        title: "2. Dos caminos inicialmente paralelos",
+        paragraphs: [
+          "Dos viajeros parten del ecuador terrestre hacia el norte por meridianos diferentes. Al principio sus caminos pueden parecer paralelos localmente, pero terminan encontrándose en el polo. La convergencia ayuda a imaginar cómo la geometría afecta a las trayectorias. En el espacio-tiempo, la comparación matemática involucra líneas de mundo y no simplemente rutas dibujadas sobre un globo.",
+        ],
+      },
+      {
+        title: "3. Dos objetos en caída libre",
+        paragraphs: [
+          "Dos pequeños objetos soltados a distintas posiciones cerca de la Tierra no experimentan necesariamente la misma aceleración relativa. Sus trayectorias pueden acercarse o separarse ligeramente. Estas diferencias —efectos de marea— permiten detectar propiedades del campo gravitatorio que no se eliminan eligiendo un sistema de referencia local en caída libre.",
+        ],
+      },
+    ],
+    deepDive: [
+      heading("La métrica: una regla para medir"),
+      paragraph("En geometría euclídea usamos una expresión como \\(d^2=dx^2+dy^2+dz^2\\). En relatividad general empleamos una métrica \\(g_{\\mu\\nu}\\) que relaciona separaciones infinitesimales:"),
+      formula("ds^2=g_{\\mu\\nu}\\,dx^{\\mu}dx^{\\nu}"),
+      paragraph("Los índices \\(\\mu\\) y \\(\\nu\\) recorren cuatro coordenadas; la notación indica una suma sobre los índices repetidos. La métrica tiene firma lorentziana, por lo que intervalos temporales y espaciales no se combinan como longitudes euclídeas ordinarias."),
+      heading("Curvatura intrínseca y efecto de marea"),
+      paragraph("La curvatura no se identifica simplemente con que una línea se vea doblada en un dibujo. Matemáticamente puede describirse mediante el tensor de curvatura de Riemann, que interviene en la desviación relativa de geodésicas cercanas."),
+      paragraph("Una forma esquemática de la ecuación de desviación geodésica es:"),
+      formula("\\frac{D^2\\xi^{\\mu}}{d\\tau^2}=-R^{\\mu}{}_{\\nu\\alpha\\beta}\\,u^{\\nu}\\xi^{\\alpha}u^{\\beta}"),
+      paragraph("Aquí \\(\\xi^{\\mu}\\) describe la separación entre geodésicas cercanas y \\(u^{\\nu}\\) su movimiento. El signo exacto del tensor de curvatura depende de la convención matemática adoptada. Lo importante es la idea: **la curvatura puede manifestarse como una aceleración relativa entre trayectorias libres próximas**."),
+      heading("¿Curvatura del espacio o del espacio-tiempo?"),
+      paragraph("Una sección espacial elegida por un observador puede tener una geometría determinada, pero la descripción gravitatoria completa requiere considerar la geometría **cuatridimensional** del espacio-tiempo. Una visualización de «una sábana que se hunde» no representa por sí sola esa estructura."),
     ],
   },
 ];

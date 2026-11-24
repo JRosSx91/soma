@@ -11,6 +11,11 @@ export const STRATUM_SHEET_ART: Readonly<Record<number, string>> = {
   2: new URL("./lookdev/f00-02.webp", import.meta.url).href,
   3: new URL("./lookdev/f00-03.webp", import.meta.url).href,
   4: new URL("./lookdev/f00-04.webp", import.meta.url).href,
+  5: new URL("./lookdev/f00-05.webp", import.meta.url).href,
+  6: new URL("./lookdev/f00-06.webp", import.meta.url).href,
+  7: new URL("./lookdev/f00-07.webp", import.meta.url).href,
+  8: new URL("./lookdev/f00-08.webp", import.meta.url).href,
+  9: new URL("./lookdev/f00-09.webp", import.meta.url).href,
 };
 
 /** Square crops for the opening discs. These are not the panoramic sheet images. */
@@ -19,4 +24,9 @@ export const STRATUM_NODE_ART: Readonly<Record<number, string>> = {
   2: new URL("./lookdev/node-f00-02.webp", import.meta.url).href,
   3: new URL("./lookdev/node-f00-03.webp", import.meta.url).href,
   4: new URL("./lookdev/node-f00-04.webp", import.meta.url).href,
+  5: new URL("./lookdev/node-f00-05.webp", import.meta.url).href,
+  6: new URL("./lookdev/node-f00-06.webp", import.meta.url).href,
+  7: new URL("./lookdev/node-f00-07.webp", import.meta.url).href,
+  8: new URL("./lookdev/node-f00-08.webp", import.meta.url).href,
+  9: new URL("./lookdev/node-f00-09.webp", import.meta.url).href,
 };

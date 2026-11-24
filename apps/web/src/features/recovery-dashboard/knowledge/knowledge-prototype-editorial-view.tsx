@@ -8,7 +8,7 @@ function useKatexCss() {
   }, []);
 }
 
-const INLINE_TOKEN = /(\*\*([^*]+)\*\*|\\\((.+?)\\\))/g;
+const INLINE_TOKEN = /(\*\*([^*]+)\*\*|\*([^*]+)\*|\\\((.+?)\\\))/g;
 
 function renderKatex(latex: string, displayMode: boolean) {
   return katex.renderToString(latex, {
@@ -28,7 +28,9 @@ export function EditorialInline({ text }: { text: string }) {
     if (match[2]) {
       nodes.push(<strong key={`${index}:b`} className="font-semibold text-white">{match[2]}</strong>);
     } else if (match[3]) {
-      nodes.push(<Formula key={`${index}:m`} latex={match[3]} />);
+      nodes.push(<em key={`${index}:i`}>{match[3]}</em>);
+    } else if (match[4]) {
+      nodes.push(<Formula key={`${index}:m`} latex={match[4]} />);
     }
     cursor = index + match[0].length;
   }
