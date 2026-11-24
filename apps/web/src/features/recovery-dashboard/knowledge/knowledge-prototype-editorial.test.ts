@@ -37,6 +37,22 @@ const FORMULAS = [
   "\\mathbf L=\\mathbf r\\times\\mathbf p",
   "\\boldsymbol\\tau_{\\mathrm{ext}}=\\frac{d\\mathbf L}{dt}",
   "L=I\\omega",
+  "E=h\\nu",
+  "|\\Delta E|=h\\nu",
+  "E_n=\\hbar\\omega\\left(n+\\frac{1}{2}\\right),\\qquad n=0,1,2,\\ldots",
+  "|\\psi\\rangle=\\alpha|0\\rangle+\\beta|1\\rangle",
+  "|\\alpha|^2+|\\beta|^2=1",
+  "P(a\\leq x\\leq b)=\\int_a^b|\\psi(x,t)|^2\\,dx",
+  "i\\hbar\\frac{\\partial}{\\partial t}|\\psi(t)\\rangle=\\hat H|\\psi(t)\\rangle",
+  "|\\psi\\rangle=\\alpha|a\\rangle+\\beta|b\\rangle",
+  "P\\propto|A_1+A_2|^2",
+  "|A_1+A_2|^2=|A_1|^2+|A_2|^2+2\\operatorname{Re}(A_1^*A_2)",
+  "\\Delta x\\,\\Delta p_x\\geq\\frac{\\hbar}{2}",
+  "[\\hat x,\\hat p_x]=i\\hbar",
+  "\\Delta A\\,\\Delta B\\geq\\frac{1}{2}\\left|\\langle[\\hat A,\\hat B]\\rangle\\right|",
+  "|\\psi\\rangle=\\sum_i c_i|i\\rangle",
+  "P(i)=|c_i|^2,\\qquad\\sum_iP(i)=1",
+  "P(i)=\\operatorname{Tr}(\\rho E_i)",
 ];
 
 function formulasIn(blocks: readonly EditorialBlock[]) {
@@ -52,18 +68,21 @@ function formulasIn(blocks: readonly EditorialBlock[]) {
   });
 }
 
-test("stratum zero publishes seventeen candidate educational sheets", () => {
-  assert.equal(STRATUM_EDITORIAL_SHEETS.length, 17);
+test("stratum zero publishes twenty-two candidate educational sheets", () => {
+  assert.equal(STRATUM_EDITORIAL_SHEETS.length, 22);
   assert.deepEqual(
     STRATUM_EDITORIAL_SHEETS.map((sheet) => sheet.code),
-    ["F00.01", "F00.02", "F00.03", "F00.04", "F00.05", "F00.06", "F00.07", "F00.08", "F00.09", "F00.10", "F00.11", "F00.12", "F00.13", "F00.14", "F00.15", "F00.16", "F00.17"],
+    ["F00.01", "F00.02", "F00.03", "F00.04", "F00.05", "F00.06", "F00.07", "F00.08", "F00.09", "F00.10", "F00.11", "F00.12", "F00.13", "F00.14", "F00.15", "F00.16", "F00.17", "F00.18", "F00.19", "F00.20", "F00.21", "F00.22"],
   );
-  assert.deepEqual(STRATUM_EDITORIAL_SHEETS.map((sheet) => sheet.sequence), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+  assert.deepEqual(
+    STRATUM_EDITORIAL_SHEETS.map((sheet) => sheet.sequence),
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+  );
   for (const sheet of STRATUM_EDITORIAL_SHEETS) {
     assert.equal(sheet.editorialStatus, "candidate");
     assert.equal(stratumProvisionalCode(sheet.sequence), sheet.code);
     assert.equal(editorialSheetForSequence(sheet.sequence)?.code, sheet.code);
-    assert.equal(editorialSheetForSequence(sheet.sequence + 20), null);
+    assert.equal(editorialSheetForSequence(sheet.sequence + 30), null);
     const concept = KNOWLEDGE_PROTOTYPE_CATALOG.concepts.find((item) => item.id === stratumRuntimeId(sheet.sequence));
     assert.equal(concept?.editorialStatus, "candidate");
     assert.ok(sheet.hookQuestion.length > 20);
@@ -77,7 +96,7 @@ test("stratum zero publishes seventeen candidate educational sheets", () => {
     assert.ok(sheet.narrativeTitle.length > 0);
     assert.ok(sheet.narrative.length > 0);
   }
-  for (let sequence = 18; sequence <= 28; sequence += 1) {
+  for (let sequence = 23; sequence <= 28; sequence += 1) {
     assert.equal(editorialSheetForSequence(sequence), null);
   }
 });
@@ -159,6 +178,27 @@ test("visible introductions are paragraph cuts, not rewritten sentences", () => 
   assert.equal(noether.details.length, 6);
   assert.equal(energy.details.length, 6);
   assert.equal(angular.details.length, 5);
+  const quantization = editorialSheetForSequence(18)!;
+  const quantumState = editorialSheetForSequence(19)!;
+  const superposition = editorialSheetForSequence(20)!;
+  const uncertainty = editorialSheetForSequence(21)!;
+  const probability = editorialSheetForSequence(22)!;
+  assert.match(quantization.intro.at(-1)!, /transformar nuestra visión de la física\.$/);
+  assert.match(quantization.details[0]!, /^En la física clásica solemos imaginar/);
+  assert.match(quantumState.intro.at(-1)!, /mediciones que podemos realizar\.$/);
+  assert.match(quantumState.details[0]!, /^Piensa en una partícula como un electrón/);
+  assert.match(superposition.intro.at(-1)!, /interferencia observable\.$/);
+  assert.match(superposition.details[0]!, /^La frase «una partícula está en dos sitios a la vez»/);
+  assert.match(uncertainty.intro.at(-1)!, /aparatos poco precisos\.$/);
+  assert.match(uncertainty.details[0]!, /^Supongamos que preparamos muchas copias/);
+  assert.match(probability.intro.at(-1)!, /regla fundamental de la teoría\.$/);
+  assert.match(probability.details[0]!, /^Una descripción cuántica puede predecir/);
+  for (const sheet of [quantization, quantumState, superposition, uncertainty, probability]) {
+    assert.equal(sheet.intro.length, 2);
+    assert.equal(sheet.details.length, 5);
+    assert.equal(sheet.examples.length, 3);
+    assert.equal(sheet.narrativeTitle, "Conexión narrativa");
+  }
 });
 
 test("narrative connections do not rewrite the playable graph", () => {
@@ -195,10 +235,20 @@ test("narrative connections do not rewrite the playable graph", () => {
   assert.match(energy.narrative.join(" "), /ruta jugable hacia \*\*Cuantización\*\*/);
   assert.match(energy.narrative.join(" "), /no significa que la cuantización se deduzca únicamente/);
   assert.equal(STRATUM_PLAYABLE_PARENTS[18]?.includes(17), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[18], [15]);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[19], [18]);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[20], [19]);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[21], [19]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[21]?.includes(20), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[22], [19, 20]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[22]?.includes(21), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[23], [2]);
+  assert.equal(STRATUM_PLAYABLE_PARENTS[23]?.includes(22), false);
+  assert.deepEqual(STRATUM_PLAYABLE_PARENTS[26], [6, 19, 23]);
 });
 
 test("new stratum sheets keep their own panoramic art and map thumbnails", () => {
-  for (let sequence = 1; sequence <= 17; sequence += 1) {
+  for (let sequence = 1; sequence <= 22; sequence += 1) {
     const sheet = fileURLToPath(STRATUM_SHEET_ART[sequence]!);
     const node = fileURLToPath(STRATUM_NODE_ART[sequence]!);
     assert.equal(existsSync(sheet), true, sheet);
@@ -207,6 +257,6 @@ test("new stratum sheets keep their own panoramic art and map thumbnails", () =>
     assert.equal(STRATUM_SHEET_ART[sequence]?.includes(`f00-${code}.webp`), true);
     assert.equal(STRATUM_NODE_ART[sequence]?.includes(`node-f00-${code}.webp`), true);
   }
-  assert.equal(STRATUM_SHEET_ART[18], undefined);
-  assert.equal(STRATUM_NODE_ART[18], undefined);
+  assert.equal(STRATUM_SHEET_ART[23], undefined);
+  assert.equal(STRATUM_NODE_ART[23], undefined);
 });
